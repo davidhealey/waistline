@@ -1,0 +1,11 @@
+language: node_js
+sudo: false
+git:
+  depth: 10
+node_js:
+  - "4"
+  - "6"
+install:
+  - "npm install"
+script:
+  - "npm test"

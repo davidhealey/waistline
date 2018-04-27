@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-indexeddb-async" version="0.0.1">
+
+    <name>cordova-plugin-indexeddb-async</name>
+    <description>An asynchronous IndexedDB plug-in for Cordova apps</description>
+    <author>ABB Austin</author>
+    <license>Apache-2.0</license>
+    <keywords>cordova, indexeddb, db, database</keywords>
+    <repo>https://github.com/ABB-Austin/cordova-plugin-indexeddb-async</repo>
+    <issues>https://github.com/ABB-Austin/cordova-plugin-indexeddb-async/issues</issues>
+
+    <platform name="browser">
+        <js-module src="www/indexeddbshim.min.js" name="IndexedDBShim">
+            <runs />
+        </js-module>
+    </platform>
+
+    <platform name="ios">
+        <js-module src="www/indexeddbshim.min.js" name="IndexedDBShim">
+            <runs />
+        </js-module>
+    </platform>
+
+    <platform name="android">
+        <js-module src="www/indexeddbshim.min.js" name="IndexedDBShim">
+            <runs />
+        </js-module>
+    </platform>
+
+    <platform name="windows">
+    	<dependency id="cordova-plugin-websql-async" url="https://github.com/Thinkwise/cordova-plugin-websql.git"/>
+        <js-module src="www/requireWebSql.js" name="RequireWebSql">
+            <runs />
+        </js-module>
+        <js-module src="www/indexeddbshim.min.js" name="IndexedDBShim">
+            <runs />
+        </js-module>
+    </platform>
+</plugin>

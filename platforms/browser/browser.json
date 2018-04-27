@@ -1,0 +1,40 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "config.xml": {
+        "parents": {
+          "/*": []
+        }
+      }
+    }
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.libre.diet"
+    },
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "com.libre.diet"
+    },
+    "cordova-plugin-indexeddb-async": {
+      "PACKAGE_NAME": "com.libre.diet"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "file": "plugins/cordova-plugin-indexeddb-async/www/indexeddbshim.min.js",
+      "id": "cordova-plugin-indexeddb-async.IndexedDBShim",
+      "pluginId": "cordova-plugin-indexeddb-async",
+      "runs": true
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-browsersync": "0.1.8",
+    "cordova-plugin-indexeddb-async": "0.0.1"
+  }
+}

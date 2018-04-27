@@ -1,0 +1,104 @@
+{
+  "_args": [
+    [
+      "cordova-plugin-indexeddb-async",
+      "/home/dave/AndroidStudioProjects/libreDiet"
+    ]
+  ],
+  "_from": "cordova-plugin-indexeddb-async@latest",
+  "_id": "cordova-plugin-indexeddb-async@2.2.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/cordova-plugin-indexeddb-async",
+  "_nodeVersion": "0.12.4",
+  "_npmUser": {
+    "email": "BigstickCarpet@gmail.com",
+    "name": "bigstickcarpet"
+  },
+  "_npmVersion": "2.11.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "cordova-plugin-indexeddb-async",
+    "raw": "cordova-plugin-indexeddb-async",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-indexeddb-async/-/cordova-plugin-indexeddb-async-2.2.1.tgz",
+  "_shasum": "bfd91ef038a7f544225eec33951d271b50aeec39",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-indexeddb-async",
+  "_where": "/home/dave/AndroidStudioProjects/libreDiet",
+  "author": {
+    "name": "ABB Austin",
+    "url": "http://abb.com"
+  },
+  "bugs": {
+    "url": "https://github.com/ABB-Austin/cordova-plugin-indexeddb-async/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-indexeddb-async",
+    "platforms": [
+      "android",
+      "browser",
+      "ios",
+      "windows"
+    ]
+  },
+  "dependencies": {
+    "indexeddbshim": "^2.2.1"
+  },
+  "description": "An asynchronous IndexedDB plug-in for Cordova apps",
+  "devDependencies": {
+    "npm-check-updates": "^2.2.0",
+    "version-bump-prompt": "^1.5.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "bfd91ef038a7f544225eec33951d271b50aeec39",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-indexeddb-async/-/cordova-plugin-indexeddb-async-2.2.1.tgz"
+  },
+  "gitHead": "03e5199c868548c7e4977dd7056a2be8c7100719",
+  "homepage": "https://github.com/ABB-Austin/cordova-plugin-indexeddb-async#readme",
+  "keywords": [
+    "cordova",
+    "cordova-android",
+    "cordova-browser",
+    "cordova-ios",
+    "cordova-windows",
+    "cordova-windows8",
+    "ecosystem:cordova",
+    "indexeddb"
+  ],
+  "license": "Apache-2.0",
+  "maintainers": [
+    {
+      "name": "abb-austin",
+      "email": "james.messinger@us.abb.com"
+    },
+    {
+      "name": "bigstickcarpet",
+      "email": "james.messinger@yahoo.com"
+    },
+    {
+      "name": "abb",
+      "email": "james.messinger@us.abb.com"
+    }
+  ],
+  "name": "cordova-plugin-indexeddb-async",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ABB-Austin/cordova-plugin-indexeddb-async.git"
+  },
+  "scripts": {
+    "release": "npm run upgrade && bump --prompt --tag --push --all && npm publish",
+    "upgrade": "ncu --upgradeAll && npm update && cp node_modules/indexeddbshim/dist/indexeddbshim.min.js www/indexeddbshim.min.js"
+  },
+  "version": "2.2.1"
+}

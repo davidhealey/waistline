@@ -1,0 +1,42 @@
+{
+  "name": "cordova-plugin-browsersync",
+  "id": "cordova-plugin-browsersync",
+  "version": "0.1.8",
+  "description": "Cordova Plugin to integrate browser-sync in the workflow",
+  "main": "lib/index.js",
+  "author": "Parashuram <code@nparashuram.com>",
+  "license": "Apache-2.0",
+  "cordova": {
+    "id": "cordova-plugin-browsersync",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nparashuram/cordova-plugin-browsersync.git"
+  },
+  "dependencies": {
+    "browser-sync": "^2.18.13",
+    "cheerio": "^1.0.0-rc.2",
+    "csp-parse": "0.0.2",
+    "elementtree": "^0.1.6",
+    "glob": "^7.1.2",
+    "npm": "^5.5.1",
+    "plist": "^2.1.0",
+    "q": "^1.4.1"
+  },
+  "scripts": {
+    "createHook": "node_modules/.bin/browserify --node --no-bundle-external --standalone=cordova-bs-plugin -o after_prepare.js -e lib/projectHook.js"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0"
+  }
+}

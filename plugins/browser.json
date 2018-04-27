@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.libre.diet"
+    },
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "com.libre.diet"
+    },
+    "cordova-plugin-indexeddb-async": {
+      "PACKAGE_NAME": "com.libre.diet"
+    }
+  },
+  "dependent_plugins": {}
+}

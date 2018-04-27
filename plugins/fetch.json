@@ -1,0 +1,26 @@
+{
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-browsersync": {
+    "source": {
+      "type": "local",
+      "path": "/home/dave/Desktop/cordova-plugin-browsersync-master"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-indexeddb-async": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-indexeddb-async"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+}

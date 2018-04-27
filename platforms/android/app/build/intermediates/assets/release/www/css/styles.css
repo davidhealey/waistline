@@ -1,0 +1,18 @@
+.footer {position: absolute; top: auto; bottom: 0; width: 100%;}
+
+input:invalid {
+  color:red;  /*Colour invalid input contents*/
+  box-shadow: none; /*Disable browser highlighting required fields*/
+}
+
+#diaryDate {text-align: center; font-size: 14px;}
+.ui-datepicker-calendar {border-collapse: separate !important;}
+
+#editDiaryItemPage #portion, #editDiaryItemPage #caloriesDisplay {text-align:center; font-size:12px;}
+
+.calorieCount {max-width:100%; height:100%; padding: 2px;}
+#statusBar {padding-top: 5px;}
+#statusBar .heading {font-size: 14px; text-align: center;}
+#statusBar .stat {font-size: 12px; text-align: center;}
+
+.footer {height:50px; position: fixed;};
