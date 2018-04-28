@@ -438,31 +438,15 @@ $("#deleteFoodListItemPopup button").click(function(){
 //Bind on click to food item's editFood links in the listview
 $("#foodListview").on("click", ".editFood", function(e){
   var details = $(this).data("details");
-
   $("#editFoodPage h1").text("Edit Food"); //Change page title
-
-  //Populate the edit form with passed data
-  $('#editFoodPage #foodId').val(details.id);
-  $('#editFoodPage #foodName').val(details.name);
-  $('#editFoodPage #foodQuantity').val(details.quantity);
-  $('#editFoodPage #foodPortion').val(details.portion);
-  $('#editFoodPage #foodCalories').val(details.calories);
-
+  populateEditFoodForm(details);
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage", {'details': details}); //Pass data to edit food page
 });
 
 //Bind on click to food item's addFood to diary link
 $("#foodListPage").on("click", "#addFood", function(e){
-
   $("#editFoodPage h1").text("Add Food"); //Change page title
-
-  //Clear the edit form
-  $('#editFoodPage #foodId').val(null);
-  $('#editFoodPage #foodName').val("");
-  $('#editFoodPage #foodPortion').val("");
-  $('#editFoodPage #foodQuantity').val(1); //Default quantity is 1
-  $('#editFoodPage #foodCalories').val("");
-
+  populateEditFoodForm({"quantity":1}); //Clear the edit form - default quantity = 1
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage"); //Go to edit food page
 });
 
@@ -486,21 +470,80 @@ function addFoodFormAction()
   $(":mobile-pagecontainer").pagecontainer("change", "#foodListPage"); //Go to food list
 }
 
+function populateEditFoodForm(data)
+{
+  //Populate the edit form with passed data
+  $('#editFoodPage #foodId').val(data.id);
+  $('#editFoodPage #foodName').val(data.name);
+  $('#editFoodPage #foodQuantity').val(data.quantity);
+  $('#editFoodPage #foodPortion').val(data.portion);
+  $('#editFoodPage #foodCalories').val(data.calories);
+}
+
 //For scanning barcodes
 function scan()
 {
-  console.log("scanner");
-  /*cordova.plugins.barcodeScanner.scan(
+  cordova.plugins.barcodeScanner.scan(
      function (result) {
-         alert("We got a barcode\n" +
-               "Result: " + result.text + "\n" +
-               "Format: " + result.format + "\n" +
-               "Cancelled: " + result.cancelled);
+
+       var code = result.text;
+       var request = new XMLHttpRequest();
+
+       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+       request.send();
+
+       request.onreadystatechange = function(){
+         processBarcodeResponse(request);
+       };
      },
-     function (error) {
+     function (e) {
          alert("Scanning failed: " + error);
      }
-  );*/
+  );
+}
+
+function processBarcodeResponse(request)
+{
+  if (request.readyState == 4 && request.status == 200)
+  {
+    var result = jQuery.parseJSON(request.responseText);
+    console.log(result);
+
+    if (result.status == 0) //Product not found
+    {
+      alert("Product not found. You can add it with the Open Food Facts app");
+    }
+    else if (result.status == 1) //Product found
+    {
+      //Get the data for the add food form
+      var product = result.product;
+
+      var data = {"name":product.product_name, "quantity":1, "calories":product.nutriments.energy_value};
+
+      //Get best match for portion/serving size
+      if (product.nutrition_data_per)
+      {
+        data.portion = product.nutrition_data_per;
+      }
+      else if (product.serving_size)
+      {
+        data.portion = product.serving_size;
+      }
+      else if (product.quantity)
+      {
+        data.portion = product.quantity;
+      }
+
+
+      //If energy is given in kl convert to kcal
+      if (product.nutriments.energy_unit == "kJ")
+      {
+        data.calories = parseInt(data.calories / 4.15);
+      }
+
+      populateEditFoodForm(data);
+    }
+  }
 }
 
 /***** SETTINGS PAGE *****/
@@ -525,4 +568,10 @@ function saveUserSettings()
   updateProgress();
 
   $(":mobile-pagecontainer").pagecontainer("change", "#home");
+}
+
+/**** IMPORT AND EXPORT ****/
+function exportData()
+{
+  dbHandler.exportToFile(); //Jsonify the database
 }

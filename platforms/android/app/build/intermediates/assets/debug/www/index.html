@@ -57,6 +57,8 @@
             <button id="openStats" onclick="location.href='index.html#statsPage'">Statistics</button>
             <button id="openFoods" onclick="location.href='index.html#foodListPage'">Food List</button>
             <button id="openSettings" onclick="location.href='index.html#settingsPage'">Settings</button>
+            <button id="openSettings" onclick="location.href='javascript:dbHandler.readFromFile();'">Import</button>
+            <button id="openSettings" onclick="location.href='javascript:exportData();'">Export</button>
           </div>
           <div data-role="footer" class="footer">
             <div id="progress">
@@ -64,7 +66,7 @@
             </div>
             <div class="ui-grid-b" id="statusBar"> <!--3 column layout-->
               <div class="ui-block-a heading">Goal</div>
-              <div class="ui-block-b heading">Food</div>
+              <div class="ui-block-b heading">Used</div>
               <div class="ui-block-c heading">Remaining</div>
               <div class="ui-block-a stat">0</div>
               <div class="ui-block-b stat">0</div>
@@ -79,7 +81,6 @@
             <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
             <h1>Diary</h1>
             <p id="diaryDate"></p>
-            <a href="#foodListPage" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all"></a>
           </div>
           <div data-role="main" class="ui-content">
             <ul data-role="listview" id="diaryListview" data-icon="false"></ul>
@@ -114,24 +115,24 @@
           <div data-role="header">
             <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
             <h1></h1>
-            <p id="portion"></p>
-            <p id="caloriesDisplay"></p>
+            <p id="caloriesPerPortion"></p>
+            <a href="javascript:editDiaryItemFormAction();" class="ui-btn ui-icon-check ui-btn-icon-notext ui-corner-all"></a>
           </div>
           <div data-role="main" class="ui-content">
-            <form onsubmit="editDiaryItem(); return false;" id="editDiaryItemForm">
+            <form onsubmit="return false;" id="editDiaryItemForm">
               <input type="hidden" id="id"> <!--The ID of the diary entry being edited-->
-              <label for="calories">Calories</label>
-              <input type="number" name="calories" id="calories" required="true">
+              <input type="hidden" id="calories">
               <label for="quantity">Quantity</label>
               <input type="number" name="quantity" id="quantity" step="any" required="true">
+              <label for="caloriesDisplay">Calories</label>
+              <label name="caloriesDisplay" id="caloriesDisplay"></label>
               <label for="category">Category</label>
               <select name="category" id="category" data-native-menu="false">
-               <option value="Breakfast">Breakfast</option>
-               <option value="Lunch">Lunch</option>
-               <option value="Dinner">Dinner</option>
-               <option value="Snacks">Snacks</option>
-             </select>
-             <button id="update" type="submit" name="save">Update</button>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Snacks">Snacks</option>
+              </select>
             </form>
           </div>
         </div>
@@ -159,6 +160,7 @@
           <div data-role="main" class="ui-content">
             <form class="ui-filterable">
               <input type="text" data-type="search" id="filterFoodList">
+              <input type="hidden" id="category" value=""/>
             </form>
             <ul data-role="listview" data-autodividers="true" id="foodListview" data-filter="true" data-input="#filterFoodList" data-split-icon="edit">
             </ul>
@@ -175,7 +177,7 @@
           </div>
         </div>
 
-        <!--Add new food page -->
+        <!--Add/Edit food page -->
         <div data-role="page" id="editFoodPage">
           <div data-role="header">
             <a href="index.html#foodListPage" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
@@ -202,9 +204,6 @@
               <button type="submit" name="saveFood">Save</button>
             </form>
           </div>
-          <div data-role="footer" class="footer">
-            <h2>This is a footer</h2>
-          </div>
         </div>
 
         <!--Settings page -->
@@ -220,7 +219,7 @@
               <input type="number" name="weight" id="weight">
 
               <label for="calorie-goal">Daily Calorie Goal</label>
-              <input type="number" name="calorieGoal" id="calorieGoal" placeholder="2000">
+              <input type="number" name="calorieGoal" id="calorieGoal">
 
               <button type="submit" name="saveSettings">Save</button>
             </form>

@@ -8,6 +8,7 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -22,7 +23,12 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-indexeddb-async" spec="^2.2.1" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.1.1">
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
+    <plugin name="cordova-plugin-browsersync" spec="~0.1.8" />
+    <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <engine name="browser" spec="^5.0.3" />
+    <engine name="android" spec="^7.0.0" />
 </widget>

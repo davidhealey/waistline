@@ -18,6 +18,14 @@
         android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:debuggable="true"
@@ -38,6 +46,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.google.zxing.client.android.CaptureActivity"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.google.zxing.client.android.encode.EncodeActivity"
+            android:label="Share" />
     </application>
 
 </manifest>

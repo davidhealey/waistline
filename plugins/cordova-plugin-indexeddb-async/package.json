@@ -2,7 +2,7 @@
   "_args": [
     [
       "cordova-plugin-indexeddb-async",
-      "/home/dave/AndroidStudioProjects/libreDiet"
+      "/home/dave/AndroidStudioProjects/librediet-cordova"
     ]
   ],
   "_from": "cordova-plugin-indexeddb-async@latest",
@@ -32,7 +32,7 @@
   "_shasum": "bfd91ef038a7f544225eec33951d271b50aeec39",
   "_shrinkwrap": null,
   "_spec": "cordova-plugin-indexeddb-async",
-  "_where": "/home/dave/AndroidStudioProjects/libreDiet",
+  "_where": "/home/dave/AndroidStudioProjects/librediet-cordova",
   "author": {
     "name": "ABB Austin",
     "url": "http://abb.com"

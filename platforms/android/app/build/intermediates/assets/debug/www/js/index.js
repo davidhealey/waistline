@@ -19,7 +19,7 @@
 var app = {
 
   storage:{}, //Local storage
-  selectedDate: new Date(), //Diary date selected by user
+  date: new Date(), //Diary date selected by user
   caloriesConsumed:0, //Calories consumed for selected date
 
   // Application Constructor
@@ -45,9 +45,7 @@ var app = {
   // Bind any cordova events here. Common events are:
   // 'pause', 'resume', etc.
   onDeviceReady: function() {
-    if (this.storage.getItem("calories") != null) this.caloriesConsumed = this.storage.getItem("calories"); //Restore calories consumed
-    $("#diaryDate").html(this.selectedDate.toDateString()); //Default diary date
-    updateProgress();
+    changeDate(app.date); //Default to current date
   },
 };
 
@@ -78,7 +76,7 @@ function updateProgress()
 
 function updateLog()
 {
-  var date = app.selectedDate.toLocaleDateString(); //Primary key
+  var date = app.date.toLocaleDateString(); //Primary key
   var calories = parseFloat(app.caloriesConsumed);
   var calorieGoal = parseInt(app.storage.getItem("calorieGoal"));
   var caloriesLeft = parseFloat(calorieGoal - calories);
@@ -90,6 +88,23 @@ function updateLog()
   request.onsuccess = function(e){
     console.log("Log updated");
   };
+}
+
+function changeDate(date)
+{
+  app.date = date;
+  populateDiary();
+  $("#diaryDate").html(date.toDateString()); //Update date display
+
+  //Update the app.caloriesConsumed variable for the new date
+  var request = dbHandler.getItem(date.toLocaleDateString(), "log");
+
+  request.onsuccess = function(e)
+  {
+    app.caloriesConsumed = 0; //Reset
+    if (e.target.result) {app.caloriesConsumed = e.target.result.calories;}
+    updateProgress();
+  }
 }
 
 /***** STATISTICS PAGE *****/
@@ -143,50 +158,77 @@ $("#diaryPage" ).on("pagecreate", function(e){
 
 function populateDiary()
 {
-  var date = app.selectedDate.toDateString(); //Format the currently selected date for db selection
+  var date = app.date.toDateString(); //Format the currently selected date for db selection
 
   //Pull record from the database for the selected date and add items to the list
   var index = dbHandler.getIndex("date", "diary"); //Get date index from diary store
-  var html = "";
-  app.caloriesConsumed = 0; //Reset calorie consumption count
   var calorieGoal = app.storage.getItem("calorieGoal");
+
+  var html = ""; //Variable to generate HTML
+
+  //Strings of html for each category - prepopulated with category dividers
+  var list = {
+    breakfast:"<li class='diaryDivider' id='Breakfast' data-role='list-divider'><h4>Breakfast</h4></li>",
+    lunch:"<li class='diaryDivider' id='Lunch' data-role='list-divider'><h4>Lunch</h4></li>",
+    dinner:"<li class='diaryDivider' id='Dinner' data-role='list-divider'><h4>Dinner</h4></li>",
+    snacks:"<li class='diaryDivider' id='Snacks' data-role='list-divider'><h4>Snacks</h4></li>"
+  };
 
   index.openCursor(IDBKeyRange.only(date)).onsuccess = function(e)
   {
     var cursor = e.target.result;
     if (cursor)
     {
-      html += "<li class='diaryItem' id='"+cursor.value.id+"'>";
+      //Build HTML
+      html = ""; //Reset variable
+      html += "<li class='diaryItem' id='"+cursor.value.id+"' category='"+cursor.value.category+"'>";
       html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+cursor.value.name;
       html += "<p>"+cursor.value.quantity * cursor.value.calories+" Calories</p>";
       html += "</a>";
       html += "</li>";
 
-      app.caloriesConsumed += cursor.value.quantity * cursor.value.calories; //Add up calories consumed
+      switch (cursor.value.category)
+      {
+        case "Breakfast":
+          list.breakfast += html;
+          break;
+        case "Lunch":
+          list.lunch += html;
+          break;
+        case "Dinner":
+          list.dinner += html;
+          break;
+        default: //Snacks
+          list.snacks += html;
+        break;
+      }
       cursor.continue();
     }
     else
     {
-      updateProgress();
-      $("#diaryListview").html(html); //Insert into HTML
+      $("#diaryListview").html(list.breakfast + list.lunch + list.dinner + list.snacks); //Insert into HTML
+      $("#diaryListview").listview({autodividersSelector:function(li){return li.attr("category")}}); //Divide list based on food category
       $("#diaryListview").listview("refresh");
     }
   };
 }
 
-//Diary page before show
+//Bind diary category items
+$("#diaryPage").on("click", ".diaryDivider", function(e){
+  $("#foodListPage #category").val($(this).attr("id")); //Set hidden field on food list page
+  $(":mobile-pagecontainer").pagecontainer("change", "#foodListPage");
+});
+
 //Bind on swipeleft to diaryPage
 $("#diaryPage").on("swipeleft", function(e){
-  app.selectedDate.setDate(app.selectedDate.getDate()+1);
-  $("#diaryDate").html(app.selectedDate.toDateString());
-  populateDiary();
+  app.date.setDate(app.date.getDate()+1);
+  changeDate(app.date);
 });
 
 //Bind on swiperight to diary page
 $("#diaryPage").on("swiperight", function(e){
-  app.selectedDate.setDate(app.selectedDate.getDate()-1);
-  $("#diaryDate").html(app.selectedDate.toDateString());
-  populateDiary();
+  app.date.setDate(app.date.getDate()-1);
+  changeDate(app.date);
 });
 
 //Bind on taphold to diary list item link
@@ -223,8 +265,9 @@ $("#diaryListview").on("click", ".diaryItem a", function(e){
   //Populate diary item edit form
   $("#editDiaryItemPage #id").val(details.id); //Add item id to hidden field
   $("#editDiaryItemPage h1").html(details.name);
-  $("#editDiaryItemPage #portion").html(details.portion);
-  $("#editDiaryItemPage #caloriesDisplay").html(details.calories * details.quantity);
+  $("#editDiaryItemPage #portion").val(details.portion);
+  $("#editDiaryItemPage #caloriesDisplay").text(details.calories * details.quantity);
+  $("#editDiaryItemPage #caloriesPerPortion").html(details.portion + " = " + details.calories + " Calories");
   $("#editDiaryItemPage #calories").val(details.calories);
   $("#editDiaryItemPage #quantity").val(details.quantity);
   $("#editDiaryItemPage #category").val(details.category);
@@ -232,18 +275,18 @@ $("#diaryListview").on("click", ".diaryItem a", function(e){
   $(":mobile-pagecontainer").pagecontainer("change", "#editDiaryItemPage"); //Go to edit food page
 });
 
-//Bind to quanity and calories boxes on diaryItemEditForm
-$("#editDiaryItemForm #quantity, #editDiaryItemForm #calories").on("change paste keyup", function(e){
-  var calories = $("#editDiaryItemForm #calories").val(); //Get calories for item
+//Bind to quanity box on diaryItemEditForm
+$("#editDiaryItemForm #quantity").on("change paste keyup", function(e){
+  var calories = $("#editDiaryItemForm #calories").val(); //Pull calories from hidden field
   var quantity = $("#editDiaryItemForm #quantity").val();
-  $("#editDiaryItemPage #caloriesDisplay").html(calories * quantity); //Update calories display
+
+  $("#editDiaryItemPage #caloriesDisplay").text(parseFloat(calories * quantity)); //Update calories display
 });
 
-function editDiaryItem()
+function editDiaryItemFormAction()
 {
   var id = parseInt($("#editDiaryItemForm #id").val()); //Get item id from hidden field
   var quantity = parseFloat($("#editDiaryItemForm #quantity").val());
-  var calories = parseFloat($("#editDiaryItemForm #calories").val());
   var category = $("#editDiaryItemForm #category").val();
 
   var getRequest = dbHandler.getItem(id, "diary"); //Pull record from DB
@@ -255,7 +298,6 @@ function editDiaryItem()
 
     //Update the values in the item
     item.quantity = quantity;
-    item.calories = calories;
     item.category = category;
 
     var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
@@ -263,10 +305,11 @@ function editDiaryItem()
     putRequest.onsuccess = function(e) //The item was upated
     {
       app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
-      app.caloriesConsumed += calories * quantity; //Add on new calories
+      app.caloriesConsumed += item.calories * quantity; //Add on new calories
 
-      updateLog();
       populateDiary(); //Repopulate the diary
+      updateLog();
+      updateProgress();
 
       $(":mobile-pagecontainer").pagecontainer("change", "#diaryPage"); //Go to diary page
     }
@@ -290,7 +333,7 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
       cursor.continue();
 
       html += "<li class='foodListItem' id='"+cursor.value.id+"'>"; //Add class and ID
-      html += "<a id='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+cursor.value.name + " - " + cursor.value.portion;
+      html += "<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+cursor.value.name + " - " + cursor.value.portion;
       html += "<p>Quantity: "+cursor.value.quantity + "</p>";
       html += "<p>" + cursor.value.calories+" Calories</p>";
       html += "</a>";
@@ -306,44 +349,66 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
 });
 
 //Bind on click to food item's addToDiary links in the listview
-$("#foodListview").on("click", "#addToDiary", function(e){
+$("#foodListview").on("click", ".addToDiary", function(e){
 
   var details = $(this).data("details");
 
   //Add the food to the diary store
-  var date = app.selectedDate.toDateString();
+  var date = app.date.toDateString(); //Currently selected date
   var name = details.name;
   var portion = details.portion;
   var quantity = parseFloat(details.quantity);
   var calories = parseFloat(details.calories);
-  var category = "Breakfast";
+  var category = $("#foodListPage #category").val(); //Hidden field
+
+  //If no category is provided, determine it based on time of day
+  if (category == "")
+  {
+    var hour = app.date.getHours();
+    switch (true)
+    {
+      case ((hour > 5) && (hour < 12)):
+        category = "Breakfast";
+      break;
+
+      case ((hour > 11) && (hour < 15)):
+        category = "Lunch";
+      break;
+
+      case ((hour > 14) && (hour < 17)):
+        category = "Snacks";
+      break;
+
+      case ((hour > 16) && (hour < 20)):
+        category = "Dinner";
+      break;
+
+      case ((hour > 19) || (hour < 6)):
+        category = "Snacks";
+      break;
+    }
+  }
 
   var diaryData = {"date":date, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "category":category};
   var request = dbHandler.insert(diaryData, "diary"); //Add item to diary
 
   request.onsuccess = function(e)
   {
-    diaryData.id = e.target.result;
-
-    //Add item to diary list view
-    var html = "<li class='diaryItem' id='"+diaryData.id+"'>";
-    html += "<a data-details='"+JSON.stringify(diaryData)+"'>"+details.name;
-    html += "<p>"+details.quantity * details.calories+" Calories</p>";
-    html += "</a>";
-    html += "</li>";
-
-    $("#diaryListview").append(html);
-    $("#diaryListview").listview("refresh");
+    populateDiary();
 
     //Update app variable and log
     app.caloriesConsumed += calories*quantity;
+
     updateLog();
     updateProgress();
-  }
 
-  //Update food item's dateTime (to show when food was last refferenced)
-  var foodData = {"id":details.id, "dateTime":new Date(), "name":name, "portion":portion, "quantity":quantity, "calories":calories};
-  dbHandler.insert(foodData, "foodList");
+    //Update food item's dateTime (to show when food was last refferenced)
+    var foodData = {"id":details.id, "dateTime":new Date(), "name":name, "portion":portion, "quantity":quantity, "calories":calories};
+    dbHandler.insert(foodData, "foodList");
+
+    //Reset category field
+    $("#foodListPage #category").val("");
+  }
 
   $(":mobile-pagecontainer").pagecontainer("change", "#diaryPage");
 });
@@ -351,7 +416,7 @@ $("#foodListview").on("click", "#addToDiary", function(e){
 //Bind on taphold to food item's addToDiary links in the listview
 $("#foodListview").on("taphold", "#addToDiary", function(e){
   var details = $(this).data("details");
-  $("#deleteFoodListItemPopup button").attr("id", details.id); //Set delete button's ID to foot item ID
+  $("#deleteFoodListItemPopup button").attr("id", details.id); //Set delete button's ID to food item ID
   $("#deleteFoodListItemPopup").popup("open");
 });
 
@@ -373,31 +438,15 @@ $("#deleteFoodListItemPopup button").click(function(){
 //Bind on click to food item's editFood links in the listview
 $("#foodListview").on("click", ".editFood", function(e){
   var details = $(this).data("details");
-
   $("#editFoodPage h1").text("Edit Food"); //Change page title
-
-  //Populate the edit form with passed data
-  $('#editFoodPage #foodId').val(details.id);
-  $('#editFoodPage #foodName').val(details.name);
-  $('#editFoodPage #foodQuantity').val(details.quantity);
-  $('#editFoodPage #foodPortion').val(details.portion);
-  $('#editFoodPage #foodCalories').val(details.calories);
-
+  populateEditFoodForm(details);
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage", {'details': details}); //Pass data to edit food page
 });
 
 //Bind on click to food item's addFood to diary link
 $("#foodListPage").on("click", "#addFood", function(e){
-
   $("#editFoodPage h1").text("Add Food"); //Change page title
-
-  //Clear the edit form
-  $('#editFoodPage #foodId').val(null);
-  $('#editFoodPage #foodName').val("");
-  $('#editFoodPage #foodPortion').val("");
-  $('#editFoodPage #foodQuantity').val(1);
-  $('#editFoodPage #foodCalories').val("");
-
+  populateEditFoodForm({"quantity":1}); //Clear the edit form - default quantity = 1
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage"); //Go to edit food page
 });
 
@@ -414,28 +463,87 @@ function addFoodFormAction()
 
   var data = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":quantity, "calories":calories};
 
-  //if (id != null) {data.id = id}; //Add ID for existing items
+  if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
   var request = dbHandler.insert(data, "foodList"); //Add/update food item
 
   $(":mobile-pagecontainer").pagecontainer("change", "#foodListPage"); //Go to food list
 }
 
+function populateEditFoodForm(data)
+{
+  //Populate the edit form with passed data
+  $('#editFoodPage #foodId').val(data.id);
+  $('#editFoodPage #foodName').val(data.name);
+  $('#editFoodPage #foodQuantity').val(data.quantity);
+  $('#editFoodPage #foodPortion').val(data.portion);
+  $('#editFoodPage #foodCalories').val(data.calories);
+}
+
 //For scanning barcodes
 function scan()
 {
-  console.log("scanner");
-  /*cordova.plugins.barcodeScanner.scan(
+  cordova.plugins.barcodeScanner.scan(
      function (result) {
-         alert("We got a barcode\n" +
-               "Result: " + result.text + "\n" +
-               "Format: " + result.format + "\n" +
-               "Cancelled: " + result.cancelled);
+
+       var code = result.text;
+       var request = new XMLHttpRequest();
+
+       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+       request.send();
+
+       request.onreadystatechange = function(){
+         processBarcodeResponse(request);
+       };
      },
-     function (error) {
+     function (e) {
          alert("Scanning failed: " + error);
      }
-  );*/
+  );
+}
+
+function processBarcodeResponse(request)
+{
+  if (request.readyState == 4 && request.status == 200)
+  {
+    var result = jQuery.parseJSON(request.responseText);
+    console.log(result);
+
+    if (result.status == 0) //Product not found
+    {
+      alert("Product not found. You can add it with the Open Food Facts app");
+    }
+    else if (result.status == 1) //Product found
+    {
+      //Get the data for the add food form
+      var product = result.product;
+
+      var data = {"name":product.product_name, "quantity":1, "calories":product.nutriments.energy_value};
+
+      //Get best match for portion/serving size
+      if (product.nutrition_data_per)
+      {
+        data.portion = product.nutrition_data_per;
+      }
+      else if (product.serving_size)
+      {
+        data.portion = product.serving_size;
+      }
+      else if (product.quantity)
+      {
+        data.portion = product.quantity;
+      }
+
+
+      //If energy is given in kl convert to kcal
+      if (product.nutriments.energy_unit == "kJ")
+      {
+        data.calories = parseInt(data.calories / 4.15);
+      }
+
+      populateEditFoodForm(data);
+    }
+  }
 }
 
 /***** SETTINGS PAGE *****/
@@ -458,5 +566,12 @@ function saveUserSettings()
 
   updateLog();
   updateProgress();
+
   $(":mobile-pagecontainer").pagecontainer("change", "#home");
+}
+
+/**** IMPORT AND EXPORT ****/
+function exportData()
+{
+  dbHandler.exportToFile(); //Jsonify the database
 }

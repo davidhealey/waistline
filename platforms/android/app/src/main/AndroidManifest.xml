@@ -9,6 +9,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:exported="false" android:name="com.google.zxing.client.android.CaptureActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:label="Share" android:name="com.google.zxing.client.android.encode.EncodeActivity" />
     </application>
     <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

@@ -106,4 +106,163 @@ var dbHandler =
     return DB.transaction(storeName).objectStore(storeName);
   },
 
+  getArrayFromObject:function(obj)
+  {
+    //Get array of objectStoreNames
+    return $.map(obj, function(value, index) {
+        return [value];
+    });
+  },
+
+  exportToFile:function()
+  {
+    if (DB.objectStoreNames.length > 0)
+    {
+      var exportObject = {};
+      var t = DB.transaction(DB.objectStoreNames, "readonly"); //Get transaction
+      var storeNames = dbHandler.getArrayFromObject(DB.objectStoreNames);
+
+      //Get data for each store
+      storeNames.forEach(function(storeName)
+      {
+        var objects = [];
+
+        t.objectStore(storeName).openCursor().onsuccess = function(event)
+        {
+          var cursor = event.target.result;
+          if (cursor)
+          {
+            objects.push(cursor.value);
+            cursor.continue();
+          }
+          else
+          {
+            exportObject[storeName] = objects; //Each store's objects in a separate element
+
+            //Append object store to file once all objects have been gathered
+            if (Object.keys(exportObject).length == storeNames.length)
+            {
+              dbHandler.writeToFile(JSON.stringify(exportObject));
+            }
+          }
+        }
+      });
+    }
+  },
+
+  importFromFile: function(jsonString)
+  {
+    var t = DB.transaction(DB.objectStoreNames, "readwrite"); //Get transaction
+    var storeNames = dbHandler.getArrayFromObject(DB.objectStoreNames);
+    var importObject = JSON.parse(jsonString); //Parse recieved JSON string
+
+    //Go through each object store and add the imported data
+    storeNames.forEach(function(storeName)
+    {
+      //Clear each objectStore before restoring it
+      t.objectStore(storeName).clear().onsuccess = function()
+      {
+        var count = 0;
+        importObject[storeName].forEach(function(toAdd)
+        {
+          var request = t.objectStore(storeName).add(toAdd);
+
+          request.onerror = function(e)
+          {
+            console.log("Problem importing database. Stopped at " + storeName + " object store:", e.target.error.message);
+          }
+
+          request.onsuccess = function(e)
+          {
+            count++;
+
+            if (count == importObject[storeName].length) //added all objects for this store
+            {
+              delete importObject[storeName];
+
+              if(Object.keys(importObject).length == 0) //added all object stores
+              {
+               console.log("Database import success");
+               alert("Database Import Complete");
+              }
+            }
+          }
+        });
+      };
+    });
+  },
+
+  writeToFile: function(jsonString)
+  {
+    //Export the json to a file
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
+    {
+      console.log("got main dir",dir);
+
+      //Create the file
+      dir.root.getFile("database_export.json", {create:true}, function(file)
+      //dir.root.getFile("database_export.json", {create:true}, function(file)  //For browser testing
+      {
+        console.log("got the file", file);
+
+        //Write to the file - overwrite existing content
+        file.createWriter(function(fileWriter)
+        {
+          var blob = new Blob([jsonString], {type:'text/plain'});
+          fileWriter.write(blob);
+
+          fileWriter.onwriteend = function()
+          {
+            console.log("Successful file write.");
+            alert("Database Export Complete");
+          };
+
+          fileWriter.onerror = function (e)
+          {
+            console.log("Failed file write: " + e.toString());
+            alert("Something went wrong, you deserve a more detailed error message but I don't have one for you!");
+          };
+        });
+      });
+    });
+  },
+
+  readFromFile: function()
+  {
+    var jsonString;
+
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
+    {
+      dir.getFile('database_export.json', {}, function(file)
+      //dir.root.getFile('database_export.json', {}, function(file) //For browser testing
+      {
+          file.file(function (file) {
+
+            var reader = new FileReader();
+
+            reader.readAsText(file);
+
+            reader.onloadend = function(e) {
+              jsonString = this.result;
+              console.log("Successful file read: " + this.result);
+              alert("Success");
+              dbHandler.importFromFile(jsonString);
+            };
+
+            reader.onerror = function(e)
+            {
+              console.log("Read Error: " + e);
+            };
+          });
+      },
+      function(e)
+      {
+        console.log("File Error: " + e.code);
+        alert("No datafile found. Import Aborted");
+        return false;
+      });
+    });
+  },
 }

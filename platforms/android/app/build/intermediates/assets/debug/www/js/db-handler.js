@@ -106,4 +106,133 @@ var dbHandler =
     return DB.transaction(storeName).objectStore(storeName);
   },
 
+  exportToFile:function()
+  {
+    if (DB.objectStoreNames.length > 0)
+    {
+      var exportObject = {};
+      var t = DB.transaction(DB.objectStoreNames, "readonly"); //Get transaction
+
+      //Get array of objectStoreNames
+      var storeNames = $.map(DB.objectStoreNames, function(value, index) {
+          return [value];
+      });
+
+      //Get data for each store
+      storeNames.forEach(function(storeName)
+      {
+        var objects = [];
+
+        t.objectStore(storeName).openCursor().onsuccess = function(event)
+        {
+          var cursor = event.target.result;
+          if (cursor)
+          {
+            objects.push(cursor.value);
+            cursor.continue();
+          }
+          else
+          {
+            exportObject[storeName] = objects; //Each store's objects in a separate element
+
+            //Append object store to file once all objects have been gathered
+            if (Object.keys(exportObject).length == storeNames.length)
+            {
+              console.log("JSON: " + JSON.stringify(exportObject));
+              dbHandler.writeToFile(JSON.stringify(exportObject));
+            }
+          }
+        }
+      });
+    }
+  },
+
+  importFromFile: function(jsonString)
+  {
+    var t = DB.transaction(DB.objectStoreNames, "readwrite"); //Get transaction
+    var objects = JSON.parse(jsonString);
+
+    //Go through each object store and add the imported data
+    for (var i = 0; i < DB.objectStoreNames.length; i++)
+    {
+      var storeName = DB.objectStoreNames[i];
+
+      var toAdd = objects[storeName];
+      console.log(toAdd);
+      //var request = t.objectStore(storeName).add(toAdd);
+    }
+  },
+
+  writeToFile: function(jsonString)
+  {
+    //Export the json to a file
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir)
+    {
+      console.log("got main dir",dir);
+
+      //Create the file
+      dir.getFile("database_export.json", {create:true}, function(file) {
+
+        console.log("got the file", file);
+
+        //Write to the file
+        file.createWriter(function(fileWriter)
+        {
+          //fileWriter.seek(0);
+
+          var blob = new Blob([jsonString], {type:'text/plain'});
+          fileWriter.write(blob);
+
+          fileWriter.onwriteend = function()
+          {
+            console.log("Successful file write.");
+          };
+
+          fileWriter.onerror = function (e)
+          {
+            console.log("Failed file write: " + e.toString());
+            alert("Something went wrong, you deserve a more detailed error message but I don't have one for you!");
+          };
+        });
+      });
+    });
+  },
+
+  readFromFile: function()
+  {
+    var jsonString;
+
+    //window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    window.requestFileSystem(PERSISTENT, 1024*1024, function(dir)
+    {
+      dir.getFile('database_export.json', {}, function(file)
+      {
+          file.file(function (file) {
+
+            var reader = new FileReader();
+
+            reader.readAsText(file);
+
+            reader.onloadend = function(e) {
+              jsonString = this.result;
+              console.log("Successful file read: " + this.result);
+              alert("Success");
+              dbHandler.importFromFile(jsonString);
+            };
+
+            reader.onerror = function(e)
+            {
+              console.log("Read Error: " + e);
+            };
+          });
+      },
+      function(e)
+      {
+        console.log("File Error: " + e.code);
+        alert("No datafile found. Import Aborted");
+        return false;
+      });
+    });
+  },
 }

@@ -2,7 +2,7 @@
   "_args": [
     [
       "cordova-plugin-whitelist@1",
-      "/home/dave/AndroidStudioProjects/libreDiet"
+      "/home/dave/AndroidStudioProjects/librediet-cordova"
     ]
   ],
   "_from": "cordova-plugin-whitelist@>=1.0.0 <2.0.0",
@@ -36,7 +36,7 @@
   "_shasum": "b5e85ecdbbfe5aeded40a1bf4ee2372e67d96fb4",
   "_shrinkwrap": null,
   "_spec": "cordova-plugin-whitelist@1",
-  "_where": "/home/dave/AndroidStudioProjects/libreDiet",
+  "_where": "/home/dave/AndroidStudioProjects/librediet-cordova",
   "author": {
     "name": "Apache Software Foundation"
   },
