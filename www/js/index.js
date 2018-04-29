@@ -100,17 +100,18 @@ function updateLog()
 
 function changeDate(date)
 {
-  app.date = date;
+  app.date = new Date(date);
 
-  $("#diaryDate").html(date.toDateString()); //Update date display
+  $("#diaryDate").html(app.date.toDateString()); //Update date display
 
   //Update the app.caloriesConsumed variable for the new date
-  var request = dbHandler.getItem(date.toLocaleDateString(), "log");
+  var date = getDateAtMidnight(app.date);
+  var request = dbHandler.getItem(date, "log");
 
   request.onsuccess = function(e)
   {
     app.caloriesConsumed = 0; //Reset
-    if (e.target.result) {app.aloriesConsumed = e.target.result.calories;}
+    if (e.target.result) {app.caloriesConsumed = e.target.result.calories;}
     updateProgress();
   }
 }
