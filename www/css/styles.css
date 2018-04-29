@@ -1,5 +1,3 @@
-.footer {position: absolute; top: auto; bottom: 0; width: 100%;}
-
 input:invalid {
   color:red;  /*Colour invalid input contents*/
   box-shadow: none; /*Disable browser highlighting required fields*/
@@ -11,9 +9,9 @@ input:invalid {
 #editDiaryItemPage #caloriesPerPortion {text-align:center; font-size:12px;}
 #diaryPage .diaryDivider {text-align: center;}
 
-.calorieCount {max-width:100%; height:100%; padding: 2px;}
-#statusBar {padding-top: 5px;}
+.calorieCount {max-width:100%; height:100%; padding: 0.1em;}
+#statusBar {padding-top: 0.3em;}
 #statusBar .heading {font-size: 14px; text-align: center;}
 #statusBar .stat {font-size: 12px; text-align: center;}
 
-.footer {height:50px; position: fixed;};
+.footer {height:3em; width:100%; position: fixed; bottom:0; top:auto;}

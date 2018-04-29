@@ -256,6 +256,13 @@ function populateDiary()
   };
 }
 
+//When the date on the diary page is clicked, go to the current date
+$("#diaryPage #diaryDate").on("click", function(e){
+  var date = new Date();
+  changeDate(date);
+  populateDiary();
+});
+
 $("#diaryPage").on("pagecreate", function(e){
   populateDiary();
 });
@@ -403,12 +410,15 @@ $("#foodListview").on("click", ".addToDiary", function(e){
   var details = $(this).data("details");
 
   //Add the food to the diary store
+  var dateTime = new Date(Date.UTC(app.date.getFullYear(), app.date.getMonth(), app.date.getDate(), app.date.getHours(), app.date.getMinutes(), app.date.getSeconds())); //JS dates are shit
   var foodId = details.id;
   var name = details.name;
   var portion = details.portion;
   var quantity = parseFloat(details.quantity);
   var calories = parseFloat(details.calories);
   var category = $("#foodListPage #category").val(); //Hidden field
+
+  console.log(dateTime);
 
   //If no category is provided, determine it based on time of day
   if (category == "")
@@ -438,7 +448,7 @@ $("#foodListview").on("click", ".addToDiary", function(e){
     }
   }
 
-  var diaryData = {"dateTime":app.date, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "category":category, "foodId":foodId};
+  var diaryData = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "category":category, "foodId":foodId};
   var request = dbHandler.insert(diaryData, "diary"); //Add item to diary
 
   request.onsuccess = function(e)
@@ -451,7 +461,7 @@ $("#foodListview").on("click", ".addToDiary", function(e){
     updateLog();
     updateProgress();
 
-    //Update food item's dateTime (to show when food was last refferenced)
+    //Update food item's dateTime (to show when food was last referenced)
     var foodData = {"id":foodId, "dateTime":new Date(), "name":name, "portion":portion, "quantity":quantity, "calories":calories};
     dbHandler.insert(foodData, "foodList");
 
