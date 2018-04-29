@@ -116,42 +116,46 @@ function changeDate(date)
 }
 
 /***** STATISTICS PAGE *****/
-$("#statsPage").on("pagebeforeshow", function(e){
-
-  var ctx = document.getElementById('weightChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-      datasets: [{
-        label: 'apples',
-        data: [12, 19, 3, 17, 6, 3, 7],
-        backgroundColor: "rgba(153,255,51,0.4)"
-      }, {
-        label: 'oranges',
-        data: [2, 29, 5, 5, 2, 3, 10],
-        backgroundColor: "rgba(255,153,0,0.4)"
-      }]
-    }
-  });
-
-  populateWeightLog();
+$("#statsPage").on("pagecreate", function(e){
+  updateStats();
 });
 
-function populateWeightLog()
+$("#statsPage #range").on("change", function(){
+  updateStats();
+})
+
+function updateStats()
 {
-  //Get the date one year ago
-  var date = getDateAtMidnight(new Date());
-  date.setFullYear(date.getFullYear()-1);
+  var range = $("#statsPage #range").val();
+  var fromDate = new Date();
+  var toDate = new Date();
+
+  switch (range)
+  {
+    case "week": fromDate.setDate(fromDate.getDate()-7); break;
+    case "month": fromDate.setMonth(fromDate.getMonth()-1); break;
+    case "3month": fromDate.setMonth(fromDate.getMonth()-3); break;
+    case "6month": fromDate.setMonth(fromDate.getMonth()-6); break;
+    case "12month": fromDate.setMonth(fromDate.getMonth()-12); break;
+  }
 
   var os = dbHandler.getObjectStore("log"); //Get date index from log store
+
+  var dates = [];
+  var weights = [];
+  var calories = [];
   var html = "";
 
-  os.openCursor(IDBKeyRange.lowerBound(date), "prev").onsuccess = function(e)
+  os.openCursor(IDBKeyRange.bound(fromDate, toDate), "prev").onsuccess = function(e)
   {
     var cursor = e.target.result;
-    if (cursor) {
+    if (cursor)
+    {
+      dates.push(cursor.value.dateTime.toLocaleDateString());
+      weights.push(cursor.value.weight);
+      calories.push(cursor.value.calories);
 
+      //Build list view
       html += "<li>" + cursor.value.dateTime.toLocaleDateString();
       html += "<p>" + cursor.value.weight + " kg</p>";
       html += "</li>";
@@ -160,31 +164,34 @@ function populateWeightLog()
     }
     else
     {
+      //Draw chart
+      var ctx = $("#weightChart");
+      var weightChart = new Chart(ctx, {
+        type:"line",
+        data:
+        {
+          labels:dates,
+          datasets: [
+          {
+            label:"Weight (kg)",
+            data: weights,
+            backgroundColor: "rgba(255,13,0,0.4)"
+          },
+          {
+            label:"Calories (kcal)",
+            data: calories,
+            backgroundColor: "rgba(255,153,0,0.4)",
+            hidden:true
+          }]
+        }
+      });
+
+      //Populate listview
       $("#weightLog").html(html); //Insert into HTML
       $("#weightLog").listview("refresh");
     }
   };
 }
-
-/*function populateWeightLog()
-{
-  var os = dbHandler.getObjectStore("log"); //Get date index from log store
-  var data = [];
-
-  os.openCursor().onsuccess = function(e)
-  {
-    var cursor = e.target.result;
-    if (cursor && data.length < 365) //Get up to 365 results
-    {
-      data.push(cursor.value);
-      cursor.continue();
-    }
-    else
-    {
-      console.log(data);
-    }
-  };
-}*/
 
 /***** DIARY PAGE *****/
 function populateDiary()
@@ -247,6 +254,10 @@ function populateDiary()
     }
   };
 }
+
+$("#diaryPage").on("pagecreate", function(e){
+  populateDiary();
+});
 
 //Bind diary category items
 $("#diaryPage").on("click", ".diaryDivider", function(e){

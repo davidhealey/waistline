@@ -140,10 +140,17 @@
         <!--Statistics page -->
         <div data-role="page" id="statsPage">
           <div data-role="header">
-            <a href="#" data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
+            <a href="#home" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
             <h1>Statistics</h1>
           </div>
           <div data-role="main" class="ui-content">
+            <select name="range" id="range" data-native-menu="false">
+              <option value="week">Week</option>
+              <option value="month">1 Month</option>
+              <option value="3month" selected="selected">3 Months</option>
+              <option value="6month">6 Months</option>
+              <option value="12month">1 Year</option>
+            </select>
             <canvas id="weightChart" height="300" width="300"></canvas>
             <ul data-role="listview" id="weightLog"></ul>
           </div>
