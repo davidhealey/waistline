@@ -58,7 +58,7 @@
             <button id="openFoods" onclick="location.href='index.html#foodListPage'">Food List</button>
             <button id="openSettings" onclick="location.href='index.html#settingsPage'">Settings</button>
             <button id="openSettings" onclick="location.href='javascript:dbHandler.readFromFile();'">Import</button>
-            <button id="openSettings" onclick="location.href='javascript:exportData();'">Export</button>
+            <button id="openSettings" onclick="location.href='javascript:dbHandler.exportToFile();'">Export</button>
           </div>
           <div data-role="footer" class="footer">
             <div id="progress">
@@ -140,13 +140,12 @@
         <!--Statistics page -->
         <div data-role="page" id="statsPage">
           <div data-role="header">
-            <a href="#" data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a><h1>Stats</h1>
+            <a href="#" data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
+            <h1>Statistics</h1>
           </div>
           <div data-role="main" class="ui-content">
-            <canvas id="canvas" height="300" width="300"></canvas>
-          </div>
-          <div data-role="footer" class="footer">
-            <h2>This is a footer</h2>
+            <canvas id="weightChart" height="300" width="300"></canvas>
+            <ul data-role="listview" id="weightLog"></ul>
           </div>
         </div>
 
@@ -215,7 +214,7 @@
           <div data-role="main" class="ui-content">
             <form onsubmit="saveUserSettings(); return false;" id="settingsForm">
 
-              <label for="weight">Weight (kg)</label>
+              <label for="weight">Current Weight (kg)</label>
               <input type="number" name="weight" id="weight">
 
               <label for="calorie-goal">Daily Calorie Goal</label>

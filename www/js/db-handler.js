@@ -6,7 +6,7 @@ var dbHandler =
   {
     //Open database
     var databaseName = 'libreDietDb';
-    var databaseVersion = 3;
+    var databaseVersion = 1;
     var openRequest = indexedDB.open(databaseName, databaseVersion);
 
     //Error handler
@@ -30,7 +30,7 @@ var dbHandler =
         DB.onerror = function () {console.log(DB.errorCode);};
 
         //Log store
-        var store = DB.createObjectStore('log', {keyPath:'date'});
+        var store = DB.createObjectStore('log', {keyPath:'dateTime'}); //Date object - should always be set to midnight - one entry per day
         store.createIndex('calories', 'calories', {unique:false}); //Calories consumed for the date
         store.createIndex('calorieGoal', 'calorieGoal', {unique:false}); //Target calories for the day
         store.createIndex('caloriesLeft', 'caloriesLeft', {unique:false}); //Calories remaining - calorieGoal-calories
@@ -38,7 +38,7 @@ var dbHandler =
 
         //Food list store
         var store = DB.createObjectStore('foodList', {keyPath:'id', autoIncrement:true});
-        store.createIndex('dateTime', 'dateTime', {unique:false}); //Timestamp, the last time this item was referenced (edited or added to the diary)
+        store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
         store.createIndex('name', 'name', {unique:false});
         store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
         store.createIndex('quantity', 'quantity', {unique:false}); //Default quantity
@@ -46,12 +46,13 @@ var dbHandler =
 
         //Diary Store - a kind of mini food list, independent of the main food list
         var store = DB.createObjectStore('diary', {keyPath:'id', autoIncrement:true});
-        store.createIndex('date', 'date', {unique:false}); //Date in dd-mm-yy format
+        store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object
         store.createIndex('name', 'name', {unique:false});
         store.createIndex('portion', 'portion', {unique:false});
         store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
         store.createIndex('calories', 'calories', {unique:false}); //Calories in the portion
         store.createIndex('category', 'category', {unique:false}); //Breakfast, lunch dinner, etc..
+        store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - useful for some stuff
 
         console.log("DB Created/Updated");
     };
@@ -89,11 +90,6 @@ var dbHandler =
   getItem: function(key, storeName)
   {
     return DB.transaction(storeName).objectStore(storeName).get(key);
-  },
-
-  getCursor: function(keyRange, direction, storeName)
-  {
-    return DB.transaction(storeName).objectStore(storeName).openCursor(keyRange, direction);
   },
 
   getIndex: function(key, storeName)

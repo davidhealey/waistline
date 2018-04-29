@@ -52,6 +52,14 @@ var app = {
 app.initialize();
 
 /***** MISC FUNCTIONS *****/
+//Takes a date or date string and returns date object with time set to midnight, accounting for time zone
+function getDateAtMidnight(date)
+{
+  newDate = new Date(date);
+  newDate.setHours(0-(newDate.getTimezoneOffset()/60), 0, 0, 0);
+  return newDate;
+}
+
 function updateProgress()
 {
     var goal = parseFloat(app.storage.getItem("calorieGoal"));
@@ -76,13 +84,13 @@ function updateProgress()
 
 function updateLog()
 {
-  var date = app.date.toLocaleDateString(); //Primary key
+  var dateTime = getDateAtMidnight(app.date); //Primary key - always set to midnight: one log per day
   var calories = parseFloat(app.caloriesConsumed);
   var calorieGoal = parseInt(app.storage.getItem("calorieGoal"));
   var caloriesLeft = parseFloat(calorieGoal - calories);
   var weight = parseFloat(app.storage.getItem("weight"));
 
-  var data = {"date":date, "calories":calories, "calorieGoal":calorieGoal, "caloriesLeft":caloriesLeft, "weight":weight};
+  var data = {"dateTime":dateTime, "calories":calories, "calorieGoal":calorieGoal, "caloriesLeft":caloriesLeft, "weight":weight};
   var request = dbHandler.insert(data, "log"); //Add/update log entry
 
   request.onsuccess = function(e){
@@ -93,7 +101,7 @@ function updateLog()
 function changeDate(date)
 {
   app.date = date;
-  populateDiary();
+
   $("#diaryDate").html(date.toDateString()); //Update date display
 
   //Update the app.caloriesConsumed variable for the new date
@@ -102,66 +110,94 @@ function changeDate(date)
   request.onsuccess = function(e)
   {
     app.caloriesConsumed = 0; //Reset
-    if (e.target.result) {app.caloriesConsumed = e.target.result.calories;}
+    if (e.target.result) {app.aloriesConsumed = e.target.result.calories;}
     updateProgress();
   }
 }
 
 /***** STATISTICS PAGE *****/
-$("#statsPage").on("pagecreate", function(e){
+$("#statsPage").on("pagebeforeshow", function(e){
 
-  var ctx = document.getElementById("canvas").getContext('2d');
+  var ctx = document.getElementById('weightChart').getContext('2d');
   var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
-              }]
-          }
-      }
+    type: 'line',
+    data: {
+      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      datasets: [{
+        label: 'apples',
+        data: [12, 19, 3, 17, 6, 3, 7],
+        backgroundColor: "rgba(153,255,51,0.4)"
+      }, {
+        label: 'oranges',
+        data: [2, 29, 5, 5, 2, 3, 10],
+        backgroundColor: "rgba(255,153,0,0.4)"
+      }]
+    }
   });
 
+  populateWeightLog();
 });
 
-/***** DIARY PAGE *****/
-//Page create action
-$("#diaryPage" ).on("pagecreate", function(e){
-    populateDiary();
-})
+function populateWeightLog()
+{
+  //Get the date one year ago
+  var date = getDateAtMidnight(new Date());
+  date.setFullYear(date.getFullYear()-1);
 
+  var os = dbHandler.getObjectStore("log"); //Get date index from log store
+  var html = "";
+
+  os.openCursor(IDBKeyRange.lowerBound(date), "prev").onsuccess = function(e)
+  {
+    var cursor = e.target.result;
+    if (cursor) {
+
+      html += "<li>" + cursor.value.dateTime.toLocaleDateString();
+      html += "<p>" + cursor.value.weight + " kg</p>";
+      html += "</li>";
+
+      cursor.continue();
+    }
+    else
+    {
+      $("#weightLog").html(html); //Insert into HTML
+      $("#weightLog").listview("refresh");
+    }
+  };
+}
+
+/*function populateWeightLog()
+{
+  var os = dbHandler.getObjectStore("log"); //Get date index from log store
+  var data = [];
+
+  os.openCursor().onsuccess = function(e)
+  {
+    var cursor = e.target.result;
+    if (cursor && data.length < 365) //Get up to 365 results
+    {
+      data.push(cursor.value);
+      cursor.continue();
+    }
+    else
+    {
+      console.log(data);
+    }
+  };
+}*/
+
+/***** DIARY PAGE *****/
 function populateDiary()
 {
-  var date = app.date.toDateString(); //Format the currently selected date for db selection
+  //Get selected date (app.date) at midnight
+  var fromDate = getDateAtMidnight(app.date);
+
+  //Get day after selected date at midnight
+  var toDate = new Date(fromDate);
+  toDate.setDate(toDate.getDate()+1);
 
   //Pull record from the database for the selected date and add items to the list
-  var index = dbHandler.getIndex("date", "diary"); //Get date index from diary store
+  var index = dbHandler.getIndex("dateTime", "diary"); //Get date index from diary store
   var calorieGoal = app.storage.getItem("calorieGoal");
 
   var html = ""; //Variable to generate HTML
@@ -174,7 +210,7 @@ function populateDiary()
     snacks:"<li class='diaryDivider' id='Snacks' data-role='list-divider'><h4>Snacks</h4></li>"
   };
 
-  index.openCursor(IDBKeyRange.only(date)).onsuccess = function(e)
+  index.openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
   {
     var cursor = e.target.result;
     if (cursor)
@@ -207,7 +243,6 @@ function populateDiary()
     else
     {
       $("#diaryListview").html(list.breakfast + list.lunch + list.dinner + list.snacks); //Insert into HTML
-      $("#diaryListview").listview({autodividersSelector:function(li){return li.attr("category")}}); //Divide list based on food category
       $("#diaryListview").listview("refresh");
     }
   };
@@ -223,12 +258,14 @@ $("#diaryPage").on("click", ".diaryDivider", function(e){
 $("#diaryPage").on("swipeleft", function(e){
   app.date.setDate(app.date.getDate()+1);
   changeDate(app.date);
+  populateDiary();
 });
 
 //Bind on swiperight to diary page
 $("#diaryPage").on("swiperight", function(e){
   app.date.setDate(app.date.getDate()-1);
   changeDate(app.date);
+  populateDiary();
 });
 
 //Bind on taphold to diary list item link
@@ -354,7 +391,7 @@ $("#foodListview").on("click", ".addToDiary", function(e){
   var details = $(this).data("details");
 
   //Add the food to the diary store
-  var date = app.date.toDateString(); //Currently selected date
+  var foodId = details.id;
   var name = details.name;
   var portion = details.portion;
   var quantity = parseFloat(details.quantity);
@@ -389,7 +426,7 @@ $("#foodListview").on("click", ".addToDiary", function(e){
     }
   }
 
-  var diaryData = {"date":date, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "category":category};
+  var diaryData = {"dateTime":app.date, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "category":category, "foodId":foodId};
   var request = dbHandler.insert(diaryData, "diary"); //Add item to diary
 
   request.onsuccess = function(e)
@@ -403,7 +440,7 @@ $("#foodListview").on("click", ".addToDiary", function(e){
     updateProgress();
 
     //Update food item's dateTime (to show when food was last refferenced)
-    var foodData = {"id":details.id, "dateTime":new Date(), "name":name, "portion":portion, "quantity":quantity, "calories":calories};
+    var foodData = {"id":foodId, "dateTime":new Date(), "name":name, "portion":portion, "quantity":quantity, "calories":calories};
     dbHandler.insert(foodData, "foodList");
 
     //Reset category field
@@ -534,7 +571,6 @@ function processBarcodeResponse(request)
         data.portion = product.quantity;
       }
 
-
       //If energy is given in kl convert to kcal
       if (product.nutriments.energy_unit == "kJ")
       {
@@ -558,20 +594,11 @@ $("#settingsPage").on("pagebeforeshow", function(event, ui)
 //Save user's settings
 function saveUserSettings()
 {
-  var weight = $('#weight').val();
-  var calorieGoal = $('#calorieGoal').val();
-
-  app.storage.setItem("weight", weight);
-  app.storage.setItem("calorieGoal", calorieGoal);
+  app.storage.setItem("weight", $('#settingsPage #weight').val());
+  app.storage.setItem("calorieGoal", $('#settingsPage #calorieGoal').val());
 
   updateLog();
   updateProgress();
 
   $(":mobile-pagecontainer").pagecontainer("change", "#home");
-}
-
-/**** IMPORT AND EXPORT ****/
-function exportData()
-{
-  dbHandler.exportToFile(); //Jsonify the database
 }
