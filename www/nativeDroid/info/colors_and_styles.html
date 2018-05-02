@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>nativeDroid II - jQueryMobile Template</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="/vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="/css/nativedroid2.css" />
+
+				<style>
+					/* Prevent FOUC */
+					body { opacity: 0; }
+				</style>
+
+	</head>
+	<body>
+
+		<div data-role="page">
+
+			<nd2-include data-src="/examples/fragments/panel.left.html"></nd2-include>
+
+
+			<div data-role="header" data-position="fixed">
+				<a href="#leftpanel" class="ui-btn ui-btn-left"><i class="fa fa-bars"></i></a>
+				<h1>Colors &amp; Styles</h1>
+			</div>
+
+			<div role="main" class="ui-content" data-inset="false">
+
+				<span class="nd2-title">Color Definitions</span>
+				<p>All color definitions are defined in <code>/css/nativedroid2.color.COLOR-NAME.css</code> and embedded linked in <code>/css/nativedroid2.css</code>.</p>
+				<p>You can simply create your own color styles by creating your own css stylesheet or use some of the presets.</p>
+
+				<p>There are helper classes available to quickly apply the wished color without switching the theme.</p>
+
+				<hr />
+
+				<div class="row">
+
+					<div class="col-md-4">
+						<div class="box">
+							<span class="nd2-title">.clr-COLORNAME</span>
+							<p>
+								This sets the font-color of the element to the given color.<br />
+								<span class="clr-blue-grey">I'm .clr-blue-grey</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="box">
+							<span class="nd2-title">.clr-bg-COLORNAME</span>
+							<p>
+								This sets the background of the element to the given color.<br />
+								<span class="clr-bg-green">I'm .clr-bg-green</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="box">
+							<span class="nd2-title">.clr-accent-COLORNAME</span>
+							<p>
+								Apply this to the body and all accent-elements will turn into the given color theme. An Example you find in <a href="/examples/extended/tabs.html">tabs</a>.
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+				<hr />
+
+					<span class="nd2-title">.clr-btn-COLORNAME</span>
+					<p>
+						This tints an existing button (.ui-btn) into the given color.<br />
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-red">red</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-pink">pink</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-purple">purple</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-deep-purple">deep-purple</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-indigo">indigo</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-blue">blue</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-light-blue">light-blue</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-cyan">cyan</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-teal">teal</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-green">green</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-light-green">light-green</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-lime">lime</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-yellow">yellow</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-amber">amber</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-orange">orange</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-deep-orange">deep-orange</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-brown">brown</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-grey">grey</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-blue-grey">blue-grey</a>
+					</p>
+
+					<hr />
+
+					<span class="nd2-title">.clr-btn-accent-COLORNAME</span>
+					<p>
+						This colors the text of an existing button (.ui-btn) into the given color.<br />
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-red">red</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-pink">pink</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-purple">purple</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-deep-purple">deep-purple</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-indigo">indigo</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-blue">blue</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-light-blue">light-blue</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-cyan">cyan</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-teal">teal</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-green">green</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-light-green">light-green</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-lime">lime</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-yellow">yellow</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-amber">amber</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-orange">orange</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-deep-orange">deep-orange</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-brown">brown</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-grey">grey</a>
+						<a href="#" class="ui-btn ui-btn-inline clr-btn-accent-blue-grey">blue-grey</a>
+					</p>
+
+
+
+
+
+
+
+				<hr />
+
+				<ul data-role="listview" data-icon="false">
+					<li data-role="list-divider">Available Color Sheets</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-red ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>red</h2>
+							<p>nativedroid2.color.red.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-pink ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>pink</h2>
+							<p>nativedroid2.color.pink.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-purple ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>purple</h2>
+							<p>nativedroid2.color.purple.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-deep-purple ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>deep-purple</h2>
+							<p>nativedroid2.color.deep-purple.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-indigo ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>indigo</h2>
+							<p>nativedroid2.color.indigo.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-blue ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>blue</h2>
+							<p>nativedroid2.color.blue.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-light-blue ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>light-blue</h2>
+							<p>nativedroid2.color.light-blue.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-cyan ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>cyan</h2>
+							<p>nativedroid2.color.cyan.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-teal ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>teal</h2>
+							<p>nativedroid2.color.teal.css</p>
+						</a>
+					</li>
+
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-green ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>green</h2>
+							<p>nativedroid2.color.green.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-light-green ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>light-green</h2>
+							<p>nativedroid2.color.light-green.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-lime ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>lime</h2>
+							<p>nativedroid2.color.lime.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-yellow ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>yellow</h2>
+							<p>nativedroid2.color.yellow.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-amber ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>amber</h2>
+							<p>nativedroid2.color.amber.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-orange ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>orange</h2>
+							<p>nativedroid2.color.orange.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-deep-orange ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>deep-orange</h2>
+							<p>nativedroid2.color.deep-orange.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-brown ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>brown</h2>
+							<p>nativedroid2.color.brown.css</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<img class="clr-bg-blue-grey ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+							<h2>blue-grey</h2>
+							<p>nativedroid2.color.blue-grey.css</p>
+						</a>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+		<script src="/vendor/waves/waves.min.js"></script>
+		<script src="/js/nativedroid2.js"></script>
+		<script src="/nd2settings.js"></script>
+
+	</body>
+</html>

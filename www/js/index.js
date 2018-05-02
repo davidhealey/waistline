@@ -25,6 +25,7 @@ var app = {
   // Application Constructor
   initialize: function() {
       document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+
       this.storage = window.localStorage; //Simple storage object
       dbHandler.initializeDb(); //db-handler initialization
 
@@ -68,15 +69,23 @@ function updateProgress()
     var progressBar = $(".calorieCount");
 
     //Progress bar
-    calories > goal ? progressBar.css("background-color", "red") : progressBar.css("background-color", "green");
+    if (app.storage.getItem("goalIsMin") == "false")
+    {
+      calories > goal ? progressBar.css("background-color", "red") : progressBar.css("background-color", "green");
+      calories > goal ? $(".statusBar .ui-block-c.stat").css("color", "red") : $(".statusBar .ui-block-c.stat").css("color", "green")
+    }
+    else
+    {
+      calories < goal ? progressBar.css("background-color", "red") : progressBar.css("background-color", "green");
+      calories < goal ? $(".statusBar .ui-block-c.stat").css("color", "red") : $(".statusBar .ui-block-c.stat").css("color", "green")
+    }
+
     progressBar.css("width", percentage+"%");
 
     //Footer stats
-    $("#statusBar .ui-block-a.stat").html(goal);
-    $("#statusBar .ui-block-b.stat").html(calories);
-    $("#statusBar .ui-block-c.stat").html(goal-calories);
-
-    calories > goal ? $("#statusBar .ui-block-c.stat").css("color", "red") : $("#statusBar .ui-block-c.stat").css("color", "green")
+    $(".statusBar .ui-block-a.stat").html(goal);
+    $(".statusBar .ui-block-b.stat").html(calories);
+    $(".statusBar .ui-block-c.stat").html(goal-calories);
 
     //Store consumed calories in local storage for restore next time app is opened
     app.storage.setItem("calories", calories);
@@ -102,7 +111,7 @@ function changeDate(date)
 {
   app.date = new Date(date);
 
-  $("#diaryDate").html(app.date.toDateString()); //Update date display
+  $("#diaryDate").html("<h4>"+app.date.toDateString()+"</h4>"); //Update date display
 
   //Update the app.caloriesConsumed variable for the new date
   var date = getDateAtMidnight(app.date);
@@ -121,9 +130,19 @@ $("#statsPage").on("pagecreate", function(e){
   updateStats();
 });
 
+$("#statsPage").on("pagebeforeshow", function(){
+  updateStats();
+})
+
 $("#statsPage #range").on("change", function(){
   updateStats();
 })
+
+/*Clear the weight log list when moving away from the stats page*/
+$("#statsPage").on("pagehide", function(e){
+  $("#statsPage #weightLog").html("");
+  $("#statsPage #weightLog").listview("refresh");
+});
 
 function updateStats()
 {
@@ -159,6 +178,7 @@ function updateStats()
       //Build list view
       html += "<li>" + cursor.value.dateTime.toLocaleDateString();
       html += "<p>" + cursor.value.weight + " kg</p>";
+      html += "<p>" + cursor.value.calories + " Calories</p>";
       html += "</li>";
 
       cursor.continue();
@@ -207,16 +227,17 @@ function populateDiary()
   //Pull record from the database for the selected date and add items to the list
   var index = dbHandler.getIndex("dateTime", "diary"); //Get date index from diary store
   var calorieGoal = app.storage.getItem("calorieGoal");
-
-  var html = ""; //Variable to generate HTML
+  var html = "";
 
   //Strings of html for each category - prepopulated with category dividers
   var list = {
-    breakfast:"<li class='diaryDivider' id='Breakfast' data-role='list-divider'><h4>Breakfast</h4></li>",
-    lunch:"<li class='diaryDivider' id='Lunch' data-role='list-divider'><h4>Lunch</h4></li>",
-    dinner:"<li class='diaryDivider' id='Dinner' data-role='list-divider'><h4>Dinner</h4></li>",
-    snacks:"<li class='diaryDivider' id='Snacks' data-role='list-divider'><h4>Snacks</h4></li>"
+    breakfast:"<li class='diaryDivider' id='Breakfast' data-role='list-divider'>Breakfast<span></span></li>",
+    lunch:"<li class='diaryDivider' id='Lunch' data-role='list-divider'>Lunch<span></span></li>",
+    dinner:"<li class='diaryDivider' id='Dinner' data-role='list-divider'>Dinner<span></span></li>",
+    snacks:"<li class='diaryDivider' id='Snacks' data-role='list-divider'>Snacks<span></span></li>"
   };
+
+  var calorieCount = {"breakfast":0, "lunch":0, "dinner":0, "snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
 
   index.openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
   {
@@ -226,8 +247,8 @@ function populateDiary()
       //Build HTML
       html = ""; //Reset variable
       html += "<li class='diaryItem' id='"+cursor.value.id+"' category='"+cursor.value.category+"'>";
-      html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+cursor.value.name;
-      html += "<p>"+cursor.value.quantity * cursor.value.calories+" Calories</p>";
+      html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+cursor.value.name + " - " + cursor.value.portion;
+      html += "<p>"+cursor.value.quantity + " Servings, " + cursor.value.quantity * cursor.value.calories+" Calories" + "</p>";
       html += "</a>";
       html += "</li>";
 
@@ -235,15 +256,19 @@ function populateDiary()
       {
         case "Breakfast":
           list.breakfast += html;
+          calorieCount.breakfast += cursor.value.calories * cursor.value.quantity;
           break;
         case "Lunch":
           list.lunch += html;
+          calorieCount.lunch += cursor.value.calories * cursor.value.quantity;
           break;
         case "Dinner":
           list.dinner += html;
+          calorieCount.dinner += cursor.value.calories * cursor.value.quantity;
           break;
         default: //Snacks
           list.snacks += html;
+          calorieCount.snacks += cursor.value.calories * cursor.value.quantity;
         break;
       }
       cursor.continue();
@@ -251,6 +276,10 @@ function populateDiary()
     else
     {
       $("#diaryListview").html(list.breakfast + list.lunch + list.dinner + list.snacks); //Insert into HTML
+      $("#diaryListview #Breakfast span").html(" - " + calorieCount.breakfast + " Calories");
+      $("#diaryListview #Lunch span").html(" - " + calorieCount.lunch + " Calories");
+      $("#diaryListview #Dinner span").html(" - " + calorieCount.dinner + " Calories");
+      $("#diaryListview #Snacks span").html(" - " + calorieCount.snacks + " Calories");
       $("#diaryListview").listview("refresh");
     }
   };
@@ -263,7 +292,7 @@ $("#diaryPage #diaryDate").on("click", function(e){
   populateDiary();
 });
 
-$("#diaryPage").on("pagecreate", function(e){
+$("#diaryPage").on("pagebeforeshow", function(e){
   populateDiary();
 });
 
@@ -303,10 +332,9 @@ $("#deleteDiaryListItemPopup button").click(function(){
 
   var request = dbHandler.deleteItem(parseInt(id), "diary"); //Remove the item from the foodList table and get the request handler
 
-  //If the request was successful remove the item from the list
+  //If the request was successful repopulate the list
   request.onsuccess = function(e) {
-    $("#"+id+".diaryItem").remove(); //Remove the item from the list
-    $("#diaryListview").listview("refresh");
+    populateDiary();
     updateLog(); //Update the log entry
     updateProgress();
   };
@@ -320,9 +348,9 @@ $("#diaryListview").on("click", ".diaryItem a", function(e){
 
   //Populate diary item edit form
   $("#editDiaryItemPage #id").val(details.id); //Add item id to hidden field
-  $("#editDiaryItemPage h1").html(details.name);
+  $("#editDiaryItemPage #diaryItemName").html(details.name + " - " + details.portion);
   $("#editDiaryItemPage #portion").val(details.portion);
-  $("#editDiaryItemPage #caloriesDisplay").text(details.calories * details.quantity);
+  $("#editDiaryItemPage #caloriesDisplay").html(details.calories * details.quantity);
   $("#editDiaryItemPage #caloriesPerPortion").html(details.portion + " = " + details.calories + " Calories");
   $("#editDiaryItemPage #calories").val(details.calories);
   $("#editDiaryItemPage #quantity").val(details.quantity);
@@ -376,11 +404,11 @@ function editDiaryItemFormAction()
 //Initialize page
 $("#foodListPage").on("pagebeforeshow", function(event, ui)
 {
-  var os = dbHandler.getObjectStore("foodList"); //Get object store
   var html = "";
 
-  //Create list of food items and insert into HTML
-  os.openCursor().onsuccess = function(e)
+  //Create list of food items (sorted by timestamp) and insert into HTML
+  var index = dbHandler.getIndex("dateTime", "foodList"); //Get timestamp index
+  index.openCursor(IDBKeyRange.upperBound(new Date()), "prev").onsuccess = function(e)
   {
     var cursor = e.target.result;
 
@@ -390,7 +418,6 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
 
       html += "<li class='foodListItem' id='"+cursor.value.id+"'>"; //Add class and ID
       html += "<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+cursor.value.name + " - " + cursor.value.portion;
-      html += "<p>Quantity: "+cursor.value.quantity + "</p>";
       html += "<p>" + cursor.value.calories+" Calories</p>";
       html += "</a>";
       html += "<a class='editFood' data-details='"+ JSON.stringify(cursor.value) +"'></a>";
@@ -402,6 +429,12 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
       $("#foodListview").listview("refresh");
     }
   };
+});
+
+/*Clear the list when moving away from the food list page*/
+$("#foodListPage").on("pagehide", function(e){
+  $("#foodListPage #foodListview").html("");
+  $("#foodListview").listview("refresh");
 });
 
 //Bind on click to food item's addToDiary links in the listview
@@ -473,7 +506,7 @@ $("#foodListview").on("click", ".addToDiary", function(e){
 });
 
 //Bind on taphold to food item's addToDiary links in the listview
-$("#foodListview").on("taphold", "#addToDiary", function(e){
+$("#foodListview").on("taphold", ".addToDiary", function(e){
   var details = $(this).data("details");
   $("#deleteFoodListItemPopup button").attr("id", details.id); //Set delete button's ID to food item ID
   $("#deleteFoodListItemPopup").popup("open");
@@ -517,7 +550,7 @@ function addFoodFormAction()
   var dateTime = new Date(); //Time stamp
   var name = $('#editFoodPage #foodName').val();
   var portion = $('#editFoodPage #foodPortion').val();
-  var quantity = parseFloat($('#editFoodPage #foodQuantity').val());
+  var quantity = 1;
   var calories = parseFloat($('#editFoodPage #foodCalories').val());
 
   var data = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":quantity, "calories":calories};
@@ -534,9 +567,13 @@ function populateEditFoodForm(data)
   //Populate the edit form with passed data
   $('#editFoodPage #foodId').val(data.id);
   $('#editFoodPage #foodName').val(data.name);
-  $('#editFoodPage #foodQuantity').val(data.quantity);
   $('#editFoodPage #foodPortion').val(data.portion);
   $('#editFoodPage #foodCalories').val(data.calories);
+  if ($("#settingsPage #scanImages").is(":checked") == true) $('#editFoodPage img').attr("src", data.image_url);
+
+  //Only show scan button when adding a new food
+  var scanButton = $("#editFoodPage .ui-icon-camera");
+  isNaN(data.id) == false ? scanButton.css("display", "none") : scanButton.css("display", "block");
 }
 
 //For scanning barcodes
@@ -561,6 +598,21 @@ function scan()
   );
 }
 
+//For testing the barcode scanner manually
+function testscan()
+{
+  var code = "3366321051983";
+
+  var request = new XMLHttpRequest();
+
+  request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+  request.send();
+
+  request.onreadystatechange = function(){
+    processBarcodeResponse(request);
+  };
+}
+
 function processBarcodeResponse(request)
 {
   if (request.readyState == 4 && request.status == 200)
@@ -577,23 +629,24 @@ function processBarcodeResponse(request)
       //Get the data for the add food form
       var product = result.product;
 
-      var data = {"name":product.product_name, "quantity":1, "calories":product.nutriments.energy_value};
+      var data = {"name":product.product_name, "quantity":1, "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url};
 
       //Get best match for portion/serving size
-      if (product.nutrition_data_per)
+      if (product.serving_size)
+      {
+        data.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
+        data.calories = parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(product.serving_size)); //Get calories for portion
+      }
+      else if (product.nutrition_data_per)
       {
         data.portion = product.nutrition_data_per;
-      }
-      else if (product.serving_size)
-      {
-        data.portion = product.serving_size;
       }
       else if (product.quantity)
       {
         data.portion = product.quantity;
       }
 
-      //If energy is given in kl convert to kcal
+      //If energy is given in kJ convert to kcal
       if (product.nutriments.energy_unit == "kJ")
       {
         data.calories = parseInt(data.calories / 4.15);
@@ -609,8 +662,10 @@ function processBarcodeResponse(request)
 $("#settingsPage").on("pagebeforeshow", function(event, ui)
 {
   //Populate settings form from local storage
-  $('#weight').val(app.storage.getItem("weight"));
-  $('#calorieGoal').val(app.storage.getItem("calorieGoal"));
+  $('#settingsPage #weight').val(app.storage.getItem("weight"));
+  $('#settingsPage #calorieGoal').val(app.storage.getItem("calorieGoal"));
+  $('#settingsPage #goalIsMin').prop("checked", app.storage.getItem("goalIsMin") == "true").checkboxradio('refresh');
+  $('#settingsPage #scanImages').prop("checked", app.storage.getItem("scanImages") == "true").checkboxradio('refresh');
 });
 
 //Save user's settings
@@ -618,6 +673,8 @@ function saveUserSettings()
 {
   app.storage.setItem("weight", $('#settingsPage #weight').val());
   app.storage.setItem("calorieGoal", $('#settingsPage #calorieGoal').val());
+  app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
+  app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
 
   updateLog();
   updateProgress();

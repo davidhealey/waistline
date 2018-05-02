@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>nativeDroid II - jQueryMobile Template</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="/vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="/vendor/chartist/style.css" />
+		<link rel="stylesheet" href="/css/nativedroid2.css" />
+
+				<style>
+					/* Prevent FOUC */
+					body { opacity: 0; }
+				</style>
+
+	</head>
+	<body>
+
+		<div data-role="page">
+
+			<nd2-include data-src="/examples/fragments/panel.left.html"></nd2-include>
+
+
+
+			<div data-role="header" data-position="fixed">
+				<a href="#leftpanel" class="ui-btn ui-btn-left"><i class="zmdi zmdi-menu"></i></a>
+				<h1>Charts</h1>
+			</div>
+
+			<div role="main" class="ui-content" data-inset="false">
+
+				<span class="nd2-title">chartist.js</span>
+				<p>
+					This is an example page for charts using the <a href="https://gionkunz.github.io/chartist-js/examples.html">chartist.js</a>-Library. The main benefits with chartist.js is, that its wonderfully responsive and easy to create individual styling.
+				</p>
+
+								<span class="nd2-title">Line Charts</span>
+								<div class="row">
+									<div class="col-xs-12 col-md-4">
+										<div class="box">
+											<div class="nd2-chart ct-chart"></div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-4">
+										<div class="box">
+											<div class="nd2-chart ct-chart2"></div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-4">
+										<div class="box">
+											<div class="nd2-chart ct-chart3"></div>
+										</div>
+									</div>
+								</div>
+
+
+							<span class="nd2-title">Bar Charts</span>
+							<div class="row">
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<div class="nd2-chart nd2-chart-large ct-barchart"></div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<div class="nd2-chart nd2-chart-large ct-barchart2"></div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<div class="nd2-chart nd2-chart-large ct-barchart3"></div>
+									</div>
+								</div>
+							</div>
+
+
+							<span class="nd2-title">Pie Charts</span>
+							<div class="row">
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<div class="nd2-chart ct-piechart"></div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<div class="nd2-chart ct-piechart2"></div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<div class="nd2-chart ct-piechart3"></div>
+									</div>
+								</div>
+							</div>
+
+							<hr />
+
+							<span class="nd2-title">Chart Themes</span>
+							<p>
+									Usually charts with class <em>.nd2-chart</em> will be themed with the primary color. You can overwrite this behavior individually for any chart-block by adding a class called <em>.clr-theme-COLORNAME</em>. You can set any color specified in the <a href="/info/colors_and_styles.html">Color section</a>.
+							</p>
+
+							<div class="row">
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<span class="nd2-title">.clr-theme-lime</span>
+										<div class="nd2-chart clr-theme-lime ct-chart-theme"></div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<span class="nd2-title">.clr-theme-pink</span>
+										<div class="nd2-chart clr-theme-pink nd2-chart-large ct-barchart-theme"></div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="box">
+										<span class="nd2-title">.clr-theme-indigo</span>
+										<div class="nd2-chart clr-theme-indigo ct-piechart-theme"></div>
+									</div>
+								</div>
+							</div>
+
+			</div>
+
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+		<script src="/vendor/waves/waves.min.js"></script>
+		<script src="/vendor/chartist/chartist.min.js"></script>
+		<script src="/js/nativedroid2.js"></script>
+		<script src="/nd2settings.js"></script>
+
+		<script type="text/javascript">
+
+		// Themes
+
+
+
+
+		// Example 1
+
+				new Chartist.Line('.ct-chart', {
+					labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+					series: [
+						[12, 9, 7, 8, 5],
+						[2, 1, 3.5, 7, 3],
+						[1, 3, 4, 5, 6]
+					]
+					},{
+					showPoint: false,
+					showArea: false,
+					fullWidth: true,
+					chartPadding: {
+						right: 40
+					},
+					lineSmooth: Chartist.Interpolation.cardinal({
+		    		tension: 0.1
+		  		})
+					});
+
+
+							new Chartist.Line('.ct-chart-theme', {
+								labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+								series: [
+									[12, 9, 7, 8, 5],
+									[2, 1, 3.5, 7, 3],
+									[1, 3, 4, 5, 6]
+								]
+								},{
+								showPoint: false,
+								showArea: false,
+								fullWidth: true,
+								chartPadding: {
+									right: 40
+								},
+								lineSmooth: Chartist.Interpolation.cardinal({
+					    		tension: 0.1
+					  		})
+								});
+
+			// Example 2
+
+
+			new Chartist.Line('.ct-chart2', {
+				  labels: ['1', '2', '3', '4', '5', '6'],
+				  series: [
+				    {
+				      name: 'Binary',
+				      data: [2, 4, 8, 16, 32, 16]
+				    },
+						{
+							name: 'Degressive',
+							data: [18, 11, 8, 6, 5, 2]
+						},
+						{
+				      name: 'Golden section',
+				      data: [1, 1.618, 2.618, 4.236, 6.854, 11.09]
+				    },
+				    {
+				      name: 'Fibonacci sequence',
+				      data: [1, 2, 3, 5, 8, 13]
+				    }
+				  ]
+				},{
+					showArea: true,
+					showLine: false,
+					showPoint: false,
+					lineSmooth: Chartist.Interpolation.cardinal({
+		    		tension: 0.1
+		  		})
+				});
+
+			var $chart2 = $('.ct-chart2');
+
+			var $toolTip = $chart2
+			  .append('<div class="tooltip"></div>')
+			  .find('.tooltip')
+			  .hide();
+
+			$chart2.on('mouseenter', '.ct-point', function() {
+			  var $point = $(this),
+			    value = $point.attr('ct:value'),
+			    seriesName = $point.parent().attr('ct:series-name');
+			  $toolTip.html(seriesName + '<br>' + value).show();
+			});
+
+			$chart2.on('mouseleave', '.ct-point', function() {
+			  $toolTip.hide();
+			});
+
+			$chart2.on('mousemove', function(event) {
+			  $toolTip.css({
+			    left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
+			    top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
+			  });
+			});
+
+			// Example 3
+
+			new Chartist.Line('.ct-chart3', {
+			  labels: [1, 2, 3, 4, 5],
+			  series: [
+					[28,41,33,-28,-13],
+					[67,82,50,-3,-70],
+					[33,20,44,-41,-30],
+					[13,45,27,-15,-45],
+					[35,19,27,-30,-27],
+					[12,6,4,-78,-43]
+			  ]
+			}, {
+			  showArea: true,
+			  showLine: false,
+			  showPoint: false,
+			  fullWidth: true,
+			  axisX: {
+			    showLabel: false,
+			    showGrid: false
+			  },
+				lineSmooth: Chartist.Interpolation.simple({
+			    divisor: 2
+			  })
+			});
+
+			// Bar Chart Example 1
+
+			var bc1_data = {
+			  labels: ['W1', 'W2', 'W3', 'W4', 'W5'],
+			  series: [
+					[28,41,33,28,13],
+					[67,82,50,3,70],
+					[33,20,44,41,30],
+					[13,45,27,15,45],
+					[35,19,27,30,27],
+						[28,41,33,28,13],
+						[67,82,50,3,70],
+						[33,20,44,41,30]
+			  ]
+			};
+
+			var bc1_options = {
+				seriesBarDistance: 7,
+  			horizontalBars: true,
+			  axisX: {
+			    labelInterpolationFnc: function(value, index) {
+			      return index % 2 === 0 ? value : null;
+			    }
+			  }
+			};
+
+			new Chartist.Bar('.ct-barchart', bc1_data, bc1_options);
+
+			// Bar Chart Example 2
+
+			var bc2_data = {
+			  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			  series: [
+			    [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
+			    [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+			    [2, 4, 6, 8, 4, 3, 1, 3, 5, 3, 4, 5],
+			    [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+			  ]
+			};
+
+			var bc2_options = {
+			  seriesBarDistance: 7
+			};
+
+			var bc2 = new Chartist.Bar('.ct-barchart2', bc2_data, bc2_options);
+			new Chartist.Bar('.ct-barchart-theme', bc2_data, bc2_options);
+
+			// Bar Chart Example 3
+
+			new Chartist.Bar('.ct-barchart3', {
+			  labels: ['Q1', 'Q2', 'Q3', 'Q4','Y'],
+			  series: [
+				[13,45,27,15,45],
+				[35,19,27,30,27],
+				[67,82,50,3,70],
+				[33,20,44,41,30],
+				[13,45,27,15,45],
+				[35,19,27,30,27],
+				[13,45,27,15,45],
+				[35,19,27,30,27],
+				[67,82,50,3,70],
+				[33,20,44,41,30],
+				[13,45,27,15,45],
+				[35,19,27,30,27],
+				[13,45,27,15,45],
+				[35,19,27,30,27],
+				[67,82,50,3,70],
+				[33,20,44,41,30],
+				[13,45,27,15,45],
+				[35,19,27,30,27]
+			  ]
+			}, {
+			  stackBars: true,
+			  axisY: {
+			    labelInterpolationFnc: function(value) {
+			      return (value / 1000) + 'k';
+			    }
+			  }
+			}).on('draw', function(data) {
+			  if(data.type === 'bar') {
+			    data.element.attr({
+			      style: 'stroke-width: 30px'
+			    });
+			  }
+			});
+
+			// Pie Chart Example 1
+
+			var pc1_data = {
+			  series: [5, 3, 4]
+			};
+
+			var pc1_sum = function(a, b) { return a + b };
+
+			new Chartist.Pie('.ct-piechart', pc1_data, {
+			  labelInterpolationFnc: function(value) {
+			    return Math.round(value / pc1_data.series.reduce(pc1_sum) * 100) + '%';
+			  }
+			});
+
+			// Pie Chart Example 2
+
+						new Chartist.Pie('.ct-piechart2', {
+						  series: [20, 10, 30, 40]
+						}, {
+						  donut: true,
+						  donutWidth: 60,
+						  startAngle: 270,
+						  total: 200,
+						  showLabel: false
+						});
+
+
+					new Chartist.Pie('.ct-piechart-theme', {
+					  series: [20, 10, 30, 40]
+					}, {
+					  donut: true,
+					  donutWidth: 60,
+					  startAngle: 270,
+					  total: 200,
+					  showLabel: false
+					});
+
+			// Pie Chart Example 3
+
+			var pc3_chart = new Chartist.Pie('.ct-piechart3', {
+			  series: [10, 20, 50, 20, 5, 50, 15],
+			  labels: [1, 2, 3, 4, 5, 6, 7]
+			}, {
+			  donut: true,
+			  showLabel: false
+			});
+
+			pc3_chart.on('draw', function(data) {
+			  if(data.type === 'slice') {
+			    // Get the total path length in order to use for dash array animation
+			    var pathLength = data.element._node.getTotalLength();
+
+			    // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+			    data.element.attr({
+			      'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+			    });
+
+			    // Create animation definition while also assigning an ID to the animation for later sync usage
+			    var animationDefinition = {
+			      'stroke-dashoffset': {
+			        id: 'anim' + data.index,
+			        dur: 1000,
+			        from: -pathLength + 'px',
+			        to:  '0px',
+			        easing: Chartist.Svg.Easing.easeOutQuint,
+			        // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+			        fill: 'freeze'
+			      }
+			    };
+
+			    // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+			    if(data.index !== 0) {
+			      animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+			    }
+
+			    // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+			    data.element.attr({
+			      'stroke-dashoffset': -pathLength + 'px'
+			    });
+
+			    // We can't use guided mode as the animations need to rely on setting begin manually
+			    // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+			    data.element.animate(animationDefinition, false);
+			  }
+			});
+
+			// For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+			pc3_chart.on('created', function() {
+			  if(window.__anim21278907124) {
+			    clearTimeout(window.__anim21278907124);
+			    window.__anim21278907124 = null;
+			  }
+			  window.__anim21278907124 = setTimeout(pc3_chart.update.bind(pc3_chart), 10000);
+			});
+
+
+
+		</script>
+
+
+	</body>
+</html>

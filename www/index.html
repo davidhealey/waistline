@@ -17,31 +17,28 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
 <html>
     <head>
-      <!--
-      Customize this policy to fit your own app's needs. For more guidance, see:
-          https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-      Some notes:
-          * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-          * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-          * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-              * Enable inline JS: add 'unsafe-inline' to default-src
-      -->
-        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+      <!--  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
-        <link rel="stylesheet" href="css/themes/default.min.css" />
+
+        <!-- jQuery mobile theme -->
+        <link rel="stylesheet" href="css/themes/blank.css" />
         <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
-        <link rel="stylesheet" href="css/jquery.mobile.datepicker.css" />
-        <link rel="stylesheet" href="css/styles.css" />
+
+        <!-- jQuerymobile -->
         <script src="js/jquery-1.11.3.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
-        <script src="js/jquery.mobile.datepicker.js"></script>
-        <script src="js/datepicker.js"></script>
+
+        <!-- Chart JS -->
         <script src="js/Chart.bundle.min.js"></script>
+
+        <!-- My extra styles -->
+        <link rel="stylesheet" href="css/styles.css" />
         <title>Libre Diet</title>
     </head>
     <body>
@@ -58,11 +55,11 @@
           <button id="openSettings" onclick="location.href='javascript:dbHandler.readFromFile();'">Import</button>
           <button id="openSettings" onclick="location.href='javascript:dbHandler.exportToFile();'">Export</button>
         </div>
-        <div data-role="footer" class="footer">
+        <div data-role="footer" class="footer" data-position="fixed" data-tap-toggle="false">
           <div id="progress">
             <div class="calorieCount"></div>
           </div>
-          <div class="ui-grid-b" id="statusBar"> <!--3 column layout-->
+          <div class="ui-grid-b statusBar"> <!--3 column layout-->
             <div class="ui-block-a heading">Goal</div>
             <div class="ui-block-b heading">Used</div>
             <div class="ui-block-c heading">Remaining</div>
@@ -75,19 +72,17 @@
 
       <!--Diary page -->
       <div data-role="page" id="diaryPage">
-        <div data-role="header">
-          <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+          <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Diary</h1>
-          <p id="diaryDate"></p>
         </div>
         <div data-role="main" class="ui-content">
+          <div id="diaryDate"></div>
           <ul data-role="listview" id="diaryListview" data-icon="false"></ul>
         </div>
-        <div data-role="footer" class="footer" data-position="fixed">
-          <div id="progress">
-            <div class="calorieCount"></div>
-          </div>
-          <div class="ui-grid-b" id="statusBar"> <!--3 column layout-->
+        <div data-role="footer" class="footer"  data-position="fixed" data-tap-toggle="false">
+          <div class="calorieCount"></div>
+          <div class="ui-grid-b statusBar"> <!--3 column layout-->
             <div class="ui-block-a heading">Goal</div>
             <div class="ui-block-b heading">Food</div>
             <div class="ui-block-c heading">Remaining</div>
@@ -111,19 +106,18 @@
       <!--Diary Item View/Edit Page-->
       <div data-role="page" id="editDiaryItemPage">
         <div data-role="header">
-          <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
-          <h1></h1>
-          <p id="caloriesPerPortion"></p>
-          <a href="javascript:editDiaryItemFormAction();" class="ui-btn ui-icon-check ui-btn-icon-notext ui-corner-all"></a>
+          <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <h1>Edit Diary Entry</h1>
         </div>
         <div data-role="main" class="ui-content">
-          <form onsubmit="return false;" id="editDiaryItemForm">
+          <h3 id="diaryItemName"></h3>
+            <form onsubmit="editDiaryItemFormAction(); return false;" id="editDiaryItemForm">
             <input type="hidden" id="id"> <!--The ID of the diary entry being edited-->
             <input type="hidden" id="calories">
-            <label for="quantity">Quantity</label>
+            <label id="caloriesDisplayLabel" for="caloriesDisplay">Calories</label>
+            <p id="caloriesDisplay"></p>
+            <label for="quantity">Number of Servings</label>
             <input type="number" name="quantity" id="quantity" step="any" required="true">
-            <label for="caloriesDisplay">Calories</label>
-            <label name="caloriesDisplay" id="caloriesDisplay"></label>
             <label for="category">Category</label>
             <select name="category" id="category" data-native-menu="false">
               <option value="Breakfast">Breakfast</option>
@@ -131,14 +125,15 @@
               <option value="Dinner">Dinner</option>
               <option value="Snacks">Snacks</option>
             </select>
+            <button type="submit" id="saveDiaryItem" name="saveDiaryItem">Save</button>
           </form>
         </div>
       </div>
 
       <!--Statistics page -->
       <div data-role="page" id="statsPage">
-        <div data-role="header">
-          <a href="#home" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+          <a href="#home" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Statistics</h1>
         </div>
         <div data-role="main" class="ui-content">
@@ -149,24 +144,24 @@
             <option value="6month">6 Months</option>
             <option value="12month">1 Year</option>
           </select>
-          <canvas id="weightChart" height="300" width="300"></canvas>
+          <canvas id="weightChart" height="200" width="300"></canvas>
           <ul data-role="listview" id="weightLog"></ul>
         </div>
       </div>
 
       <!--Food list page -->
       <div data-role="page" id="foodListPage">
-        <div data-role="header">
-          <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+          <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Food List</h1>
-          <a id="addFood" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all"></a>
+          <a id="addFood" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
         </div>
         <div data-role="main" class="ui-content">
           <form class="ui-filterable">
-            <input type="text" data-type="search" id="filterFoodList">
+            <input type="text" data-type="search" id="filterFoodList" placeholder="Type to search">
             <input type="hidden" id="category" value=""/>
           </form>
-          <ul data-role="listview" data-autodividers="true" id="foodListview" data-filter="true" data-input="#filterFoodList" data-split-icon="edit">
+          <ul data-role="listview" class="ui-nodisc-icon ui-alt-icon"  id="foodListview" data-filter="true" data-input="#filterFoodList" data-split-icon="edit">
           </ul>
         </div>
         <div data-role="popup" id="deleteFoodListItemPopup">
@@ -184,9 +179,9 @@
       <!--Add/Edit food page -->
       <div data-role="page" id="editFoodPage">
         <div data-role="header">
-          <a href="index.html#foodListPage" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
+          <a href="index.html#foodListPage" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Add Food</h1>
-          <a href="javascript:scan();" class="ui-btn ui-icon-eye ui-btn-icon-notext ui-corner-all"></a>
+          <a href="javascript:scan();" class="ui-btn ui-icon-camera ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
         </div>
         <div data-role="main" class="ui-content">
           <form onsubmit="addFoodFormAction(); return false;" id="editFoodForm">
@@ -194,26 +189,24 @@
             <input type="hidden" id="foodId" value="">
 
             <label for="foodName">Name of Food</label>
-            <input type="text" name="foodName" id="foodName" required="true">
+            <input type="text" name="foodName" id="foodName" required="true" placeholder="Tunnock's Teacake">
 
             <label for="foodPortion">Portion</label>
-            <input type="text" name="foodPortion" id="foodPortion" required="true">
-
-            <label for="foodQuantity">Quantity</label>
-            <input type="number" step="any" name="foodQuantity" id="foodQuantity" required="true">
+            <input type="text" name="foodPortion" id="foodPortion" required="true" placeholder="24g">
 
             <label for="foodCalories">Calories</label>
-            <input type="number" pattern="[0-9]*" name="foodCalories" id="foodCalories" required="true">
+            <input type="number" pattern="[0-9]*" name="foodCalories" id="foodCalories" required="true" placeholder="106">
 
             <button type="submit" name="saveFood">Save</button>
           </form>
+          <div id="foodImage"><img></img></div>
         </div>
       </div>
 
       <!--Settings page -->
       <div data-role="page" id="settingsPage">
         <div data-role="header">
-          <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all"></a>
+          <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Settings</h1>
         </div>
         <div data-role="main" class="ui-content">
@@ -225,11 +218,14 @@
             <label for="calorie-goal">Daily Calorie Goal</label>
             <input type="number" name="calorieGoal" id="calorieGoal">
 
+            <label for="goalIsMin">Goal is Minimum</label>
+            <input type="checkbox" name="goalIsMin" id="goalIsMin">
+
+            <label for="scanImages">Show Images of Scanned Food</label>
+            <input type="checkbox" name="scanImages" id="scanImages">
+
             <button type="submit" name="saveSettings">Save</button>
           </form>
-        </div>
-        <div data-role="footer" class="footer">
-          <h2>This is a footer</h2>
         </div>
       </div>
 

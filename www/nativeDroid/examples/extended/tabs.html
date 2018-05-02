@@ -1,0 +1,425 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>nativeDroid II - jQueryMobile Template</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="/vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="/vendor/wow/animate.css" />
+		<link rel="stylesheet" href="/css/nativedroid2.css" />
+
+				<style>
+					/* Prevent FOUC */
+					body { opacity: 0; }
+				</style>
+
+	</head>
+	<body class="clr-accent-lime">
+
+		<div data-role="page" class="nd2-no-menu-swipe">
+
+			<nd2-include data-src="/examples/fragments/panel.left.html"></nd2-include>
+
+
+			<div data-role="header" data-position="fixed" class="wow fadeIn">
+				<a href="#leftpanel" class="ui-btn ui-btn-left"><i class="zmdi zmdi-menu"></i></a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Tabs</h1>
+
+				<ul data-role="nd2tabs" data-swipe="true">
+					<li data-tab="friends">Friends</li>
+					<li data-tab="work" data-tab-active="true">Work</li>
+					<li data-tab="holiday">Holiday</li>
+					<li data-tab="colors">Colors</li>
+				</ul>
+
+			</div>
+
+			<div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+
+					<div data-role="nd2tab"
+								data-tab="friends">
+
+
+											<ul data-role="listview" data-icon="false">
+												<li data-role="list-divider">
+													Friends
+												</li>
+												<li>
+													<a href="#">
+														<img src="//lorempixel.com/150/150/people/1/" class="ui-thumbnail ui-thumbnail-circular" />
+														<h2>Ethel Chancy</h2>
+														<p>ehtel.chancy@example.com</p>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<img src="//lorempixel.com/150/150/people/2/" class="ui-thumbnail ui-thumbnail-circular" />
+														<h2>Lorean Gainer</h2>
+														<p>lorean87@mail.com</p>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<img src="//lorempixel.com/150/150/people/3/" class="ui-thumbnail ui-thumbnail-circular" />
+														<h2>Juliet Gieseke</h2>
+														<p>flowerpower69@rainbow.com</p>
+													</a>
+												</li>
+											</ul>
+
+
+					</div>
+
+					<div data-role="nd2tab"
+								data-tab="work">
+
+
+							<ul data-role="listview" data-icon="false">
+								<li data-role="list-divider">
+									Work
+								</li>
+								<li>
+									<a href="#">
+										<img src="//lorempixel.com/150/150/people/6/" class="ui-thumbnail ui-thumbnail-circular" />
+										<h2>Gale Cecil</h2>
+										<p>gale.cecil@company.com</p>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="//lorempixel.com/150/150/people/5/" class="ui-thumbnail ui-thumbnail-circular" />
+										<h2>Bernard Desrosier</h2>
+										<p>bernhard.desrosier@company.com</p>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="//lorempixel.com/150/150/people/7/" class="ui-thumbnail ui-thumbnail-circular" />
+										<h2>Emerita Scholl</h2>
+										<p>emerita.scholl@company.com</p>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="//lorempixel.com/150/150/people/8/" class="ui-thumbnail ui-thumbnail-circular" />
+										<h2>Elmer Eyer</h2>
+										<p>elmer.eyer@company.com</p>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="//lorempixel.com/150/150/people/9/" class="ui-thumbnail ui-thumbnail-circular" />
+										<h2>Shona Mckibben</h2>
+										<p>shona.mckibben@company.com</p>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="//lorempixel.com/150/150/people/10/" class="ui-thumbnail ui-thumbnail-circular" />
+										<h2>Hilma Mercer</h2>
+										<p>hilma.mercer@company.com</p>
+									</a>
+								</li>
+							</ul>
+
+					</div>
+
+					<div data-role="nd2tab"
+								data-tab="holiday">
+
+
+
+								<!-- Simple Card with Title !-->
+
+								<div class="nd2-card">
+
+									<div class="card-title has-avatar">
+										<img class="card-avatar" src="//lorempixel.com/200/200/people/9/">
+										<h3 class="card-primary-title">Power of Lavender</h3>
+										<h5 class="card-subtitle">Taken in Provence, France</h5>
+									</div>
+
+									<div class="card-media">
+										<img src="/img/examples/card_bg_2.jpg">
+									</div>
+
+									<div class="card-supporting-text has-action">
+										<strong>Lavandula</strong> (common name lavender) is a genus of 39 known species of flowering plants in the mint family, Lamiaceae. It is native to the Old World and is found from Cape Verde and the Canary Islands, southern Europe across to northern and eastern Africa, the Mediterranean, southwest Asia to southeast India.
+									</div>
+
+									<div class="card-action">
+										<div class="row between-xs">
+											<div class="col-xs-4">
+												<div class="box">
+													<a href="#" class="ui-btn ui-btn-inline ui-btn-fab"><i class='zmdi zmdi-mic'></i></a>
+													<a href="#" class="ui-btn ui-btn-inline ui-btn-fab"><i class='zmdi zmdi-videocam'></i></a>
+												</div>
+											</div>
+											<div class="col-xs-8 align-right">
+												<div class="box">
+													<a href="#" class="ui-btn ui-btn-inline">Action</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+
+								<!-- Simple Card No Media !-->
+
+								<div class="nd2-card">
+
+									<div class="card-title has-supporting-text">
+										<h3 class="card-primary-title">Biomaterial</h3>
+										<h5 class="card-subtitle">From Wikipedia, the free encyclopedia</h5>
+									</div>
+
+									<div class="card-supporting-text has-action has-title">
+										A biomaterial is any matter, surface, or construct that interacts with biological systems. As a science, biomaterials is about fifty years old. The study of biomaterials is called biomaterials science. It has experienced steady and strong growth over its history, with many companies investing large amounts of money into the development of new products.
+									</div>
+
+									<div class="card-action">
+										<div class="row between-xs">
+											<div class="col-xs-12">
+												<div class="box">
+													<a href="#" class="ui-btn ui-btn-inline">Applause</a>
+													<a href="#" class="ui-btn ui-btn-inline">Boooh</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+								<!-- Media Card with Actions !-->
+
+								<div class="nd2-card">
+
+									<div class="card-media">
+										<img src="/img/examples/card_bg_3.jpg">
+									</div>
+
+									<div class="card-action">
+										<div class="row between-xs">
+											<div class="col-xs-12 align-right">
+												<div class="box">
+													<a href="#" class="ui-btn ui-btn-inline ui-btn-fab"><i class='zmdi zmdi-favorite'></i></a>
+													<a href="#" class="ui-btn ui-btn-inline ui-btn-fab"><i class='zmdi zmdi-bookmark'></i></a>
+													<a href="#" class="ui-btn ui-btn-inline ui-btn-fab"><i class='zmdi zmdi-mail-reply zmd-flip-horizontal'></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+								<!-- Media Overlay with Background !-->
+
+								<div class="nd2-card">
+
+
+									<div class="card-media">
+										<img src="/img/examples/card_bg_2.jpg">
+
+										<div class='card-media-overlay with-background'>
+
+											<div class="card-title has-supporting-text">
+												<h3 class="card-primary-title">Power of Lavender</h3>
+												<h5 class="card-subtitle">Taken in Provence, France</h5>
+											</div>
+
+											<div class="card-action">
+												<div class="row between-xs">
+													<div class="col-xs-12">
+														<div class="box">
+															<a href="#" class="ui-btn ui-btn-inline">Action 1</a>
+															<a href="#" class="ui-btn ui-btn-inline">Action 2</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+
+
+								</div>
+
+
+					</div>
+
+					<div data-role="nd2tab"
+								data-tab="colors">
+
+								<ul data-role="listview" data-icon="false">
+									<li data-role="list-divider">Available Color Sheets</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-red ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>red</h2>
+											<p>nativedroid2.color.red.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-pink ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>pink</h2>
+											<p>nativedroid2.color.pink.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-purple ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>purple</h2>
+											<p>nativedroid2.color.purple.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-deep-purple ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>deep-purple</h2>
+											<p>nativedroid2.color.deep-purple.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-indigo ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>indigo</h2>
+											<p>nativedroid2.color.indigo.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-blue ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>blue</h2>
+											<p>nativedroid2.color.blue.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-light-blue ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>light-blue</h2>
+											<p>nativedroid2.color.light-blue.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-cyan ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>cyan</h2>
+											<p>nativedroid2.color.cyan.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-teal ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>teal</h2>
+											<p>nativedroid2.color.teal.css</p>
+										</a>
+									</li>
+
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-green ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>green</h2>
+											<p>nativedroid2.color.green.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-light-green ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>light-green</h2>
+											<p>nativedroid2.color.light-green.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-lime ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>lime</h2>
+											<p>nativedroid2.color.lime.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-yellow ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>yellow</h2>
+											<p>nativedroid2.color.yellow.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-amber ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>amber</h2>
+											<p>nativedroid2.color.amber.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-orange ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>orange</h2>
+											<p>nativedroid2.color.orange.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-deep-orange ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>deep-orange</h2>
+											<p>nativedroid2.color.deep-orange.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-brown ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>brown</h2>
+											<p>nativedroid2.color.brown.css</p>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img class="clr-bg-blue-grey ui-thumbnail ui-thumbnail-circular" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+											<h2>blue-grey</h2>
+											<p>nativedroid2.color.blue-grey.css</p>
+										</a>
+									</li>
+								</ul>
+
+												</div>
+
+			</div>
+
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+		<script src="/vendor/waves/waves.min.js"></script>
+		<script src="/vendor/wow/wow.min.js"></script>
+		<script src="/js/nativedroid2.js"></script>
+		<script src="/nd2settings.js"></script>
+
+	</body>
+</html>

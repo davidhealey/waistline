@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>nativeDroid II - jQueryMobile Template</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="/vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="/css/nativedroid2.css" />
+
+				<style>
+					/* Prevent FOUC */
+					body { opacity: 0; }
+				</style>
+
+	</head>
+	<body>
+
+		<div data-role="page">
+
+			<nd2-include data-src="/examples/fragments/panel.left.html"></nd2-include>
+
+
+			<div data-role="panel" id="bottomsheetlist" class="ui-bottom-sheet ui-bottom-sheet-list" data-animate="false" data-position='bottom' data-display="overlay">
+				<nd2-include data-src="/examples/fragments/bottom.sheet.html"></nd2-include>
+			</div>
+
+
+			<div data-role="panel" id="bottomsheetblock" class="ui-bottom-sheet" data-animate="false" data-position='bottom' data-display="overlay">
+				<nd2-include data-src="/examples/fragments/bottom.sheet.html"></nd2-include>
+			</div>
+
+
+			<div data-role="header" data-position="fixed">
+				<a href="#leftpanel" class="ui-btn ui-btn-left"><i class="zmdi zmdi-menu"></i></a>
+				<h1>Bottom Sheet</h1>
+			</div>
+
+			<div role="main" class="ui-content" data-inset="false">
+
+				<span class="nd2-title">What is a Bottom Sheet?</span>
+				<p>Bottom Sheets are like panels. But instead of coming from the left or the right they appear from the bottom.</p>
+
+				<span class="nd2-title">Two different types</span>
+				<p>A bottom Sheet can be presented as a list (items are displayed in rows) or as blocks (items are displayed in floated square-blocks)</p>
+
+				<hr />
+
+				<nd2-ad data-banner="sample.banner"></nd2-ad>
+
+				<span class="nd2-title">Demonstration</span>
+				<p>
+					<a href="#bottomsheetlist" class="ui-btn clr-btn-accent-blue ui-btn-inline"><i class='zmdi zmdi-view-list'></i> open as a list</a>
+					<a href="#bottomsheetblock" class="ui-btn clr-btn-accent-green ui-btn-inline"><i class='zmdi zmdi-view-module'></i> open as blocks</a>
+				</p>
+
+				<nd2-ad data-banner="textlinks.banner"></nd2-ad>
+
+				<span class="nd2-title">Sample-Code</span>
+				<br />
+				<span class="nd2-subhead">Default list item as blocks:</span>
+				<pre>&lt;div data-role="panel" id="bottomsheetblock" <strong>class="ui-bottom-sheet"</strong> data-animate="false" data-position='bottom' data-display="overlay"&gt;...&lt;/div&gt;</pre>
+
+				<span class="nd2-subhead">List item as list:</span>
+				<pre>&lt;div data-role="panel" id="bottomsheetblock" class="ui-bottom-sheet <strong>ui-bottom-sheet-list</strong>" data-animate="false" data-position='bottom' data-display="overlay"&gt;...&lt;/div&gt;</pre>
+
+				<span class="nd2-subhead">Bottom Sheet Content</span>
+				<pre>&lt;div class='<strong>row</strong> around-xs'&gt;
+	&lt;div class='<strong>col-xs-auto</strong>'&gt;
+		&lt;a href='#' class='<strong>ui-bottom-sheet-link</strong> ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button' data-ajax='false'&gt;
+			&lt;i class='zmdi zmdi-assignment zmd-2x'&gt;&lt;/i&gt;
+			&lt;strong&gt;Clipboard&lt;/strong&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+	&lt;div class='<strong>col-xs-auto</strong>'&gt;
+		&lt;a href='#' class='<strong>ui-bottom-sheet-link</strong> ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button' data-ajax='false'&gt;
+			&lt;i class='zmdi zmdi-fire zmd-2x'&gt;&lt;/i&gt;
+			&lt;strong&gt;Hot Stuff&lt;/strong&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+	&lt;div class='<strong>col-xs-auto</strong>'&gt;
+		&lt;a href='#' class='<strong>ui-bottom-sheet-link</strong> ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button' data-ajax='false'&gt;
+			&lt;i class='zmdi zmdi-cloud-outline-alt zmd-2x'&gt;&lt;/i&gt;
+			&lt;strong&gt;Cloud&lt;/strong&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+	&lt;div class='<strong>col-xs-auto</strong>'&gt;
+		&lt;a href='#' class='<strong>ui-bottom-sheet-link</strong> ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button' data-ajax='false'&gt;
+			&lt;i class='zmdi zmdi-format-color-fill zmd-2x'&gt;&lt;/i&gt;
+			&lt;strong&gt;Fillcolor&lt;/strong&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</pre>
+
+
+			</div>
+
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+		<script src="/vendor/waves/waves.min.js"></script>
+		<script src="/js/nativedroid2.js"></script>
+		<script src="/nd2settings.js"></script>
+
+	</body>
+</html>

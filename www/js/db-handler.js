@@ -6,7 +6,7 @@ var dbHandler =
   {
     //Open database
     var databaseName = 'libreDietDb';
-    var databaseVersion = 1;
+    var databaseVersion = 2;
     var openRequest = indexedDB.open(databaseName, databaseVersion);
 
     //Error handler

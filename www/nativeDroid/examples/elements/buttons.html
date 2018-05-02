@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>nativeDroid II - jQueryMobile Template</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="/vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="/vendor/wow/animate.css" />
+		<link rel="stylesheet" href="/css/nativedroid2.css" />
+
+				<style>
+					/* Prevent FOUC */
+					body { opacity: 0; }
+				</style>
+
+	</head>
+	<body>
+
+		<div data-role="page">
+
+			<nd2-include data-src="/examples/fragments/panel.left.html"></nd2-include>
+
+
+			<div data-role="header" data-position="fixed" class="wow fadeIn">
+				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Buttons</h1>
+			</div>
+
+
+			<div role="main" class="ui-content wow fadeIn" data-wow-delay="0.2s"  data-inset="false">
+
+
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="box">
+							<h4>Default .ui-btn</h4>
+							<hr>
+
+							<h6>Active</h6>
+							<a href="#" class="ui-btn">Anchor Link Button</a>
+							<button class="ui-btn">Button</button>
+
+							<a href="#" class="ui-btn clr-primary">Primary Button</a>
+							<a href="#" class="ui-btn clr-warning">Warning Button</a>
+
+
+							<h6>Raised (.ui-btn-raised)</h6>
+							<a href="#" class="ui-btn ui-btn-raised">Default Button Raised</a>
+							<a href="#" class="ui-btn ui-btn-raised clr-primary">Primary Button Raised</a>
+							<a href="#" class="ui-btn ui-btn-raised clr-warning">Warning Button Raised</a>
+							<a href="#" class="ui-btn ui-btn-raised ui-disabled">Raised Disabled</a>
+
+
+							<h6>Disabled</h6>
+							<a href="#" class="ui-btn ui-disabled">Anchor Link Button (.ui-disabled)</a>
+							<button class="ui-btn" disabled>Button (attribute 'disabled')</button>
+
+							<h6>.ui-btn-inline</h6>
+							<a href="#" class="ui-btn ui-btn-inline">Anchor inline</a>
+							<button class="ui-btn ui-btn-inline">Button inline</button>
+
+							<h6>.ui-mini</h6>
+							<a href="#" class="ui-btn ui-mini">Anchor mini</a>
+							<button class="ui-btn ui-mini">Button mini</button>
+
+							<h6>.ui-mini + inline</h6>
+							<a href="#" class="ui-btn ui-mini ui-btn-inline">Anchor mini inline</a>
+							<button class="ui-btn ui-mini ui-btn-inline">Button mini inline</button>
+
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="box">
+							<h4>.ui-btn with Icons</h4>
+							<hr>
+
+							<h6>Active</h6>
+							<a href="#" class="ui-btn ui-btn-icon-left"><i class='zmdi zmdi-plus'></i> add this item</a>
+							<button class="ui-btn"><i class="zmdi zmdi-delete ui-pull-left"></i> add to trash</button>
+
+							<a href="#" class="ui-btn ui-btn-icon-right"><i class='zmdi zmdi-unfold-less'></i> shrink</a>
+							<button class="ui-btn"><i class="zmdi ui-pull-right zmdi-unfold-more"></i> expand</button>
+
+							<a href="#" class="ui-btn"><i class='zmdi zmdi-folder-outline'></i> open folder</a>
+							<button class="ui-btn"><i class="zmdi zmdi-mail-send"></i> submit form</button>
+
+							<a href="#" class="ui-btn ui-btn-icon-block"><i class='zmdi zmdi-edit zmd-2x'></i>edit article</a>
+
+
+							<h6>Disabled</h6>
+
+							<a href="#" class="ui-btn ui-btn-icon-left ui-disabled"><i class='zmdi zmdi-plus'></i> add this item</a>
+							<button class="ui-btn" disabled><i class="zmdi zmdi-delete ui-pull-left"></i> add to trash</button>
+
+							<a href="#" class="ui-btn ui-btn-icon-right ui-disabled"><i class='zmdi zmdi-unfold-less'></i> shrink</a>
+							<button class="ui-btn" disabled><i class="zmdi ui-pull-right zmdi-unfold-more"></i> expand</button>
+
+							<a href="#" class="ui-btn ui-disabled"><i class='zmdi zmdi-folder-outline'></i> open folder</a>
+							<button class="ui-btn" disabled><i class="zmdi zmdi-mail-send"></i> submit form</button>
+
+							<a href="#" class="ui-btn ui-btn-icon-block ui-disabled"><i class='zmdi zmdi-edit zmd-2x'></i>edit article</a>
+
+
+							<h6>.ui-btn-inline</h6>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-icon-left"><i class='zmdi zmdi-plus'></i> add this item</a>
+							<button class="ui-btn ui-btn-inline"><i class="zmdi zmdi-delete ui-pull-left"></i> add to trash</button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-icon-right"><i class='zmdi zmdi-unfold-less'></i> shrink</a>
+							<button class="ui-btn ui-btn-inline"><i class="zmdi ui-pull-right zmdi-unfold-more"></i> expand</button>
+
+							<a href="#" class="ui-btn ui-btn-inline"><i class='zmdi zmdi-folder-outline'></i> open folder</a>
+							<button class="ui-btn ui-btn-inline"><i class="zmdi zmdi-mail-send"></i> submit form</button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-icon-block"><i class='zmdi zmdi-edit zmd-2x'></i>edit article</a>
+
+
+							<h6>.ui-mini</h6>
+
+							<a href="#" class="ui-btn ui-mini ui-btn-icon-left"><i class='zmdi zmdi-plus'></i> add this item</a>
+							<button class="ui-btn ui-mini"><i class="zmdi zmdi-delete ui-pull-left"></i> add to trash</button>
+
+							<a href="#" class="ui-btn ui-mini ui-btn-icon-right"><i class='zmdi zmdi-unfold-less'></i> shrink</a>
+							<button class="ui-btn ui-mini"><i class="zmdi ui-pull-right zmdi-unfold-more"></i> expand</button>
+
+							<a href="#" class="ui-btn ui-mini"><i class='zmdi zmdi-folder-outline'></i> open folder</a>
+							<button class="ui-btn ui-mini"><i class="zmdi zmdi-mail-send"></i> submit form</button>
+
+							<a href="#" class="ui-btn ui-mini ui-btn-icon-block"><i class='zmdi zmdi-edit zmd-2x'></i>edit article</a>
+
+							<h6>.ui-mini + inline</h6>
+
+							<a href="#" class="ui-btn ui-mini ui-btn-inline ui-btn-icon-left"><i class='zmdi zmdi-plus'></i> add this item</a>
+							<button class="ui-btn ui-mini ui-btn-inline"><i class="zmdi zmdi-delete ui-pull-left"></i> add to trash</button>
+
+							<a href="#" class="ui-btn ui-mini ui-btn-inline ui-btn-icon-right"><i class='zmdi zmdi-unfold-less'></i> shrink</a>
+							<button class="ui-btn ui-mini ui-btn-inline"><i class="zmdi ui-pull-right zmdi-unfold-more"></i> expand</button>
+
+							<a href="#" class="ui-btn ui-mini ui-btn-inline"><i class='zmdi zmdi-folder-outline'></i> open folder</a>
+							<button class="ui-btn ui-mini ui-btn-inline"><i class="zmdi zmdi-mail-send"></i> submit form</button>
+
+							<a href="#" class="ui-btn ui-mini ui-btn-inline ui-btn-icon-block"><i class='zmdi zmdi-edit zmd-2x'></i>edit article</a>
+
+
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="box">
+
+							<h4>.ui-btn only Icons</h4>
+							<hr>
+
+							<h6>Active</h6>
+
+							<a href="#" class="ui-btn ui-btn-inline"><i class='zmdi zmdi-plus zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline"><i class="zmdi zmdi-delete zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-mini"><i class='zmdi zmdi-cut zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-mini"><i class="zmdi zmdi-money zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-fab"><i class='zmdi zmdi-mic-off zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-fab"><i class="zmdi zmdi-replay zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-mini"><i class='zmdi zmdi-phone zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-fab ui-mini"><i class="zmdi zmdi-file-text zmd-2x"></i></button>
+
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-raised"><i class='zmdi zmdi-plus zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-raised"><i class="zmdi zmdi-delete zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary"><i class='zmdi zmdi-cut zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-warning"><i class="zmdi zmdi-money zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-raised clr-primary"><i class='zmdi zmdi-mic-off zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-fab ui-btn-raised clr-warning"><i class="zmdi zmdi-replay zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-mini ui-btn-raised clr-primary"><i class='zmdi zmdi-phone zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-fab ui-mini ui-btn-raised clr-warning"><i class="zmdi zmdi-file-text zmd-2x"></i></button>
+
+
+							<h6>Disabled</h6>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-disabled"><i class='zmdi zmdi-plus zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-disabled" disabled><i class="zmdi zmdi-delete zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-disabled ui-mini"><i class='zmdi zmdi-cut zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-mini ui-disabled" disabled><i class="zmdi zmdi-money zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-disabled ui-btn-fab"><i class='zmdi zmdi-mic-off zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-fab ui-disabled" disabled><i class="zmdi zmdi-replay zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-disabled ui-mini"><i class='zmdi zmdi-phone zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-fab ui-mini ui-disabled" disabled><i class="zmdi zmdi-file-text zmd-2x"></i></button>
+
+							<a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-disabled ui-mini ui-btn-raised"><i class='zmdi zmdi-phone zmd-2x'></i></a>
+							<button class="ui-btn ui-btn-inline ui-btn-fab ui-mini ui-btn-raised ui-disabled" disabled><i class="zmdi zmdi-file-text zmd-2x"></i></button>
+
+
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+		<script src="/vendor/waves/waves.min.js"></script>
+		<script src="/vendor/wow/wow.min.js"></script>
+		<script src="/js/nativedroid2.js"></script>
+		<script src="/nd2settings.js"></script>
+
+	</body>
+</html>
