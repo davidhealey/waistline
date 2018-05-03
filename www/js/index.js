@@ -568,7 +568,7 @@ function populateEditFoodForm(data)
   $('#editFoodPage #foodName').val(data.name);
   $('#editFoodPage #foodPortion').val(data.portion);
   $('#editFoodPage #foodCalories').val(data.calories);
-  if ($("#settingsPage #scanImages").is(":checked") == true) $('#editFoodPage img').attr("src", data.image_url);
+  if (app.storage.getItem("scanImages") == "true") {$('#editFoodPage img').attr("src", data.image_url);}
 
   //Only show scan button when adding a new food
   var scanButton = $("#editFoodPage .ui-icon-camera");

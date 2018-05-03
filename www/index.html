@@ -85,7 +85,7 @@
       <!--Diary page -->
       <div data-role="page" id="diaryPage">
         <div data-role="header" data-position="fixed" data-tap-toggle="false">
-          <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Diary</h1>
         </div>
         <div data-role="main" class="ui-content">
@@ -193,11 +193,10 @@
         <div data-role="header">
           <a href="index.html#foodListPage" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Add Food</h1>
-          <a href="javascript:scan();" class="ui-btn ui-icon-camera ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <a href="javascript:testscan();" class="ui-btn ui-icon-camera ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
         </div>
         <div data-role="main" class="ui-content">
           <form onsubmit="addFoodFormAction(); return false;" id="editFoodForm">
-
             <input type="hidden" id="foodId" value="">
 
             <label for="foodName">Name of Food</label>
