@@ -126,10 +126,6 @@ function changeDate(date)
 }
 
 /***** STATISTICS PAGE *****/
-$("#statsPage").on("pagecreate", function(e){
-  updateStats();
-});
-
 $("#statsPage").on("pagebeforeshow", function(){
   updateStats();
 })
@@ -148,7 +144,7 @@ function updateStats()
 {
   var range = $("#statsPage #range").val();
   var fromDate = new Date();
-  var toDate = new Date();
+  var toDate = new Date(Date.UTC(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate(), fromDate.getHours(), fromDate.getMinutes(), fromDate.getSeconds())); //JS dates are shit
 
   switch (range)
   {
