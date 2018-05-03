@@ -196,3 +196,8 @@ label, legend {
   font-size:0.9em !important;
   color:rgb(100, 100, 100) !important;
 }
+
+/*Instructions Page*/
+#guidePage p {
+  font-size: 0.9em;
+}

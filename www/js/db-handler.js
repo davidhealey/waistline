@@ -205,14 +205,14 @@ var dbHandler =
   writeToFile: function(jsonString)
   {
     //Export the json to a file
-    //window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
-    window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
     {
       console.log("got main dir",dir);
 
       //Create the file
-      //dir.getFile("database_export.json", {create:true}, function(file)
-      dir.root.getFile("database_export.json", {create:true}, function(file)  //For browser testing
+      dir.getFile("database_export.json", {create:true}, function(file)
+      //dir.root.getFile("database_export.json", {create:true}, function(file)  //For browser testing
       {
         console.log("got the file", file);
 
@@ -242,11 +242,11 @@ var dbHandler =
   {
     var jsonString;
 
-    //window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
-    window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
     {
-      //dir.getFile('database_export.json', {}, function(file)
-      dir.root.getFile('database_export.json', {}, function(file) //For browser testing
+      dir.getFile('database_export.json', {}, function(file)
+      //dir.root.getFile('database_export.json', {}, function(file) //For browser testing
       {
           file.file(function (file) {
 

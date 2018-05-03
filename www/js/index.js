@@ -28,17 +28,6 @@ var app = {
 
       this.storage = window.localStorage; //Simple storage object
       dbHandler.initializeDb(); //db-handler initialization
-
-      //Set default values for weight and calorie goal
-      if (this.storage.getItem("weight") == undefined)
-      {
-        this.storage.setItem("weight", 65);
-      }
-
-      if (this.storage.getItem("calorieGoal") == undefined)
-      {
-        this.storage.setItem("calorieGoal", 2000);
-      }
   },
 
   // deviceready Event Handler
@@ -46,6 +35,18 @@ var app = {
   // Bind any cordova events here. Common events are:
   // 'pause', 'resume', etc.
   onDeviceReady: function() {
+
+    //Set default values for weight and calorie goal
+    if (this.storage.getItem("weight") == undefined)
+    {
+      this.storage.setItem("weight", 65);
+    }
+
+    if (this.storage.getItem("calorieGoal") == undefined)
+    {
+      this.storage.setItem("calorieGoal", 2000);
+    }
+
     changeDate(app.date); //Default to current date
   },
 };
@@ -69,15 +70,15 @@ function updateProgress()
     var progressBar = $(".calorieCount");
 
     //Progress bar
-    if (app.storage.getItem("goalIsMin") == "false")
+    if (app.storage.getItem("goalIsMin") == "true")
     {
-      calories > goal ? progressBar.css("background-color", "red") : progressBar.css("background-color", "green");
-      calories > goal ? $(".statusBar .ui-block-c.stat").css("color", "red") : $(".statusBar .ui-block-c.stat").css("color", "green")
+      calories < goal ? progressBar.css("background-color", "red") : progressBar.css("background-color", "green");
+      calories < goal ? $(".statusBar .ui-block-c.stat").css("color", "red") : $(".statusBar .ui-block-c.stat").css("color", "green");
     }
     else
     {
-      calories < goal ? progressBar.css("background-color", "red") : progressBar.css("background-color", "green");
-      calories < goal ? $(".statusBar .ui-block-c.stat").css("color", "red") : $(".statusBar .ui-block-c.stat").css("color", "green")
+      calories > goal ? progressBar.css("background-color", "red") : progressBar.css("background-color", "green");
+      calories > goal ? $(".statusBar .ui-block-c.stat").css("color", "red") : $(".statusBar .ui-block-c.stat").css("color", "green");
     }
 
     progressBar.css("width", percentage+"%");
