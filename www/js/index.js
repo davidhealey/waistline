@@ -405,10 +405,12 @@ function editDiaryItemFormAction()
 $("#foodListPage").on("pagebeforeshow", function(event, ui)
 {
   var html = "";
+  var date = new Date()
+  var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are shit
 
   //Create list of food items (sorted by timestamp) and insert into HTML
   var index = dbHandler.getIndex("dateTime", "foodList"); //Get timestamp index
-  index.openCursor(IDBKeyRange.upperBound(new Date()), "prev").onsuccess = function(e)
+  index.openCursor(IDBKeyRange.upperBound(dateTime), "prev").onsuccess = function(e)
   {
     var cursor = e.target.result;
 
@@ -547,7 +549,8 @@ function addFoodFormAction()
 {
   //Get form values
   var id = parseInt($("#editFoodForm #foodId").val()); //Id is hidden field
-  var dateTime = new Date(); //Time stamp
+  var date = new Date()
+  var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are shit
   var name = $('#editFoodPage #foodName').val();
   var portion = $('#editFoodPage #foodPortion').val();
   var quantity = 1;

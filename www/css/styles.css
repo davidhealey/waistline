@@ -127,9 +127,12 @@ body  * {
   text-shadow: none;
 }
 
-.ui-checkbox {
-  margin-bottom: 2em;
+.ui-checkbox, .ui-radio {
   border:1px solid rgb(227, 227, 227) !important;
+}
+
+fieldset {
+  margin-bottom: 2em !important;
 }
 
 #editDiaryItemForm #saveDiaryItem {
@@ -189,7 +192,7 @@ li p {
 }
 
 /*Form labels*/
-label {
+label, legend {
   font-size:0.9em !important;
   color:rgb(100, 100, 100) !important;
 }

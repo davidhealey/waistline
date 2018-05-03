@@ -48,12 +48,12 @@
           <h1>Libre Diet</h1>
         </div>
         <div data-role="main" class="ui-content">
-          <button id="openDiary" onclick="location.href='index.html#diaryPage'">Diary</button>
-          <button id="openStats" onclick="location.href='index.html#statsPage'">Statistics</button>
-          <button id="openFoods" onclick="location.href='index.html#foodListPage'">Food List</button>
-          <button id="openSettings" onclick="location.href='index.html#settingsPage'">Settings</button>
-          <button id="openSettings" onclick="location.href='javascript:dbHandler.readFromFile();'">Import</button>
-          <button id="openSettings" onclick="location.href='javascript:dbHandler.exportToFile();'">Export</button>
+          <a data-role="button" id="openDiary" href="#diaryPage">Diary</a>
+          <a data-role="button" id="openStats" href="#statsPage">Statistics</a>
+          <a data-role="button" id="openFoods" href="#foodListPage">Food List</a>
+          <a data-role="button" id="openSettings" href="#settingsPage">Settings</a>
+          <a data-role="button" id="openSettings" href="#importDataPopup" data-rel="popup">Import</a>
+          <a data-role="button" id="openSettings" href="javascript:dbHandler.exportToFile();">Export</a>
         </div>
         <div data-role="footer" class="footer" data-position="fixed" data-tap-toggle="false">
           <div id="progress">
@@ -66,6 +66,18 @@
             <div class="ui-block-a stat">0</div>
             <div class="ui-block-b stat">0</div>
             <div class="ui-block-c stat">0</div>
+          </div>
+        </div>
+        <div data-role="popup" id="importDataPopup">
+          <div data-role="header">
+            <h1>Import Data</h1>
+          </div>
+          <div data-role="main" class="ui-content">
+            <p>Are you sure you want import? Doing so will overwrite your existing data.</p>
+            <form action="index.html" data-ajax="false" onsubmit="dbHandler.readFromFile();">
+              <a data-role="button" id="cancel" data-rel="back">Cancel</a>
+              <button type="submit" name="import" data-role="button">Import</button>
+            </form>
           </div>
         </div>
       </div>
@@ -206,7 +218,7 @@
       <!--Settings page -->
       <div data-role="page" id="settingsPage">
         <div data-role="header">
-          <a data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Settings</h1>
         </div>
         <div data-role="main" class="ui-content">

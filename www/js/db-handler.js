@@ -104,7 +104,7 @@ var dbHandler =
 
   getArrayFromObject:function(obj)
   {
-    //Get array of objectStoreNames
+    //Turn object into an array
     return $.map(obj, function(value, index) {
         return [value];
     });
@@ -146,7 +146,7 @@ var dbHandler =
     }
   },
 
-  importFromFile: function(jsonString)
+  importFromJson: function(jsonString)
   {
     var t = DB.transaction(DB.objectStoreNames, "readwrite"); //Get transaction
     var storeNames = dbHandler.getArrayFromObject(DB.objectStoreNames);
@@ -155,50 +155,64 @@ var dbHandler =
     //Go through each object store and add the imported data
     storeNames.forEach(function(storeName)
     {
-      //Clear each objectStore before restoring it
-      t.objectStore(storeName).clear().onsuccess = function()
+      //If there is no data to import for this object
+      if (importObject[storeName].length == 0)
       {
-        var count = 0;
-        importObject[storeName].forEach(function(toAdd)
+        delete importObject[storeName];
+      }
+      else
+      {
+        t.objectStore(storeName).clear().onsuccess = function()
         {
-          var request = t.objectStore(storeName).add(toAdd);
+          var count = 0;
 
-          request.onerror = function(e)
+          //Make sure dateTime entries are imported as date objects rather than strings
+          if (importObject[storeName][0].dateTime)
           {
-            console.log("Problem importing database. Stopped at " + storeName + " object store:", e.target.error.message);
+            importObject[storeName][0].dateTime = new Date(importObject[storeName][0].dateTime);
           }
 
-          request.onsuccess = function(e)
+          importObject[storeName].forEach(function(toAdd)
           {
-            count++;
+            var request = t.objectStore(storeName).add(toAdd);
 
-            if (count == importObject[storeName].length) //added all objects for this store
+            request.onerror = function(e)
             {
-              delete importObject[storeName];
+              console.log("Problem importing database. Stopped at " + storeName + " object store:", e.target.error.message);
+            }
 
-              if(Object.keys(importObject).length == 0) //added all object stores
+            request.onsuccess = function(e)
+            {
+              count++;
+
+              if (count == importObject[storeName].length) //added all objects for this store
               {
-               console.log("Database import success");
-               alert("Database Import Complete");
+                delete importObject[storeName];
+
+                if(Object.keys(importObject).length == 0) //added all object stores
+                {
+                 console.log("Database import success");
+                 alert("Database Import Complete");
+                }
               }
             }
-          }
-        });
-      };
+          });
+        }
+      }
     });
   },
 
   writeToFile: function(jsonString)
   {
     //Export the json to a file
-    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
-    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
+    //window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
     {
       console.log("got main dir",dir);
 
       //Create the file
-      dir.root.getFile("database_export.json", {create:true}, function(file)
-      //dir.root.getFile("database_export.json", {create:true}, function(file)  //For browser testing
+      //dir.getFile("database_export.json", {create:true}, function(file)
+      dir.root.getFile("database_export.json", {create:true}, function(file)  //For browser testing
       {
         console.log("got the file", file);
 
@@ -228,11 +242,11 @@ var dbHandler =
   {
     var jsonString;
 
-    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
-    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
+    //window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
+    window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
     {
-      dir.getFile('database_export.json', {}, function(file)
-      //dir.root.getFile('database_export.json', {}, function(file) //For browser testing
+      //dir.getFile('database_export.json', {}, function(file)
+      dir.root.getFile('database_export.json', {}, function(file) //For browser testing
       {
           file.file(function (file) {
 
@@ -243,8 +257,7 @@ var dbHandler =
             reader.onloadend = function(e) {
               jsonString = this.result;
               console.log("Successful file read: " + this.result);
-              alert("Success");
-              dbHandler.importFromFile(jsonString);
+              dbHandler.importFromJson(jsonString);
             };
 
             reader.onerror = function(e)
