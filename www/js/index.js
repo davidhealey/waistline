@@ -245,7 +245,7 @@ function populateDiary()
       //Build HTML
       html = ""; //Reset variable
       html += "<li class='diaryItem' id='"+cursor.value.id+"' category='"+cursor.value.category+"'>";
-      html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+cursor.value.name + " - " + cursor.value.portion;
+      html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
       html += "<p>"+cursor.value.quantity + " Servings, " + cursor.value.quantity * cursor.value.calories+" Calories" + "</p>";
       html += "</a>";
       html += "</li>";
@@ -346,10 +346,10 @@ $("#diaryListview").on("click", ".diaryItem a", function(e){
 
   //Populate diary item edit form
   $("#editDiaryItemPage #id").val(details.id); //Add item id to hidden field
-  $("#editDiaryItemPage #diaryItemName").html(details.name + " - " + details.portion);
-  $("#editDiaryItemPage #portion").val(details.portion);
+  $("#editDiaryItemPage #diaryItemName").html(unescape(details.name) + " - " + unescape(details.portion));
+  $("#editDiaryItemPage #portion").val(unescape(details.portion));
   $("#editDiaryItemPage #caloriesDisplay").html(details.calories * details.quantity);
-  $("#editDiaryItemPage #caloriesPerPortion").html(details.portion + " = " + details.calories + " Calories");
+  $("#editDiaryItemPage #caloriesPerPortion").html(unescape(details.portion) + " = " + details.calories + " Calories");
   $("#editDiaryItemPage #calories").val(details.calories);
   $("#editDiaryItemPage #quantity").val(details.quantity);
   $("#editDiaryItemPage #category").val(details.category);
@@ -417,7 +417,7 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
       cursor.continue();
 
       html += "<li class='foodListItem' id='"+cursor.value.id+"'>"; //Add class and ID
-      html += "<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+cursor.value.name + " - " + cursor.value.portion;
+      html += "<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
       html += "<p>" + cursor.value.calories+" Calories</p>";
       html += "</a>";
       html += "<a class='editFood' data-details='"+ JSON.stringify(cursor.value) +"'></a>";
@@ -450,8 +450,6 @@ $("#foodListview").on("click", ".addToDiary", function(e){
   var quantity = parseFloat(details.quantity);
   var calories = parseFloat(details.calories);
   var category = $("#foodListPage #category").val(); //Hidden field
-
-  console.log(dateTime);
 
   //If no category is provided, determine it based on time of day
   if (category == "")
@@ -550,8 +548,8 @@ function addFoodFormAction()
   var id = parseInt($("#editFoodForm #foodId").val()); //Id is hidden field
   var date = new Date()
   var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are shit
-  var name = $('#editFoodPage #foodName').val();
-  var portion = $('#editFoodPage #foodPortion').val();
+  var name = escape($('#editFoodPage #foodName').val());
+  var portion = escape($('#editFoodPage #foodPortion').val());
   var quantity = 1;
   var calories = parseFloat($('#editFoodPage #foodCalories').val());
 
@@ -568,14 +566,21 @@ function populateEditFoodForm(data)
 {
   //Populate the edit form with passed data
   $('#editFoodPage #foodId').val(data.id);
-  $('#editFoodPage #foodName').val(data.name);
-  $('#editFoodPage #foodPortion').val(data.portion);
   $('#editFoodPage #foodCalories').val(data.calories);
   if (app.storage.getItem("scanImages") == "true") {$('#editFoodPage img').attr("src", data.image_url);}
 
-  //Only show scan button when adding a new food
-  var scanButton = $("#editFoodPage .ui-icon-camera");
-  isNaN(data.id) == false ? scanButton.css("display", "none") : scanButton.css("display", "block");
+  if (isNaN(data.id) == true) //Editing existing item
+  {
+    $("#editFoodPage .ui-icon-camera").css("display", "block"); //Show camera icon
+    $('#editFoodPage #foodName').val("");
+    $('#editFoodPage #foodPortion').val("");
+  }
+  else //Blank form
+  {
+    $("#editFoodPage .ui-icon-camera").css("display", "none"); //Hide camera icon
+    $('#editFoodPage #foodName').val(unescape(data.name));
+    $('#editFoodPage #foodPortion').val(unescape(data.portion));
+  }
 }
 
 //For scanning barcodes
@@ -631,7 +636,7 @@ function processBarcodeResponse(request)
       //Get the data for the add food form
       var product = result.product;
 
-      var data = {"name":product.product_name, "quantity":1, "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url};
+      var data = {"name":escape(product.product_name), "quantity":1, "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url};
 
       //Get best match for portion/serving size
       if (product.serving_size)
@@ -653,6 +658,8 @@ function processBarcodeResponse(request)
       {
         data.calories = parseInt(data.calories / 4.15);
       }
+
+      escape(data.portion);
 
       populateEditFoodForm(data);
     }
