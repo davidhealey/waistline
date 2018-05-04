@@ -5,8 +5,8 @@ var dbHandler =
   initializeDb: function()
   {
     //Open database
-    var databaseName = 'libreDietDb';
-    var databaseVersion = 2;
+    var databaseName = 'waistlineDb';
+    var databaseVersion = 1;
     var openRequest = indexedDB.open(databaseName, databaseVersion);
 
     //Error handler

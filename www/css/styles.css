@@ -28,9 +28,9 @@ input:invalid {
   width: 50% !important;
 }
 
-/*Font*/
+/*Fonts*/
 @font-face {
-  font-family: 'RobotoRegular';
+  font-family:'RobotoRegular';
   src: url('font/Material-Design-Iconic-Font.eot');
   src: url('font/Material-Design-Iconic-Font.eot?#iefix') format('embedded-opentype'),
        url('font/Material-Design-Iconic-Font.woff') format('woff'),

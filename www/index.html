@@ -20,7 +20,7 @@
 
 <html>
     <head>
-      <!--  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
+        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
@@ -39,13 +39,13 @@
 
         <!-- My extra styles -->
         <link rel="stylesheet" href="css/styles.css" />
-        <title>Libre Diet</title>
+        <title>Waistline</title>
     </head>
     <body>
       <!--Home page -->
       <div data-role="page" id="home">
         <div data-role="header">
-          <h1>Libre Diet</h1>
+          <h1>Waistline</h1>
         </div>
         <div data-role="main" class="ui-content">
           <a data-role="button" id="openDiary" href="#diaryPage">Diary</a>
@@ -87,6 +87,7 @@
       <div data-role="page" id="diaryPage">
         <div data-role="header" data-position="fixed" data-tap-toggle="false">
           <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <a href="index.html"></a>
           <h1>Diary</h1>
         </div>
         <div data-role="main" class="ui-content">
@@ -165,7 +166,7 @@
       <!--Food list page -->
       <div data-role="page" id="foodListPage">
         <div data-role="header" data-position="fixed" data-tap-toggle="false">
-          <a href="index.html" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <a href="" data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Food List</h1>
           <a id="addFood" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
         </div>
@@ -192,7 +193,7 @@
       <!--Add/Edit food page -->
       <div data-role="page" id="editFoodPage">
         <div data-role="header">
-          <a href="index.html#foodListPage" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <a href="" data-rel="back" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Add Food</h1>
           <a href="javascript:testscan();" class="ui-btn ui-icon-camera ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
         </div>
@@ -305,7 +306,7 @@
           <p>This is great because it means you are in charge of your data and no-one can access it remotely. The only downside is your data won't be backed up to the cloud (someone else's computer)
             so when you move on to a new device your data won't automatically be available.</p>
           <p>This is where the export button is useful. Tapping this button will export all of your data (diary, food list, and weight log) to a simple text file. This file is called database_export.json. You will find this file
-          on your device in a location similar to "Android/data/com.app.name/files/" (where com.app.name is the name of this app).</p>
+          on your device in a location similar to "Android/data/com.waist.line/files/".</p>
           <p>This is a private folder that can't be accessed by other apps so it's nice and secure but a little bit inconvenient to find.</p>
           <p>Once you have this file you can install the app on your new device and move the exported file to the same location on the new device. Then you can import the data into the app.</p>
 
@@ -314,7 +315,7 @@
           <p>To import data put the database_export.json file in the correct location on your device (see Export). Then tap the Import button.</p>
 
           <p>-David Healey 2018</p>
-          
+
         </div>
       </div>
 

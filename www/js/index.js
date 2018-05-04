@@ -529,6 +529,7 @@ $("#deleteFoodListItemPopup button").click(function(){
 //Bind on click to food item's editFood links in the listview
 $("#foodListview").on("click", ".editFood", function(e){
   var details = $(this).data("details");
+  details.image_url = ""; //Reset image URL
   $("#editFoodPage h1").text("Edit Food"); //Change page title
   populateEditFoodForm(details);
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage", {'details': details}); //Pass data to edit food page
@@ -537,7 +538,7 @@ $("#foodListview").on("click", ".editFood", function(e){
 //Bind on click to food item's addFood to diary link
 $("#foodListPage").on("click", "#addFood", function(e){
   $("#editFoodPage h1").text("Add Food"); //Change page title
-  populateEditFoodForm({"quantity":1}); //Clear the edit form - default quantity = 1
+  populateEditFoodForm({"quantity":1, "image_url":""}); //Clear the edit form - default quantity = 1
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage"); //Go to edit food page
 });
 
