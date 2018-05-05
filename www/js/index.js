@@ -246,7 +246,14 @@ function populateDiary()
       html = ""; //Reset variable
       html += "<li class='diaryItem' id='"+cursor.value.id+"' category='"+cursor.value.category+"'>";
       html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
-      html += "<p>"+cursor.value.quantity + " Servings, " + cursor.value.quantity * cursor.value.calories+" Calories" + "</p>";
+      if (cursor.value.quantity == 1)
+      {
+        html += "<p>"+cursor.value.quantity + " Serving, " + cursor.value.quantity * cursor.value.calories+" Calories" + "</p>";
+      }
+      else
+      {
+        html += "<p>"+cursor.value.quantity + " Servings, " + cursor.value.quantity * cursor.value.calories+" Calories" + "</p>";
+      }
       html += "</a>";
       html += "</li>";
 
