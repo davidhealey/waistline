@@ -195,11 +195,12 @@
         <div data-role="header">
           <a href="#foodListPage" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
           <h1>Add Food</h1>
-          <a href="javascript:scan();" class="ui-btn ui-icon-camera ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
+          <a href="javascript:testscan();" class="ui-btn ui-icon-camera ui-btn-icon-notext ui-corner-all ui-nodisc-icon"></a>
         </div>
         <div data-role="main" class="ui-content">
           <form onsubmit="addFoodFormAction(); return false;" id="editFoodForm">
             <input type="hidden" id="foodId" value="">
+            <input type="hidden" id="barcode" value="">
 
             <label for="foodName">Name of Food</label>
             <input type="text" name="foodName" id="foodName" required="true" placeholder="Tunnock's Teacake">

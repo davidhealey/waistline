@@ -545,15 +545,16 @@ $("#foodListPage").on("click", "#addFood", function(e){
 function addFoodFormAction()
 {
   //Get form values
-  var id = parseInt($("#editFoodForm #foodId").val()); //Id is hidden field
+  var id = parseInt($("#editFoodForm #foodId").val()); //ID is hidden field
   var date = new Date()
   var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are shit
   var name = escape($('#editFoodPage #foodName').val());
   var portion = escape($('#editFoodPage #foodPortion').val());
   var quantity = 1;
   var calories = parseFloat($('#editFoodPage #foodCalories').val());
+  var barcode = $("#editFoodForm #barcode").val(); //Barcode is hidden field
 
-  var data = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":quantity, "calories":calories};
+  var data = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "barcode":barcode};
 
   if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
@@ -565,21 +566,22 @@ function addFoodFormAction()
 function populateEditFoodForm(data)
 {
   //Populate the edit form with passed data
-  $('#editFoodPage #foodId').val(data.id);
-  $('#editFoodPage #foodCalories').val(data.calories);
-  if (app.storage.getItem("scanImages") == "true") {$('#editFoodPage img').attr("src", data.image_url);}
+  $('#editFoodForm #foodId').val(data.id);
+  $('#editFoodForm #foodCalories').val(data.calories);
+  $('#editFoodForm #barcode').val(data.barcode);
+  if (app.storage.getItem("scanImages") == "true") {$('#editFoodPage #foodImage img').attr("src", data.image_url);}
 
-  if (isNaN(data.id) == true) //Editing existing item
+  if (isNaN(data.id) == true && data.barcode == undefined) //New food
   {
-    $("#editFoodPage .ui-icon-camera").css("display", "block"); //Show camera icon
-    $('#editFoodPage #foodName').val("");
-    $('#editFoodPage #foodPortion').val("");
+    $("#editFoodForm .ui-icon-camera").css("display", "block"); //Show camera icon
+    $('#editFoodForm #foodName').val("");
+    $('#editFoodForm #foodPortion').val("");
   }
-  else //Blank form
+  else //Edit existing food
   {
-    $("#editFoodPage .ui-icon-camera").css("display", "none"); //Hide camera icon
-    $('#editFoodPage #foodName').val(unescape(data.name));
-    $('#editFoodPage #foodPortion').val(unescape(data.portion));
+    $("#editFoodForm .ui-icon-camera").css("display", "none"); //Hide camera icon
+    $('#editFoodForm #foodName').val(unescape(data.name));
+    $('#editFoodForm #foodPortion').val(unescape(data.portion));
   }
 }
 
@@ -636,7 +638,7 @@ function processBarcodeResponse(request)
       //Get the data for the add food form
       var product = result.product;
 
-      var data = {"name":escape(product.product_name), "quantity":1, "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url};
+      var data = {"name":escape(product.product_name), "quantity":1, "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url, "barcode":result.code};
 
       //Get best match for portion/serving size
       if (product.serving_size)

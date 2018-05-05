@@ -25,7 +25,7 @@ var dbHandler =
   {
     //Open database
     var databaseName = 'waistlineDb';
-    var databaseVersion = 1;
+    var databaseVersion = 2;
     var openRequest = indexedDB.open(databaseName, databaseVersion);
 
     //Error handler
@@ -62,6 +62,7 @@ var dbHandler =
         store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
         store.createIndex('quantity', 'quantity', {unique:false}); //Default quantity
         store.createIndex('calories', 'calories', {unique:false}); //Calories in portion
+        store.createIndex('barcode', 'barcode', {unique:false}); //Calories in portion
 
         //Diary Store - a kind of mini food list, independent of the main food list
         var store = DB.createObjectStore('diary', {keyPath:'id', autoIncrement:true});
