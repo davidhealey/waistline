@@ -573,13 +573,13 @@ function populateEditFoodForm(data)
 
   if (isNaN(data.id) == true && data.barcode == undefined) //New food
   {
-    $("#editFoodForm .ui-icon-camera").css("display", "block"); //Show camera icon
+    $("#editFoodPage .ui-icon-camera").css("display", "block"); //Show camera icon
     $('#editFoodForm #foodName').val("");
     $('#editFoodForm #foodPortion').val("");
   }
   else //Edit existing food
   {
-    $("#editFoodForm .ui-icon-camera").css("display", "none"); //Hide camera icon
+    $("#editFoodPage .ui-icon-camera").css("display", "none"); //Hide camera icon
     $('#editFoodForm #foodName').val(unescape(data.name));
     $('#editFoodForm #foodPortion').val(unescape(data.portion));
   }
