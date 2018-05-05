@@ -352,7 +352,7 @@ $("#diaryListview").on("click", ".diaryItem a", function(e){
   $("#editDiaryItemPage #caloriesPerPortion").html(unescape(details.portion) + " = " + details.calories + " Calories");
   $("#editDiaryItemPage #calories").val(details.calories);
   $("#editDiaryItemPage #quantity").val(details.quantity);
-  $("#editDiaryItemPage #category").val(details.category);
+  $("#editDiaryItemPage #category").val(details.category).change();
 
   $(":mobile-pagecontainer").pagecontainer("change", "#editDiaryItemPage"); //Go to edit food page
 });
