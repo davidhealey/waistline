@@ -633,37 +633,51 @@ function processBarcodeResponse(request)
     {
       alert("Product not found. You can add it with the Open Food Facts app");
     }
-    else if (result.status == 1) //Product found
+    else
     {
-      //Get the data for the add food form
-      var product = result.product;
+      //First check if the product has already been added to the food list - to avoid duplicates
+      var index = dbHandler.getIndex("barcode", "foodList");
+      var request = index.count(result.code);
 
-      var data = {"name":escape(product.product_name), "quantity":1, "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url, "barcode":result.code};
-
-      //Get best match for portion/serving size
-      if (product.serving_size)
+      request.onsuccess = function(e)
       {
-        data.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
-        data.calories = parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(product.serving_size)); //Get calories for portion
-      }
-      else if (product.nutrition_data_per)
-      {
-        data.portion = product.nutrition_data_per;
-      }
-      else if (product.quantity)
-      {
-        data.portion = product.quantity;
-      }
+        if (e.target.result > 0)
+        {
+          alert("This product is already is already in your food list.");
+        }
+        else //Product is not in the db yet so we can add it now
+        {
+          //Get the data for the add food form
+          var product = result.product;
 
-      //If energy is given in kJ convert to kcal
-      if (product.nutriments.energy_unit == "kJ")
-      {
-        data.calories = parseInt(data.calories / 4.15);
+          var data = {"name":escape(product.product_name), "quantity":1, "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url, "barcode":result.code};
+
+          //Get best match for portion/serving size
+          if (product.serving_size)
+          {
+            data.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
+            data.calories = parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(product.serving_size)); //Get calories for portion
+          }
+          else if (product.nutrition_data_per)
+          {
+            data.portion = product.nutrition_data_per;
+          }
+          else if (product.quantity)
+          {
+            data.portion = product.quantity;
+          }
+
+          //If energy is given in kJ convert to kcal
+          if (product.nutriments.energy_unit == "kJ")
+          {
+            data.calories = parseInt(data.calories / 4.15);
+          }
+
+          escape(data.portion);
+
+          populateEditFoodForm(data);
+        }
       }
-
-      escape(data.portion);
-
-      populateEditFoodForm(data);
     }
   }
 }
