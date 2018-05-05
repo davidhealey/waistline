@@ -25,13 +25,13 @@ var dbHandler =
   {
     //Open database
     var databaseName = 'waistlineDb';
-    var databaseVersion = 2;
+    var databaseVersion = 7;
     var openRequest = indexedDB.open(databaseName, databaseVersion);
 
     //Error handler
     openRequest.onerror = function(e)
     {
-        console.log(openRequest.errorCode);
+        console.log("Error Opening DB", e);
     };
 
     //Success handler
@@ -44,35 +44,51 @@ var dbHandler =
     //Only called when version number changed (or new database created)
     openRequest.onupgradeneeded = function(e)
     {
-        var DB = e.target.result;
+        DB = e.target.result;
+        var store;
 
-        DB.onerror = function () {console.log(DB.errorCode);};
+        var upgradeTransaction = e.target.transaction;
 
         //Log store
-        var store = DB.createObjectStore('log', {keyPath:'dateTime'}); //Date object - should always be set to midnight - one entry per day
-        store.createIndex('calories', 'calories', {unique:false}); //Calories consumed for the date
-        store.createIndex('calorieGoal', 'calorieGoal', {unique:false}); //Target calories for the day
-        store.createIndex('caloriesLeft', 'caloriesLeft', {unique:false}); //Calories remaining - calorieGoal-calories
-        store.createIndex('weight', 'weight', {unique:false}); //Current weight
+        if (!DB.objectStoreNames.contains("log")) {
+          store = DB.createObjectStore("log", {keyPath:'dateTime'});
+        } else {
+          store = upgradeTransaction.objectStore('log');
+        }
+
+        if (!store.indexNames.contains("calories")) store.createIndex('calories', 'calories', {unique:false}); //Calories consumed for the date
+        if (!store.indexNames.contains("calorieGoal")) store.createIndex('calorieGoal', 'calorieGoal', {unique:false}); //Target calories for the day
+        if (!store.indexNames.contains("caloriesLeft")) store.createIndex('caloriesLeft', 'caloriesLeft', {unique:false}); //Calories remaining - calorieGoal-calories
+        if (!store.indexNames.contains("weight")) store.createIndex('weight', 'weight', {unique:false}); //Current weight
 
         //Food list store
-        var store = DB.createObjectStore('foodList', {keyPath:'id', autoIncrement:true});
-        store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
-        store.createIndex('name', 'name', {unique:false});
-        store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
-        store.createIndex('quantity', 'quantity', {unique:false}); //Default quantity
-        store.createIndex('calories', 'calories', {unique:false}); //Calories in portion
-        store.createIndex('barcode', 'barcode', {unique:false}); //Calories in portion
+        if (!DB.objectStoreNames.contains("foodList")) {
+          store = DB.createObjectStore('foodList', {keyPath:'id', autoIncrement:true});
+        } else {
+          store = upgradeTransaction.objectStore('foodList');
+        }
+
+        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
+        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
+        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
+        if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //Default quantity
+        if (!store.indexNames.contains("calories")) store.createIndex('calories', 'calories', {unique:false}); //Calories in portion
+        if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {unique:false}); //Calories in portion
 
         //Diary Store - a kind of mini food list, independent of the main food list
-        var store = DB.createObjectStore('diary', {keyPath:'id', autoIncrement:true});
-        store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object
-        store.createIndex('name', 'name', {unique:false});
-        store.createIndex('portion', 'portion', {unique:false});
-        store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
-        store.createIndex('calories', 'calories', {unique:false}); //Calories in the portion
-        store.createIndex('category', 'category', {unique:false}); //Breakfast, lunch dinner, etc..
-        store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - useful for some stuff
+        if (!DB.objectStoreNames.contains("diary")) {
+          store = DB.createObjectStore('diary', {keyPath:'id', autoIncrement:true});
+        } else {
+          store = upgradeTransaction.objectStore('diary');
+        }
+
+        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object
+        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
+        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false});
+        if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
+        if (!store.indexNames.contains("calories")) store.createIndex('calories', 'calories', {unique:false}); //Calories in the portion
+        if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Breakfast, lunch dinner, etc..
+        if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - useful for some stuff
 
         console.log("DB Created/Updated");
     };
