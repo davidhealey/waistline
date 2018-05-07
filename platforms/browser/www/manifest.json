@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Waistline",
+  "short_name": "Waistline",
+  "version": "com.waist.line",
+  "description": "A libre calorie counter including a barcode scanner linked to the Open Food Facts database.",
+  "author": "David Healey",
+  "icons": [],
+  "start_url": "index.html"
+}
