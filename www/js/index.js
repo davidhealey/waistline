@@ -291,7 +291,7 @@ function populateDiary()
 }
 
 //When the date on the diary page is clicked, go to the current date
-$("#diaryPage #diaryDate").on("click", function(e){
+$("#diaryPage #diaryDate").on("tap", function(e){
   var date = new Date();
   changeDate(date);
   populateDiary();
@@ -302,7 +302,7 @@ $("#diaryPage").on("pagebeforeshow", function(e){
 });
 
 //Bind diary category items
-$("#diaryPage").on("click", ".diaryDivider", function(e){
+$("#diaryPage").on("tap", ".diaryDivider", function(e){
   $("#foodListPage #category").val($(this).attr("id")); //Set hidden field on food list page
   $(":mobile-pagecontainer").pagecontainer("change", "#foodListPage");
 });
@@ -348,7 +348,7 @@ $("#deleteDiaryListItemPopup button").click(function(){
 });
 
 //Bind on click to diary list item link to open edit page
-$("#diaryListview").on("click", ".diaryItem a", function(e){
+$("#diaryListview").on("tap", ".diaryItem a", function(e){
   var details = $(this).data("details");
 
   //Populate diary item edit form
@@ -445,7 +445,7 @@ $("#foodListPage").on("pagehide", function(e){
 });
 
 //Bind on click to food item's addToDiary links in the listview
-$("#foodListview").on("click", ".addToDiary", function(e){
+$("#foodListview").on("tap", ".addToDiary", function(e){
 
   var details = $(this).data("details");
 
@@ -533,7 +533,7 @@ $("#deleteFoodListItemPopup button").click(function(){
 });
 
 //Bind on click to food item's editFood links in the listview
-$("#foodListview").on("click", ".editFood", function(e){
+$("#foodListview").on("tap", ".editFood", function(e){
   var details = $(this).data("details");
   details.image_url = ""; //Reset image URL
   $("#editFoodPage h1").text("Edit Food"); //Change page title
@@ -542,7 +542,7 @@ $("#foodListview").on("click", ".editFood", function(e){
 });
 
 //Bind on click to food item's addFood to diary link
-$("#foodListPage").on("click", "#addFood", function(e){
+$("#foodListPage").on("tap", "#addFood", function(e){
   $("#editFoodPage h1").text("Add Food"); //Change page title
   populateEditFoodForm({"quantity":1, "image_url":""}); //Clear the edit form - default quantity = 1
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage"); //Go to edit food page
