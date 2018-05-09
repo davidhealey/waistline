@@ -164,7 +164,7 @@ function updateStats()
   var calories = [];
   var html = "";
 
-  os.openCursor(IDBKeyRange.bound(fromDate, toDate), "prev").onsuccess = function(e)
+  os.openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
   {
     var cursor = e.target.result;
     if (cursor)
@@ -174,11 +174,12 @@ function updateStats()
       calories.push(cursor.value.calories);
 
       //Build list view
-      html += "<li>" + cursor.value.dateTime.toLocaleDateString();
+      html = "<li>" + cursor.value.dateTime.toLocaleDateString();
       html += "<p>" + cursor.value.weight + " kg</p>";
       html += "<p>" + Math.round(cursor.value.calories) + " Calories</p>";
       html += "</li>";
 
+      $('#weightLog').prepend(html); //Add items to list in reverse orer
       cursor.continue();
     }
     else
@@ -206,7 +207,6 @@ function updateStats()
       });
 
       //Populate listview
-      $("#weightLog").html(html); //Insert into HTML
       $("#weightLog").listview("refresh");
     }
   };
