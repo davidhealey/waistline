@@ -198,23 +198,24 @@ var dbHandler =
       }
       else
       {
-        t.objectStore(storeName).clear().onsuccess = function()
+        t.objectStore(storeName).clear().onsuccess = function() //Clear object store
         {
           var count = 0;
 
-          //Make sure dateTime entries are imported as date objects rather than strings
-          if (importObject[storeName][0].dateTime)
-          {
-            importObject[storeName][0].dateTime = new Date(importObject[storeName][0].dateTime);
-          }
-
           importObject[storeName].forEach(function(toAdd)
           {
+            //Make sure dateTime entries are imported as date objects rather than strings
+            if (toAdd.dateTime)
+            {
+              toAdd.dateTime = new Date(toAdd.dateTime);
+            }
+
             var request = t.objectStore(storeName).add(toAdd);
 
             request.onerror = function(e)
             {
               console.log("Problem importing database. Stopped at " + storeName + " object store:", e.target.error.message);
+              alert("Something went wrong, are you sure the file exists?");
             }
 
             request.onsuccess = function(e)
@@ -247,10 +248,10 @@ var dbHandler =
       console.log("got main dir",dir);
 
       //Create the file
-      dir.getFile("database_export.json", {create:true}, function(file)
-      //dir.root.getFile("database_export.json", {create:true}, function(file)  //For browser testing
+      dir.getFile("waistline_export.json", {create:true}, function(file)
+      //dir.root.getFile("waistline_export.json", {create:true}, function(file)  //For browser testing
       {
-        console.log("got the file", file);
+        console.log("got the file", file.isFile.toString());
 
         //Write to the file - overwrite existing content
         file.createWriter(function(fileWriter)
@@ -278,36 +279,47 @@ var dbHandler =
   {
     var jsonString;
 
-    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
-    //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
+    console.log("Called read from file");
+
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, success, fail);
+    //window.requestFileSystem(PERSISTENT, 1024*1024, success, fail); //For browser testing
+
+    function fail(e)
     {
-      dir.getFile('database_export.json', {}, function(file)
-      //dir.root.getFile('database_export.json', {}, function(file) //For browser testing
+      console.log("FileSystem Error", e);
+      alert("Something went wrong, are you sure the file exists?");
+      return false;
+    }
+
+    function success(dir)
+    {
+      console.log("Got file system");
+
+      dir.getFile('waistline_export.json', {}, function(file)
+      //dir.root.getFile('waistline_export.json', {}, function(file) //For browser testing
       {
-          file.file(function (file) {
+        console.log("Got the file", file.isFile.toString());
 
-            var reader = new FileReader();
+        file.file(function (file)
+        {
+          var reader = new FileReader();
 
-            reader.readAsText(file);
+          reader.readAsText(file);
 
-            reader.onloadend = function(e) {
-              jsonString = this.result;
-              console.log("Successful file read: " + this.result);
-              dbHandler.importFromJson(jsonString);
-            };
+          reader.onloadend = function(e)
+          {
+            jsonString = this.result;
+            console.log("Successful file read: ", this.result);
+            dbHandler.importFromJson(jsonString);
+          };
 
-            reader.onerror = function(e)
-            {
-              console.log("Read Error: " + e);
-            };
-          });
-      },
-      function(e)
-      {
-        console.log("File Error: " + e.code);
-        alert("No datafile found. Import Aborted");
-        return false;
+          reader.onerror = function(e)
+          {
+            console.log("Read Error:", e);
+            alert("Something went wrong, are you sure the file exists?");
+          };
+        });
       });
-    });
+    }
   },
 }

@@ -75,7 +75,7 @@
           </div>
           <div data-role="main" class="ui-content">
             <p>Are you sure you want to import? Doing so will overwrite your existing data.</p>
-            <form action="index.html" data-ajax="false" onsubmit="dbHandler.readFromFile();">
+            <form onsubmit="dbHandler.readFromFile();">
               <a data-role="button" id="cancel" data-rel="back">Cancel</a>
               <button type="submit" name="import" data-role="button">Import</button>
             </form>
@@ -306,14 +306,14 @@
           <p>All of the data you enter into this app is kept locally on your device. The only time any information is sent from this app to the internet is when you scan a barcode.</p>
           <p>This is great because it means you are in charge of your data and no-one can access it remotely. The only downside is your data won't be backed up to the cloud (someone else's computer)
             so when you move on to a new device your data won't automatically be available.</p>
-          <p>This is where the export button is useful. Tapping this button will export all of your data (diary, food list, and weight log) to a simple text file. This file is called database_export.json. You will find this file
+          <p>This is where the export button is useful. Tapping this button will export all of your data (diary, food list, and weight log) to a simple text file. This file is called waistline_export.json. You will find this file
           on your device in a location similar to "Android/data/com.waist.line/files/".</p>
           <p>This is a private folder that can't be accessed by other apps so it's nice and secure but a little bit inconvenient to find.</p>
           <p>Once you have this file you can install the app on your new device and move the exported file to the same location on the new device. Then you can import the data into the app.</p>
 
           <h3>Import</h3>
           <p>Warning!!!! Importing data will overwrite all of your existing data. The only time you'll need to do this is when moving to a new device or restoring data you have backed up.</p>
-          <p>To import data put the database_export.json file in the correct location on your device (see Export). Then tap the Import button.</p>
+          <p>To import data put the waistline_export.json file in the correct location on your device (see Export). Then tap the Import button.</p>
 
           <h3>License</h3>
           <p>This app was built using the Cordova framework which is available under the Apache license. Also included are jQuerymobile and ChartJS which are under the MIT license.

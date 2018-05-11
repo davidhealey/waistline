@@ -66,7 +66,7 @@ function getDateAtMidnight(date)
 function updateProgress()
 {
     var goal = parseFloat(app.storage.getItem("calorieGoal"));
-    var calories = parseFloat(app.caloriesConsumed);
+    var calories = Math.round(parseFloat(app.caloriesConsumed));
     var percentage = Math.min(100, calories * 100 / goal);
     var progressBar = $(".calorieCount");
 
@@ -164,7 +164,7 @@ function updateStats()
   var calories = [];
   var html = "";
 
-  os.openCursor(IDBKeyRange.bound(fromDate, toDate), "prev").onsuccess = function(e)
+  os.openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
   {
     var cursor = e.target.result;
     if (cursor)
@@ -174,10 +174,12 @@ function updateStats()
       calories.push(cursor.value.calories);
 
       //Build list view
-      html += "<li>" + cursor.value.dateTime.toLocaleDateString();
+      html = "<li>" + cursor.value.dateTime.toLocaleDateString();
       html += "<p>" + cursor.value.weight + " kg</p>";
-      html += "<p>" + cursor.value.calories + " Calories</p>";
+      html += "<p>" + Math.round(cursor.value.calories) + " Calories</p>";
       html += "</li>";
+
+      $('#weightLog').prepend(html); //Add items to list in reverse orer
 
       cursor.continue();
     }
@@ -206,7 +208,6 @@ function updateStats()
       });
 
       //Populate listview
-      $("#weightLog").html(html); //Insert into HTML
       $("#weightLog").listview("refresh");
     }
   };
@@ -242,17 +243,19 @@ function populateDiary()
     var cursor = e.target.result;
     if (cursor)
     {
+      var calories = cursor.value.calories;
+
       //Build HTML
       html = ""; //Reset variable
       html += "<li class='diaryItem' id='"+cursor.value.id+"' category='"+cursor.value.category+"'>";
       html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
       if (cursor.value.quantity == 1)
       {
-        html += "<p>"+cursor.value.quantity + " Serving, " + cursor.value.quantity * cursor.value.calories+" Calories" + "</p>";
+        html += "<p>"+cursor.value.quantity + " Serving, " + Math.round(cursor.value.quantity * cursor.value.calories) + " Calories" + "</p>";
       }
       else
       {
-        html += "<p>"+cursor.value.quantity + " Servings, " + cursor.value.quantity * cursor.value.calories+" Calories" + "</p>";
+        html += "<p>"+cursor.value.quantity + " Servings, " + Math.round(cursor.value.quantity * cursor.value.calories) + " Calories" + "</p>";
       }
       html += "</a>";
       html += "</li>";
@@ -261,19 +264,19 @@ function populateDiary()
       {
         case "Breakfast":
           list.breakfast += html;
-          calorieCount.breakfast += cursor.value.calories * cursor.value.quantity;
+          calorieCount.breakfast += Math.round(cursor.value.calories * cursor.value.quantity);
           break;
         case "Lunch":
           list.lunch += html;
-          calorieCount.lunch += cursor.value.calories * cursor.value.quantity;
+          calorieCount.lunch += Math.round(cursor.value.calories * cursor.value.quantity);
           break;
         case "Dinner":
           list.dinner += html;
-          calorieCount.dinner += cursor.value.calories * cursor.value.quantity;
+          calorieCount.dinner += Math.round(cursor.value.calories * cursor.value.quantity);
           break;
         default: //Snacks
           list.snacks += html;
-          calorieCount.snacks += cursor.value.calories * cursor.value.quantity;
+          calorieCount.snacks += Math.round(cursor.value.calories * cursor.value.quantity);
         break;
       }
       cursor.continue();
@@ -291,7 +294,7 @@ function populateDiary()
 }
 
 //When the date on the diary page is clicked, go to the current date
-$("#diaryPage #diaryDate").on("click", function(e){
+$("#diaryPage #diaryDate").on("tap", function(e){
   var date = new Date();
   changeDate(date);
   populateDiary();
@@ -302,7 +305,7 @@ $("#diaryPage").on("pagebeforeshow", function(e){
 });
 
 //Bind diary category items
-$("#diaryPage").on("click", ".diaryDivider", function(e){
+$("#diaryPage").on("tap", ".diaryDivider", function(e){
   $("#foodListPage #category").val($(this).attr("id")); //Set hidden field on food list page
   $(":mobile-pagecontainer").pagecontainer("change", "#foodListPage");
 });
@@ -348,14 +351,14 @@ $("#deleteDiaryListItemPopup button").click(function(){
 });
 
 //Bind on click to diary list item link to open edit page
-$("#diaryListview").on("click", ".diaryItem a", function(e){
+$("#diaryListview").on("tap", ".diaryItem a", function(e){
   var details = $(this).data("details");
 
   //Populate diary item edit form
   $("#editDiaryItemPage #id").val(details.id); //Add item id to hidden field
   $("#editDiaryItemPage #diaryItemName").html(unescape(details.name) + " - " + unescape(details.portion));
   $("#editDiaryItemPage #portion").val(unescape(details.portion));
-  $("#editDiaryItemPage #caloriesDisplay").html(details.calories * details.quantity);
+  $("#editDiaryItemPage #caloriesDisplay").html(Math.round(details.calories * details.quantity));
   $("#editDiaryItemPage #caloriesPerPortion").html(unescape(details.portion) + " = " + details.calories + " Calories");
   $("#editDiaryItemPage #calories").val(details.calories);
   $("#editDiaryItemPage #quantity").val(details.quantity);
@@ -369,7 +372,7 @@ $("#editDiaryItemForm #quantity").on("change paste keyup", function(e){
   var calories = $("#editDiaryItemForm #calories").val(); //Pull calories from hidden field
   var quantity = $("#editDiaryItemForm #quantity").val();
 
-  $("#editDiaryItemPage #caloriesDisplay").text(parseFloat(calories * quantity)); //Update calories display
+  $("#editDiaryItemPage #caloriesDisplay").text(Math.round(calories * quantity)); //Update calories display
 });
 
 function editDiaryItemFormAction()
@@ -425,7 +428,7 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
 
       html += "<li class='foodListItem' id='"+cursor.value.id+"'>"; //Add class and ID
       html += "<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
-      html += "<p>" + cursor.value.calories+" Calories</p>";
+      html += "<p>" + Math.round(cursor.value.calories) + " Calories</p>";
       html += "</a>";
       html += "<a class='editFood' data-details='"+ JSON.stringify(cursor.value) +"'></a>";
       html += "</li>";
@@ -445,7 +448,7 @@ $("#foodListPage").on("pagehide", function(e){
 });
 
 //Bind on click to food item's addToDiary links in the listview
-$("#foodListview").on("click", ".addToDiary", function(e){
+$("#foodListview").on("tap", ".addToDiary", function(e){
 
   var details = $(this).data("details");
 
@@ -533,7 +536,7 @@ $("#deleteFoodListItemPopup button").click(function(){
 });
 
 //Bind on click to food item's editFood links in the listview
-$("#foodListview").on("click", ".editFood", function(e){
+$("#foodListview").on("tap", ".editFood", function(e){
   var details = $(this).data("details");
   details.image_url = ""; //Reset image URL
   $("#editFoodPage h1").text("Edit Food"); //Change page title
@@ -542,7 +545,7 @@ $("#foodListview").on("click", ".editFood", function(e){
 });
 
 //Bind on click to food item's addFood to diary link
-$("#foodListPage").on("click", "#addFood", function(e){
+$("#foodListPage").on("tap", "#addFood", function(e){
   $("#editFoodPage h1").text("Add Food"); //Change page title
   populateEditFoodForm({"quantity":1, "image_url":""}); //Clear the edit form - default quantity = 1
   $(":mobile-pagecontainer").pagecontainer("change", "#editFoodPage"); //Go to edit food page
@@ -704,7 +707,7 @@ $("#settingsPage").on("pagebeforeshow", function(event, ui)
 function saveUserSettings()
 {
   app.storage.setItem("weight", $('#settingsPage #weight').val());
-  app.storage.setItem("calorieGoal", $('#settingsPage #calorieGoal').val());
+  app.storage.setItem("calorieGoal", Math.round($('#settingsPage #calorieGoal').val()));
   app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
   app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
 
