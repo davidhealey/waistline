@@ -7,5 +7,5 @@
   "description": "A libre calorie counter including a barcode scanner linked to the Open Food Facts database.",
   "author": "David Healey",
   "icons": [],
-  "start_url": "index.html"
+  "start_url": "browser-sync-start.html"
 }

@@ -4,10 +4,11 @@ var open_url = require('openurl');
 
 var argv = require('yargs')
     .usage('Usage: $0 --port [num] <options>')
+    .env(true)
     .option('h', {
         alias: 'host',
         describe: 'Upstream server providing forwarding',
-        default: 'http://localtunnel.me'
+        default: 'https://localtunnel.me',
     })
     .option('s', {
         alias: 'subdomain',
@@ -25,7 +26,11 @@ var argv = require('yargs')
         alias: 'port',
         describe: 'Internal http server port',
     })
+    .option('print-requests', {
+        describe: 'Print basic request info',
+    })
     .require('port')
+    .boolean('print-requests')
     .help('help', 'Show this help and exit')
     .version(require('../package').version)
     .argv;
@@ -43,6 +48,8 @@ var opt = {
     subdomain: argv.subdomain,
 };
 
+const PrintRequests = argv['print-requests'];
+
 lt_client(opt.port, opt, function(err, tunnel) {
     if (err) {
         throw err;
@@ -57,6 +64,12 @@ lt_client(opt.port, opt, function(err, tunnel) {
     tunnel.on('error', function(err) {
         throw err;
     });
+
+    if (PrintRequests) {
+        tunnel.on('request', function(info) {
+            console.log(new Date().toString(), info.method, info.path);
+        });
+    }
 });
 
 // vim: ft=javascript

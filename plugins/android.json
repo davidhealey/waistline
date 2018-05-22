@@ -7,21 +7,24 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "com.waist.line"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.waist.line"
+    },
     "cordova-plugin-indexeddb-async": {
-      "PACKAGE_NAME": "com.libre.diet"
+      "PACKAGE_NAME": "com.waist.line"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.waist.line"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.libre.diet"
+      "PACKAGE_NAME": "com.waist.line"
     },
     "phonegap-plugin-barcodescanner": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "com.libre.diet"
-    },
-    "cordova-plugin-browsersync": {
-      "PACKAGE_NAME": "com.libre.diet"
-    },
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.libre.diet"
+      "PACKAGE_NAME": "com.waist.line"
     }
   },
   "dependent_plugins": {}

@@ -22,13 +22,16 @@ var app = {
   storage:{}, //Local storage
   date: new Date(), //Diary date selected by user
   caloriesConsumed:0, //Calories consumed for selected date
+  strings: {},
 
   // Application Constructor
   initialize: function() {
-      document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-
-      this.storage = window.localStorage; //Simple storage object
-      dbHandler.initializeDb(); //db-handler initialization
+    $(document).ready(function()
+    {
+      document.addEventListener('deviceready', app.onDeviceReady.bind(app), false);
+    });
+    this.storage = window.localStorage; //Simple storage object
+    dbHandler.initializeDb(); //db-handler initialization
   },
 
   // deviceready Event Handler
@@ -36,6 +39,13 @@ var app = {
   // Bind any cordova events here. Common events are:
   // 'pause', 'resume', etc.
   onDeviceReady: function() {
+    //Localisation
+    var opts = {};
+    opts.callback = function(data, defaultCallback) {
+      defaultCallback(data);
+      app.strings = $.localize.data["locales/locale"];
+    }
+    $("[data-localize]").localize("locales/locale", opts)
 
     //Set default values for weight and calorie goal
     if (this.storage.getItem("weight") == undefined)
@@ -176,7 +186,7 @@ function updateStats()
       //Build list view
       html = "<li>" + cursor.value.dateTime.toLocaleDateString();
       html += "<p>" + cursor.value.weight + " kg</p>";
-      html += "<p>" + Math.round(cursor.value.calories) + " Calories</p>";
+      html += "<p>" + Math.round(cursor.value.calories) + " " + app.strings["calories"] + "</p>";
       html += "</li>";
 
       $('#weightLog').prepend(html); //Add items to list in reverse orer
@@ -196,13 +206,13 @@ function updateStats()
           {
             label:"Weight (kg)",
             data: weights,
-            backgroundColor: "rgba(255,13,0,0.4)"
+            backgroundColor: "rgba(255,13,0,0.4)",
+            hidden:true
           },
           {
             label:"Calories (kcal)",
             data: calories,
-            backgroundColor: "rgba(255,153,0,0.4)",
-            hidden:true
+            backgroundColor: "rgba(255,153,0,0.4)"
           }]
         }
       });
@@ -230,10 +240,10 @@ function populateDiary()
 
   //Strings of html for each category - prepopulated with category dividers
   var list = {
-    breakfast:"<li class='diaryDivider' id='Breakfast' data-role='list-divider'>Breakfast<span></span></li>",
-    lunch:"<li class='diaryDivider' id='Lunch' data-role='list-divider'>Lunch<span></span></li>",
-    dinner:"<li class='diaryDivider' id='Dinner' data-role='list-divider'>Dinner<span></span></li>",
-    snacks:"<li class='diaryDivider' id='Snacks' data-role='list-divider'>Snacks<span></span></li>"
+    breakfast:"<li class='diaryDivider' id='Breakfast' data-role='list-divider'><i>"+app.strings['breakfast']+"</i><span></span></li>",
+    lunch:"<li class='diaryDivider' id='Lunch' data-role='list-divider'><i>"+app.strings['lunch']+"</i><span></span></li>",
+    dinner:"<li class='diaryDivider' id='Dinner' data-role='list-divider'><i>"+app.strings['dinner']+"</i><span></span></li>",
+    snacks:"<li class='diaryDivider' id='Snacks' data-role='list-divider'><i>"+app.strings['snacks']+"</i><span></span></li>"
   };
 
   var calorieCount = {"breakfast":0, "lunch":0, "dinner":0, "snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
@@ -251,11 +261,11 @@ function populateDiary()
       html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
       if (cursor.value.quantity == 1)
       {
-        html += "<p>"+cursor.value.quantity + " Serving, " + Math.round(cursor.value.quantity * cursor.value.calories) + " Calories" + "</p>";
+        html += "<p>"+cursor.value.quantity + " " + app.strings['serving'] + ", " + Math.round(cursor.value.quantity * cursor.value.calories) + " " + app.strings['calories'] + "</p>";
       }
       else
       {
-        html += "<p>"+cursor.value.quantity + " Servings, " + Math.round(cursor.value.quantity * cursor.value.calories) + " Calories" + "</p>";
+        html += "<p>"+cursor.value.quantity + " " + app.strings['servings'] + ", " + Math.round(cursor.value.quantity * cursor.value.calories) + " " + app.strings['calories'] + "</p>";
       }
       html += "</a>";
       html += "</li>";
@@ -284,10 +294,10 @@ function populateDiary()
     else
     {
       $("#diaryListview").html(list.breakfast + list.lunch + list.dinner + list.snacks); //Insert into HTML
-      $("#diaryListview #Breakfast span").html(" - " + calorieCount.breakfast + " Calories");
-      $("#diaryListview #Lunch span").html(" - " + calorieCount.lunch + " Calories");
-      $("#diaryListview #Dinner span").html(" - " + calorieCount.dinner + " Calories");
-      $("#diaryListview #Snacks span").html(" - " + calorieCount.snacks + " Calories");
+      $("#diaryListview #Breakfast span").html(" - " + calorieCount.breakfast + " " + app.strings['calories']);
+      $("#diaryListview #Lunch span").html(" - " + calorieCount.lunch + " " + app.strings['calories']);
+      $("#diaryListview #Dinner span").html(" - " + calorieCount.dinner + " " + app.strings['calories']);
+      $("#diaryListview #Snacks span").html(" - " + calorieCount.snacks + " " + app.strings['calories']);
       $("#diaryListview").listview("refresh");
     }
   };
@@ -428,7 +438,7 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
 
       html += "<li class='foodListItem' id='"+cursor.value.id+"'>"; //Add class and ID
       html += "<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
-      html += "<p>" + Math.round(cursor.value.calories) + " Calories</p>";
+      html += "<p>" + Math.round(cursor.value.calories) + " " + app.strings["calories"] + "</p>";
       html += "</a>";
       html += "<a class='editFood' data-details='"+ JSON.stringify(cursor.value) +"'></a>";
       html += "</li>";

@@ -60,7 +60,7 @@ DomHandler.prototype.onclosetag = function(){
 	
 	var elem = this._tagStack.pop();
 
-	if(this._options.withEndIndices){
+	if(this._options.withEndIndices && elem){
 		elem.endIndex = this._parser.endIndex;
 	}
 

@@ -291,6 +291,8 @@ will not automatically prune your node modules when installing.</p>
 node source code so that npm can compile native modules.</p>
 <p>The <code>--only={prod[uction]|dev[elopment]}</code> argument will cause either only
 <code>devDependencies</code> or only non-<code>devDependencies</code> to be installed regardless of the <code>NODE_ENV</code>.</p>
+<p>The <code>--no-audit</code> argument can be used to disable sending of audit reports to
+the configured registries.  See <code><a href="../cli/npm-audit.html">npm-audit(1)</a></code> for details on what is sent.</p>
 <p>See <code><a href="../misc/npm-config.html">npm-config(7)</a></code>.  Many of the configuration params have some
 effect on installation, since that&#39;s most of what npm does.</p>
 <h2 id="algorithm">ALGORITHM</h2>
@@ -349,6 +351,7 @@ affects a real use-case, it will be investigated.</p>
 <ul>
 <li><a href="../files/npm-folders.html">npm-folders(5)</a></li>
 <li><a href="../cli/npm-update.html">npm-update(1)</a></li>
+<li><a href="../cli/npm-audit.html">npm-audit(1)</a></li>
 <li><a href="../cli/npm-link.html">npm-link(1)</a></li>
 <li><a href="../cli/npm-rebuild.html">npm-rebuild(1)</a></li>
 <li><a href="../misc/npm-scripts.html">npm-scripts(7)</a></li>
@@ -374,5 +377,5 @@ affects a real use-case, it will be investigated.</p>
 <tr><td style="width:60px;height:10px;background:rgb(237,127,127)" colspan=6>&nbsp;</td><td colspan=10 style="width:10px;height:10px;background:rgb(237,127,127)">&nbsp;</td></tr>
 <tr><td colspan=5 style="width:50px;height:10px;background:#fff">&nbsp;</td><td style="width:40px;height:10px;background:rgb(237,127,127)" colspan=4>&nbsp;</td><td style="width:90px;height:10px;background:#fff" colspan=9>&nbsp;</td></tr>
 </table>
-<p id="footer">npm-install &mdash; npm@5.8.0</p>
+<p id="footer">npm-install &mdash; npm@5.10.0</p>
 

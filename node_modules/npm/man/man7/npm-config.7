@@ -1,4 +1,4 @@
-.TH "NPM\-CONFIG" "7" "March 2018" "" ""
+.TH "NPM\-CONFIG" "7" "May 2018" "" ""
 .SH "NAME"
 \fBnpm-config\fR \- More than you probably want to know about npm configuration
 .SH DESCRIPTION
@@ -211,6 +211,18 @@ Type: String
 .P
 When "dev" or "development" and running local \fBnpm shrinkwrap\fP,
 \fBnpm outdated\fP, or \fBnpm update\fP, is an alias for \fB\-\-dev\fP\|\.
+.SS audit
+.RS 0
+.IP \(bu 2
+Default: true
+.IP \(bu 2
+Type: Boolean
+
+.RE
+.P
+When "true" submit audit reports alongside \fBnpm install\fP runs to the default
+registry and all registries configured for scopes\.  See the documentation
+for npm help audit for details on what is submitted\.
 .SS auth\-type
 .RS 0
 .IP \(bu 2

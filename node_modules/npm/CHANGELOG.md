@@ -1,3 +1,433 @@
+## v5.10.0 (2018-05-10):
+
+### AUDIT SHOULDN'T WAIT FOREVER
+
+This will likely be reduced further with the goal that the audit process
+shouldn't noticibly slow down your builds regardless of your network
+situation.
+
+* [`3dcc240db`](https://github.com/npm/npm/commit/3dcc240dba5258532990534f1bd8a25d1698b0bf)
+  Timeout audit requests eventually.
+  ([@iarna](https://github.com/iarna))
+
+
+## v5.10.0-next.1 (2018-05-07):
+
+### EXTENDED `npm init` SCAFFOLDING
+
+Thanks to the wonderful efforts of [@jdalton](https://github.com/jdalton) of
+lodash fame, `npm init` can now be used to invoke custom scaffolding tools!
+
+You can now do things like `npm init react-app` or `npm init esm` to scaffold an
+npm package by running `create-react-app` and `create-esm`, respectively. This
+also adds an `npm create` alias, to correspond to Yarn's `yarn create` feature,
+which inspired this.
+
+* [`adc009ed4`](https://github.com/npm/npm/commit/adc009ed4114ed1e692f8ef15123af6040615cee)
+  [`f363edd04`](https://github.com/npm/npm/commit/f363edd04f474fa64e4d97228c0b2a7858f21e7c)
+  [`f03b45fb2`](https://github.com/npm/npm/commit/f03b45fb217df066c3cb7715f9c0469d84e5aa8e)
+  [`13adcbb52`](https://github.com/npm/npm/commit/13adcbb527fb8214e5f2233706c6b72ce072f3fa)
+  [#20303](https://github.com/npm/npm/pull/20303)
+  [#20372](https://github.com/npm/npm/pull/20372)
+  Add an `npm init` feature that calls out to `npx` when invoked with positional
+  arguments.  ([@jdalton](https://github.com/jdalton))
+
+### DEPENDENCY AUDITING
+
+This version of npm adds a new command, `npm audit`, which will run a security
+audit of your project's dependency tree and notify you about any actions you may
+need to take.
+
+The registry-side services required for this command to work will be available
+on the main npm registry in the coming weeks. Until then, you won't get much out
+of trying to use this on the CLI.
+
+As part of this change, the npm CLI now sends scrubbed and cryptographically
+anonymized metadata about your dependency tree to your configured registry, to
+allow notifying you about the existence of critical security flaws. For details
+about how the CLI protects your privacy when it shares this metadata, see `npm
+help audit`, or [read the docs for `npm audit`
+online](https://github.com/npm/npm/blob/release-next/doc/cli/npm-audit.md). You
+can disable this altogether by doing `npm config set audit false`, but will no
+longer benefit from the service.
+
+* [`c81dfb91b`](https://github.com/npm/npm/commit/c81dfb91bc031f1f979fc200bb66718a7e8e1551)
+  `npm-registry-fetch@1.1.1`
+  ([@iarna](https://github.com/iarna))
+* [`b096f44a9`](https://github.com/npm/npm/commit/b096f44a96d185c45305b9b6a5f26d3ccbbf759d)
+  `npm-audit-report@1.0.9`
+  ([@iarna](https://github.com/iarna))
+* [`43b20b204`](https://github.com/npm/npm/commit/43b20b204ff9a86319350988d6774397b7da4593)
+  [#20389](https://github.com/npm/npm/pull/20389)
+  Add new `npm audit` command.
+  ([@iarna](https://github.com/iarna))
+* [`49ddb3f56`](https://github.com/npm/npm/commit/49ddb3f5669e90785217a639f936f4e38390eea2)
+  [#20389](https://github.com/npm/npm/pull/20389)
+  Temporarily suppress git metadata till there's an opt-in.
+  ([@iarna](https://github.com/iarna))
+* [`5f1129c4b`](https://github.com/npm/npm/commit/5f1129c4b072172c72cf9cff501885e2c11998ea)
+  [#20389](https://github.com/npm/npm/pull/20389)
+  Document the new command.
+  ([@iarna](https://github.com/iarna))
+* [`9a07b379d`](https://github.com/npm/npm/commit/9a07b379d24d089687867ca34df6e1e6189c72f1)
+  [#20389](https://github.com/npm/npm/pull/20389)
+  Default audit to off when running the npm test suite itself.
+  ([@iarna](https://github.com/iarna))
+* [`a6e2f1284`](https://github.com/npm/npm/commit/a6e2f12849b84709d89b3dc4f096e8c6f7db7ebb)
+  Make sure we hide stream errors on background audit submissions. Previously some classes
+  of error could end up being displayed (harmlessly) during installs.
+  ([@iarna](https://github.com/iarna))
+* [`aadbf3f46`](https://github.com/npm/npm/commit/aadbf3f4695e75b236ee502cbe41e51aec318dc3)
+  Include session and scope in requests (as we do in other requests to the registry).
+  ([@iarna](https://github.com/iarna))
+* [`7d43ddf63`](https://github.com/npm/npm/commit/7d43ddf6366d3bfc18ea9ccef8c7b8e43d3b79f5)
+  Exit with non-zero status when vulnerabilities are found. So you can have `npm audit` as a test or prepublish step!
+  ([@iarna](https://github.com/iarna))
+* [`bc3fc55fa`](https://github.com/npm/npm/commit/bc3fc55fae648da8efaf1be5b86078f0f736282e)
+  Verify lockfile integrity before running. You'd get an error either way, but this way it's
+  faster and can give you more concrete instructions on how to fix it.
+  ([@iarna](https://github.com/iarna))
+* [`2ac8edd42`](https://github.com/npm/npm/commit/2ac8edd4248f2393b35896f0300b530e7666bb0e)
+  Refuse to run in global mode. Audits require a lockfile and globals don't have one. Yet.
+  ([@iarna](https://github.com/iarna))
+
+### CTRL-C OUT DURING PACKAGE EXTRACTION AS MUCH AS YOU WANT!
+
+* [`663d8b5e5`](https://github.com/npm/npm/commit/663d8b5e5427c2243149d2dd6968faa117e9db3f)
+  [npm/lockfile#29](https://github.com/npm/lockfile/pull/29)
+  `lockfile@1.0.4`:
+  Switches to `signal-exit` to detect abnormal exits and remove locks.
+  ([@Redsandro](https://github.com/Redsandro))
+
+### SHRONKWRAPS AND LACKFILES
+
+If a published modules had legacy `npm-shrinkwrap.json` we were saving
+ordinary registry dependencies (`name@version`) to your `package-lock.json`
+as `https://` URLs instead of versions.
+
+* [`36f998411`](https://github.com/npm/npm/commit/36f9984113e39d7b190010a2d0694ee025924dcb)
+  When saving the lock-file compute how the dependency is being required instead of using
+  `_resolved` in the `package.json`.  This fixes the bug that was converting
+  registry dependencies into `https://` dependencies.
+  ([@iarna](https://github.com/iarna))
+* [`113e1a3af`](https://github.com/npm/npm/commit/113e1a3af2f487c753b8871d51924682283c89fc)
+  When encountering a `https://` URL in our lockfiles that point at our default registry, extract
+  the version and use them as registry dependencies.  This lets us heal
+  `package-lock.json` files produced by 6.0.0
+  ([@iarna](https://github.com/iarna))
+
+### MORE `package-lock.json` FORMAT CHANGES?!
+
+* [`074502916`](https://github.com/npm/npm/commit/0745029168dfdfee0d1823137550e6ebccf741a5)
+  [#20384](https://github.com/npm/npm/pull/20384)
+  Add `from` field back into package-lock for git dependencies. This will give
+  npm the information it needs to figure out whether git deps are valid,
+  specially when running with legacy install metadata or in
+  `--package-lock-only` mode when there's no `node_modules`. This should help
+  remove a significant amount of git-related churn on the lock-file.
+  ([@zkat](https://github.com/zkat))
+
+### DOCUMENTATION IMPROVEMENTS
+
+* [`e0235ebb6`](https://github.com/npm/npm/commit/e0235ebb6e560f0114b8babedb6949385ab9bd57)
+  [#20384](https://github.com/npm/npm/pull/20384)
+  Update the lock-file spec doc to mention that we now generate the from field for `git`-type dependencies.
+  ([@watilde](https://github.com/watilde))
+* [`35de04676`](https://github.com/npm/npm/commit/35de04676a567ef11e1dd031d566231021d8aff2)
+  [#20408](https://github.com/npm/npm/pull/20408)
+  Describe what the colors in outdated mean.
+  ([@teameh](https://github.com/teameh))
+
+### BUGFIXES
+
+* [`1b535cb9d`](https://github.com/npm/npm/commit/1b535cb9d4a556840aeab2682cc8973495c9919a)
+  [#20358](https://github.com/npm/npm/pull/20358)
+  `npm install-test` (aka `npm it`) will no longer generate `package-lock.json`
+  when running with `--no-package-lock` or `package-lock=false`.
+  ([@raymondfeng](https://github.com/raymondfeng))
+* [`268f7ac50`](https://github.com/npm/npm/commit/268f7ac508cda352d61df63a2ae7148c54bdff7c)
+  [`5f84ebdb6`](https://github.com/npm/npm/commit/5f84ebdb66e35486d1dec1ca29e9ba0e4c5b6d5f)
+  [`c12e61431`](https://github.com/npm/npm/commit/c12e61431ecf4f77e56dc8aa55c41d5d7eeaacad)
+  [#20390](https://github.com/npm/npm/pull/20390)
+  Fix a scenario where a git dependency had a comittish associated with it
+  that was not a complete commitid.  `npm` would never consider that entry
+  in the `package.json` as matching the entry in the `package-lock.json` and
+  this resulted in inappropriate pruning or reinstallation of git
+  dependencies.  This has been addressed in two ways, first, the addition of the
+  `from` field as described in [#20384](https://github.com/npm/npm/pull/20384) means
+  we can exactly match the `package.json`. Second, when that's missing (when working with
+  older `package-lock.json` files), we assume that the match is ok.  (If
+  it's not, we'll fix it up when a real installation is done.)
+  ([@iarna](https://github.com/iarna))
+
+### DOCS
+
+* [`7b13bf5e3`](https://github.com/npm/npm/commit/7b13bf5e373e2ae2466ecaa3fd6dcba67a97f462)
+  [#20331](https://github.com/npm/npm/pull/20331)
+  Fix broken link to 'private-modules' page. The redirect went away when the new
+  npm website went up, but the new URL is better anyway.
+  ([@vipranarayan14](https://github.com/vipranarayan14))
+* [`1c4ffddce`](https://github.com/npm/npm/commit/1c4ffddce05c25ef51e254dfc6a9a97e03c711ce)
+  [#20279](https://github.com/npm/npm/pull/20279)
+  Document the `--if-present` option for `npm run-script`.
+  ([@aleclarson](https://github.com/aleclarson))
+
+### DEPENDENCY UPDATES
+
+* [`815d91ce0`](https://github.com/npm/npm/commit/815d91ce0e8044775e884c1dab93052da57f6650)
+  `libnpx@10.2.0`
+  ([@zkat](https://github.com/zkat))
+* [`02715f19f`](https://github.com/npm/npm/commit/02715f19fbcdecec8990b92fc60b1a022c59613b)
+  `update-notifier@2.5.0`
+  ([@alexccl](https://github.com/alexccl))
+* [`08c4ddd9e`](https://github.com/npm/npm/commit/08c4ddd9eb560aa6408a1bb1c1d2d9aa6ba46ba0)
+  `tar@4.4.2`
+  ([@isaacs](https://github.com/isaacs))
+* [`53718cb12`](https://github.com/npm/npm/commit/53718cb126956851850839b4d7d3041d4e9a80d0)
+  `tap@11.1.4`
+  ([@isaacs](https://github.com/isaacs))
+* [`0a20cf546`](https://github.com/npm/npm/commit/0a20cf546a246ac12b5fe2b6235ffb8649336ec4)
+  `safe-buffer@5.1.2`
+  ([@feross](https://github.com/feross))
+* [`e8c8e844c`](https://github.com/npm/npm/commit/e8c8e844c194351fe2d65cf3af79ef318bbc8bec)
+  `retry@0.12.0`
+  ([@tim-kos](https://github.com/tim-kos))
+* [`76c7f21bd`](https://github.com/npm/npm/commit/76c7f21bd04407d529edc4a76deaa85a2d6b6e6f)
+  `read-package-tree@5.2.1`
+  ([@zkat](https://github.com/zkat))
+* [`c8b0aa07b`](https://github.com/npm/npm/commit/c8b0aa07b34a0b0f8bc85154da75d9fb458eb504)
+  `query-string@6.1.0`
+  ([@sindresorhus](https://github.com/sindresorhus))
+* [`abfd366b4`](https://github.com/npm/npm/commit/abfd366b4709325f954f2b1ee5bd475330aab828)
+  `npm-package-arg@6.1.0`
+  ([@zkat](https://github.com/zkat))
+* [`bd29baf83`](https://github.com/npm/npm/commit/bd29baf834c3e16a9b3d7b60cdb4f462889800bf)
+  `lock-verify@2.0.2`
+  ([@iarna](https://github.com/iarna))
+
+## v5.10.0-next.0 (2018-04-12):
+
+### NEW FEATURES
+
+* [`32ec2f54b`](https://github.com/npm/npm/commit/32ec2f54b2ad7370f2fd17e6e2fbbb2487c81266)
+  [#20257](https://github.com/npm/npm/pull/20257)
+  Add shasum and integrity to the new `npm view` output.
+  ([@zkat](https://github.com/zkat))
+* [`a22153be2`](https://github.com/npm/npm/commit/a22153be239dfd99d87a1a1c7d2c3700db0bebf3)
+  [#20126](https://github.com/npm/npm/pull/20126)
+  Add `npm cit` command that's equivalent of `npm ci && npm t` that's equivalent of `npm it`.
+  ([@SimenB](https://github.com/SimenB))
+
+### BUG FIXES
+
+* [`089aeaf44`](https://github.com/npm/npm/commit/089aeaf4479f286b1ce62716c6442382ff0f2150)
+  Fix a bug where OTPs passed in via the commandline would have leading
+  zeros deleted resulted in authentication failures.
+  ([@iarna](https://github.com/iarna))
+* [`6eaa860ea`](https://github.com/npm/npm/commit/6eaa860ead3222a6dbd6d370b4271e7bf242b30b)
+  Eliminate direct use of `new Buffer` in `npm`. While the use of it in `npm` was safe, there 
+  are two other reasons for this change:
+
+  1. Node 10 emits warnings about its use.
+  2. Users who require npm as a library (which they definitely should not do)
+  can call the functions that call `new Buffer` in unsafe ways, if they try
+  really hard.
+
+  ([@iarna](https://github.com/iarna))
+
+* [`85900a294`](https://github.com/npm/npm/commit/85900a2944fed14bc8f59c48856fb797faaafedc)
+  Starting with 5.8.0 the `requires` section of the lock-file saved version ranges instead of
+  specific versions. Due to a bug, further actions on the same lock-file would result in the
+  range being switched back to a version. This corrects that, keeping ranges when they appear.
+  ([@iarna](https://github.com/iarna))
+* [`0dffa9c2a`](https://github.com/npm/npm/commit/0dffa9c2ae20b669f65c8e596dafd63e52248250)
+  [`609d6f6e1`](https://github.com/npm/npm/commit/609d6f6e1b39330b64ca4677a531819f2143a283)
+  [`08f81aa94`](https://github.com/npm/npm/commit/08f81aa94171987a8e1b71a87034e7b028bb9fc7)
+  [`f8b76e076`](https://github.com/npm/npm/commit/f8b76e0764b606e2c129cbaa66e48ac6a3ebdf8a)
+  [`6d609822d`](https://github.com/npm/npm/commit/6d609822d00da7ab8bd05c24ec4925094ecaef53)
+  [`59d080a22`](https://github.com/npm/npm/commit/59d080a22f7314a8e4df6e4f85c84777c1e4be42)
+  Restore the ability to bundle dependencies that are uninstallable from the
+  registry.  This also eliminates needless registry lookups for bundled
+  dependencies.
+
+  Fixed a bug where attempting to install a dependency that is bundled
+  inside another module without reinstalling that module would result in
+  ENOENT errors.
+  ([@iarna](https://github.com/iarna))
+* [`db846c2d5`](https://github.com/npm/npm/commit/db846c2d57399f277829036f9d96cd767088097e)
+  [#20029](https://github.com/npm/npm/pull/20029)
+  Allow packages with non-registry specifiers to follow the fast path that
+  the we use with the lock-file for registry specifiers. This will improve install time
+  especially when operating only on the package-lock (`--package-lock-only`).
+  ([@zkat](https://github.com/zkat))
+
+  Fix the a bug where `npm i --only=prod` could remove development
+  dependencies from lock-file.
+  ([@iarna](https://github.com/iarna))
+* [`3e12d2407`](https://github.com/npm/npm/commit/3e12d2407446661d3dd226b03a2b6055b7932140)
+  [#20122](https://github.com/npm/npm/pull/20122)
+  Improve the update-notifier messaging (borrowing ideas from pnpm) and
+  eliminate false positives.
+  ([@zkat](https://github.com/zkat))
+* [`f18be9b39`](https://github.com/npm/npm/commit/f18be9b39888d05c7f98946c53214f40914f6284)
+  [#20154](https://github.com/npm/npm/pull/20154)
+  Let version succeed when `package-lock.json` is gitignored.
+  ([@nwoltman](https://github.com/nwoltman))
+* [`ced29253d`](https://github.com/npm/npm/commit/ced29253df6c6d67e4bf47ca83e042db4fb19034)
+  [#20212](https://github.com/npm/npm/pull/20212)
+  Ensure that we only create an `etc` directory if we are actually going to write files to it.
+  ([@buddydvd](https://github.com/buddydvd))
+* [`8e21b19a8`](https://github.com/npm/npm/commit/8e21b19a8c5e7d71cb51f3cc6a8bfaf7749ac2c5)
+  [#20140](https://github.com/npm/npm/pull/20140)
+  Note in documentation that `package-lock.json` version gets touched by `npm version`.
+  ([@srl295](https://github.com/srl295))
+* [`5d17c87d8`](https://github.com/npm/npm/commit/5d17c87d8d27caeac71f291fbd62628f2765fda2)
+  [#20032](https://github.com/npm/npm/pull/20032)
+  Fix bug where unauthenticated errors would get reported as both 404s and
+  401s, i.e. `npm ERR!  404 Registry returned 401`.  In these cases the error
+  message will now be much more informative.
+  ([@iarna](https://github.com/iarna))
+* [`05ff6c9b1`](https://github.com/npm/npm/commit/05ff6c9b14cb095988b768830e51789d6b6b8e6e)
+  [#20082](https://github.com/npm/npm/pull/20082)
+  Allow optional @ prefix on scope with `npm team` commands for parity with other commands.
+  ([@bcoe](https://github.com/bcoe))
+* [`6bef53891`](https://github.com/npm/npm/commit/6bef538919825b8cd2e738333bdd7b6ca2e2e0e3)
+  [#19580](https://github.com/npm/npm/pull/19580)
+  Improve messaging when two-factor authentication is required while publishing.
+  ([@jdeniau](https://github.com/jdeniau))
+* [`155dab2bd`](https://github.com/npm/npm/commit/155dab2bd7b06724eca190abadd89c9f03f85446)
+  Fix a bug where optional status of a dependency was not being saved to
+  the package-lock on the initial install.
+  ([@iarna](https://github.com/iarna))
+* [`8d6a4cafc`](https://github.com/npm/npm/commit/8d6a4cafc2e6963d9ec7c828e1af6f2abc12e7f3)
+  [`a0937e9af`](https://github.com/npm/npm/commit/a0937e9afe126dce7a746c1a6270b1ac69f2a9b3)
+  Ensure that `--no-optional` does not remove optional dependencies from the lock-file.
+  ([@iarna](https://github.com/iarna))
+
+### DEPENDENCY UPDATES
+
+* [`8baa37551`](https://github.com/npm/npm/commit/8baa37551945bc329a6faf793ec5e3e2feff489b)
+  [zkat/cipm#46](https://github.com/zkat/cipm/pull/46)
+  `libcipm@1.6.2`:
+  Detect binding.gyp for default install lifecycle. Let's `npm ci` work on projects that
+  have their own C code.
+  ([@caleblloyd](https://github.com/caleblloyd))
+* [`323f74242`](https://github.com/npm/npm/commit/323f74242066c989f7faf94fb848ff8f3b677619)
+  [zkat/json-parse-better-errors#1](https://github.com/zkat/json-parse-better-errors/pull/1)
+  `json-parse-better-errors@1.0.2`
+  ([@Hoishin](https://github.com/Hoishin))
+* [`d0cf1f11e`](https://github.com/npm/npm/commit/d0cf1f11e5947446f74881a3d15d6a504baea619)
+  `readable-stream@2.3.6`
+  ([@mcollina](https://github.com/mcollina))
+* [`9e9fdba5e`](https://github.com/npm/npm/commit/9e9fdba5e7b7f3a1dd73530dadb96d9e3445c48d)
+  `update-notifier@2.4.0`
+  ([@sindersorhus](https://github.com/sindersorhus))
+* [`57fa33870`](https://github.com/npm/npm/commit/57fa338706ab122ab7e13d2206016289c5bdacf3)
+  `marked@0.3.1`
+  ([@joshbruce](https://github.com/joshbruce))
+* [`d2b20d34b`](https://github.com/npm/npm/commit/d2b20d34b60f35eecf0d51cd1f05de79b0e15096)
+  [#20276](https://github.com/npm/npm/pull/20276)
+  `node-gyp@3.6.2`
+* [`2b5700679`](https://github.com/npm/npm/commit/2b5700679fce9ee0c24c4509618709a4a35a3d27)
+  [zkat/npx#172](https://github.com/zkat/npx/pull/172)
+  `libnpx@10.1.1`
+  ([@jdalton](https://github.com/jdalton))
+
+## v5.9.0 (2018-03-23):
+
+Coming to you this week are a fancy new package view, pack/publish previews
+and a handful of bug fixes! Let's get right in!
+
+### NEW PACKAGE VIEW
+
+There's a new `npm view` in town.  You might it as `npm info` or `npm show`. 
+The new output gives you a nicely summarized view that for most packages
+fits on one screen.  If you ask it for `--json` you'll still get the same
+results, so your scripts should still work fine.
+
+* [`143cdbf13`](https://github.com/npm/npm/commit/143cdbf1327f7d92ccae405bc05d95d28939a837)
+  [#19910](https://github.com/npm/npm/pull/19910)
+  Add humanized default view.
+  ([@zkat](https://github.com/zkat))
+* [`ca84be91c`](https://github.com/npm/npm/commit/ca84be91c434fb7fa472ee4c0b7341414acf52b5)
+  [#19910](https://github.com/npm/npm/pull/19910)
+  `tiny-relative-date@1.3.0`
+  ([@zkat](https://github.com/zkat))
+* [`9a5807c4f`](https://github.com/npm/npm/commit/9a5807c4f813c49b854170b6111c099b3054faa2)
+  [#19910](https://github.com/npm/npm/pull/19910)
+  `cli-columns@3.1.2`
+  ([@zkat](https://github.com/zkat))
+* [`23b4a4fac`](https://github.com/npm/npm/commit/23b4a4fac0fbfe8e03e2f65d9f674f163643d15d)
+  [#19910](https://github.com/npm/npm/pull/19910)
+  `byte-size@4.0.2`
+
+### PACK AND PUBLISH PREVIEWS
+
+The `npm pack` and `npm publish` commands print out a summary of the files
+included in the package.  They also both now take the `--dry-run` flag, so
+you can double check your `.npmignore` settings before doing a publish.
+
+* [`116e9d827`](https://github.com/npm/npm/commit/116e9d8271d04536522a7f02de1dde6f91ca5e6e)
+  [#19908](https://github.com/npm/npm/pull/19908)
+  Add package previews to pack and publish.  Also add --dry-run and --json
+  flags.
+  ([@zkat](https://github.com/zkat))
+
+### MERGE CONFLICT, SMERGE CONFLICT
+
+If you resolve a `package-lock.json` merge conflict with `npm install` we
+now suggest you setup a merge driver to handle these automatically for you. 
+If you're reading this and you'd like to set it up now, run:
+
+```console
+npx npm-merge-driver install -g
+```
+
+* [`5ebe99719`](https://github.com/npm/npm/commit/5ebe99719d11fedeeec7a55f1b389dcf556f32f3)
+  [#20071](https://github.com/npm/npm/pull/20071)
+  suggest installing the merge driver
+  ([@zkat](https://github.com/zkat))
+
+### MISC BITS
+
+* [`a05e27b71`](https://github.com/npm/npm/commit/a05e27b7104f9a79f5941e7458c4658872e5e0cd)
+  Going forward, record requested ranges not versions in the package-lock.
+  ([@iarna](https://github.com/iarna))
+* [`f721eec59`](https://github.com/npm/npm/commit/f721eec599df4bdf046d248e0f50822d436654b4)
+  Add 10 to Node.js supported version list. It's not out yet, but soon my pretties...
+  ([@iarna](https://github.com/iarna))
+
+### DEPENDENCY UPDATES
+
+* [`40aabb94e`](https://github.com/npm/npm/commit/40aabb94e3f24a9feabb9c490403e10ec9dc254f)
+  `libcipm@1.6.1`:
+  Fix bugs on docker and with some `prepare` scripts and `npm ci`.
+  Fix a bug where script hooks wouldn't be called with `npm ci`.
+  Fix a bug where `npm ci` and `--prefix` weren't compatible.
+  ([@isaacseymour](https://github.com/isaacseymour))
+  ([@umarov](https://github.com/umarov))
+  ([@mikeshirov](https://github.com/mikeshirov))
+  ([@billjanitsch](https://github.com/billjanitsch))
+* [`a85372e67`](https://github.com/npm/npm/commit/a85372e671eab46e62caa46631baa30900e32114)
+  `tar@4.4.1`:
+  Switch to safe-buffer and Buffer.from.
+  ([@isaacs](https://github.com/isaacs))
+  ([@ChALkeR](https://github.com/ChALkeR))
+* [`588eabd23`](https://github.com/npm/npm/commit/588eabd23fa04420269b9326cab26d974d9c151f)
+  `lru-cache@4.1.2`:
+* [`07f27ee89`](https://github.com/npm/npm/commit/07f27ee898f3c3199e75427017f2b6a189b1a85b)
+  `qrcode-terminal@0.12.0`:
+* [`01e4e29bc`](https://github.com/npm/npm/commit/01e4e29bc879bdaa0e92f0b58e3725a41377d21c)
+  `request@2.85.0`
+* [`344ba8819`](https://github.com/npm/npm/commit/344ba8819f485c72e1c7ac3e656d7e9210ccf607)
+  `worker-farm@1.6.0`
+* [`dc6df1bc4`](https://github.com/npm/npm/commit/dc6df1bc4677164b9ba638e87c1185b857744720)
+  `validate-npm-package-license@3.0.3`
+* [`97a976696`](https://github.com/npm/npm/commit/97a9766962ab5125af3b2a1f7b4ef550a2e3599b)
+  `ssri@5.3.0`
+* [`9b629d0c6`](https://github.com/npm/npm/commit/9b629d0c69599635ee066cb71fcc1b0155317f19)
+  `query-string@5.1.1`
+
 ## v5.8.0 (2018-03-08):
 
 Hey again, everyone! While last release was focused largely around PRs from the

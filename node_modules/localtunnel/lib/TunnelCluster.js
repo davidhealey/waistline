@@ -113,6 +113,16 @@ TunnelCluster.prototype.open = function() {
         });
     }
 
+    remote.on('data', function(data) {
+        const match = data.toString().match(/^(\w+) (\S+)/);
+        if (match) {
+            self.emit('request', {
+                method: match[1],
+                path: match[2],
+            });
+        }
+    });
+
     // tunnel is considered open when remote connects
     remote.once('connect', function() {
         self.emit('open', remote);

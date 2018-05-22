@@ -1,4 +1,4 @@
-.TH "NPM\-INSTALL" "1" "March 2018" "" ""
+.TH "NPM\-INSTALL" "1" "May 2018" "" ""
 .SH "NAME"
 \fBnpm-install\fR \- Install a package
 .SH SYNOPSIS
@@ -411,6 +411,9 @@ node source code so that npm can compile native modules\.
 The \fB\-\-only={prod[uction]|dev[elopment]}\fP argument will cause either only
 \fBdevDependencies\fP or only non\-\fBdevDependencies\fP to be installed regardless of the \fBNODE_ENV\fP\|\.
 .P
+The \fB\-\-no\-audit\fP argument can be used to disable sending of audit reports to
+the configured registries\.  See npm help \fBnpm\-audit\fP for details on what is sent\.
+.P
 See npm help 7 \fBnpm\-config\fP\|\.  Many of the configuration params have some
 effect on installation, since that's most of what npm does\.
 .SH ALGORITHM
@@ -501,6 +504,8 @@ affects a real use\-case, it will be investigated\.
 npm help 5 folders
 .IP \(bu 2
 npm help update
+.IP \(bu 2
+npm help audit
 .IP \(bu 2
 npm help link
 .IP \(bu 2

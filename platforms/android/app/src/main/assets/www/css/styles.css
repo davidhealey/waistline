@@ -185,6 +185,11 @@ fieldset {
   padding-left: 0.8em !important;
 }
 
+.ui-li-divider i
+{
+  font-size: 0.95em !important;
+}
+
 li .ui-btn {
   border: none !important;
   font-size: 0.9em !important;

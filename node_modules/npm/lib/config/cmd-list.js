@@ -4,8 +4,10 @@ var shorthands = {
   'rb': 'rebuild',
   'list': 'ls',
   'ln': 'link',
+  'create': 'init',
   'i': 'install',
   'it': 'install-test',
+  'cit': 'install-ci-test',
   'up': 'update',
   'c': 'config',
   's': 'search',
@@ -23,6 +25,7 @@ var affordances = {
   'll': 'ls',
   'verison': 'version',
   'ic': 'ci',
+  'innit': 'init',
   'isntall': 'install',
   'dist-tags': 'dist-tag',
   'apihelp': 'help',
@@ -42,7 +45,9 @@ var affordances = {
   'remove': 'uninstall',
   'rm': 'uninstall',
   'r': 'uninstall',
-  'rum': 'run-script'
+  'rum': 'run-script',
+  'sit': 'install-ci-test',
+  'urn': 'run-script'
 }
 
 // these are filenames in .
@@ -78,6 +83,7 @@ var cmdList = [
   'shrinkwrap',
   'token',
   'profile',
+  'audit',
 
   'help',
   'help-search',

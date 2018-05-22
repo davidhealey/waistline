@@ -1,4 +1,4 @@
-.TH "NPM\-RUN\-SCRIPT" "1" "March 2018" "" ""
+.TH "NPM\-RUN\-SCRIPT" "1" "May 2018" "" ""
 .SH "NAME"
 \fBnpm-run-script\fR \- Run arbitrary package scripts
 .SH SYNOPSIS
@@ -82,6 +82,10 @@ If you try to run a script without having a \fBnode_modules\fP directory and it 
 you will be given a warning to run \fBnpm install\fP, just in case you've forgotten\.
 .P
 You can use the \fB\-\-silent\fP flag to prevent showing \fBnpm ERR!\fP output on error\.
+.P
+You can use the \fB\-\-if\-present\fP flag to avoid exiting with a non\-zero exit code
+when the script is undefined\. This lets you run potentially undefined scripts
+without breaking the execution chain\.
 .SH SEE ALSO
 .RS 0
 .IP \(bu 2

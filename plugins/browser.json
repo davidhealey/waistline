@@ -21,6 +21,9 @@
     },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "com.libre.diet"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.waist.line"
     }
   },
   "dependent_plugins": {}
