@@ -39,6 +39,9 @@ var app = {
   // Bind any cordova events here. Common events are:
   // 'pause', 'resume', etc.
   onDeviceReady: function() {
+
+    app.strings = defaultLocale; //Set fallback locale data
+    
     //Localisation
     var opts = {};
     opts.callback = function(data, defaultCallback) {
