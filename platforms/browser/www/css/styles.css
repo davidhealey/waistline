@@ -181,6 +181,7 @@ fieldset {
   background-color: transparent !important;
   border:none !important;
   border-top: 1px solid rgb(190, 190, 190) !important;
+  border-bottom: 1px solid rgb(190, 190, 190) !important;
   font-size: 0.95em !important;
   padding-left: 0.8em !important;
 }
