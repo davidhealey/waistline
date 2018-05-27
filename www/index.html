@@ -53,22 +53,22 @@
           <h1>Waistline</h1>
         </div>
         <div data-role="main" class="ui-content">
-          <a data-role="button" id="openDiary" href="#diaryPage" data-localize="diary"><script>document.write(defaultLocale.diary);</script></a>
-          <a data-role="button" id="openStats" href="#statsPage" data-localize="stats"><script>document.write(defaultLocale.stats);</script></a>
+          <a data-role="button" id="openDiary" href="#diaryPage" data-localize="diary"><script>document.write(defaultLocale["diary"]);</script></a>
+          <a data-role="button" id="openStats" href="#statsPage" data-localize="stats"><script>document.write(defaultLocale["stats"]);</script></a>
           <a data-role="button" id="openFoods" href="#foodListPage" data-localize="food-list"><script>document.write(defaultLocale["food-list"]);</script></a>
-          <a data-role="button" id="openSettings" href="#settingsPage" data-localize="settings"><script>document.write(defaultLocale.settings);</script></a>
-          <a data-role="button" id="openGuide" href="#guidePage" data-localize="instructions"><script>document.write(defaultLocale.instructions);</script></a>
-          <a data-role="button" id="openSettings" href="javascript:dbHandler.exportToFile();" data-localize="export"><script>document.write(defaultLocale.export);</script></a>
-          <a data-role="button" id="openSettings" href="#importDataPopup" data-rel="popup" data-localize="import"><script>document.write(defaultLocale.import);</script></a>
+          <a data-role="button" id="openSettings" href="#settingsPage" data-localize="settings"><script>document.write(defaultLocale["settings"]);</script></a>
+          <a data-role="button" id="openGuide" href="#guidePage" data-localize="instructions"><script>document.write(defaultLocale["instructions"]);</script></a>
+          <a data-role="button" id="openSettings" href="javascript:dbHandler.exportToFile();" data-localize="export"><script>document.write(defaultLocale["export"]);</script></a>
+          <a data-role="button" id="openSettings" href="#importDataPopup" data-rel="popup" data-localize="import"><script>document.write(defaultLocale["import"]);</script></a>
         </div>
         <div data-role="footer" class="footer" data-position="fixed" data-tap-toggle="false">
           <div id="progress">
             <div class="calorieCount"></div>
           </div>
           <div class="ui-grid-b statusBar"> <!--3 column layout-->
-            <div class="ui-block-a heading" data-localize="goal"><script>document.write(defaultLocale.goal);</script></div>
-            <div class="ui-block-b heading" data-localize="used"><script>document.write(defaultLocale.used);</script></div>
-            <div class="ui-block-c heading" data-localize="remaining"><script>document.write(defaultLocale.remaining);</script></div>
+            <div class="ui-block-a heading" data-localize="goal"><script>document.write(defaultLocale["goal"]);</script></div>
+            <div class="ui-block-b heading" data-localize="used"><script>document.write(defaultLocale["used"]);</script></div>
+            <div class="ui-block-c heading" data-localize="remaining"><script>document.write(defaultLocale["remaining"]);</script></div>
             <div class="ui-block-a stat">0</div>
             <div class="ui-block-b stat">0</div>
             <div class="ui-block-c stat">0</div>
@@ -232,7 +232,7 @@
           <form onsubmit="saveUserSettings(); return false;" id="settingsForm">
 
             <label for="weight" data-localize="current-weight"><script>document.write(defaultLocale["current-weight"]);</script></label>
-            <input type="number" name="weight" id="weight">
+            <input type="number" step="any" name="weight" id="weight">
 
             <label for="calorie-goal" data-localize="calorie-goal"><script>document.write(defaultLocale["calorie-goal"]);</script></label>
             <input type="number" name="calorieGoal" id="calorieGoal">
