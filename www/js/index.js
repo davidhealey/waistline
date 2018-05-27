@@ -41,7 +41,7 @@ var app = {
   onDeviceReady: function() {
 
     app.strings = defaultLocale; //Set fallback locale data
-    
+
     //Localisation
     var opts = {};
     opts.callback = function(data, defaultCallback) {
@@ -49,6 +49,7 @@ var app = {
       app.strings = $.localize.data["locales/locale"];
     }
     $("[data-localize]").localize("locales/locale", opts)
+    console.log($.localize);
 
     //Set default values for weight and calorie goal
     if (this.storage.getItem("weight") == undefined)
