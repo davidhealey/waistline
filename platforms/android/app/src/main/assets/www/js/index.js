@@ -105,6 +105,8 @@ function updateProgress()
 
     //Store consumed calories in local storage for restore next time app is opened
     app.storage.setItem("calories", calories);
+
+    console.log("Progress updated");
 }
 
 function updateLog()
@@ -138,6 +140,7 @@ function changeDate(date)
     app.caloriesConsumed = 0; //Reset
     if (e.target.result) {app.caloriesConsumed = e.target.result.calories;}
     updateProgress();
+    console.log("Date Change Success");
   }
 }
 
@@ -314,7 +317,8 @@ $("#diaryPage #diaryDate").on("click", function(e){
   populateDiary();
 });
 
-$("#diaryPage").on("pagebeforeshow", function(e){
+$("#diaryPage").on("pageshow", function(e){
+  console.log("Diary Page");
   populateDiary();
 });
 
@@ -413,7 +417,6 @@ function editDiaryItemFormAction()
       app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
       app.caloriesConsumed += item.calories * quantity; //Add on new calories
 
-      populateDiary(); //Repopulate the diary
       updateLog();
       updateProgress();
 
@@ -424,8 +427,10 @@ function editDiaryItemFormAction()
 
 /***** FOOD LIST PAGE *****/
 //Initialize page
-$("#foodListPage").on("pagebeforeshow", function(event, ui)
+$("#foodListPage").on("pageshow", function(event, ui)
 {
+  $("#filterFoodList").focus();
+
   var html = "";
   var date = new Date()
   var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are shit
@@ -453,10 +458,6 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
       $("#foodListview").listview("refresh");
     }
   };
-});
-
-$("#foodListPage").on("pageshow", function(e){
-  $("#filterFoodList").focus();
 });
 
 /*Clear the list when moving away from the food list page*/
