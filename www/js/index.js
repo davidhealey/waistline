@@ -314,7 +314,7 @@ $("#diaryPage #diaryDate").on("click", function(e){
   populateDiary();
 });
 
-$("#diaryPage").on("pagebeforeshow", function(e){
+$("#diaryPage").on("pageshow", function(e){
   populateDiary();
 });
 
@@ -424,8 +424,10 @@ function editDiaryItemFormAction()
 
 /***** FOOD LIST PAGE *****/
 //Initialize page
-$("#foodListPage").on("pagebeforeshow", function(event, ui)
+$("#foodListPage").on("pageshow", function(event, ui)
 {
+  $("#filterFoodList").focus();
+
   var html = "";
   var date = new Date()
   var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are shit
@@ -453,10 +455,6 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
       $("#foodListview").listview("refresh");
     }
   };
-});
-
-$("#foodListPage").on("pageshow", function(e){
-  $("#filterFoodList").focus();
 });
 
 /*Clear the list when moving away from the food list page*/
