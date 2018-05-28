@@ -105,6 +105,8 @@ function updateProgress()
 
     //Store consumed calories in local storage for restore next time app is opened
     app.storage.setItem("calories", calories);
+
+    console.log("Progress updated");
 }
 
 function updateLog()
@@ -138,6 +140,7 @@ function changeDate(date)
     app.caloriesConsumed = 0; //Reset
     if (e.target.result) {app.caloriesConsumed = e.target.result.calories;}
     updateProgress();
+    console.log("Date Change Success");
   }
 }
 
@@ -315,6 +318,7 @@ $("#diaryPage #diaryDate").on("click", function(e){
 });
 
 $("#diaryPage").on("pageshow", function(e){
+  console.log("Diary Page");
   populateDiary();
 });
 
@@ -413,7 +417,6 @@ function editDiaryItemFormAction()
       app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
       app.caloriesConsumed += item.calories * quantity; //Add on new calories
 
-      populateDiary(); //Repopulate the diary
       updateLog();
       updateProgress();
 
