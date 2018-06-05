@@ -15,20 +15,15 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <icon density="ldpi" src="res/android/ldpi.png" />
         <icon density="mdpi" src="res/android/mdpi.png" />
         <icon density="hdpi" src="res/android/hdpi.png" />
         <icon density="xhdpi" src="res/android/xhdpi.png" />
         <icon density="xxhdpi" src="res/android/xxhdpi.png" />
         <icon density="xxxhdpi" src="res/android/xxxhdpi.png" />
-        <splash density="land-hdpi" src="res/screen/android/screen-hdpi-landscape.png" />
-        <splash density="land-ldpi" src="res/screen/android/screen-ldpi-landscape.png" />
-        <splash density="land-mdpi" src="res/screen/android/screen-mdpi-landscape.png" />
-        <splash density="land-xhdpi" src="res/screen/android/screen-xhdpi-landscape.png" />
-        <splash density="port-hdpi" src="res/screen/android/screen-hdpi-portrait.png" />
-        <splash density="port-ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
-        <splash density="port-mdpi" src="res/screen/android/screen-mdpi-portrait.png" />
-        <splash density="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
+        <splash density="port-hdpi" src="res/screen/android/hdpi.png" />
+        <splash density="port-ldpi" src="res/screen/android/ldpi.png" />
+        <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
+        <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -41,7 +36,8 @@
     <plugin name="cordova-plugin-splashscreen" spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
     <plugin name="cordova-plugin-browsersync" spec="~0.1.8" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
-    <preference name="SplashScreenDelay" value="1000" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="orientation" value="portrait" />
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.0.0" />
 </widget>
