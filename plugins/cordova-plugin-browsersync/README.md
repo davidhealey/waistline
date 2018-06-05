@@ -1,8 +1,5 @@
 # Cordova Browser-Sync Plugin
 
-[![dependencies Status](https://david-dm.org/nparashuram/cordova-plugin-browsersync/status.svg)](https://david-dm.org/nparashuram/cordova-plugin-browsersync)
-[![devDependencies Status](https://david-dm.org/nparashuram/cordova-plugin-browsersync/dev-status.svg)](https://david-dm.org/nparashuram/cordova-plugin-browsersync?type=dev)
-
 Integrating [BrowserSync](http://browsersync.io) into your Cordova workflow.
 
 - Watch files in the `www` folder and automatically reload HTML and CSS in all connected devices
@@ -31,22 +28,6 @@ cordova plugin add cordova-plugin-browsersync
 ```
 
 and then run run the cordova with `cordova run -- --live-reload`.
-
-#### Note
-
-If you ran into the error like below when you executed `"cordova plugin add cordova-plugin-browsersync"` command,
-
-```
-Failed to install 'cordova-plugin-browsersync': Error: Cannot find module 'npm'
-```
-
-Please try to upgrade `npm` command version which is your system global installed with following command.
-
-```
-npm install -g npm
-```
-
-I have not confirmed anything, but this error can be caused by a version of the `npm` module that is mismatched between globally installed and locally installed on the project.
 
 ### As a Cordova project hook
 Clone this repo and run `npm run createHook` to get a `after_prepare.js`. Add this file as an `after_prepare` [hook](http://cordova.apache.org/docs/en/edge/guide_appdev_hooks_index.md.html) to your config.xml. For example:
@@ -92,12 +73,4 @@ Please use the `--index` option.
 
 ```
 cordova run -- --live-reload --index=content.html
-```
-
-### Enable https
-If you need https you can enable it with this option.
-You can use `--https` for example.
-
-```
-cordova run -- --live-reload --https
 ```

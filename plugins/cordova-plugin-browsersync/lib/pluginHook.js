@@ -1,4 +1,5 @@
 var path = require('path');
+var glob = require('glob');
 
 var Patcher = require('./utils/Patcher');
 var browserSyncServer = require('./utils/browserSyncServer');
@@ -14,16 +15,13 @@ function parseOptions(opts) {
 }
 
 module.exports = function(context) {
-    var Q = context.requireCordovaModule('q');
-    var deferral = new Q.defer();
-
     var options = parseOptions(context.opts.options.argv);
     options['index'] = typeof options['index'] !== 'undefined' ? options['index'] : 'index.html';
 
     if (typeof options['live-reload'] === 'undefined') {
         return;
     }
-    var enableCors = typeof options['enable-cors'] !== 'undefined';
+    var enableCors = typeof options['enable-cors']!='undefined';
 
     var ignoreOptions = {};
     if (typeof options['ignore'] !== 'undefined') {
@@ -34,10 +32,8 @@ module.exports = function(context) {
 
     var platforms = ['android', 'ios', 'browser'];
     var patcher = new Patcher(context.opts.projectRoot, platforms);
-    patcher.prepatch();
     var changesBuffer = [];
     var changesTimeout;
-    var serversFromCallback=[];
     var bs = browserSyncServer(function(defaults) {
         if (enableCors){
             defaults.middleware = function (req, res, next) {
@@ -56,8 +52,7 @@ module.exports = function(context) {
                     changesTimeout = setTimeout(function(){
                       context.cordova.raw.prepare().then(function() {
                           patcher.addCSP({
-                              index: options.index,
-                              servers: serversFromCallback, //need this for building proper CSP
+                              index: options.index
                           });
                           console.info(changesBuffer);
                           bs.reload(changesBuffer);
@@ -72,7 +67,7 @@ module.exports = function(context) {
         defaults.server = {
             baseDir: context.opts.projectRoot,
             routes: {}
-        };
+        }
 
         if (typeof options['host'] !== 'undefined') {
             defaults.host = options['host'];
@@ -86,10 +81,6 @@ module.exports = function(context) {
             defaults.online = options['online'].toLocaleLowerCase() !== 'false';
         }
 
-        if (typeof options['https'] !== 'undefined') {
-            defaults.https = true;
-        }
-
         platforms.forEach(function(platform) {
             var www = patcher.getWWWFolder(platform);
             defaults.server.routes['/' + www.replace('\\','/')] = path.join(context.opts.projectRoot, www);
@@ -97,13 +88,9 @@ module.exports = function(context) {
 
         return defaults;
     }, function(err, servers) {
-        serversFromCallback=servers;
         patcher.patch({
             servers: servers,
             index: options.index
         });
-        deferral.resolve();
     });
-
-    return deferral.promise;
-};
+}

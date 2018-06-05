@@ -52,8 +52,6 @@ module.exports = function(opts, cb) {
         minify: false,
         watchOptions: {},
         files: [],
-        cors: true,
-        https: false
     };
 
     if (typeof opts === 'function') {
@@ -71,7 +69,7 @@ module.exports = function(opts, cb) {
         var servers = {};
         ['local', 'external', 'tunnel'].forEach(function(type) {
             servers[type] = urls.get(type);
-        });
+        })
         cb(err, servers);
     });
     return bs;

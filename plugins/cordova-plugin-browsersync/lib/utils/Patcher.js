@@ -10,13 +10,13 @@ var plist = require('plist');
 
 
 var WWW_FOLDER = {
-    android: 'app/src/main/assets/www',
+    android: 'assets/www',
     ios: 'www',
     browser:'www'
 };
 
 var CONFIG_LOCATION = {
-    android: 'app/src/main/res/xml',
+    android: 'res/xml',
     ios: '.',
     browser:'.'
 };
@@ -57,11 +57,6 @@ Patcher.prototype.addCSP = function(opts) {
         var policy = new Policy(cspTag.attr('content'));
         policy.add('default-src', 'ws:');
         policy.add('default-src', "'unsafe-inline'");
-        for (var key in opts.servers) {
-            if (typeof opts.servers[key] !== 'undefined') {
-                policy.add('script-src', opts.servers[key]);
-            }
-        }
         cspTag.attr('content', function() {
             return policy.toString();
         });
@@ -102,15 +97,6 @@ Patcher.prototype.updateConfigXml = function() {
     });
 };
 
-Patcher.prototype.updateManifestJSON = function() {
-    return this.__forEachFile('**/manifest.json', CONFIG_LOCATION, function(filename, platform) {
-        var manifest = require(filename);
-        manifest.start_url = START_PAGE;
-        fs.writeFileSync(filename, JSON.stringify(manifest, null, 2), "utf-8");
-        // console.log('Set start page for %s', filename)
-    });
-}
-
 Patcher.prototype.fixATS = function() {
     return this.__forEachFile('**/*Info.plist', CONFIG_LOCATION, function(filename) {
         try {
@@ -126,16 +112,10 @@ Patcher.prototype.fixATS = function() {
     });
 };
 
-Patcher.prototype.prepatch = function() {
-    // copy the serverless start page so initial load doesn't throw 404
-    this.copyStartPage({});
-    this.updateConfigXml();
-    this.updateManifestJSON();
-}
-
 Patcher.prototype.patch = function(opts) {
     opts = opts || {};
     this.copyStartPage(opts);
+    this.updateConfigXml();
     this.fixATS();
     this.addCSP(opts);
 };
