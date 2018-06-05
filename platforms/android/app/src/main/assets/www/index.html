@@ -1,4 +1,5 @@
-<!DOCTYPE html><!--
+<!DOCTYPE html>
+<!--
   Copyright 2018 David Healey
 
   This file is part of Waistline.
@@ -15,17 +16,20 @@
 
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
---><html><head>
-        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap ws: 'unsafe-inline'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:3000 http://192.168.0.19:3000;">
+-->
+
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
         <meta charset="UTF-8">
 
         <!-- jQuery mobile theme -->
-        <link rel="stylesheet" href="css/themes/blank.css">
-        <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css">
-        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
+        <link rel="stylesheet" href="css/themes/blank.css" />
+        <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
 
         <!-- jQuerymobile -->
         <script src="js/jquery-1.11.3.min.js"></script>
@@ -39,7 +43,7 @@
         <script src="locales/locale-default.js"></script>
 
         <!-- My extra styles -->
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/styles.css" />
         <title>Waistline</title>
     </head>
     <body>
@@ -95,7 +99,7 @@
           <div id="diaryDate"></div>
           <ul data-role="listview" id="diaryListview" data-icon="false"></ul>
         </div>
-        <div data-role="footer" class="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="footer" class="footer"  data-position="fixed" data-tap-toggle="false">
           <div class="calorieCount"></div>
           <div class="ui-grid-b statusBar"> <!--3 column layout-->
             <div class="ui-block-a heading" data-localize="goal"><script>document.write(defaultLocale["goal"]);</script></div>
@@ -174,9 +178,9 @@
         <div data-role="main" class="ui-content">
           <form class="ui-filterable">
             <input type="text" data-type="search" id="filterFoodList">
-            <input type="hidden" id="category" value="">
+            <input type="hidden" id="category" value=""/>
           </form>
-          <ul data-role="listview" class="ui-nodisc-icon ui-alt-icon" id="foodListview" data-filter="true" data-input="#filterFoodList" data-split-icon="edit">
+          <ul data-role="listview" class="ui-nodisc-icon ui-alt-icon"  id="foodListview" data-filter="true" data-input="#filterFoodList" data-split-icon="edit">
           </ul>
         </div>
         <div data-role="popup" id="deleteFoodListItemPopup">
@@ -214,7 +218,7 @@
 
             <button type="submit" name="saveFood" data-localize="save"><script>document.write(defaultLocale["save"]);</script></button>
           </form>
-          <div id="foodImage"><img></div>
+          <div id="foodImage"><img></img></div>
         </div>
       </div>
 
@@ -266,6 +270,5 @@
       <script type="text/javascript" src="cordova.js"></script>
       <script type="text/javascript" src="js/db-handler.js"></script>
       <script type="text/javascript" src="js/index.js"></script>
-    
-
-</body></html>
+    </body>
+</html>

@@ -105,6 +105,8 @@ function updateProgress()
 
     //Store consumed calories in local storage for restore next time app is opened
     app.storage.setItem("calories", calories);
+
+    console.log("Progress updated");
 }
 
 function updateLog()
@@ -138,6 +140,7 @@ function changeDate(date)
     app.caloriesConsumed = 0; //Reset
     if (e.target.result) {app.caloriesConsumed = e.target.result.calories;}
     updateProgress();
+    console.log("Date Change Success");
   }
 }
 
@@ -315,6 +318,7 @@ $("#diaryPage #diaryDate").on("click", function(e){
 });
 
 $("#diaryPage").on("pageshow", function(e){
+  console.log("Diary Page");
   populateDiary();
 });
 
@@ -413,7 +417,6 @@ function editDiaryItemFormAction()
       app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
       app.caloriesConsumed += item.calories * quantity; //Add on new calories
 
-      populateDiary(); //Repopulate the diary
       updateLog();
       updateProgress();
 
@@ -424,8 +427,10 @@ function editDiaryItemFormAction()
 
 /***** FOOD LIST PAGE *****/
 //Initialize page
-$("#foodListPage").on("pagebeforeshow", function(event, ui)
+$("#foodListPage").on("pageshow", function(event, ui)
 {
+  $("#filterFoodList").focus();
+
   var html = "";
   var date = new Date()
   var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are shit
@@ -440,23 +445,19 @@ $("#foodListPage").on("pagebeforeshow", function(event, ui)
     {
       cursor.continue();
 
-      $("#foodListview").append("<li class='foodListItem' id='"+cursor.value.id+"'>"); //Add class and ID
-      $("#foodListview").append("<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion));
-      $("#foodListview").append("<p>" + Math.round(cursor.value.calories) + " " + app.strings["calories"] + "</p>");
-      $("#foodListview").append("</a>");
-      $("#foodListview").append("<a class='editFood' data-details='"+ JSON.stringify(cursor.value) +"'></a>");
-      $("#foodListview").append("</li>");
+      html += "<li class='foodListItem' id='"+cursor.value.id+"'>"; //Add class and ID
+      html += "<a class='addToDiary' data-details='"+ JSON.stringify(cursor.value) +"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
+      html += "<p>" + Math.round(cursor.value.calories) + " " + app.strings["calories"] + "</p>";
+      html += "</a>";
+      html += "<a class='editFood' data-details='"+ JSON.stringify(cursor.value) +"'></a>";
+      html += "</li>";
     }
     else
     {
-      //$("#foodListview").html(html); //Insert into HTML
+      $("#foodListview").html(html); //Insert into HTML
       $("#foodListview").listview("refresh");
     }
   };
-});
-
-$("#foodListPage").on("pageshow", function(e){
-  $("#filterFoodList").focus();
 });
 
 /*Clear the list when moving away from the food list page*/

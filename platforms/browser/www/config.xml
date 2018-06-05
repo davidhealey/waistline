@@ -13,4 +13,5 @@
     <allow-intent href="https://*/*" />
     <allow-intent href="geo:*" />
     <preference name="SplashScreenDelay" value="1000" />
+    <preference name="orientation" value="portrait" />
 </widget>

@@ -1,8 +1,8 @@
 {
-  "name": "libreDiet",
-  "short_name": "libreDiet",
+  "name": "Waistline",
+  "short_name": "Waistline",
   "description": "Description of your app from template",
-  "start_url": "browser-sync-start.html",
+  "start_url": "index.html",
   "scope": "index.html",
   "icons": [
     {
