@@ -53,7 +53,7 @@ var app = {
     //Set default values for weight and calorie goal
     if (this.storage.getItem("weight") == undefined)
     {
-      this.storage.setItem("weight", 65);
+      this.storage.setItem("weight", 65.1);
     }
 
     if (this.storage.getItem("calorieGoal") == undefined)
@@ -723,13 +723,13 @@ $("#settingsPage").on("pagebeforeshow", function(event, ui)
 //Save user's settings
 function saveUserSettings()
 {
-  app.storage.setItem("weight", $('#settingsPage #weight').val());
-  app.storage.setItem("calorieGoal", Math.round($('#settingsPage #calorieGoal').val()));
-  app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
-  app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
+    app.storage.setItem("weight", parseFloat($('#settingsPage #weight').val()));
+    app.storage.setItem("calorieGoal", Math.round($('#settingsPage #calorieGoal').val()));
+    app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
+    app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
 
-  updateLog();
-  updateProgress();
+    updateLog();
+    updateProgress();
 
-  $(":mobile-pagecontainer").pagecontainer("change", "#home");
+    $(":mobile-pagecontainer").pagecontainer("change", "#home");
 }
