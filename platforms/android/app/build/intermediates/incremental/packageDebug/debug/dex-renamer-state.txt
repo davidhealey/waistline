@@ -1,4 +1,4 @@
-#Tue Jun 05 12:12:57 BST 2018
+#Tue Jun 05 12:15:38 BST 2018
 base.0=/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 renamed.0=classes.dex
 file.0=/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

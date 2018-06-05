@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Jun 05 12:12:57 BST 2018
+#Tue Jun 05 12:15:38 BST 2018
 210.set=ASSET
 282.file=/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/assets/debug/www/plugins/cordova-plugin-file/www/Entry.js
 14.set=ASSET
