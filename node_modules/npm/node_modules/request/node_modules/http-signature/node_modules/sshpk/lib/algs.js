@@ -14,8 +14,9 @@ var algInfo = {
 		sizePart: 'Q'
 	},
 	'ed25519': {
-		parts: ['A'],
-		sizePart: 'A'
+		parts: ['R'],
+		normalize: false,
+		sizePart: 'R'
 	}
 };
 algInfo['curve25519'] = algInfo['ed25519'];
@@ -31,7 +32,8 @@ var algPrivInfo = {
 		parts: ['curve', 'Q', 'd']
 	},
 	'ed25519': {
-		parts: ['A', 'k']
+		parts: ['R', 'r'],
+		normalize: false
 	}
 };
 algPrivInfo['curve25519'] = algPrivInfo['ed25519'];

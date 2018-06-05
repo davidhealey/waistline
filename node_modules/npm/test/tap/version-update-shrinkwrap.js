@@ -48,7 +48,7 @@ test('npm version <semver> updates git works with no shrinkwrap', function (t) {
     var shrinkwrap = require(path.resolve(pkg, 'npm-shrinkwrap.json'))
     t.equal(shrinkwrap.version, '0.0.1', 'got expected version')
 
-    var opts = { cwd: pkg, env: { PATH: process.env.PATH } }
+    var opts = { cwd: pkg, env: { PATH: process.env.PATH }}
     var git = require('../../lib/utils/git.js')
     git.whichAndExec(
       ['show', 'HEAD', '--name-only'],
@@ -91,7 +91,7 @@ test('npm version <semver> updates shrinkwrap and updates git', function (t) {
     t.equal(shrinkwrap.version, '0.0.1', 'got expected version')
 
     var git = require('../../lib/utils/git.js')
-    var opts = { cwd: pkg, env: { PATH: process.env.PATH } }
+    var opts = { cwd: pkg, env: { PATH: process.env.PATH }}
     git.whichAndExec(
       ['show', 'HEAD', '--name-only'],
       opts,
@@ -110,12 +110,15 @@ test('npm version <semver> updates shrinkwrap and updates git', function (t) {
 })
 
 test('cleanup', function (t) {
-  cleanup()
+  // windows fix for locked files
+  process.chdir(osenv.tmpdir())
+
+  rimraf.sync(pkg)
   t.end()
 })
 
 function setup () {
-  cleanup()
+  rimraf.sync(pkg)
   mkdirp.sync(pkg)
   mkdirp.sync(cache)
   var contents = {
@@ -128,11 +131,4 @@ function setup () {
   fs.writeFileSync(path.resolve(pkg, 'package.json'), JSON.stringify(contents), 'utf8')
   fs.writeFileSync(path.resolve(pkg, 'npm-shrinkwrap.json'), JSON.stringify(contents), 'utf8')
   process.chdir(pkg)
-}
-
-function cleanup () {
-  // windows fix for locked files
-  process.chdir(osenv.tmpdir())
-  rimraf.sync(cache)
-  rimraf.sync(pkg)
 }

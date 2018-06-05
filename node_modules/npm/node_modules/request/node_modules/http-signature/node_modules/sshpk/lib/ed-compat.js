@@ -56,7 +56,7 @@ Verifier.prototype.verify = function (signature, fmt) {
 	return (nacl.sign.detached.verify(
 	    new Uint8Array(Buffer.concat(this.chunks)),
 	    new Uint8Array(sig),
-	    new Uint8Array(this.key.part.A.data)));
+	    new Uint8Array(this.key.part.R.data)));
 };
 
 function Signer(key, hashAlgo) {
@@ -88,8 +88,7 @@ Signer.prototype.update = function (chunk) {
 Signer.prototype.sign = function () {
 	var sig = nacl.sign.detached(
 	    new Uint8Array(Buffer.concat(this.chunks)),
-	    new Uint8Array(Buffer.concat([
-		this.key.part.k.data, this.key.part.A.data])));
+	    new Uint8Array(this.key.part.r.data));
 	var sigBuf = new Buffer(sig);
 	var sigObj = Signature.parse(sigBuf, 'ed25519', 'raw');
 	sigObj.hashAlgorithm = 'sha512';

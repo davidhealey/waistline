@@ -5,7 +5,6 @@ var resolve = require('path').resolve
 var readPackageJson = require('read-package-json')
 var mapToRegistry = require('./utils/map-to-registry.js')
 var npm = require('./npm.js')
-var output = require('./utils/output.js')
 
 var whoami = require('./whoami')
 
@@ -36,6 +35,7 @@ access.completion = function (opts, cb) {
       } else {
         return cb(null, [])
       }
+      break
     case 'public':
     case 'restricted':
     case 'ls-packages':
@@ -63,9 +63,7 @@ function access (args, cb) {
     params.auth = auth
     try {
       return npm.registry.access(cmd, uri, params, function (err, data) {
-        if (!err && data) {
-          output(JSON.stringify(data, undefined, 2))
-        }
+        !err && data && console.log(JSON.stringify(data, undefined, 2))
         cb(err, data)
       })
     } catch (e) {

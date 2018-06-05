@@ -1,11 +1,11 @@
 {
   "_args": [
     [
-      "cordova-plugin-indexeddb-async",
-      "/home/dave/AndroidStudioProjects/librediet-cordova"
+      "cordova-plugin-indexeddb-async@^2.2.1",
+      "/home/dave/AndroidStudioProjects/waistline"
     ]
   ],
-  "_from": "cordova-plugin-indexeddb-async@latest",
+  "_from": "cordova-plugin-indexeddb-async@>=2.2.1 <3.0.0",
   "_id": "cordova-plugin-indexeddb-async@2.2.1",
   "_inCache": true,
   "_installable": true,
@@ -19,20 +19,20 @@
   "_phantomChildren": {},
   "_requested": {
     "name": "cordova-plugin-indexeddb-async",
-    "raw": "cordova-plugin-indexeddb-async",
-    "rawSpec": "",
+    "raw": "cordova-plugin-indexeddb-async@^2.2.1",
+    "rawSpec": "^2.2.1",
     "scope": null,
-    "spec": "latest",
-    "type": "tag"
+    "spec": ">=2.2.1 <3.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "/"
+    "#USER"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-indexeddb-async/-/cordova-plugin-indexeddb-async-2.2.1.tgz",
   "_shasum": "bfd91ef038a7f544225eec33951d271b50aeec39",
   "_shrinkwrap": null,
-  "_spec": "cordova-plugin-indexeddb-async",
-  "_where": "/home/dave/AndroidStudioProjects/librediet-cordova",
+  "_spec": "cordova-plugin-indexeddb-async@^2.2.1",
+  "_where": "/home/dave/AndroidStudioProjects/waistline",
   "author": {
     "name": "ABB Austin",
     "url": "http://abb.com"

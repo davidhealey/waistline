@@ -1,5 +1,5 @@
-var fs = require('fs')
-var path = require('path')
+var fs = require("fs")
+var path = require("path")
 
 var test = require('tap').test
 var mkdirp = require('mkdirp')
@@ -7,7 +7,7 @@ var rimraf = require('rimraf')
 var common = require('../common-tap')
 var mr = require('npm-registry-mock')
 
-var pkg = path.join(__dirname, 'prepublish_package')
+var pkg = path.join(__dirname, "prepublish_package")
 
 var server
 
@@ -61,19 +61,19 @@ test('npm publish should honor scoping', function (t) {
   function verify (body) {
     t.doesNotThrow(function () {
       var parsed = JSON.parse(body)
-      var current = parsed.versions['1.2.5']
+      var current = parsed.versions["1.2.5"]
       t.equal(
         current._npmVersion,
-        require(path.resolve(__dirname, '../../package.json')).version,
-        'npm version is correct'
+        require(path.resolve(__dirname, "../../package.json")).version,
+        "npm version is correct"
       )
 
       t.equal(
         current._nodeVersion,
         process.versions.node,
-        'node version is correct'
+        "node version is correct"
       )
-    }, 'converted body back into object')
+    }, "converted body back into object")
 
     return true
   }

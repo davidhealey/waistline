@@ -1,5 +1,5 @@
-var fs = require('fs')
-var path = require('path')
+var fs = require("fs")
+var path = require("path")
 
 var test = require('tap').test
 var mkdirp = require('mkdirp')
@@ -8,7 +8,7 @@ var mr = require('npm-registry-mock')
 var common = require('../common-tap')
 var server
 
-var pkg = path.join(__dirname, 'publish-access-unscoped')
+var pkg = path.join(__dirname, "publish-access-unscoped")
 
 test('setup', function (t) {
   mr({port: common.port, throwOnUnmatched: true}, function (err, s) {
@@ -30,13 +30,13 @@ test('unscoped packages can be explicitly set as public', function (t) {
 
   mkdirp(path.join(pkg, 'cache'), function () {
     fs.writeFile(
-      path.join(pkg, 'package.json'),
+      path.join(pkg, "package.json"),
       JSON.stringify({
         name: 'publish-access',
         version: '1.2.5',
         public: true
       }),
-      'ascii',
+      "ascii",
       function (er) {
         t.ifError(er, 'package file written')
         common.npm(
@@ -62,7 +62,7 @@ test('unscoped packages can be explicitly set as public', function (t) {
   })
 })
 
-test('cleanup', function (t) {
+test("cleanup", function (t) {
   process.chdir(__dirname)
   server.close()
   rimraf(pkg, function (er) {

@@ -3,7 +3,8 @@ npm-help(1) -- Get help on npm
 
 ## SYNOPSIS
 
-    npm help <term> [<terms..>]
+    npm help <topic>
+    npm help some search terms
 
 ## DESCRIPTION
 
@@ -29,6 +30,7 @@ Set to `"browser"` to view html help content in the default web browser.
 
 * npm(1)
 * README
+* npm-faq(7)
 * npm-folders(5)
 * npm-config(1)
 * npm-config(7)
