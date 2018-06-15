@@ -66,7 +66,7 @@ var app = {
     {
 	this.storage.setItem("theme", "default");
     }
-    changeTheme();
+    initTheme();
     changeDate(app.date); //Default to current date
   },
 };
@@ -731,7 +731,6 @@ $("#settingsPage").on("pagebeforeshow", function(event, ui)
 //Initialize stylesheet on startup
 function initTheme(){
     theme = app.storage.getItem("theme");
-    alert(theme);
     switch(true) {
     case( (theme == "night") ):
     	$('link[href*="css/themes/black.css"]').prop('disabled', false);
@@ -765,7 +764,7 @@ $('#settingsPage #theme').change( function(){
     	$('link[href*="css/themes/amoled.css"]').prop('disabled', true);
     	break;
     }
-    app.storage.setItem("theme", $("#settingsPage #theme").val());
+    app.storage.setItem("theme", selection);
 
 });
 
