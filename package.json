@@ -22,9 +22,12 @@
     "plugins": {
       "cordova-plugin-browsersync": {},
       "cordova-plugin-file": {},
-      "phonegap-plugin-barcodescanner": {},
+      "phonegap-plugin-barcodescanner": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-indexeddb-async": {}
     },
     "platforms": [
       "browser",

@@ -44,6 +44,9 @@
 
         <!-- My extra styles -->
         <link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="css/themes/black.css" />
+	<link rel="stylesheet" href="css/themes/amoled.css" />
+
         <title>Waistline</title>
     </head>
     <body>
@@ -140,9 +143,9 @@
             <label for="category" data-localize="category"></label>
             <select name="category" id="category" data-native-menu="false">
               <option value="Breakfast" data-localize="breakfast">Breakfast</option>
-              <option value="Lunch" data-localize="lunch"><script>document.write(defaultLocale["lunch"]);</script></option>
-              <option value="Dinner" data-localize="dinner"><script>document.write(defaultLocale["dinner"]);</script></option>
-              <option value="Snacks" data-localize="snacks"><script>document.write(defaultLocale["snacks"]);</script></option>
+              <option value="Lunch" data-localize="lunch">Lunch</option>
+              <option value="Dinner" data-localize="dinner">Dinner</option>
+              <option value="Snacks" data-localize="snacks">Snacks</option>
             </select>
             <button type="submit" id="saveDiaryItem" name="saveDiaryItem" data-localize="save"><script>document.write(defaultLocale["save"]);</script></button>
           </form>
@@ -242,6 +245,13 @@
 
             <label for="scanImages" data-localize="scan-images"><script>document.write(defaultLocale["scan-images"]);</script></label>
             <input type="checkbox" name="scanImages" id="scanImages">
+
+	           <label for="theme">Current theme:</label>
+             <select name="theme" id="theme" data-native-menu="false" data-localize="theme">
+              <option value="default" data-localize="default">Default</option>
+              <option value="night" selected="selected" data-localize="night">Night</option>
+	             <option value="amoled" data-localize="amoled">AMOLED</option>
+            </select>
 
             <button type="submit" name="saveSettings" data-localize="save"><script>document.write(defaultLocale["save"]);</script></button>
           </form>

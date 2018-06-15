@@ -32,6 +32,14 @@ var app = {
     });
     this.storage = window.localStorage; //Simple storage object
     dbHandler.initializeDb(); //db-handler initialization
+
+    if (this.storage.getItem("theme") == undefined)
+    {
+       this.storage.setItem("theme", "default");
+    }
+
+    //setTheme(app.storage.getItem("theme")); 
+    $("#settingsPage #theme").val(app.storage.getItem("theme")).change() //Restore theme
   },
 
   // deviceready Event Handler
@@ -48,6 +56,7 @@ var app = {
       defaultCallback(data);
       app.strings = $.localize.data["locales/locale"];
     }
+
     $("[data-localize]").localize("locales/locale", opts)
     console.log($.localize);
 
@@ -712,6 +721,7 @@ function processBarcodeResponse(request)
 }
 
 /***** SETTINGS PAGE *****/
+
 //Initialize settings page
 $("#settingsPage").on("pagebeforeshow", function(event, ui)
 {
@@ -722,13 +732,44 @@ $("#settingsPage").on("pagebeforeshow", function(event, ui)
   $('#settingsPage #scanImages').prop("checked", app.storage.getItem("scanImages") == "true").checkboxradio('refresh');
 });
 
+//Initialize stylesheet on startup
+function initTheme(){
+    theme = app.storage.getItem("theme");
+
+}
+
+// Change Theme by Selector
+$('#settingsPage #theme').change( function(){
+    setTheme($("#settingsPage #theme").val());
+});
+
+function setTheme(theme)
+{
+  switch(true) {
+  case( (theme == "night")):
+    $('link[href*="css/themes/black.css"]').prop('disabled', false);
+    $('link[href*="css/themes/amoled.css"]').prop('disabled', true);
+    break;
+  case( (theme == "amoled")):
+    $('link[href*="css/themes/black.css"]').prop('disabled', true);
+    $('link[href*="css/themes/amoled.css"]').prop('disabled', false);
+    break;
+  case(  (theme == "default")):
+    $('link[href*="css/themes/black.css"]').prop('disabled', true);
+    $('link[href*="css/themes/amoled.css"]').prop('disabled', true);
+    break;
+  }
+  app.storage.setItem("theme", theme);
+}
+
 //Save user's settings
 function saveUserSettings()
 {
-  app.storage.setItem("weight", $('#settingsPage #weight').val());
-  app.storage.setItem("calorieGoal", Math.round($('#settingsPage #calorieGoal').val()));
-  app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
-  app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
+    app.storage.setItem("weight", $('#settingsPage #weight').val());
+    app.storage.setItem("calorieGoal", Math.round($('#settingsPage #calorieGoal').val()));
+    app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
+    app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
+    app.storage.setItem("theme", $("#settingsPage #theme").prop("selected"));
 
   updateLog();
   updateProgress();
