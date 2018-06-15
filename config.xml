@@ -36,7 +36,7 @@
     <plugin name="cordova-plugin-splashscreen" spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
     <plugin name="cordova-plugin-browsersync" spec="~0.1.8" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="1000" />
     <preference name="orientation" value="portrait" />
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.0.0" />

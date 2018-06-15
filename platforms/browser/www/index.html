@@ -20,7 +20,7 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap ws: 'unsafe-inline'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap ws: 'unsafe-inline' ws: 'unsafe-inline'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
@@ -248,8 +248,8 @@
 
 	           <label for="theme">Current theme:</label>
              <select name="theme" id="theme" data-native-menu="false" data-localize="theme">
-              <option value="default" data-localize="default">Default</option>
-              <option value="night" selected="selected" data-localize="night">Night</option>
+              <option value="default" selected="selected" data-localize="default">Default</option>
+              <option value="night" data-localize="night">Night</option>
 	             <option value="amoled" data-localize="amoled">AMOLED</option>
             </select>
 

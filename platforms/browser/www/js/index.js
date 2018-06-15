@@ -65,11 +65,14 @@ var app = {
 
     if (this.storage.getItem("theme") == undefined)
     {
-	     this.storage.setItem("theme", "default");
+       this.storage.setItem("theme", "default");
     }
 
-    setTheme(app.storage.getItem("theme")); //Restore theme
-    changeDate(app.date); //Default to current date
+    $("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
+
+    setTheme(this.storage.getItem("theme")); //Set theme CSS
+
+    changeDate(this.date); //Default to current date
   },
 };
 
@@ -730,12 +733,6 @@ $("#settingsPage").on("pagebeforeshow", function(event, ui)
   $('#settingsPage #scanImages').prop("checked", app.storage.getItem("scanImages") == "true").checkboxradio('refresh');
 });
 
-//Initialize stylesheet on startup
-function initTheme(){
-    theme = app.storage.getItem("theme");
-
-}
-
 // Change Theme by Selector
 $('#settingsPage #theme').change( function(){
     setTheme($("#settingsPage #theme").val());
@@ -743,31 +740,30 @@ $('#settingsPage #theme').change( function(){
 
 function setTheme(theme)
 {
-  switch(true) {
-  case( (theme == "night")):
-    $('link[href*="css/themes/black.css"]').prop('disabled', false);
-    $('link[href*="css/themes/amoled.css"]').prop('disabled', true);
-    break;
-  case( (theme == "amoled")):
-    $('link[href*="css/themes/black.css"]').prop('disabled', true);
-    $('link[href*="css/themes/amoled.css"]').prop('disabled', false);
-    break;
-  case(  (theme == "default")):
-    $('link[href*="css/themes/black.css"]').prop('disabled', true);
-    $('link[href*="css/themes/amoled.css"]').prop('disabled', true);
-    break;
-  }
-  app.storage.setItem("theme", theme);
+    switch(true) {
+    case( (theme == "night")):
+      $('link[href*="css/themes/black.css"]').prop('disabled', false);
+      $('link[href*="css/themes/amoled.css"]').prop('disabled', true);
+      break;
+    case( (theme == "amoled")):
+      $('link[href*="css/themes/black.css"]').prop('disabled', true);
+      $('link[href*="css/themes/amoled.css"]').prop('disabled', false);
+      break;
+    case(  (theme == "default")):
+      $('link[href*="css/themes/black.css"]').prop('disabled', true);
+      $('link[href*="css/themes/amoled.css"]').prop('disabled', true);
+      break;
+    }
 }
 
 //Save user's settings
 function saveUserSettings()
 {
-    app.storage.setItem("weight", $('#settingsPage #weight').val());
-    app.storage.setItem("calorieGoal", Math.round($('#settingsPage #calorieGoal').val()));
-    app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
-    app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
-    app.storage.setItem("theme", $("#settingsPage #theme").prop("selected"));
+  app.storage.setItem("weight", $('#settingsPage #weight').val());
+  app.storage.setItem("calorieGoal", Math.round($('#settingsPage #calorieGoal').val()));
+  app.storage.setItem("goalIsMin", $("#settingsPage #goalIsMin").prop("checked"));
+  app.storage.setItem("scanImages", $("#settingsPage #scanImages").prop("checked"));
+  app.storage.setItem("theme", $("#settingsPage #theme").val());
 
   updateLog();
   updateProgress();

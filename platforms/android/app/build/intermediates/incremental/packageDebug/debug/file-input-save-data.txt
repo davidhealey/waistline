@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Jun 16 00:20:06 BST 2018
+#Sat Jun 16 00:47:48 BST 2018
 210.set=ASSET
 282.file=/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/assets/debug/html-es/scanning.html
 14.set=ANDROID_RESOURCE
