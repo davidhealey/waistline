@@ -32,6 +32,7 @@ var app = {
     });
     this.storage = window.localStorage; //Simple storage object
     dbHandler.initializeDb(); //db-handler initialization
+    setTheme(app.storage.getItem("theme")); //Restore theme
   },
 
   // deviceready Event Handler
@@ -68,7 +69,6 @@ var app = {
 	     this.storage.setItem("theme", "default");
     }
 
-    setTheme(app.storage.getItem("theme")); //Restore theme
     changeDate(app.date); //Default to current date
   },
 };
