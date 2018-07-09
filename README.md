@@ -1,6 +1,7 @@
 # Waistline <hr>
-<div class="pull-left">https://f-droid.org/repo/icons-640/com.waist.line.10002.png
-<center><a href=""></a></center></div>Waistline is a libre calorie counter app for Android. Built with Cordova and is designed to help users stay healthy and in shape, it consists of a weight tracker and a diary that help users keep track of daily food intake at several intervals. 
+<a href="http://tinypic.com?ref=vdgth4" target="_blank"><img src="http://i63.tinypic.com/vdgth4.png" border="0" alt="Image and video hosting by TinyPic"></a>
+
+Waistline is a libre calorie counter app for Android. Built with Cordova and is designed to help users stay healthy and in shape, it consists of a weight tracker and a diary that help users keep track of daily food intake at several intervals. 
 
 &nbsp; 
 &nbsp;
