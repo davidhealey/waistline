@@ -1,12 +1,14 @@
-# Waistline
-<a href="http://tinypic.com?ref=2ezk07l" target="_blank"><img src="http://i68.tinypic.com/2ezk07l.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
+# Waistline <hr>
+<div class="pull-left">https://f-droid.org/repo/icons-640/com.waist.line.10002.png
+<center><a href=""></a></center></div>Waistline is a libre calorie counter app for Android. Built with Cordova and is designed to help users stay healthy and in shape, it consists of a weight tracker and a diary that help users keep track of daily food intake at several intervals. 
 
-Waistline is a libre calorie counter app for Android. Built with Cordova and is designed to help users stay healthy and in shape, it consists of a weight tracker and a diary that help users keep track of daily food intake at several intervals. 
+&nbsp; 
+&nbsp;
+&nbsp;
+&nbsp;
 
 
-
-#### App Features 
-
+### App Features 
 Features of waistline app include;
 
 - **Dairy**: The is where a user can take inventory of daily food intake at different intervals in a day. 
@@ -16,15 +18,13 @@ Features of waistline app include;
 - Waistline doesn't contain ads or in-app purchases.
 - Waistline works on Android devices 5.0+
 
-<a href="http://tinypic.com?ref=2r7m169" target="_blank"><img src="http://i65.tinypic.com/2r7m169.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
-
-Comprehensive details of Waistline app features and usage instructions are contained in the app as the user guide.
+Comprehensive details of Waistline app features and usage instructions are contained in the app as the user guide. <hr>
 
 ## Privacy Policy
 
-<p>This Privacy Policy explains and gives information regarding the collection, use, and disclosure of personal data when you utilize the Services of the waistline app and the choices you have associated with that data. By utilizing the software, you accept the terms and conditions of this Policy. This Policy applies to this software and the developer is not responsible for the content or privacy practices on any third party app not operated by the developer to which this software links or that links to this software.
+<p>This Privacy Policy explains and gives information regarding the collection, use, and disclosure of personal data when you utilize waistline app and the choices you have associated with that data. By utilizing the software, you accept the terms and conditions of this Policy. This Policy applies to this software and the developer is not responsible for the content or privacy practices on any third party app not operated by the developer to which this software links or that links to this software.
 
-<p>Data and information collected within the utilization of this software is used for efficient and improved utilization of the software 
+<p>Data and information collected when using this software is used for efficient and improved utilization of the software 
 
 <h2>Information Collection And Use</h2>
 Waistline app only requires the availability of an internet connection when the barcode of a product is scanned. The only information disclosed in the course of this process is the barcode number of the scanned product.
