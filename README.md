@@ -1,13 +1,12 @@
 # Waistline <hr>
 <a href="http://tinypic.com?ref=vdgth4" target="_blank"><img src="http://i63.tinypic.com/vdgth4.png" border="0" alt="Image and video hosting by TinyPic"></a>
 
-Waistline is a libre calorie counter app for Android. Built with Cordova and is designed to help users stay healthy and in shape, it consists of a weight tracker and a diary that help users keep track of daily food intake at several intervals. 
+Waistline is a libre calorie counter app for Android. Built with Cordova and is designed to help users stay healthy and in shape, it consists of a weight tracker and a food diary that help users keep track of daily food intake at several intervals. 
 
 &nbsp; 
 &nbsp;
 &nbsp;
 &nbsp;
-
 
 ### App Features 
 Features of waistline app include;
@@ -40,11 +39,11 @@ For the software to function efficiently, some permissions are required to be en
 
 <h4>Usage Data</h4>
 
-<p> Usage data is collected only when a product barcode is scanned is the barcode number.
+<p>Usage data is collected only when a product barcode is scanned is the barcode number.
 
 <h2>Use of Data</h2>
     
-<p>WaistLine uses the collected data for various purposes:</p>    
+<p>Waistline uses the collected data for various purposes:</p>    
 The barcode number which is the only data collected when using the waistline app is used to fetch product information from the internet.
 
 <h2>Security Of Data</h2>
