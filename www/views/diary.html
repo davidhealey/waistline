@@ -1,26 +1,38 @@
-<ons-page>
+<ons-page id="diary-page">
   <ons-toolbar modifier="material">
     <div class="left"><ons-back-button>Back</ons-back-button></div>
     <div class="center">Diary</div>
     <div class="right"></div>
   </ons-toolbar>
 
-  <ons-list>
+  <div id="date-selector">
+      <input id="date" type="date" value="2018-05-27">
+  </div>
+
+  <ons-list id="list1" modifier="inset">
     <ons-list-header>Breakfast</ons-list-header>
     <ons-list-item>Food</ons-list-item>
     <ons-list-item>Food</ons-list-item>
     <ons-list-item>Food</ons-list-item>
+  </ons-list>
+
+  <ons-list id="list2" modifier="inset">
     <ons-list-header>Lunch</ons-list-header>
-    <ons-list-item>Food</ons-list-item>
-    <ons-list-item>Food</ons-list-item>
-    <ons-list-header>Dinner</ons-list-header>
-    <ons-list-item>Food</ons-list-item>
-    <ons-list-item>Food</ons-list-item>
-    <ons-list-header>Snacks</ons-list-header>
     <ons-list-item>Food</ons-list-item>
     <ons-list-item>Food</ons-list-item>
   </ons-list>
 
+  <ons-list id="list3" modifier="inset">
+    <ons-list-header>Dinner</ons-list-header>
+    <ons-list-item>Food</ons-list-item>
+    <ons-list-item>Food</ons-list-item>
+  </ons-list>
+
+  <ons-list id="list3" modifier="inset">
+    <ons-list-header>Snacks</ons-list-header>
+    <ons-list-item>Food</ons-list-item>
+    <ons-list-item>Food</ons-list-item>
+  </ons-list>
 
     <!--<div data-role="main" class="ui-content">
       <div id="diaryDate"></div>
