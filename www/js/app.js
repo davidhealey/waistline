@@ -42,7 +42,7 @@ var app = {
        this.storage.setItem("theme", "default");
     }
 
-    $("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
+    //$("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
     //setTheme(this.storage.getItem("theme")); //Set theme CSS
   },
 

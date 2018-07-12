@@ -19,10 +19,10 @@ var diary = {
 
     //Strings of html for each category - prepopulated with category dividers
     var list = {
-      breakfast:"<ons-list-header id=breakfast>Breakfast</ons-list-header>",
-      lunch:"<ons-list-header id=lunch>Lunch</ons-list-header>",
-      dinner:"<ons-list-header id=dinner>Dinner</ons-list-header>",
-      snacks:"<ons-list-header id=snacks>Snacks</ons-list-header>",
+      breakfast:"<ons-list-header id=breakfast>Breakfast<span></span></ons-list-header>",
+      lunch:"<ons-list-header id=lunch>Lunch<span></span></ons-list-header>",
+      dinner:"<ons-list-header id=dinner>Dinner<span></span></ons-list-header>",
+      snacks:"<ons-list-header id=snacks>Snacks<span></span></ons-list-header>",
     };
 
     var calorieCount = {"breakfast":0, "lunch":0, "dinner":0, "snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
@@ -72,12 +72,14 @@ var diary = {
       }
       else
       {
-        $("#diary-page #list").html(list.breakfast + list.lunch + list.dinner + list.snacks); //Insert into HTML
-        /*$("#diaryListview #Breakfast span").html(" - " + calorieCount.breakfast + " " + app.strings['calories']);
-        $("#diaryListview #Lunch span").html(" - " + calorieCount.lunch + " " + app.strings['calories']);
-        $("#diaryListview #Dinner span").html(" - " + calorieCount.dinner + " " + app.strings['calories']);
-        $("#diaryListview #Snacks span").html(" - " + calorieCount.snacks + " " + app.strings['calories']);
-        $("#diaryListview").listview("refresh");*/
+        $("#diary-page #list1").html(list.breakfast); //Insert into HTML
+        $("#diary-page #list2").html(list.lunch); //Insert into HTML
+        $("#diary-page #list3").html(list.dinner); //Insert into HTML
+        $("#diary-page #list4").html(list.snacks); //Insert into HTML
+        $("#diary-page #list1 ons-list-header span").html(" - " + calorieCount.breakfast + " " + app.strings['calories']);
+        $("#diary-page #list2 ons-list-header span").html(" - " + calorieCount.lunch + " " + app.strings['calories']);
+        $("#diary-page #list3 ons-list-header span").html(" - " + calorieCount.dinner + " " + app.strings['calories']);
+        $("#diary-page #list4 ons-list-header span").html(" - " + calorieCount.snacks + " " + app.strings['calories']);
       }
     };
   },
