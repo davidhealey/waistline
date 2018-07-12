@@ -1,0 +1,28 @@
+<ons-page id="edit-diary-item">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center">Edit Entry</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <h3 id="name"></h3>
+
+  <form onsubmit="diary.updateEntry(); return false;" id="edit-item-form">
+    <input type="hidden" id="id"> <!--The ID of the diary entry being edited-->
+    <input type="hidden" id="calories">
+
+    <label id="caloriesDisplayLabel" for="caloriesDisplay" data-localize="calories"></label>
+    <p id="caloriesDisplay"></p>
+
+    <label for="quantity" data-localize="num-servings"</label>
+    <ons-input type="number" name="quantity" id="quantity" step="any" required="true"></ons-input>
+
+    <label for="category" data-localize="category"></label>
+    <ons-select name="category" id="category" data-native-menu="false">
+      <option value="Breakfast" data-localize="breakfast">Breakfast</option>
+      <option value="Lunch" data-localize="lunch">Lunch</option>
+      <option value="Dinner" data-localize="dinner">Dinner</option>
+      <option value="Snacks" data-localize="snacks">Snacks</option>
+    </ons-select>
+  </form>
+</ons-page>

@@ -3,7 +3,7 @@ var diary = {
   category:"breakfast",
   date: new Date(),
 
-  populateDiary : function()
+  populate : function()
   {
     //Get selected date (app.date) at midnight
     var fromDate = diary.date;
@@ -36,8 +36,8 @@ var diary = {
 
         //Build HTML
         html = ""; //Reset variable
-        html += "<ons-list-item class='diaryItem' id='"+cursor.value.id+"' category='"+cursor.value.category+"'>";
-        html += "<a data-details='"+JSON.stringify(cursor.value)+"'>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
+        html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(cursor.value)+"' id='"+cursor.value.id+"' category='"+cursor.value.category+"' tappable='true'>";
+        html += "<a>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
         if (cursor.value.quantity == 1)
         {
           html += "<p>"+cursor.value.quantity + " " + app.strings['serving'] + ", " + Math.round(cursor.value.quantity * cursor.value.calories) + " " + app.strings['calories'] + "</p>";
@@ -101,15 +101,105 @@ var diary = {
       $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
     }
     diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
-  }
+  },
+
+  fillEditForm : function(data)
+  {
+    $("#edit-diary-item #id").val(data.id); //Add to hidden field
+    $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
+    $("#edit-diary-item #portion").val(unescape(data.portion));
+    $("#edit-diary-item #caloriesDisplay").html(Math.round(data.calories * data.quantity));
+    $("#edit-diary-item #caloriesPerPortion").html(unescape(data.portion) + " = " + data.calories + " Calories");
+    $("#edit-diary-item #calories").val(data.calories);
+    $("#edit-diary-item #quantity").val(data.quantity);
+    $("#edit-diary-item #category").val(data.category).change();
+  },
+
+  deleteEntry : function(id)
+  {
+    //Update app-wide caloriesConsumed variable
+    app.caloriesConsumed -= parseFloat(data.calories);
+
+    //Remove the item from the diary table and get the request handler
+    var request = dbHandler.deleteItem(parseInt(id), "diary");
+
+    //If the request was successful repopulate the list
+    request.onsuccess = function(e) {
+      diary.populate();
+      //updateLog(); //Update the log entry
+      //updateProgress();
+    };
+  },
+
+  updateEntry : function()
+  {
+    var id = parseInt($("#edit-diary-item #id").val()); //Get item id from hidden field
+    var quantity = parseFloat($("#edit-diary-item #quantity").val());
+    var category = $("#edit-diary-item #category").val();
+
+    var getRequest = dbHandler.getItem(id, "diary"); //Pull record from DB
+
+    getRequest.onsuccess = function(e) //Once we get the db result
+    {
+      var item = e.target.result; //Get the item from the request
+      var oldCalorieCount = item.calories * item.quantity; //The old calorie count, to be removed from the global count if everything goes well
+
+      //Update the values in the item
+      item.quantity = quantity;
+      item.category = category;
+
+      var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
+
+      putRequest.onsuccess = function(e) //The item was upated
+      {
+        app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
+        app.caloriesConsumed += item.calories * quantity; //Add on new calories
+
+        //updateLog();
+        //updateProgress();
+      }
+    }
+    page.pop();
+  },
 }
 
-$(document).on("init", "#diary-page", function(event) {
+//Page loading
+$(document).on("show", "#diary-page", function(e) {
   diary.setDate();
-  diary.populateDiary();
+  diary.populate();
 });
 
-$(document).on("focusout", "#diary-page #date", function(){
+$(document).on("init", "#edit-diary-item", function(e) {
+  diary.fillEditForm(page.getData());
+});
+
+//Change date
+$(document).on("focusout", "#diary-page #date", function(e) {
   diary.setDate();
-  diary.populateDiary();
+  diary.populate();
+});
+
+//Deleting an item
+$(document).on("hold", "#diary-page ons-list-item", function(e) {
+
+  var data = JSON.parse($(this).attr("data"));
+
+  //Show confirmation dialog
+  ons.notification.confirm("Delete this item?")
+  .then(function(input) {
+    if (input == 1) {//Delete was confirmed
+      diary.deleteEntry(data.id);
+    }
+  });
+});
+
+//Item tap action
+$(document).on("tap", "#diary-page ons-list-item", function(e) {
+  var data = JSON.parse($(this).attr("data"));
+  page.push("activities/diary/views/edit-item.html", {"data":data});
+});
+
+//Edit form submit button action
+$(document).on("tap", "#edit-diary-item #submit", function(e){
+  $("#edit-diary-item #edit-item-form").submit();
 });
