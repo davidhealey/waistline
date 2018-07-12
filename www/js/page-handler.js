@@ -21,6 +21,22 @@ window.page.load = function(page, options) {
     .then(menu.close.bind(menu));
 };
 
+window.page.replace = function(page, options) {
+  var menu = document.getElementById('menu');
+  var nav = document.getElementById('mainNavigator');
+
+  nav.replacePage(page, options)
+    .then(menu.close.bind(menu));
+};
+
+window.page.reset = function(page, options) {
+  var menu = document.getElementById('menu');
+  var nav = document.getElementById('mainNavigator');
+
+  nav.resetToPage(page, options)
+    .then(menu.close.bind(menu));
+};
+
 window.page.pop = function() {
   var nav = document.getElementById('mainNavigator');
   return nav.popPage();

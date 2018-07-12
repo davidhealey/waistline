@@ -1,6 +1,6 @@
 var diary = {
 
-  category:"breakfast",
+  category:"Breakfast",
   date: new Date(),
 
   populate : function()
@@ -30,6 +30,7 @@ var diary = {
     index.openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
     {
       var cursor = e.target.result;
+
       if (cursor)
       {
         var calories = cursor.value.calories;
@@ -38,6 +39,7 @@ var diary = {
         html = ""; //Reset variable
         html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(cursor.value)+"' id='"+cursor.value.id+"' category='"+cursor.value.category+"' tappable='true'>";
         html += "<a>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
+
         if (cursor.value.quantity == 1)
         {
           html += "<p>"+cursor.value.quantity + " " + app.strings['serving'] + ", " + Math.round(cursor.value.quantity * cursor.value.calories) + " " + app.strings['calories'] + "</p>";
@@ -115,6 +117,36 @@ var diary = {
     $("#edit-diary-item #category").val(data.category).change();
   },
 
+  addEntry : function(data)
+  {
+    //Add the food to the diary store
+    var dateTime = diary.date;
+    var foodId = data.id;
+    var name = data.name;
+    var portion = data.portion;
+    var quantity = parseFloat(data.quantity);
+    var calories = parseFloat(data.calories);
+
+    var diaryData = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "category":diary.category, "foodId":foodId};
+    var request = dbHandler.insert(diaryData, "diary"); //Add item to diary
+
+    request.onsuccess = function(e)
+    {
+      console.log(diaryData);
+      diary.populate();
+
+      //Update app variable and log
+      app.caloriesConsumed += calories*quantity;
+
+//      updateLog();
+  //    updateProgress();
+
+      //Update food item's dateTime (to show when food was last referenced)
+      var foodData = {"id":foodId, "dateTime":new Date(), "name":name, "portion":portion, "quantity":quantity, "calories":calories};
+      dbHandler.insert(foodData, "foodList");
+    }
+  },
+
   deleteEntry : function(id)
   {
     //Update app-wide caloriesConsumed variable
@@ -163,14 +195,10 @@ var diary = {
   },
 }
 
-//Page loading
+//Diary page display
 $(document).on("show", "#diary-page", function(e) {
   diary.setDate();
   diary.populate();
-});
-
-$(document).on("init", "#edit-diary-item", function(e) {
-  diary.fillEditForm(page.getData());
 });
 
 //Change date
@@ -197,6 +225,11 @@ $(document).on("hold", "#diary-page ons-list-item", function(e) {
 $(document).on("tap", "#diary-page ons-list-item", function(e) {
   var data = JSON.parse($(this).attr("data"));
   page.push("activities/diary/views/edit-item.html", {"data":data});
+});
+
+//Edit form init
+$(document).on("init", "#edit-diary-item", function(e) {
+  diary.fillEditForm(page.getData());
 });
 
 //Edit form submit button action
