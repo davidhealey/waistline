@@ -19,10 +19,10 @@ var diary = {
 
     //Strings of html for each category - prepopulated with category dividers
     var list = {
-      breakfast:"<ons-list-header id=breakfast>Breakfast<span></span></ons-list-header>",
-      lunch:"<ons-list-header id=lunch>Lunch<span></span></ons-list-header>",
-      dinner:"<ons-list-header id=dinner>Dinner<span></span></ons-list-header>",
-      snacks:"<ons-list-header id=snacks>Snacks<span></span></ons-list-header>",
+      breakfast:"<ons-list-header id=Breakfast>Breakfast<span></span></ons-list-header>",
+      lunch:"<ons-list-header id=Lunch>Lunch<span></span></ons-list-header>",
+      dinner:"<ons-list-header id=Dinner>Dinner<span></span></ons-list-header>",
+      snacks:"<ons-list-header id=Snacks>Snacks<span></span></ons-list-header>",
     };
 
     var calorieCount = {"breakfast":0, "lunch":0, "dinner":0, "snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
@@ -225,6 +225,12 @@ $(document).on("hold", "#diary-page ons-list-item", function(e) {
 $(document).on("tap", "#diary-page ons-list-item", function(e) {
   var data = JSON.parse($(this).attr("data"));
   page.push("activities/diary/views/edit-item.html", {"data":data});
+});
+
+//Header tap action
+$(document).on("tap", "#diary-page ons-list-header", function(e) {
+  diary.category = $(this).attr("id"); //Assign category from header ID
+  page.push("activities/food-list/views/food-list.html", {}); //Go to the food list page
 });
 
 //Edit form init
