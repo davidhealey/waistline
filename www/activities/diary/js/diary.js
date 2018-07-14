@@ -191,7 +191,7 @@ var diary = {
         //updateProgress();
       }
     }
-    page.pop();
+    nav.popPage();
   },
 }
 
@@ -224,18 +224,14 @@ $(document).on("hold", "#diary-page ons-list-item", function(e) {
 //Item tap action
 $(document).on("tap", "#diary-page ons-list-item", function(e) {
   var data = JSON.parse($(this).attr("data"));
-  page.push("activities/diary/views/edit-item.html", {"data":data});
+  nav.pushPage("activities/diary/views/edit-item.html", {"data":data})
+  .then(function() {diary.fillEditForm(data)});
 });
 
 //Header tap action
 $(document).on("tap", "#diary-page ons-list-header", function(e) {
   diary.category = $(this).attr("id"); //Assign category from header ID
-  page.push("activities/food-list/views/food-list.html", {}); //Go to the food list page
-});
-
-//Edit form init
-$(document).on("init", "#edit-diary-item", function(e) {
-  diary.fillEditForm(page.getData());
+  nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
 //Edit form submit button action
