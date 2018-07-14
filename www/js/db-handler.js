@@ -25,7 +25,7 @@ var dbHandler =
   {
     //Open database
     var databaseName = 'waistlineDb';
-    var databaseVersion = 7;
+    var databaseVersion = 9;
     var openRequest = indexedDB.open(databaseName, databaseVersion);
 
     //Error handler
@@ -71,9 +71,13 @@ var dbHandler =
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
         if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
         if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
-        if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //Default quantity
         if (!store.indexNames.contains("calories")) store.createIndex('calories', 'calories', {unique:false}); //Calories in portion
-        if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {unique:false}); //Calories in portion
+        if (!store.indexNames.contains("protein")) store.createIndex('protein', 'protein', {unique:false}); //Protein in portion
+        if (!store.indexNames.contains("carbs")) store.createIndex('carbs', 'carbs', {unique:false}); //Carbs in portion
+        if (!store.indexNames.contains("fat")) store.createIndex('fat', 'fat', {unique:false}); //Fat in portion
+        if (!store.indexNames.contains("sugar")) store.createIndex('sugar', 'sugar', {unique:false}); //Sugar in portion
+        if (!store.indexNames.contains("salt")) store.createIndex('salt', 'salt', {unique:false}); //Salt in portion
+        if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {unique:false});
 
         //Diary Store - a kind of mini food list, independent of the main food list
         if (!DB.objectStoreNames.contains("diary")) {
@@ -87,8 +91,13 @@ var dbHandler =
         if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false});
         if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
         if (!store.indexNames.contains("calories")) store.createIndex('calories', 'calories', {unique:false}); //Calories in the portion
+        if (!store.indexNames.contains("protein")) store.createIndex('protein', 'protein', {unique:false}); //Protein in portion
+        if (!store.indexNames.contains("carbs")) store.createIndex('carbs', 'carbs', {unique:false}); //Carbs in portion
+        if (!store.indexNames.contains("fat")) store.createIndex('fat', 'fat', {unique:false}); //Fat in portion
+        if (!store.indexNames.contains("sugar")) store.createIndex('sugar', 'sugar', {unique:false}); //Sugar in portion
+        if (!store.indexNames.contains("salt")) store.createIndex('salt', 'salt', {unique:false}); //Salt in portion
         if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Breakfast, lunch dinner, etc..
-        if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - useful for some stuff
+        if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
 
         console.log("DB Created/Updated");
     };
