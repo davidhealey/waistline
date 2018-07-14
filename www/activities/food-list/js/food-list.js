@@ -108,7 +108,7 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
 $(document).on("doubletap", "#food-list-page #food-list ons-list-item", function(e) {
   var data = JSON.parse($(this).attr("data"));
   diary.addEntry(data);
-  page.reset("activities/diary/views/diary.html"); //Switch to diary page
+  nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
 });
 
 //Add multiple items to diary by checking them and tapping the check button
@@ -125,13 +125,13 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
       var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
       diary.addEntry(data);
     }
-    page.reset("activities/diary/views/diary.html"); //Switch to diary page
+    nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
   }
 });
 
 //Floating action button action
 $(document).on("tap", "#food-list-page ons-fab", function(e) {
-  page.push("activities/food-list/views/edit-item.html"); //Go to the food item edit page
+  nav.pushPage("activities/food-list/views/edit-item.html")
 });
 
 $(document).on("tap", "#food-list-page #food-list ons-checkbox", function(e) {
