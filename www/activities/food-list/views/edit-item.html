@@ -10,14 +10,14 @@
     <input type="hidden" id="id" value="">
     <input type="hidden" id="barcode" value="">
 
-    <ons-input type="text" name="name" id="name" required="true" modifier="underbar" placeholder="Name" float></ons-input>
-    <ons-input type="text" name="portion" id="portion" required="true" modifier="underbar" placeholder="Portion" float></ons-input>
-    <ons-input type="number" pattern="[0-9]*" name="calories" id="calories" required="true" modifier="underbar" placeholder="Calories" float></ons-input>
-    <ons-input type="number" pattern="[0-9]*" name="protein" id="protein" modifier="underbar" placeholder="Protein" float></ons-input>
-    <ons-input type="number" pattern="[0-9]*" name="carbs" id="carbs" modifier="underbar" placeholder="Carbs" float></ons-input>
-    <ons-input type="number" pattern="[0-9]*" name="fat" id="fat" modifier="underbar" placeholder="Fat" float></ons-input>
-    <ons-input type="number" pattern="[0-9]*" name="sugar" id="sugar" modifier="underbar" placeholder="Sugar" float></ons-input>
-    <ons-input type="number" pattern="[0-9]*" name="salt" id="salt" modifier="underbar" placeholder="Salt" float></ons-input>
+    <ons-input type="text" name="name" id="name" required="true" modifier="underbar" placeholder="Name*" float></ons-input>
+    <ons-input type="text" name="portion" id="portion" required="true" modifier="underbar" placeholder="Portion*" float></ons-input>
+    <ons-input type="number" inputmode="numeric" pattern="[0-9]*" name="calories" id="calories" required="true" modifier="underbar" placeholder="Calories*" float></ons-input>
+    <ons-input type="number" inputmode="decimal" step="any" name="protein" id="protein" modifier="underbar" placeholder="Protein" float></ons-input>
+    <ons-input type="number" inputmode="decimal" step="any" name="carbs" id="carbs" modifier="underbar" placeholder="Carbs" float></ons-input>
+    <ons-input type="number" inputmode="decimal" step="any" name="fat" id="fat" modifier="underbar" placeholder="Fat" float></ons-input>
+    <ons-input type="number" inputmode="decimal" step="any" name="sugar" id="sugar" modifier="underbar" placeholder="Sugar" float></ons-input>
+    <ons-input type="number" inputmode="decimal" step="any" name="salt" id="salt" modifier="underbar" placeholder="Salt" float></ons-input>
   </form>
 
 </ons-page>

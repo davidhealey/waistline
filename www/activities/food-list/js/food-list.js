@@ -152,5 +152,18 @@ $(document).on("show", "#edit-food-item", function(e) {
 
 //Edit form submit button action
 $(document).on("tap", "#edit-food-item #submit", function(e){
-  $("#edit-food-item #edit-item-form").submit();
+
+  var name = $('#edit-food-item #name').val();
+  var portion = $('#edit-food-item #portion').val();
+  var calories = parseFloat($('#edit-food-item #calories').val());
+
+  //Form validation
+  if (name != "" && portion != "" && !isNaN(calories))
+  {
+    $("#edit-food-item #edit-item-form").submit();
+  }
+  else
+  {
+    ons.notification.alert('Please complete all required fields.');
+  }
 });
