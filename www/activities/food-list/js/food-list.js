@@ -134,6 +134,10 @@ $(document).on("tap", "#food-list-page ons-fab", function(e) {
   page.push("activities/food-list/views/edit-item.html"); //Go to the food item edit page
 });
 
+$(document).on("tap", "#food-list-page #food-list ons-checkbox", function(e) {
+  e.stopPropagation(); //Prevent button triggering when checkbox is selected
+});
+
 //Edit food item by single tapping
 $(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
 
