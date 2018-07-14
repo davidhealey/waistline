@@ -32,17 +32,10 @@ var app = {
     });
     this.storage = window.localStorage; //Simple storage object
     dbHandler.initializeDb(); //db-handler initialization
-  },
-
-  // deviceready Event Handler
-  //
-  // Bind any cordova events here. Common events are:
-  // 'pause', 'resume', etc.
-  onDeviceReady: function() {
-
-    app.strings = defaultLocale; //Set fallback locale data
 
     //Localisation
+    app.strings = defaultLocale; //Set fallback locale data
+
     var opts = {};
     opts.callback = function(data, defaultCallback) {
       defaultCallback(data);
@@ -63,14 +56,21 @@ var app = {
       this.storage.setItem("calorieGoal", 2000);
     }
 
+    //Theme handler
     if (this.storage.getItem("theme") == undefined)
     {
        this.storage.setItem("theme", "default");
     }
 
     $("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
-
     setTheme(this.storage.getItem("theme")); //Set theme CSS
+  },
+
+  // deviceready Event Handler
+  //
+  // Bind any cordova events here. Common events are:
+  // 'pause', 'resume', etc.
+  onDeviceReady: function() {
 
     changeDate(this.date); //Default to current date
   },

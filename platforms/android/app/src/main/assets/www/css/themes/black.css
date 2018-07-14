@@ -1,31 +1,52 @@
+/*
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+
+  contributor: Homer S. (https://github.com/maste9, https://git.ismus.net/homer77 or https://gitlab.com/homer77)
+*/
+
+
 /* Black Theme */
 
-.ui-header {
-    background-color:#333 !important; 
+.ui-header, .ui-footer {
+	background-color: #111 !important;
 }
 
 .ui-header .ui-title, .ui-footer .ui-title {
-    background-color:#333 !important; 
+    background-color:#111 !important; 
 }
 
 
 html body .ui-group-theme-a .ui-bar-inherit {                                   
-        background-color: #333 /*{a-bar-background-color}*/;                 
-        border-color: #eee /*{a-bar-border}*/;                                
-        color: #eee /*{a-bar-color}*/;                                       
+        background-color: #191919 /*{a-bar-background-color}*/;                 
+        border-color: #b1b1b1 /*{a-bar-border}*/;                                
+        color: #b1b1b1 /*{a-bar-color}*/;                                       
         text-shadow: 0 /*{a-bar-shadow-x}*/ 0px /*{a-bar-shadow-y}*/ 0 /*{a-bar\
--shadow-radius}*/ #333 /*{a-bar-shadow-color}*/;                             
+-shadow-radius}*/ #191919 /*{a-bar-shadow-color}*/;                             
 }                     
 
 /* Page and overlay */                                                          
 .ui-overlay-a,                                                                  
 .ui-page-theme-a,                                                               
 .ui-page-theme-a .ui-panel-wrapper {                                            
-        background-color: #333 /*{a-page-background-color}*/;                
-        border-color: #333 /*{a-page-border}*/;                              
-        color: #eee /*{a-page-color}*/;                                      
+        background-color: #191919 /*{a-page-background-color}*/;                
+        border-color: #191919 /*{a-page-border}*/;                              
+        color: #b1b1b1 /*{a-page-color}*/;                                      
         text-shadow: 0 /*{a-page-shadow-x}*/ 0px /*{a-page-shadow-y}*/ 0 /*{a-p\
-age-shadow-radius}*/ #111 /*{a-page-shadow-color}*/;                         
+age-shadow-radius}*/ #292929 /*{a-page-shadow-color}*/;                         
 }
 
 /* Body: Read-only lists, text inputs, collapsible content */  
@@ -35,16 +56,16 @@ html .ui-bar-a .ui-body-inherit,
 html .ui-body-a .ui-body-inherit,                                               
 html body .ui-group-theme-a .ui-body-inherit,                                   
 html .ui-panel-page-container-a {                                               
-        background-color: #333 /*{a-body-background-color}*/;                
-        border-color: #333 /*{a-body-border}*/;                             
-        color: #ddd /*{a-body-color}*/;                                      
+        background-color: #191919 /*{a-body-background-color}*/;                
+        border-color: #191919 /*{a-body-border}*/;                             
+        color: #dedede /*{a-body-color}*/;                                      
         text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-b\
-ody-shadow-radius}*/ #030303 /*{a-body-shadow-color}*/;                         
+ody-shadow-radius}*/ #1a1a1a /*{a-body-shadow-color}*/;                         
 }                                                                               
 
 .table-stripe tbody tr:nth-child(odd) td,
 .table-stripe tbody tr:nth-child(odd) th {
-	background-color: #111; /* non-RGBA fallback  */
+	background-color: #292929; /* non-RGBA fallback  */
 	background-color: rgba(255,255,255,.04);
 }
 
@@ -91,20 +112,20 @@ html .ui-alt-icon .ui-radio-off:after {
 html .ui-bar-a .ui-bar-inherit,
 html .ui-body-a .ui-bar-inherit,
 html body .ui-group-theme-a .ui-bar-inherit {
-	background-color: #333 /*{a-bar-background-color}*/;
+	background-color: #191919 /*{a-bar-background-color}*/;
 	border-color: #ededed /*{a-bar-border}*/;
 	color: #ededed /*{a-bar-color}*/;
-	text-shadow: 0 /*{a-bar-shadow-x}*/ 0px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #111 /*{a-bar-shadow-color}*/;
+	text-shadow: 0 /*{a-bar-shadow-x}*/ 0px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #292929 /*{a-bar-shadow-color}*/;
 }
 
 /* Page and overlay */
 .ui-overlay-a,
 .ui-page-theme-a,
 .ui-page-theme-a .ui-panel-wrapper {
-	background-color: #333 /*{a-page-background-color}*/;
-	border-color: #333 /*{a-page-border}*/;
+	background-color: #191919 /*{a-page-background-color}*/;
+	border-color: #191919 /*{a-page-border}*/;
 	color: #ededed /*{a-page-color}*/;
-	text-shadow: 0 /*{a-page-shadow-x}*/ 0px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ #111 /*{a-page-shadow-color}*/;
+	text-shadow: 0 /*{a-page-shadow-x}*/ 0px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ #292929 /*{a-page-shadow-color}*/;
 }
 /* Body: Read-only lists, text inputs, collapsible content */
 .ui-body-a,
@@ -113,10 +134,10 @@ html .ui-bar-a .ui-body-inherit,
 html .ui-body-a .ui-body-inherit,
 html body .ui-group-theme-a .ui-body-inherit,
 html .ui-panel-page-container-a {
-	background-color: #333 /*{a-body-background-color}*/;
-	border-color: #222 /*{a-body-border}*/;
-	color: #ddd /*{a-body-color}*/;
-	text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #030303 /*{a-body-shadow-color}*/;
+	background-color: #191919 /*{a-body-background-color}*/;
+	border-color: #191919 /*{a-body-border}*/;
+	color: #dedede /*{a-body-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #191919 /*{a-body-shadow-color}*/;
 }
 
 /* Button default */
@@ -125,10 +146,10 @@ html .ui-bar-a .ui-btn,
 html .ui-body-a .ui-btn,
 html body .ui-group-theme-a .ui-btn,
 html head + body .ui-btn.ui-btn-a {
-    background-color: #333 !important /*{a-bup-background-color}*/;
+    background-color: #111 !important /*{a-bup-background-color}*/;
 	border-color: #ccc !important /*{a-bup-border}*/;
-	color: #ededed !important /*{a-bup-color}*/;
-	text-shadow: 0 /*{a-bup-shadow-x}*/ 0px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #111 !important /*{a-bup-shadow-color}*/;
+	color: #dedede !important /*{a-bup-color}*/;
+	text-shadow: 0 /*{a-bup-shadow-x}*/ 0px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #292929 !important /*{a-bup-shadow-color}*/;
 }
 
 /* Button visited */
@@ -137,10 +158,10 @@ html .ui-bar-a .ui-btn:visited,
 html .ui-body-a .ui-btn:visited,
 html body .ui-group-theme-a .ui-btn:visited,
 html head + body .ui-btn.ui-btn-a:visited {
-	background-color: #010101 !important /*{a-bup-background-color}*/;
+	background-color: #111 !important /*{a-bup-background-color}*/;
 	border-color: #ccc !important /*{a-bup-border}*/;
 	color: #ededed !important /*{a-bup-color}*/;
-	text-shadow: 0 /*{a-bup-shadow-x}*/ 0px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #111 !important /*{a-bup-shadow-color}*/;
+	text-shadow: 0 /*{a-bup-shadow-x}*/ 0px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #292929 !important /*{a-bup-shadow-color}*/;
 }
 /* Button hover */
 .ui-page-theme-a .ui-btn:hover,
@@ -148,10 +169,10 @@ html .ui-bar-a .ui-btn:hover,
 html .ui-body-a .ui-btn:hover,
 html body .ui-group-theme-a .ui-btn:hover,
 html head + body .ui-btn.ui-btn-a:hover {
-	background-color: #101010 !important /*{a-bhover-background-color}*/;
+	background-color: #191919 !important /*{a-bhover-background-color}*/;
 	border-color: #bcbcbc !important /*{a-bhover-border}*/;
 	color: #ededed !important /*{a-bhover-color}*/;
-	text-shadow: 0 /*{a-bhover-shadow-x}*/ 1px /*{a-bhover-shadow-y}*/ 0 /*{a-bhover-shadow-radius}*/ #333 !important /*{a-bhover-shadow-color}*/;
+	text-shadow: 0 /*{a-bhover-shadow-x}*/ 1px /*{a-bhover-shadow-y}*/ 0 /*{a-bhover-shadow-radius}*/ #191919 !important /*{a-bhover-shadow-color}*/;
 }
 /* Button down */
 .ui-page-theme-a .ui-btn:active,
@@ -159,10 +180,10 @@ html .ui-bar-a .ui-btn:active,
 html .ui-body-a .ui-btn:active,
 html body .ui-group-theme-a .ui-btn:active,
 html head + body .ui-btn.ui-btn-a:active {
-	background-color: #111 !important /*{a-bdown-background-color}*/;
-	border-color: #ededed !important /*{a-bdown-border}*/;
+	background-color: #292929 !important /*{a-bdown-background-color}*/;
+	border-color: #bcbcbc !important /*{a-bdown-border}*/;
 	color: #ededed !important /*{a-bdown-color}*/;
-	text-shadow: 0 /*{a-bdown-shadow-x}*/ 0px /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #111 !important /*{a-bdown-shadow-color}*/;
+	text-shadow: 0 /*{a-bdown-shadow-x}*/ 0px /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #292929 !important /*{a-bdown-shadow-color}*/;
 }
 
 /* Active button */
@@ -189,10 +210,10 @@ html .ui-bar-a .ui-slider-track .ui-btn-active,
 html .ui-body-a .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-a .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-a .ui-btn-active {
-	background-color: #101010 !important /*{a-active-background-color}*/;
-	border-color: #464646 !important /*{a-active-border}*/;
-	color: #eee !important /*{a-active-color}*/;
-	text-shadow: 0 /*{a-active-shadow-x}*/ 0px /*{a-active-shadow-y}*/ 0 /*{a-active-shadow-radius}*/ #444444 !important /*{a-active-shadow-color}*/;
+	background-color: #191919 !important /*{a-active-background-color}*/;
+	border-color: #b1b1b1 !important /*{a-active-border}*/;
+	color: #b1b1b1 !important /*{a-active-color}*/;
+	text-shadow: 0 /*{a-active-shadow-x}*/ 0px /*{a-active-shadow-y}*/ 0 /*{a-active-shadow-radius}*/ #292929 !important /*{a-active-shadow-color}*/;
 }
 
 /* Bar: Toolbars, dividers, slider track */
@@ -201,20 +222,22 @@ html body div.ui-slider-track.ui-body-a .ui-btn-active {
 html .ui-bar-b .ui-bar-inherit,
 html .ui-body-b .ui-bar-inherit,
 html body .ui-group-theme-b .ui-bar-inherit {
-	background-color: #e2e2e2 !important /*{b-bar-background-color}*/;
-	border-color: #e8e8e8 !important /*{b-bar-border}*/;
-	color: #333 !important /*{b-bar-color}*/;
-	text-shadow: 0 /*{b-bar-shadow-x}*/ 1px /*{b-bar-shadow-y}*/ 0 /*{b-bar-shadow-radius}*/ #eee !important /*{b-bar-shadow-color}*/;
+	background-color: #191919 !important /*{b-bar-background-color}*/;
+	border-color: #b1b1b1 !important /*{b-bar-border}*/;
+	color: #191919 !important /*{b-bar-color}*/;
+	text-shadow: 0 /*{b-bar-shadow-x}*/ 1px /*{b-bar-shadow-y}*/ 0 /*{b-bar-shadow-radius}*/ #292929 !important /*{b-bar-shadow-color}*/;
 }
+
+
 
 /* Page and overlay */
 .ui-overlay-b,
 .ui-page-theme-b,
 .ui-page-theme-b .ui-panel-wrapper {
-	background-color: #252525 !important /*{b-page-background-color}*/;
-	border-color: #454545 !important /*{b-page-border}*/;
-	color: #edededfff !important /*{b-page-color}*/;
-	text-shadow: 0 /*{b-page-shadow-x}*/ 1px /*{b-page-shadow-y}*/ 0 /*{b-page-shadow-radius}*/ #eee !important /*{b-page-shadow-color}*/;
+	background-color: #191919 !important /*{b-page-background-color}*/;
+	border-color: #b1b1b1 !important /*{b-page-border}*/;
+	color: #ededed !important /*{b-page-color}*/;
+	text-shadow: 0 /*{b-page-shadow-x}*/ 1px /*{b-page-shadow-y}*/ 0 /*{b-page-shadow-radius}*/ #292929 !important /*{b-page-shadow-color}*/;
 }
 /* Body: Read-only lists, text inputs, collapsible content */
 .ui-body-b,
@@ -223,10 +246,10 @@ html .ui-bar-b .ui-body-inherit,
 html .ui-body-b .ui-body-inherit,
 html body .ui-group-theme-b .ui-body-inherit,
 html .ui-panel-page-container-b {
-	background-color: #d9d9d9 !important /*{b-body-background-color}*/;
-	border-color: #e2e2e2 !important /*{b-body-border}*/;
-	color: #333 !important /*{b-body-color}*/;
-	text-shadow: 0 /*{b-body-shadow-x}*/ 1px /*{b-body-shadow-y}*/ 0 /*{b-body-shadow-radius}*/ #eee !important /*{b-body-shadow-color}*/;
+	background-color: #191919 !important /*{b-body-background-color}*/;
+	border-color: #b1b1b1 !important /*{b-body-border}*/;
+	color: #191919 !important /*{b-body-color}*/;
+	text-shadow: 0 /*{b-body-shadow-x}*/ 1px /*{b-body-shadow-y}*/ 0 /*{b-body-shadow-radius}*/ #292929 !important /*{b-body-shadow-color}*/;
 }
 
 /* Links */
@@ -268,8 +291,8 @@ html body .ui-group-theme-b .ui-btn:visited,
 html head + body .ui-btn.ui-btn-b:visited {
 	background-color: #ccc !important /*{b-bup-background-color}*/;
 	border-color: #e0e0e0 !important /*{b-bup-border}*/;
-	color: #333 !important /*{b-bup-color}*/;
-	text-shadow: 0 /*{b-bup-shadow-x}*/ 1px /*{b-bup-shadow-y}*/ 0 /*{b-bup-shadow-radius}*/ #eee !important /*{b-bup-shadow-color}*/;
+	color: #191919 !important /*{b-bup-color}*/;
+	text-shadow: 0 /*{b-bup-shadow-x}*/ 1px /*{b-bup-shadow-y}*/ 0 /*{b-bup-shadow-radius}*/ #b1b1b1 !important /*{b-bup-shadow-color}*/;
 }
 /* Button hover */
 .ui-page-theme-b .ui-btn:hover,
@@ -279,8 +302,8 @@ html body .ui-group-theme-b .ui-btn:hover,
 html head + body .ui-btn.ui-btn-b:hover {
 	background-color: #dcdcdc !important /*{b-bhover-background-color}*/;
 	border-color: #e0e0e0 !important /*{b-bhover-border}*/;
-	color: #333 !important /*{b-bhover-color}*/;
-	text-shadow: 0 /*{b-bhover-shadow-x}*/ 1px /*{b-bhover-shadow-y}*/ 0 /*{b-bhover-shadow-radius}*/ #eee !important /*{b-bhover-shadow-color}*/;
+	color: #191919 !important /*{b-bhover-color}*/;
+	text-shadow: 0 /*{b-bhover-shadow-x}*/ 1px /*{b-bhover-shadow-y}*/ 0 /*{b-bhover-shadow-radius}*/ #b1b1b1 !important /*{b-bhover-shadow-color}*/;
 }
 /* Button down */
 .ui-page-theme-b .ui-btn:active,
@@ -290,8 +313,8 @@ html body .ui-group-theme-b .ui-btn:active,
 html head + body .ui-btn.ui-btn-b:active {
 	background-color: #afafaf !important /*{b-bdown-background-color}*/;
 	border-color: #e0e0e0 !important /*{b-bdown-border}*/;
-	color: #333 !important /*{b-bdown-color}*/;
-	text-shadow: 0 /*{b-bdown-shadow-x}*/ 1px /*{b-bdown-shadow-y}*/ 0 /*{b-bdown-shadow-radius}*/ #eee !important /*{b-bdown-shadow-color}*/;
+	color: #191919 !important /*{b-bdown-color}*/;
+	text-shadow: 0 /*{b-bdown-shadow-x}*/ 1px /*{b-bdown-shadow-y}*/ 0 /*{b-bdown-shadow-radius}*/ #b1b1b1 !important /*{b-bdown-shadow-color}*/;
 }
 /* Active button */
 .ui-page-theme-b .ui-btn.ui-btn-active,
