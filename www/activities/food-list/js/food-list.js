@@ -83,6 +83,88 @@ var foodList = {
       foodList.populate();
     };
   },
+
+  scan : function()
+  {console.log("hello");
+    cordova.plugins.barcodeScanner.scan(
+       function (result) {
+
+         var code = result.text;
+         var request = new XMLHttpRequest();
+
+         request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+         request.send();
+
+         request.onreadystatechange = function(){
+           foodList.processBarcodeResponse(request);
+         };
+       },
+       function (e) {
+           alert("Scanning failed: " + error);
+       }
+    );
+  },
+
+  processBarcodeResponse : function(request)
+  {
+    if (request.readyState == 4 && request.status == 200)
+    {
+      var result = jQuery.parseJSON(request.responseText);
+
+      if (result.status == 0) //Product not found
+      {
+        alert("Product not found. You can add it with the Open Food Facts app");
+      }
+      else
+      {
+        //First check if the product has already been added to the food list - to avoid duplicates
+        var index = dbHandler.getIndex("barcode", "foodList");
+        var request = index.count(result.code);
+
+        request.onsuccess = function(e)
+        {
+          if (e.target.result > 0)
+          {
+            alert("This product is already is already in your food list.");
+          }
+          else //Product is not in the db yet so we can add it now
+          {
+            //Get the data for the add food form
+            var product = result.product;
+
+            var data = {"name":escape(product.product_name), "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url, "barcode":result.code};
+
+            //Get best match for portion/serving size
+            if (product.serving_size)
+            {
+              data.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
+              data.calories = parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(product.serving_size)); //Get calories for portion
+            }
+            else if (product.nutrition_data_per)
+            {
+              data.portion = product.nutrition_data_per;
+            }
+            else if (product.quantity)
+            {
+              data.portion = product.quantity;
+            }
+
+            //If energy is given in kJ convert to kcal
+            if (product.nutriments.energy_unit == "kJ")
+            {
+              data.calories = parseInt(data.calories / 4.15);
+            }
+
+            escape(data.portion);
+
+            //Go to food item edit form and fill in form with retrieved data
+            nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
+              .then(function() {foodList.fillEditForm(data)});
+          }
+        }
+      }
+    }
+  },
 }
 
 //Food list page display
@@ -155,7 +237,7 @@ $(document).on("show", "#edit-food-item", function(e) {
 });
 
 //Edit form submit button action
-$(document).on("tap", "#edit-food-item #submit", function(e){
+$(document).on("tap", "#edit-food-item #submit", function(e) {
 
   var name = $('#edit-food-item #name').val();
   var portion = $('#edit-food-item #portion').val();
@@ -170,4 +252,9 @@ $(document).on("tap", "#edit-food-item #submit", function(e){
   {
     ons.notification.alert('Please complete all required fields.');
   }
+});
+
+//Barcode scanner button
+$(document).on("tap", "#food-list-page #btn-barcode", function(e) {
+  foodList.scan();
 });
