@@ -61,13 +61,14 @@
               <ons-list-item onclick="page.push('activities/diary/views/diary.html')" tappable>Diary</ons-list-item>
               <ons-list-item onclick="page.push('stats.html')" tappable>Statistics</ons-list-item>
               <ons-list-item onclick="page.push('activities/food-list/views/food-list.html')" tappable>Food List</ons-list-item>
+              <ons-list-item onclick="page.push('activities/goals/views/goals.html')" tappable>Goals</ons-list-item>
               <ons-list-item onclick="page.push('settings.html')" tappable>Settings</ons-list-item>
               <ons-list-item onclick="page.push('user-guide.html')" tappable>User Guide</ons-list-item>
             </ons-list>
           </ons-page>
         </ons-splitter-side>
         <ons-splitter-content id="content">
-          <ons-navigator id="mainNavigator" page="activities/food-list/views/food-list.html"></ons-navigator>
+          <ons-navigator id="mainNavigator" page="activities/goals/views/goals.html"></ons-navigator>
         </ons-splitter-content>
       </ons-splitter>
 
@@ -79,5 +80,6 @@
       <script type="text/javascript" src="js/page-handler.js"></script>
       <script type="text/javascript" src="activities/diary/js/diary.js"></script>
       <script type="text/javascript" src="activities/food-list/js/food-list.js"></script>
+      <script type="text/javascript" src="activities/goals/js/goals.js"></script>
     </body>
 </html>
