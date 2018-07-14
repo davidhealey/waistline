@@ -239,6 +239,6 @@ $(document).on("init", "#edit-diary-item", function(e) {
 });
 
 //Edit form submit button action
-$(document).on("tap", "#edit-diary-item #submit", function(e){
+$(document).on("tap", "#edit-diary-item #submit", function(e) {
   $("#edit-diary-item #edit-item-form").submit();
 });
