@@ -15,8 +15,22 @@ var goals = {
 
     nav.popPage();
   },
-};
 
+  toggleExtraNutritionGoals : function()
+  {
+    $("#nutrition .extra-goal").prop("disabled", $("#nutrition #multi-goal").prop("checked")); //Toggle extra goals
+  },
+
+  copyMondayToExtraGoals : function()
+  {
+    if ($("#nutrition #multi-goal").prop("checked")) {
+      $("#nutrition .extra-goal").val($("#nutrition #monday").val());
+    }
+    else {
+      $("#nutrition .extra-goal").val("");
+    }
+  }
+};
 
 $(document).on("tap", "#goals-list .nutrition", function(e) {
 
@@ -27,6 +41,20 @@ $(document).on("tap", "#goals-list .nutrition", function(e) {
     .then(function() {goals.fillNutritionForm(data)});
 });
 
+$(document).on("show", "#nutrition", function(e) {
+  goals.toggleExtraNutritionGoals();
+  goals.copyMondayToExtraGoals();
+});
+
 $(document).on("tap", "#nutrition #submit", function(e) {
   $("#nutrition #edit-nutrition-form").submit();
+});
+
+$(document).on("change", "#nutrition #multi-goal", function(e) {
+  goals.toggleExtraNutritionGoals();
+  goals.copyMondayToExtraGoals();
+});
+
+$(document).on("change", "#nutrition .goal", function(e) {
+  goals.copyMondayToExtraGoals();
 });
