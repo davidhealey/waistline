@@ -102,7 +102,7 @@ var diary = {
 
       $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
     }
-    diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
+    diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date at midnight
   },
 
   fillEditForm : function(data)
@@ -192,6 +192,24 @@ var diary = {
       }
     }
     nav.popPage();
+  },
+
+  recordWeight: function()
+  {
+    //Show confirmation dialog
+    ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number"})
+    .then(function(input) {
+
+      if (!isNaN(parseFloat(input))) //The entered value is a number
+      {
+        var data = {"dateTime":diary.date, "weight":input};
+        var request = dbHandler.insert(data, "log"); //Add/update log entry
+
+        request.onsuccess = function(e){
+          console.log("Log updated");
+        };
+      }
+    });
   },
 }
 
