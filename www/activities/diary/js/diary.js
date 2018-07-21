@@ -2,6 +2,7 @@ var diary = {
 
   category:"Breakfast",
   date: new Date(),
+  consumption:{}, //Nutrition consumed for current diary date
 
   populate : function()
   {
@@ -135,12 +136,6 @@ var diary = {
     {
       diary.populate();
 
-      //Update app variable and log
-      app.caloriesConsumed += nutrition.calories;
-
-//      updateLog();
-  //    updateProgress();
-
       //Update food item's dateTime (to show when food was last referenced)
       var foodData = {"id":foodId, "dateTime":new Date()};
       dbHandler.update(foodData, "foodList", foodId);
@@ -149,17 +144,12 @@ var diary = {
 
   deleteEntry : function(id)
   {
-    //Update app-wide caloriesConsumed variable
-    //app.caloriesConsumed -= parseFloat(data.calories);
-
     //Remove the item from the diary table and get the request handler
     var request = dbHandler.deleteItem(parseInt(id), "diary");
 
     //If the request was successful repopulate the list
     request.onsuccess = function(e) {
       diary.populate();
-      //updateLog(); //Update the log entry
-      //updateProgress();
     };
   },
 
@@ -186,9 +176,6 @@ var diary = {
       {
         app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
         app.caloriesConsumed += item.calories * quantity; //Add on new calories
-
-        //updateLog();
-        //updateProgress();
       }
     }
     nav.popPage();
@@ -196,20 +183,32 @@ var diary = {
 
   recordWeight: function()
   {
-    //Show confirmation dialog
-    ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number"})
-    .then(function(input) {
+    var request = dbHandler.getItem(diary.date, "log"); //Get log for diary date (if it exists)
 
-      if (!isNaN(parseFloat(input))) //The entered value is a number
+    request.onsuccess = function(e)
+    {
+      //If there is weight entry in the log for current diary date save it in a variable to use as defaultValue of popup
+      var defaultValue = "";
+      if (e.target.result && e.target.result.weight)
       {
-        var data = {"dateTime":diary.date, "weight":input};
-        var request = dbHandler.insert(data, "log"); //Add/update log entry
-
-        request.onsuccess = function(e){
-          console.log("Log updated");
-        };
+        defaultValue = e.target.result.weight;
       }
-    });
+
+      //Show confirmation dialog
+      ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":defaultValue})
+      .then(function(input) {
+
+        if (!isNaN(parseFloat(input))) //The entered value is a number
+        {
+          var data = {"dateTime":diary.date, "weight":input};
+          var request = dbHandler.update(data, "log", diary.date); //Add/update log entry
+
+          request.onsuccess = function(e){
+            console.log("Log updated");
+          };
+        }
+      });
+    }
   },
 }
 

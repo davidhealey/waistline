@@ -1,7 +1,6 @@
 var app = {
 
   storage:{}, //Local storage
-  caloriesConsumed:0, //Calories consumed for selected date
   strings: {},
 
   // Application Constructor

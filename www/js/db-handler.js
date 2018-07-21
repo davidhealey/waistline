@@ -25,7 +25,7 @@ var dbHandler =
   {
     //Open database
     var databaseName = 'waistlineDb';
-    var databaseVersion = 11;
+    var databaseVersion = 12;
     var openRequest = indexedDB.open(databaseName, databaseVersion);
 
     //Error handler
@@ -56,9 +56,8 @@ var dbHandler =
           store = upgradeTransaction.objectStore('log');
         }
 
-        if (!store.indexNames.contains("calories")) store.createIndex('calories', 'calories', {unique:false}); //Calories consumed for the date
-        if (!store.indexNames.contains("calorieGoal")) store.createIndex('calorieGoal', 'calorieGoal', {unique:false}); //Target calories for the day
-        if (!store.indexNames.contains("caloriesLeft")) store.createIndex('caloriesLeft', 'caloriesLeft', {unique:false}); //Calories remaining - calorieGoal-calories
+        if (!store.indexNames.contains("goals")) store.createIndex('goals', 'goals', {unique:false});
+        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Nutrition consumtion
         if (!store.indexNames.contains("weight")) store.createIndex('weight', 'weight', {unique:false}); //Current weight
 
         //Food list store
@@ -110,20 +109,28 @@ var dbHandler =
     var request = DB.transaction(storeName).objectStore(storeName).get(key);
 
     request.onsuccess = function(event) {
+
       var result = event.target.result; //Data from DB
 
-      //Update the result with values from the passed data object
-      for (k in data) //Each key in data
+      if (result !== undefined) //No such entry in the DB
       {
-          result[k] = data[k];
+        //Update the result with values from the passed data object
+        for (k in data) //Each key in data
+        {
+            result[k] = data[k];
+        }
+      }
+      else
+      {
+        var result = data; //Just add the data to the DB as a new item
       }
 
-      //Insert the update result back into the db
+      //Insert the updated result
       return DB.transaction(storeName, "readwrite").objectStore(storeName).put(result);
     };
 
     request.onerror = function(event) {
-      console.log("No record to update");
+      console.log("DB Update Error");
     };
   },
 
