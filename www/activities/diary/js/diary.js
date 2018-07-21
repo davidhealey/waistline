@@ -6,6 +6,8 @@ var diary = {
 
   populate : function()
   {
+    diary.consumption = {}; //Reset object
+
     //Get selected date (app.date) at midnight
     var fromDate = diary.date;
 
@@ -15,18 +17,17 @@ var diary = {
 
     //Pull record from the database for the selected date and add items to the list
     var index = dbHandler.getIndex("dateTime", "diary"); //Get date index from diary store
-    var calorieGoal = app.storage.getItem("calorieGoal");
     var html = "";
 
     //Strings of html for each category - prepopulated with category dividers
     var list = {
-      breakfast:"<ons-list-header id=Breakfast>Breakfast<span></span></ons-list-header>",
-      lunch:"<ons-list-header id=Lunch>Lunch<span></span></ons-list-header>",
-      dinner:"<ons-list-header id=Dinner>Dinner<span></span></ons-list-header>",
-      snacks:"<ons-list-header id=Snacks>Snacks<span></span></ons-list-header>",
+      Breakfast:"<ons-list-header id=Breakfast>Breakfast<span></span></ons-list-header>",
+      Lunch:"<ons-list-header id=Lunch>Lunch<span></span></ons-list-header>",
+      Dinner:"<ons-list-header id=Dinner>Dinner<span></span></ons-list-header>",
+      Snacks:"<ons-list-header id=Snacks>Snacks<span></span></ons-list-header>",
     };
 
-    var calorieCount = {"breakfast":0, "lunch":0, "dinner":0, "snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
+    var calorieCount = {"Breakfast":0, "Lunch":0, "Dinner":0, "Snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
 
     index.openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
     {
@@ -52,37 +53,28 @@ var diary = {
         html += "</a>";
         html += "</ons-list-item>";
 
-        switch (cursor.value.category)
+        list[cursor.value.category] += html;
+        calorieCount[cursor.value.category] += Math.round(calories * cursor.value.quantity);
+
+        //Add up total consumption
+        for (k in cursor.value.nutrition)
         {
-          case "Breakfast":
-            list.breakfast += html;
-            calorieCount.breakfast += Math.round(calories * cursor.value.quantity);
-            break;
-          case "Lunch":
-            list.lunch += html;
-            calorieCount.lunch += Math.round(calories * cursor.value.quantity);
-            break;
-          case "Dinner":
-            list.dinner += html;
-            calorieCount.dinner += Math.round(calories * cursor.value.quantity);
-            break;
-          default: //Snacks
-            list.snacks += html;
-            calorieCount.snacks += Math.round(calories * cursor.value.quantity);
-          break;
+          diary.consumption[k] = diary.consumption[k] || 0; //Use existing object or create new one for each item
+          diary.consumption[k] += cursor.value.nutrition[k];
         }
+
         cursor.continue();
       }
       else
       {
-        $("#diary-page #list1").html(list.breakfast); //Insert into HTML
-        $("#diary-page #list2").html(list.lunch); //Insert into HTML
-        $("#diary-page #list3").html(list.dinner); //Insert into HTML
-        $("#diary-page #list4").html(list.snacks); //Insert into HTML
-        $("#diary-page #list1 ons-list-header span").html(" - " + calorieCount.breakfast + " " + app.strings['calories']);
-        $("#diary-page #list2 ons-list-header span").html(" - " + calorieCount.lunch + " " + app.strings['calories']);
-        $("#diary-page #list3 ons-list-header span").html(" - " + calorieCount.dinner + " " + app.strings['calories']);
-        $("#diary-page #list4 ons-list-header span").html(" - " + calorieCount.snacks + " " + app.strings['calories']);
+        $("#diary-page #list1").html(list.Breakfast); //Insert into HTML
+        $("#diary-page #list2").html(list.Lunch); //Insert into HTML
+        $("#diary-page #list3").html(list.Dinner); //Insert into HTML
+        $("#diary-page #list4").html(list.Snacks); //Insert into HTML
+        $("#diary-page #list1 ons-list-header span").html(" - " + calorieCount.Breakfast + " " + app.strings['calories']);
+        $("#diary-page #list2 ons-list-header span").html(" - " + calorieCount.Lunch + " " + app.strings['calories']);
+        $("#diary-page #list3 ons-list-header span").html(" - " + calorieCount.Dinner + " " + app.strings['calories']);
+        $("#diary-page #list4 ons-list-header span").html(" - " + calorieCount.Snacks + " " + app.strings['calories']);
       }
     };
   },
@@ -164,7 +156,7 @@ var diary = {
     getRequest.onsuccess = function(e) //Once we get the db result
     {
       var item = e.target.result; //Get the item from the request
-      var oldCalorieCount = item.calories * item.quantity; //The old calorie count, to be removed from the global count if everything goes well
+      //var oldCalorieCount = item.calories * item.quantity; //The old calorie count, to be removed from the global count if everything goes well
 
       //Update the values in the item
       item.quantity = quantity;
@@ -174,8 +166,8 @@ var diary = {
 
       putRequest.onsuccess = function(e) //The item was upated
       {
-        app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
-        app.caloriesConsumed += item.calories * quantity; //Add on new calories
+        //app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
+        //app.caloriesConsumed += item.calories * quantity; //Add on new calories
       }
     }
     nav.popPage();
