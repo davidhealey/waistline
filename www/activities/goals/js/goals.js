@@ -81,12 +81,23 @@ var goals = {
 
   updateLog : function()
   {
-    //Store goals in log
+    //Store goals (for current day only) in log
+    var days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
     var now = new Date();
-    var dateTime = new Date(now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate());
+    var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+    var day = days[dateTime.getDay()-1]; //Get day of the week
+    var data = {};
 
-    var data = {"dateTime":dateTime, "goals":goals.data};
-    dbHandler.update(data, "log", dateTime);
+    for (g in goals.data)
+    {
+      if (g == "weight") continue; //weight is handled separately
+      data[g] = data[g] || 0;
+      data[g] = goals.data[g][day];
+    }
+
+    data.weight = goals.data.weight;
+
+    dbHandler.update({"dateTime":dateTime, "goals":data}, "log", dateTime);
   }
 };
 

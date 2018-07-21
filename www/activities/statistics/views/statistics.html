@@ -5,7 +5,28 @@
     <div class="right"></div>
   </ons-toolbar>
 
+  <div style="text-align:center">
+    <ons-select name="range" id="range" data-native-menu="false">
+      <option value="7" data-localize="week">1 Week</option>
+      <option value="1" data-localize="month" selected="selected">1 Month</option>
+      <option value="3" data-localize="3month">3 Months</option>
+      <option value="6" data-localize="6month">6 Months</option>
+      <option value="12" data-localize="12month">1 Year</option>
+    </ons-select>
+  </div>
+
   <ons-card id="goals">
+
+    <ons-row>
+      <ons-col width="33%" style="text-align:center;">Goal</ons-col>
+      <ons-col width="33%" style="text-align:center;">Used</ons-col>
+      <ons-col width="33%" style="text-align:center;">Remaining</ons-col>
+    </ons-row>
+    <ons-row>
+      <ons-col id="goal" width="33%" style="text-align:center;">2000</ons-col>
+      <ons-col id="used" width="33%" style="text-align:center;">500</ons-col>
+      <ons-col id="remaining" width="33%" style="text-align:center;">1500</ons-col>
+    </ons-row>
   </ons-card>
 
   <ons-card id="nutrition">

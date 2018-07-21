@@ -206,12 +206,34 @@ var diary = {
       });
     }
   },
+
+  getStats : function(date)
+  {
+    var request = dbHandler.getItem(date, "log");
+
+    request.onsuccess = function(e)
+    {
+      var data = e.target.result;
+      data.remaining = {};
+
+      if (data.nutrition && data.goals) //Safety check
+      {
+        for (g in data.goals) //Each goal
+        {
+          data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
+        }
+      }
+    }
+  },
 }
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e) {
   diary.setDate();
   diary.populate();
+
+  diary.getStats(diary.date);
+
 });
 
 //Change date
