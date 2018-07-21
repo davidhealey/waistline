@@ -75,6 +75,10 @@ var diary = {
         $("#diary-page #list2 ons-list-header span").html(" - " + calorieCount.Lunch + " " + app.strings['calories']);
         $("#diary-page #list3 ons-list-header span").html(" - " + calorieCount.Dinner + " " + app.strings['calories']);
         $("#diary-page #list4 ons-list-header span").html(" - " + calorieCount.Snacks + " " + app.strings['calories']);
+
+        //Store nutrition consumption in log
+        var data = {"dateTime":diary.date, "nutrition":diary.consumption};
+        dbHandler.update(data, "log", diary.date);
       }
     };
   },

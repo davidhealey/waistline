@@ -20,6 +20,8 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
+    goals.updateLog();
+
     nav.popPage();
   },
 
@@ -59,6 +61,8 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
+    goals.updateLog();
+
     nav.popPage();
   },
 
@@ -73,6 +77,16 @@ var goals = {
     if ($("#nutrition #multi-goal").prop("checked")) { //If multi-goal checkbox is unchecked
       $("#nutrition .extra-goal").val($("#nutrition #monday").val());
     }
+  },
+
+  updateLog : function()
+  {
+    //Store goals in log
+    var now = new Date();
+    var dateTime = new Date(now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate());
+
+    var data = {"dateTime":dateTime, "goals":goals.data};
+    dbHandler.update(data, "log", dateTime);
   }
 };
 
