@@ -33,7 +33,7 @@ var diary = {
 
       if (cursor)
       {
-        var calories = cursor.value.calories;
+        var calories = cursor.value.nutrition.calories;
 
         //Build HTML
         html = ""; //Reset variable
@@ -42,11 +42,11 @@ var diary = {
 
         if (cursor.value.quantity == 1)
         {
-          html += "<p>"+cursor.value.quantity + " " + app.strings['serving'] + ", " + Math.round(cursor.value.quantity * cursor.value.calories) + " " + app.strings['calories'] + "</p>";
+          html += "<p>"+cursor.value.quantity + " " + app.strings['serving'] + ", " + Math.round(cursor.value.quantity * calories) + " " + app.strings['calories'] + "</p>";
         }
         else
         {
-          html += "<p>"+cursor.value.quantity + " " + app.strings['servings'] + ", " + Math.round(cursor.value.quantity * cursor.value.calories) + " " + app.strings['calories'] + "</p>";
+          html += "<p>"+cursor.value.quantity + " " + app.strings['servings'] + ", " + Math.round(cursor.value.quantity * calories) + " " + app.strings['calories'] + "</p>";
         }
         html += "</a>";
         html += "</ons-list-item>";
@@ -55,19 +55,19 @@ var diary = {
         {
           case "Breakfast":
             list.breakfast += html;
-            calorieCount.breakfast += Math.round(cursor.value.calories * cursor.value.quantity);
+            calorieCount.breakfast += Math.round(calories * cursor.value.quantity);
             break;
           case "Lunch":
             list.lunch += html;
-            calorieCount.lunch += Math.round(cursor.value.calories * cursor.value.quantity);
+            calorieCount.lunch += Math.round(calories * cursor.value.quantity);
             break;
           case "Dinner":
             list.dinner += html;
-            calorieCount.dinner += Math.round(cursor.value.calories * cursor.value.quantity);
+            calorieCount.dinner += Math.round(calories * cursor.value.quantity);
             break;
           default: //Snacks
             list.snacks += html;
-            calorieCount.snacks += Math.round(cursor.value.calories * cursor.value.quantity);
+            calorieCount.snacks += Math.round(calories * cursor.value.quantity);
           break;
         }
         cursor.continue();
@@ -110,24 +110,25 @@ var diary = {
     $("#edit-diary-item #id").val(data.id); //Add to hidden field
     $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
     $("#edit-diary-item #portion").val(unescape(data.portion));
-    $("#edit-diary-item #caloriesDisplay").html(Math.round(data.calories * data.quantity));
-    $("#edit-diary-item #caloriesPerPortion").html(unescape(data.portion) + " = " + data.calories + " Calories");
-    $("#edit-diary-item #calories").val(data.calories);
+    $("#edit-diary-item #caloriesDisplay").html(Math.round(data.nutrition.calories * data.quantity));
+    $("#edit-diary-item #caloriesPerPortion").html(unescape(data.portion) + " = " + data.nutrition.calories + " Calories");
+    $("#edit-diary-item #calories").val(data.nutrition.calories);
     $("#edit-diary-item #quantity").val(data.quantity);
     $("#edit-diary-item #category").val(data.category).change();
   },
 
   addEntry : function(data)
   {
+    console.log("Add Entry" + data);
+
     //Add the food to the diary store
     var dateTime = diary.date;
     var foodId = data.id;
     var name = data.name;
     var portion = data.portion;
-    var quantity = parseFloat(data.quantity);
-    var calories = parseFloat(data.calories);
+    var nutrition = data.nutrition;
 
-    var diaryData = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":quantity, "calories":calories, "category":diary.category, "foodId":foodId};
+    var diaryData = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":1, "nutrition":nutrition, "category":diary.category, "foodId":foodId};
     var request = dbHandler.insert(diaryData, "diary"); //Add item to diary
 
     request.onsuccess = function(e)
@@ -135,14 +136,14 @@ var diary = {
       diary.populate();
 
       //Update app variable and log
-      app.caloriesConsumed += calories*quantity;
+      app.caloriesConsumed += nutrition.calories;
 
 //      updateLog();
   //    updateProgress();
 
       //Update food item's dateTime (to show when food was last referenced)
-      var foodData = {"id":foodId, "dateTime":new Date(), "name":name, "portion":portion, "quantity":quantity, "calories":calories};
-      dbHandler.insert(foodData, "foodList");
+      var foodData = {"id":foodId, "dateTime":new Date()};
+      dbHandler.update(foodData, "foodList", foodId);
     }
   },
 

@@ -39,12 +39,12 @@ var foodList = {
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(data.name);
     $("#edit-food-item #portion").val(data.portion);
-    $("#edit-food-item #calories").val(data.calories);
-    $("#edit-food-item #protein").val(data.protein);
-    $("#edit-food-item #carbs").val(data.carbs);
-    $("#edit-food-item #fat").val(data.fat);
-    $("#edit-food-item #sugar").val(data.sugar);
-    $("#edit-food-item #salt").val(data.salt);
+    $("#edit-food-item #calories").val(data.nutrition.calories);
+    $("#edit-food-item #protein").val(data.nutrition.protein);
+    $("#edit-food-item #carbs").val(data.nutrition.carbs);
+    $("#edit-food-item #fat").val(data.nutrition.fat);
+    $("#edit-food-item #sugar").val(data.nutrition.sugar);
+    $("#edit-food-item #salt").val(data.nutrition.salt);
   },
 
   updateEntry : function()
@@ -56,19 +56,22 @@ var foodList = {
     data.barcode = $("#edit-food-item #barcode").val(); //Barcode is hidden field
     data.name = $('#edit-food-item #name').val();
     data.portion = $('#edit-food-item #portion').val();
-    data.calories = parseFloat($('#edit-food-item #calories').val());
-    data.protein = parseFloat($('#edit-food-item #protein').val());
-    data.carbs = parseFloat($('#edit-food-item #carbs').val());
-    data.fat = parseFloat($('#edit-food-item #fat').val());
-    data.sugar = parseFloat($('#edit-food-item #sugar').val());
-    data.salt = parseFloat($('#edit-food-item #salt').val());
+    data.nutrition = {
+      "calories":parseFloat($('#edit-food-item #calories').val()),
+      "protein":parseFloat($('#edit-food-item #protein').val()),
+      "carbs":parseFloat($('#edit-food-item #carbs').val()),
+      "fat":parseFloat($('#edit-food-item #fat').val()),
+      "sugar":parseFloat($('#edit-food-item #sugar').val()),
+      "salt":parseFloat($('#edit-food-item #salt').val()),
+    };
 
     var date = new Date()
     data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 
     if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
-    var request = dbHandler.insert(data, "foodList"); //Add/update food item
+    //var request = dbHandler.insert(data, "foodList"); //Add/update food item
+    dbHandler.update(data, "foodList", id);
 
     nav.popPage();
   },
@@ -85,7 +88,7 @@ var foodList = {
   },
 
   scan : function()
-  {console.log("hello");
+  {
     cordova.plugins.barcodeScanner.scan(
        function (result) {
 
