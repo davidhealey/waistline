@@ -132,7 +132,6 @@ var diary = {
 
     request.onsuccess = function(e)
     {
-      console.log(diaryData);
       diary.populate();
 
       //Update app variable and log
