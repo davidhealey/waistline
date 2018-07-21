@@ -5,11 +5,8 @@ var app = {
   strings: {},
 
   // Application Constructor
-  initialize: function() {
-    $(document).ready(function()
-    {
-      document.addEventListener('deviceready', app.onDeviceReady.bind(app), false);
-    });
+  initialize: function()
+  {
     this.storage = window.localStorage; //Simple storage object
     dbHandler.initializeDb(); //db-handler initialization
 
@@ -44,15 +41,6 @@ var app = {
 
     //$("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
     //setTheme(this.storage.getItem("theme")); //Set theme CSS
-  },
-
-  // deviceready Event Handler
-  //
-  // Bind any cordova events here. Common events are:
-  // 'pause', 'resume', etc.
-  onDeviceReady: function() {
-
-    //changeDate(this.date); //Default to current date
   },
 };
 
