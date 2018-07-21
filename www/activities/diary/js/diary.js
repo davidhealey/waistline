@@ -207,7 +207,7 @@ var diary = {
     }
   },
 
-  getStats : function(date)
+  getStats : function(date, callback)
   {
     var request = dbHandler.getItem(date, "log");
 
@@ -223,6 +223,7 @@ var diary = {
           data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
         }
       }
+      callback(data);
     }
   },
 }
@@ -231,9 +232,6 @@ var diary = {
 $(document).on("show", "#diary-page", function(e) {
   diary.setDate();
   diary.populate();
-
-  diary.getStats(diary.date);
-
 });
 
 //Change date
