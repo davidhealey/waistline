@@ -213,17 +213,21 @@ var diary = {
 
     request.onsuccess = function(e)
     {
-      var data = e.target.result;
-      data.remaining = {};
-
-      if (data.nutrition && data.goals) //Safety check
+      if (e.target.result)
       {
-        for (g in data.goals) //Each goal
+        var data = e.target.result;
+
+        data.remaining = {};
+
+        if (data.nutrition && data.goals) //Safety check
         {
-          data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
+          for (g in data.goals) //Each goal
+          {
+            data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
+          }
         }
+        callback(data);
       }
-      callback(data);
     }
   },
 }
