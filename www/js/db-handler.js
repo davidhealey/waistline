@@ -106,7 +106,8 @@ var dbHandler =
 
   update: function(data, storeName, key)
   {
-    var request = DB.transaction(storeName).objectStore(storeName).get(key);
+    var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName);
+    var request = objectStore.get(key);
 
     request.onsuccess = function(event) {
 
@@ -125,7 +126,11 @@ var dbHandler =
       }
 
       //Insert the updated result
-      return DB.transaction(storeName, "readwrite").objectStore(storeName).put(result);
+      var updateRequest = objectStore.put(result);
+      updateRequest.onsuccess = function(e)
+      {
+        return updateRequest;
+      }
     };
 
     request.onerror = function(event) {
