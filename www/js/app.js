@@ -30,15 +30,30 @@ var app = {
     //$("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
     //setTheme(this.storage.getItem("theme")); //Set theme CSS
   },
+
 };
 
 app.initialize();
 
 ons.ready(function() {
-  //Setup default goals if none have been set
+
+  console.log("Cordova Ready");
+
+  //Setup default goals in app storage if none have been set
   if (app.storage.getItem("goals") == undefined)
   {
     goals.setDefaults(); //Generate default goals
-    goals.updateLog(); //Add goals to log
   }
+
+  //Add goals object from app storage to the log if it isn't already there
+  var now = new Date();
+  var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+  var request = dbHandler.getItem(dateTime, "log");
+
+  request.onsuccess = function(e){
+    if (e.target.result.goals == undefined){ //No goals have been logged for today
+      goals.updateLog(); //Add goals to log*/
+    }
+  };
+
 });

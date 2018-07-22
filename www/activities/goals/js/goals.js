@@ -112,6 +112,8 @@ var goals = {
     var day = days[dateTime.getDay()]; //Get day of the week
     var data = {};
 
+    goals.data = JSON.parse(app.storage.getItem("goals"));
+
     for (g in goals.data)
     {
       if (g == "weight") continue; //weight is handled separately
