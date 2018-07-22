@@ -57,12 +57,12 @@
         <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
           <ons-page>
             <ons-list>
-              <ons-list-item onclick="page.push('activities/statistics/views/statistics.html')" tappable>Statistics</ons-list-item>
-              <ons-list-item onclick="page.push('activities/diary/views/diary.html')" tappable>Diary</ons-list-item>
-              <ons-list-item onclick="page.push('activities/food-list/views/food-list.html')" tappable>Food List</ons-list-item>
-              <ons-list-item onclick="page.push('activities/goals/views/goals.html')" tappable>Goals</ons-list-item>
-              <ons-list-item onclick="page.push('settings.html')" tappable>Settings</ons-list-item>
-              <ons-list-item onclick="page.push('user-guide.html')" tappable>User Guide</ons-list-item>
+              <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable>Statistics</ons-list-item>
+              <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable>Diary</ons-list-item>
+              <ons-list-item onclick="nav.resetToPage('activities/food-list/views/food-list.html').then(menu.close.bind(menu))" tappable>Food List</ons-list-item>
+              <ons-list-item onclick="nav.resetToPage('activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable>Goals</ons-list-item>
+              <ons-list-item onclick="nav.resetToPage('settings.html').then(menu.close.bind(menu))" tappable>Settings</ons-list-item>
+              <ons-list-item onclick="nav.resetToPage('user-guide.html').then(menu.close.bind(menu))" tappable>User Guide</ons-list-item>
             </ons-list>
           </ons-page>
         </ons-splitter-side>
@@ -76,7 +76,6 @@
       </script>
 
       <script type="text/javascript" src="cordova.js"></script>
-      <script type="text/javascript" src="js/page-handler.js"></script>
       <script type="text/javascript" src="activities/diary/js/diary.js"></script>
       <script type="text/javascript" src="activities/statistics/js/statistics.js"></script>
       <script type="text/javascript" src="activities/food-list/js/food-list.js"></script>
