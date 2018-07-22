@@ -268,9 +268,6 @@ var diary = {
 $(document).on("show", "#diary-page", function(e){
   diary.setDate();
   diary.populate()
-
-  /*diary.getStats(diary.date)
-  .then(data => diary.renderStats(data));*/
 });
 
 //Change date

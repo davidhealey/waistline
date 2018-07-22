@@ -97,7 +97,10 @@ var statistics = {
     var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
 
     //Get diary stats for today
-    diary.getStats(dateTime, function(data) {
+    diary.getStats(dateTime)
+    .then(function(data) {
+
+      console.log(data);
 
       if (data.goals && data.nutrition && data.remaining) //Safety check
       {
