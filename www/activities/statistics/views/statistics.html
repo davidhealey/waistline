@@ -5,25 +5,32 @@
     <div class="right"></div>
   </ons-toolbar>
 
-  <ons-card id="diaryStats"></ons-card> <!-- All content added dynamically-->
-
-  <div style="text-align:center">
-    <ons-select name="range" id="range" data-native-menu="false">
-      <option value="7" data-localize="week">1 Week</option>
-      <option value="1" data-localize="month" selected="selected">1 Month</option>
-      <option value="3" data-localize="3month">3 Months</option>
-      <option value="6" data-localize="6month">6 Months</option>
-      <option value="12" data-localize="12month">1 Year</option>
-    </ons-select>
-  </div>
-
-  <ons-card id="nutrition">
-    <h2 style="text-align:center;">Nutrition</h2>
-    <canvas height="275" width="300"></canvas>
+  <ons-card id="diaryStats">
+    <h3 style="text-align:center;">Goals</h3>
+    <div> <!--Content will be replaced by JS-->
+      <ons-row>
+        <ons-col width='33%' style='text-align:center;'>Target</ons-col>
+        <ons-col width='33%' style='text-align:center;'>Used</ons-col>
+        <ons-col width='33%' style='text-align:center;'>Remaining</ons-col>
+      </ons-row>
+    </div>
   </ons-card>
 
-  <ons-card id="weight">
-    <h2 style="text-align:center;">Weight Log</h2>
+  <ons-card id="nutritionAndWeight">
+    <div style="text-align:center; margin-bottom:1em;">
+      <ons-select name="range" id="range" data-native-menu="false">
+        <option value="7" data-localize="week">1 Week</option>
+        <option value="1" data-localize="month" selected="selected">1 Month</option>
+        <option value="3" data-localize="3month">3 Months</option>
+        <option value="6" data-localize="6month">6 Months</option>
+        <option value="12" data-localize="12month">1 Year</option>
+      </ons-select>
+    </div>
+    <canvas height="275" width="300"></canvas>
+
+    <div id="weightLog" style="margin-top:1em;">
+      <ons-list></ons-list>
+    </div>
   </ons-card>
 
 </ons-page>

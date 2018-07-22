@@ -11,7 +11,7 @@ var statistics = {
       var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
       var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
 
-      var range = $("#statistics #range").val();
+      var range = $("#statistics #nutritionAndWeight #range").val();
       range == 7 ? fromDate.setDate(fromDate.getDate()-7) : fromDate.setMonth(fromDate.getMonth()-range);
 
       dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
@@ -45,7 +45,7 @@ var statistics = {
     var tableData = {"labels":statistics.timestamps, "datasets":[]};
 
     var chartType;
-    $("#statistics #range").val() == 7 ? chartType = "bar" : chartType = "line";
+    $("#statistics #nutritionAndWeight #range").val() == 7 ? chartType = "bar" : chartType = "line";
 
     //Organise datasets for charts
     var dataset = {};
@@ -63,15 +63,32 @@ var statistics = {
       tableData.datasets.push(dataset); //Add dataset to table data
     }
 
-    console.log(tableData);
-
     //Draw chart
     Chart.defaults.global.defaultFontSize = 14; //Set font size
-    var ctx = $("#nutrition canvas");
+    var ctx = $("#nutritionAndWeight canvas");
     var chart = new Chart(ctx, {
       type:chartType,
       data:tableData
     });
+  },
+
+  renderWeightLog : function()
+  {
+    var html = "";
+
+    for (var i = 0; i < statistics.timestamps.length; i++)
+    {
+      //Skip dates where no weight or calories was recorded
+      if (isNaN(statistics.weights[i]) || isNaN(statistics.nutrition.calories[i])) continue;
+
+      html += "<ons-list-item>";
+      html += "<h4>"+statistics.timestamps[i]+"</h4>";
+      html += "<p>"+statistics.weights[i]+" kg</p>";
+      html += "<p>"+statistics.nutrition.calories[i]+" Calories</p>";
+      html += "</ons-list-item>";
+    }
+
+    $("#statistics #nutritionAndWeight #weightLog ons-list").html(html);
   },
 
   renderDiaryStats : function()
@@ -123,7 +140,7 @@ var statistics = {
 
         html += "</ons-carousel>";
 
-        $("#statistics #diaryStats").html(html);
+        $("#statistics #diaryStats div").html(html);
       }
     });
   }
@@ -133,11 +150,13 @@ $(document).on("show", "ons-page#statistics", function(e){
   statistics.renderDiaryStats();
   statistics.gatherData()
   .then(function(){
-    statistics.renderCharts()
+    statistics.renderCharts();
+    statistics.renderWeightLog();
   });
 });
 
-$(document).on("change", "#statistics #range", function(e){
+$(document).on("change", "#statistics #nutritionAndWeight #range", function(e){
   statistics.gatherData();
-  //statistics.renderCharts();
+  statistics.renderCharts();
+  statistics.renderWeightLog();
 })
