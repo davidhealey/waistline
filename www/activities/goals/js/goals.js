@@ -24,8 +24,6 @@ var goals = {
 
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
-
-    this.updateLog(); //Default log entry
   },
 
   fillWeightForm : function()

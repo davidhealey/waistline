@@ -38,6 +38,7 @@ ons.ready(function() {
   //Setup default goals if none have been set
   if (app.storage.getItem("goals") == undefined)
   {
-    goals.setDefaults();
+    goals.setDefaults(); //Generate default goals
+    goals.updateLog(); //Add goals to log
   }
 });

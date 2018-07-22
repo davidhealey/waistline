@@ -212,13 +212,13 @@ var diary = {
 
         data.remaining = {};
 
-        if (data.nutrition && data.goals) //Safety check
+        for (g in data.goals) //Each goal
         {
-          for (g in data.goals) //Each goal
-          {
-            data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
-          }
+          data.nutrition = data.nutrition || {};
+          if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
+          data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
         }
+
         callback(data);
       }
     }
