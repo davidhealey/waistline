@@ -15,10 +15,6 @@ var diary = {
     var toDate = new Date(fromDate);
     toDate.setDate(toDate.getDate()+1);
 
-    //Pull record from the database for the selected date and add items to the list
-    var index = dbHandler.getIndex("dateTime", "diary"); //Get date index from diary store
-    var html = "";
-
     //Strings of html for each category - prepopulated with category dividers
     var list = {
       Breakfast:"<ons-list-header id=Breakfast>Breakfast<span></span></ons-list-header>",
@@ -28,8 +24,9 @@ var diary = {
     };
 
     var calorieCount = {"Breakfast":0, "Lunch":0, "Dinner":0, "Snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
+    var html = "";
 
-    index.openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
+    dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
     {
       var cursor = e.target.result;
 
@@ -75,12 +72,29 @@ var diary = {
         $("#diary-page #list2 ons-list-header span").html(" - " + calorieCount.Lunch + " " + app.strings['calories']);
         $("#diary-page #list3 ons-list-header span").html(" - " + calorieCount.Dinner + " " + app.strings['calories']);
         $("#diary-page #list4 ons-list-header span").html(" - " + calorieCount.Snacks + " " + app.strings['calories']);
-
-        //Store nutrition consumption in log
-        var data = {"dateTime":diary.date, "nutrition":diary.consumption};
-        dbHandler.update(data, "log", diary.date);
       }
     };
+  },
+
+  updateLog : function()
+  {
+    return new Promise(function(resolve, reject){
+      var request = dbHandler.getItem(diary.date, "log"); //Get existing data from the log (if any)
+
+      request.onsuccess = function(e)
+      {
+        var data = e.target.result || {};
+        data.dateTime = diary.date;
+        data.nutrition = diary.consumption; //Update consumption value
+
+        var insertRequest = dbHandler.insert(data, "log");
+
+        insertRequest.onsuccess = function(e)
+        {
+            resolve();
+        }
+      };
+    });
   },
 
   setDate : function()
@@ -116,8 +130,6 @@ var diary = {
 
   addEntry : function(data)
   {
-    console.log("Add Entry" + data);
-
     //Add the food to the diary store
     var dateTime = diary.date;
     var foodId = data.id;
@@ -140,13 +152,16 @@ var diary = {
 
   deleteEntry : function(id)
   {
-    //Remove the item from the diary table and get the request handler
-    var request = dbHandler.deleteItem(parseInt(id), "diary");
+    return new Promise(function(resolve, reject){
+      //Remove the item from the diary table and get the request handler
+      var request = dbHandler.deleteItem(parseInt(id), "diary");
 
-    //If the request was successful repopulate the list
-    request.onsuccess = function(e) {
-      diary.populate();
-    };
+      //If the request was successful repopulate the list
+      request.onsuccess = function(e) {
+        diary.populate();
+        resolve(id);
+      };
+    });
   },
 
   updateEntry : function()
@@ -200,32 +215,35 @@ var diary = {
     }
   },
 
-  getStats : function(date, callback)
+  getStats : function(date)
   {
-    var request = dbHandler.getItem(date, "log");
+    return new Promise(function(resolve, reject){
+      var request = dbHandler.getItem(date, "log");
 
-    request.onsuccess = function(e)
-    {
-      if (e.target.result)
+      request.onsuccess = function(e)
       {
-        var data = e.target.result;
-
-        data.remaining = {};
-
-        for (g in data.goals) //Each goal
+        if (e.target.result)
         {
-          data.nutrition = data.nutrition || {};
-          if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
-          data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
-        }
+          var data = e.target.result;
 
-        callback(data);
+          data.remaining = {};
+
+          for (g in data.goals) //Each goal
+          {
+            data.nutrition = data.nutrition || {};
+            if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
+            data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
+          }
+          resolve(data);
+        }
       }
-    }
+    });
   },
 
   renderStats : function(data)
   {
+    console.log(data);
+
     var colour = "";
     data.nutrition.calories < data.goals.calories ? colour = "green" : colour = "red";
     if (data.goals.weight && data.goals.weight.gain == true) //Flip colours if user wants to gain weight
@@ -233,6 +251,10 @@ var diary = {
       data.nutrition[g] > data.goals[g] ? colour = "green" : colour = "red";
     }
     $("#diary-page #stat-bar #remaining").css("color", colour); //Set text colour for remaining
+    $("#diary-page .progressBar").css("background-color", colour);
+
+    var percentage = Math.min(100, data.nutrition.calories * 100 / data.goals.calories);
+    $("#diary-page .progressBar").css("width", percentage+"%");
 
     $("#diary-page #stat-bar #goal").html(data.goals.calories);
     $("#diary-page #stat-bar #used").html(data.nutrition.calories);
@@ -241,19 +263,23 @@ var diary = {
 }
 
 //Diary page display
-$(document).on("init", "#diary-page", function(e){
-  diary.setDate();
-});
-
 $(document).on("show", "#diary-page", function(e){
+  diary.setDate();
   diary.populate();
-  diary.getStats(diary.date, function(data){diary.renderStats(data);});
+  diary.updateLog()
+  .then(data => diary.getStats(diary.date))
+  .then(data => diary.renderStats(data))
+  .catch();
 });
 
 //Change date
 $(document).on("focusout", "#diary-page #date", function(e) {
   diary.setDate();
   diary.populate();
+  diary.updateLog()
+  .then(data => diary.getStats(diary.date))
+  .then(data => diary.renderStats(data))
+  .catch();
 });
 
 //Deleting an item
@@ -265,7 +291,11 @@ $(document).on("hold", "#diary-page ons-list-item", function(e) {
   ons.notification.confirm("Delete this item?")
   .then(function(input) {
     if (input == 1) {//Delete was confirmed
-      diary.deleteEntry(data.id);
+      diary.deleteEntry(data.id)
+      diary.updateLog()
+      .then(data => diary.getStats(diary.date))
+      .then(data => diary.renderStats(data))
+      .catch();
     }
   });
 });
