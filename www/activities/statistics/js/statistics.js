@@ -6,20 +6,17 @@ var statistics = {
     var now = new Date()
     var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
     var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
+    var chartType = "line";
 
     if (range == 7) //1 week
     {
       fromDate.setDate(fromDate.getDate()-7)
+      chartType = "bar";
     }
     else
     {
       fromDate.setMonth(fromDate.getMonth()-range);
     }
-
-    var dates = [];
-    var weights = [];
-    var calories = [];
-    var html = "";
 
     var tableData = {"labels":[], "datasets":[]};
     var data = {};
@@ -45,21 +42,25 @@ var statistics = {
       {
         //Organise datasets for charts
         var dataset = {};
+        var colours = ["rgba(171,115,131,0.6)", "rgba(198,159,168,0.6)", "rgba(144,72,96,0.6)"];
+        var i = 0; //Used to pick colour for chart
 
         for (k in data)
         {
+          i = (i + 1) % 3; //Get colours array index
           dataset = {};
           dataset.label = k;
           dataset.data = data[k];
-          dataset.backgrounColor = "rgba(255,13,0,0.4)";
+          dataset.backgroundColor = colours[i];
           k == "calories" ? dataset.hidden = false : dataset.hidden = true; //Default display is calories
           tableData.datasets.push(dataset); //Add dataset to table data
         }
-console.log(tableData);
+
         //Draw chart
+        Chart.defaults.global.defaultFontSize = 14; //Set font size
         var ctx = $("#nutrition canvas");
-        var weightChart = new Chart(ctx, {
-          type:"line",
+        var chart = new Chart(ctx, {
+          type:chartType,
           data:tableData
         });
       }
@@ -101,7 +102,7 @@ console.log(tableData);
           html += "<ons-carousel-item>";
           html += "<h2 style='text-align:center;'>"+g.charAt(0).toUpperCase() + g.slice(1)+"</h2>";
           html += "<ons-row>";
-          html += "<ons-col width='33%' style='text-align:center;'>Goal</ons-col>"
+          html += "<ons-col width='33%' style='text-align:center;'>Target</ons-col>"
           html += "<ons-col width='33%' style='text-align:center;'>Used</ons-col>"
           html += "<ons-col width='33%' style='text-align:center;'>Remaining</ons-col>"
           html += "</ons-row>";
@@ -125,3 +126,7 @@ $(document).on("show", "ons-page#statistics", function(e){
   statistics.renderCharts();
   statistics.renderDiaryStats();
 });
+
+$(document).on("change", "#statistics #range", function(e){
+  statistics.renderCharts();
+})
