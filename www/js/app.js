@@ -21,17 +21,6 @@ var app = {
     $("[data-localize]").localize("locales/locale", opts)
     console.log($.localize);
 
-    //Set default values for weight and calorie goal
-    if (this.storage.getItem("weight") == undefined)
-    {
-      this.storage.setItem("weight", 65);
-    }
-
-    if (this.storage.getItem("calorieGoal") == undefined)
-    {
-      this.storage.setItem("calorieGoal", 2000);
-    }
-
     //Theme handler
     /*if (this.storage.getItem("theme") == undefined)
     {
@@ -44,3 +33,11 @@ var app = {
 };
 
 app.initialize();
+
+ons.ready(function() {
+  //Setup default goals if none have been set
+  if (app.storage.getItem("goals") == undefined)
+  {
+    goals.setDefaults();
+  }
+});
