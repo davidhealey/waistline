@@ -1,70 +1,77 @@
 var statistics = {
 
+  timestamps:[],
+  weights:[],
+  nutrition:{},
+
+  gatherData : function()
+  {
+    return new Promise(function(resolve, reject){
+      var now = new Date()
+      var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
+      var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
+
+      var range = $("#statistics #range").val();
+      range == 7 ? fromDate.setDate(fromDate.getDate()-7) : fromDate.setMonth(fromDate.getMonth()-range);
+
+      dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
+      {
+        var cursor = e.target.result;
+
+        if (cursor)
+        {
+          statistics.timestamps.push(cursor.value.dateTime.toLocaleDateString()); //Use date as labels for charts
+          statistics.weights.push(cursor.value.weight);
+
+          //Store nutition data by nutrition type (calories, fat, protein, etc.)
+          for (k in cursor.value.nutrition)
+          {
+            statistics.nutrition[k] = statistics.nutrition[k] || [];
+            statistics.nutrition[k].push(cursor.value.nutrition[k]);
+          }
+
+          cursor.continue();
+        }
+        else
+        {
+          resolve();
+        }
+      };
+    });
+  },
+
   renderCharts : function()
   {
-    var range = $("#statistics #range").val();
-    var now = new Date()
-    var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
-    var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
-    var chartType = "line";
+    var tableData = {"labels":statistics.timestamps, "datasets":[]};
 
-    if (range == 7) //1 week
+    var chartType;
+    $("#statistics #range").val() == 7 ? chartType = "bar" : chartType = "line";
+
+    //Organise datasets for charts
+    var dataset = {};
+    var colours = ["rgba(171,115,131,0.6)", "rgba(198,159,168,0.6)", "rgba(144,72,96,0.6)"];
+    var i = 0; //Used to pick colour for chart
+
+    for (k in statistics.nutrition)
     {
-      fromDate.setDate(fromDate.getDate()-7)
-      chartType = "bar";
+      i = (i + 1) % 3; //Get colours array index
+      dataset = {};
+      dataset.label = k;
+      dataset.data = statistics.nutrition[k];
+      dataset.backgroundColor = colours[i];
+      k == "calories" ? dataset.hidden = false : dataset.hidden = true; //Default display is calories
+      tableData.datasets.push(dataset); //Add dataset to table data
     }
-    else
-    {
-      fromDate.setMonth(fromDate.getMonth()-range);
-    }
 
-    var tableData = {"labels":[], "datasets":[]};
-    var data = {};
+    console.log(tableData);
 
-    dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
-    {
-      var cursor = e.target.result;
-
-      if (cursor)
-      {
-        tableData.labels.push(cursor.value.dateTime.toLocaleDateString()); //Use date as labels for charts
-
-        //Store nutition data by nutrition type (calories, fat, protein, etc.)
-        for (k in cursor.value.nutrition)
-        {
-          data[k] = data[k] || [];
-          data[k].push(cursor.value.nutrition[k]);
-        }
-
-        cursor.continue();
-      }
-      else
-      {
-        //Organise datasets for charts
-        var dataset = {};
-        var colours = ["rgba(171,115,131,0.6)", "rgba(198,159,168,0.6)", "rgba(144,72,96,0.6)"];
-        var i = 0; //Used to pick colour for chart
-
-        for (k in data)
-        {
-          i = (i + 1) % 3; //Get colours array index
-          dataset = {};
-          dataset.label = k;
-          dataset.data = data[k];
-          dataset.backgroundColor = colours[i];
-          k == "calories" ? dataset.hidden = false : dataset.hidden = true; //Default display is calories
-          tableData.datasets.push(dataset); //Add dataset to table data
-        }
-
-        //Draw chart
-        Chart.defaults.global.defaultFontSize = 14; //Set font size
-        var ctx = $("#nutrition canvas");
-        var chart = new Chart(ctx, {
-          type:chartType,
-          data:tableData
-        });
-      }
-    };
+    //Draw chart
+    Chart.defaults.global.defaultFontSize = 14; //Set font size
+    var ctx = $("#nutrition canvas");
+    var chart = new Chart(ctx, {
+      type:chartType,
+      data:tableData
+    });
   },
 
   renderDiaryStats : function()
@@ -123,10 +130,14 @@ var statistics = {
 }
 
 $(document).on("show", "ons-page#statistics", function(e){
-  statistics.renderCharts();
   statistics.renderDiaryStats();
+  statistics.gatherData()
+  .then(function(){
+    statistics.renderCharts()
+  });
 });
 
 $(document).on("change", "#statistics #range", function(e){
-  statistics.renderCharts();
+  statistics.gatherData();
+  //statistics.renderCharts();
 })
