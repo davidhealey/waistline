@@ -112,17 +112,10 @@ var dbHandler =
 
       var result = event.target.result; //Data from DB
 
-      if (result !== undefined) //No such entry in the DB
+      //Update the result with values from the passed data object
+      for (k in data) //Each key in data
       {
-        //Update the result with values from the passed data object
-        for (k in data) //Each key in data
-        {
-            result[k] = data[k];
-        }
-      }
-      else
-      {
-        var result = data; //Just add the data to the DB as a new item
+          result[k] = data[k];
       }
 
       //Insert the updated result
