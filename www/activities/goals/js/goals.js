@@ -22,6 +22,8 @@ var goals = {
       }
     }
 
+    goals.data.weight = {"target":75, "weekly":0.25, "gain":false}; //Default weight goals
+
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
   },
@@ -105,34 +107,44 @@ var goals = {
 
   updateLog : function(date)
   {
-    var dateTime = new Date();
+    return new Promise(function(resolve, reject){
+      var dateTime = new Date();
 
-    if (date)
-    {
-      dateTime = date
-    }
-    else {
-      //Store goals (for current day only) in log
+      if (date)
+      {
+        dateTime = date
+      }
+      else {
+        //Store goals (for current day only) in log
+        var now = new Date();
+        dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      }
+
       var days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]; //JS week starts on Sunday
-      var now = new Date();
-      dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
-    }
-    
-    var day = days[dateTime.getDay()]; //Get day of the week
-    var data = {};
+      var day = days[dateTime.getDay()]; //Get day of the week
+      var data = {};
 
-    goals.data = JSON.parse(app.storage.getItem("goals"));
+      goals.data = JSON.parse(app.storage.getItem("goals"));
 
-    for (g in goals.data)
-    {
-      if (g == "weight") continue; //weight is handled separately
-      data[g] = data[g] || 0;
-      data[g] = goals.data[g][day];
-    }
+      for (g in goals.data)
+      {
+        if (g == "weight") continue; //weight is handled separately
+        data[g] = data[g] || 0;
+        data[g] = goals.data[g][day];
+      }
 
-    data.weight = goals.data.weight;
+      data.weight = goals.data.weight;
 
-    dbHandler.update({"dateTime":dateTime, "goals":data}, "log", dateTime);
+      var request = dbHandler.update({"dateTime":dateTime, "goals":data}, "log", dateTime);
+
+      if (request)
+      {
+        request.onsuccess = function(e){
+          resolve();
+        }        
+      }
+
+    });
   }
 };
 

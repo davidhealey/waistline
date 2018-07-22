@@ -1,7 +1,7 @@
 var diary = {
 
   category:"Breakfast",
-  date: new Date(),
+  date: undefined,
   consumption:{}, //Nutrition consumed for current diary date
 
   populate : function()
@@ -106,21 +106,48 @@ var diary = {
 
   setDate : function()
   {
-    //If date is blank set date to current date
-    if ($("#diary-page #date").val() == "")
-    {
-      var today = new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth()+1; //January is 0!
-      var yyyy = today.getFullYear();
+    return new Promise(function(resolve, reject){
 
-      //Add leading 0s
-      if (dd < 10) mm = "0"+mm;
-      if (mm < 10) mm = "0"+mm;
+      //If diary date is undefined set it to today
+      if (diary.date == undefined)
+      {
+        var now = new Date();
+        diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      }
 
-      $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
-    }
-    diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date at midnight
+      //If date is blank set date to diary date
+      if ($("#diary-page #date").val() == "")
+      {
+        var dd = diary.date.getDate();
+        var mm = diary.date.getMonth()+1; //January is 0!
+        var yyyy = diary.date.getFullYear();
+
+        //Add leading 0s
+        if (dd < 10) mm = "0"+mm;
+        if (mm < 10) mm = "0"+mm;
+
+        $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
+      }
+      else //If a date was selected then set diary date to the selected date
+      {
+        diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
+      }
+
+      //Check if there is a log entry for the selected date, if there isn't, add one
+      var request = dbHandler.getItem(diary.date, "log");
+      request.onsuccess = function(e)
+      {
+        if (e.target.result == undefined)
+        {
+          goals.updateLog(diary.date)
+          .then(resolve());
+        }
+        else {
+          resolve();
+        }
+      }
+    });
+
   },
 
   fillEditForm : function(data)
@@ -238,6 +265,7 @@ var diary = {
             if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
             data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
           }
+
           resolve(data);
         }
       }
@@ -247,6 +275,7 @@ var diary = {
   renderStats : function(data)
   {
     var colour = "";
+
     data.nutrition.calories < data.goals.calories ? colour = "green" : colour = "red";
     if (data.goals.weight && data.goals.weight.gain == true) //Flip colours if user wants to gain weight
     {
@@ -272,8 +301,8 @@ $(document).on("show", "#diary-page", function(e){
 
 //Change date
 $(document).on("focusout", "#diary-page #date", function(e) {
-  diary.setDate();
-  diary.populate();
+  diary.setDate()
+  .then(diary.populate());
 });
 
 //Deleting an item
