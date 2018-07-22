@@ -70,8 +70,8 @@ var foodList = {
 
     if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
-    //var request = dbHandler.insert(data, "foodList"); //Add/update food item
-    dbHandler.update(data, "foodList", id);
+    //Add/update food item
+    data.id == undefined ? dbHandler.insert(data, "foodList") : dbHandler.update(data, "foodList", id);
 
     nav.popPage();
   },
