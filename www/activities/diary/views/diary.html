@@ -10,16 +10,21 @@
   </div>
 
   <ons-list id="list1" modifier="inset"></ons-list>
-
   <ons-list id="list2" modifier="inset"></ons-list>
-
   <ons-list id="list3" modifier="inset"></ons-list>
-
   <ons-list id="list4" modifier="inset"></ons-list>
 
-
-  <ons-bottom-toolbar id="stat-bar">
-    Content
+  <ons-bottom-toolbar id="stat-bar" style="height:4em; padding-top:.75em;">
+    <ons-row>
+      <ons-col width='33%' style='text-align:center;'><b>Goal</b></ons-col>
+      <ons-col width='33%' style='text-align:center;'><b>Used</b></ons-col>
+      <ons-col width='33%' style='text-align:center;'><b>Remaining</b></ons-col>
+    </ons-row>
+    <ons-row>
+      <ons-col id="goal" width='33%' style='text-align:center;'></ons-col>
+      <ons-col id="used" width='33%' style='text-align:center;'></ons-col>
+      <ons-col id="remaining" width='33%' style='text-align:center;'></ons-col>
+    </ons-row>
   </ons-bottom-toolbar>
 
 </ons-page>

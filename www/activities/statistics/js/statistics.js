@@ -126,7 +126,7 @@ var statistics = {
           html += "<ons-carousel-item>";
           html += "<h2 style='text-align:center;'>"+g.charAt(0).toUpperCase() + g.slice(1)+"</h2>";
           html += "<ons-row>";
-          html += "<ons-col width='33%' style='text-align:center;'>Target</ons-col>"
+          html += "<ons-col width='33%' style='text-align:center;'>Goal</ons-col>"
           html += "<ons-col width='33%' style='text-align:center;'>Used</ons-col>"
           html += "<ons-col width='33%' style='text-align:center;'>Remaining</ons-col>"
           html += "</ons-row>";

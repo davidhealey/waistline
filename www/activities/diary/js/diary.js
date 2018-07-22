@@ -230,12 +230,34 @@ var diary = {
       }
     }
   },
+
+  renderStats : function(data)
+  {
+    var colour = "";
+    data.nutrition.calories < data.goals.calories ? colour = "green" : colour = "red";
+    if (data.goals.weight && data.goals.weight.gain == true) //Flip colours if user wants to gain weight
+    {
+      data.nutrition[g] > data.goals[g] ? colour = "green" : colour = "red";
+    }
+    $("#diary-page #stat-bar #remaining").css("color", colour); //Set text colour for remaining
+
+    $("#diary-page #stat-bar #goal").html(data.goals.calories);
+    $("#diary-page #stat-bar #used").html(data.nutrition.calories);
+    $("#diary-page #stat-bar #remaining").html(data.remaining.calories);
+  },
+
+
 }
 
 //Diary page display
-$(document).on("show", "#diary-page", function(e) {
+$(document).on("init", "#diary-page", function(e){
   diary.setDate();
+  //diary.defaultLog(); //Check if there is a log entry already for the selected date, if not, create one.
+});
+
+$(document).on("show", "#diary-page", function(e){
   diary.populate();
+  diary.getStats(diary.date, function(data){diary.renderStats(data);});
 });
 
 //Change date
