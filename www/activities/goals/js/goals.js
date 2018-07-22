@@ -103,12 +103,21 @@ var goals = {
     }
   },
 
-  updateLog : function()
+  updateLog : function(date)
   {
-    //Store goals (for current day only) in log
-    var days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]; //JS week starts on Sunday
-    var now = new Date();
-    var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+    var dateTime = new Date();
+
+    if (date)
+    {
+      dateTime = date
+    }
+    else {
+      //Store goals (for current day only) in log
+      var days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]; //JS week starts on Sunday
+      var now = new Date();
+      dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+    }
+    
     var day = days[dateTime.getDay()]; //Get day of the week
     var data = {};
 
