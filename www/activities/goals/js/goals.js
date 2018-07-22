@@ -2,6 +2,30 @@ var goals = {
 
   data: {}, //Data object to be stored in local storage as JSON string
 
+  setDefaults : function() //Set stored goals to default
+  {
+    var types = ["weight", "calories", "protein", "carbs", "fat", "sugar", "salt"];
+    var values = [0, 2000, 45, 230, 70, 90, 6]; //Womens RDAs
+    var days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+
+    for (i in types) //Each type
+    {
+      goals.data[types[i]] = goals.data[types[i]] || {};
+
+      if (types[i] == "weight") continue; //Weight is handled separately
+
+      for (j in days) //Each day
+      {
+        goals.data[types[i]][days[j]] = values[i];
+      }
+    }
+
+    //Save data in local storage
+    app.storage.setItem("goals", JSON.stringify(goals.data));
+
+    this.updateLog(); //Default log entry
+  },
+
   fillWeightForm : function()
   {
     goals.data["weight"] = goals.data["weight"] || {"target":"", "weekly":"", "gain":""}; //Create object if it doesn't already exist
@@ -82,10 +106,10 @@ var goals = {
   updateLog : function()
   {
     //Store goals (for current day only) in log
-    var days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    var days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]; //JS week starts on Sunday
     var now = new Date();
     var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
-    var day = days[dateTime.getDay()-1]; //Get day of the week
+    var day = days[dateTime.getDay()]; //Get day of the week
     var data = {};
 
     for (g in goals.data)

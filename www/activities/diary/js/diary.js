@@ -160,19 +160,12 @@ var diary = {
     getRequest.onsuccess = function(e) //Once we get the db result
     {
       var item = e.target.result; //Get the item from the request
-      //var oldCalorieCount = item.calories * item.quantity; //The old calorie count, to be removed from the global count if everything goes well
 
       //Update the values in the item
       item.quantity = quantity;
       item.category = category;
 
       var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
-
-      putRequest.onsuccess = function(e) //The item was upated
-      {
-        //app.caloriesConsumed -= oldCalorieCount; //Decrement the old values from the calorie count
-        //app.caloriesConsumed += item.calories * quantity; //Add on new calories
-      }
     }
     nav.popPage();
   },
@@ -245,14 +238,11 @@ var diary = {
     $("#diary-page #stat-bar #used").html(data.nutrition.calories);
     $("#diary-page #stat-bar #remaining").html(data.remaining.calories);
   },
-
-
 }
 
 //Diary page display
 $(document).on("init", "#diary-page", function(e){
   diary.setDate();
-  //diary.defaultLog(); //Check if there is a log entry already for the selected date, if not, create one.
 });
 
 $(document).on("show", "#diary-page", function(e){
