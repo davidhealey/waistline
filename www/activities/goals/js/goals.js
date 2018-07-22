@@ -14,6 +14,8 @@ var goals = {
 
       if (types[i] == "weight") continue; //Weight is handled separately
 
+      goals.data[types[i]]["multi"] = true;
+
       for (j in days) //Each day
       {
         goals.data[types[i]][days[j]] = values[i];
