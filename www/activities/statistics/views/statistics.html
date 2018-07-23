@@ -1,6 +1,6 @@
 <ons-page id="statistics">
   <ons-toolbar modifier="material">
-    <div class="left"></div>
+    <div class="left"><ons-toolbar-button id="menu"><ons-icon icon="fa-menu"></ons-icon></ons-toolbar-button></div>
     <div class="center">Waistline</div>
     <div class="right"></div>
   </ons-toolbar>
@@ -15,7 +15,7 @@
     </div>
   </ons-card>
 
-  <ons-card id="charts">
+  <ons-card id="chart">
     <div style="text-align:center; margin-bottom:1em;">
       <ons-select name="range" id="range" data-native-menu="false">
         <option value="7" data-localize="week">1 Week</option>
@@ -26,12 +26,17 @@
       </ons-select>
     </div>
 
-    <div id="chartHolder"></div>
+    <canvas height="275" width="300"></canvas>
   </ons-card>
 
   <ons-card id="weightLog">
-    <canvas height="275" width="300" id="weight-chart"></canvas>
-    <ons-list></ons-list>
+    <ons-list>
+      <ons-list-item>Howdy Do</ons-list-item>
+      <ons-list-item>Howdy Do</ons-list-item>
+      <ons-list-item>Howdy Do</ons-list-item>
+      <ons-list-item>Howdy Do</ons-list-item>
+
+    </ons-list>
   </ons-card>
 
 </ons-page>
