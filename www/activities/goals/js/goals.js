@@ -141,7 +141,7 @@ var goals = {
       {
         request.onsuccess = function(e){
           resolve();
-        }        
+        }
       }
 
     });

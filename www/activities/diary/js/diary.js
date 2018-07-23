@@ -98,7 +98,7 @@ var diary = {
 
         insertRequest.onsuccess = function(e)
         {
-            resolve();
+          resolve();
         }
       };
     });
@@ -216,34 +216,16 @@ var diary = {
     nav.popPage();
   },
 
-  recordWeight: function()
+  recordWeight: function(date, weight)
   {
-    var request = dbHandler.getItem(diary.date, "log"); //Get log for diary date (if it exists)
+    var data = {"dateTime":date, "weight":weight};
+    var request = dbHandler.update(data, "log", date); //Add/update log entry
 
-    request.onsuccess = function(e)
-    {
-      //If there is weight entry in the log for current diary date save it in a variable to use as defaultValue of popup
-      var defaultValue = "";
-      if (e.target.result && e.target.result.weight)
-      {
-        defaultValue = e.target.result.weight;
-      }
+    app.storage.setItem("weight", weight);
 
-      //Show confirmation dialog
-      ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":defaultValue})
-      .then(function(input) {
-
-        if (!isNaN(parseFloat(input))) //The entered value is a number
-        {
-          var data = {"dateTime":diary.date, "weight":input};
-          var request = dbHandler.update(data, "log", diary.date); //Add/update log entry
-
-          request.onsuccess = function(e){
-            console.log("Log updated");
-          };
-        }
-      });
-    }
+    request.onsuccess = function(e){
+      console.log("Log updated");
+    };
   },
 
   getStats : function(date)
@@ -336,4 +318,14 @@ $(document).on("tap", "#diary-page ons-list-header", function(e) {
 //Edit form submit button action
 $(document).on("tap", "#edit-diary-item #submit", function(e) {
   $("#edit-diary-item #edit-item-form").submit();
+});
+
+//Weight button tap
+$(document).on("tap", "#diary-page #record-weight", function(e){
+
+  var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
+
+  //Show prompt
+  ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
+  .then(function(input) {if (!isNaN(parseFloat(input))) {diary.recordWeight(diary.date, input);}});
 });
