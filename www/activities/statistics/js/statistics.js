@@ -11,7 +11,7 @@ var statistics = {
       var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
       var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
 
-      var range = $("#statistics #nutritionAndWeight #range").val();
+      var range = $("#statistics #range").val();
       range == 7 ? fromDate.setDate(fromDate.getDate()-7) : fromDate.setMonth(fromDate.getMonth()-range);
 
       dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
@@ -45,35 +45,52 @@ var statistics = {
 
   renderCharts : function()
   {
-    var tableData = {"labels":statistics.timestamps, "datasets":[]};
-
     var chartType;
     $("#statistics #nutritionAndWeight #range").val() == 7 ? chartType = "bar" : chartType = "line";
 
     //Organise datasets for charts
+    var chartData = {};
     var dataset = {};
     var colours = ["rgba(171,115,131,0.6)", "rgba(198,159,168,0.6)", "rgba(144,72,96,0.6)"];
     var i = 0; //Used to pick colour for chart
 
-    for (k in statistics.nutrition)
+    for (k in statistics.nutrition) //Each nutrition type
     {
       i = (i + 1) % 3; //Get colours array index
       dataset = {};
+      chartData[k] = chartData[k] || {"labels":statistics.timestamps, "datasets":[]};
       dataset.label = k;
-      dataset.data = statistics.nutrition[k];
+      dataset.data = statistics.nutrition[k]
       dataset.backgroundColor = colours[i];
-      k == "calories" ? dataset.hidden = false : dataset.hidden = true; //Default display is calories
-      tableData.datasets.push(dataset); //Add dataset to table data
+      chartData[k].datasets.push(dataset); //Add dataset to table data
     }
 
-    //Draw chart
+    //Add canvases for charts
+    var html = "<ons-carousel swipeable auto-scroll auto-refresh>";
+    for (k in chartData) //One chart per nutrition type
+    {
+      html += "<ons-carousel-item>";
+      html += "<canvas height='250' id='"+k+"'></canvas>";
+      html += "</ons-carousel-item>";
+    }
+    html += "</ons-carousel>";
+
+    $("#statistics #charts").append(html);
+
+    //Draw charts
     Chart.defaults.line.spanGaps = true;
-    Chart.defaults.global.defaultFontSize = 14; //Set font size
-    var ctx = $("#nutritionAndWeight canvas");
-    var chart = new Chart(ctx, {
-      type:chartType,
-      data:tableData
-    });
+    Chart.defaults.global.defaultFontSize = 16; //Set font size
+
+    var ctx;
+    var chart;
+    for (k in chartData) //One chart per nutrition type
+    {
+      ctx = $("#statistics #charts ons-carousel #"+k);
+      chart = new Chart(ctx, {
+        type:chartType,
+        data:chartData[k]
+      });
+    }
   },
 
   renderWeightLog : function()
@@ -91,7 +108,7 @@ var statistics = {
       html += "</ons-list-item>";
     }
 
-    $("#statistics #nutritionAndWeight #weightLog ons-list").html(html);
+    $("#statistics #weightLog ons-list").html(html);
   },
 
   renderDiaryStats : function()

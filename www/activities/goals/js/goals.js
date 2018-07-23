@@ -144,7 +144,6 @@ var goals = {
       else {
         resolve();
       }
-
     });
   }
 };

@@ -15,7 +15,7 @@
     </div>
   </ons-card>
 
-  <ons-card id="nutritionAndWeight">
+  <ons-card id="charts">
     <div style="text-align:center; margin-bottom:1em;">
       <ons-select name="range" id="range" data-native-menu="false">
         <option value="7" data-localize="week">1 Week</option>
@@ -25,11 +25,13 @@
         <option value="12" data-localize="12month">1 Year</option>
       </ons-select>
     </div>
-    <canvas height="275" width="300"></canvas>
+  </ons-card>
 
-    <div id="weightLog" style="margin-top:1em;">
-      <ons-list></ons-list>
-    </div>
+  <!--<ons-carousel-item><canvas id="nutrition" height="275" width="300"></canvas></ons-carousel-item>
+  <ons-carousel-item><canvas id="weight" height="275" width="300"></canvas></ons-carousel-item>-->
+
+  <ons-card id="weightLog">
+    <ons-list></ons-list>
   </ons-card>
 
 </ons-page>
