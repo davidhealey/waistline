@@ -1,36 +1,55 @@
 var foodList = {
 
-  populate : function()
+  list:[],
+
+  fillList : function()
   {
-    $("#food-list-page #food-filter").focus();
+    return new Promise(function(resolve, reject){
 
+      var date = new Date()
+      var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+
+      foodList.list = []; //Clear list
+
+      dbHandler.getIndex("dateTime", "foodList").openCursor(IDBKeyRange.upperBound(dateTime), "prev").onsuccess = function(e)
+      {
+        var cursor = e.target.result;
+
+        if (cursor)
+        {
+          foodList.list.push(cursor.value);
+          cursor.continue();
+        }
+        else
+        {
+          resolve();
+        }
+      };
+    });
+  },
+
+  filterList : function(term)
+  {
+    return filteredList = foodList.list.filter(function (el) {
+      return (el.name.match(new RegExp(term, "i"))); //Allow partial match and case insensitive
+    });
+  },
+
+  populate : function(list)
+  {
     var html = "";
-    var date = new Date()
-    var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are s**t
 
-    //Create list of food items (sorted by timestamp) and insert into HTML
-    var index = dbHandler.getIndex("dateTime", "foodList"); //Get timestamp index
-
-    index.openCursor(IDBKeyRange.upperBound(dateTime), "prev").onsuccess = function(e)
+    for (i in list)
     {
-      var cursor = e.target.result;
+      html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(list[i]) + "'>";
+      html += "<label class='right'>";
+      html += "<ons-checkbox name='food-item-checkbox' idnput-id='" + list[i].id + "' data='"+ JSON.stringify(list[i]) + "'></ons-checkbox>";
+      html += "</label>";
+      html += "<label for='" + list[i].id + "' class='center'>" + list[i].name + "</label>";
+      html += "</ons-list-item>";
+    }
 
-      if (cursor)
-      {
-        html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(cursor.value) + "'>";
-        html += "<label class='right'>";
-        html += "<ons-checkbox name='food-item-checkbox' idnput-id='" + cursor.value.id + "' data='"+ JSON.stringify(cursor.value) + "'></ons-checkbox>";
-        html += "</label>";
-        html += "<label for='" + cursor.value.id + "' class='center'>" + cursor.value.name + "</label>";
-        html += "</ons-list-item>";
-
-        cursor.continue();
-      }
-      else
-      {
-        $("#food-list-page #food-list").html(html); //Insert into HTML
-      }
-    };
+    $("#food-list-page #food-list").html(html); //Insert into HTML
   },
 
   fillEditForm : function(data)
@@ -172,7 +191,15 @@ var foodList = {
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e) {
-  foodList.populate();
+  foodList.fillList()
+  .then(function(){
+    foodList.populate(foodList.list);
+  });
+});
+
+$(document).on("keyup", "#food-list-page #filter", function(e){
+  var filteredList = foodList.filterList(this.value);
+  foodList.populate(filteredList);
 });
 
 //Delete item from food list by holding
