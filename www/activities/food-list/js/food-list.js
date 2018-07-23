@@ -187,6 +187,11 @@ var foodList = {
       }
     }
   },
+
+  search : function()
+  {
+    ons.notification.alert('Hello ');
+  },
 }
 
 //Food list page display
@@ -242,7 +247,7 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 });
 
 //Floating action button action
-$(document).on("tap", "#food-list-page ons-fab", function(e) {
+$(document).on("doubletap", "#food-list-page ons-fab", function(e) {
   nav.pushPage("activities/food-list/views/edit-item.html")
 });
 

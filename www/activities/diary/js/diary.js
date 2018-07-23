@@ -278,7 +278,7 @@ $(document).on("show", "#diary-page", function(e){
 });
 
 //Change date
-$(document).on("focusout, change", "#diary-page #date", function(e) {
+$(document).on("change", "#diary-page #date", function(e) {
   diary.setDate()
   .then(diary.populate());
 });
