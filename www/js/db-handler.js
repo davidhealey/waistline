@@ -23,73 +23,76 @@ var dbHandler =
 
   initializeDb: function()
   {
-    //Open database
-    var databaseName = 'waistlineDb';
-    var databaseVersion = 12;
-    var openRequest = indexedDB.open(databaseName, databaseVersion);
+    return new Promise(function(resolve, reject){
+      //Open database
+      var databaseName = 'waistlineDb';
+      var databaseVersion = 12;
+      var openRequest = indexedDB.open(databaseName, databaseVersion);
 
-    //Error handler
-    openRequest.onerror = function(e)
-    {
-        console.log("Error Opening DB", e);
-    };
+      //Error handler
+      openRequest.onerror = function(e)
+      {
+          console.log("Error Opening DB", e);
+      };
 
-    //Success handler
-    openRequest.onsuccess = function(e)
-    {
-        DB = openRequest.result;
-        console.log("Success!!! Database opened");
-    };
+      //Success handler
+      openRequest.onsuccess = function(e)
+      {
+          DB = openRequest.result;
+          console.log("Success!!! Database opened");
+      };
 
-    //Only called when version number changed (or new database created)
-    openRequest.onupgradeneeded = function(e)
-    {
-        DB = e.target.result;
-        var store;
+      //Only called when version number changed (or new database created)
+      openRequest.onupgradeneeded = function(e)
+      {
+          DB = e.target.result;
+          var store;
 
-        var upgradeTransaction = e.target.transaction;
+          var upgradeTransaction = e.target.transaction;
 
-        //Log store
-        if (!DB.objectStoreNames.contains("log")) {
-          store = DB.createObjectStore("log", {keyPath:'dateTime'});
-        } else {
-          store = upgradeTransaction.objectStore('log');
-        }
+          //Log store
+          if (!DB.objectStoreNames.contains("log")) {
+            store = DB.createObjectStore("log", {keyPath:'dateTime'});
+          } else {
+            store = upgradeTransaction.objectStore('log');
+          }
 
-        if (!store.indexNames.contains("goals")) store.createIndex('goals', 'goals', {unique:false});
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Nutrition consumtion
-        if (!store.indexNames.contains("weight")) store.createIndex('weight', 'weight', {unique:false}); //Current weight
+          if (!store.indexNames.contains("goals")) store.createIndex('goals', 'goals', {unique:false});
+          if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Nutrition consumtion
+          if (!store.indexNames.contains("weight")) store.createIndex('weight', 'weight', {unique:false}); //Current weight
 
-        //Food list store
-        if (!DB.objectStoreNames.contains("foodList")) {
-          store = DB.createObjectStore('foodList', {keyPath:'id', autoIncrement:true});
-        } else {
-          store = upgradeTransaction.objectStore('foodList');
-        }
+          //Food list store
+          if (!DB.objectStoreNames.contains("foodList")) {
+            store = DB.createObjectStore('foodList', {keyPath:'id', autoIncrement:true});
+          } else {
+            store = upgradeTransaction.objectStore('foodList');
+          }
 
-        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
-        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
-        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
-        if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {unique:false});
+          if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
+          if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
+          if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
+          if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
+          if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {unique:false});
 
-        //Diary Store - a kind of mini food list, independent of the main food list
-        if (!DB.objectStoreNames.contains("diary")) {
-          store = DB.createObjectStore('diary', {keyPath:'id', autoIncrement:true});
-        } else {
-          store = upgradeTransaction.objectStore('diary');
-        }
+          //Diary Store - a kind of mini food list, independent of the main food list
+          if (!DB.objectStoreNames.contains("diary")) {
+            store = DB.createObjectStore('diary', {keyPath:'id', autoIncrement:true});
+          } else {
+            store = upgradeTransaction.objectStore('diary');
+          }
 
-        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object
-        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
-        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false});
-        if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
-        if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Breakfast, lunch dinner, etc..
-        if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
+          if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object
+          if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
+          if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false});
+          if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
+          if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Breakfast, lunch dinner, etc..
+          if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
+          if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
 
-        console.log("DB Created/Updated");
-    };
+          console.log("DB Created/Updated");
+          resolve();
+      };
+    });
   },
 
   insert: function(data, storeName)
