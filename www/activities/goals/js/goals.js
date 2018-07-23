@@ -78,7 +78,7 @@ var goals = {
 
     for (var i = 0; i < inputs.length; i++)
     {
-      goals.data[name][inputs[i].] = inputs[i].value;
+      goals.data[name][inputs[i].id] = inputs[i].value;
     }
 
     //Multi goal checkbox
@@ -101,7 +101,7 @@ var goals = {
   copyMondayToExtraGoals : function()
   {
     if ($("#nutrition #multi-goal").prop("checked")) { //If multi-goal checkbox is unchecked
-      $("#nutrition .extra-goal").val($("#nutrition #monday").val());
+      $("#nutrition .extra-goal").val($("#nutrition #0").val());
     }
   },
 
@@ -176,7 +176,7 @@ $(document).on("change", "#nutrition #multi-goal", function(e) {
   goals.copyMondayToExtraGoals();
 });
 
-$(document).on("change, keyup", "#nutrition #monday", function(e) {
+$(document).on("change, keyup", "#nutrition #0", function(e) {
   goals.copyMondayToExtraGoals();
 });
 

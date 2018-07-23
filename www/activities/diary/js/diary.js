@@ -238,8 +238,6 @@ var diary = {
             data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
           }
 
-          console.log(data);
-
           resolve(data);
         }
       }
@@ -270,7 +268,7 @@ var diary = {
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
   diary.setDate();
-  diary.populate()
+  diary.populate();
 });
 
 //Change date
