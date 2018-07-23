@@ -155,6 +155,12 @@ var diary = {
   addEntry : function(data)
   {
     //Add the food to the diary store
+    if (diary.date == undefined)
+    {
+      var now = new Date();
+      diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+    }
+
     var dateTime = diary.date;
     var foodId = data.id;
     var name = data.name;
@@ -272,7 +278,7 @@ $(document).on("show", "#diary-page", function(e){
 });
 
 //Change date
-$(document).on("focusout", "#diary-page #date", function(e) {
+$(document).on("focusout, change", "#diary-page #date", function(e) {
   diary.setDate()
   .then(diary.populate());
 });
