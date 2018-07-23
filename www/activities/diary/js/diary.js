@@ -238,6 +238,8 @@ var diary = {
             data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
           }
 
+          console.log(data);
+
           resolve(data);
         }
       }
