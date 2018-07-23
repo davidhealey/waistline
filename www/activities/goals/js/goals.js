@@ -143,6 +143,9 @@ var goals = {
           resolve();
         }
       }
+      else {
+        resolve();
+      }
 
     });
   }

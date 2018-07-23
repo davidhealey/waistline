@@ -134,18 +134,8 @@ var diary = {
       }
 
       //Check if there is a log entry for the selected date, if there isn't, add one
-      var request = dbHandler.getItem(diary.date, "log");
-      request.onsuccess = function(e)
-      {
-        if (e.target.result == undefined)
-        {
-          goals.updateLog(diary.date)
-          .then(resolve());
-        }
-        else {
-          resolve();
-        }
-      }
+      app.addDefaultLogEntry(diary.date)
+      .then(resolve());
     });
 
   },

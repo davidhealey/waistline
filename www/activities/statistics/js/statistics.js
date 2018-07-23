@@ -22,7 +22,7 @@ var statistics = {
         {
           statistics.weights[cursor.value.dateTime.toLocaleDateString()] = cursor.value.weight; //Weight indexed by date
 
-          if (cursor.value.nutrition.calories != undefined)
+          if (cursor.value.nutrition != undefined && cursor.value.nutrition.calories != undefined)
           {
             statistics.timestamps.push(cursor.value.dateTime.toLocaleDateString()); //Use date as labels for charts
             //Store nutition data by nutrition type (calories, fat, protein, etc.)

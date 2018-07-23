@@ -31,6 +31,27 @@ var app = {
     //setTheme(this.storage.getItem("theme")); //Set theme CSS
   },
 
+  addDefaultLogEntry : function(date)
+  {
+    return new Promise(function(resolve, reject){
+      var request = dbHandler.getItem(date, "log");
+
+      request.onsuccess = function(e){
+
+        if (e.target.result == undefined) //No log entry for given date
+        {
+            var data = {"dateTime":date, "goals":JSON.parse(app.storage.getItem("goals")), "weight":app.storage.getItem("weight")};
+            var insertRequest = dbHandler.insert(data, "log");
+
+            insertRequest.onsuccess = function(e){resolve();}
+        }
+        else {
+          resolve();
+        }
+      }
+    });
+  },
+
 };
 
 app.initialize();
@@ -39,21 +60,19 @@ ons.ready(function() {
 
   console.log("Cordova Ready");
 
-  //Setup default goals in app storage if none have been set
+  //Setup default goals and weight in app storage if none have been set
   if (app.storage.getItem("goals") == undefined)
   {
     goals.setDefaults(); //Generate default goals
   }
 
-  //Add goals object from app storage to the log if it isn't already there
+  if (app.storage.getItem("weight") == undefined)
+  {
+    app.storage.setItem("weight", 70);
+  }
+
+  //Add a log entry for the current date if there isn't one already
   var now = new Date();
   var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
-  var request = dbHandler.getItem(dateTime, "log");
-
-  request.onsuccess = function(e){
-    if (e.target.result.goals == undefined){ //No goals have been logged for today
-      goals.updateLog(); //Add goals to log*/
-    }
-  };
-
+  app.addDefaultLogEntry(dateTime);
 });
