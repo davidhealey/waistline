@@ -7,15 +7,33 @@ var app = {
   initialize: function()
   {
     this.storage = window.localStorage; //Simple storage object
-    dbHandler.initializeDb(); //db-handler initialization
+
+    //Setup default goals and weight in app storage if none have been set
+    if (this.storage.getItem("goals") == undefined)
+    {
+      goals.setDefaults(); //Generate default goals
+    }
+
+    if (this.storage.getItem("weight") == undefined)
+    {
+      this.storage.setItem("weight", 70);
+    }
+
+    dbHandler.initializeDb() //db-handler initialization
+    .then(function(){
+      //Add a log entry for the current date if there isn't one already
+      var now = new Date();
+      var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      this.addDefaultLogEntry(dateTime);
+    });
 
     //Localisation
-    app.strings = defaultLocale; //Set fallback locale data
+    this.strings = defaultLocale; //Set fallback locale data
 
     var opts = {};
     opts.callback = function(data, defaultCallback) {
       defaultCallback(data);
-      app.strings = $.localize.data["locales/locale"];
+      this.strings = $.localize.data["locales/locale"];
     }
 
     $("[data-localize]").localize("locales/locale", opts)
@@ -40,9 +58,20 @@ var app = {
 
         if (e.target.result == undefined) //No log entry for given date
         {
-            var data = {"dateTime":date, "goals":JSON.parse(app.storage.getItem("goals")), "weight":app.storage.getItem("weight")};
-            var insertRequest = dbHandler.insert(data, "log");
+            var data = {"dateTime":date, "goals":{}, "weight":app.storage.getItem("weight")};
+            var goals = JSON.parse(app.storage.getItem("goals"));
+            var day = date.getDay(); //Week starts on Sunday
 
+            //Get just the goals for the current day
+            for (g in goals)
+            {
+              if (g == "weight") continue; //Weight handled separately
+              data.goals[g] = goals[g][day];
+            }
+
+            data.goals["weight"] = goals.weight;
+
+            var insertRequest = dbHandler.insert(data, "log");
             insertRequest.onsuccess = function(e){resolve();}
         }
         else {
@@ -57,22 +86,5 @@ var app = {
 app.initialize();
 
 ons.ready(function() {
-
   console.log("Cordova Ready");
-
-  //Setup default goals and weight in app storage if none have been set
-  if (app.storage.getItem("goals") == undefined)
-  {
-    goals.setDefaults(); //Generate default goals
-  }
-
-  if (app.storage.getItem("weight") == undefined)
-  {
-    app.storage.setItem("weight", 70);
-  }
-
-  //Add a log entry for the current date if there isn't one already
-  var now = new Date();
-  var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
-  app.addDefaultLogEntry(dateTime);
 });
