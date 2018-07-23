@@ -1,10 +1,5 @@
 var statistics = {
 
-  timestamps:[],
-  weights:{},
-  nutrition:{},
-  goal:{},
-
   gatherData : function()
   {
     return new Promise(function(resolve, reject){
@@ -63,7 +58,8 @@ var statistics = {
       chartData.datasets.push(dataset);
     }
 
-    chartData.datasets.push({"label":"weight", "data":data.weight, "hidden":true}); //Add weight dataset
+    //Add weight dataset, but only if there is a calories dataset
+    if (data.nutrition.calories) chartData.datasets.push({"label":"weight", "data":data.weight, "hidden":true});
 
     Chart.defaults.line.spanGaps = true;
     Chart.defaults.global.defaultFontSize = 16; //Set font size
@@ -75,19 +71,17 @@ var statistics = {
     });
   },
 
-  renderWeightLog : function()
+  renderWeightLog : function(data)
   {
     var html = "";
 
-    for (var i = 0; i < statistics.timestamps.length; i++)
+    for (var i = 0; i < data.timestamps.length; i++)
     {
-      var timeStamp = statistics.timestamps[i];
-
-      html += "<ons-list-item>";
-      html += "<h4>"+timeStamp+"</h4>";
-      html += "<p>"+statistics.weights[timeStamp]+" kg</p>";
-      if (statistics.nutrition.calories[i] !== undefined) html += "<p>"+statistics.nutrition.calories[i]+" Calories</p>";
-      html += "</ons-list-item>";
+      html += "<ons-list-item><div>";
+      html += "<h4>"+data.timestamps[i]+"</h4>";
+      html += "<p>"+data.weight[i]+" kg</p>";
+      if (data.nutrition.calories[i] !== undefined) html += "<p>"+data.nutrition.calories[i]+" Calories</p>";
+      html += "</div></ons-list-item>";
     }
 
     $("#statistics #weightLog ons-list").html(html);
@@ -154,7 +148,7 @@ $(document).on("show", "#statistics", function(e){
   statistics.gatherData()
   .then(function(data){
     statistics.renderChart(data);
-    //statistics.renderWeightLog(data);
+    statistics.renderWeightLog(data);
   });
 });
 

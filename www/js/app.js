@@ -9,22 +9,22 @@ var app = {
     this.storage = window.localStorage; //Simple storage object
 
     //Setup default goals and weight in app storage if none have been set
-    if (this.storage.getItem("goals") == undefined)
+    if (app.storage.getItem("goals") == undefined)
     {
       goals.setDefaults(); //Generate default goals
     }
 
-    if (this.storage.getItem("weight") == undefined)
+    if (app.storage.getItem("weight") == undefined)
     {
-      this.storage.setItem("weight", 70);
+      app.storage.setItem("weight", 70);
     }
 
     dbHandler.initializeDb() //db-handler initialization
     .then(function(){
       //Add a log entry for the current date if there isn't one already
       var now = new Date();
-      var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
-      this.addDefaultLogEntry(dateTime);
+      var date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      app.addDefaultLogEntry(date);
     });
 
     //Localisation

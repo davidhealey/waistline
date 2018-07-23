@@ -1,6 +1,6 @@
 <ons-page id="statistics">
   <ons-toolbar modifier="material">
-    <div class="left"><ons-toolbar-button id="menu"><ons-icon icon="fa-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
     <div class="center">Waistline</div>
     <div class="right"></div>
   </ons-toolbar>
@@ -27,16 +27,9 @@
     </div>
 
     <canvas height="275" width="300"></canvas>
-  </ons-card>
-
-  <ons-card id="weightLog">
-    <ons-list>
-      <ons-list-item>Howdy Do</ons-list-item>
-      <ons-list-item>Howdy Do</ons-list-item>
-      <ons-list-item>Howdy Do</ons-list-item>
-      <ons-list-item>Howdy Do</ons-list-item>
-
-    </ons-list>
+    <div id="weightLog">
+      <ons-list></ons-list>
+    </div>    
   </ons-card>
 
 </ons-page>

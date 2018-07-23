@@ -40,6 +40,7 @@ var dbHandler =
       {
           DB = openRequest.result;
           console.log("Success!!! Database opened");
+          resolve();
       };
 
       //Only called when version number changed (or new database created)
@@ -90,7 +91,6 @@ var dbHandler =
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
 
           console.log("DB Created/Updated");
-          resolve();
       };
     });
   },
