@@ -61,7 +61,7 @@ var statistics = {
       chartData[k].datasets = [{
         "label":k,
         "data":statistics.nutrition[k],
-        "backgroundColor":"rgba(224,203,204,.8)"
+        "backgroundColor":"rgba(224,203,204,0.8)"
       },
       {
         "label":"Goal",
@@ -70,8 +70,6 @@ var statistics = {
         "fill":false
       }];
     }
-
-    console.log(chartData);
 
     //Add canvases for charts
     var html = "<ons-carousel swipeable auto-scroll auto-refresh>";
@@ -88,7 +86,7 @@ var statistics = {
     //Draw charts
     Chart.defaults.line.spanGaps = true;
     Chart.defaults.global.defaultFontSize = 16; //Set font size
-
+console.log(chartData);
     var ctx;
     var chart;
     for (k in chartData) //One chart per nutrition type
@@ -98,22 +96,35 @@ var statistics = {
         type:chartType,
         data:chartData[k],
         options:{
-          legend:{
-            display:false
-          },
-          title:
-          {
-            display:true,
-            text:k
-          },
-          scales:
-          {
-            xAxes: [{stacked: true}],
-            yAxes: [{stacked: true}]
-          }
+          legend:{display:false},
+          title:{display:true, text:k},
+          scales:{xAxes: [{stacked: true}], yAxes: [{stacked: true}]} //Only applies to bar charts
         }
       });
     }
+  },
+
+  renderWeightChart : function()
+  {
+
+    var chartData = {"labels":[], "datasets":[{"label":"Weight", "data":[], "background":"rgba(144,72,96,1)"}]};
+
+    for (d in statistics.weights)
+    {
+      chartData.labels.push(d);
+      chartData.datasets[0].data.push(statistics.weights[d]);
+    }
+
+    var ctx = $("#statistics #weight-chart");
+    var chart = new Chart(ctx, {
+      type:"line",
+      data:chartData,
+      options:{
+        legend:{display:false},
+        title:{display:true, text:"Weight"}
+      }
+    });
+
   },
 
   renderWeightLog : function()
@@ -195,6 +206,7 @@ $(document).on("show", "#statistics", function(e){
   statistics.gatherData()
   .then(function(){
     statistics.renderNutritionCharts();
+    statistics.renderWeightChart();
     statistics.renderWeightLog();
   });
 });
@@ -203,6 +215,7 @@ $(document).on("change", "#statistics #range", function(e){
   statistics.gatherData()
   .then(function(){
     statistics.renderNutritionCharts();
+    statistics.renderWeightChart();
     statistics.renderWeightLog();
   });
 })

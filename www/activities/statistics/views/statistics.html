@@ -15,21 +15,22 @@
     </div>
   </ons-card>
 
-  <div style="text-align:center; margin-bottom:1em;">
-    <ons-select name="range" id="range" data-native-menu="false">
-      <option value="7" data-localize="week">1 Week</option>
-      <option value="1" data-localize="month" selected="selected">1 Month</option>
-      <option value="3" data-localize="3month">3 Months</option>
-      <option value="6" data-localize="6month">6 Months</option>
-      <option value="12" data-localize="12month">1 Year</option>
-    </ons-select>
-  </div>
-
   <ons-card id="charts">
+    <div style="text-align:center; margin-bottom:1em;">
+      <ons-select name="range" id="range" data-native-menu="false">
+        <option value="7" data-localize="week">1 Week</option>
+        <option value="1" data-localize="month" selected="selected">1 Month</option>
+        <option value="3" data-localize="3month">3 Months</option>
+        <option value="6" data-localize="6month">6 Months</option>
+        <option value="12" data-localize="12month">1 Year</option>
+      </ons-select>
+    </div>
+
     <div id="chartHolder"></div>
   </ons-card>
 
   <ons-card id="weightLog">
+    <canvas height="275" width="300" id="weight-chart"></canvas>
     <ons-list></ons-list>
   </ons-card>
 
