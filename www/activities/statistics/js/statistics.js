@@ -1,7 +1,7 @@
 var statistics = {
 
   timestamps:[],
-  weights:[],
+  weights:{},
   nutrition:{},
 
   gatherData : function()
@@ -20,14 +20,17 @@ var statistics = {
 
         if (cursor)
         {
-          statistics.timestamps.push(cursor.value.dateTime.toLocaleDateString()); //Use date as labels for charts
-          statistics.weights.push(cursor.value.weight);
+          statistics.weights[cursor.value.dateTime.toLocaleDateString()] = cursor.value.weight; //Weight indexed by date
 
-          //Store nutition data by nutrition type (calories, fat, protein, etc.)
-          for (k in cursor.value.nutrition)
+          if (cursor.value.nutrition.calories != undefined)
           {
-            statistics.nutrition[k] = statistics.nutrition[k] || [];
-            statistics.nutrition[k].push(cursor.value.nutrition[k]);
+            statistics.timestamps.push(cursor.value.dateTime.toLocaleDateString()); //Use date as labels for charts
+            //Store nutition data by nutrition type (calories, fat, protein, etc.)
+            for (k in cursor.value.nutrition)
+            {
+              statistics.nutrition[k] = statistics.nutrition[k] || [];
+              statistics.nutrition[k].push(cursor.value.nutrition[k]);
+            }
           }
 
           cursor.continue();
@@ -64,6 +67,7 @@ var statistics = {
     }
 
     //Draw chart
+    Chart.defaults.line.spanGaps = true;
     Chart.defaults.global.defaultFontSize = 14; //Set font size
     var ctx = $("#nutritionAndWeight canvas");
     var chart = new Chart(ctx, {
@@ -78,13 +82,12 @@ var statistics = {
 
     for (var i = 0; i < statistics.timestamps.length; i++)
     {
-      //Skip dates where no weight or calories was recorded
-      if (isNaN(statistics.weights[i]) || isNaN(statistics.nutrition.calories[i])) continue;
+      var timeStamp = statistics.timestamps[i];
 
       html += "<ons-list-item>";
-      html += "<h4>"+statistics.timestamps[i]+"</h4>";
-      html += "<p>"+statistics.weights[i]+" kg</p>";
-      html += "<p>"+statistics.nutrition.calories[i]+" Calories</p>";
+      html += "<h4>"+timeStamp+"</h4>";
+      html += "<p>"+statistics.weights[timeStamp]+" kg</p>";
+      if (statistics.nutrition.calories[i] !== undefined) html += "<p>"+statistics.nutrition.calories[i]+" Calories</p>";
       html += "</ons-list-item>";
     }
 
@@ -99,8 +102,6 @@ var statistics = {
     //Get diary stats for today
     diary.getStats(dateTime)
     .then(function(data) {
-
-      console.log(data);
 
       if (data.goals && data.nutrition && data.remaining) //Safety check
       {
@@ -149,7 +150,7 @@ var statistics = {
   }
 }
 
-$(document).on("show", "ons-page#statistics", function(e){
+$(document).on("show", "#statistics", function(e){
   statistics.renderDiaryStats();
   statistics.gatherData()
   .then(function(){
