@@ -3,6 +3,7 @@ var statistics = {
   timestamps:[],
   weights:{},
   nutrition:{},
+  goal:{},
 
   gatherData : function()
   {
@@ -30,6 +31,8 @@ var statistics = {
             {
               statistics.nutrition[k] = statistics.nutrition[k] || [];
               statistics.nutrition[k].push(cursor.value.nutrition[k]);
+              statistics.goal[k] = statistics.goal[k] || [];
+              statistics.goal[k].push(cursor.value.goals[k]);
             }
           }
 
@@ -43,39 +46,44 @@ var statistics = {
     });
   },
 
-  renderCharts : function()
+  renderNutritionCharts : function()
   {
     var chartType;
-    $("#statistics #nutritionAndWeight #range").val() == 7 ? chartType = "bar" : chartType = "line";
+    $("#statistics #range").val() == 7 ? chartType = "bar" : chartType = "line";
 
     //Organise datasets for charts
     var chartData = {};
-    var dataset = {};
-    var colours = ["rgba(171,115,131,0.6)", "rgba(198,159,168,0.6)", "rgba(144,72,96,0.6)"];
-    var i = 0; //Used to pick colour for chart
 
     for (k in statistics.nutrition) //Each nutrition type
     {
-      i = (i + 1) % 3; //Get colours array index
-      dataset = {};
-      chartData[k] = chartData[k] || {"labels":statistics.timestamps, "datasets":[]};
-      dataset.label = k;
-      dataset.data = statistics.nutrition[k]
-      dataset.backgroundColor = colours[i];
-      chartData[k].datasets.push(dataset); //Add dataset to table data
+      chartData[k] = chartData[k] || {"labels":statistics.timestamps};
+
+      chartData[k].datasets = [{
+        "label":k,
+        "data":statistics.nutrition[k],
+        "backgroundColor":"rgba(224,203,204,.8)"
+      },
+      {
+        "label":"Goal",
+        "data":statistics.goal[k],
+        "backgroundColor":"rgba(144,72,96,1)",
+        "fill":false
+      }];
     }
+
+    console.log(chartData);
 
     //Add canvases for charts
     var html = "<ons-carousel swipeable auto-scroll auto-refresh>";
     for (k in chartData) //One chart per nutrition type
     {
       html += "<ons-carousel-item>";
-      html += "<canvas height='250' id='"+k+"'></canvas>";
+      html += "<canvas height='275' width='300' id='"+k+"'></canvas>";
       html += "</ons-carousel-item>";
     }
     html += "</ons-carousel>";
 
-    $("#statistics #charts").append(html);
+    $("#statistics #charts #chartHolder").html(html);
 
     //Draw charts
     Chart.defaults.line.spanGaps = true;
@@ -88,7 +96,22 @@ var statistics = {
       ctx = $("#statistics #charts ons-carousel #"+k);
       chart = new Chart(ctx, {
         type:chartType,
-        data:chartData[k]
+        data:chartData[k],
+        options:{
+          legend:{
+            display:false
+          },
+          title:
+          {
+            display:true,
+            text:k
+          },
+          scales:
+          {
+            xAxes: [{stacked: true}],
+            yAxes: [{stacked: true}]
+          }
+        }
       });
     }
   },
@@ -171,13 +194,15 @@ $(document).on("show", "#statistics", function(e){
   statistics.renderDiaryStats();
   statistics.gatherData()
   .then(function(){
-    statistics.renderCharts();
+    statistics.renderNutritionCharts();
     statistics.renderWeightLog();
   });
 });
 
-$(document).on("change", "#statistics #nutritionAndWeight #range", function(e){
-  statistics.gatherData();
-  statistics.renderCharts();
-  statistics.renderWeightLog();
+$(document).on("change", "#statistics #range", function(e){
+  statistics.gatherData()
+  .then(function(){
+    statistics.renderNutritionCharts();
+    statistics.renderWeightLog();
+  });
 })
