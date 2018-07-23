@@ -6,7 +6,6 @@ var goals = {
   {
     var types = ["weight", "calories", "protein", "carbs", "fat", "sugar", "salt"];
     var values = [0, 2000, 45, 230, 70, 90, 6]; //Womens RDAs
-    var days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
     for (i in types) //Each type
     {
@@ -16,9 +15,9 @@ var goals = {
 
       goals.data[types[i]]["multi"] = true;
 
-      for (j in days) //Each day
+      for (j = 0; j < 7; j++) //Each day
       {
-        goals.data[types[i]][days[j]] = values[i];
+        goals.data[types[i]][j] = values[i];
       }
     }
 
@@ -55,10 +54,11 @@ var goals = {
   {
     //Capitalize ID and use as toolbar title
     $("#nutrition ons-toolbar .center").html(name.charAt(0).toUpperCase() + name.slice(1));
-    $("#edit-nutrition-form #name").val(name); //Set hidden form field
 
-    //Create object if it doesn't already exist
-    goals.data[name] = goals.data[name] || {"monday":"", "tuesday":"", "wednesday":"", "thursday":"", "friday":"", "saturday":"", "sunday":""};
+    //Set hidden form field for type of goal (calories, fat, sugar, etc.)
+    $("#edit-nutrition-form #name").val(name);
+
+    goals.data = JSON.parse(app.storage.getItem("goals")); //Get data from app storage
 
     var inputs = $("#edit-nutrition-form ons-input"); //User input boxes
 
@@ -78,7 +78,7 @@ var goals = {
 
     for (var i = 0; i < inputs.length; i++)
     {
-      goals.data[name][inputs[i].id] = inputs[i].value;
+      goals.data[name][inputs[i].] = inputs[i].value;
     }
 
     //Multi goal checkbox
@@ -120,8 +120,6 @@ var goals = {
         dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
       }
 
-      var days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]; //JS week starts on Sunday
-      var day = days[dateTime.getDay()]; //Get day of the week
       var data = {};
 
       goals.data = JSON.parse(app.storage.getItem("goals"));
@@ -130,7 +128,7 @@ var goals = {
       {
         if (g == "weight") continue; //weight is handled separately
         data[g] = data[g] || 0;
-        data[g] = goals.data[g][day];
+        data[g] = goals.data[g][dateTime.getDay()];
       }
 
       data.weight = goals.data.weight;
