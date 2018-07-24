@@ -87,5 +87,5 @@ app.initialize();
 
 ons.ready(function() {
   console.log("Cordova Ready");
-  ons.disableAnimations(); //Disable all animations
+  //ons.disableAnimations(); //Disable all animations
 });

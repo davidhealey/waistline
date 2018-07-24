@@ -149,65 +149,55 @@ var foodList = {
     );
   },
 
-  processBarcodeResponse : function(request)
+  //For testing the barcode scanner manually
+  testscan : function()
   {
-    if (request.readyState == 4 && request.status == 200)
+    //First check that there is an internet connection
+    if (navigator.connection.type == "none")
     {
-      var result = jQuery.parseJSON(request.responseText);
+      ons.notification.alert("No Internet Connection");
+      return false;
+    }
 
-      if (result.status == 0) //Product not found
+    var code = "3366321051983"; //Test barcode
+    //var code = result.text;
+    var request = new XMLHttpRequest();
+
+    request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+    request.send();
+
+    request.onreadystatechange = function(){
+
+      if (request.readyState == 4 && request.status == 200)
       {
-        alert("Product not found. You can add it with the Open Food Facts app");
-      }
-      else
-      {
+        var result = jQuery.parseJSON(request.responseText);
+
+        if (result.status == 0) //Product not found
+        {
+          ons.notification.alert("Product not found. You can add it with the Open Food Facts app");
+          return false;
+        }
+
         //First check if the product has already been added to the food list - to avoid duplicates
         var index = dbHandler.getIndex("barcode", "foodList");
-        var request = index.count(result.code);
+        var getRequest = index.count(result.code)
 
-        request.onsuccess = function(e)
+        getRequest.onsuccess = function(e)
         {
           if (e.target.result > 0)
           {
-            alert("This product is already is already in your food list.");
+            ons.notification.alert("This product is already in your food list");
+            return false;
           }
-          else //Product is not in the db yet so we can add it now
-          {
-            //Get the data for the add food form
-            var product = result.product;
 
-            var data = {"name":escape(product.product_name), "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url, "barcode":result.code};
+          var item = foodList.parseOFFProduct(result.product)
 
-            //Get best match for portion/serving size
-            if (product.serving_size)
-            {
-              data.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
-              data.calories = parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(product.serving_size)); //Get calories for portion
-            }
-            else if (product.nutrition_data_per)
-            {
-              data.portion = product.nutrition_data_per;
-            }
-            else if (product.quantity)
-            {
-              data.portion = product.quantity;
-            }
-
-            //If energy is given in kJ convert to kcal
-            if (product.nutriments.energy_unit == "kJ")
-            {
-              data.calories = parseInt(data.calories / 4.15);
-            }
-
-            escape(data.portion);
-
-            //Go to food item edit form and fill in form with retrieved data
-            nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
-              .then(function() {foodList.fillEditForm(data)});
-          }
+          //Go to food item edit form and fill in form with retrieved data
+          nav.pushPage("activities/food-list/views/edit-item.html", {"data":item})
+            .then(function() {foodList.fillEditForm(item)});
         }
       }
-    }
+    };
   },
 
   search : function(term)
@@ -224,7 +214,7 @@ var foodList = {
     request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&action=process&json=1", true);
     request.send();
 
-    request.onreadystatechange = function(e){
+    request.onreadystatechange = function(){
 
       if (request.readyState == 4 && request.status == 200)
       {
@@ -277,11 +267,11 @@ var foodList = {
     item.image_url = product.image_url;
     item.nutrition = {
       calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
-      protein: parseInt(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion)),
-      carbs: parseInt(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion)),
-      fat: parseInt(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion)),
-      salt: parseInt(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion)),
-      sugar: parseInt(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion)),
+      protein: parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion),
+      carbs: parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion),
+      fat: parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion),
+      salt: parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion),
+      sugar: parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion),
     }
 
     //Kilojules to kcalories
@@ -399,9 +389,4 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   {
     ons.notification.alert('Please complete all required fields.');
   }
-});
-
-//Barcode scanner button
-$(document).on("tap", "#food-list-page #btn-barcode", function(e) {
-  foodList.scan();
 });
