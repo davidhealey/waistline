@@ -208,6 +208,13 @@ var foodList = {
 
   search : function(term)
   {
+    //First check that there is an internet connection
+    if (navigator.connection.type == "none")
+    {
+      ons.notification.alert("No Internet Connection");
+      return false;
+    }
+
     var request = new XMLHttpRequest();
 
     request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&action=process&json=1", true);
@@ -236,7 +243,6 @@ var foodList = {
             item.barcode = products[i].code;
             foodList.list.push(item);
           }
-
           foodList.populate(foodList.list);
         }
       }
