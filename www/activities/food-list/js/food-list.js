@@ -128,28 +128,6 @@ var foodList = {
     };
   },
 
-  scan : function()
-  {
-    cordova.plugins.barcodeScanner.scan(
-       function (result) {
-
-         var code = result.text;
-         var request = new XMLHttpRequest();
-
-         request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
-         request.send();
-
-         request.onreadystatechange = function(){
-           foodList.processBarcodeResponse(request);
-         };
-       },
-       function (e) {
-           alert("Scanning failed: " + error);
-       }
-    );
-  },
-
-  //For testing the barcode scanner manually
   testscan : function()
   {
     //First check that there is an internet connection
@@ -159,45 +137,46 @@ var foodList = {
       return false;
     }
 
-    var code = "3366321051983"; //Test barcode
-    //var code = result.text;
-    var request = new XMLHttpRequest();
+    cordova.plugins.barcodeScanner.scan(function(scanData){
 
-    request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
-    request.send();
+      //var code = "3366321051983"; //Test barcode
+      var code = scanData.text;
+      var request = new XMLHttpRequest();
 
-    request.onreadystatechange = function(){
+      request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+      request.send();
 
-      if (request.readyState == 4 && request.status == 200)
-      {
-        var result = jQuery.parseJSON(request.responseText);
+      request.onreadystatechange = function(){
 
-        if (result.status == 0) //Product not found
+        if (request.readyState == 4 && request.status == 200)
         {
-          ons.notification.alert("Product not found. You can add it with the Open Food Facts app");
-          return false;
-        }
+          var result = jQuery.parseJSON(request.responseText);
 
-        //First check if the product has already been added to the food list - to avoid duplicates
-        var index = dbHandler.getIndex("barcode", "foodList");
-        var getRequest = index.count(result.code)
-
-        getRequest.onsuccess = function(e)
-        {
-          if (e.target.result > 0)
+          if (result.status == 0) //Product not found
           {
-            ons.notification.alert("This product is already in your food list");
+            ons.notification.alert("Product not found. You can add it with the Open Food Facts app");
             return false;
           }
 
-          var item = foodList.parseOFFProduct(result.product)
+          //First check if the product has already been added to the food list - to avoid duplicates
+          var item = {}
+          var index = dbHandler.getIndex("barcode", "foodList");
+          index.get(result.code).onsuccess = function(e)
+          {
+            e.target.result ? item = e.target.result : item = foodList.parseOFFProduct(result.product);
 
-          //Go to food item edit form and fill in form with retrieved data
-          nav.pushPage("activities/food-list/views/edit-item.html", {"data":item})
-            .then(function() {foodList.fillEditForm(item)});
+            //Go to food item edit form and fill in form with retrieved data
+            nav.pushPage("activities/food-list/views/edit-item.html", {"data":item})
+              .then(function() {foodList.fillEditForm(item)});
+          }
         }
-      }
-    };
+      };
+    },
+    function(e)
+    {
+      ons.notification.alert("Scanning failed: " + e);
+      return false;
+    });
   },
 
   search : function(term)
@@ -234,7 +213,6 @@ var foodList = {
           for (var i = 0; i <  products.length; i++)
           {
             item = foodList.parseOFFProduct(products[i]);
-            item.barcode = products[i].code;
             foodList.list.push(item);
           }
           foodList.populate(foodList.list);
@@ -265,13 +243,14 @@ var foodList = {
     item.name = product.product_name;
     item.brand = product.brands;
     item.image_url = product.image_url;
+    item.barcode = product.code;
     item.nutrition = {
       calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
-      protein: parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion),
-      carbs: parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion),
-      fat: parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion),
-      salt: parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion),
-      sugar: parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion),
+      protein: Math.round(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion) * 100) / 100,
+      carbs: Math.round(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion) * 100) / 100,
+      fat: Math.round(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion) * 100) / 100,
+      salt: Math.round(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion) * 100) / 100,
+      sugar: Math.round(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion) * 100) / 100,
     }
 
     //Kilojules to kcalories
