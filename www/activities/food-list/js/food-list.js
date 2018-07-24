@@ -2,7 +2,7 @@ var foodList = {
 
   list:[],
 
-  fillList : function()
+  fillListFromDB : function()
   {
     return new Promise(function(resolve, reject){
 
@@ -188,23 +188,103 @@ var foodList = {
     }
   },
 
-  search : function()
+  search : function(term)
   {
-    ons.notification.alert('Hello ');
+    var request = new XMLHttpRequest();
+
+    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&action=process&json=1", true);
+    request.send();
+
+    request.onreadystatechange = function(e){
+
+      if (request.readyState == 4 && request.status == 200)
+      {
+        var result = JSON.parse(request.responseText);
+
+        if (result.products.length == 0)
+        {
+          ons.notification.alert("No Matching Results");
+        }
+        else
+        {
+          var products = result.products;
+
+          //console.log(products);
+
+          foodList.list = []; //Clear list
+          var item = {};
+          for (var i = 0; i <  products.length; i++)
+          {
+            item = foodList.parseOFFProduct(products[i]);
+            foodList.list.push(item);
+          }
+
+          foodList.populate(foodList.list);
+        }
+      }
+    };
+  },
+
+  //Open food facts product parser
+  parseOFFProduct : function(product)
+  {
+    var item = {};
+
+    //Get best match for portion/serving size
+    if (product.serving_size)
+    {
+      item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
+    }
+    else if (product.nutrition_data_per)
+    {
+      item.portion = product.nutrition_data_per;
+    }
+    else if (product.quantity)
+    {
+      item.portion = product.quantity;
+    }
+
+    item.name = product.product_name;
+    item.nutrition = {
+      calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
+      protein: parseInt(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion)),
+      carbs: parseInt(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion)),
+      fat: parseInt(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion)),
+      salt: parseInt(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion)),
+      sugar: parseInt(parseFloat(product.nutriments.sugar) / 100 * parseFloat(item.portion)),
+    }
+
+    //Kilojules to kcalories
+    if (product.nutriments.energy_unit == "kJ")
+    {
+      item.calories = parseInt(item.calories / 4.15);
+    }
+
+    return item;
   },
 }
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e) {
-  foodList.fillList()
+  foodList.fillListFromDB()
   .then(function(){
     foodList.populate(foodList.list);
   });
 });
 
 $(document).on("keyup", "#food-list-page #filter", function(e){
-  var filteredList = foodList.filterList(this.value);
-  foodList.populate(filteredList);
+
+  if (this.value == "") //Search box cleared, reset the list
+  {
+    foodList.fillListFromDB()
+    .then(function(){
+      foodList.populate(foodList.list);
+    });
+  }
+  else { //Filter the list
+    var filteredList = foodList.filterList(this.value);
+    foodList.populate(filteredList);
+  }
 });
 
 //Delete item from food list by holding
@@ -244,11 +324,6 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
     }
     nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
   }
-});
-
-//Floating action button action
-$(document).on("doubletap", "#food-list-page ons-fab", function(e) {
-  nav.pushPage("activities/food-list/views/edit-item.html")
 });
 
 $(document).on("tap", "#food-list-page #food-list ons-checkbox", function(e) {
