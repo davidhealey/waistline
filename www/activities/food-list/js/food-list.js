@@ -39,13 +39,22 @@ var foodList = {
   {
     var html = "";
 
-    for (i in list)
+    for (var i = 0; i < list.length; i++)
     {
-      html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(list[i]) + "'>";
-      html += "<label class='right'>";
-      html += "<ons-checkbox name='food-item-checkbox' idnput-id='" + list[i].id + "' data='"+ JSON.stringify(list[i]) + "'></ons-checkbox>";
-      html += "</label>";
-      html += "<label for='" + list[i].id + "' class='center'>" + list[i].name + "</label>";
+      if (list[i].id) //Item has an ID, then it must already be in the database
+      {
+        html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(list[i]) + "'>";
+        html += "<label class='right'>";
+        html += "<ons-checkbox name='food-item-checkbox' input-id='" + list[i].name + "' data='"+ JSON.stringify(list[i]) + "'></ons-checkbox>";
+        html += "</label>";
+        html += "<label for='" + list[i].name + "' class='center'>" + list[i].name + "</label>";
+      }
+      else //Item doesn't have an idea, must have been found by searching
+      {
+        html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+ JSON.stringify(list[i]) + "'>";
+        html += list[i].name;
+      }
+
       html += "</ons-list-item>";
     }
 
@@ -54,9 +63,11 @@ var foodList = {
 
   fillEditForm : function(data)
   {
+    data.id ? $("#edit-food-item #title").html("Edit Food") : $("#edit-food-item #title").html("Add Food");
     $("#edit-food-item #id").val(data.id);
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(data.name);
+    $("#edit-food-item #brand").val(data.brand);
     $("#edit-food-item #portion").val(data.portion);
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
@@ -64,6 +75,13 @@ var foodList = {
     $("#edit-food-item #fat").val(data.nutrition.fat);
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
     $("#edit-food-item #salt").val(data.nutrition.salt);
+
+    //Display image
+    if (data.image_url)
+    {
+      $('#edit-food-item #foodImage').html("<ons-card><img style='display:block; height:auto; width:75%; margin:auto;'></img></ons-card>");
+      $('#edit-food-item #foodImage img').attr("src", data.image_url);
+    }
   },
 
   updateEntry : function()
@@ -204,18 +222,18 @@ var foodList = {
         if (result.products.length == 0)
         {
           ons.notification.alert("No Matching Results");
+          return false;
         }
         else
         {
           var products = result.products;
-
-          //console.log(products);
 
           foodList.list = []; //Clear list
           var item = {};
           for (var i = 0; i <  products.length; i++)
           {
             item = foodList.parseOFFProduct(products[i]);
+            item.barcode = products[i].code;
             foodList.list.push(item);
           }
 
@@ -245,6 +263,8 @@ var foodList = {
     }
 
     item.name = product.product_name;
+    item.brand = product.brands;
+    item.image_url = product.image_url;
     item.nutrition = {
       calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
       protein: parseInt(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion)),
@@ -301,12 +321,12 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
   });
 });
 
-//Add single item to diary by double tapping it
-$(document).on("doubletap", "#food-list-page #food-list ons-list-item", function(e) {
+//Add single item to diary by  tapping it
+/*$(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
   var data = JSON.parse($(this).attr("data"));
   diary.addEntry(data);
   nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
-});
+});*/
 
 //Add multiple items to diary by checking them and tapping the check button
 $(document).on("tap", "#food-list-page #submit", function(e) {
@@ -326,12 +346,18 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
   }
 });
 
-$(document).on("tap", "#food-list-page #food-list ons-checkbox", function(e) {
-  e.stopPropagation(); //Prevent button triggering when checkbox is selected
+//Edit food item by double tapping
+$(document).on("doubletap", "#food-list-page #food-list ons-list-item", function(e) {
+
+  var data = JSON.parse($(this).attr("data"));
+
+  //Go to edit food page then fill in form
+  nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
+    .then(function() {foodList.fillEditForm(data)});
 });
 
-//Edit food item by single tapping
-$(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
+//Same action as double tap on regular list items but this is for items found via search
+$(document).on("tap", "#food-list-page #food-list .searchItem", function(e) {
 
   var data = JSON.parse($(this).attr("data"));
 
@@ -342,8 +368,6 @@ $(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
 
 //Edit food page display
 $(document).on("show", "#edit-food-item", function(e) {
-  //Set title of page depending on if adding a new food item or editing an existing one. If no page data is passed then must be new.
-  $.isEmptyObject(nav.topPage.data) ? $("#edit-food-item #title").html("Add Food") : $("#edit-food-item #title").html("Edit Food");
 });
 
 //Edit form submit button action
