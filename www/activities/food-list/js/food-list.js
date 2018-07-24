@@ -43,7 +43,7 @@ var foodList = {
     {
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
-        html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(list[i]) + "'>";
+        html += "<ons-list-item tappable class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='" + list[i].name + "' data='"+ JSON.stringify(list[i]) + "'></ons-checkbox>";
         html += "</label>";
@@ -51,7 +51,7 @@ var foodList = {
       }
       else //Item doesn't have an idea, must have been found by searching
       {
-        html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+ JSON.stringify(list[i]) + "'>";
+        html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
         html += list[i].name;
       }
 
@@ -92,6 +92,8 @@ var foodList = {
     var id = parseInt($("#edit-food-item #id").val()); //ID is hidden field
     data.barcode = $("#edit-food-item #barcode").val(); //Barcode is hidden field
     data.name = $('#edit-food-item #name').val();
+    data.brand = $('#edit-food-item #brand').val();
+    data.image_url = $('#edit-food-item #foodImage img').attr("src");
     data.portion = $('#edit-food-item #portion').val();
     data.nutrition = {
       "calories":parseFloat($('#edit-food-item #calories').val()),
@@ -110,7 +112,8 @@ var foodList = {
     //Add/update food item
     data.id == undefined ? dbHandler.insert(data, "foodList") : dbHandler.update(data, "foodList", id);
 
-    nav.popPage();
+    foodList.fillListFromDB()
+    .then(nav.popPage());
   },
 
   deleteEntry : function(id)
@@ -120,7 +123,8 @@ var foodList = {
 
     //If the request was successful repopulate the list
     request.onsuccess = function(e) {
-      foodList.populate();
+      foodList.fillListFromDB()
+      .then(function(){foodList.populate(foodList.list)});
     };
   },
 
@@ -285,13 +289,16 @@ var foodList = {
     {
       item.calories = parseInt(item.calories / 4.15);
     }
-
     return item;
   },
 }
 
 //Food list page display
-$(document).on("show", "#food-list-page", function(e) {
+$(document).on("show", "#food-list-page", function(e){
+  foodList.populate(foodList.list);
+});
+
+$(document).on("init", "#food-list-page", function(e){
   foodList.fillListFromDB()
   .then(function(){
     foodList.populate(foodList.list);

@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 12;
+      var databaseVersion = 13;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -71,6 +71,8 @@ var dbHandler =
 
           if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
           if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
+          if (!store.indexNames.contains("brand")) store.createIndex('brand', 'brand', {unique:false});
+          if (!store.indexNames.contains("image_url")) store.createIndex('image_url', 'image_url', {unique:false});
           if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
           if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {unique:false});
