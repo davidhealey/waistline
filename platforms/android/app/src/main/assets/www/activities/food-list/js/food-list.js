@@ -1,50 +1,87 @@
 var foodList = {
 
-  populate : function()
+  list:[],
+
+  fillListFromDB : function()
   {
-    $("#food-list-page #food-filter").focus();
+    return new Promise(function(resolve, reject){
 
+      var date = new Date()
+      var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+
+      foodList.list = []; //Clear list
+
+      dbHandler.getIndex("dateTime", "foodList").openCursor(IDBKeyRange.upperBound(dateTime), "prev").onsuccess = function(e)
+      {
+        var cursor = e.target.result;
+
+        if (cursor)
+        {
+          foodList.list.push(cursor.value);
+          cursor.continue();
+        }
+        else
+        {
+          resolve();
+        }
+      };
+    });
+  },
+
+  filterList : function(term)
+  {
+    return filteredList = foodList.list.filter(function (el) {
+      return (el.name.match(new RegExp(term, "i"))); //Allow partial match and case insensitive
+    });
+  },
+
+  populate : function(list)
+  {
     var html = "";
-    var date = new Date()
-    var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())); //JS dates are s**t
 
-    //Create list of food items (sorted by timestamp) and insert into HTML
-    var index = dbHandler.getIndex("dateTime", "foodList"); //Get timestamp index
-
-    index.openCursor(IDBKeyRange.upperBound(dateTime), "prev").onsuccess = function(e)
+    for (var i = 0; i < list.length; i++)
     {
-      var cursor = e.target.result;
-
-      if (cursor)
+      if (list[i].id) //Item has an ID, then it must already be in the database
       {
-        html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(cursor.value) + "'>";
+        html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(list[i]) + "'>";
         html += "<label class='right'>";
-        html += "<ons-checkbox name='food-item-checkbox' idnput-id='" + cursor.value.id + "' data='"+ JSON.stringify(cursor.value) + "'></ons-checkbox>";
+        html += "<ons-checkbox name='food-item-checkbox' input-id='" + list[i].name + "' data='"+ JSON.stringify(list[i]) + "'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='" + cursor.value.id + "' class='center'>" + cursor.value.name + "</label>";
-        html += "</ons-list-item>";
-
-        cursor.continue();
+        html += "<label for='" + list[i].name + "' class='center'>" + list[i].name + "</label>";
       }
-      else
+      else //Item doesn't have an idea, must have been found by searching
       {
-        $("#food-list-page #food-list").html(html); //Insert into HTML
+        html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+ JSON.stringify(list[i]) + "'>";
+        html += list[i].name;
       }
-    };
+
+      html += "</ons-list-item>";
+    }
+
+    $("#food-list-page #food-list").html(html); //Insert into HTML
   },
 
   fillEditForm : function(data)
   {
+    data.id ? $("#edit-food-item #title").html("Edit Food") : $("#edit-food-item #title").html("Add Food");
     $("#edit-food-item #id").val(data.id);
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(data.name);
+    $("#edit-food-item #brand").val(data.brand);
     $("#edit-food-item #portion").val(data.portion);
-    $("#edit-food-item #calories").val(data.calories);
-    $("#edit-food-item #protein").val(data.protein);
-    $("#edit-food-item #carbs").val(data.carbs);
-    $("#edit-food-item #fat").val(data.fat);
-    $("#edit-food-item #sugar").val(data.sugar);
-    $("#edit-food-item #salt").val(data.salt);
+    $("#edit-food-item #calories").val(data.nutrition.calories);
+    $("#edit-food-item #protein").val(data.nutrition.protein);
+    $("#edit-food-item #carbs").val(data.nutrition.carbs);
+    $("#edit-food-item #fat").val(data.nutrition.fat);
+    $("#edit-food-item #sugar").val(data.nutrition.sugar);
+    $("#edit-food-item #salt").val(data.nutrition.salt);
+
+    //Display image
+    if (data.image_url)
+    {
+      $('#edit-food-item #foodImage').html("<ons-card><img style='display:block; height:auto; width:75%; margin:auto;'></img></ons-card>");
+      $('#edit-food-item #foodImage img').attr("src", data.image_url);
+    }
   },
 
   updateEntry : function()
@@ -56,19 +93,22 @@ var foodList = {
     data.barcode = $("#edit-food-item #barcode").val(); //Barcode is hidden field
     data.name = $('#edit-food-item #name').val();
     data.portion = $('#edit-food-item #portion').val();
-    data.calories = parseFloat($('#edit-food-item #calories').val());
-    data.protein = parseFloat($('#edit-food-item #protein').val());
-    data.carbs = parseFloat($('#edit-food-item #carbs').val());
-    data.fat = parseFloat($('#edit-food-item #fat').val());
-    data.sugar = parseFloat($('#edit-food-item #sugar').val());
-    data.salt = parseFloat($('#edit-food-item #salt').val());
+    data.nutrition = {
+      "calories":parseFloat($('#edit-food-item #calories').val()),
+      "protein":parseFloat($('#edit-food-item #protein').val()),
+      "carbs":parseFloat($('#edit-food-item #carbs').val()),
+      "fat":parseFloat($('#edit-food-item #fat').val()),
+      "sugar":parseFloat($('#edit-food-item #sugar').val()),
+      "salt":parseFloat($('#edit-food-item #salt').val()),
+    };
 
     var date = new Date()
     data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 
     if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
-    var request = dbHandler.insert(data, "foodList"); //Add/update food item
+    //Add/update food item
+    data.id == undefined ? dbHandler.insert(data, "foodList") : dbHandler.update(data, "foodList", id);
 
     nav.popPage();
   },
@@ -85,7 +125,7 @@ var foodList = {
   },
 
   scan : function()
-  {console.log("hello");
+  {
     cordova.plugins.barcodeScanner.scan(
        function (result) {
 
@@ -165,11 +205,106 @@ var foodList = {
       }
     }
   },
+
+  search : function(term)
+  {
+    var request = new XMLHttpRequest();
+
+    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&action=process&json=1", true);
+    request.send();
+
+    request.onreadystatechange = function(e){
+
+      if (request.readyState == 4 && request.status == 200)
+      {
+        var result = JSON.parse(request.responseText);
+
+        if (result.products.length == 0)
+        {
+          ons.notification.alert("No Matching Results");
+          return false;
+        }
+        else
+        {
+          var products = result.products;
+
+          foodList.list = []; //Clear list
+          var item = {};
+          for (var i = 0; i <  products.length; i++)
+          {
+            item = foodList.parseOFFProduct(products[i]);
+            item.barcode = products[i].code;
+            foodList.list.push(item);
+          }
+
+          foodList.populate(foodList.list);
+        }
+      }
+    };
+  },
+
+  //Open food facts product parser
+  parseOFFProduct : function(product)
+  {
+    var item = {};
+
+    //Get best match for portion/serving size
+    if (product.serving_size)
+    {
+      item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
+    }
+    else if (product.nutrition_data_per)
+    {
+      item.portion = product.nutrition_data_per;
+    }
+    else if (product.quantity)
+    {
+      item.portion = product.quantity;
+    }
+
+    item.name = product.product_name;
+    item.brand = product.brands;
+    item.image_url = product.image_url;
+    item.nutrition = {
+      calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
+      protein: parseInt(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion)),
+      carbs: parseInt(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion)),
+      fat: parseInt(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion)),
+      salt: parseInt(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion)),
+      sugar: parseInt(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion)),
+    }
+
+    //Kilojules to kcalories
+    if (product.nutriments.energy_unit == "kJ")
+    {
+      item.calories = parseInt(item.calories / 4.15);
+    }
+
+    return item;
+  },
 }
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e) {
-  foodList.populate();
+  foodList.fillListFromDB()
+  .then(function(){
+    foodList.populate(foodList.list);
+  });
+});
+
+$(document).on("keyup", "#food-list-page #filter", function(e){
+
+  if (this.value == "") //Search box cleared, reset the list
+  {
+    foodList.fillListFromDB()
+    .then(function(){
+      foodList.populate(foodList.list);
+    });
+  }
+  else { //Filter the list
+    var filteredList = foodList.filterList(this.value);
+    foodList.populate(filteredList);
+  }
 });
 
 //Delete item from food list by holding
@@ -186,12 +321,12 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
   });
 });
 
-//Add single item to diary by double tapping it
-$(document).on("doubletap", "#food-list-page #food-list ons-list-item", function(e) {
+//Add single item to diary by  tapping it
+/*$(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
   var data = JSON.parse($(this).attr("data"));
   diary.addEntry(data);
   nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
-});
+});*/
 
 //Add multiple items to diary by checking them and tapping the check button
 $(document).on("tap", "#food-list-page #submit", function(e) {
@@ -211,17 +346,18 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
   }
 });
 
-//Floating action button action
-$(document).on("tap", "#food-list-page ons-fab", function(e) {
-  nav.pushPage("activities/food-list/views/edit-item.html")
+//Edit food item by double tapping
+$(document).on("doubletap", "#food-list-page #food-list ons-list-item", function(e) {
+
+  var data = JSON.parse($(this).attr("data"));
+
+  //Go to edit food page then fill in form
+  nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
+    .then(function() {foodList.fillEditForm(data)});
 });
 
-$(document).on("tap", "#food-list-page #food-list ons-checkbox", function(e) {
-  e.stopPropagation(); //Prevent button triggering when checkbox is selected
-});
-
-//Edit food item by single tapping
-$(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
+//Same action as double tap on regular list items but this is for items found via search
+$(document).on("tap", "#food-list-page #food-list .searchItem", function(e) {
 
   var data = JSON.parse($(this).attr("data"));
 
@@ -232,8 +368,6 @@ $(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
 
 //Edit food page display
 $(document).on("show", "#edit-food-item", function(e) {
-  //Set title of page depending on if adding a new food item or editing an existing one. If no page data is passed then must be new.
-  $.isEmptyObject(nav.topPage.data) ? $("#edit-food-item #title").html("Add Food") : $("#edit-food-item #title").html("Edit Food");
 });
 
 //Edit form submit button action

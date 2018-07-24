@@ -33,11 +33,10 @@
     <plugin name="phonegap-plugin-barcodescanner" spec="^7.1.1">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
-    <plugin name="cordova-plugin-splashscreen" spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
     <plugin name="cordova-plugin-browsersync" spec="~0.1.8" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
-    <preference name="SplashScreenDelay" value="1000" />
     <preference name="orientation" value="portrait" />
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.0.0" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
 </widget>

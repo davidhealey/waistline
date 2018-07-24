@@ -1,0 +1,21 @@
+<ons-page id="weight">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center">Weight Goals</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <div style="text-align: left; margin-top: 2em; margin-left:1em;">
+    <form onsubmit="goals.processWeightForm(); return false;" id="edit-weight-form">
+      <p><ons-input type="number" inputmode="decimal" step="any" name="target-weight" id="target-weight" placeholder="Goal Weight (kg)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="weekly-weight" id="weekly-weight" placeholder="Weekly Goal (kg)" float></ons-input></p>
+      <label class="left">
+        <ons-checkbox input-id="gainWeight" id="gain-weight"></ons-checkbox>
+      </label>
+      <label for="gainWeight" class="center">
+        I want to gain weight
+      </label>
+    </form>
+  </div>
+
+</ons-page>

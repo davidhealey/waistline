@@ -13,9 +13,6 @@
     "cordova-plugin-file": {
       "PACKAGE_NAME": "com.waist.line"
     },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.waist.line"
-    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.waist.line"
     },
@@ -24,6 +21,9 @@
       "PACKAGE_NAME": "com.waist.line"
     },
     "cordova-plugin-indexeddb-async": {
+      "PACKAGE_NAME": "com.waist.line"
+    },
+    "cordova-plugin-network-information": {
       "PACKAGE_NAME": "com.waist.line"
     }
   },

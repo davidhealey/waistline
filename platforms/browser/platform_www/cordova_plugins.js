@@ -180,20 +180,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-        "id": "cordova-plugin-splashscreen.SplashScreen",
-        "pluginId": "cordova-plugin-splashscreen",
-        "clobbers": [
-            "navigator.splashscreen"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-splashscreen/src/browser/SplashScreenProxy.js",
-        "id": "cordova-plugin-splashscreen.SplashScreenProxy",
-        "pluginId": "cordova-plugin-splashscreen",
-        "runs": true
-    },
-    {
         "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
         "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
         "pluginId": "phonegap-plugin-barcodescanner",
@@ -212,6 +198,29 @@ module.exports = [
         "id": "cordova-plugin-indexeddb-async.IndexedDBShim",
         "pluginId": "cordova-plugin-indexeddb-async",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/network.js",
+        "id": "cordova-plugin-network-information.network",
+        "pluginId": "cordova-plugin-network-information",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+        "id": "cordova-plugin-network-information.Connection",
+        "pluginId": "cordova-plugin-network-information",
+        "clobbers": [
+            "Connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/src/browser/network.js",
+        "id": "cordova-plugin-network-information.NetworkInfoProxy",
+        "pluginId": "cordova-plugin-network-information",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -219,10 +228,10 @@ module.exports.metadata =
 {
     "cordova-plugin-browsersync": "0.1.7",
     "cordova-plugin-file": "6.0.1",
-    "cordova-plugin-splashscreen": "5.0.2",
     "phonegap-plugin-barcodescanner": "8.0.0",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova-plugin-indexeddb-async": "0.0.1"
+    "cordova-plugin-indexeddb-async": "0.0.1",
+    "cordova-plugin-network-information": "2.0.1"
 }
 // BOTTOM OF METADATA
 });

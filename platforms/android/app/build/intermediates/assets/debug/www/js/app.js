@@ -1,60 +1,90 @@
 var app = {
 
   storage:{}, //Local storage
-  date: new Date(), //Diary date selected by user
-  caloriesConsumed:0, //Calories consumed for selected date
   strings: {},
 
   // Application Constructor
-  initialize: function() {
-    $(document).ready(function()
-    {
-      document.addEventListener('deviceready', app.onDeviceReady.bind(app), false);
-    });
+  initialize: function()
+  {
     this.storage = window.localStorage; //Simple storage object
-    dbHandler.initializeDb(); //db-handler initialization
+
+    //Setup default goals and weight in app storage if none have been set
+    if (app.storage.getItem("goals") == undefined)
+    {
+      goals.setDefaults(); //Generate default goals
+    }
+
+    if (app.storage.getItem("weight") == undefined)
+    {
+      app.storage.setItem("weight", 70);
+    }
+
+    dbHandler.initializeDb() //db-handler initialization
+    .then(function(){
+      //Add a log entry for the current date if there isn't one already
+      var now = new Date();
+      var date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      app.addDefaultLogEntry(date);
+    });
 
     //Localisation
-    app.strings = defaultLocale; //Set fallback locale data
+    this.strings = defaultLocale; //Set fallback locale data
 
     var opts = {};
     opts.callback = function(data, defaultCallback) {
       defaultCallback(data);
-      app.strings = $.localize.data["locales/locale"];
+      this.strings = $.localize.data["locales/locale"];
     }
 
     $("[data-localize]").localize("locales/locale", opts)
     console.log($.localize);
 
-    //Set default values for weight and calorie goal
-    if (this.storage.getItem("weight") == undefined)
-    {
-      this.storage.setItem("weight", 65);
-    }
-
-    if (this.storage.getItem("calorieGoal") == undefined)
-    {
-      this.storage.setItem("calorieGoal", 2000);
-    }
-
     //Theme handler
-    if (this.storage.getItem("theme") == undefined)
+    /*if (this.storage.getItem("theme") == undefined)
     {
        this.storage.setItem("theme", "default");
-    }
+    }*/
 
-    $("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
+    //$("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
     //setTheme(this.storage.getItem("theme")); //Set theme CSS
   },
 
-  // deviceready Event Handler
-  //
-  // Bind any cordova events here. Common events are:
-  // 'pause', 'resume', etc.
-  onDeviceReady: function() {
+  addDefaultLogEntry : function(date)
+  {
+    return new Promise(function(resolve, reject){
+      var request = dbHandler.getItem(date, "log");
 
-    //changeDate(this.date); //Default to current date
+      request.onsuccess = function(e){
+
+        if (e.target.result == undefined) //No log entry for given date
+        {
+            var data = {"dateTime":date, "goals":{}, "weight":app.storage.getItem("weight")};
+            var goals = JSON.parse(app.storage.getItem("goals"));
+            var day = date.getDay(); //Week starts on Sunday
+
+            //Get just the goals for the current day
+            for (g in goals)
+            {
+              if (g == "weight") continue; //Weight handled separately
+              data.goals[g] = goals[g][day];
+            }
+
+            data.goals["weight"] = goals.weight;
+
+            var insertRequest = dbHandler.insert(data, "log");
+            insertRequest.onsuccess = function(e){resolve();}
+        }
+        else {
+          resolve();
+        }
+      }
+    });
   },
+
 };
 
 app.initialize();
+
+ons.ready(function() {
+  console.log("Cordova Ready");
+});

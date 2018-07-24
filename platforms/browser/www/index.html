@@ -20,7 +20,7 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap ws: 'unsafe-inline'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
@@ -42,6 +42,7 @@
         <script src="locales/locale-default.js"></script>
 
         <script type="text/javascript" src="js/db-handler.js"></script>
+        <script type="text/javascript" src="activities/goals/js/goals.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
 
         <!-- My extra styles --
@@ -54,15 +55,63 @@
     <body>
 
       <ons-splitter>
-        <ons-splitter-side id="menu" side="left" width="220px" collapse="" swipeable="">
+        <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
           <ons-page>
             <ons-list>
-              <ons-list-item onclick="page.load('home.html')" tappable="">Home</ons-list-item>
-              <ons-list-item onclick="page.push('activities/diary/views/diary.html')" tappable="">Diary</ons-list-item>
-              <ons-list-item onclick="page.push('stats.html')" tappable="">Statistics</ons-list-item>
-              <ons-list-item onclick="page.push('activities/food-list/views/food-list.html')" tappable="">Food List</ons-list-item>
-              <ons-list-item onclick="page.push('settings.html')" tappable="">Settings</ons-list-item>
-              <ons-list-item onclick="page.push('user-guide.html')" tappable="">User Guide</ons-list-item>
+              <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable>
+                <div class="left">
+                  Statistics
+                </div>
+                <div class="right">
+                  <ons-icon icon="bar-chart"></ons-icon>
+                </div>
+              </ons-list-item>
+
+              <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable>
+                <div class="left">
+                  Diary
+                </div>
+                <div class="right">
+                  <ons-icon icon="calendar"></ons-icon>
+                </div>
+              </ons-list-item>
+
+              <ons-list-item onclick="nav.resetToPage('activities/food-list/views/food-list.html').then(menu.close.bind(menu))" tappable>
+                <div class="left">
+                  Food List
+                </div>
+                <div class="right">
+                  <ons-icon icon="ion-pizza"></ons-icon>
+                </div>
+              </ons-list-item>
+
+              <ons-list-item onclick="nav.resetToPage('activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable>
+                <div class="left">
+                  Goals
+                </div>
+                <div class="right">
+                  <ons-icon icon="bullseye"></ons-icon>
+                </div>
+              </ons-list-item>
+
+              <ons-list-item onclick="nav.resetToPage('activities/settings/views/settings.html').then(menu.close.bind(menu))" tappable>
+                <div class="left">
+                  Settings
+                </div>
+                <div class="right">
+                  <ons-icon icon="cog"></ons-icon>
+                </div>
+              </ons-list-item>
+
+              <ons-list-item onclick="nav.resetToPage('activities/userguide/views/userguide.html').then(menu.close.bind(menu))" tappable>
+                <div class="left">
+                  User Guide
+                </div>
+                <div class="right">
+                  <ons-icon icon="book"></ons-icon>
+                </div>
+              </ons-list-item>
+
             </ons-list>
           </ons-page>
         </ons-splitter-side>
@@ -76,8 +125,8 @@
       </script>
 
       <script type="text/javascript" src="cordova.js"></script>
-      <script type="text/javascript" src="js/page-handler.js"></script>
       <script type="text/javascript" src="activities/diary/js/diary.js"></script>
+      <script type="text/javascript" src="activities/statistics/js/statistics.js"></script>
       <script type="text/javascript" src="activities/food-list/js/food-list.js"></script>
     </body>
 </html>
