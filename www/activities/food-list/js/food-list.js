@@ -45,14 +45,14 @@ var foodList = {
       {
         html += "<ons-list-item tappable class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
-        html += "<ons-checkbox name='food-item-checkbox' input-id='" + list[i].name + "' data='"+ JSON.stringify(list[i]) + "'></ons-checkbox>";
+        html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='" + list[i].name + "' class='center'>" + list[i].name + "</label>";
+        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)+"</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
-        html += list[i].name;
+        html += unescape(list[i].name);
       }
 
       html += "</ons-list-item>";
@@ -66,8 +66,8 @@ var foodList = {
     data.id ? $("#edit-food-item #title").html("Edit Food") : $("#edit-food-item #title").html("Add Food");
     $("#edit-food-item #id").val(data.id);
     $("#edit-food-item #barcode").val(data.barcode);
-    $("#edit-food-item #name").val(data.name);
-    $("#edit-food-item #brand").val(data.brand);
+    $("#edit-food-item #name").val(unescape(data.name));
+    $("#edit-food-item #brand").val(unescape(data.brand));
     $("#edit-food-item #portion").val(data.portion);
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
@@ -77,10 +77,10 @@ var foodList = {
     $("#edit-food-item #salt").val(data.nutrition.salt);
 
     //Display image
-    if (data.image_url)
+    if (data.image_url && navigator.connection.type != "none")
     {
       $('#edit-food-item #foodImage').html("<ons-card><img style='display:block; height:auto; width:75%; margin:auto;'></img></ons-card>");
-      $('#edit-food-item #foodImage img').attr("src", data.image_url);
+      $('#edit-food-item #foodImage img').attr("src", unescape(data.image_url));
     }
   },
 
@@ -91,9 +91,9 @@ var foodList = {
     //Get form values
     var id = parseInt($("#edit-food-item #id").val()); //ID is hidden field
     data.barcode = $("#edit-food-item #barcode").val(); //Barcode is hidden field
-    data.name = $('#edit-food-item #name').val();
-    data.brand = $('#edit-food-item #brand').val();
-    data.image_url = $('#edit-food-item #foodImage img').attr("src");
+    data.name = escape($('#edit-food-item #name').val());
+    data.brand = escape($('#edit-food-item #brand').val());
+    data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
     data.portion = $('#edit-food-item #portion').val();
     data.nutrition = {
       "calories":parseFloat($('#edit-food-item #calories').val()),
@@ -139,7 +139,7 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      //var code = "3366321051983"; //Test barcode
+      var code = "9310072001128"; //Test barcode
       var code = scanData.text;
       var request = new XMLHttpRequest();
 
@@ -174,7 +174,7 @@ var foodList = {
     },
     function(e)
     {
-      ons.notification.alert("Scanning failed: " + e);
+      ons.notification.alert("Scan failed: " + e);
       return false;
     });
   },
@@ -240,9 +240,9 @@ var foodList = {
       item.portion = product.quantity;
     }
 
-    item.name = product.product_name;
-    item.brand = product.brands;
-    item.image_url = product.image_url;
+    item.name = escape(product.product_name);
+    item.brand = escape(product.brands);
+    item.image_url = escape(product.image_url);
     item.barcode = product.code;
     item.nutrition = {
       calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
