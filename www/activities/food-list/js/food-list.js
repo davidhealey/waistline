@@ -271,7 +271,7 @@ var foodList = {
       carbs: parseInt(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion)),
       fat: parseInt(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion)),
       salt: parseInt(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion)),
-      sugar: parseInt(parseFloat(product.nutriments.sugar) / 100 * parseFloat(item.portion)),
+      sugar: parseInt(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion)),
     }
 
     //Kilojules to kcalories

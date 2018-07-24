@@ -87,4 +87,7 @@ app.initialize();
 
 ons.ready(function() {
   console.log("Cordova Ready");
+  ons.disableAnimations(); //Disable all animations
+
+  console.log(network = navigator.network.connection.type);
 });
