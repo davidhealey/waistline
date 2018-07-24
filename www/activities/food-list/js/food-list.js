@@ -49,7 +49,7 @@ var foodList = {
         html += "</label>";
         html += "<label for='" + list[i].name + "' class='center'>" + list[i].name + "</label>";
       }
-      else //Item doesn't have an idea, must have been found by searching
+      else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
         html += list[i].name;
@@ -128,7 +128,7 @@ var foodList = {
     };
   },
 
-  testscan : function()
+  scan : function()
   {
     //First check that there is an internet connection
     if (navigator.connection.type == "none")
@@ -264,6 +264,7 @@ var foodList = {
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e){
+  $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
   foodList.populate(foodList.list);
 });
 
@@ -303,18 +304,24 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
   });
 });
 
-//Add single item to diary by  tapping it
-/*$(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
-  var data = JSON.parse($(this).attr("data"));
-  diary.addEntry(data);
-  nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
-});*/
+$(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
+  var checked = $('input[name=food-item-checkbox]:checked'); //Get all checked items
+  if (checked.length > 0)
+  {
+    $("#food-list-page ons-toolbar-button#submit").show(); //show submit button
+    $("#food-list-page ons-toolbar-button#scan").hide(); //hide scan button
+  }
+  else
+  {
+    $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
+    $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+  }
+});
 
 //Add multiple items to diary by checking them and tapping the check button
 $(document).on("tap", "#food-list-page #submit", function(e) {
 
-  //Get all checked items
-  var checked = $('input[name=food-item-checkbox]:checked');
+  var checked = $('input[name=food-item-checkbox]:checked'); //Get all checked items
 
   if (checked.length > 0) //At least 1 item was selected
   {
