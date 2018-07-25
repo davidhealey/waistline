@@ -23,7 +23,7 @@ var diary = {
       for (var i = 0; i < mealNames.length; i++)
       {
         if (mealNames[i] == "") continue; //Skip unset meal names
-        meals[i] = "<ons-list-header category-idx="+i+">"+mealNames[i]+"<span></span></ons-list-header>";
+        meals[i] = "<ons-list-header category-idx="+i+" modifier='chevron'>"+mealNames[i]+"</ons-list-header>";
       }
 
       var calorieCount = []; //Calorie count for each meal
@@ -39,11 +39,11 @@ var diary = {
           var calories = value.nutrition.calories;
 
           //If a user changes the names of their meals then existing diary items won't have a meal category, this line solves that
-          meals[value.category] = "<ons-list-header category-idx="+value.category+">"+value.category_name+"<span></span></ons-list-header>";
+          meals[value.category] = meals[value.category] || "<ons-list-header category-idx="+value.category+">"+value.category_name+"</ons-list-header>";
 
           //Build HTML
           html = ""; //Reset variable
-          html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable='true'>";
+          html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
           html += "<a>"+unescape(value.name) + " - " + unescape(value.portion);
 
           if (value.quantity == 1)
@@ -80,7 +80,7 @@ var diary = {
             html += "</ons-list>";
           }
 
-          $("#diary-page #diary-lists").html(html);
+          $("#diary-page #diary-lists").html(html); //Add HTML to DOM
 
           diary.updateLog()
           .then(result => diary.getStats(diary.date))
