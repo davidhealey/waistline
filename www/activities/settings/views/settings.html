@@ -1,7 +1,7 @@
 <ons-page id="settings-page">
   <ons-toolbar modifier="material">
     <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
-    <div class="center">User Guide</div>
+    <div class="center">Settings</div>
     <div class="right"></div>
   </ons-toolbar>
 
@@ -24,7 +24,7 @@
         </div>
         <div class="expandable-content">Disabling animations may improve performance on some devices (requires app restart).</div>
     </ons-list-item>
-    <ons-list-item tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
+    <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
       Diary Settings
     </ons-list-item>
   </ons-list>

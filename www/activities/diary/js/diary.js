@@ -23,7 +23,7 @@ var diary = {
       for (var i = 0; i < mealNames.length; i++)
       {
         if (mealNames[i] == "") continue; //Skip unset meal names
-        meals[i] = "<ons-list-header category-idx="+i+" modifier='chevron'>"+mealNames[i]+"</ons-list-header>";
+        meals[i] = "<ons-list-header category-idx="+i+">"+mealNames[i]+"</ons-list-header>";
       }
 
       var calorieCount = []; //Calorie count for each meal
