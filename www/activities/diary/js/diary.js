@@ -1,6 +1,6 @@
 var diary = {
 
-  category:"0",
+  category:"0", //Category index
   date: undefined,
   consumption:{}, //Nutrition consumed for current diary date
 
@@ -159,29 +159,15 @@ var diary = {
   fillEditForm : function(data)
   {
     $("#edit-diary-item #id").val(data.id); //Add to hidden field
+    $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
     $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
     $("#edit-diary-item #portion").val(unescape(data.portion));
-    $("#edit-diary-item #caloriesDisplay").html(Math.round(data.nutrition.calories * data.quantity));
-    $("#edit-diary-item #caloriesPerPortion").html(unescape(data.portion) + " = " + data.nutrition.calories + " Calories");
-    $("#edit-diary-item #calories").val(data.nutrition.calories);
     $("#edit-diary-item #quantity").val(data.quantity);
 
     for (n in data.nutrition)
     {
-      //Math.round(data.nutrition[n] * quantity);
+      $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * data.quantity));
     }
-
-    //Create and populate category selections
-    var categories = JSON.parse(app.storage.getItem("meal-names"));
-    var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
-    for (var i = 0; i < categories.length; i++)
-    {
-      if (categories[i] == "") continue;
-      html += "<option value='"+i+"'>"+categories[i]+"</option>";
-    }
-    html += "</ons-select>";
-
-    $("#edit-diary-item form").append(html);
     $("#edit-diary-item #category-idx").val(data.category).change();
   },
 
@@ -309,8 +295,8 @@ var diary = {
     $("#diary-page .progressBar").css("width", percentage+"%");
 
     $("#diary-page #stat-bar #goal").html(data.goals.calories);
-    $("#diary-page #stat-bar #used").html(data.nutrition.calories);
-    $("#diary-page #stat-bar #remaining").html(data.remaining.calories);
+    $("#diary-page #stat-bar #used").html(Math.round(data.nutrition.calories));
+    $("#diary-page #stat-bar #remaining").html(Math.round(data.remaining.calories));
   },
 }
 
@@ -357,6 +343,29 @@ $(document).on("tap", "#diary-page ons-list-header", function(e) {
 //Edit form submit button action
 $(document).on("tap", "#edit-diary-item #submit", function(e) {
   $("#edit-diary-item #edit-item-form").submit();
+});
+
+$(document).on("init", "#edit-diary-item", function(e){
+  //Create and populate category selections
+  var categories = JSON.parse(app.storage.getItem("meal-names"));
+  var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
+  for (var i = 0; i < categories.length; i++)
+  {
+    if (categories[i] == "") continue;
+    html += "<option value='"+i+"'>"+categories[i]+"</option>";
+  }
+  html += "</ons-select>";
+
+  $("#edit-diary-item form").append(html);
+});
+
+//Update displayed values as quantity is changed
+$(document).on("keyup", "#edit-diary-item #quantity", function(e){
+  var data = JSON.parse($("#edit-diary-item #data").attr("data"));
+  for (n in data.nutrition)
+  {
+    $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * this.value));
+  }
 });
 
 //Weight button tap
