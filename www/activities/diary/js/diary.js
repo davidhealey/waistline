@@ -104,7 +104,7 @@ var diary = {
     });
   },
 
-  setDate : function()
+  setDate : function(date)
   {
     return new Promise(function(resolve, reject){
 
@@ -115,9 +115,10 @@ var diary = {
         diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
       }
 
-      //If date is blank set date to diary date
-      if ($("#diary-page #date").val() == "")
+      //If date is blank set date to diary date if a date was passed as a parameter set the date picker to that date
+      if ($("#diary-page #date").val() == "" || date != undefined)
       {
+        if (date) diary.date = date;
         var dd = diary.date.getDate();
         var mm = diary.date.getMonth()+1; //January is 0!
         var yyyy = diary.date.getFullYear();
@@ -273,8 +274,8 @@ var diary = {
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  diary.setDate();
-  diary.populate();
+  diary.setDate()
+  .then(diary.populate());
 });
 
 //Change date
@@ -324,4 +325,16 @@ $(document).on("tap", "#diary-page #record-weight", function(e){
   //Show prompt
   ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
   .then(function(input) {if (!isNaN(parseFloat(input))) {diary.recordWeight(diary.date, input);}});
+});
+
+$(document).on("tap", "#diary-page #previousDate", function(e){
+  diary.date.setDate(diary.date.getDate()-1);
+  diary.setDate(diary.date)
+  .then(diary.populate());
+});
+
+$(document).on("tap", "#diary-page #nextDate", function(e){
+  diary.date.setDate(diary.date.getDate()+1);
+  diary.setDate(diary.date)
+  .then(diary.populate());
 });
