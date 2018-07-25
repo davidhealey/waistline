@@ -11,19 +11,22 @@
          Show product images
        </div>
        <div class="right">
-         <ons-switch id="show-images" tappable onchange="settings.save(this);"></ons-switch>
+         <ons-switch id="show-images" tappable onchange="settings.saveSwitches(this);"></ons-switch>
        </div>
        <div class="expandable-content">Images will be displayed when connected to the internet. They will not be stored on your device.</div>
-     </ons-list-item>
-     <ons-list-item expandable>
+    </ons-list-item>
+    <ons-list-item expandable>
         <div class="center">
           Disable animations
         </div>
         <div class="right">
-          <ons-switch id="disable-animations" tappable onchange="settings.save(this);"></ons-switch>
+          <ons-switch id="disable-animations" tappable onchange="settings.saveSwitches(this);"></ons-switch>
         </div>
-        <div class="expandable-content">Disabling animations may improve performance on some devices.</div>
-      </ons-list-item>
+        <div class="expandable-content">Disabling animations may improve performance on some devices (requires app restart).</div>
+    </ons-list-item>
+    <ons-list-item tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
+      Diary Settings
+    </ons-list-item>
   </ons-list>
 
 </ons-page>
