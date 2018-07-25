@@ -14,7 +14,8 @@ var diary = {
 
       //Get day after selected date at midnight
       var toDate = new Date(fromDate);
-      toDate.setDate(toDate.getDate()+1);
+      toDate.setHours(toDate.getHours()+24);
+      toDate.setMinutes(toDate.getMinutes()-1);
 
       var meals = []; //Each diary item is part of a meal (category)
       var calorieCount = []; //Calorie count for each meal
