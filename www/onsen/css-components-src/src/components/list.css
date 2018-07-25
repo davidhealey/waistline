@@ -112,7 +112,6 @@
 .list-item {
   position: relative;
   width: 100%;
-  position: relative;
   list-style: none;
   box-sizing: border-box;
   display: flex;
@@ -124,6 +123,24 @@
   color: var(--list-item-color);
   transition: background-color 0.2s linear;
 }
+
+/*~
+  name: Expandable List
+  category: List
+  elements: ons-list ons-list-item
+  markup: |
+    <ul class="list">
+      <li class="list-item list-item--expandable expanded">
+        <div class="list-item__top">
+          <div class="list-item__center">Item</div>
+          <div class="list-item__right">
+            <span class="list-item__expand-chevron"></span>
+          </div>
+        </div>
+        <div class="list-item__expandable-content">Expanded content</div>
+      </li>
+    </ul>
+*/
 
 .list-item__top {
   display: flex;
@@ -863,7 +880,7 @@
     </ul>
  */
 
-.list-item--chevron::before,
+.list-item--chevron:before,
 .list-item__expand-chevron {
   border-right: 2px solid var(--list-item-chevron-color);
   border-bottom: 2px solid var(--list-item-chevron-color);
@@ -873,7 +890,7 @@
   z-index: 5;
 }
 
-.list-item--chevron::before {
+.list-item--chevron:before {
   position: absolute;
   content: '';
   right: 16px;

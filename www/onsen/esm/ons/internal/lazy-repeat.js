@@ -320,12 +320,7 @@ export var LazyRepeatProvider = function () {
     key: 'refresh',
     value: function refresh() {
       var forceRender = { forceScrollDown: true };
-      var lastItemIndex = Math.min(this._lastItemRendered(), this._countItems() - 1);
       var firstItemIndex = this._firstItemRendered();
-
-      if (util.isInteger(lastItemIndex)) {
-        forceRender.forceLastIndex = lastItemIndex;
-      }
 
       if (util.isInteger(firstItemIndex)) {
         this._wrapperElement.style.height = this._topPositions[firstItemIndex] + this._calculateRenderedHeight() + 'px';

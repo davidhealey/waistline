@@ -593,8 +593,8 @@ var SplitterSideElement = function (_BaseElement) {
       var force = arguments[1];
 
       var shouldOpen = typeof force === 'boolean' ? force : !this.isOpen;
-      var action = shouldOpen ? 'open' : 'close',
-          FINAL_STATE = shouldOpen ? OPEN_STATE : CLOSED_STATE;
+      var action = shouldOpen ? 'open' : 'close';
+      var FINAL_STATE = shouldOpen ? OPEN_STATE : CLOSED_STATE;
 
       if (this._mode === SPLIT_MODE) {
         return _Promise.resolve(false);
@@ -614,6 +614,10 @@ var SplitterSideElement = function (_BaseElement) {
 
       var unlock = this._lock.lock();
       this._state = CHANGING_STATE;
+
+      if (options.animation) {
+        this._updateAnimation(options.animation);
+      }
 
       return new _Promise(function (resolve) {
         _this4._animator[action](function () {

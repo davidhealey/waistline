@@ -206,6 +206,12 @@ var PageElement = function (_BaseElement) {
         this.attributeChangedCallback('class');
       }
 
+      var bottomToolbar = util.findChild(this, 'ons-bottom-toolbar');
+      if (bottomToolbar) {
+        this._defaultClassName += ' page-with-bottom-toolbar';
+        this.attributeChangedCallback('class');
+      }
+
       ModifierUtil.initModifier(this, scheme);
     }
   }, {

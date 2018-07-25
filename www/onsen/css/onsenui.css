@@ -1,7 +1,7 @@
-/*! onsenui - v2.10.1 - 2018-05-28 */
-@import url("ionicons/css/ionicons.min.css");
-@import url("material-design-iconic-font/css/material-design-iconic-font.min.css");
-@import url("font_awesome/css/font-awesome.min.css");
+/*! onsenui - v2.10.4 - 2018-07-20 */
+@import url("./ionicons/css/ionicons.min.css");
+@import url("./material-design-iconic-font/css/material-design-iconic-font.min.css");
+@import url("./font_awesome/css/font-awesome.min.css");
 
 
 ons-page, ons-navigator,
