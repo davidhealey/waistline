@@ -17,16 +17,17 @@ var diary = {
       toDate.setDate(toDate.getDate()+1);
 
       var meals = []; //Each diary item is part of a meal (category)
+      var calorieCount = []; //Calorie count for each meal
 
       //Add user defined meal names as list headings
       var mealNames = JSON.parse(app.storage.getItem("meal-names"));
       for (var i = 0; i < mealNames.length; i++)
       {
         if (mealNames[i] == "") continue; //Skip unset meal names
-        meals[i] = "<ons-list-header category-idx="+i+">"+mealNames[i]+"</ons-list-header>";
+        meals[i] = "<ons-list-header id='"+mealNames[i]+"' category-idx='"+i+"'>"+mealNames[i]+"<span></span></ons-list-header>";
+        calorieCount[i] = 0;
       }
 
-      var calorieCount = []; //Calorie count for each meal
       var html = "";
 
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
@@ -38,8 +39,12 @@ var diary = {
           var value = cursor.value;
           var calories = value.nutrition.calories;
 
+          //Calorie count for each category
+          calorieCount[value.category] = calorieCount[value.category] || 0;
+          calorieCount[value.category] += calories * value.quantity;
+
           //If a user changes the names of their meals then existing diary items won't have a meal category, this line solves that
-          meals[value.category] = meals[value.category] || "<ons-list-header category-idx="+value.category+">"+value.category_name+"</ons-list-header>";
+          meals[value.category] = meals[value.category] || "<ons-list-header id='"+mealNames[value.category]+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-header>";
 
           //Build HTML
           html = ""; //Reset variable
@@ -58,29 +63,30 @@ var diary = {
           html += "</ons-list-item>";
 
           meals[value.category] += html;
-          calorieCount[value.category] += Math.round(calories * value.quantity);
 
           //Add up total consumption
           for (k in value.nutrition)
           {
             diary.consumption[k] = diary.consumption[k] || 0; //Use existing object or create new one for each item
-            diary.consumption[k] += cursor.value.nutrition[k];
+            diary.consumption[k] += value.nutrition[k] * value.quantity;
           }
 
           cursor.continue();
         }
         else
         {
+          $("#diary-page #diary-lists").html(""); //Clear old items
+
           //One list per meal
-          html = "";
           for (var i = 0; i < meals.length; i++)
           {
+            html = "";
             html += "<ons-list modifier='inset'>";
             html += meals[i];
             html += "</ons-list>";
+            $("#diary-page #diary-lists").append(html); //Add HTML to DOM
+            $("#diary-page #diary-lists #"+mealNames[i] + " span").html(" - " + Math.round(calorieCount[i]));
           }
-
-          $("#diary-page #diary-lists").html(html); //Add HTML to DOM
 
           diary.updateLog()
           .then(result => diary.getStats(diary.date))
@@ -159,6 +165,11 @@ var diary = {
     $("#edit-diary-item #calories").val(data.nutrition.calories);
     $("#edit-diary-item #quantity").val(data.quantity);
 
+    for (n in data.nutrition)
+    {
+      //Math.round(data.nutrition[n] * quantity);
+    }
+
     //Create and populate category selections
     var categories = JSON.parse(app.storage.getItem("meal-names"));
     var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
@@ -226,6 +237,7 @@ var diary = {
     var quantity = parseFloat($("#edit-diary-item #quantity").val());
     var categoryidx = $("#edit-diary-item #category-idx").val();
     var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
+    var calories = $("#edit-diary-item #calories").val();
 
     var getRequest = dbHandler.getItem(id, "diary"); //Pull record from DB
 
@@ -274,7 +286,6 @@ var diary = {
             if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
             data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
           }
-
           resolve(data);
         }
       }
@@ -309,7 +320,7 @@ $(document).on("show", "#diary-page", function(e){
 });
 
 //Change date
-$(document).on("change", "#diary-page #date", function(e) {
+$(document).on("change", "#diary-page #date", function(e){
   diary.setDate()
   .then(diary.populate());
 });
