@@ -224,7 +224,7 @@ var diary = {
   {
     var id = parseInt($("#edit-diary-item #id").val()); //Get item id from hidden field
     var quantity = parseFloat($("#edit-diary-item #quantity").val());
-    var categoryidx = $("#edit-diary-item #category-idxx").val();
+    var categoryidx = $("#edit-diary-item #category-idx").val();
     var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
 
     var getRequest = dbHandler.getItem(id, "diary"); //Pull record from DB
