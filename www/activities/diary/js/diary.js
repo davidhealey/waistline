@@ -22,10 +22,8 @@ var diary = {
       var mealNames = JSON.parse(app.storage.getItem("meal-names"));
       for (var i = 0; i < mealNames.length; i++)
       {
-        if (mealNames[i] != "") //Name was set for this meal
-        {
-          meals[i] = "<ons-list-header category-id="+i+">"+mealNames[i]+"<span></span></ons-list-header>";
-        }
+        if (mealNames[i] == "") continue; //Skip unset meal names
+        meals[i] = "<ons-list-header category-idx="+i+">"+mealNames[i]+"<span></span></ons-list-header>";
       }
 
       var calorieCount = []; //Calorie count for each meal
@@ -41,7 +39,7 @@ var diary = {
           var calories = value.nutrition.calories;
 
           //If a user changes the names of their meals then existing diary items won't have a meal category, this line solves that
-          meals[value.category] = "<ons-list-header category-id="+value.category+">"+value.category_name+"<span></span></ons-list-header>";
+          meals[value.category] = "<ons-list-header category-idx="+value.category+">"+value.category_name+"<span></span></ons-list-header>";
 
           //Build HTML
           html = ""; //Reset variable
@@ -160,7 +158,19 @@ var diary = {
     $("#edit-diary-item #caloriesPerPortion").html(unescape(data.portion) + " = " + data.nutrition.calories + " Calories");
     $("#edit-diary-item #calories").val(data.nutrition.calories);
     $("#edit-diary-item #quantity").val(data.quantity);
-    $("#edit-diary-item #category").val(data.category).change();
+
+    //Create and populate category selections
+    var categories = JSON.parse(app.storage.getItem("meal-names"));
+    var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
+    for (var i = 0; i < categories.length; i++)
+    {
+      if (categories[i] == "") continue;
+      html += "<option value='"+i+"'>"+categories[i]+"</option>";
+    }
+    html += "</ons-select>";
+
+    $("#edit-diary-item form").append(html);
+    $("#edit-diary-item #category-idx").val(data.category).change();
   },
 
   addEntry : function(data)
@@ -214,7 +224,7 @@ var diary = {
   {
     var id = parseInt($("#edit-diary-item #id").val()); //Get item id from hidden field
     var quantity = parseFloat($("#edit-diary-item #quantity").val());
-    var category = $("#edit-diary-item #category").val();
+    var categoryidx = $("#edit-diary-item #category-idxx").val();
     var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
 
     var getRequest = dbHandler.getItem(id, "diary"); //Pull record from DB
@@ -225,8 +235,8 @@ var diary = {
 
       //Update the values in the item
       item.quantity = quantity;
-      item.category = category;
-      item.category_name = categories[category];
+      item.category = categoryidx;
+      item.category_name = categories[categoryidx];
 
       var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
     }
@@ -328,7 +338,7 @@ $(document).on("tap", "#diary-page ons-list-item", function(e) {
 
 //Header tap action
 $(document).on("tap", "#diary-page ons-list-header", function(e) {
-  diary.category = $(this).attr("category-id"); //Assign category from header ID
+  diary.category = $(this).attr("category-idx"); //Assign category from header ID
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 

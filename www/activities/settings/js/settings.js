@@ -42,7 +42,6 @@ var settings = {
       }
     }
   }
-
 }
 
 $(document).on("show", "#settings-page", function(e){
@@ -55,5 +54,5 @@ $(document).on("show", "#diary-settings", function(e){
 
 $(document).on("tap", "#diary-settings #submit", function(e){
   settings.saveDiarySettings();
-  //nav.popPage();
+  nav.popPage();
 });
