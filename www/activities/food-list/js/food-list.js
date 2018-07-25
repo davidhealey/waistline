@@ -190,7 +190,7 @@ var foodList = {
 
     var request = new XMLHttpRequest();
 
-    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&action=process&json=1", true);
+    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&action=process&json=1", true);
     request.send();
 
     request.onreadystatechange = function(){

@@ -56,3 +56,23 @@ $(document).on("tap", "#diary-settings #submit", function(e){
   settings.saveDiarySettings();
   nav.popPage();
 });
+
+$(document).on("doubletap", "#settings-page #import", function(e){
+  ons.notification.confirm("Are you sure you want to import? Doing so will overwrite your existing data.", {"title":"Confirm Import"})
+  .then(function(input) {
+    if (input == 1)
+    {
+      dbHandler.readFromFile();
+    }
+  });
+});
+
+$(document).on("tap", "#settings-page #export", function(e){
+  ons.notification.confirm("This action will overwrite any previously exported data. Do you want to continue?", {"title":"Confirm Export"})
+  .then(function(input) {
+    if (input == 1)
+    {
+      dbHandler.exportToFile();
+    }
+  });
+});
