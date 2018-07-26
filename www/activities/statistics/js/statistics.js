@@ -78,9 +78,11 @@ var statistics = {
   renderWeightLog : function(data)
   {
     var html = "";
+    $("#statistics #weightLog").html(html); //Clear list
 
     for (var i = 0; i < data.timestamps.length; i++)
     {
+      html = "";
       html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
       html += "<div>";
       html += "<h4>"+data.timestamps[i].toLocaleDateString()+"</h4>";
@@ -88,8 +90,8 @@ var statistics = {
       if (data.nutrition.calories[i] !== undefined) html += "<p>"+Math.round(data.nutrition.calories[i])+" Calories</p>";
       html += "</div>";
       html += "</ons-list-item>";
+      $("#statistics #weightLog").prepend(html); //Add to list, reverse order
     }
-    $("#statistics #weightLog").html(html);
   },
 
   renderDiaryStats : function()
@@ -171,6 +173,4 @@ $(document).on("tap", "#statistics #weightLog ons-list-item", function(e){
     statistics.gatherData()
     .then(data => statistics.renderWeightLog(data));
   });
-
-  //.then(function(){nav.resetToPage("activities/statistics/views/statistics.html");}); //Reload the page
 });
