@@ -258,15 +258,14 @@ var diary = {
       {
         if (!isNaN(parseFloat(input)))
         {
-          var data = {"dateTime":date, "weight":input};
-          var request = dbHandler.update(data, "log", date); //Add/update log entry
-
           app.storage.setItem("weight", input);
 
-          request.onsuccess = function(e){
+          var data = {"dateTime":date, "weight":input};
+          dbHandler.update(data, "log", date) //Add/update log entry
+          .then(function(){
             console.log("Log updated");
             resolve();
-          };
+          });
         }
       });
     });
