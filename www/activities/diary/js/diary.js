@@ -303,7 +303,7 @@ var diary = {
     data.nutrition.calories < data.goals.calories ? colour = "green" : colour = "red";
     if (data.goals.weight && data.goals.weight.gain == true) //Flip colours if user wants to gain weight
     {
-      data.nutrition[g] > data.goals[g] ? colour = "green" : colour = "red";
+      data.nutrition["calories"] > data.goals["calories"] ? colour = "green" : colour = "red";
     }
     $("#diary-page #stat-bar #remaining").css("color", colour); //Set text colour for remaining
     $("#diary-page .progressBar").css("background-color", colour);
