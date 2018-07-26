@@ -32,17 +32,16 @@ var app = {
       app.addDefaultLogEntry(date);
     });
 
-    //Localisation
+    //Localisation - get localized strings object
     this.strings = defaultLocale; //Set fallback locale data
 
-    var opts = {};
-    opts.callback = function(data, defaultCallback) {
-      defaultCallback(data);
-      this.strings = $.localize.data["locales/locale"];
-    }
-
-    $("[data-localize]").localize("locales/locale", opts)
-    console.log($.localize);
+    $("[data-localize]").localize("locales/locale", {
+      callback: function(data, defaultCallback){
+        defaultCallback(data);
+        app.strings = $.localize.data["locales/locale"];
+        console.log($.localize);
+      }
+    });
 
     //Theme handler
     /*if (this.storage.getItem("theme") == undefined)
@@ -93,4 +92,9 @@ app.initialize();
 ons.ready(function() {
   console.log("Cordova Ready");
   if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
+});
+
+//Localize when any page is initialized
+$(document).on("init", "ons-page", function(e){
+  $("[data-localize]").localize("locales/locale");
 });

@@ -1,37 +1,41 @@
 <ons-page id="settings-page">
   <ons-toolbar modifier="material">
     <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
-    <div class="center">Settings</div>
+    <div class="center" data-localize="settings.title"></div>
     <div class="right"></div>
   </ons-toolbar>
 
   <ons-list>
     <ons-list-item expandable>
-       <div class="center">
+       <div class="center" data-localize="settings.show-images1">
          Show product images
        </div>
        <div class="right">
          <ons-switch id="show-images" tappable onchange="settings.saveSwitches(this);"></ons-switch>
        </div>
-       <div class="expandable-content">Images will be displayed when connected to the internet. They will not be stored on your device.</div>
+       <div class="expandable-content" data-localize="settings.show-images2">
+         Images will be displayed when connected to the internet. They will not be stored on your device.
+       </div>
     </ons-list-item>
     <ons-list-item expandable>
-        <div class="center">
+        <div class="center" data-localize="settings.disable-animations1">
           Disable animations
         </div>
         <div class="right">
           <ons-switch id="disable-animations" tappable onchange="settings.saveSwitches(this);"></ons-switch>
         </div>
-        <div class="expandable-content">Disabling animations may improve performance on some devices (requires app restart).</div>
+        <div class="expandable-content" data-localize="settings.disable-animations2">
+          Disabling animations may improve performance on some devices (requires app restart).
+        </div>
     </ons-list-item>
     <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
-      Diary Settings
+      <div data-localize="settings.diary.title">Diary Settings</div>
     </ons-list-item>
     <ons-list-item tappable id="import">
-      Import Data
+      <div data-localize="settings.import">Import Data</div>
     </ons-list-item>
     <ons-list-item tappable id="export">
-      Export Data
+      <dov data-localize="settings.export">Export Data</div>
     </ons-list-item>
   </ons-list>
 
