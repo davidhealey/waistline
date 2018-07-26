@@ -20,7 +20,7 @@ var statistics = {
         {
           if (cursor.value.nutrition != undefined && cursor.value.nutrition.calories != undefined)
           {
-            data.timestamps.push(cursor.value.dateTime.toLocaleDateString()); //Use date as labels for charts
+            data.timestamps.push(cursor.value.dateTime); //Use date as labels for charts
             data.weight.push(cursor.value.weight);
 
             //Store nutition data by nutrition type (calories, fat, protein, etc.)
@@ -30,7 +30,6 @@ var statistics = {
               data.nutrition[k].push(cursor.value.nutrition[k]);
             }
           }
-
           cursor.continue();
         }
         else
@@ -46,7 +45,13 @@ var statistics = {
     var chartType;
     $("#statistics #range").val() == 7 ? chartType = "bar" : chartType = "line";
 
-    var chartData = {"labels":data.timestamps, "datasets":[]};
+    var labels = [];
+    for (var i = 0; i < data.timestamps.length; i++)
+    {
+      labels.push(data.timestamps[i].toLocaleDateString());
+    }
+
+    var chartData = {"labels":labels, "datasets":[]};
     var dataset = {};
 
     for (k in data.nutrition)
@@ -73,17 +78,20 @@ var statistics = {
   renderWeightLog : function(data)
   {
     var html = "";
+    $("#statistics #weightLog").html(html); //Clear list
 
     for (var i = 0; i < data.timestamps.length; i++)
     {
-      html += "<ons-list-item><div>";
-      html += "<h4>"+data.timestamps[i]+"</h4>";
+      html = "";
+      html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
+      html += "<div>";
+      html += "<h4>"+data.timestamps[i].toLocaleDateString()+"</h4>";
       html += "<p>"+data.weight[i]+" kg</p>";
-      if (data.nutrition.calories[i] !== undefined) html += "<p>"+data.nutrition.calories[i]+" Calories</p>";
-      html += "</div></ons-list-item>";
+      if (data.nutrition.calories[i] !== undefined) html += "<p>"+Math.round(data.nutrition.calories[i])+" Calories</p>";
+      html += "</div>";
+      html += "</ons-list-item>";
+      $("#statistics #weightLog").prepend(html); //Add to list, reverse order
     }
-
-    $("#statistics #weightLog ons-list").html(html);
   },
 
   renderDiaryStats : function()
@@ -133,7 +141,6 @@ var statistics = {
           html += "</ons-row>";
           html += "</ons-carousel-item>";
         }
-
         html += "</ons-carousel>";
 
         $("#statistics #diaryStats div").html(html);
@@ -155,6 +162,15 @@ $(document).on("change", "#statistics #range", function(e){
   statistics.gatherData()
   .then(function(data){
     statistics.renderChart(data);
-    //statistics.renderWeightLog(data);
+    statistics.renderWeightLog(data);
   });
-})
+});
+
+$(document).on("tap", "#statistics #weightLog ons-list-item", function(e){
+  var timestamp = new Date($(this).attr("timestamp"));
+  diary.recordWeight(timestamp)
+  .then(function(){
+    statistics.gatherData()
+    .then(data => statistics.renderWeightLog(data));
+  });
+});

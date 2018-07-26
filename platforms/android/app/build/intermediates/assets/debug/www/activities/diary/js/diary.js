@@ -17,15 +17,15 @@ var diary = {
       toDate.setHours(toDate.getHours()+24);
       toDate.setMinutes(toDate.getMinutes()-1);
 
-      var meals = []; //Each diary item is part of a meal (category)
-      var calorieCount = []; //Calorie count for each meal
+      var lists = []; //Each diary item is part of a categorised list
+      var calorieCount = []; //Calorie count for each category
 
-      //Add user defined meal names as list headings
-      var mealNames = JSON.parse(app.storage.getItem("meal-names"));
-      for (var i = 0; i < mealNames.length; i++)
+      //Add user defined categories (meal-names) as list headings
+      var categories = JSON.parse(app.storage.getItem("meal-names"));
+      for (var i = 0; i < categories.length; i++)
       {
-        if (mealNames[i] == "") continue; //Skip unset meal names
-        meals[i] = "<ons-list-header id='"+mealNames[i]+"' category-idx='"+i+"'>"+mealNames[i]+"<span></span></ons-list-header>";
+        if (categories[i] == "") continue; //Skip unset meal names
+        lists[i] = "<ons-list-header id='category"+i+"' category-idx='"+i+"'>"+categories[i]+"<span></span></ons-list-header>";
         calorieCount[i] = 0;
       }
 
@@ -44,8 +44,8 @@ var diary = {
           calorieCount[value.category] = calorieCount[value.category] || 0;
           calorieCount[value.category] += calories * value.quantity;
 
-          //If a user changes the names of their meals then existing diary items won't have a meal category, this line solves that
-          meals[value.category] = meals[value.category] || "<ons-list-header id='"+mealNames[value.category]+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-header>";
+          //If a user changes the names of their lists then existing diary items won't have a meal category, this line solves that
+          lists[value.category] = lists[value.category] || "<ons-list-header id='category"+value.category+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-header>";
 
           //Build HTML
           html = ""; //Reset variable
@@ -63,7 +63,7 @@ var diary = {
           html += "</a>";
           html += "</ons-list-item>";
 
-          meals[value.category] += html;
+          lists[value.category] += html;
 
           //Add up total consumption
           for (k in value.nutrition)
@@ -79,14 +79,19 @@ var diary = {
           $("#diary-page #diary-lists").html(""); //Clear old items
 
           //One list per meal
-          for (var i = 0; i < meals.length; i++)
+          for (var i = 0; i < lists.length; i++)
           {
             html = "";
             html += "<ons-list modifier='inset'>";
-            html += meals[i];
+            html += lists[i];
             html += "</ons-list>";
             $("#diary-page #diary-lists").append(html); //Add HTML to DOM
-            $("#diary-page #diary-lists #"+mealNames[i] + " span").html(" - " + Math.round(calorieCount[i]));
+          }
+
+          //Display calorie count for each category - including historic categories that are no longer set
+          for (var i = 0; i < calorieCount.length; i++)
+          {
+            $("#diary-page #diary-lists #category"+i+" span").html(" - " + Math.round(calorieCount[i]));
           }
 
           diary.updateLog()
@@ -159,29 +164,15 @@ var diary = {
   fillEditForm : function(data)
   {
     $("#edit-diary-item #id").val(data.id); //Add to hidden field
+    $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
     $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
     $("#edit-diary-item #portion").val(unescape(data.portion));
-    $("#edit-diary-item #caloriesDisplay").html(Math.round(data.nutrition.calories * data.quantity));
-    $("#edit-diary-item #caloriesPerPortion").html(unescape(data.portion) + " = " + data.nutrition.calories + " Calories");
-    $("#edit-diary-item #calories").val(data.nutrition.calories);
     $("#edit-diary-item #quantity").val(data.quantity);
 
     for (n in data.nutrition)
     {
-      //Math.round(data.nutrition[n] * quantity);
+      $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * data.quantity));
     }
-
-    //Create and populate category selections
-    var categories = JSON.parse(app.storage.getItem("meal-names"));
-    var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
-    for (var i = 0; i < categories.length; i++)
-    {
-      if (categories[i] == "") continue;
-      html += "<option value='"+i+"'>"+categories[i]+"</option>";
-    }
-    html += "</ons-select>";
-
-    $("#edit-diary-item form").append(html);
     $("#edit-diary-item #category-idx").val(data.category).change();
   },
 
@@ -256,16 +247,28 @@ var diary = {
     nav.popPage();
   },
 
-  recordWeight: function(date, weight)
+  recordWeight: function(date)
   {
-    var data = {"dateTime":date, "weight":weight};
-    var request = dbHandler.update(data, "log", date); //Add/update log entry
+    return new Promise(function(resolve, reject){
+      var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
 
-    app.storage.setItem("weight", weight);
+      //Show prompt
+      ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
+      .then(function(input)
+      {
+        if (!isNaN(parseFloat(input)))
+        {
+          app.storage.setItem("weight", input);
 
-    request.onsuccess = function(e){
-      console.log("Log updated");
-    };
+          var data = {"dateTime":date, "weight":input};
+          dbHandler.update(data, "log", date) //Add/update log entry
+          .then(function(){
+            console.log("Log updated");
+            resolve();
+          });
+        }
+      });
+    });
   },
 
   getStats : function(date)
@@ -359,14 +362,27 @@ $(document).on("tap", "#edit-diary-item #submit", function(e) {
   $("#edit-diary-item #edit-item-form").submit();
 });
 
-//Weight button tap
-$(document).on("tap", "#diary-page #record-weight", function(e){
+$(document).on("init", "#edit-diary-item", function(e){
+  //Create and populate category selections
+  var categories = JSON.parse(app.storage.getItem("meal-names"));
+  var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
+  for (var i = 0; i < categories.length; i++)
+  {
+    if (categories[i] == "") continue;
+    html += "<option value='"+i+"'>"+categories[i]+"</option>";
+  }
+  html += "</ons-select>";
 
-  var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
+  $("#edit-diary-item form").append(html);
+});
 
-  //Show prompt
-  ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
-  .then(function(input) {if (!isNaN(parseFloat(input))) {diary.recordWeight(diary.date, input);}});
+//Update displayed values as quantity is changed
+$(document).on("keyup", "#edit-diary-item #quantity", function(e){
+  var data = JSON.parse($("#edit-diary-item #data").attr("data"));
+  for (n in data.nutrition)
+  {
+    $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * this.value));
+  }
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){

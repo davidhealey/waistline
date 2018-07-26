@@ -112,36 +112,39 @@ var dbHandler =
 
   update: function(data, storeName, key)
   {
-    var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName);
-    var request = objectStore.get(key);
+    return new Promise(function(resolve, reject){
+      var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName);
+      var request = objectStore.get(key);
 
-    request.onsuccess = function(event) {
+      request.onsuccess = function(event) {
 
-      var result = event.target.result; //Data from DB
+        var result = event.target.result; //Data from DB
 
-      if (result)
-      {
-        //Update the result with values from the passed data object
-        for (k in data) //Each key in data
+        if (result)
         {
-            result[k] = data[k];
+          //Update the result with values from the passed data object
+          for (k in data) //Each key in data
+          {
+              result[k] = data[k];
+          }
         }
-      }
-      else { //Valid key passed but no data found
-        result = data; //Just insert data
-      }
+        else { //Valid key passed but no data found
+          result = data; //Just insert data
+        }
+        //Insert the updated result
+        var updateRequest = objectStore.put(result);
+        updateRequest.onsuccess = function(e)
+        {
+          resolve();
+        }
+      };
 
-      //Insert the updated result
-      var updateRequest = objectStore.put(result);
-      updateRequest.onsuccess = function(e)
-      {
-        return updateRequest;
-      }
-    };
+      request.onerror = function(event) {
+        console.log("DB Update Error");
+        resolve();
+      };
 
-    request.onerror = function(event) {
-      console.log("DB Update Error");
-    };
+    });
   },
 
   deleteItem: function(key, storeName)

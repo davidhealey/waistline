@@ -157,6 +157,7 @@ var foodList = {
           if (result.status == 0) //Product not found
           {
             ons.notification.alert("Product not found. You can add it with the Open Food Facts app");
+            $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
             return false;
           }
 
@@ -177,6 +178,7 @@ var foodList = {
     function(e)
     {
       ons.notification.alert("Scan failed: " + e);
+      $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
     });
   },
@@ -206,6 +208,7 @@ var foodList = {
         if (result.products.length == 0)
         {
           ons.notification.alert("No Matching Results");
+          $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
           return false;
         }
         else
