@@ -139,12 +139,14 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      var code = "9310072001128"; //Test barcode
+      //var code = "9310072001128"; //Test barcode
       var code = scanData.text;
       var request = new XMLHttpRequest();
 
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
       request.send();
+
+      $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
 
       request.onreadystatechange = function(){
 
@@ -193,6 +195,8 @@ var foodList = {
     request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&action=process&json=1", true);
     request.send();
 
+    $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
+
     request.onreadystatechange = function(){
 
       if (request.readyState == 4 && request.status == 200)
@@ -216,6 +220,7 @@ var foodList = {
             foodList.list.push(item);
           }
           foodList.populate(foodList.list);
+          $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
         }
       }
     };
@@ -264,6 +269,7 @@ var foodList = {
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e){
+  $("#food-list-page ons-progress-circular").hide(); //Hide circular progress indicator
   $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
   $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
   foodList.populate(foodList.list);
@@ -354,10 +360,6 @@ $(document).on("tap", "#food-list-page #food-list .searchItem", function(e) {
   //Go to edit food page then fill in form
   nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
     .then(function() {foodList.fillEditForm(data)});
-});
-
-//Edit food page display
-$(document).on("show", "#edit-food-item", function(e) {
 });
 
 //Edit form submit button action

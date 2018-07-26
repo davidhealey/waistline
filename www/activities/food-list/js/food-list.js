@@ -139,12 +139,14 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      var code = "9310072001128"; //Test barcode
+      //var code = "9310072001128"; //Test barcode
       var code = scanData.text;
       var request = new XMLHttpRequest();
 
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
       request.send();
+
+      $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
 
       request.onreadystatechange = function(){
 
