@@ -249,23 +249,26 @@ var diary = {
 
   recordWeight: function(date)
   {
-    var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
+    return new Promise(function(resolve, reject){
+      var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
 
-    //Show prompt
-    ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
-    .then(function(input)
-    {
-      if (!isNaN(parseFloat(input)))
+      //Show prompt
+      ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
+      .then(function(input)
       {
-        var data = {"dateTime":date, "weight":input};
-        var request = dbHandler.update(data, "log", date); //Add/update log entry
+        if (!isNaN(parseFloat(input)))
+        {
+          var data = {"dateTime":date, "weight":input};
+          var request = dbHandler.update(data, "log", date); //Add/update log entry
 
-        app.storage.setItem("weight", input);
+          app.storage.setItem("weight", input);
 
-        request.onsuccess = function(e){
-          console.log("Log updated");
-        };
-      }
+          request.onsuccess = function(e){
+            console.log("Log updated");
+            resolve();
+          };
+        }
+      });
     });
   },
 
