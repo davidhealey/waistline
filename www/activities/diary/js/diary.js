@@ -247,16 +247,26 @@ var diary = {
     nav.popPage();
   },
 
-  recordWeight: function(date, weight)
+  recordWeight: function(date)
   {
-    var data = {"dateTime":date, "weight":weight};
-    var request = dbHandler.update(data, "log", date); //Add/update log entry
+    var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
 
-    app.storage.setItem("weight", weight);
+    //Show prompt
+    ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
+    .then(function(input)
+    {
+      if (!isNaN(parseFloat(input)))
+      {
+        var data = {"dateTime":date, "weight":input};
+        var request = dbHandler.update(data, "log", date); //Add/update log entry
 
-    request.onsuccess = function(e){
-      console.log("Log updated");
-    };
+        app.storage.setItem("weight", input);
+
+        request.onsuccess = function(e){
+          console.log("Log updated");
+        };
+      }
+    });
   },
 
   getStats : function(date)
@@ -371,16 +381,6 @@ $(document).on("keyup", "#edit-diary-item #quantity", function(e){
   {
     $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * this.value));
   }
-});
-
-//Weight button tap
-$(document).on("tap", "#diary-page #record-weight", function(e){
-
-  var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
-
-  //Show prompt
-  ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
-  .then(function(input) {if (!isNaN(parseFloat(input))) {diary.recordWeight(diary.date, input);}});
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
