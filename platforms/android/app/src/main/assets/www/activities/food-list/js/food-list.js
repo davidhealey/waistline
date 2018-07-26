@@ -43,16 +43,16 @@ var foodList = {
     {
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
-        html += "<ons-list-item tappable class='foodListItem' data='"+ JSON.stringify(list[i]) + "'>";
+        html += "<ons-list-item tappable class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
-        html += "<ons-checkbox name='food-item-checkbox' input-id='" + list[i].name + "' data='"+ JSON.stringify(list[i]) + "'></ons-checkbox>";
+        html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='" + list[i].name + "' class='center'>" + list[i].name + "</label>";
+        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)+"</label>";
       }
-      else //Item doesn't have an idea, must have been found by searching
+      else //Item doesn't have an id, must have been found by searching
       {
-        html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+ JSON.stringify(list[i]) + "'>";
-        html += list[i].name;
+        html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
+        html += unescape(list[i].name);
       }
 
       html += "</ons-list-item>";
@@ -66,8 +66,8 @@ var foodList = {
     data.id ? $("#edit-food-item #title").html("Edit Food") : $("#edit-food-item #title").html("Add Food");
     $("#edit-food-item #id").val(data.id);
     $("#edit-food-item #barcode").val(data.barcode);
-    $("#edit-food-item #name").val(data.name);
-    $("#edit-food-item #brand").val(data.brand);
+    $("#edit-food-item #name").val(unescape(data.name));
+    $("#edit-food-item #brand").val(unescape(data.brand));
     $("#edit-food-item #portion").val(data.portion);
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
@@ -77,10 +77,10 @@ var foodList = {
     $("#edit-food-item #salt").val(data.nutrition.salt);
 
     //Display image
-    if (data.image_url)
+    if (data.image_url && navigator.connection.type != "none" && app.storage.getItem("show-images"))
     {
       $('#edit-food-item #foodImage').html("<ons-card><img style='display:block; height:auto; width:75%; margin:auto;'></img></ons-card>");
-      $('#edit-food-item #foodImage img').attr("src", data.image_url);
+      $('#edit-food-item #foodImage img').attr("src", unescape(data.image_url));
     }
   },
 
@@ -91,7 +91,9 @@ var foodList = {
     //Get form values
     var id = parseInt($("#edit-food-item #id").val()); //ID is hidden field
     data.barcode = $("#edit-food-item #barcode").val(); //Barcode is hidden field
-    data.name = $('#edit-food-item #name').val();
+    data.name = escape($('#edit-food-item #name').val());
+    data.brand = escape($('#edit-food-item #brand').val());
+    data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
     data.portion = $('#edit-food-item #portion').val();
     data.nutrition = {
       "calories":parseFloat($('#edit-food-item #calories').val()),
@@ -110,7 +112,8 @@ var foodList = {
     //Add/update food item
     data.id == undefined ? dbHandler.insert(data, "foodList") : dbHandler.update(data, "foodList", id);
 
-    nav.popPage();
+    foodList.fillListFromDB()
+    .then(nav.popPage());
   },
 
   deleteEntry : function(id)
@@ -120,100 +123,77 @@ var foodList = {
 
     //If the request was successful repopulate the list
     request.onsuccess = function(e) {
-      foodList.populate();
+      foodList.fillListFromDB()
+      .then(function(){foodList.populate(foodList.list)});
     };
   },
 
   scan : function()
   {
-    cordova.plugins.barcodeScanner.scan(
-       function (result) {
-
-         var code = result.text;
-         var request = new XMLHttpRequest();
-
-         request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
-         request.send();
-
-         request.onreadystatechange = function(){
-           foodList.processBarcodeResponse(request);
-         };
-       },
-       function (e) {
-           alert("Scanning failed: " + error);
-       }
-    );
-  },
-
-  processBarcodeResponse : function(request)
-  {
-    if (request.readyState == 4 && request.status == 200)
+    //First check that there is an internet connection
+    if (navigator.connection.type == "none")
     {
-      var result = jQuery.parseJSON(request.responseText);
+      ons.notification.alert("No Internet Connection");
+      return false;
+    }
 
-      if (result.status == 0) //Product not found
-      {
-        alert("Product not found. You can add it with the Open Food Facts app");
-      }
-      else
-      {
-        //First check if the product has already been added to the food list - to avoid duplicates
-        var index = dbHandler.getIndex("barcode", "foodList");
-        var request = index.count(result.code);
+    cordova.plugins.barcodeScanner.scan(function(scanData){
 
-        request.onsuccess = function(e)
+      var code = "9310072001128"; //Test barcode
+      var code = scanData.text;
+      var request = new XMLHttpRequest();
+
+      request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+      request.send();
+
+      request.onreadystatechange = function(){
+
+        if (request.readyState == 4 && request.status == 200)
         {
-          if (e.target.result > 0)
+          var result = jQuery.parseJSON(request.responseText);
+
+          if (result.status == 0) //Product not found
           {
-            alert("This product is already is already in your food list.");
+            ons.notification.alert("Product not found. You can add it with the Open Food Facts app");
+            return false;
           }
-          else //Product is not in the db yet so we can add it now
+
+          //First check if the product has already been added to the food list - to avoid duplicates
+          var item = {}
+          var index = dbHandler.getIndex("barcode", "foodList");
+          index.get(result.code).onsuccess = function(e)
           {
-            //Get the data for the add food form
-            var product = result.product;
-
-            var data = {"name":escape(product.product_name), "calories":parseInt(product.nutriments.energy_value), "image_url":product.image_url, "barcode":result.code};
-
-            //Get best match for portion/serving size
-            if (product.serving_size)
-            {
-              data.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
-              data.calories = parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(product.serving_size)); //Get calories for portion
-            }
-            else if (product.nutrition_data_per)
-            {
-              data.portion = product.nutrition_data_per;
-            }
-            else if (product.quantity)
-            {
-              data.portion = product.quantity;
-            }
-
-            //If energy is given in kJ convert to kcal
-            if (product.nutriments.energy_unit == "kJ")
-            {
-              data.calories = parseInt(data.calories / 4.15);
-            }
-
-            escape(data.portion);
+            e.target.result ? item = e.target.result : item = foodList.parseOFFProduct(result.product);
 
             //Go to food item edit form and fill in form with retrieved data
-            nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
-              .then(function() {foodList.fillEditForm(data)});
+            nav.pushPage("activities/food-list/views/edit-item.html", {"data":item})
+              .then(function() {foodList.fillEditForm(item)});
           }
         }
-      }
-    }
+      };
+    },
+    function(e)
+    {
+      ons.notification.alert("Scan failed: " + e);
+      return false;
+    });
   },
 
   search : function(term)
   {
+    //First check that there is an internet connection
+    if (navigator.connection.type == "none")
+    {
+      ons.notification.alert("No Internet Connection");
+      return false;
+    }
+
     var request = new XMLHttpRequest();
 
-    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&action=process&json=1", true);
+    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&action=process&json=1", true);
     request.send();
 
-    request.onreadystatechange = function(e){
+    request.onreadystatechange = function(){
 
       if (request.readyState == 4 && request.status == 200)
       {
@@ -233,10 +213,8 @@ var foodList = {
           for (var i = 0; i <  products.length; i++)
           {
             item = foodList.parseOFFProduct(products[i]);
-            item.barcode = products[i].code;
             foodList.list.push(item);
           }
-
           foodList.populate(foodList.list);
         }
       }
@@ -262,16 +240,17 @@ var foodList = {
       item.portion = product.quantity;
     }
 
-    item.name = product.product_name;
-    item.brand = product.brands;
-    item.image_url = product.image_url;
+    item.name = escape(product.product_name);
+    item.brand = escape(product.brands);
+    item.image_url = escape(product.image_url);
+    item.barcode = product.code;
     item.nutrition = {
       calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
-      protein: parseInt(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion)),
-      carbs: parseInt(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion)),
-      fat: parseInt(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion)),
-      salt: parseInt(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion)),
-      sugar: parseInt(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion)),
+      protein: Math.round(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion) * 100) / 100,
+      carbs: Math.round(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion) * 100) / 100,
+      fat: Math.round(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion) * 100) / 100,
+      salt: Math.round(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion) * 100) / 100,
+      sugar: Math.round(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion) * 100) / 100,
     }
 
     //Kilojules to kcalories
@@ -279,13 +258,18 @@ var foodList = {
     {
       item.calories = parseInt(item.calories / 4.15);
     }
-
     return item;
   },
 }
 
 //Food list page display
-$(document).on("show", "#food-list-page", function(e) {
+$(document).on("show", "#food-list-page", function(e){
+  $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
+  $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+  foodList.populate(foodList.list);
+});
+
+$(document).on("init", "#food-list-page", function(e){
   foodList.fillListFromDB()
   .then(function(){
     foodList.populate(foodList.list);
@@ -321,18 +305,24 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
   });
 });
 
-//Add single item to diary by  tapping it
-/*$(document).on("tap", "#food-list-page #food-list ons-list-item", function(e) {
-  var data = JSON.parse($(this).attr("data"));
-  diary.addEntry(data);
-  nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
-});*/
+$(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
+  var checked = $('input[name=food-item-checkbox]:checked'); //Get all checked items
+  if (checked.length > 0)
+  {
+    $("#food-list-page ons-toolbar-button#submit").show(); //show submit button
+    $("#food-list-page ons-toolbar-button#scan").hide(); //hide scan button
+  }
+  else
+  {
+    $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
+    $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+  }
+});
 
 //Add multiple items to diary by checking them and tapping the check button
 $(document).on("tap", "#food-list-page #submit", function(e) {
 
-  //Get all checked items
-  var checked = $('input[name=food-item-checkbox]:checked');
+  var checked = $('input[name=food-item-checkbox]:checked'); //Get all checked items
 
   if (checked.length > 0) //At least 1 item was selected
   {
@@ -386,9 +376,4 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   {
     ons.notification.alert('Please complete all required fields.');
   }
-});
-
-//Barcode scanner button
-$(document).on("tap", "#food-list-page #btn-barcode", function(e) {
-  foodList.scan();
 });

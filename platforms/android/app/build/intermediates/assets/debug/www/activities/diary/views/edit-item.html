@@ -2,7 +2,7 @@
   <ons-toolbar modifier="material">
     <div class="left"><ons-back-button>Back</ons-back-button></div>
     <div class="center">Edit Entry</div>
-    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
   </ons-toolbar>
 
   <div style="text-align: left; margin-top: 2em; margin-left:1em;">
@@ -15,15 +15,16 @@
       <label id="caloriesDisplayLabel" for="caloriesDisplay" data-localize="calories"></label>
       <p id="caloriesDisplay"></p>
 
-      <p><ons-input type="number" name="quantity" id="quantity" step="any" required="true" placeholder="Quantity" float value="1"></ons-input></p>
+      <p><ons-input type="number" id="quantity" step="any" required="true" placeholder="Quantity" float value="1"></ons-input></p>
+      <p><ons-input type="number" id="calories" step="any" placeholder="Calories" float disabled="true" value="0"></ons-input></p>
+      <p><ons-input type="number" id="protein" step="any" placeholder="Protein (g)" float disabled="true" value="0"></ons-input></p>
+      <p><ons-input type="number" id="carbs" step="any" placeholder="Carbs (g)" float disabled="true" value="0"></ons-input></p>
+      <p><ons-input type="number" id="fat" step="any" placeholder="Fat (g)" float disabled="true" value="0"></ons-input></p>
+      <p><ons-input type="number" id="salt" step="any" placeholder="Salt (g)" float disabled="true" value="0"></ons-input></p>
+      <p><ons-input type="number" id="sugar" step="any" placeholder="Sugar (g)" float disabled="true" value="0"></ons-input></p>
 
-      <label for="category" data-localize="category"></label>
-      <ons-select name="category" id="category" data-native-menu="false">
-        <option value="Breakfast" data-localize="breakfast">Breakfast</option>
-        <option value="Lunch" data-localize="lunch">Lunch</option>
-        <option value="Dinner" data-localize="dinner">Dinner</option>
-        <option value="Snacks" data-localize="snacks">Snacks</option>
-      </ons-select>
+      <label for="category-idx" data-localize="category">Meal</label>
+      <!--Option menu will be inserted here by JS-->
     </form>
   </div>
 </ons-page>

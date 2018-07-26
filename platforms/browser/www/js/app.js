@@ -8,7 +8,7 @@ var app = {
   {
     this.storage = window.localStorage; //Simple storage object
 
-    //Setup default goals and weight in app storage if none have been set
+    //Set some default settings
     if (app.storage.getItem("goals") == undefined)
     {
       goals.setDefaults(); //Generate default goals
@@ -17,6 +17,11 @@ var app = {
     if (app.storage.getItem("weight") == undefined)
     {
       app.storage.setItem("weight", 70);
+    }
+
+    if (app.storage.getItem("meal-names") == undefined)
+    {
+      app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"]));
     }
 
     dbHandler.initializeDb() //db-handler initialization
@@ -87,7 +92,5 @@ app.initialize();
 
 ons.ready(function() {
   console.log("Cordova Ready");
-  ons.disableAnimations(); //Disable all animations
-
-  console.log(network = navigator.network.connection.type);
+  if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
 });

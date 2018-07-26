@@ -70,13 +70,6 @@ var BottomToolbarElement = function (_BaseElement) {
   }
 
   _createClass(BottomToolbarElement, [{
-    key: 'connectedCallback',
-    value: function connectedCallback() {
-      if (util.match(this.parentNode, 'ons-page')) {
-        this.parentNode.classList.add('page-with-bottom-toolbar');
-      }
-    }
-  }, {
     key: 'attributeChangedCallback',
     value: function attributeChangedCallback(name, last, current) {
       switch (name) {

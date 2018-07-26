@@ -2,6 +2,38 @@
 CHANGELOG
 ====
 
+2.10.4
+---
+
+ ### New Features
+
+ * ons.platform: Can choose to ignore selected platform when checking what platform is e.g. `ons.platform.isAndroid`. ([#2475](https://github.com/OnsenUI/OnsenUI/issues/2475)).
+ * ons-toolbar: Add methods to show and hide the toolbar ([#2478](https://github.com/OnsenUI/OnsenUI/issues/2478))
+
+ ### Bug Fixes
+
+ * css: Fix button style for Firefox. ([#2469](https://github.com/OnsenUI/OnsenUI/issues/2469)).
+ * ons-toast: Fix app closing when toast is shown and back button is pressed ([#2388](https://github.com/OnsenUI/OnsenUI/issues/2388))
+
+2.10.3
+---
+
+ ### Misc
+
+ * Re-release of 2.10.2 due to npm package not containing minified Angular bindings ([#2468](https://github.com/OnsenUI/OnsenUI/issues/2468)). No functional changes.
+
+2.10.2
+---
+
+ ### Bug Fixes
+
+ * ons-lazy-repeat: Fix dynamic adding of items ([#2443](https://github.com/OnsenUI/OnsenUI/issues/2443))
+ * ons-toast: Fix padding of Material toast ([#2436](https://github.com/OnsenUI/OnsenUI/issues/2436))
+ * ons-button: Remove dotted border on Firefox ([#2408](https://github.com/OnsenUI/OnsenUI/issues/2408))
+ * css: Fix CSS import paths ([#2336](https://github.com/OnsenUI/OnsenUI/issues/2336), [#2453](https://github.com/OnsenUI/OnsenUI/issues/2453))
+ * ons-input: Prevent zooming of inputs on iOS ([#2400](https://github.com/OnsenUI/OnsenUI/issues/2400))
+ * ons-page: Fix `page-with-bottom-toolbar` not being set in some cases ([#2459](https://github.com/OnsenUI/OnsenUI/issues/2459))
+
 2.10.1
 ---
 

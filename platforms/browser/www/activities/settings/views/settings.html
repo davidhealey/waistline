@@ -1,0 +1,38 @@
+<ons-page id="settings-page">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="center">Settings</div>
+    <div class="right"></div>
+  </ons-toolbar>
+
+  <ons-list>
+    <ons-list-item expandable>
+       <div class="center">
+         Show product images
+       </div>
+       <div class="right">
+         <ons-switch id="show-images" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+       </div>
+       <div class="expandable-content">Images will be displayed when connected to the internet. They will not be stored on your device.</div>
+    </ons-list-item>
+    <ons-list-item expandable>
+        <div class="center">
+          Disable animations
+        </div>
+        <div class="right">
+          <ons-switch id="disable-animations" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+        </div>
+        <div class="expandable-content">Disabling animations may improve performance on some devices (requires app restart).</div>
+    </ons-list-item>
+    <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
+      Diary Settings
+    </ons-list-item>
+    <ons-list-item tappable id="import">
+      Import Data
+    </ons-list-item>
+    <ons-list-item tappable id="export">
+      Export Data
+    </ons-list-item>
+  </ons-list>
+
+</ons-page>

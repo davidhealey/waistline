@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-21:12
 MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/ecf2c9fa686ec32ffc010d83d164aac7/AndroidManifest.xml:2:1-14:12
 MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/ca6235c79fa8a2afc343186cd09d89cd/AndroidManifest.xml:17:1-22:12
 MERGED from [:CordovaLib] /home/dave/AndroidStudioProjects/waistline/platforms/android/CordovaLib/build/intermediates/manifests/full/debug/AndroidManifest.xml:20:1-27:12
@@ -16,9 +16,9 @@ MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/dave/.gradle/caches/tra
 MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/34d420648c2d29e0a8174e53880b6e03/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3ff7bc6bfbad218b6ac30142d2555d04/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/da25d4a59a44d37d110c90820042b7fd/AndroidManifest.xml:17:1-22:12
-INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-21:12
 	package
 		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:102-126
 		INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml
@@ -147,17 +147,21 @@ uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:16:5-81
 	android:name
 		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:16:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:17:5-79
+	android:name
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:17:22-76
 uses-permission#android.permission.CAMERA
-ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:17:5-65
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:5-65
 	android:name
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:17:22-62
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:22-62
 uses-permission#android.permission.FLASHLIGHT
-ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:5-69
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:19:5-69
 	android:name
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:22-66
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:19:22-66
 uses-feature#android.hardware.camera
-ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:19:5-84
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:20:5-84
 	android:required
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:19:58-81
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:20:58-81
 	android:name
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:19:19-57
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:20:19-57

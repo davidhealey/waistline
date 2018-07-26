@@ -2,17 +2,18 @@
   <ons-toolbar modifier="material">
     <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
     <div class="center">Diary</div>
-    <div class="right"><ons-toolbar-button id="record-weight"><ons-icon icon="fa-balance-scale"></ons-icon></ons-toolbar-button></div>
+    <div class="right"><ons-toolbar-button id="record-weight" onclick="diary.recordWeight(diary.date);"><ons-icon icon="fa-balance-scale"></ons-icon></ons-toolbar-button></div>
   </ons-toolbar>
 
   <ons-card id="date-selector" style="text-align:center;">
-      <input id="date" type="date">
+    <ons-row>
+      <ons-col><ons-button tappable id="previousDate"><ons-icon icon="chevron-left"></ons-icon></ons-button></ons-col>
+      <ons-col><ons-input style="text-align:center;" id="date" type="date"></ons-input></ons-col>
+      <ons-col><ons-button tappable id="nextDate"><ons-icon icon="chevron-right"></ons-icon></ons-button></ons-col>
+    </ons-row>
   </ons-card>
 
-  <ons-list id="list1" modifier="inset"></ons-list>
-  <ons-list id="list2" modifier="inset"></ons-list>
-  <ons-list id="list3" modifier="inset"></ons-list>
-  <ons-list id="list4" modifier="inset"></ons-list>
+  <div id="diary-lists"></div> <!--Populated dynamically-->
 
   <ons-bottom-toolbar id="stat-bar" style="height:4em;">
     <div class="progressBar" style="max-width:100%; height:.25em; margin-bottom: 0.75em;"></div>

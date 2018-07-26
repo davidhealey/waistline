@@ -179,7 +179,9 @@ var BaseDialogElement = function (_BaseElement) {
     value: function connectedCallback() {
       var _this5 = this;
 
-      this.onDeviceBackButton = this._defaultDBB.bind(this);
+      if (typeof this._defaultDBB === 'function') {
+        this.onDeviceBackButton = this._defaultDBB.bind(this);
+      }
 
       contentReady(this, function () {
         if (_this5._mask) {
@@ -191,8 +193,10 @@ var BaseDialogElement = function (_BaseElement) {
   }, {
     key: 'disconnectedCallback',
     value: function disconnectedCallback() {
-      this._backButtonHandler.destroy();
-      this._backButtonHandler = null;
+      if (this._backButtonHandler) {
+        this._backButtonHandler.destroy();
+        this._backButtonHandler = null;
+      }
 
       if (this._mask) {
         this._mask.removeEventListener('click', this._cancel, false);

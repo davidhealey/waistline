@@ -2,21 +2,19 @@
   <ons-toolbar modifier="material">
     <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
     <div class="center">Food List</div>
-    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
+    <div class="right">
+      <ons-toolbar-button id="scan" onclick="foodList.scan();"><ons-icon icon="barcode"></ons-icon></ons-toolbar-button>
+      <ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button>
+    </div>
   </ons-toolbar>
 
-  <ons-speed-dial position="bottom right">
-    <ons-fab tappable>
-      <ons-icon icon="md-plus"></ons-icon>
-    </ons-fab>
-    <ons-speed-dial-item tappable onclick="nav.pushPage('activities/food-list/views/edit-item.html')">
-      <ons-icon icon="barcode"></ons-icon>
-    </ons-speed-dial-item>
-  </ons-speed-dial>
+  <ons-fab position="bottom right" tappable onclick="nav.pushPage('activities/food-list/views/edit-item.html')">
+    <ons-icon icon="md-plus"></ons-icon>
+  </ons-fab>
 
   <div style="text-align:center;">
     <p>
-      <form onsubmit="foodList.search(this); return false;">
+      <form onsubmit="foodList.search(this[0].value); return false;">
         <ons-search-input id="filter" placeholder="Search Food"></ons-search-input>
       </form>
     </p>

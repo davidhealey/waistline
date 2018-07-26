@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 12;
+      var databaseVersion = 14;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -71,6 +71,8 @@ var dbHandler =
 
           if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object, the last time this item was referenced (edited or added to the diary)
           if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
+          if (!store.indexNames.contains("brand")) store.createIndex('brand', 'brand', {unique:false});
+          if (!store.indexNames.contains("image_url")) store.createIndex('image_url', 'image_url', {unique:false});
           if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
           if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {unique:false});
@@ -86,7 +88,8 @@ var dbHandler =
           if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
           if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false});
           if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
-          if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Breakfast, lunch dinner, etc..
+          if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Index of the category
+          if (!store.indexNames.contains("category_name")) store.createIndex('category_name', 'category_name', {unique:false}); //user assigned name of the category
           if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
 
@@ -109,36 +112,39 @@ var dbHandler =
 
   update: function(data, storeName, key)
   {
-    var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName);
-    var request = objectStore.get(key);
+    return new Promise(function(resolve, reject){
+      var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName);
+      var request = objectStore.get(key);
 
-    request.onsuccess = function(event) {
+      request.onsuccess = function(event) {
 
-      var result = event.target.result; //Data from DB
+        var result = event.target.result; //Data from DB
 
-      if (result)
-      {
-        //Update the result with values from the passed data object
-        for (k in data) //Each key in data
+        if (result)
         {
-            result[k] = data[k];
+          //Update the result with values from the passed data object
+          for (k in data) //Each key in data
+          {
+              result[k] = data[k];
+          }
         }
-      }
-      else { //Valid key passed but no data found
-        result = data; //Just insert data
-      }
+        else { //Valid key passed but no data found
+          result = data; //Just insert data
+        }
+        //Insert the updated result
+        var updateRequest = objectStore.put(result);
+        updateRequest.onsuccess = function(e)
+        {
+          resolve();
+        }
+      };
 
-      //Insert the updated result
-      var updateRequest = objectStore.put(result);
-      updateRequest.onsuccess = function(e)
-      {
-        return updateRequest;
-      }
-    };
+      request.onerror = function(event) {
+        console.log("DB Update Error");
+        resolve();
+      };
 
-    request.onerror = function(event) {
-      console.log("DB Update Error");
-    };
+    });
   },
 
   deleteItem: function(key, storeName)

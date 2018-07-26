@@ -92,9 +92,7 @@ var ToastElement = function (_BaseDialogElement) {
 
     var _this = _possibleConstructorReturn(this, (ToastElement.__proto__ || _Object$getPrototypeOf(ToastElement)).call(this));
 
-    _this._defaultDBB = function (e) {
-      return e.callParentHandler();
-    };
+    _this._defaultDBB = null;
     contentReady(_this, function () {
       return _this._compile();
     });

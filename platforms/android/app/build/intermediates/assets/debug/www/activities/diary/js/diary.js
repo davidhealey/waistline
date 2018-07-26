@@ -1,6 +1,6 @@
 var diary = {
 
-  category:"Breakfast",
+  category:"0", //Category index
   date: undefined,
   consumption:{}, //Nutrition consumed for current diary date
 
@@ -14,17 +14,21 @@ var diary = {
 
       //Get day after selected date at midnight
       var toDate = new Date(fromDate);
-      toDate.setDate(toDate.getDate()+1);
+      toDate.setHours(toDate.getHours()+24);
+      toDate.setMinutes(toDate.getMinutes()-1);
 
-      //Strings of html for each category - prepopulated with category dividers
-      var list = {
-        Breakfast:"<ons-list-header id=Breakfast>Breakfast<span></span></ons-list-header>",
-        Lunch:"<ons-list-header id=Lunch>Lunch<span></span></ons-list-header>",
-        Dinner:"<ons-list-header id=Dinner>Dinner<span></span></ons-list-header>",
-        Snacks:"<ons-list-header id=Snacks>Snacks<span></span></ons-list-header>",
-      };
+      var meals = []; //Each diary item is part of a meal (category)
+      var calorieCount = []; //Calorie count for each meal
 
-      var calorieCount = {"Breakfast":0, "Lunch":0, "Dinner":0, "Snacks":0}; //Calorie count for breakfast, lunch, dinner, snacks
+      //Add user defined meal names as list headings
+      var mealNames = JSON.parse(app.storage.getItem("meal-names"));
+      for (var i = 0; i < mealNames.length; i++)
+      {
+        if (mealNames[i] == "") continue; //Skip unset meal names
+        meals[i] = "<ons-list-header id='"+mealNames[i]+"' category-idx='"+i+"'>"+mealNames[i]+"<span></span></ons-list-header>";
+        calorieCount[i] = 0;
+      }
+
       var html = "";
 
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
@@ -33,46 +37,57 @@ var diary = {
 
         if (cursor)
         {
-          var calories = cursor.value.nutrition.calories;
+          var value = cursor.value;
+          var calories = value.nutrition.calories;
+
+          //Calorie count for each category
+          calorieCount[value.category] = calorieCount[value.category] || 0;
+          calorieCount[value.category] += calories * value.quantity;
+
+          //If a user changes the names of their meals then existing diary items won't have a meal category, this line solves that
+          meals[value.category] = meals[value.category] || "<ons-list-header id='"+mealNames[value.category]+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-header>";
 
           //Build HTML
           html = ""; //Reset variable
-          html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(cursor.value)+"' id='"+cursor.value.id+"' category='"+cursor.value.category+"' tappable='true'>";
-          html += "<a>"+unescape(cursor.value.name) + " - " + unescape(cursor.value.portion);
+          html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
+          html += "<a>"+unescape(value.name) + " - " + unescape(value.portion);
 
-          if (cursor.value.quantity == 1)
+          if (value.quantity == 1)
           {
-            html += "<p>"+cursor.value.quantity + " " + app.strings['serving'] + ", " + Math.round(cursor.value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+            html += "<p>"+value.quantity + " " + app.strings['serving'] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
           }
           else
           {
-            html += "<p>"+cursor.value.quantity + " " + app.strings['servings'] + ", " + Math.round(cursor.value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+            html += "<p>"+value.quantity + " " + app.strings['servings'] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
           }
           html += "</a>";
           html += "</ons-list-item>";
 
-          list[cursor.value.category] += html;
-          calorieCount[cursor.value.category] += Math.round(calories * cursor.value.quantity);
+          meals[value.category] += html;
 
           //Add up total consumption
-          for (k in cursor.value.nutrition)
+          for (k in value.nutrition)
           {
             diary.consumption[k] = diary.consumption[k] || 0; //Use existing object or create new one for each item
-            diary.consumption[k] += cursor.value.nutrition[k];
+            diary.consumption[k] += value.nutrition[k] * value.quantity;
           }
 
           cursor.continue();
         }
         else
         {
-          $("#diary-page #list1").html(list.Breakfast); //Insert into HTML
-          $("#diary-page #list2").html(list.Lunch); //Insert into HTML
-          $("#diary-page #list3").html(list.Dinner); //Insert into HTML
-          $("#diary-page #list4").html(list.Snacks); //Insert into HTML
-          $("#diary-page #list1 ons-list-header span").html(" - " + calorieCount.Breakfast + " " + app.strings['calories']);
-          $("#diary-page #list2 ons-list-header span").html(" - " + calorieCount.Lunch + " " + app.strings['calories']);
-          $("#diary-page #list3 ons-list-header span").html(" - " + calorieCount.Dinner + " " + app.strings['calories']);
-          $("#diary-page #list4 ons-list-header span").html(" - " + calorieCount.Snacks + " " + app.strings['calories']);
+          $("#diary-page #diary-lists").html(""); //Clear old items
+
+          //One list per meal
+          for (var i = 0; i < meals.length; i++)
+          {
+            html = "";
+            html += "<ons-list modifier='inset'>";
+            html += meals[i];
+            html += "</ons-list>";
+            $("#diary-page #diary-lists").append(html); //Add HTML to DOM
+            $("#diary-page #diary-lists #"+mealNames[i] + " span").html(" - " + Math.round(calorieCount[i]));
+          }
 
           diary.updateLog()
           .then(result => diary.getStats(diary.date))
@@ -104,7 +119,7 @@ var diary = {
     });
   },
 
-  setDate : function()
+  setDate : function(date)
   {
     return new Promise(function(resolve, reject){
 
@@ -115,9 +130,10 @@ var diary = {
         diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
       }
 
-      //If date is blank set date to diary date
-      if ($("#diary-page #date").val() == "")
+      //If date is blank set date to diary date if a date was passed as a parameter set the date picker to that date
+      if ($("#diary-page #date").val() == "" || date != undefined)
       {
+        if (date) diary.date = date;
         var dd = diary.date.getDate();
         var mm = diary.date.getMonth()+1; //January is 0!
         var yyyy = diary.date.getFullYear();
@@ -149,7 +165,24 @@ var diary = {
     $("#edit-diary-item #caloriesPerPortion").html(unescape(data.portion) + " = " + data.nutrition.calories + " Calories");
     $("#edit-diary-item #calories").val(data.nutrition.calories);
     $("#edit-diary-item #quantity").val(data.quantity);
-    $("#edit-diary-item #category").val(data.category).change();
+
+    for (n in data.nutrition)
+    {
+      //Math.round(data.nutrition[n] * quantity);
+    }
+
+    //Create and populate category selections
+    var categories = JSON.parse(app.storage.getItem("meal-names"));
+    var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
+    for (var i = 0; i < categories.length; i++)
+    {
+      if (categories[i] == "") continue;
+      html += "<option value='"+i+"'>"+categories[i]+"</option>";
+    }
+    html += "</ons-select>";
+
+    $("#edit-diary-item form").append(html);
+    $("#edit-diary-item #category-idx").val(data.category).change();
   },
 
   addEntry : function(data)
@@ -161,14 +194,22 @@ var diary = {
       diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
     }
 
-    var dateTime = diary.date;
+    var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
     var foodId = data.id;
-    var name = data.name;
-    var portion = data.portion;
-    var nutrition = data.nutrition;
 
-    var diaryData = {"dateTime":dateTime, "name":name, "portion":portion, "quantity":1, "nutrition":nutrition, "category":diary.category, "foodId":foodId};
-    var request = dbHandler.insert(diaryData, "diary"); //Add item to diary
+    var entryData = {
+      "dateTime":diary.date,
+      "name":data.name,
+      "portion":data.portion,
+      "quantity":1,
+      "nutrition":data.nutrition,
+      "category":diary.category,
+      "category_name":categories[diary.category],
+      "foodId":foodId
+    };
+
+
+    var request = dbHandler.insert(entryData, "diary"); //Add item to diary
 
     request.onsuccess = function(e)
     {
@@ -195,7 +236,9 @@ var diary = {
   {
     var id = parseInt($("#edit-diary-item #id").val()); //Get item id from hidden field
     var quantity = parseFloat($("#edit-diary-item #quantity").val());
-    var category = $("#edit-diary-item #category").val();
+    var categoryidx = $("#edit-diary-item #category-idx").val();
+    var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
+    var calories = $("#edit-diary-item #calories").val();
 
     var getRequest = dbHandler.getItem(id, "diary"); //Pull record from DB
 
@@ -205,7 +248,8 @@ var diary = {
 
       //Update the values in the item
       item.quantity = quantity;
-      item.category = category;
+      item.category = categoryidx;
+      item.category_name = categories[categoryidx];
 
       var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
     }
@@ -243,7 +287,6 @@ var diary = {
             if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
             data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
           }
-
           resolve(data);
         }
       }
@@ -266,19 +309,19 @@ var diary = {
     $("#diary-page .progressBar").css("width", percentage+"%");
 
     $("#diary-page #stat-bar #goal").html(data.goals.calories);
-    $("#diary-page #stat-bar #used").html(data.nutrition.calories);
-    $("#diary-page #stat-bar #remaining").html(data.remaining.calories);
+    $("#diary-page #stat-bar #used").html(Math.round(data.nutrition.calories));
+    $("#diary-page #stat-bar #remaining").html(Math.round(data.remaining.calories));
   },
 }
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  diary.setDate();
-  diary.populate();
+  diary.setDate()
+  .then(diary.populate());
 });
 
 //Change date
-$(document).on("change", "#diary-page #date", function(e) {
+$(document).on("change", "#diary-page #date", function(e){
   diary.setDate()
   .then(diary.populate());
 });
@@ -307,7 +350,7 @@ $(document).on("tap", "#diary-page ons-list-item", function(e) {
 
 //Header tap action
 $(document).on("tap", "#diary-page ons-list-header", function(e) {
-  diary.category = $(this).attr("id"); //Assign category from header ID
+  diary.category = $(this).attr("category-idx"); //Assign category from header ID
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
@@ -324,4 +367,16 @@ $(document).on("tap", "#diary-page #record-weight", function(e){
   //Show prompt
   ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
   .then(function(input) {if (!isNaN(parseFloat(input))) {diary.recordWeight(diary.date, input);}});
+});
+
+$(document).on("tap", "#diary-page #previousDate", function(e){
+  diary.date.setDate(diary.date.getDate()-1);
+  diary.setDate(diary.date)
+  .then(diary.populate());
+});
+
+$(document).on("tap", "#diary-page #nextDate", function(e){
+  diary.date.setDate(diary.date.getDate()+1);
+  diary.setDate(diary.date)
+  .then(diary.populate());
 });

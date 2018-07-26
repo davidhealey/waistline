@@ -61,7 +61,6 @@ var statistics = {
     //Add weight dataset, but only if there is a calories dataset
     if (data.nutrition.calories) chartData.datasets.push({"label":"weight", "data":data.weight, "hidden":true});
 
-    Chart.defaults.line.spanGaps = true;
     Chart.defaults.global.defaultFontSize = 16; //Set font size
     var ctx = $("#statistics #chart canvas");
     var chart = new Chart(ctx, {
@@ -129,8 +128,8 @@ var statistics = {
           html += "</ons-row>";
           html += "<ons-row>";
           html += "<ons-col width='33%' style='text-align:center;'>"+data.goals[g]+"</ons-col>";
-          html += "<ons-col width='33%' style='text-align:center;'>"+data.nutrition[g]+"</ons-col>";
-          html += "<ons-col width='33%' style='text-align:center; color:"+colour+";'>"+data.remaining[g]+"</ons-col>";
+          html += "<ons-col width='33%' style='text-align:center;'>"+Math.round(data.nutrition[g])+"</ons-col>";
+          html += "<ons-col width='33%' style='text-align:center; color:"+colour+";'>"+Math.round(data.remaining[g])+"</ons-col>";
           html += "</ons-row>";
           html += "</ons-carousel-item>";
         }
