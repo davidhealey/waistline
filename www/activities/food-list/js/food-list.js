@@ -84,6 +84,19 @@ var foodList = {
     }
   },
 
+  //Localises the placeholders of the form input boxes
+  localizeEditForm:function()
+  {
+    var inputs = $("#edit-food-item ons-input");
+    var placeholder = "";
+
+    for (var i = 0; i < inputs.length; i++)
+    {
+      placeholder = app.strings["food-list"]["edit-item"]["placeholders"][$(inputs[i]).attr("id")];
+      $(inputs[i]).attr("placeholder", placeholder);
+    }
+  },
+
   updateEntry : function()
   {
     var data = {}; //Data to insert/update in DB
@@ -363,6 +376,10 @@ $(document).on("tap", "#food-list-page #food-list .searchItem", function(e) {
   //Go to edit food page then fill in form
   nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
     .then(function() {foodList.fillEditForm(data)});
+});
+
+$(document).on("init", "#edit-food-item", function(e){
+  foodList.localizeEditForm()
 });
 
 //Edit form submit button action

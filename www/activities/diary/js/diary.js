@@ -54,11 +54,11 @@ var diary = {
 
           if (value.quantity == 1)
           {
-            html += "<p>"+value.quantity + " " + app.strings['serving'] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+            html += "<p>"+value.quantity + " " + app.strings["diary"]["serving"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
           }
           else
           {
-            html += "<p>"+value.quantity + " " + app.strings['servings'] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+            html += "<p>"+value.quantity + " " + app.strings["diary"]["servings"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
           }
           html += "</a>";
           html += "</ons-list-item>";
@@ -174,6 +174,18 @@ var diary = {
       $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * data.quantity));
     }
     $("#edit-diary-item #category-idx").val(data.category).change();
+  },
+
+  //Localises the placeholders of the form input boxes
+  localizeEditForm:function()
+  {
+    var inputs = $("#edit-diary-item ons-input");
+    var placeholder = "";
+    for (var i = 0; i < inputs.length; i++)
+    {
+      placeholder = app.strings["diary"]["edit-item"]["placeholders"][$(inputs[i]).attr("id")];
+      $(inputs[i]).attr("placeholder", placeholder);
+    }
   },
 
   addEntry : function(data)
@@ -374,6 +386,8 @@ $(document).on("init", "#edit-diary-item", function(e){
   html += "</ons-select>";
 
   $("#edit-diary-item form").append(html);
+
+  diary.localizeEditForm();
 });
 
 //Update displayed values as quantity is changed
