@@ -24,6 +24,9 @@
     },
     "cordova-plugin-network-information": {
       "PACKAGE_NAME": "com.waist.line"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.waist.line"
     }
   },
   "dependent_plugins": {}
