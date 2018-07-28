@@ -29,6 +29,7 @@ var app = {
       //Add a log entry for the current date if there isn't one already
       var now = new Date();
       var date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      date.setHours(0);
       app.addDefaultLogEntry(date);
     });
 
@@ -39,9 +40,9 @@ var app = {
       callback: function(data, defaultCallback){
         defaultCallback(data);
         app.strings = $.localize.data["locales/locale"];
-        console.log($.localize);
       }
     });
+    console.log($.localize);
 
     //Theme handler
     /*if (this.storage.getItem("theme") == undefined)
