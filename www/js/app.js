@@ -45,13 +45,25 @@ var app = {
     console.log($.localize);
 
     //Theme handler
-    /*if (this.storage.getItem("theme") == undefined)
+    if (app.storage.getItem("theme") == undefined)
     {
-       this.storage.setItem("theme", "default");
-    }*/
+      app.storage.setItem("theme", 0); //Set defualt theme
+    }
 
-    //$("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
-    //setTheme(this.storage.getItem("theme")); //Set theme CSS
+    app.setTheme(this.storage.getItem("theme")); //Set theme CSS
+  },
+
+  setTheme : function(theme)
+  {
+    switch(theme)
+    {
+      case "0":
+        $("#themecss").attr("href", "onsen/css/light-onsen-css-components.min.css");
+      break;
+      case "1":
+        $("#themecss").attr("href", "onsen/css/dark-onsen-css-components.min.css");
+      break;
+    }
   },
 
   takePicture : function(options)
@@ -104,7 +116,7 @@ ons.ready(function() {
   console.log("Cordova Ready");
   app.initialize();
   if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
-  nav.resetToPage("activities/userguide/views/userguide.html");
+  nav.resetToPage("activities/statistics/views/statistics.html");
 });
 
 //Localize when any page is initialized
