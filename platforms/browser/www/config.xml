@@ -12,5 +12,6 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="geo:*" />
+    <allow-navigation href="*://*world.openfoodfacts.net/*" />
     <preference name="orientation" value="portrait" />
 </widget>

@@ -224,6 +224,10 @@
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
     },
     {
+        "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/xml_camera_provider_paths.xml.flat",
+        "source": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/res/xml/camera_provider_paths.xml"
+    },
+    {
         "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media_narrow_custom.xml.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/4835094097ab65d8fb6d45e9bfacf7f3/res/layout/notification_template_big_media_narrow_custom.xml"
     },

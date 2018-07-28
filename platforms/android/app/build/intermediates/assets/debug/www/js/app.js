@@ -32,17 +32,16 @@ var app = {
       app.addDefaultLogEntry(date);
     });
 
-    //Localisation
+    //Localisation - get localized strings object
     this.strings = defaultLocale; //Set fallback locale data
 
-    var opts = {};
-    opts.callback = function(data, defaultCallback) {
-      defaultCallback(data);
-      this.strings = $.localize.data["locales/locale"];
-    }
-
-    $("[data-localize]").localize("locales/locale", opts)
-    console.log($.localize);
+    $("[data-localize]").localize("locales/locale", {
+      callback: function(data, defaultCallback){
+        defaultCallback(data);
+        app.strings = $.localize.data["locales/locale"];
+        console.log($.localize);
+      }
+    });
 
     //Theme handler
     /*if (this.storage.getItem("theme") == undefined)
@@ -52,6 +51,19 @@ var app = {
 
     //$("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
     //setTheme(this.storage.getItem("theme")); //Set theme CSS
+  },
+
+  takePicture : function(options)
+  {
+    return new Promise(function(resolve, reject){
+      navigator.camera.getPicture(function(image_uri){
+        resolve(image_uri)
+      },
+      function(){
+        console.log("Camera problem");
+        reject();
+      }, options);
+    });
   },
 
   addDefaultLogEntry : function(date)
@@ -93,4 +105,18 @@ app.initialize();
 ons.ready(function() {
   console.log("Cordova Ready");
   if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
+  nav.resetToPage("activities/statistics/views/statistics.html");
 });
+
+//Localize when any page is initialized
+$(document).on("init", "ons-page", function(e){
+  $("[data-localize]").localize("locales/locale");
+});
+
+
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};

@@ -54,11 +54,11 @@ var diary = {
 
           if (value.quantity == 1)
           {
-            html += "<p>"+value.quantity + " " + app.strings['serving'] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+            html += "<p>"+value.quantity + " " + app.strings["diary"]["serving"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
           }
           else
           {
-            html += "<p>"+value.quantity + " " + app.strings['servings'] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+            html += "<p>"+value.quantity + " " + app.strings["diary"]["servings"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
           }
           html += "</a>";
           html += "</ons-list-item>";
@@ -149,10 +149,6 @@ var diary = {
 
         $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
       }
-      else //If a date was selected then set diary date to the selected date
-      {
-        diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
-      }
 
       //Check if there is a log entry for the selected date, if there isn't, add one
       app.addDefaultLogEntry(diary.date)
@@ -174,6 +170,18 @@ var diary = {
       $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * data.quantity));
     }
     $("#edit-diary-item #category-idx").val(data.category).change();
+  },
+
+  //Localises the placeholders of the form input boxes
+  localizeEditForm:function()
+  {
+    var inputs = $("#edit-diary-item ons-input");
+    var placeholder = "";
+    for (var i = 0; i < inputs.length; i++)
+    {
+      placeholder = app.strings["diary"]["edit-item"]["placeholders"][$(inputs[i]).attr("id")];
+      $(inputs[i]).attr("placeholder", placeholder);
+    }
   },
 
   addEntry : function(data)
@@ -243,8 +251,12 @@ var diary = {
       item.category_name = categories[categoryidx];
 
       var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
+
+      putRequest.onsuccess = function(e)
+      {
+        nav.popPage();
+      }
     }
-    nav.popPage();
   },
 
   recordWeight: function(date)
@@ -253,7 +265,7 @@ var diary = {
       var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
 
       //Show prompt
-      ons.notification.prompt("Current weight (kg)", {"title":"Weight", "inputType":"number", "defaultValue":lastWeight})
+      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight, "cancelable":true})
       .then(function(input)
       {
         if (!isNaN(parseFloat(input)))
@@ -303,7 +315,7 @@ var diary = {
     data.nutrition.calories < data.goals.calories ? colour = "green" : colour = "red";
     if (data.goals.weight && data.goals.weight.gain == true) //Flip colours if user wants to gain weight
     {
-      data.nutrition[g] > data.goals[g] ? colour = "green" : colour = "red";
+      data.nutrition["calories"] > data.goals["calories"] ? colour = "green" : colour = "red";
     }
     $("#diary-page #stat-bar #remaining").css("color", colour); //Set text colour for remaining
     $("#diary-page .progressBar").css("background-color", colour);
@@ -319,12 +331,6 @@ var diary = {
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  diary.setDate()
-  .then(diary.populate());
-});
-
-//Change date
-$(document).on("change", "#diary-page #date", function(e){
   diary.setDate()
   .then(diary.populate());
 });
@@ -357,11 +363,6 @@ $(document).on("tap", "#diary-page ons-list-header", function(e) {
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
-//Edit form submit button action
-$(document).on("tap", "#edit-diary-item #submit", function(e) {
-  $("#edit-diary-item #edit-item-form").submit();
-});
-
 $(document).on("init", "#edit-diary-item", function(e){
   //Create and populate category selections
   var categories = JSON.parse(app.storage.getItem("meal-names"));
@@ -374,6 +375,8 @@ $(document).on("init", "#edit-diary-item", function(e){
   html += "</ons-select>";
 
   $("#edit-diary-item form").append(html);
+
+  diary.localizeEditForm();
 });
 
 //Update displayed values as quantity is changed
@@ -383,6 +386,14 @@ $(document).on("keyup", "#edit-diary-item #quantity", function(e){
   {
     $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * this.value));
   }
+});
+
+//Change date
+$(document).on("change", "#diary-page #date", function(e){
+  diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
+  diary.date.setHours(0); //Set to midnight
+  diary.populate();
+  console.log(diary.date);
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){

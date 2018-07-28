@@ -57,6 +57,16 @@
         <activity
             android:name="com.google.zxing.client.android.encode.EncodeActivity"
             android:label="Share" />
+
+        <provider
+            android:name="org.apache.cordova.camera.FileProvider"
+            android:authorities="com.waist.line.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/camera_provider_paths" />
+        </provider>
     </application>
 
 </manifest>

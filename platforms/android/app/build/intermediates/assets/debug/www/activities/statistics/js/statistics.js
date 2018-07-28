@@ -57,14 +57,14 @@ var statistics = {
     for (k in data.nutrition)
     {
       dataset = {};
-      dataset.label = k;
+      dataset.label = app.strings[k];
       dataset.data = data.nutrition[k];
       if (k !== "calories") dataset.hidden = true;
       chartData.datasets.push(dataset);
     }
 
     //Add weight dataset, but only if there is a calories dataset
-    if (data.nutrition.calories) chartData.datasets.push({"label":"weight", "data":data.weight, "hidden":true});
+    if (data.nutrition.calories) chartData.datasets.push({"label":app.strings["weight"], "data":data.weight, "hidden":true});
 
     Chart.defaults.global.defaultFontSize = 16; //Set font size
     var ctx = $("#statistics #chart canvas");
@@ -82,12 +82,13 @@ var statistics = {
 
     for (var i = 0; i < data.timestamps.length; i++)
     {
+      console.log(data.timestamps[i]);
       html = "";
       html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
       html += "<div>";
       html += "<h4>"+data.timestamps[i].toLocaleDateString()+"</h4>";
       html += "<p>"+data.weight[i]+" kg</p>";
-      if (data.nutrition.calories[i] !== undefined) html += "<p>"+Math.round(data.nutrition.calories[i])+" Calories</p>";
+      if (data.nutrition.calories[i] !== undefined) html += "<p>"+Math.round(data.nutrition.calories[i])+" " + app.strings["calories"]+"</p>";
       html += "</div>";
       html += "</ons-list-item>";
       $("#statistics #weightLog").prepend(html); //Add to list, reverse order
@@ -128,11 +129,11 @@ var statistics = {
           }
 
           html += "<ons-carousel-item>";
-          html += "<h2 style='text-align:center;'>"+g.charAt(0).toUpperCase() + g.slice(1)+"</h2>";
+          html += "<h2 style='text-align:center;'>"+app.strings[g]+"</h2>";
           html += "<ons-row>";
-          html += "<ons-col width='33%' style='text-align:center;'>Goal</ons-col>"
-          html += "<ons-col width='33%' style='text-align:center;'>Used</ons-col>"
-          html += "<ons-col width='33%' style='text-align:center;'>Remaining</ons-col>"
+          html += "<ons-col width='33%' style='text-align:center;'>"+app.strings["statistics"]["goal"]+"</ons-col>"
+          html += "<ons-col width='33%' style='text-align:center;'>"+app.strings["statistics"]["used"]+"</ons-col>"
+          html += "<ons-col width='33%' style='text-align:center;'>"+app.strings["statistics"]["remaining"]+"</ons-col>"
           html += "</ons-row>";
           html += "<ons-row>";
           html += "<ons-col width='33%' style='text-align:center;'>"+data.goals[g]+"</ons-col>";

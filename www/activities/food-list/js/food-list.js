@@ -171,14 +171,15 @@ var foodList = {
           if (result.status == 0) //Product not found
           {
             //Ask the user if they would like to add the product to the open food facts database
-            ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+            /*ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
             .then(function(input) {
               if (input == 1) {
                 nav.pushPage("activities/food-list/views/upload-item.html", {"data":{"code":code}});
               }
-            });
+            });*/
 
-            $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
+            ons.notification.alert("Product not found. You can add it using the Open Food Facts app.");
+            $("#food-list-page ons-progress-circular").hide();
             return false;
           }
 
@@ -198,7 +199,7 @@ var foodList = {
     },
     function(e)
     {
-      ons.notification.alert("Scan failed: " + e);
+      ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
       $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
     });
@@ -228,7 +229,7 @@ var foodList = {
 
         if (result.products.length == 0)
         {
-          ons.notification.alert("No Matching Results");
+          ons.notification.alert(app.strings["food-list"]["no-results"]);
           $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
           return false;
         }
@@ -460,7 +461,7 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   }
   else
   {
-    ons.notification.alert('Please complete all required fields.');
+    ons.notification.alert(app.strings["required-fields"]);
   }
 });
 

@@ -59,7 +59,7 @@
           <ons-page>
             <ons-list>
               <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable="">
-                <div class="left">
+                <div class="left" data-localize="stats">
                   Statistics
                 </div>
                 <div class="right">
@@ -68,7 +68,7 @@
               </ons-list-item>
 
               <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable="">
-                <div class="left">
+                <div class="left" data-localize="diary">
                   Diary
                 </div>
                 <div class="right">
@@ -77,7 +77,7 @@
               </ons-list-item>
 
               <ons-list-item onclick="nav.resetToPage('activities/food-list/views/food-list.html').then(menu.close.bind(menu))" tappable="">
-                <div class="left">
+                <div class="left" data-localize="food-list">
                   Food List
                 </div>
                 <div class="right">
@@ -86,7 +86,7 @@
               </ons-list-item>
 
               <ons-list-item onclick="nav.resetToPage('activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable="">
-                <div class="left">
+                <div class="left" data-localize="goals">
                   Goals
                 </div>
                 <div class="right">
@@ -95,7 +95,7 @@
               </ons-list-item>
 
               <ons-list-item onclick="nav.resetToPage('activities/settings/views/settings.html').then(menu.close.bind(menu))" tappable="">
-                <div class="left">
+                <div class="left" data-localize="settings">
                   Settings
                 </div>
                 <div class="right">
@@ -104,7 +104,7 @@
               </ons-list-item>
 
               <ons-list-item onclick="nav.resetToPage('activities/userguide/views/userguide.html').then(menu.close.bind(menu))" tappable="">
-                <div class="left">
+                <div class="left" data-localize="instructions">
                   User Guide
                 </div>
                 <div class="right">
@@ -116,7 +116,7 @@
           </ons-page>
         </ons-splitter-side>
         <ons-splitter-content id="content">
-          <ons-navigator id="mainNavigator" page="activities/food-list/views/food-list.html"></ons-navigator>
+          <ons-navigator id="mainNavigator"></ons-navigator>
         </ons-splitter-content>
       </ons-splitter>
 

@@ -1,0 +1,38 @@
+<ons-page id="upload-food-item">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="add-food">Add Food</div>
+    <div class="right">
+      <ons-toolbar-button id="submit" onclick="foodList.uploadToOFF();"><ons-icon icon="upload"></ons-icon></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <ons-card>
+    <div style="text-align: left; margin-top: 2em; margin-left:1em;">
+      <form onsubmit="foodList.updateEntry(); return false;" id="edit-item-form">
+        <p><ons-input type="text" name="barcode" id="barcode" required="true" placeholder="Barcode*" float disabled></ons-input></p>
+        <p><ons-input type="text" name="name" id="name" required="true" placeholder="Name*" float></ons-input></p>
+        <p><ons-input type="text" name="brand" id="brand" required="true" placeholder="Brand*" float></ons-input></p>
+        <p><ons-input type="number" inputmode="decimal" step="any" name="weight" id="weight" required="true" placeholder="Weight*(g)" float></ons-input></p>
+        <p><ons-input type="number" inputmode="numeric" pattern="[0-9]*" name="calories" id="calories" required="true" placeholder="Calories*" float></ons-input></p>
+        <p><ons-input type="number" inputmode="decimal" step="any" name="protein" id="protein" placeholder="Protein(g)" float></ons-input></p>
+        <p><ons-input type="number" inputmode="decimal" step="any" name="carbs" id="carbs" placeholder="Carbs(g)" float></ons-input></p>
+        <p><ons-input type="number" inputmode="decimal" step="any" name="fat" id="fat" placeholder="Fat(g)" float></ons-input></p>
+        <p><ons-input type="number" inputmode="decimal" step="any" name="sugar" id="sugar" placeholder="Sugar(g)" float></ons-input></p>
+        <p><ons-input type="number" inputmode="decimal" step="any" name="salt" id="salt" placeholder="Salt(g)" float></ons-input></p>
+      </form>
+    </div>
+
+  </ons-card>
+
+  <ons-card id="images" style="text-align:center;">
+    <ons-carousel swipeable auto-scroll auto-refresh>
+    </ons-carousel>
+  </ons-card>
+
+  <ons-fab id="camera" position="bottom right" tappable onclick="foodList.takePicture();">
+    <ons-icon icon="camera"></ons-icon>
+  </ons-fab>
+
+</ons-page>

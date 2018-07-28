@@ -1,7 +1,7 @@
 <ons-page id="diary-page">
   <ons-toolbar modifier="material">
     <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
-    <div class="center">Diary</div>
+    <div class="center" data-localize="diary.title">Diary</div>
     <div class="right"><ons-toolbar-button id="record-weight" onclick="diary.recordWeight(diary.date);"><ons-icon icon="fa-balance-scale"></ons-icon></ons-toolbar-button></div>
   </ons-toolbar>
 
@@ -18,9 +18,9 @@
   <ons-bottom-toolbar id="stat-bar" style="height:4em;">
     <div class="progressBar" style="max-width:100%; height:.25em; margin-bottom: 0.75em;"></div>
     <ons-row>
-      <ons-col width='33%' style='text-align:center;'><b>Goal</b></ons-col>
-      <ons-col width='33%' style='text-align:center;'><b>Used</b></ons-col>
-      <ons-col width='33%' style='text-align:center;'><b>Remaining</b></ons-col>
+      <ons-col width='33%' style='text-align:center;' data-localize="statistics.goal"><b>Goal</b></ons-col>
+      <ons-col width='33%' style='text-align:center;' data-localize="statistics.used"><b>Used</b></ons-col>
+      <ons-col width='33%' style='text-align:center;' data-localize="statistics.remaining"><b>Remaining</b></ons-col>
     </ons-row>
     <ons-row>
       <ons-col id="goal" width='33%' style='text-align:center;'></ons-col>

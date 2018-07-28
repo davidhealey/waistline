@@ -372,5 +372,6 @@ int styleable FontFamilyFont_android_fontStyle 2
 int styleable FontFamilyFont_font 3
 int styleable FontFamilyFont_fontStyle 4
 int styleable FontFamilyFont_fontWeight 5
-int xml config 0x7f100000
-int xml preferences 0x7f100001
+int xml camera_provider_paths 0x7f100000
+int xml config 0x7f100001
+int xml preferences 0x7f100002

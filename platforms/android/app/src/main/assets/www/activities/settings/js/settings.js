@@ -41,7 +41,20 @@ var settings = {
         inputs[i].value = mealNames[i];
       }
     }
-  }
+  },
+
+  //Localises the placeholders of the forms input boxes
+  localizeDiarySettingsForm : function()
+  {
+    var inputs = $("#diary-settings ons-input");
+    var placeholder = "";
+
+    for (var i = 0; i < inputs.length; i++)
+    {
+      placeholder = app.strings["settings"]["diary"]["meal"];
+      $(inputs[i]).attr("placeholder", placeholder + " " + (i+1));
+    }
+  },
 }
 
 $(document).on("show", "#settings-page", function(e){
@@ -49,6 +62,7 @@ $(document).on("show", "#settings-page", function(e){
 });
 
 $(document).on("show", "#diary-settings", function(e){
+  settings.localizeDiarySettingsForm();
   settings.loadDiarySettings();
 });
 
