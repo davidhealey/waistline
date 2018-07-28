@@ -7,6 +7,7 @@
   "fat":"Fat",
   "sugar":"Sugar",
   "salt":"Salt",
+  "no-internet":"No Internet Connection",
 
   "statistics":{
     "title":"Statistics",
@@ -40,6 +41,7 @@
     "serving": "Serving",
     "servings": "Servings",
     "category": "Category",
+    "current-weight":"Current Weight",
     "edit-item":{
       "title":"Edit Entry",
       "placeholders":
@@ -72,6 +74,22 @@
         "fat":"Fat (g)",
         "sugar":"Sugar (g)",
         "salt":"Salt (g)"
+      },
+      "upload-item":
+      {
+        "title":"Add Product to O.F.F",
+        "placeholders":{
+          "barcode":"Barcode",
+          "name":"Name",
+          "brand":"Brand",
+          "portion":"Portion",
+          "calories":"Calories",
+          "portion":"Protein (g)",
+          "carbs":"Carbs (g)",
+          "fat":"Fat (g)",
+          "sugar":"Sugar (g)",
+          "salt":"Salt (g)"
+        }
       }
     }
   },
@@ -96,6 +114,8 @@
   {
     "delete": "Delete",
     "cancel": "Cancel",
+    "yes":"Yes",
+    "no":"No",
     "confirm-delete": "Are you sure you want to delete this item?",
     "delete-title": "Delete Entry"
   },

@@ -53,6 +53,19 @@ var app = {
     //setTheme(this.storage.getItem("theme")); //Set theme CSS
   },
 
+  takePicture : function(options)
+  {
+    return new Promise(function(resolve, reject){
+      navigator.camera.getPicture(function(image_uri){
+        resolve(image_uri)
+      },
+      function(){
+        console.log("Camera problem");
+        reject();
+      }, options);
+    });
+  },
+
   addDefaultLogEntry : function(date)
   {
     return new Promise(function(resolve, reject){
@@ -98,3 +111,11 @@ ons.ready(function() {
 $(document).on("init", "ons-page", function(e){
   $("[data-localize]").localize("locales/locale");
 });
+
+
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};

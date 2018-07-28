@@ -1,6 +1,7 @@
 var foodList = {
 
   list:[],
+  images:{}, //Place to store image uris when uploading a product to Open Food Facts
 
   fillListFromDB : function()
   {
@@ -146,7 +147,7 @@ var foodList = {
     //First check that there is an internet connection
     if (navigator.connection.type == "none")
     {
-      ons.notification.alert("No Internet Connection");
+      ons.notification.alert(app.strings["no-internet"]);
       return false;
     }
 
@@ -169,7 +170,14 @@ var foodList = {
 
           if (result.status == 0) //Product not found
           {
-            ons.notification.alert("Product not found. You can add it with the Open Food Facts app");
+            //Ask the user if they would like to add the product to the open food facts database
+            ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+            .then(function(input) {
+              if (input == 1) {
+                nav.pushPage("activities/food-list/views/upload-item.html", {"data":{"code":code}});
+              }
+            });
+
             $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
             return false;
           }
@@ -201,7 +209,7 @@ var foodList = {
     //First check that there is an internet connection
     if (navigator.connection.type == "none")
     {
-      ons.notification.alert("No Internet Connection");
+      ons.notification.alert(app.strings["no-internet"]);
       return false;
     }
 
@@ -281,6 +289,59 @@ var foodList = {
     }
     return item;
   },
+
+  takePicture : function()
+  {
+    var options = {"allowEdit":true, "saveToPhotoAlbum":false};
+
+    var image = app.takePicture(options)
+    .then(function(image){
+
+      var timestamp = new Date().toTimeString(); //Index each image by time stamp so that it can be identified when deleting
+
+      foodList.images[timestamp] = image; //Add the image url to the images array
+
+      var html = "<ons-carousel-item id='"+timestamp+"'>"; //Use array index as ID
+      html += "<img style='width:95%;' src='"+image+"'></img>";
+      html += "</ons-carousel-item>";
+
+      $('#upload-food-item #images ons-carousel').append(html);
+
+      $("ons-page#upload-food-item #submit").show(); //Reveal submit button
+      $("ons-page#upload-food-item #images").show(); //Reveal image card
+    });
+  },
+
+  uploadToOFF : function()
+  {
+    var productData = {};
+
+    /*var foodfact = { barcode : '0048151623426', name : 'Product name', energy: 500, energy_unit: "kJ", weight: 282 };
+    var postData = {
+    code  : foodfact.barcode,
+    user_id  : "off",
+    password  : "off",
+    product_name : foodfact.name?foodfact.name:foodfact.shop_label,
+    quantity  : foodfact.weight?""+foodfact.weight+" g":undefined,
+    stores  : "Walmart",
+    nutriment_energy  :foodfact.energy,
+    nutriment_energy_unit :foodfact.energy_unit,
+    nutrition_data_per  :"serving"
+  };*/
+
+  var request = new XMLHttpRequest();
+  request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?code=0048151623426&user_id=off&password=off&product_name=Maryland%20Choc%20Chip&quantity=230g&nutriment_energy=450&nutriment_energy_unit=kJ&nutrition_data_per=serving&ingredients_text=Fortified%20wheat%20flour%2C%20Chocolate%20chips%20%2825%25%29%2C%20Sugar%2C%20Palm%20oil%2C%20Golden%20syrup%2C%20Whey%20and%20whey%20derivatives%20%28Milk%29%2C%20Raising%20agents%2C%20Salt%2C%20Flavouring", true);
+  request.withCredentials = true;
+
+  request.onreadystatechange = function(){
+    console.log(request);
+
+    if (request.readyState == 4 && request.status == 1)
+    {
+    }
+  };
+  request.send(null);
+  },
 }
 
 //Food list page display
@@ -319,7 +380,7 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
   var data = JSON.parse($(this).attr("data"));
 
   //Show confirmation dialog
-  ons.notification.confirm("Delete this item?")
+  ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
   .then(function(input) {
     if (input == 1) {//Delete was confirmed
       foodList.deleteEntry(data.id);
@@ -398,4 +459,41 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   {
     ons.notification.alert('Please complete all required fields.');
   }
+});
+
+$(document).on("show", "ons-page#upload-food-item", function(e){
+  var data = this.data; //Get data thas was pushed to page
+  data.code = "09310072001128"; //Testing
+  $("ons-page#upload-food-item #barcode").val(data.code);
+
+  foodList.images = {}; //Clear the images object
+
+  //Hide the submit button and images card - they will be displayed again once an image is added
+  //$("ons-page#upload-food-item #submit").hide();
+  $("ons-page#upload-food-item #images").hide();
+
+  //foodList.uploadToOFF();
+});
+
+//Delete an image
+$(document).on("hold", "ons-page#upload-food-item #images ons-carousel-item", function(){
+
+  var control = this;
+
+  //Show confirmation dialog
+  ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
+  .then(function(input) {
+    if (input == 1) {//Delete was confirmed
+
+      delete foodList.images[control.id]; //Clear array element but don't re-order or change array length
+
+      $(control).remove();
+
+      if (Object.keys(foodList.images).length == 0)
+      {
+        $("ons-page#upload-food-item #submit").hide();
+        $("ons-page#upload-food-item #images").hide();
+      }
+    }
+  });
 });
