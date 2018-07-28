@@ -312,37 +312,40 @@ var foodList = {
     });
   },
 
+  //Todo
   uploadToOFF : function()
   {
     var productData = {};
 
     /*var foodfact = { barcode : '0048151623426', name : 'Product name', energy: 500, energy_unit: "kJ", weight: 282 };
     var postData = {
-    code  : foodfact.barcode,
-    user_id  : "off",
-    password  : "off",
-    product_name : foodfact.name?foodfact.name:foodfact.shop_label,
-    quantity  : foodfact.weight?""+foodfact.weight+" g":undefined,
-    stores  : "Walmart",
-    nutriment_energy  :foodfact.energy,
-    nutriment_energy_unit :foodfact.energy_unit,
-    nutrition_data_per  :"serving"
-  };*/
+      code  : foodfact.barcode,
+      user_id  : "off",
+      password  : "off",
+      product_name : foodfact.name?foodfact.name:foodfact.shop_label,
+      quantity  : foodfact.weight?""+foodfact.weight+" g":undefined,
+      stores  : "Walmart",
+      nutriment_energy  :foodfact.energy,
+      nutriment_energy_unit :foodfact.energy_unit,
+      nutrition_data_per  :"serving"
+    };*/
 
-  var request = new XMLHttpRequest();
-  request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?code=0048151623426&user_id=off&password=off&product_name=Maryland%20Choc%20Chip&quantity=230g&nutriment_energy=450&nutriment_energy_unit=kJ&nutrition_data_per=serving&ingredients_text=Fortified%20wheat%20flour%2C%20Chocolate%20chips%20%2825%25%29%2C%20Sugar%2C%20Palm%20oil%2C%20Golden%20syrup%2C%20Whey%20and%20whey%20derivatives%20%28Milk%29%2C%20Raising%20agents%2C%20Salt%2C%20Flavouring", true);
-  request.withCredentials = true;
+    var request = new XMLHttpRequest();
+    request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?code=0048151623426&product_name=Maryland%20Choc%20Chip&quantity=230g&nutriment_energy=450&nutriment_energy_unit=kJ&nutrition_data_per=serving&ingredients_text=Fortified%20wheat%20flour%2C%20Chocolate%20chips%20%2825%25%29%2C%20Sugar%2C%20Palm%20oil%2C%20Golden%20syrup%2C%20Whey%20and%20whey%20derivatives%20%28Milk%29%2C%20Raising%20agents%2C%20Salt%2C%20Flavouring", true);
+    request.withCredentials = true;
 
-  request.onreadystatechange = function(){
-    console.log(request);
+    request.onreadystatechange = function(){
+      console.log(request);
 
-    if (request.readyState == 4 && request.status == 1)
-    {
-    }
-  };
-  request.send(null);
+      if (request.readyState == 4 && request.status == 1)
+      {
+      }
+    };
+
+    request.send();
   },
 }
+
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e){
@@ -469,10 +472,10 @@ $(document).on("show", "ons-page#upload-food-item", function(e){
   foodList.images = {}; //Clear the images object
 
   //Hide the submit button and images card - they will be displayed again once an image is added
-  //$("ons-page#upload-food-item #submit").hide();
+  $("ons-page#upload-food-item #submit").hide();
   $("ons-page#upload-food-item #images").hide();
 
-  //foodList.uploadToOFF();
+  //foodList.uploadToOFF(); //Just for testing
 });
 
 //Delete an image
