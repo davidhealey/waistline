@@ -149,10 +149,6 @@ var diary = {
 
         $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
       }
-      else //If a date was selected then set diary date to the selected date
-      {
-        diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
-      }
 
       //Check if there is a log entry for the selected date, if there isn't, add one
       app.addDefaultLogEntry(diary.date)
@@ -255,8 +251,12 @@ var diary = {
       item.category_name = categories[categoryidx];
 
       var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
+
+      putRequest.onsuccess = function(e)
+      {
+        nav.popPage();
+      }
     }
-    nav.popPage();
   },
 
   recordWeight: function(date)
@@ -335,12 +335,6 @@ $(document).on("show", "#diary-page", function(e){
   .then(diary.populate());
 });
 
-//Change date
-$(document).on("change", "#diary-page #date", function(e){
-  diary.setDate()
-  .then(diary.populate());
-});
-
 //Deleting an item
 $(document).on("hold", "#diary-page ons-list-item", function(e) {
 
@@ -369,11 +363,6 @@ $(document).on("tap", "#diary-page ons-list-header", function(e) {
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
-//Edit form submit button action
-$(document).on("tap", "#edit-diary-item #submit", function(e) {
-  $("#edit-diary-item #edit-item-form").submit();
-});
-
 $(document).on("init", "#edit-diary-item", function(e){
   //Create and populate category selections
   var categories = JSON.parse(app.storage.getItem("meal-names"));
@@ -397,6 +386,14 @@ $(document).on("keyup", "#edit-diary-item #quantity", function(e){
   {
     $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * this.value));
   }
+});
+
+//Change date
+$(document).on("change", "#diary-page #date", function(e){
+  diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
+  diary.date.setHours(0); //Set to midnight
+  diary.populate();
+  console.log(diary.date);
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
