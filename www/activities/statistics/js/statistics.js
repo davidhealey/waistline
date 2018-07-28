@@ -82,7 +82,6 @@ var statistics = {
 
     for (var i = 0; i < data.timestamps.length; i++)
     {
-      console.log(data.timestamps[i]);
       html = "";
       html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
       html += "<div>";
