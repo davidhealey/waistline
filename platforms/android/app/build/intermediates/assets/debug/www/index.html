@@ -28,7 +28,7 @@
 
         <!--OnsenUI-->
         <link rel="stylesheet" href="onsen/css/onsenui.css">
-        <link rel="stylesheet" href="onsen/css/onsen-css-components.min.css">
+        <link rel="stylesheet" href="onsen/css/light-onsen-css-components.min.css" id="themecss">
         <script src="onsen/js/onsenui.min.js"></script>
 
         <!--jQuery-->
@@ -41,14 +41,10 @@
         <script src="js/jquery.localize.min.js"></script>
         <script src="locales/locale-default.js"></script>
 
+        <!--App Javascript-->
         <script type="text/javascript" src="js/db-handler.js"></script>
         <script type="text/javascript" src="activities/goals/js/goals.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
-
-        <!-- My extra styles --
-        <link rel="stylesheet" href="css/styles.css" />
-        <link rel="stylesheet" href="css/themes/black.css" />
-        <link rel="stylesheet" href="css/themes/amoled.css" />-->
 
         <title>Waistline</title>
     </head>
@@ -58,7 +54,7 @@
         <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
           <ons-page>
             <ons-list>
-              <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable>
+              <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
                 <div class="left" data-localize="stats">
                   Statistics
                 </div>
@@ -67,7 +63,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable>
+              <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
                 <div class="left" data-localize="diary">
                   Diary
                 </div>
@@ -76,7 +72,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/food-list/views/food-list.html').then(menu.close.bind(menu))" tappable>
+              <ons-list-item onclick="nav.resetToPage('activities/food-list/views/food-list.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
                 <div class="left" data-localize="food-list">
                   Food List
                 </div>
@@ -85,7 +81,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable>
+              <ons-list-item onclick="nav.resetToPage('activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
                 <div class="left" data-localize="goals">
                   Goals
                 </div>
@@ -94,7 +90,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/settings/views/settings.html').then(menu.close.bind(menu))" tappable>
+              <ons-list-item onclick="nav.resetToPage('activities/settings/views/settings.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
                 <div class="left" data-localize="settings">
                   Settings
                 </div>
@@ -103,12 +99,21 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/userguide/views/userguide.html').then(menu.close.bind(menu))" tappable>
+              <ons-list-item onclick="nav.resetToPage('activities/userguide/views/userguide.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
                 <div class="left" data-localize="instructions">
                   User Guide
                 </div>
                 <div class="right">
                   <ons-icon icon="book"></ons-icon>
+                </div>
+              </ons-list-item>
+
+              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'], {'title':app.strings['about']['title']})" tappable modifier="longdivider">
+                <div class="left" data-localize="instructions">
+                  About
+                </div>
+                <div class="right">
+                  <ons-icon icon="question"></ons-icon>
                 </div>
               </ons-list-item>
 
@@ -121,7 +126,7 @@
       </ons-splitter>
 
       <script>
-        window.nav = document.getElementById('mainNavigator');
+        window.nav = document.getElementById('mainNavigator'); //Make nav bar globally available
       </script>
 
       <script type="text/javascript" src="cordova.js"></script>
@@ -129,5 +134,6 @@
       <script type="text/javascript" src="activities/statistics/js/statistics.js"></script>
       <script type="text/javascript" src="activities/food-list/js/food-list.js"></script>
       <script type="text/javascript" src="activities/settings/js/settings.js"></script>
+      <script type="text/javascript" src="activities/userguide/js/userguide.js"></script>
     </body>
 </html>

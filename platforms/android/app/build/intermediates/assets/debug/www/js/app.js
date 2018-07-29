@@ -29,6 +29,7 @@ var app = {
       //Add a log entry for the current date if there isn't one already
       var now = new Date();
       var date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      date.setHours(0);
       app.addDefaultLogEntry(date);
     });
 
@@ -39,18 +40,30 @@ var app = {
       callback: function(data, defaultCallback){
         defaultCallback(data);
         app.strings = $.localize.data["locales/locale"];
-        console.log($.localize);
       }
     });
+    console.log($.localize);
 
     //Theme handler
-    /*if (this.storage.getItem("theme") == undefined)
+    if (app.storage.getItem("theme") == undefined)
     {
-       this.storage.setItem("theme", "default");
-    }*/
+      app.storage.setItem("theme", 0); //Set defualt theme
+    }
 
-    //$("#settingsPage #theme").val(this.storage.getItem("theme")); //Restore theme selection
-    //setTheme(this.storage.getItem("theme")); //Set theme CSS
+    app.setTheme(this.storage.getItem("theme")); //Set theme CSS
+  },
+
+  setTheme : function(theme)
+  {
+    switch(theme)
+    {
+      case "0":
+        $("#themecss").attr("href", "onsen/css/light-onsen-css-components.min.css");
+      break;
+      case "1":
+        $("#themecss").attr("href", "onsen/css/dark-onsen-css-components.min.css");
+      break;
+    }
   },
 
   takePicture : function(options)
@@ -98,14 +111,19 @@ var app = {
     });
   },
 
+  getDateAtMidnight : function(date)
+  {
+    newDate = new Date(date);
+    newDate.setHours(0-(newDate.getTimezoneOffset()/60), 0, 0, 0);
+    return newDate;
+  },
 };
-
-app.initialize();
 
 ons.ready(function() {
   console.log("Cordova Ready");
+  app.initialize();
   if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
-  nav.resetToPage("activities/statistics/views/statistics.html");
+  nav.resetToPage("activities/food-list/views/upload-item.html");
 });
 
 //Localize when any page is initialized

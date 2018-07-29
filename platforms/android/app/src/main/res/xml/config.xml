@@ -26,11 +26,12 @@
         David Healey
     </author>
     <content src="index.html" />
-    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="geo:*" />
-    <allow-navigation href="*://*world.openfoodfacts.net/*" />
+    <access origin="*" />
+    <allow-intent href="*" />
+    <allow-navigation href="*" />
     <allow-intent href="market:*" />
     <icon density="mdpi" src="res/android/mdpi.png" />
     <icon density="hdpi" src="res/android/hdpi.png" />
@@ -42,5 +43,5 @@
     <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
     <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
-    <preference name="orientation" value="portrait" />
+    <preference name="SplashScreenDelay" value="3000" />
 </widget>

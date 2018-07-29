@@ -4,26 +4,27 @@
     <div class="left"><ons-back-button>Back</ons-back-button></div>
     <div class="center" id="title" data-localize="add-food">Add Food</div>
     <div class="right">
-      <ons-toolbar-button id="submit" onclick="foodList.uploadToOFF();"><ons-icon icon="upload"></ons-icon></ons-toolbar-button>
+      <ons-toolbar-button id="submit"><ons-icon icon="upload"></ons-icon></ons-toolbar-button>
     </div>
   </ons-toolbar>
 
   <ons-card>
     <div style="text-align: left; margin-top: 2em; margin-left:1em;">
-      <form onsubmit="foodList.updateEntry(); return false;" id="edit-item-form">
-        <p><ons-input type="text" name="barcode" id="barcode" required="true" placeholder="Barcode*" float disabled></ons-input></p>
-        <p><ons-input type="text" name="name" id="name" required="true" placeholder="Name*" float></ons-input></p>
-        <p><ons-input type="text" name="brand" id="brand" required="true" placeholder="Brand*" float></ons-input></p>
-        <p><ons-input type="number" inputmode="decimal" step="any" name="weight" id="weight" required="true" placeholder="Weight*(g)" float></ons-input></p>
-        <p><ons-input type="number" inputmode="numeric" pattern="[0-9]*" name="calories" id="calories" required="true" placeholder="Calories*" float></ons-input></p>
-        <p><ons-input type="number" inputmode="decimal" step="any" name="protein" id="protein" placeholder="Protein(g)" float></ons-input></p>
-        <p><ons-input type="number" inputmode="decimal" step="any" name="carbs" id="carbs" placeholder="Carbs(g)" float></ons-input></p>
-        <p><ons-input type="number" inputmode="decimal" step="any" name="fat" id="fat" placeholder="Fat(g)" float></ons-input></p>
-        <p><ons-input type="number" inputmode="decimal" step="any" name="sugar" id="sugar" placeholder="Sugar(g)" float></ons-input></p>
-        <p><ons-input type="number" inputmode="decimal" step="any" name="salt" id="salt" placeholder="Salt(g)" float></ons-input></p>
+      <form onsubmit="foodList.updateEntry(); return false;" id="upload-item-form">
+        <p><ons-input type="text" name="code" id="barcode" required="true" placeholder="Barcode*" float readonly></ons-input></p>
+        <p><ons-input type="text" name="product_name" id="name" required="true" placeholder="Name*" float value="Sweet Chilli Chicken Wrap"></ons-input></p>
+        <p><ons-input type="text" name="brands" id="brand" required="true" placeholder="Brand*" float value="Morrisons"></ons-input></p>
+        <p><ons-input type="text" name="serving_size" id="serving_size" required="true" placeholder="Serving Size*" float value="1 Pack"></ons-input></p>
+        <p><ons-input type="number" name="nutriment_energy" inputmode="numeric" pattern="[0-9]*" id="calories" required="true" placeholder="Calories per serving*" float value="428"></ons-input></p>
+        <p><ons-input type="number" name="nutriment_proteins" inputmode="decimal" step="any" id="protein" placeholder="Protein per serving (g)" float value="12.9"></ons-input></p>
+        <p><ons-input type="number" name="nutriment_carbohydrates" inputmode="decimal" step="any" id="carbs" placeholder="Carbs per serving (g)" float value="64.7"></ons-input></p>
+        <p><ons-input type="number" name="nutriment_fat" inputmode="decimal" step="any" id="fat" placeholder="Fat per serving (g)" float value="12.7"></ons-input></p>
+        <p><ons-input type="number" name="nutriment_sugars" inputmode="decimal" step="any" id="sugar" placeholder="Sugar per serving (g)" float value="17"></ons-input></p>
+        <p><ons-input type="number" name="nutriment_salt" inputmode="decimal" step="any" id="salt" placeholder="Salt per serving (g)" float value="1.72"></ons-input></p>
+        <input type="hidden" name="nutrition_data_per" value="serving"></input>
+        <input type="hidden" name="nutriment_energy_unit" value="kcal"></input>
       </form>
     </div>
-
   </ons-card>
 
   <ons-card id="images" style="text-align:center;">

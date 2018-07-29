@@ -27,7 +27,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-indexeddb-async": {},
       "cordova-plugin-network-information": {},
-      "cordova-plugin-camera": {}
+      "cordova-plugin-camera": {},
+      "cordova-plugin-splashscreen": {}
     },
     "platforms": [
       "browser",

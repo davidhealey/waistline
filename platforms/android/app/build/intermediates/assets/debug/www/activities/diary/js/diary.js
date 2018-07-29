@@ -50,17 +50,12 @@ var diary = {
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
-          html += "<a>"+unescape(value.name) + " - " + unescape(value.portion);
+          html += "<p style='margin-top:0;'>"+unescape(value.name) + " - " + unescape(value.portion) + "</p>";
 
-          if (value.quantity == 1)
-          {
-            html += "<p>"+value.quantity + " " + app.strings["diary"]["serving"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
-          }
-          else
-          {
-            html += "<p>"+value.quantity + " " + app.strings["diary"]["servings"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
-          }
-          html += "</a>";
+          html += "<p style='margin:0; color:#636363;'>"+value.quantity + " ";
+          value.quantity == 1 ? html += app.strings["diary"]["serving"] : html += app.strings["diary"]["servings"];
+          html += ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+
           html += "</ons-list-item>";
 
           lists[value.category] += html;
@@ -132,7 +127,7 @@ var diary = {
       if (diary.date == undefined)
       {
         var now = new Date();
-        diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+        diary.date = app.getDateAtMidnight(now);
       }
 
       //If date is blank set date to diary date if a date was passed as a parameter set the date picker to that date
@@ -144,11 +139,13 @@ var diary = {
         var yyyy = diary.date.getFullYear();
 
         //Add leading 0s
-        if (dd < 10) mm = "0"+mm;
+        if (dd < 10) dd = "0"+dd;
         if (mm < 10) mm = "0"+mm;
 
         $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
       }
+
+      diary.date = app.getDateAtMidnight(diary.date);
 
       //Check if there is a log entry for the selected date, if there isn't, add one
       app.addDefaultLogEntry(diary.date)
@@ -190,7 +187,7 @@ var diary = {
     if (diary.date == undefined)
     {
       var now = new Date();
-      diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      diary.date = app.getDateAtMidnight(now);
     }
 
     var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names

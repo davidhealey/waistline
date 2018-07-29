@@ -44,11 +44,12 @@ var foodList = {
     {
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
-        html += "<ons-list-item tappable class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
+        html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)+"</label>";
+        html += "<label for='"+unescape(list[i].name)+"' class='left'>"+unescape(list[i].name);
+        html += " - " + list[i].portion + "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
@@ -171,14 +172,15 @@ var foodList = {
           if (result.status == 0) //Product not found
           {
             //Ask the user if they would like to add the product to the open food facts database
-            ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+            /*ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
             .then(function(input) {
               if (input == 1) {
                 nav.pushPage("activities/food-list/views/upload-item.html", {"data":{"code":code}});
               }
-            });
+            });*/
 
-            $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
+            ons.notification.alert("Product not found. You can add it using the Open Food Facts app.");
+            $("#food-list-page ons-progress-circular").hide();
             return false;
           }
 
@@ -198,7 +200,7 @@ var foodList = {
     },
     function(e)
     {
-      ons.notification.alert("Scan failed: " + e);
+      ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
       $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
     });
@@ -228,7 +230,7 @@ var foodList = {
 
         if (result.products.length == 0)
         {
-          ons.notification.alert("No Matching Results");
+          ons.notification.alert(app.strings["food-list"]["no-results"]);
           $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
           return false;
         }
@@ -335,7 +337,7 @@ var foodList = {
     request.withCredentials = true;
 
     request.onreadystatechange = function(){
-      console.log(request);
+      console.log(request.status);
 
       if (request.readyState == 4 && request.status == 1)
       {
@@ -460,7 +462,7 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   }
   else
   {
-    ons.notification.alert('Please complete all required fields.');
+    ons.notification.alert(app.strings["required-fields"]);
   }
 });
 
@@ -472,7 +474,7 @@ $(document).on("show", "ons-page#upload-food-item", function(e){
   foodList.images = {}; //Clear the images object
 
   //Hide the submit button and images card - they will be displayed again once an image is added
-  $("ons-page#upload-food-item #submit").hide();
+  //$("ons-page#upload-food-item #submit").hide();
   $("ons-page#upload-food-item #images").hide();
 
   //foodList.uploadToOFF(); //Just for testing

@@ -43,6 +43,12 @@ var settings = {
     }
   },
 
+  loadThemeSettings : function()
+  {
+    var options = $("#settings-page #theme option");
+    $(options[app.storage.getItem("theme")]).attr("selected", "selected");
+  },
+
   //Localises the placeholders of the forms input boxes
   localizeDiarySettingsForm : function()
   {
@@ -59,6 +65,7 @@ var settings = {
 
 $(document).on("show", "#settings-page", function(e){
   settings.loadSwitches();
+  settings.loadThemeSettings();
 });
 
 $(document).on("show", "#diary-settings", function(e){
@@ -89,4 +96,9 @@ $(document).on("tap", "#settings-page #export", function(e){
       dbHandler.exportToFile();
     }
   });
+});
+
+$(document).on("change", "#settings-page #theme", function(e){
+  app.storage.setItem("theme", this.value);
+  app.setTheme(this.value);
 });

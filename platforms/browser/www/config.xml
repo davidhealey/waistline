@@ -8,10 +8,11 @@
         David Healey
     </author>
     <content src="index.html" />
-    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="geo:*" />
-    <allow-navigation href="*://*world.openfoodfacts.net/*" />
-    <preference name="orientation" value="portrait" />
+    <access origin="*" />
+    <allow-intent href="*" />
+    <allow-navigation href="*" />
+    <preference name="SplashScreenDelay" value="3000" />
 </widget>
