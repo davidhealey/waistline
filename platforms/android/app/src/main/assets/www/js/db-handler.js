@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 14;
+      var databaseVersion = 15;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -86,6 +86,7 @@ var dbHandler =
 
           if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false}); //Date object
           if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false});
+          if (!store.indexNames.contains("brand")) store.createIndex('brand', 'brand', {unique:false});
           if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false});
           if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {unique:false}); //The number of portions
           if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Index of the category

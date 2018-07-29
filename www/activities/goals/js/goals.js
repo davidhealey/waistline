@@ -47,7 +47,6 @@ var goals = {
       placeholder = app.strings["days"][$(inputs[i]).attr("id")];
       $(inputs[i]).attr("placeholder", placeholder);
     }
-
   },
 
   processWeightForm : function()

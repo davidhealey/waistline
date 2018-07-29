@@ -50,17 +50,12 @@ var diary = {
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
-          html += "<a>"+unescape(value.name) + " - " + unescape(value.portion);
+          html += "<p style='margin-top:0;'>"+unescape(value.name) + " - " + unescape(value.portion) + "</p>";
 
-          if (value.quantity == 1)
-          {
-            html += "<p>"+value.quantity + " " + app.strings["diary"]["serving"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
-          }
-          else
-          {
-            html += "<p>"+value.quantity + " " + app.strings["diary"]["servings"] + ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
-          }
-          html += "</a>";
+          html += "<p style='margin:0; color:#636363;'>"+value.quantity + " ";
+          value.quantity == 1 ? html += app.strings["diary"]["serving"] : html += app.strings["diary"]["servings"];
+          html += ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+
           html += "</ons-list-item>";
 
           lists[value.category] += html;

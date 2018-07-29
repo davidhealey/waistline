@@ -44,11 +44,12 @@ var foodList = {
     {
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
-        html += "<ons-list-item tappable class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
+        html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)+"</label>";
+        html += "<label for='"+unescape(list[i].name)+"' class='left'>"+unescape(list[i].name);
+        html += " - " + list[i].portion + "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {

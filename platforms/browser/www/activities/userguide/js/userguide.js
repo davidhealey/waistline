@@ -11,7 +11,7 @@ var userguide = {
 
       for (var p = 0; p < para.length; p++) //Each paragraph
       {
-        $("#"+sections[s].id + " p").html(app.strings["user-guide"][sections[s].id][para[p].id]);
+        $("#"+sections[s].id + " #p"+(p+1)).html(app.strings["user-guide"][sections[s].id][para[p].id]);
       }
     }
   }

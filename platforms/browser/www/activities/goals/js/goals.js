@@ -36,6 +36,19 @@ var goals = {
     $("#edit-weight-form #gain-weight").prop("checked", goals.data.weight["gain"]);
   },
 
+  localizeNutritionForm : function()
+  {
+    var inputs = $("#nutrition ons-input");
+
+    var placeholder = "";
+
+    for (var i = 0; i < inputs.length; i++)
+    {
+      placeholder = app.strings["days"][$(inputs[i]).attr("id")];
+      $(inputs[i]).attr("placeholder", placeholder);
+    }
+  },
+
   processWeightForm : function()
   {
     goals.data.weight["target"] = $("#edit-weight-form #target-weight").val();
@@ -101,7 +114,7 @@ var goals = {
   copyMondayToExtraGoals : function()
   {
     if ($("#nutrition #multi-goal").prop("checked")) { //If multi-goal checkbox is unchecked
-      $("#nutrition .extra-goal").val($("#nutrition #0").val());
+      $("#nutrition .extra-goal").val($("#nutrition #1").val());
     }
   },
 
@@ -162,6 +175,7 @@ $(document).on("show", "ons-page#goals", function(e) {
 });
 
 $(document).on("show", "#nutrition", function(e) {
+  goals.localizeNutritionForm();
   goals.toggleExtraNutritionGoals();
   goals.copyMondayToExtraGoals();
 });
@@ -176,7 +190,7 @@ $(document).on("change", "#nutrition #multi-goal", function(e) {
   goals.copyMondayToExtraGoals();
 });
 
-$(document).on("change, keyup", "#nutrition #0", function(e) {
+$(document).on("keyup", "#nutrition #1", function(e) {
   goals.copyMondayToExtraGoals();
 });
 

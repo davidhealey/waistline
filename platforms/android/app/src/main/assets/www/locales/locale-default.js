@@ -9,6 +9,16 @@ var defaultLocale = {
   "salt":"Salt",
   "no-internet":"No Internet Connection",
 
+  "days":{
+    "0":"Sunday",
+    "1":"Monday",
+    "2":"Tuesday",
+    "3":"Wednesday",
+    "4":"Thursday",
+    "5":"Friday",
+    "6":"Saturday"
+  },
+
   "statistics":{
     "title":"Statistics",
     "goal":"Goal",
@@ -171,9 +181,9 @@ var defaultLocale = {
     "goals":
     {
       "title":"Goals",
-      "p1":"On the goals screen you can set various milestones you would like to reach.",
-      "p2":"",
-      "p3":""
+      "p1":"From this screen you can set the various targets you would like to reach.",
+      "p2":"You can set a weight goal and indicate if you would like to lose weight or gain weight.",
+      "p3":"And you can set a range of nutritional goals with a different goal for every day of the week."
     },
     "settings":
     {
@@ -200,13 +210,14 @@ var defaultLocale = {
     "licenses":
     {
       "title":"Licenses",
-      "p1":"  Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license."
+      "p1":"Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
+      "p2":"The source code for Waistline can be found <a href='https://github.com/davidhealey/waistline'>here.</a>"
     }
   },
 
   "about":
   {
     "title":"About",
-    "p1":"Waistline was created by David Healey with suggestions and contributions from fellow git-hubbers. 2018"
+    "p1":"Waistline was created by David Healey with suggestions and contributions from fellow git-hubbers."
   }
 }
