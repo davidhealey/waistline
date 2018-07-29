@@ -133,6 +133,7 @@ var diary = {
       {
         var now = new Date();
         diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+        diary.date.setHours(0);
       }
 
       //If date is blank set date to diary date if a date was passed as a parameter set the date picker to that date
@@ -191,6 +192,7 @@ var diary = {
     {
       var now = new Date();
       diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      diaryDate.setHours(0);
     }
 
     var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names

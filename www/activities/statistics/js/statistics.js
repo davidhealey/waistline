@@ -7,6 +7,8 @@ var statistics = {
       var now = new Date()
       var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
       var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
+      fromDate.setHours(0);
+      toDate.setHours(0);
 
       var range = $("#statistics #range").val();
       range == 7 ? fromDate.setDate(fromDate.getDate()-7) : fromDate.setMonth(fromDate.getMonth()-range);
@@ -98,6 +100,7 @@ var statistics = {
   {
     var now = new Date();
     var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+    dateTime.setHours(0);
 
     //Get diary stats for today
     diary.getStats(dateTime)
