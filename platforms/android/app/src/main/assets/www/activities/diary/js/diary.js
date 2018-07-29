@@ -132,7 +132,7 @@ var diary = {
       if (diary.date == undefined)
       {
         var now = new Date();
-        diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+        diary.date = app.getDateAtMidnight(now);
       }
 
       //If date is blank set date to diary date if a date was passed as a parameter set the date picker to that date
@@ -144,11 +144,13 @@ var diary = {
         var yyyy = diary.date.getFullYear();
 
         //Add leading 0s
-        if (dd < 10) mm = "0"+mm;
+        if (dd < 10) dd = "0"+dd;
         if (mm < 10) mm = "0"+mm;
 
         $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
       }
+
+      diary.date = app.getDateAtMidnight(diary.date);
 
       //Check if there is a log entry for the selected date, if there isn't, add one
       app.addDefaultLogEntry(diary.date)
@@ -190,7 +192,7 @@ var diary = {
     if (diary.date == undefined)
     {
       var now = new Date();
-      diary.date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+      diary.date = app.getDateAtMidnight(now);
     }
 
     var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names

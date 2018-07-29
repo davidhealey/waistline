@@ -5,8 +5,10 @@ var statistics = {
     return new Promise(function(resolve, reject){
 
       var now = new Date()
-      var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
-      var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
+      var fromDate = app.getDateAtMidnight(now); //Today at midnight
+
+      var toDate = new Date(fromDate);
+      toDate.setHours(24, 59); //1 minute before midnight tomorrow
 
       var range = $("#statistics #range").val();
       range == 7 ? fromDate.setDate(fromDate.getDate()-7) : fromDate.setMonth(fromDate.getMonth()-range);
@@ -52,13 +54,17 @@ var statistics = {
     }
 
     var chartData = {"labels":labels, "datasets":[]};
+    var colours = ["rgb(255, 153, 51, 0.5)", "rgb(102, 102, 255, 0.5)", "rgb(255, 102, 0, 0.5)", "rgb(51, 153, 255, 0.5)", "rgb(255, 102, 102, 0.5)", "rgb(51, 204, 255, 0.5)", "rgb(255, 80, 80, 0.5)"];
     var dataset = {};
+    var c = 0; //Counter to select label colour
 
     for (k in data.nutrition)
     {
+      c = (c + 1) % colours.length;
       dataset = {};
       dataset.label = app.strings[k];
       dataset.data = data.nutrition[k];
+      dataset.backgroundColor = colours[c];
       if (k !== "calories") dataset.hidden = true;
       chartData.datasets.push(dataset);
     }
@@ -97,7 +103,7 @@ var statistics = {
   renderDiaryStats : function()
   {
     var now = new Date();
-    var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+    var dateTime = app.getDateAtMidnight(now);
 
     //Get diary stats for today
     diary.getStats(dateTime)

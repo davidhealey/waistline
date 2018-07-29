@@ -108,6 +108,7 @@ var goals = {
   updateLog : function(date)
   {
     return new Promise(function(resolve, reject){
+
       var dateTime = new Date();
 
       if (date)
@@ -117,7 +118,7 @@ var goals = {
       else {
         //Store goals (for current day only) in log
         var now = new Date();
-        dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
+        diary.date = app.getDateAtMidnight(now);
       }
 
       var data = {};
