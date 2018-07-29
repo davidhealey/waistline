@@ -54,13 +54,17 @@ var statistics = {
     }
 
     var chartData = {"labels":labels, "datasets":[]};
+    var colours = ["rgb(255, 153, 51, 0.5)", "rgb(102, 102, 255, 0.5)", "rgb(255, 102, 0, 0.5)", "rgb(51, 153, 255, 0.5)", "rgb(255, 102, 102, 0.5)", "rgb(51, 204, 255, 0.5)", "rgb(255, 80, 80, 0.5)"];
     var dataset = {};
+    var c = 0; //Counter to select label colour
 
     for (k in data.nutrition)
     {
+      c = (c + 1) % colours.length;
       dataset = {};
       dataset.label = app.strings[k];
       dataset.data = data.nutrition[k];
+      dataset.backgroundColor = colours[c];
       if (k !== "calories") dataset.hidden = true;
       chartData.datasets.push(dataset);
     }
