@@ -116,7 +116,7 @@ ons.ready(function() {
   console.log("Cordova Ready");
   app.initialize();
   if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
-  nav.resetToPage("activities/statistics/views/statistics.html");
+  nav.resetToPage("activities/diary/views/diary.html");
 });
 
 //Localize when any page is initialized
