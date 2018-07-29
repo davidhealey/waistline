@@ -108,7 +108,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'])" tappable modifier="longdivider">
+              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'], {'title':app.strings['about']['title']})" tappable modifier="longdivider">
                 <div class="left" data-localize="instructions">
                   About
                 </div>
@@ -126,7 +126,7 @@
       </ons-splitter>
 
       <script>
-        window.nav = document.getElementById('mainNavigator');
+        window.nav = document.getElementById('mainNavigator'); //Make nav bar globally available
       </script>
 
       <script type="text/javascript" src="cordova.js"></script>

@@ -36,6 +36,20 @@ var goals = {
     $("#edit-weight-form #gain-weight").prop("checked", goals.data.weight["gain"]);
   },
 
+  localizeNutritionForm : function()
+  {
+    var inputs = $("#nutrition ons-input");
+
+    var placeholder = "";
+
+    for (var i = 0; i < inputs.length; i++)
+    {
+      placeholder = app.strings["days"][$(inputs[i]).attr("id")];
+      $(inputs[i]).attr("placeholder", placeholder);
+    }
+
+  },
+
   processWeightForm : function()
   {
     goals.data.weight["target"] = $("#edit-weight-form #target-weight").val();
@@ -162,6 +176,7 @@ $(document).on("show", "ons-page#goals", function(e) {
 });
 
 $(document).on("show", "#nutrition", function(e) {
+  goals.localizeNutritionForm();
   goals.toggleExtraNutritionGoals();
   goals.copyMondayToExtraGoals();
 });
