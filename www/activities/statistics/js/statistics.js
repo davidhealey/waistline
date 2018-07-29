@@ -5,10 +5,10 @@ var statistics = {
     return new Promise(function(resolve, reject){
 
       var now = new Date()
-      var fromDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()-1));
-      var toDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + (now.getDate()+1)); //Tomorrow at midnight
-      fromDate.setHours(0);
-      toDate.setHours(0);
+      var fromDate = app.getDateAtMidnight(now); //Today at midnight
+
+      var toDate = new Date(fromDate);
+      toDate.setHours(24, 59); //1 minute before midnight tomorrow
 
       var range = $("#statistics #range").val();
       range == 7 ? fromDate.setDate(fromDate.getDate()-7) : fromDate.setMonth(fromDate.getMonth()-range);
@@ -99,8 +99,7 @@ var statistics = {
   renderDiaryStats : function()
   {
     var now = new Date();
-    var dateTime = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
-    dateTime.setHours(0);
+    var dateTime = app.getDateAtMidnight(now);
 
     //Get diary stats for today
     diary.getStats(dateTime)
