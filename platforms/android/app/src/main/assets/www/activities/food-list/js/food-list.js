@@ -306,8 +306,17 @@ var foodList = {
       .then(function(input){
         var imageTypes = ["front", "ingredients", "nutrition"]
 
+        //Make sure there is only one image per imagefield
+        for (var i = 0; i < foodList.images.length; i++)
+        {
+          if (foodList.images[i].imagefield == imageTypes[input])
+          {
+            foodList.images.splice(i, 1); //Remove item from images array
+          }
+        }
+
         var imageData = {"imagefield":imageTypes[input], "path":image, "uploadType":"imgupload_"+imageTypes[input]};
-        foodList.images[input] = imageData;
+        foodList.images.push(imageData);
 
         $("#upload-food-item #images").show(); //Reveal image card
         $("#upload-food-item #images #"+input).html("<img style='width:95%;' src='"+image+"'></img>"); //Add image to carousel
@@ -322,7 +331,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true);
+      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -349,6 +359,7 @@ var foodList = {
   },
 
   //Recursive function will upload all images in passed images array (foodList.images)
+  //This function doesn't work in the browser but works fine on Android
   uploadImagesToOFF : function(code, images, index)
   {
     console.log("INDEX IS: " + index + "TOTAL: " + images.length);
@@ -378,7 +389,8 @@ var foodList = {
 
                       var request = new XMLHttpRequest();
 
-                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true);
+                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      //request.open("POST", "https://off:off@world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 
@@ -402,6 +414,28 @@ var foodList = {
           }, function (err) { console.error('error getting file! ' + err); reject();});
         }, function (err) { console.error('error getting persistent fs! ' + err); reject();});
     });
+  },
+
+  validateUploadForm : function()
+  {
+    var name = $("#upload-item-form #name").val();
+    var brand = $("#upload-item-form #brand").val();
+    var serving_size = $("#upload-item-form #serving_size").val();
+    var calories = $("#upload-item-form #calories").val();
+
+    //First check that there is an internet connection
+    if (navigator.connection.type == "none")
+    {
+      ons.notification.alert(app.strings["no-internet"]);
+      return false;
+    }
+
+    if (name != "" && brand != "" && serving_size && calories != "" && !isNaN(calories)) {
+      return true;
+    } else {
+      ons.notification.alert(app.strings["dialogs"]["required-fields"]);
+      return false;
+    }
   },
 }
 
@@ -512,48 +546,56 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   var calories = parseFloat($('#edit-food-item #calories').val());
 
   //Form validation
-  if (name != "" && portion != "" && !isNaN(calories)) {
+  if (name != "" && portion != "" && calories != "" && !isNaN(calories)) {
     $("#edit-food-item #edit-item-form").submit();
   } else {
-    ons.notification.alert(app.strings["required-fields"]);
+    ons.notification.alert(app.strings["dialogs"]["required-fields"]);
   }
 });
 
 $(document).on("show", "#upload-food-item", function(e){
+
   var data = this.data; //Get data thas was pushed to page
-  //data.code = "5010251790525"; //Testing
-  $("ons-page#upload-food-item #barcode").val(data.code); //Add barcode to form
+
+  //$("#upload-food-item #barcode").val(data.code); //Add barcode to form
+  $("#upload-food-item #comment").val("Waistline: " + app.storage.getItem("uuid")); //Add uuid comment to form
 
   //Reset the images array
   foodList.images = [];
 
   //Hide the images card - it will be displayed again once an image is added
-  $("ons-page#upload-food-item #images").hide();
+  $("#upload-food-item #images").hide();
   $("#upload-food-item #images ons-carousel-item").hide(); //Hide all image carousel items until an image is added
 });
 
 $(document).on("tap", "#upload-food-item #submit", function(e){
 
   var data = $("#upload-food-item #upload-item-form").serialize(); //Get form data
-  var code = $("ons-page#upload-food-item #barcode").val(); //Get barcode from form
+  var code = $("#upload-food-item #barcode").val(); //Get barcode from form
 
-  $("#upload-food-item ons-modal").show();
-  foodList.uploadProductInfoToOFF(data)
-  .then(function(response){
-    foodList.uploadImagesToOFF(code, foodList.images, 0)
-    .then(
-      function(){
-        $("#upload-food-item ons-modal").hide();
-        ons.notification.alert("Food successfully added to Open Food Facts.")
-        .then(function(){nav.popPage();});
-      });
-  })
-  .catch(function(err) {
-    console.error('Augh, there was an error!', err.statusText);
-    $("#upload-food-item ons-modal").hide();
-    ons.notification.alert("Unfortunately the upload failed. Please try again or contact the developer.");
-  });
-
+  if (foodList.validateUploadForm() == true)
+  {
+    $("#upload-food-item ons-modal").show();
+    foodList.uploadProductInfoToOFF(data) //Upload data
+    .then(function(response){
+      if (foodList.images.length > 0) foodList.uploadImagesToOFF(code, foodList.images, 0) //Upload images
+      .then(
+        function(){
+          $("#upload-food-item ons-modal").hide();
+          ons.notification.alert("Food successfully added to Open Food Facts.")
+          .then(function(){nav.popPage();});
+        });
+    })
+    .catch(function(err) {
+      console.error('Augh, there was an error!', err.statusText);
+      $("#upload-food-item ons-modal").hide();
+      ons.notification.alert("Unfortunately the upload failed. Please try again or contact the developer.");
+    });
+  }
+  else
+  {
+    return false;
+  }
 });
 
 //Delete an image

@@ -24,6 +24,12 @@ var app = {
       app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"]));
     }
 
+    //Each install gets a UUID that is added to the comments when uploading to the OFF database, to prevent trolls
+    if (app.storage.getItem("uuid") == undefined)
+    {
+      app.storage.setItem("uuid", app.uuidv4());
+    }
+
     dbHandler.initializeDb() //db-handler initialization
     .then(function(){
       //Add a log entry for the current date if there isn't one already
@@ -51,6 +57,13 @@ var app = {
     }
 
     app.setTheme(this.storage.getItem("theme")); //Set theme CSS
+  },
+
+  //UUID generator
+  uuidv4 : function() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    )
   },
 
   setTheme : function(theme)
