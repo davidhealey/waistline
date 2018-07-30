@@ -331,8 +331,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      //request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
-      request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
+      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -358,62 +358,49 @@ var foodList = {
     });
   },
 
-  //Recursive function will upload all images in passed images array (foodList.images)
-  //This function doesn't work in the browser but works fine on Android
-  uploadImagesToOFF : function(code, images, index)
+  uploadImageToOFF : function(code, imageData)
   {
-    console.log("INDEX IS: " + index + "TOTAL: " + images.length);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
-    return new Promise(function(resolve, reject){
+       console.log('file system open: ' + fs.name);
 
-      var data = new FormData();
-      data.append("code", code);
-      data.append("imagefield", images[index].imagefield);
+         window.resolveLocalFileSystemURL(imageData.path, function (fileEntry) {
 
-      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-
-          console.log('file system open: ' + fs.name);
-
-          window.resolveLocalFileSystemURL(images[index].path, function (fileEntry) {
-
-              console.log("Got the file: " + images[index].imagefield);
+              console.log("Got the file: " + imageData.imagefield);
 
               fileEntry.file(function (file) {
 
                   var reader = new FileReader();
                   reader.onloadend = function() {
+
                       // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
                       var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
 
-                      data.append(images[index].uploadType, blob);
+                      var formData = new FormData();
+                      formData.append(imageData.uploadType, blob);
+                      formData.append("code", code);
+                      formData.append("imagefield", imageData.imagefield);
+
+                      console.log("Upload start");
 
                       var request = new XMLHttpRequest();
 
-                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      request.open("POST", "https://off:off@world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      //request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 
                       request.onload = function (e) {
-
-                          console.log("Image uploaded: " + images[index].imagefield + " Remaining: " + (images.length-1-index));
-
-                          if (index < images.length-1)
-                          {
-                            foodList.uploadImagesToOFF(code, images, index+1); //Recursive call to upload next image
-                          }
-                          else {
-                            resolve(); //All images uploaded
-                          }
+                        console.log("Image uploaded: " + imageData.imagefield);
                       };
-                      request.send(data);
+                      request.send(formData);
                   };
+
                   // Read the file as an ArrayBuffer
                   reader.readAsArrayBuffer(file);
               }, function (err) { console.error('error getting fileentry file!' + err); reject();});
           }, function (err) { console.error('error getting file! ' + err); reject();});
-        }, function (err) { console.error('error getting persistent fs! ' + err); reject();});
-    });
+      }, function (err) { console.error('error getting persistent fs! ' + err); reject();});
   },
 
   validateUploadForm : function()
@@ -575,16 +562,27 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
 
   if (foodList.validateUploadForm() == true)
   {
+    //Diplay uploading indicator
     $("#upload-food-item ons-modal").show();
+
     foodList.uploadProductInfoToOFF(data) //Upload data
     .then(function(response){
-      if (foodList.images.length > 0) foodList.uploadImagesToOFF(code, foodList.images, 0) //Upload images
-      .then(
-        function(){
-          $("#upload-food-item ons-modal").hide();
-          ons.notification.alert("Food successfully added to Open Food Facts.")
-          .then(function(){nav.popPage();});
-        });
+
+      //Upload images
+      if (foodList.images.length > 0)
+      {
+        for (var i = 0; i < foodList.images.length; i++)
+        {
+          foodList.uploadImageToOFF(code, foodList.images[i]);
+        }
+      }
+      //Wait 3 seconds
+      setTimeout(function()
+      {
+        $("#upload-food-item ons-modal").hide();
+        ons.notification.alert("Food successfully added to Open Food Facts.");
+        //.then(function(){nav.popPage();});
+      }, 3000);
     })
     .catch(function(err) {
       console.error('Augh, there was an error!', err.statusText);
