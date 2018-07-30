@@ -1,7 +1,7 @@
 var foodList = {
 
   list:[],
-  images:{}, //Place to store image uris when uploading a product to Open Food Facts
+  images:[], //Place to store image uris when uploading a product to Open Food Facts
 
   fillListFromDB : function()
   {
@@ -172,14 +172,13 @@ var foodList = {
           if (result.status == 0) //Product not found
           {
             //Ask the user if they would like to add the product to the open food facts database
-            /*ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+            ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
             .then(function(input) {
               if (input == 1) {
                 nav.pushPage("activities/food-list/views/upload-item.html", {"data":{"code":code}});
               }
-            });*/
+            });
 
-            ons.notification.alert("Product not found. You can add it using the Open Food Facts app.");
             $("#food-list-page ons-progress-circular").hide();
             return false;
           }
@@ -299,53 +298,112 @@ var foodList = {
     var image = app.takePicture(options)
     .then(function(image){
 
-      var timestamp = new Date().toTimeString(); //Index each image by time stamp so that it can be identified when deleting
+      //Ask the user to select the type of image
+      ons.openActionSheet({
+        title: 'What is this image of?',
+        buttons: ['Front Image', 'Ingredients', 'Nutrition']
+      })
+      .then(function(input){
+        var imageTypes = ["front", "ingredients", "nutrition"]
 
-      foodList.images[timestamp] = image; //Add the image url to the images array
+        var imageData = {"imagefield":imageTypes[input], "path":image, "uploadType":"imgupload_"+imageTypes[input]};
+        foodList.images[input] = imageData;
 
-      var html = "<ons-carousel-item id='"+timestamp+"'>"; //Use array index as ID
-      html += "<img style='width:95%;' src='"+image+"'></img>";
-      html += "</ons-carousel-item>";
+        $("#upload-food-item #images").show(); //Reveal image card
+        $("#upload-food-item #images #"+input).html("<img style='width:95%;' src='"+image+"'></img>"); //Add image to carousel
+        $("#upload-food-item #images #"+input).show(); //Display image
 
-      $('#upload-food-item #images ons-carousel').append(html);
-
-      $("ons-page#upload-food-item #submit").show(); //Reveal submit button
-      $("ons-page#upload-food-item #images").show(); //Reveal image card
+        //Reveal the submit button once a front image has been added
+        if (imageTypes[input] == "front") $("#upload-food-item #submit").show();
+      });
     });
   },
 
-  //Todo
-  uploadToOFF : function()
+  uploadProductInfoToOFF : function(data)
   {
-    var productData = {};
+    return new Promise(function(resolve, reject){
+      //Upload product info
+      var request = new XMLHttpRequest();
 
-    /*var foodfact = { barcode : '0048151623426', name : 'Product name', energy: 500, energy_unit: "kJ", weight: 282 };
-    var postData = {
-      code  : foodfact.barcode,
-      user_id  : "off",
-      password  : "off",
-      product_name : foodfact.name?foodfact.name:foodfact.shop_label,
-      quantity  : foodfact.weight?""+foodfact.weight+" g":undefined,
-      stores  : "Walmart",
-      nutriment_energy  :foodfact.energy,
-      nutriment_energy_unit :foodfact.energy_unit,
-      nutrition_data_per  :"serving"
-    };*/
+      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true);
+      request.setRequestHeader("Content-Type", "multipart/form-data");
+      request.withCredentials = true;
 
-    var request = new XMLHttpRequest();
-    request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?code=0048151623426&product_name=Maryland%20Choc%20Chip&quantity=230g&nutriment_energy=450&nutriment_energy_unit=kJ&nutrition_data_per=serving&ingredients_text=Fortified%20wheat%20flour%2C%20Chocolate%20chips%20%2825%25%29%2C%20Sugar%2C%20Palm%20oil%2C%20Golden%20syrup%2C%20Whey%20and%20whey%20derivatives%20%28Milk%29%2C%20Raising%20agents%2C%20Salt%2C%20Flavouring", true);
-    request.withCredentials = true;
+      request.onload = function() {
+        if (this.status >= 200 && this.status < 300) {
+         resolve(request.response);
+        } else {
+         reject({
+           status: this.status,
+           statusText: request.statusText
+         });
+        }
+      };
 
-    request.onreadystatechange = function(){
-      console.log(request.status);
+      request.onerror = function() {
+        reject({
+          status: this.status,
+          statusText: request.statusText
+        });
+      };
 
-      if (request.readyState == 4 && request.status == 1)
-      {
-      }
-    };
-
-    request.send();
+      request.send();
+    });
   },
+
+  uploadImagesToOFF : function(code, images, index)
+  {
+    console.log("INDEX IS: " + index + "TOTAL: " + images.length);
+    return new Promise(function(resolve, reject){
+
+      data = new FormData();
+      data.append("code", code);
+      data.append("imagefield", images[index].imagefield);
+
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+          console.log('file system open: ' + fs.name);
+
+          window.resolveLocalFileSystemURL(images[index].path, function (fileEntry) {
+
+              console.log("Got the file: " + images[index].imagefield);
+
+              fileEntry.file(function (file) {
+
+                  var reader = new FileReader();
+                  reader.onloadend = function() {
+                      // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+                      var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+
+                      data.append(images[index].uploadType, blob);
+
+                      var request = new XMLHttpRequest();
+
+                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true);
+                      request.setRequestHeader("Content-Type", "multipart/form-data");
+                      request.withCredentials = true;
+
+                      request.onload = function (e) {
+
+                          console.log("Image uploaded: " + images[index].imagefield + " Remaining: " + (images.length-1-index));
+
+                          if (index < images.length-1)
+                          {
+                            foodList.uploadImagesToOFF(code, images, index+1); //Recursive call to upload next image
+                          }
+                          else {
+                            resolve(); //All images uploaded
+                          }
+                      };
+                      request.send(data);
+                  };
+                  // Read the file as an ArrayBuffer
+                  reader.readAsArrayBuffer(file);
+              }, function (err) { console.error('error getting fileentry file!' + err); reject();});
+          }, function (err) { console.error('error getting file! ' + err); reject();});
+        }, function (err) { console.error('error getting persistent fs! ' + err); reject();});
+    });
+  },
+
 }
 
 
@@ -466,22 +524,42 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   }
 });
 
-$(document).on("show", "ons-page#upload-food-item", function(e){
+$(document).on("show", "#upload-food-item", function(e){
   var data = this.data; //Get data thas was pushed to page
-  data.code = "09310072001128"; //Testing
+  data.code = "5010251790525"; //Testing
   $("ons-page#upload-food-item #barcode").val(data.code);
 
-  foodList.images = {}; //Clear the images object
+  //Reset the images object
+  foodList.images = [];
 
   //Hide the submit button and images card - they will be displayed again once an image is added
-  //$("ons-page#upload-food-item #submit").hide();
+  $("ons-page#upload-food-item #submit").hide();
   $("ons-page#upload-food-item #images").hide();
+  $("#upload-food-item #images ons-carousel-item").hide(); //Hide all image carousel items until an image is added
 
-  //foodList.uploadToOFF(); //Just for testing
+});
+
+$(document).on("tap", "#upload-food-item #submit", function(e){
+
+  var data = $("#upload-food-item #upload-item-form").serialize(); //Get form data
+  var code = $("ons-page#upload-food-item #barcode").val(); //Get barcode from form
+
+  $("#upload-food-item ons-modal").show();
+  foodList.uploadProductInfoToOFF(data)
+  .then(function(response){
+    foodList.uploadImagesToOFF(code, foodList.images, 0)
+    .then(function(){$("#upload-food-item ons-modal").hide();});
+  })
+  .catch(function(err) {
+    console.error('Augh, there was an error!', err.statusText);
+    $("#upload-food-item ons-modal").hide();
+    ons.notification.alert("Unfortunately the upload failed. Please try again or contact the developer.");
+  });
+
 });
 
 //Delete an image
-$(document).on("hold", "ons-page#upload-food-item #images ons-carousel-item", function(){
+$(document).on("hold", "#upload-food-item #images ons-carousel-item", function(){
 
   var control = this;
 
@@ -490,9 +568,9 @@ $(document).on("hold", "ons-page#upload-food-item #images ons-carousel-item", fu
   .then(function(input) {
     if (input == 1) {//Delete was confirmed
 
-      delete foodList.images[control.id]; //Clear array element but don't re-order or change array length
+      foodList.images.splice(control.id, 1); //Remove item from images array
 
-      $(control).remove();
+      $(control).hide();
 
       if (Object.keys(foodList.images).length == 0)
       {

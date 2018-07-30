@@ -189,7 +189,7 @@ var defaultLocale = {
     {
       "title":"Settings",
       "p1":"There are various settings on this screen that can be used to customise the app. Most of these are self explanatory.",
-      "p2":"The diary settings allow you to customise the names of the categories used in the food diary. You can have up to 7 categories. Any categories that don't have a name won't be used.",
+      "p2":"The diary settings allow you to customise the names of the categories used in the food diary. You can have up to 7 categories. Any categories that don't have a name won't be used."
     },
     "export":
     {

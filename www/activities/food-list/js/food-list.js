@@ -1,7 +1,7 @@
 var foodList = {
 
   list:[],
-  images:{}, //Place to store image uris when uploading a product to Open Food Facts
+  images:[], //Place to store image uris when uploading a product to Open Food Facts
 
   fillListFromDB : function()
   {
@@ -172,14 +172,13 @@ var foodList = {
           if (result.status == 0) //Product not found
           {
             //Ask the user if they would like to add the product to the open food facts database
-            /*ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+            ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
             .then(function(input) {
               if (input == 1) {
                 nav.pushPage("activities/food-list/views/upload-item.html", {"data":{"code":code}});
               }
-            });*/
+            });
 
-            ons.notification.alert("Product not found. You can add it using the Open Food Facts app.");
             $("#food-list-page ons-progress-circular").hide();
             return false;
           }
@@ -299,22 +298,24 @@ var foodList = {
     var image = app.takePicture(options)
     .then(function(image){
 
-      var timestamp = new Date().toTimeString(); //Index each image by time stamp so that it can be identified when deleting
+      //Ask the user to select the type of image
+      ons.openActionSheet({
+        title: 'What is this image of?',
+        buttons: ['Front Image', 'Ingredients', 'Nutrition']
+      })
+      .then(function(input){
+        var imageTypes = ["front", "ingredients", "nutrition"]
 
-      foodList.images[timestamp] = image; //Add the image url to the images array
+        var imageData = {"imagefield":imageTypes[input], "path":image, "uploadType":"imgupload_"+imageTypes[input]};
+        foodList.images[input] = imageData;
 
-      var html = "<ons-carousel-item id='"+timestamp+"'>"; //Use array index as ID
-      html += "<img style='width:95%;' src='"+image+"'></img>";
-      html += "</ons-carousel-item>";
-
-      $('#upload-food-item #images ons-carousel').append(html);
-
-      $("ons-page#upload-food-item #submit").show(); //Reveal submit button
-      $("ons-page#upload-food-item #images").show(); //Reveal image card
+        $("#upload-food-item #images").show(); //Reveal image card
+        $("#upload-food-item #images #"+input).html("<img style='width:95%;' src='"+image+"'></img>"); //Add image to carousel
+        $("#upload-food-item #images #"+input).show(); //Display image
+      });
     });
   },
 
-  //Todo
   uploadProductInfoToOFF : function(data)
   {
     return new Promise(function(resolve, reject){
@@ -325,26 +326,19 @@ var foodList = {
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
-      request.onload = function()
-      {
-        if (this.status >= 200 && this.status < 300)
-        {
+      request.onload = function() {
+        if (this.status >= 200 && this.status < 300) {
          resolve(request.response);
-        }
-        else
-        {
-         reject(
-         {
+        } else {
+         reject({
            status: this.status,
            statusText: request.statusText
          });
         }
       };
 
-      request.onerror = function()
-      {
-        reject(
-        {
+      request.onerror = function() {
+        reject({
           status: this.status,
           statusText: request.statusText
         });
@@ -353,8 +347,63 @@ var foodList = {
       request.send();
     });
   },
-}
 
+  //Recursive function will upload all images in passed images array (foodList.images)
+  uploadImagesToOFF : function(code, images, index)
+  {
+    console.log("INDEX IS: " + index + "TOTAL: " + images.length);
+
+    return new Promise(function(resolve, reject){
+
+      var data = new FormData();
+      data.append("code", code);
+      data.append("imagefield", images[index].imagefield);
+
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+
+          console.log('file system open: ' + fs.name);
+
+          window.resolveLocalFileSystemURL(images[index].path, function (fileEntry) {
+
+              console.log("Got the file: " + images[index].imagefield);
+
+              fileEntry.file(function (file) {
+
+                  var reader = new FileReader();
+                  reader.onloadend = function() {
+                      // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+                      var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+
+                      data.append(images[index].uploadType, blob);
+
+                      var request = new XMLHttpRequest();
+
+                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true);
+                      request.setRequestHeader("Content-Type", "multipart/form-data");
+                      request.withCredentials = true;
+
+                      request.onload = function (e) {
+
+                          console.log("Image uploaded: " + images[index].imagefield + " Remaining: " + (images.length-1-index));
+
+                          if (index < images.length-1)
+                          {
+                            foodList.uploadImagesToOFF(code, images, index+1); //Recursive call to upload next image
+                          }
+                          else {
+                            resolve(); //All images uploaded
+                          }
+                      };
+                      request.send(data);
+                  };
+                  // Read the file as an ArrayBuffer
+                  reader.readAsArrayBuffer(file);
+              }, function (err) { console.error('error getting fileentry file!' + err); reject();});
+          }, function (err) { console.error('error getting file! ' + err); reject();});
+        }, function (err) { console.error('error getting persistent fs! ' + err); reject();});
+    });
+  },
+}
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e){
@@ -463,45 +512,52 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   var calories = parseFloat($('#edit-food-item #calories').val());
 
   //Form validation
-  if (name != "" && portion != "" && !isNaN(calories))
-  {
+  if (name != "" && portion != "" && !isNaN(calories)) {
     $("#edit-food-item #edit-item-form").submit();
-  }
-  else
-  {
+  } else {
     ons.notification.alert(app.strings["required-fields"]);
   }
 });
 
-$(document).on("show", "ons-page#upload-food-item", function(e){
+$(document).on("show", "#upload-food-item", function(e){
   var data = this.data; //Get data thas was pushed to page
-  data.code = "5010251790525"; //Testing
-  $("ons-page#upload-food-item #barcode").val(data.code);
+  //data.code = "5010251790525"; //Testing
+  $("ons-page#upload-food-item #barcode").val(data.code); //Add barcode to form
 
-  foodList.images = {}; //Clear the images object
+  //Reset the images array
+  foodList.images = [];
 
-  //Hide the submit button and images card - they will be displayed again once an image is added
-  //$("ons-page#upload-food-item #submit").hide();
+  //Hide the images card - it will be displayed again once an image is added
   $("ons-page#upload-food-item #images").hide();
-
-  //foodList.uploadToOFF(); //Just for testing
+  $("#upload-food-item #images ons-carousel-item").hide(); //Hide all image carousel items until an image is added
 });
 
 $(document).on("tap", "#upload-food-item #submit", function(e){
-  var data = $("#upload-food-item #upload-item-form").serialize(); //Get form data
 
+  var data = $("#upload-food-item #upload-item-form").serialize(); //Get form data
+  var code = $("ons-page#upload-food-item #barcode").val(); //Get barcode from form
+
+  $("#upload-food-item ons-modal").show();
   foodList.uploadProductInfoToOFF(data)
   .then(function(response){
-    console.log(response);
+    foodList.uploadImagesToOFF(code, foodList.images, 0)
+    .then(
+      function(){
+        $("#upload-food-item ons-modal").hide();
+        ons.notification.alert("Food successfully added to Open Food Facts.")
+        .then(function(){nav.popPage();});
+      });
   })
   .catch(function(err) {
     console.error('Augh, there was an error!', err.statusText);
+    $("#upload-food-item ons-modal").hide();
+    ons.notification.alert("Unfortunately the upload failed. Please try again or contact the developer.");
   });
 
 });
 
 //Delete an image
-$(document).on("hold", "ons-page#upload-food-item #images ons-carousel-item", function(){
+$(document).on("hold", "#upload-food-item #images ons-carousel-item", function(){
 
   var control = this;
 
@@ -510,15 +566,12 @@ $(document).on("hold", "ons-page#upload-food-item #images ons-carousel-item", fu
   .then(function(input) {
     if (input == 1) {//Delete was confirmed
 
-      delete foodList.images[control.id]; //Clear array element but don't re-order or change array length
+      foodList.images.splice(control.id, 1); //Remove item from images array
 
-      $(control).remove();
+      $(control).hide(); //Hide the image carousel item
 
-      if (Object.keys(foodList.images).length == 0)
-      {
-        $("ons-page#upload-food-item #submit").hide();
-        $("ons-page#upload-food-item #images").hide();
-      }
+      //If there are no images, hide the card
+      if (foodList.images.length == 0) $("ons-page#upload-food-item #images").hide();
     }
   });
 });
