@@ -190,7 +190,7 @@ $(document).on("change", "#nutrition #multi-goal", function(e) {
   goals.copyMondayToExtraGoals();
 });
 
-$(document).on("keyup", "#nutrition #1", function(e) {
+$(document).on("keyup change", "#nutrition #1", function(e) {
   goals.copyMondayToExtraGoals();
 });
 
