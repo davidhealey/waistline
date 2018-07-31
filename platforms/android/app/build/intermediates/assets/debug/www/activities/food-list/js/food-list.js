@@ -314,7 +314,7 @@ var foodList = {
         buttons: ['Front Image', 'Ingredients', 'Nutrition']
       })
       .then(function(input){
-        var imageTypes = ["front", "ingredients", "nutrition"]
+        var imageTypes = ["front", "ingredients", "nutrition"];
 
         //Make sure there is only one image per imagefield
         for (var i = 0; i < foodList.images.length; i++)
@@ -346,8 +346,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      //request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
-      request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
+      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -400,8 +400,8 @@ var foodList = {
 
                       var request = new XMLHttpRequest();
 
-                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      //request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 
@@ -559,7 +559,7 @@ $(document).on("show", "#upload-food-item", function(e){
 
   var data = this.data; //Get data thas was pushed to page
 
-  //$("#upload-food-item #barcode").val(data.code); //Add barcode to form
+  $("#upload-food-item #barcode").val(data.code); //Add barcode to form
   $("#upload-food-item #comment").val("Waistline: " + app.storage.getItem("uuid")); //Add uuid comment to form
 
   //Reset the images array
@@ -595,8 +595,8 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
       setTimeout(function()
       {
         $("#upload-food-item ons-modal").hide();
-        ons.notification.alert("Food successfully added to Open Food Facts.");
-        //.then(function(){nav.popPage();});
+        ons.notification.alert("Food successfully added to Open Food Facts.")
+        .then(function(){nav.popPage();});
       }, 5000);
     })
     .catch(function(err) {

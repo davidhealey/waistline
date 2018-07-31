@@ -314,7 +314,7 @@ var foodList = {
         buttons: ['Front Image', 'Ingredients', 'Nutrition']
       })
       .then(function(input){
-        var imageTypes = ["front", "ingredients", "nutrition"]
+        var imageTypes = ["front", "ingredients", "nutrition"];
 
         //Make sure there is only one image per imagefield
         for (var i = 0; i < foodList.images.length; i++)
@@ -559,7 +559,7 @@ $(document).on("show", "#upload-food-item", function(e){
 
   var data = this.data; //Get data thas was pushed to page
 
-  //$("#upload-food-item #barcode").val(data.code); //Add barcode to form
+  $("#upload-food-item #barcode").val(data.code); //Add barcode to form
   $("#upload-food-item #comment").val("Waistline: " + app.storage.getItem("uuid")); //Add uuid comment to form
 
   //Reset the images array
@@ -595,8 +595,8 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
       setTimeout(function()
       {
         $("#upload-food-item ons-modal").hide();
-        ons.notification.alert("Food successfully added to Open Food Facts.");
-        //.then(function(){nav.popPage();});
+        ons.notification.alert("Food successfully added to Open Food Facts.")
+        .then(function(){nav.popPage();});
       }, 5000);
     })
     .catch(function(err) {
