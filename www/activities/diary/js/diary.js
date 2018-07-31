@@ -73,7 +73,7 @@ var diary = {
         }
         else
         {
-          $("#diary-page #diary-lists").html(""); //Clear old items
+          $("#diary-page #diary-lists").html(""); //Clear old lists
 
           //One list per meal
           for (var i = 0; i < lists.length; i++)
