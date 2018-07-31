@@ -380,7 +380,7 @@ $(document).on("init", "#edit-diary-item", function(e){
 });
 
 //Update displayed values as quantity is changed
-$(document).on("keyup", "#edit-diary-item #quantity", function(e){
+$(document).on("change, keyup", "#edit-diary-item #quantity", function(e){
   var data = JSON.parse($("#edit-diary-item #data").attr("data"));
   for (n in data.nutrition)
   {
