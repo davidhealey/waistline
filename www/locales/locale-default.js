@@ -3,7 +3,7 @@ var defaultLocale = {
   "quantity": "Quantity",
   "calories": "Calories",
   "protein":"Protein",
-  "carbs":"Carbs",
+  "carbs":"Carbohydrates",
   "fat":"Fat",
   "sugar":"Sugar",
   "salt":"Salt",
@@ -64,7 +64,7 @@ var defaultLocale = {
         "quantity":"Number of servings*",
         "calories":"Calories*",
         "protein":"Protein (g)",
-        "carbs":"Carbs (g)",
+        "carbs":"Carbohydrates (g)",
         "fat":"Fat (g)",
         "salt":"Salt (g)",
         "sugar":"Sugar (g)"
@@ -87,7 +87,7 @@ var defaultLocale = {
         "portion":"Portion*",
         "calories":"Calories*",
         "protein":"Protein (g)",
-        "carbs":"Carbs (g)",
+        "carbs":"Carbohydrates (g)",
         "fat":"Fat (g)",
         "sugar":"Sugar (g)",
         "salt":"Salt (g)"
@@ -102,11 +102,13 @@ var defaultLocale = {
           "portion":"Portion*",
           "calories":"Calories*",
           "portion":"Protein (g)",
-          "carbs":"Carbs (g)",
+          "carbs":"Carbohydrates (g)",
           "fat":"Fat (g)",
           "sugar":"Sugar (g)",
           "salt":"Salt (g)"
-        }
+        },
+        "success":"Product successfully added to Open Food Facts",
+        "fail":"Unfortunately the upload failed. Please try again or contact the developer."
       }
     }
   },
