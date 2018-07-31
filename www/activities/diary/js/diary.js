@@ -25,7 +25,7 @@ var diary = {
       for (var i = 0; i < categories.length; i++)
       {
         if (categories[i] == "") continue; //Skip unset meal names
-        lists[i] = "<ons-list-header id='category"+i+"' category-idx='"+i+"'>"+categories[i]+"<span></span></ons-list-header>";
+        lists[i] = "<ons-list-title id='category"+i+"' category-idx='"+i+"'>"+categories[i]+"<span></span></ons-list-title>";
         calorieCount[i] = 0;
       }
 
@@ -45,7 +45,7 @@ var diary = {
           calorieCount[value.category] += calories * value.quantity;
 
           //If a user changes the names of their lists then existing diary items won't have a meal category, this line solves that
-          lists[value.category] = lists[value.category] || "<ons-list-header id='category"+value.category+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-header>";
+          lists[value.category] = lists[value.category] || "<ons-list-title id='category"+value.category+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-title>";
 
           //Build HTML
           html = ""; //Reset variable
@@ -365,13 +365,13 @@ $(document).on("tap", "#diary-page ons-list-item", function(e) {
 });
 
 //Header tap action
-$(document).on("tap", "#diary-page ons-list-header", function(e) {
+$(document).on("tap", "#diary-page ons-list-title", function(e) {
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
 //Header double tap
-$(document).on("tap", "#diary-page ons-list-header", function(e){
+$(document).on("tap", "#diary-page ons-list-title", function(e){
 
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
 
