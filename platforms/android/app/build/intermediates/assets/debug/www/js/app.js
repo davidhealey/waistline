@@ -41,7 +41,7 @@ var app = {
       app.setTheme(app.storage.getItem("theme")); //Set theme CSS
 
       //Localisation - get localized strings object
-      this.strings = defaultLocale; //Set fallback locale data
+      app.strings = defaultLocale; //Set fallback locale data
 
       $("[data-localize]").localize("locales/locale", {
         callback: function(data, defaultCallback){
@@ -49,6 +49,8 @@ var app = {
           app.strings = $.localize.data["locales/locale"];
         }
       });
+
+      //console.log(app.strings);
 
       dbHandler.initializeDb() //db-handler initialization
       .then(function(){

@@ -3,7 +3,7 @@ var defaultLocale = {
   "quantity": "Quantity",
   "calories": "Calories",
   "protein":"Protein",
-  "carbs":"Carbs",
+  "carbs":"Carbohydrates",
   "fat":"Fat",
   "sugar":"Sugar",
   "salt":"Salt",
@@ -64,7 +64,7 @@ var defaultLocale = {
         "quantity":"Number of servings*",
         "calories":"Calories*",
         "protein":"Protein (g)",
-        "carbs":"Carbs (g)",
+        "carbs":"Carbohydrates (g)",
         "fat":"Fat (g)",
         "salt":"Salt (g)",
         "sugar":"Sugar (g)"
@@ -72,41 +72,46 @@ var defaultLocale = {
     }
   },
 
-  "food-list":{
+  "food-list":
+  {
     "title":"Food List",
     "search":"Search Food",
     "name-of-food": "Name of Food",
     "no-results": "No matching results",
     "scan-failed": "Scan Failed",
-    "edit-item":{
-      "title1":"Add Food",
-      "title2":"Edit Food",
-      "placeholders":{
+    "edit-item":
+    {
+    "title1":"Add Food",
+    "title2":"Edit Food",
+    "placeholders":{
+      "name":"Name*",
+      "brand":"Brand*",
+      "portion":"Portion*",
+      "calories":"Calories*",
+      "protein":"Protein (g)",
+      "carbs":"Carbohydrates (g)",
+      "fat":"Fat (g)",
+      "sugar":"Sugar (g)",
+      "salt":"Salt (g)"
+      }
+    },
+    "upload-item":
+    {
+      "title":"Upload to Open Food Facts",
+      "success":"Product successfully added to Open Food Facts",
+      "fail":"Unfortunately the upload failed. Please try again or contact the developer.",
+      "placeholders":
+      {
+        "barcode":"Barcode*",
         "name":"Name*",
         "brand":"Brand*",
-        "portion":"Portion*",
-        "calories":"Calories*",
+        "portion":"Serving Size*",
+        "calories":"Calories per serving*",
         "protein":"Protein (g)",
-        "carbs":"Carbs (g)",
-        "fat":"Fat (g)",
-        "sugar":"Sugar (g)",
-        "salt":"Salt (g)"
-      },
-      "upload-item":
-      {
-        "title":"Add Product to O.F.F",
-        "placeholders":{
-          "barcode":"Barcode*",
-          "name":"Name*",
-          "brand":"Brand*",
-          "portion":"Portion*",
-          "calories":"Calories*",
-          "portion":"Protein (g)",
-          "carbs":"Carbs (g)",
-          "fat":"Fat (g)",
-          "sugar":"Sugar (g)",
-          "salt":"Salt (g)"
-        }
+        "carbs":"Carbohydrate per serving (g)",
+        "fat":"Fat per serving (g)",
+        "sugar":"Sugar per serving (g)",
+        "salt":"Salt per serving (g)"
       }
     }
   },

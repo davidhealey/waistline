@@ -122,14 +122,11 @@ var foodList = {
 
     console.log(form.brand.value);
 
-    var brands = form.brand.value;
-    var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
-
     //Get form values
     var id = parseInt(form.id.value); //ID is hidden field
     data.barcode = form.barcode.value; //Barcode is hidden field
     data.name = escape(form.name.value);
-    data.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
+    data.brand = escape(form.brand.value); //Should only be 1 brand per product
     data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
     data.portion = form.portion.value;
     data.nutrition = {
@@ -262,7 +259,7 @@ var foodList = {
           foodList.list = []; //Clear list
           var item = {};
           for (var i = 0; i <  products.length; i++)
-          {console.log(products[i]);
+          {
             item = foodList.parseOFFProduct(products[i]);
             foodList.list.push(item);
           }
@@ -292,17 +289,20 @@ var foodList = {
       item.portion = product.quantity;
     }
 
+    var brands = product.brands || "";
+    var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
+
     item.name = escape(product.product_name);
-    item.brand = escape(product.brands);
+    item.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
     item.image_url = escape(product.image_url);
     item.barcode = product.code;
     item.nutrition = {
-      calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
-      protein: Math.round(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion) * 100) / 100,
-      carbs: Math.round(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion) * 100) / 100,
-      fat: Math.round(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion) * 100) / 100,
-      salt: Math.round(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion) * 100) / 100,
-      sugar: Math.round(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion) * 100) / 100,
+      calories: parseInt(product.nutriments.energy_value),
+      protein: product.nutriments.proteins,
+      carbs: product.nutriments.carbohydrates,
+      fat: product.nutriments.fat,
+      salt: product.nutriments.salt,
+      sugar: product.nutriments.sugars
     }
 
     //Kilojules to kcalories
