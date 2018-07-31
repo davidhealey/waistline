@@ -81,7 +81,7 @@ var defaultLocale = {
         "brand":"Brand*",
         "portion":"Portion*",
         "calories":"Calories*",
-        "portion":"Protein (g)",
+        "protein":"Protein (g)",
         "carbs":"Carbs (g)",
         "fat":"Fat (g)",
         "sugar":"Sugar (g)",
@@ -175,8 +175,17 @@ var defaultLocale = {
       "p1":"There are three ways to add a new food to your food list. You can click the floating plus button on the food list page, search the Open Food Facts database for products using the food list search bar, or scan the barcode of a product by click the barcode icon on the top toolbar of the food list screen.",
       "p2":"Whichever method you choose will eventually take you to the food edit screen. Here you can manually enter the name of the food, the portion size (e.g. 1 biscuit, 100g, 3 cups, etc.), and the number of nutriments contained in that portion.",
       "p3":"The data returned by the barcode scanner may not always be accurate for the product or serving size you have, so check the information it adds to the form and adjust it as necessary before saving.",
-      "p4":"If no data is available for a scanned product you can add it to the database using the Open Food Facts app.",
+      "p4":"If no data is available for a scanned product you can add it to the open food facts database.",
       "p5":"Once you're happy with the data in the form you can tap the tick button on the top toolbar to add the item to your food list."
+    },
+    "uploading-a-product":
+    {
+      "title":"Uploading a product",
+      "p1":"When you scan a barcode for a product that is not currently in the Open Food Facts database you will be asked if you would like to add it. Which you can do from within Waistline.",
+      "p2":"You'll be taken to a screen where you can enter the name and brand of the product and some basic nutritional information. You'll also be able to upload up to three pictures.",
+      "p3":"Click on the camera icon to take a photo, the photos won't be saved to your device. You can crop the image once you've taken it so that you're only uploading relevant information.",
+      "p4":"Once you've taken an image you'll be prompted to tag the image either as the front of the product, the ingredients, or the nutritional information.",
+      "p4":"All images that you upload using Waistline are automatically licensed as Creative Commons Attribution ShareAlike."
     },
     "goals":
     {
@@ -211,7 +220,7 @@ var defaultLocale = {
     {
       "title":"Licenses",
       "p1":"Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-      "p2":"The source code for Waistline can be found <a href='https://github.com/davidhealey/waistline'>here.</a>"
+      "p2":"The source code for Waistline can be found at github.com/davidhealey."
     }
   },
 

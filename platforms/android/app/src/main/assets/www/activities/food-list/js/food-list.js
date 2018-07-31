@@ -48,13 +48,13 @@ var foodList = {
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='left'>"+unescape(list[i].name);
+        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)
         html += " - " + list[i].portion + "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
-        html += unescape(list[i].name);
+        html += unescape(list[i].name) + " - " + list[i].portion;
       }
 
       html += "</ons-list-item>";
@@ -102,21 +102,22 @@ var foodList = {
   updateEntry : function()
   {
     var data = {}; //Data to insert/update in DB
+    var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
     //Get form values
-    var id = parseInt($("#edit-food-item #id").val()); //ID is hidden field
-    data.barcode = $("#edit-food-item #barcode").val(); //Barcode is hidden field
-    data.name = escape($('#edit-food-item #name').val());
-    data.brand = escape($('#edit-food-item #brand').val());
+    var id = parseInt(form.id.value); //ID is hidden field
+    data.barcode = form.barcode.value; //Barcode is hidden field
+    data.name = escape(form.name.value);
+    data.brand = escape(form.brand.value);
     data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-    data.portion = $('#edit-food-item #portion').val();
+    data.portion = form.portion.value;
     data.nutrition = {
-      "calories":parseFloat($('#edit-food-item #calories').val()),
-      "protein":parseFloat($('#edit-food-item #protein').val()),
-      "carbs":parseFloat($('#edit-food-item #carbs').val()),
-      "fat":parseFloat($('#edit-food-item #fat').val()),
-      "sugar":parseFloat($('#edit-food-item #sugar').val()),
-      "salt":parseFloat($('#edit-food-item #salt').val()),
+      "calories":parseFloat(form.calories.value),
+      "protein":parseFloat(form.protein.value),
+      "carbs":parseFloat(form.carbs.value),
+      "fat":parseFloat(form.fat.value),
+      "sugar":parseFloat(form.sugar.value),
+      "salt":parseFloat(form.salt.value),
     };
 
     var date = new Date()
@@ -312,6 +313,7 @@ var foodList = {
           if (foodList.images[i].imagefield == imageTypes[input])
           {
             foodList.images.splice(i, 1); //Remove item from images array
+            $("#upload-food-item #images #"+input).remove(); //Remove carousel item
           }
         }
 
@@ -319,8 +321,12 @@ var foodList = {
         foodList.images.push(imageData);
 
         $("#upload-food-item #images").show(); //Reveal image card
-        $("#upload-food-item #images #"+input).html("<img style='width:95%;' src='"+image+"'></img>"); //Add image to carousel
-        $("#upload-food-item #images #"+input).show(); //Display image
+
+        var html ="<ons-carousel-item id='"+input+"'>";
+        html += "<img style='width:95%;' src='"+image+"'></img>";
+        html += "</ons-carousel-item>";
+
+        $("#upload-food-item #images ons-carousel").append(html);
       });
     });
   },
@@ -331,8 +337,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
-      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
+      //request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -385,8 +391,8 @@ var foodList = {
 
                       var request = new XMLHttpRequest();
 
-                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      //request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 
@@ -608,7 +614,7 @@ $(document).on("hold", "#upload-food-item #images ons-carousel-item", function()
 
       foodList.images.splice(control.id, 1); //Remove item from images array
 
-      $(control).hide(); //Hide the image carousel item
+      $(control).remove(); //Remove the image carousel item
 
       //If there are no images, hide the card
       if (foodList.images.length == 0) $("ons-page#upload-food-item #images").hide();

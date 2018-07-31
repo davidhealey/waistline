@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 15;
+      var databaseVersion = 16;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler

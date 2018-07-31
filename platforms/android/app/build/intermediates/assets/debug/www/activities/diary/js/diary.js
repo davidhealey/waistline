@@ -50,9 +50,9 @@ var diary = {
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
-          html += "<p style='margin-top:0;'>"+unescape(value.name) + " - " + unescape(value.portion) + "</p>";
+          html += "<p'>"+unescape(value.name) + " - " + unescape(value.portion) + "</p>";
 
-          html += "<p style='margin:0; color:#636363;'>"+value.quantity + " ";
+          html += "<p style='color:#636363;'>"+value.quantity + " ";
           value.quantity == 1 ? html += app.strings["diary"]["serving"] : html += app.strings["diary"]["servings"];
           html += ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
 
@@ -301,6 +301,9 @@ var diary = {
           }
           resolve(data);
         }
+        else {
+          reject();
+        }
       }
     });
   },
@@ -377,7 +380,7 @@ $(document).on("init", "#edit-diary-item", function(e){
 });
 
 //Update displayed values as quantity is changed
-$(document).on("keyup", "#edit-diary-item #quantity", function(e){
+$(document).on("change, keyup", "#edit-diary-item #quantity", function(e){
   var data = JSON.parse($("#edit-diary-item #data").attr("data"));
   for (n in data.nutrition)
   {

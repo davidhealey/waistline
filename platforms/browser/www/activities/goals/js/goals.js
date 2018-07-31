@@ -7,7 +7,7 @@ var goals = {
     var types = ["weight", "calories", "protein", "carbs", "fat", "sugar", "salt"];
     var values = [0, 2000, 45, 230, 70, 90, 6]; //Womens RDAs
 
-    for (i in types) //Each type
+    for (var i = 0; i < types.length; i++) //Each type
     {
       goals.data[types[i]] = goals.data[types[i]] || {};
 
@@ -190,7 +190,7 @@ $(document).on("change", "#nutrition #multi-goal", function(e) {
   goals.copyMondayToExtraGoals();
 });
 
-$(document).on("keyup", "#nutrition #1", function(e) {
+$(document).on("keyup change", "#nutrition #1", function(e) {
   goals.copyMondayToExtraGoals();
 });
 

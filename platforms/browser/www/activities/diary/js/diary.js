@@ -50,9 +50,9 @@ var diary = {
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
-          html += "<p style='margin-top:0;'>"+unescape(value.name) + " - " + unescape(value.portion) + "</p>";
+          html += "<p'>"+unescape(value.name) + " - " + unescape(value.portion) + "</p>";
 
-          html += "<p style='margin:0; color:#636363;'>"+value.quantity + " ";
+          html += "<p style='color:#636363;'>"+value.quantity + " ";
           value.quantity == 1 ? html += app.strings["diary"]["serving"] : html += app.strings["diary"]["servings"];
           html += ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
 
@@ -159,6 +159,7 @@ var diary = {
     $("#edit-diary-item #id").val(data.id); //Add to hidden field
     $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
     $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
+    if (data.brand) $("#edit-diary-item #brand").html(unescape(data.brand));
     $("#edit-diary-item #portion").val(unescape(data.portion));
     $("#edit-diary-item #quantity").val(data.quantity);
 
@@ -196,6 +197,7 @@ var diary = {
     var entryData = {
       "dateTime":diary.date,
       "name":data.name,
+      "brand":data.brand,
       "portion":data.portion,
       "quantity":1,
       "nutrition":data.nutrition,
@@ -203,7 +205,6 @@ var diary = {
       "category_name":categories[diary.category],
       "foodId":foodId
     };
-
 
     var request = dbHandler.insert(entryData, "diary"); //Add item to diary
 
@@ -301,6 +302,9 @@ var diary = {
           }
           resolve(data);
         }
+        else {
+          reject();
+        }
       }
     });
   },
@@ -377,7 +381,7 @@ $(document).on("init", "#edit-diary-item", function(e){
 });
 
 //Update displayed values as quantity is changed
-$(document).on("keyup", "#edit-diary-item #quantity", function(e){
+$(document).on("keyup change", "#edit-diary-item #quantity", function(e){
   var data = JSON.parse($("#edit-diary-item #data").attr("data"));
   for (n in data.nutrition)
   {

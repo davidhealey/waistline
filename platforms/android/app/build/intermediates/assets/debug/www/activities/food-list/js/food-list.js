@@ -48,13 +48,13 @@ var foodList = {
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='left'>"+unescape(list[i].name);
+        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)
         html += " - " + list[i].portion + "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
-        html += unescape(list[i].name);
+        html += unescape(list[i].name) + " - " + list[i].portion;
       }
 
       html += "</ons-list-item>";
@@ -312,6 +312,7 @@ var foodList = {
           if (foodList.images[i].imagefield == imageTypes[input])
           {
             foodList.images.splice(i, 1); //Remove item from images array
+            $("#upload-food-item #images #"+input).remove(); //Remove carousel item
           }
         }
 
@@ -319,8 +320,12 @@ var foodList = {
         foodList.images.push(imageData);
 
         $("#upload-food-item #images").show(); //Reveal image card
-        $("#upload-food-item #images #"+input).html("<img style='width:95%;' src='"+image+"'></img>"); //Add image to carousel
-        $("#upload-food-item #images #"+input).show(); //Display image
+
+        var html ="<ons-carousel-item id='"+input+"'>";
+        html += "<img style='width:95%;' src='"+image+"'></img>";
+        html += "</ons-carousel-item>";
+
+        $("#upload-food-item #images ons-carousel").append(html);
       });
     });
   },
@@ -331,8 +336,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
-      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
+      //request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -385,8 +390,8 @@ var foodList = {
 
                       var request = new XMLHttpRequest();
 
-                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      //request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 
@@ -576,13 +581,13 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
           foodList.uploadImageToOFF(code, foodList.images[i]);
         }
       }
-      //Wait 3 seconds
+      //Wait 5 seconds
       setTimeout(function()
       {
         $("#upload-food-item ons-modal").hide();
         ons.notification.alert("Food successfully added to Open Food Facts.");
         //.then(function(){nav.popPage();});
-      }, 3000);
+      }, 5000);
     })
     .catch(function(err) {
       console.error('Augh, there was an error!', err.statusText);
@@ -608,7 +613,7 @@ $(document).on("hold", "#upload-food-item #images ons-carousel-item", function()
 
       foodList.images.splice(control.id, 1); //Remove item from images array
 
-      $(control).hide(); //Hide the image carousel item
+      $(control).remove(); //Remove the image carousel item
 
       //If there are no images, hide the card
       if (foodList.images.length == 0) $("ons-page#upload-food-item #images").hide();

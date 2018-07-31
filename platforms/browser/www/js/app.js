@@ -34,8 +34,7 @@ var app = {
     .then(function(){
       //Add a log entry for the current date if there isn't one already
       var now = new Date();
-      var date = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate());
-      date.setHours(0);
+      var date = app.getDateAtMidnight(now);
       app.addDefaultLogEntry(date);
     });
 
@@ -134,9 +133,10 @@ var app = {
 
 ons.ready(function() {
   console.log("Cordova Ready");
+  navigator.camera.cleanup(function(){console.log("Camera cleanup success")}); //Remove any old camera cache files
   app.initialize();
   if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
-  nav.resetToPage("activities/food-list/views/upload-item.html");
+  nav.resetToPage("activities/statistics/views/statistics.html");
 });
 
 //Localize when any page is initialized
