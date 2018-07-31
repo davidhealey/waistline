@@ -147,7 +147,7 @@ ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-    if (app.storage.getItem("disable-animation") == true) ons.disableAnimations(); //Disable all animations if setting enabled
+    if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
     nav.resetToPage("activities/statistics/views/statistics.html");
   });
 });

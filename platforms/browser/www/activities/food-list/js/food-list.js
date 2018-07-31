@@ -83,7 +83,7 @@ var foodList = {
     $("#edit-food-item #salt").val(data.nutrition.salt);
 
     //Display image
-    if (data.image_url && navigator.connection.type != "none" && app.storage.getItem("show-images"))
+    if (data.image_url && navigator.connection.type != "none" && app.storage.getItem("show-images") == "true")
     {
       $('#edit-food-item #foodImage').html("<ons-card><img style='display:block; height:auto; width:75%; margin:auto;'></img></ons-card>");
       $('#edit-food-item #foodImage img').attr("src", unescape(data.image_url));
