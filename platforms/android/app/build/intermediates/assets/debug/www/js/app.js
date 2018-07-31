@@ -6,56 +6,59 @@ var app = {
   // Application Constructor
   initialize: function()
   {
-    this.storage = window.localStorage; //Simple storage object
+    return new Promise(function(resolve, reject){
 
-    //Set some default settings
-    if (app.storage.getItem("goals") == undefined)
-    {
-      goals.setDefaults(); //Generate default goals
-    }
+      app.storage = window.localStorage; //Simple storage object
 
-    if (app.storage.getItem("weight") == undefined)
-    {
-      app.storage.setItem("weight", 70);
-    }
-
-    if (app.storage.getItem("meal-names") == undefined)
-    {
-      app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"]));
-    }
-
-    //Each install gets a UUID that is added to the comments when uploading to the OFF database, to prevent trolls
-    if (app.storage.getItem("uuid") == undefined)
-    {
-      app.storage.setItem("uuid", app.uuidv4());
-    }
-
-    dbHandler.initializeDb() //db-handler initialization
-    .then(function(){
-      //Add a log entry for the current date if there isn't one already
-      var now = new Date();
-      var date = app.getDateAtMidnight(now);
-      app.addDefaultLogEntry(date);
-    });
-
-    //Localisation - get localized strings object
-    this.strings = defaultLocale; //Set fallback locale data
-
-    $("[data-localize]").localize("locales/locale", {
-      callback: function(data, defaultCallback){
-        defaultCallback(data);
-        app.strings = $.localize.data["locales/locale"];
+      //Set some default settings
+      if (app.storage.getItem("goals") == undefined)
+      {
+        goals.setDefaults(); //Generate default goals
       }
+
+      if (app.storage.getItem("weight") == undefined)
+      {
+        app.storage.setItem("weight", 70);
+      }
+
+      if (app.storage.getItem("meal-names") == undefined)
+      {
+        app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"]));
+      }
+
+      //Each install gets a UUID that is added to the comments when uploading to the OFF database, to prevent trolls
+      if (app.storage.getItem("uuid") == undefined)
+      {
+        app.storage.setItem("uuid", app.uuidv4());
+      }
+
+      //Theme handler
+      if (app.storage.getItem("theme") == undefined)
+      {
+        app.storage.setItem("theme", 0); //Set defualt theme
+      }
+
+      app.setTheme(app.storage.getItem("theme")); //Set theme CSS
+
+      //Localisation - get localized strings object
+      this.strings = defaultLocale; //Set fallback locale data
+
+      $("[data-localize]").localize("locales/locale", {
+        callback: function(data, defaultCallback){
+          defaultCallback(data);
+          app.strings = $.localize.data["locales/locale"];
+        }
+      });
+
+      dbHandler.initializeDb() //db-handler initialization
+      .then(function(){
+        //Add a log entry for the current date if there isn't one already
+        var now = new Date();
+        var date = app.getDateAtMidnight(now);
+        app.addDefaultLogEntry(date)
+        .then(resolve());
+      });
     });
-    console.log($.localize);
-
-    //Theme handler
-    if (app.storage.getItem("theme") == undefined)
-    {
-      app.storage.setItem("theme", 0); //Set defualt theme
-    }
-
-    app.setTheme(this.storage.getItem("theme")); //Set theme CSS
   },
 
   //UUID generator
@@ -134,16 +137,18 @@ var app = {
 ons.ready(function() {
   console.log("Cordova Ready");
   navigator.camera.cleanup(function(){console.log("Camera cleanup success")}); //Remove any old camera cache files
-  app.initialize();
-  if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
-  nav.resetToPage("activities/statistics/views/statistics.html");
+  app.initialize()
+  .then(function(){
+    console.log("App Initialized");
+    if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
+    nav.resetToPage("activities/statistics/views/statistics.html");
+  });
 });
 
 //Localize when any page is initialized
 $(document).on("init", "ons-page", function(e){
   $("[data-localize]").localize("locales/locale");
 });
-
 
 // Array Remove - By John Resig (MIT Licensed)
 Array.prototype.remove = function(from, to) {
