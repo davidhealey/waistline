@@ -163,7 +163,8 @@
       "p4":"The buttons either side of the displayed date can be used to move to the previous or next day and you can tap on the date itself to select a specific date.",
       "p5":"Tapping on a food item in your diary will allow you to adjust the number of servings and change the category for that item. These changes only apply to the item in your diary and do not affect the food list.",
       "p6":"Tap and hold on an item in your diary to remove it.",
-      "p7":"You can record your weight by tapping on the scales icon on the top toolbar."
+      "p7":"You can record your weight by tapping on the scales icon on the top toolbar.",
+      "p8":"If you would just like to record some calories without the hassle of adding an product to your food list first then you can do that too. Just double tap one of the categories in the diary page and enter the amount of calories."
     },
     "food-list":{
       "title":"Food List",

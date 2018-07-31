@@ -102,21 +102,22 @@ var foodList = {
   updateEntry : function()
   {
     var data = {}; //Data to insert/update in DB
+    var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
     //Get form values
-    var id = parseInt($("#edit-food-item #id").val()); //ID is hidden field
-    data.barcode = $("#edit-food-item #barcode").val(); //Barcode is hidden field
-    data.name = escape($('#edit-food-item #name').val());
-    data.brand = escape($('#edit-food-item #brand').val());
+    var id = parseInt(form.id.value); //ID is hidden field
+    data.barcode = form.barcode.value; //Barcode is hidden field
+    data.name = escape(form.name.value);
+    data.brand = escape(form.brand.value);
     data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-    data.portion = $('#edit-food-item #portion').val();
+    data.portion = form.portion.value;
     data.nutrition = {
-      "calories":parseFloat($('#edit-food-item #calories').val()),
-      "protein":parseFloat($('#edit-food-item #protein').val()),
-      "carbs":parseFloat($('#edit-food-item #carbs').val()),
-      "fat":parseFloat($('#edit-food-item #fat').val()),
-      "sugar":parseFloat($('#edit-food-item #sugar').val()),
-      "salt":parseFloat($('#edit-food-item #salt').val()),
+      "calories":parseFloat(form.calories.value),
+      "protein":parseFloat(form.protein.value),
+      "carbs":parseFloat(form.carbs.value),
+      "fat":parseFloat(form.fat.value),
+      "sugar":parseFloat(form.sugar.value),
+      "salt":parseFloat(form.salt.value),
     };
 
     var date = new Date()

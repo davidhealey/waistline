@@ -131,7 +131,7 @@ var goals = {
       else {
         //Store goals (for current day only) in log
         var now = new Date();
-        diary.date = app.getDateAtMidnight(now);
+        dateTime = app.getDateAtMidnight(now);
       }
 
       var data = {};

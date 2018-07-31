@@ -159,6 +159,7 @@ var diary = {
     $("#edit-diary-item #id").val(data.id); //Add to hidden field
     $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
     $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
+    if (data.brand) $("#edit-diary-item #brand").html(unescape(data.brand));
     $("#edit-diary-item #portion").val(unescape(data.portion));
     $("#edit-diary-item #quantity").val(data.quantity);
 
@@ -183,36 +184,42 @@ var diary = {
 
   addEntry : function(data)
   {
-    //Add the food to the diary store
-    if (diary.date == undefined)
-    {
-      var now = new Date();
-      diary.date = app.getDateAtMidnight(now);
-    }
+    return new Promise(function(resolve, reject){
+      //Add the food to the diary store
+      if (diary.date == undefined)
+      {
+        var now = new Date();
+        diary.date = app.getDateAtMidnight(now);
+      }
 
-    var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
-    var foodId = data.id;
+      var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
+      var foodId = data.id;
 
-    var entryData = {
-      "dateTime":diary.date,
-      "name":data.name,
-      "portion":data.portion,
-      "quantity":1,
-      "nutrition":data.nutrition,
-      "category":diary.category,
-      "category_name":categories[diary.category],
-      "foodId":foodId
-    };
+      var entryData = {
+        "dateTime":diary.date,
+        "name":data.name,
+        "brand":data.brand,
+        "portion":data.portion,
+        "quantity":1,
+        "nutrition":data.nutrition,
+        "category":diary.category,
+        "category_name":categories[diary.category],
+        "foodId":foodId
+      };
 
+      var request = dbHandler.insert(entryData, "diary"); //Add item to diary
 
-    var request = dbHandler.insert(entryData, "diary"); //Add item to diary
-
-    request.onsuccess = function(e)
-    {
-      //Update food item's dateTime (to show when food was last referenced)
-      var foodData = {"id":foodId, "dateTime":new Date()};
-      dbHandler.update(foodData, "foodList", foodId);
-    }
+      request.onsuccess = function(e)
+      {
+        if (foodId)
+        {
+          //Update food item's dateTime (to show when food was last referenced)
+          var foodData = {"id":foodId, "dateTime":new Date()};
+          dbHandler.update(foodData, "foodList", foodId);
+          resolve();
+        }
+      }
+    });
   },
 
   deleteEntry : function(id)
@@ -363,6 +370,25 @@ $(document).on("tap", "#diary-page ons-list-header", function(e) {
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
+//Header double tap
+$(document).on("doubletap", "#diary-page ons-list-header", function(e){
+
+  diary.category = $(this).attr("category-idx"); //Assign category from header ID
+
+  //Show prompt
+  ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":100/*, "cancelable":true*/})
+  .then(function(input)
+  {
+    if (!isNaN(parseFloat(input)))
+    {
+      var data = {"name":"Calories", "portion":"Quick Add", "nutrition":{"calories":input}}
+      diary.addEntry(data)
+      .then(diary.populate());
+    }
+  });
+
+});
+
 $(document).on("init", "#edit-diary-item", function(e){
   //Create and populate category selections
   var categories = JSON.parse(app.storage.getItem("meal-names"));
@@ -380,7 +406,7 @@ $(document).on("init", "#edit-diary-item", function(e){
 });
 
 //Update displayed values as quantity is changed
-$(document).on("change, keyup", "#edit-diary-item #quantity", function(e){
+$(document).on("keyup change", "#edit-diary-item #quantity", function(e){
   var data = JSON.parse($("#edit-diary-item #data").attr("data"));
   for (n in data.nutrition)
   {
