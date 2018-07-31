@@ -44,12 +44,17 @@ var foodList = {
     {
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
+        var brands = unescape(list[i].brand);
+        var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
+
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)
-        html += " - " + list[i].portion + "</label>";
+        html += "<label for='"+unescape(list[i].name)+"' class='center'>";
+        html += "<ons-row>"+brands.substring(0, n != -1 ? n : brands.length)+"</ons-row>"; //Only 1 brnd is displayed
+        html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
+        html += "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
