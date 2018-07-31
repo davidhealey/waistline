@@ -14,5 +14,5 @@
     <allow-intent href="geo:*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="1000" />
 </widget>

@@ -40,25 +40,30 @@ var app = {
 
       app.setTheme(app.storage.getItem("theme")); //Set theme CSS
 
-      //Localisation - get localized strings object
-      app.strings = defaultLocale; //Set fallback locale data
+      //Localisation
 
-      $("[data-localize]").localize("locales/locale", {
-        callback: function(data, defaultCallback){
-          defaultCallback(data);
-          app.strings = $.localize.data["locales/locale"];
-        }
-      });
-
-      //console.log(app.strings);
-
-      dbHandler.initializeDb() //db-handler initialization
+      //Set fallback locale data
+      $.getJSON("locales/locale-en.json", function(data) {
+          app.strings = data;
+      })
       .then(function(){
-        //Add a log entry for the current date if there isn't one already
-        var now = new Date();
-        var date = app.getDateAtMidnight(now);
-        app.addDefaultLogEntry(date)
-        .then(resolve());
+        $("[data-localize]").localize("locales/locale", {
+          callback: function(data, defaultCallback){
+            defaultCallback(data);
+            app.strings = $.localize.data["locales/locale"];
+          }
+        });
+        //console.log(app.strings);
+
+        dbHandler.initializeDb() //db-handler initialization
+        .then(function(){
+          //Add a log entry for the current date if there isn't one already
+          var now = new Date();
+          var date = app.getDateAtMidnight(now);
+          app.addDefaultLogEntry(date)
+          .then(resolve());
+        });
+        
       });
     });
   },
@@ -137,6 +142,7 @@ var app = {
 };
 
 ons.ready(function() {
+
   console.log("Cordova Ready");
   navigator.camera.cleanup(function(){console.log("Camera cleanup success")}); //Remove any old camera cache files
   app.initialize()

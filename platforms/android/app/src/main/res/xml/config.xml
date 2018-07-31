@@ -47,5 +47,5 @@
     <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
     <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="1000" />
 </widget>
