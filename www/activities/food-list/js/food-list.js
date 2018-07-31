@@ -48,13 +48,13 @@ var foodList = {
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='left'>"+unescape(list[i].name);
+        html += "<label for='"+unescape(list[i].name)+"' class='center'>"+unescape(list[i].name)
         html += " - " + list[i].portion + "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
-        html += unescape(list[i].name);
+        html += unescape(list[i].name) + " - " + list[i].portion;
       }
 
       html += "</ons-list-item>";
