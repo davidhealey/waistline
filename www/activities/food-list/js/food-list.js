@@ -32,7 +32,7 @@ var foodList = {
   filterList : function(term)
   {
     return filteredList = foodList.list.filter(function (el) {
-      return (el.name.match(new RegExp(term, "i"))); //Allow partial match and case insensitive
+      return (el.name.match(new RegExp(term, "i")) || el.brand.match(new RegExp(term, "i"))); //Allow partial match and case insensitive
     });
   },
 
