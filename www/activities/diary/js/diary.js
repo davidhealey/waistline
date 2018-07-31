@@ -371,7 +371,7 @@ $(document).on("tap", "#diary-page ons-list-title", function(e) {
 });
 
 //Header double tap
-$(document).on("tap", "#diary-page ons-list-title", function(e){
+$(document).on("doubletap", "#diary-page ons-list-title", function(e){
 
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
 
