@@ -56,7 +56,9 @@ var foodList = {
       else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
-        html += unescape(list[i].name) + " - " + list[i].portion;
+        html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
+        html += "<ons-row>" + unescape(list[i].name) + " - " + list[i].portion + "</ons-row>"
+        html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories + " Calories</i></ons-row>";
       }
 
       html += "</ons-list-item>";
