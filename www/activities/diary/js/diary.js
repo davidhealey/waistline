@@ -301,6 +301,9 @@ var diary = {
           }
           resolve(data);
         }
+        else {
+          reject();
+        }
       }
     });
   },
