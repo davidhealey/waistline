@@ -159,6 +159,7 @@ var diary = {
     $("#edit-diary-item #id").val(data.id); //Add to hidden field
     $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
     $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
+    if (data.brand) $("#edit-diary-item #brand").html(unescape(data.brand));
     $("#edit-diary-item #portion").val(unescape(data.portion));
     $("#edit-diary-item #quantity").val(data.quantity);
 
@@ -196,6 +197,7 @@ var diary = {
     var entryData = {
       "dateTime":diary.date,
       "name":data.name,
+      "brand":data.brand,
       "portion":data.portion,
       "quantity":1,
       "nutrition":data.nutrition,
@@ -203,7 +205,6 @@ var diary = {
       "category_name":categories[diary.category],
       "foodId":foodId
     };
-
 
     var request = dbHandler.insert(entryData, "diary"); //Add item to diary
 
@@ -380,7 +381,7 @@ $(document).on("init", "#edit-diary-item", function(e){
 });
 
 //Update displayed values as quantity is changed
-$(document).on("change, keyup", "#edit-diary-item #quantity", function(e){
+$(document).on("keyup change", "#edit-diary-item #quantity", function(e){
   var data = JSON.parse($("#edit-diary-item #data").attr("data"));
   for (n in data.nutrition)
   {
