@@ -63,7 +63,7 @@ var app = {
           app.addDefaultLogEntry(date)
           .then(resolve());
         });
-        
+
       });
     });
   },
@@ -142,13 +142,12 @@ var app = {
 };
 
 ons.ready(function() {
-
   console.log("Cordova Ready");
   navigator.camera.cleanup(function(){console.log("Camera cleanup success")}); //Remove any old camera cache files
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-    if (app.storage.getItem("disable-animation")) ons.disableAnimations(); //Disable all animations if setting enabled
+    if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
     nav.resetToPage("activities/statistics/views/statistics.html");
   });
 });
