@@ -50,7 +50,7 @@ var diary = {
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
-          html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
+          if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
           html += "<ons-row><i>"+unescape(value.name) + " - " + unescape(value.portion)+"</i></ons-row>";
           html += "<ons-row style='color:#636363;'>";
           html += value.quantity + " ";
@@ -271,7 +271,7 @@ var diary = {
       var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
 
       //Show prompt
-      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight, "cancelable":true})
+      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight})
       .then(function(input)
       {
         if (!isNaN(parseFloat(input)))
@@ -372,8 +372,8 @@ $(document).on("tap", "#diary-page ons-list-title", function(e) {
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
-//Header double tap
-$(document).on("doubletap", "#diary-page ons-list-title", function(e){
+//Header hold
+$(document).on("hold", "#diary-page ons-list-title", function(e){
 
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
 
