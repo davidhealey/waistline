@@ -91,7 +91,7 @@ var foodList = {
   },
 
   //Localises the placeholders of the form input boxes
-  localizeEditForm:function()
+  localizeEditForm : function()
   {
     var inputs = $("#edit-food-item ons-input");
     var placeholder = "";
@@ -99,6 +99,18 @@ var foodList = {
     for (var i = 0; i < inputs.length; i++)
     {
       placeholder = app.strings["food-list"]["edit-item"]["placeholders"][$(inputs[i]).attr("id")];
+      $(inputs[i]).attr("placeholder", placeholder);
+    }
+  },
+
+  localizeUploadForm : function()
+  {
+    var inputs = $("#upload-food-item ons-input");
+    var placeholder = "";
+
+    for (var i = 0; i < inputs.length; i++)
+    {
+      placeholder = app.strings["food-list"]["upload-item"]["placeholders"][$(inputs[i]).attr("id")];
       $(inputs[i]).attr("placeholder", placeholder);
     }
   },
@@ -226,7 +238,7 @@ var foodList = {
 
     var request = new XMLHttpRequest();
 
-    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&action=process&json=1", true);
+    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&sort_by=last_modified_t&action=process&json=1", true);
     request.send();
 
     $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
@@ -250,7 +262,7 @@ var foodList = {
           foodList.list = []; //Clear list
           var item = {};
           for (var i = 0; i <  products.length; i++)
-          {
+          {console.log(products[i]);
             item = foodList.parseOFFProduct(products[i]);
             foodList.list.push(item);
           }
@@ -346,8 +358,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      //request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
-      request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
+      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -400,8 +412,8 @@ var foodList = {
 
                       var request = new XMLHttpRequest();
 
-                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      //request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 
@@ -553,6 +565,10 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
   } else {
     ons.notification.alert(app.strings["dialogs"]["required-fields"]);
   }
+});
+
+$(document).on("init", "#upload-food-item", function(e){
+  foodList.localizeUploadForm();
 });
 
 $(document).on("show", "#upload-food-item", function(e){

@@ -595,14 +595,14 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
       setTimeout(function()
       {
         $("#upload-food-item ons-modal").hide();
-        ons.notification.alert("Food successfully added to Open Food Facts.")
+        ons.notification.alert(app.strings["food-list"]["upload-item"]["success"])
         .then(function(){nav.popPage();});
       }, 5000);
     })
     .catch(function(err) {
       console.error('Augh, there was an error!', err.statusText);
       $("#upload-food-item ons-modal").hide();
-      ons.notification.alert("Unfortunately the upload failed. Please try again or contact the developer.");
+      ons.notification.alert(app.strings["food-list"]["upload-item"]["fail"]);
     });
   }
   else
