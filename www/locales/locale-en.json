@@ -178,6 +178,15 @@
       "p4":"If no data is available for a scanned product you can add it to the database using the Open Food Facts app.",
       "p5":"Once you're happy with the data in the form you can tap the tick button on the top toolbar to add the item to your food list."
     },
+    "uploading-a-product":
+    {
+      "title":"Uploading a product",
+      "p1":"When you scan a barcode for a product that is not currently in the Open Food Facts database you will be asked if you would like to add it. Which you can do from within Waistline.",
+      "p2":"You'll be taken to a screen where you can enter the name and brand of the product and some basic nutritional information. You'll also be able to upload up to three pictures.",
+      "p3":"Click on the camera icon to take a photo, the photos won't be saved to your device. You can crop the image once you've taken it so that you're only uploading relevant information.",
+      "p4":"Once you've taken an image you'll be prompted to tag the image either as the front of the product, the ingredients, or the nutritional information.",
+      "p4":"All images that you upload using Waistline are automatically licensed as Creative Commons Attribution ShareAlike."
+    },
     "goals":
     {
       "title":"Goals",
@@ -211,7 +220,7 @@
     {
       "title":"Licenses",
       "p1":"Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-      "p2":"The source code for Waistline can be found <a href='https://github.com/davidhealey/waistline'>here.</a>"
+      "p2":"The source code for Waistline can be found at github.com/davidhealey."
     }
   },
 
