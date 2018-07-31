@@ -184,36 +184,42 @@ var diary = {
 
   addEntry : function(data)
   {
-    //Add the food to the diary store
-    if (diary.date == undefined)
-    {
-      var now = new Date();
-      diary.date = app.getDateAtMidnight(now);
-    }
+    return new Promise(function(resolve, reject){
+      //Add the food to the diary store
+      if (diary.date == undefined)
+      {
+        var now = new Date();
+        diary.date = app.getDateAtMidnight(now);
+      }
 
-    var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
-    var foodId = data.id;
+      var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
+      var foodId = data.id;
 
-    var entryData = {
-      "dateTime":diary.date,
-      "name":data.name,
-      "brand":data.brand,
-      "portion":data.portion,
-      "quantity":1,
-      "nutrition":data.nutrition,
-      "category":diary.category,
-      "category_name":categories[diary.category],
-      "foodId":foodId
-    };
+      var entryData = {
+        "dateTime":diary.date,
+        "name":data.name,
+        "brand":data.brand,
+        "portion":data.portion,
+        "quantity":1,
+        "nutrition":data.nutrition,
+        "category":diary.category,
+        "category_name":categories[diary.category],
+        "foodId":foodId
+      };
 
-    var request = dbHandler.insert(entryData, "diary"); //Add item to diary
+      var request = dbHandler.insert(entryData, "diary"); //Add item to diary
 
-    request.onsuccess = function(e)
-    {
-      //Update food item's dateTime (to show when food was last referenced)
-      var foodData = {"id":foodId, "dateTime":new Date()};
-      dbHandler.update(foodData, "foodList", foodId);
-    }
+      request.onsuccess = function(e)
+      {
+        if (foodId)
+        {
+          //Update food item's dateTime (to show when food was last referenced)
+          var foodData = {"id":foodId, "dateTime":new Date()};
+          dbHandler.update(foodData, "foodList", foodId);
+          resolve();
+        }
+      }
+    });
   },
 
   deleteEntry : function(id)
@@ -362,6 +368,25 @@ $(document).on("tap", "#diary-page ons-list-item", function(e) {
 $(document).on("tap", "#diary-page ons-list-header", function(e) {
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
+});
+
+//Header double tap
+$(document).on("tap", "#diary-page ons-list-header", function(e){
+
+  diary.category = $(this).attr("category-idx"); //Assign category from header ID
+
+  //Show prompt
+  ons.notification.prompt(app.strings["diary"]["quick-add"]["body"], {"title":app.strings["diary"]["quick-add"]["title"], "inputType":"number", "defaultValue":100, "cancelable":true})
+  .then(function(input)
+  {
+    if (!isNaN(parseFloat(input)))
+    {
+      var data = {"name":"Calories", "portion":"Quick Add", "nutrition":{"calories":input}}
+      diary.addEntry(data)
+      .then(diary.populate());
+    }
+  });
+
 });
 
 $(document).on("init", "#edit-diary-item", function(e){

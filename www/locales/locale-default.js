@@ -52,6 +52,11 @@ var defaultLocale = {
     "servings": "Servings",
     "category": "Category",
     "current-weight":"Current Weight",
+    "quick-add":
+    {
+      "title":"Quick Add",
+      "body":"Number of calories"
+    },
     "edit-item":{
       "title":"Edit Entry",
       "placeholders":
