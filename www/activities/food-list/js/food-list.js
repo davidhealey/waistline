@@ -44,15 +44,12 @@ var foodList = {
     {
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
-        var brands = unescape(list[i].brand);
-        var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
-
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
         html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
         html += "</label>";
         html += "<label for='"+unescape(list[i].name)+"' class='center'>";
-        html += "<ons-row>"+brands.substring(0, n != -1 ? n : brands.length)+"</ons-row>"; //Only 1 brnd is displayed
+        html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
         html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
         html += "</label>";
       }
@@ -109,11 +106,16 @@ var foodList = {
     var data = {}; //Data to insert/update in DB
     var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
+    console.log(form.brand.value);
+
+    var brands = form.brand.value;
+    var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
+
     //Get form values
     var id = parseInt(form.id.value); //ID is hidden field
     data.barcode = form.barcode.value; //Barcode is hidden field
     data.name = escape(form.name.value);
-    data.brand = escape(form.brand.value);
+    data.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
     data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
     data.portion = form.portion.value;
     data.nutrition = {
