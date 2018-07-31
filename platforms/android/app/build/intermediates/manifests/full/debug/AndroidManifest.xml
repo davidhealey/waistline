@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.waist.line"
     android:hardwareAccelerated="true"
-    android:versionCode="10004"
-    android:versionName="1.0.4" >
+    android:versionCode="20000"
+    android:versionName="2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -46,16 +46,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.google.zxing.client.android.CaptureActivity"
-            android:clearTaskOnLaunch="true"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.google.zxing.client.android.encode.EncodeActivity"
-            android:label="Share" />
 
         <provider
             android:name="org.apache.cordova.camera.FileProvider"
@@ -66,6 +56,17 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/camera_provider_paths" />
         </provider>
+
+        <activity
+            android:name="com.google.zxing.client.android.CaptureActivity"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.google.zxing.client.android.encode.EncodeActivity"
+            android:label="Share" />
     </application>
 
 </manifest>

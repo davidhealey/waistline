@@ -15,17 +15,17 @@
 
   <div id="diary-lists"></div> <!--Populated dynamically-->
 
-  <ons-bottom-toolbar id="stat-bar" style="height:4em;">
-    <div class="progressBar" style="max-width:100%; height:.25em; margin-bottom: 0.75em;"></div>
-    <ons-row>
-      <ons-col width='33%' style='text-align:center;' data-localize="statistics.goal"><b>Goal</b></ons-col>
-      <ons-col width='33%' style='text-align:center;' data-localize="statistics.used"><b>Used</b></ons-col>
-      <ons-col width='33%' style='text-align:center;' data-localize="statistics.remaining"><b>Remaining</b></ons-col>
+  <ons-bottom-toolbar id="stat-bar" static>
+    <div class="progressBar" style="max-width:100%; height:.1em; margin-bottom: 0.2em;"></div>
+    <ons-row style="margin-bottom:0; margin-top:0;">
+      <ons-col style='text-align:center;' data-localize="statistics.goal"><b>Goal</b></ons-col>
+      <ons-col style='text-align:center;' data-localize="statistics.used"><b>Used</b></ons-col>
+      <ons-col style='text-align:center;' data-localize="statistics.remaining"><b>Remaining</b></ons-col>
     </ons-row>
     <ons-row>
-      <ons-col id="goal" width='33%' style='text-align:center;'></ons-col>
-      <ons-col id="used" width='33%' style='text-align:center;'></ons-col>
-      <ons-col id="remaining" width='33%' style='text-align:center;'></ons-col>
+      <ons-col id="goal" style='text-align:center;'></ons-col>
+      <ons-col id="used" style='text-align:center;'></ons-col>
+      <ons-col id="remaining" style='text-align:center;'></ons-col>
     </ons-row>
   </ons-bottom-toolbar>
 </ons-page>

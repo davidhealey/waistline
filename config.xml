@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.waist.line" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.waist.line" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Waistline</name>
     <description>
         A libre calorie counter including a barcode scanner linked to the Open Food Facts database.
@@ -8,9 +8,12 @@
         David Healey
     </author>
     <content src="index.html" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="*" />
+    <allow-navigation href="*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="mdpi" src="res/android/mdpi.png" />
@@ -36,9 +39,7 @@
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <access origin="*" />
-    <allow-intent href="*" />
-    <allow-navigation href="*" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <preference name="SplashScreenDelay" value="3000" />
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.0.0" />

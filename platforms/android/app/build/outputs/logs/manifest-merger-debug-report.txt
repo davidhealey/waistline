@@ -1,15 +1,15 @@
 -- Merging decision tree log ---
 provider#org.apache.cordova.camera.FileProvider
-INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:14:9-16:20
+INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:9-14:20
 	android:grantUriPermissions
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:14:92-126
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:92-126
 	android:authorities
 		INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:14:19-66
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:19-66
 	android:exported
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:14:67-91
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:67-91
 	android:name
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:14:127-180
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:127-180
 manifest
 ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
 INJECTED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
@@ -103,25 +103,25 @@ ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/
 	android:name
 		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:9:27-74
 activity#com.google.zxing.client.android.CaptureActivity
-ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:9-311
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:9-311
 	android:clearTaskOnLaunch
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:19-51
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:19-51
 	android:windowSoftInputMode
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:261-308
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:261-308
 	android:exported
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:114-138
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:114-138
 	android:configChanges
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:52-113
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:52-113
 	android:theme
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:202-260
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:202-260
 	android:name
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:12:139-201
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:139-201
 activity#com.google.zxing.client.android.encode.EncodeActivity
-ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:13:9-112
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:16:9-112
 	android:label
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:13:19-40
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:16:19-40
 	android:name
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:13:41-109
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:16:41-109
 uses-sdk
 ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:5-74
 MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/ecf2c9fa686ec32ffc010d83d164aac7/AndroidManifest.xml:7:5-9:41
@@ -175,8 +175,8 @@ ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/
 	android:name
 		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:23:19-57
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:13-123
+ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:13:13-123
 	android:resource
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:75-120
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:13:75-120
 	android:name
-		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:15:24-74
+		ADDED from /home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/AndroidManifest.xml:13:24-74

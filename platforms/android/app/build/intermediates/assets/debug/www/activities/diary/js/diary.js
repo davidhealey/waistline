@@ -25,7 +25,7 @@ var diary = {
       for (var i = 0; i < categories.length; i++)
       {
         if (categories[i] == "") continue; //Skip unset meal names
-        lists[i] = "<ons-list-header id='category"+i+"' category-idx='"+i+"'>"+categories[i]+"<span></span></ons-list-header>";
+        lists[i] = "<ons-list-title id='category"+i+"' category-idx='"+i+"'>"+categories[i]+"<span></span></ons-list-title>";
         calorieCount[i] = 0;
       }
 
@@ -45,16 +45,18 @@ var diary = {
           calorieCount[value.category] += calories * value.quantity;
 
           //If a user changes the names of their lists then existing diary items won't have a meal category, this line solves that
-          lists[value.category] = lists[value.category] || "<ons-list-header id='category"+value.category+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-header>";
+          lists[value.category] = lists[value.category] || "<ons-list-title id='category"+value.category+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-title>";
 
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
-          html += "<p'>"+unescape(value.name) + " - " + unescape(value.portion) + "</p>";
-
-          html += "<p style='color:#636363;'>"+value.quantity + " ";
+          html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
+          html += "<ons-row><i>"+unescape(value.name) + " - " + unescape(value.portion)+"</i></ons-row>";
+          html += "<ons-row style='color:#636363;'>";
+          html += value.quantity + " ";
           value.quantity == 1 ? html += app.strings["diary"]["serving"] : html += app.strings["diary"]["servings"];
           html += ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
+          html += "</ons-row>";
 
           html += "</ons-list-item>";
 
@@ -71,7 +73,7 @@ var diary = {
         }
         else
         {
-          $("#diary-page #diary-lists").html(""); //Clear old items
+          $("#diary-page #diary-lists").html(""); //Clear old lists
 
           //One list per meal
           for (var i = 0; i < lists.length; i++)
@@ -158,7 +160,7 @@ var diary = {
   {
     $("#edit-diary-item #id").val(data.id); //Add to hidden field
     $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
-    $("#edit-diary-item #name").html(unescape(data.name) + " - " + unescape(data.portion));
+    $("#edit-diary-item #name i").html(unescape(data.name) + " - " + unescape(data.portion));
     if (data.brand) $("#edit-diary-item #brand").html(unescape(data.brand));
     $("#edit-diary-item #portion").val(unescape(data.portion));
     $("#edit-diary-item #quantity").val(data.quantity);
@@ -365,18 +367,18 @@ $(document).on("tap", "#diary-page ons-list-item", function(e) {
 });
 
 //Header tap action
-$(document).on("tap", "#diary-page ons-list-header", function(e) {
+$(document).on("tap", "#diary-page ons-list-title", function(e) {
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
   nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
 });
 
 //Header double tap
-$(document).on("doubletap", "#diary-page ons-list-header", function(e){
+$(document).on("doubletap", "#diary-page ons-list-title", function(e){
 
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
 
   //Show prompt
-  ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":100/*, "cancelable":true*/})
+  ons.notification.prompt(app.strings["diary"]["quick-add"]["body"], {"title":app.strings["diary"]["quick-add"]["title"], "inputType":"number", "defaultValue":100, "cancelable":true})
   .then(function(input)
   {
     if (!isNaN(parseFloat(input)))
