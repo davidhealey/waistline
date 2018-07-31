@@ -82,8 +82,6 @@ var foodList = {
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
     $("#edit-food-item #salt").val(data.nutrition.salt);
 
-    console.log(data);
-
     //Display image
     if (data.image_url && navigator.connection.type != "none" && app.storage.getItem("show-images"))
     {
@@ -122,16 +120,11 @@ var foodList = {
     var data = {}; //Data to insert/update in DB
     var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
-    console.log(form.brand.value);
-
-    var brands = form.brand.value;
-    var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
-
     //Get form values
     var id = parseInt(form.id.value); //ID is hidden field
     data.barcode = form.barcode.value; //Barcode is hidden field
     data.name = escape(form.name.value);
-    data.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
+    data.brand = escape(form.brand.value); //Should only be 1 brand per product
     data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
     data.portion = form.portion.value;
     data.nutrition = {
@@ -240,7 +233,7 @@ var foodList = {
 
     var request = new XMLHttpRequest();
 
-    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&action=process&json=1", true);
+    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&sort_by=last_modified_t&action=process&json=1", true);
     request.send();
 
     $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
@@ -294,17 +287,20 @@ var foodList = {
       item.portion = product.quantity;
     }
 
+    var brands = product.brands || "";
+    var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
+
     item.name = escape(product.product_name);
-    item.brand = escape(product.brands);
+    item.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
     item.image_url = escape(product.image_url);
     item.barcode = product.code;
     item.nutrition = {
-      calories: parseInt(parseFloat(product.nutriments.energy_value) / 100 * parseFloat(item.portion)),
-      protein: Math.round(parseFloat(product.nutriments.proteins) / 100 * parseFloat(item.portion) * 100) / 100,
-      carbs: Math.round(parseFloat(product.nutriments.carbohydrates) / 100 * parseFloat(item.portion) * 100) / 100,
-      fat: Math.round(parseFloat(product.nutriments.fat) / 100 * parseFloat(item.portion) * 100) / 100,
-      salt: Math.round(parseFloat(product.nutriments.salt) / 100 * parseFloat(item.portion) * 100) / 100,
-      sugar: Math.round(parseFloat(product.nutriments.sugars) / 100 * parseFloat(item.portion) * 100) / 100,
+      calories: parseInt(product.nutriments.energy_value),
+      protein: product.nutriments.proteins,
+      carbs: product.nutriments.carbohydrates,
+      fat: product.nutriments.fat,
+      salt: product.nutriments.salt,
+      sugar: product.nutriments.sugars
     }
 
     //Kilojules to kcalories
@@ -360,8 +356,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
-      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
+      //request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -414,8 +410,8 @@ var foodList = {
 
                       var request = new XMLHttpRequest();
 
-                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      //request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 

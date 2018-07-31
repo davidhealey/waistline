@@ -120,8 +120,6 @@ var foodList = {
     var data = {}; //Data to insert/update in DB
     var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
-    console.log(form.brand.value);
-
     //Get form values
     var id = parseInt(form.id.value); //ID is hidden field
     data.barcode = form.barcode.value; //Barcode is hidden field
@@ -358,8 +356,8 @@ var foodList = {
       //Upload product info
       var request = new XMLHttpRequest();
 
-      request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
-      //request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
+      //request.open("GET", "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"+data, true); //Testing server
+      request.open("GET", "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"+data, true); //Live server
       request.setRequestHeader("Content-Type", "multipart/form-data");
       request.withCredentials = true;
 
@@ -412,8 +410,8 @@ var foodList = {
 
                       var request = new XMLHttpRequest();
 
-                      request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      //request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
                       request.setRequestHeader("Content-Type", "multipart/form-data");
                       request.withCredentials = true;
 
