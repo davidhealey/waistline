@@ -11,7 +11,7 @@ var settings = {
 
     for (var i = 0; i < switches.length; i++)
     {
-      switches[i].checked = app.storage.getItem(switches[i].id);
+      switches[i].checked = (app.storage.getItem(switches[i].id) === "true");
     }
   },
 

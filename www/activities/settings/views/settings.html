@@ -11,7 +11,7 @@
          Show product images
        </div>
        <div class="right">
-         <ons-switch id="show-images" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+         <ons-switch id="show-images" name="show-images" tappable onchange="settings.saveSwitches(this);"></ons-switch>
        </div>
        <div class="expandable-content" data-localize="settings.show-images2">
          Images will be displayed when connected to the internet. They will not be stored on your device.
@@ -22,7 +22,7 @@
           Disable animations
         </div>
         <div class="right">
-          <ons-switch id="disable-animations" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+          <ons-switch id="disable-animation" name="disable-animation" tappable onchange="settings.saveSwitches(this);"></ons-switch>
         </div>
         <div class="expandable-content" data-localize="settings.disable-animations2">
           Disabling animations may improve performance on some devices (requires app restart).

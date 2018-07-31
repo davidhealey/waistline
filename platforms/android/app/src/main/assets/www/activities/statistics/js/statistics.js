@@ -90,11 +90,10 @@ var statistics = {
     {
       html = "";
       html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
-      html += "<div>";
-      html += "<h4>"+data.timestamps[i].toLocaleDateString()+"</h4>";
-      html += "<p>"+data.weight[i]+" kg</p>";
-      if (data.nutrition.calories[i] !== undefined) html += "<p>"+Math.round(data.nutrition.calories[i])+" " + app.strings["calories"]+"</p>";
-      html += "</div>";
+      html += "<ons-row>"+data.timestamps[i].toLocaleDateString() + " - " + data.weight[i] + " kg" +"</ons-row>";
+      html += "<ons-row style='color:#636363;'><i>";
+      if (data.nutrition.calories[i] != undefined) html += data.nutrition.calories[i] + " " + app.strings["calories"];
+      html += "</i></ons-row>";
       html += "</ons-list-item>";
       $("#statistics #weightLog").prepend(html); //Add to list, reverse order
     }
