@@ -81,7 +81,7 @@ var defaultLocale = {
         "brand":"Brand*",
         "portion":"Portion*",
         "calories":"Calories*",
-        "portion":"Protein (g)",
+        "protein":"Protein (g)",
         "carbs":"Carbs (g)",
         "fat":"Fat (g)",
         "sugar":"Sugar (g)",
