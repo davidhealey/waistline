@@ -1,0 +1,29 @@
+<ons-page id="statistics">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="center">Waistline</div>
+    <div class="right"></div>
+  </ons-toolbar>
+
+  <ons-card id="diaryStats">
+    <div></div> <!--Content will be replaced by JS-->
+  </ons-card>
+
+  <ons-card id="chart">
+    <div style="text-align:center; margin-bottom:1em;">
+      <ons-select name="range" id="range" data-native-menu="false">
+        <option value="7" data-localize="statistics.week">1 Week</option>
+        <option value="1" data-localize="statistics.month" selected="selected">1 Month</option>
+        <option value="3" data-localize="statistics.3month">3 Months</option>
+        <option value="6" data-localize="statistics.6month">6 Months</option>
+        <option value="12" data-localize="statistics.12month">1 Year</option>
+      </ons-select>
+    </div>
+
+    <canvas height="275" width="300"></canvas>
+
+    <ons-list id="weightLog"></ons-list>
+
+  </ons-card>
+
+</ons-page>

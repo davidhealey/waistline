@@ -1,0 +1,43 @@
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="food-list-page">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="center" data-localize="food-list.title">Food List</div>
+    <div class="right">
+      <ons-toolbar-button id="scan" onclick="foodList.scan();"><ons-icon icon="barcode"></ons-icon></ons-toolbar-button>
+      <ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <ons-fab position="bottom right" tappable onclick="nav.pushPage('activities/food-list/views/edit-item.html')">
+    <ons-icon icon="md-plus"></ons-icon>
+  </ons-fab>
+
+  <div style="text-align:center;">
+    <p>
+      <form onsubmit="foodList.search(this[0].value); return false;">
+        <ons-search-input id="filter" placeholder="Search Food"></ons-search-input>
+      </form>
+    </p>
+    <ons-progress-circular indeterminate></ons-progress-circular>
+  </div>
+
+  <ons-list id="food-list"></ons-list>
+</ons-page>

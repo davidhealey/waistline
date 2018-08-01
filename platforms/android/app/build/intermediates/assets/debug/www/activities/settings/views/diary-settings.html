@@ -1,0 +1,26 @@
+<ons-page id="diary-settings">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="settings.diary.title">Diary Settings</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <ons-card>
+    <p data-localize="settings.diary.instructions1">Use the boxes below to customise the meal names used in the food diary.</p>
+    <p data-localize="settings.diary.instructions2">Any boxes left empty will be ignored.</p>
+  </ons-card>
+
+  <ons-card>
+    <form onsubmit="; return false;" id="diary-settings-form">
+      <p><ons-input type="text" placeholder="Meal 1" required="true"></ons-input></p>
+      <p><ons-input type="text" placeholder="Meal 2"></ons-input></p>
+      <p><ons-input type="text" placeholder="Meal 3"></ons-input></p>
+      <p><ons-input type="text" placeholder="Meal 4"></ons-input></p>
+      <p><ons-input type="text" placeholder="Meal 5"></ons-input></p>
+      <p><ons-input type="text" placeholder="Meal 6"></ons-input></p>
+      <p><ons-input type="text" placeholder="Meal 7"></ons-input></p>
+    </form>
+  </ons-card>
+
+</ons-page>

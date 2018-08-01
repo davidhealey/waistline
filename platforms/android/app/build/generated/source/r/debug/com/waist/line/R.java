@@ -944,7 +944,8 @@ public final class R {
     public static final int FontFamilyFont_fontWeight=5;
   }
   public static final class xml {
-    public static final int config=0x7f100000;
-    public static final int preferences=0x7f100001;
+    public static final int camera_provider_paths=0x7f100000;
+    public static final int config=0x7f100001;
+    public static final int preferences=0x7f100002;
   }
 }

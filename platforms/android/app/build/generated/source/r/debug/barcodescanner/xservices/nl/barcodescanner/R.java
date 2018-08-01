@@ -278,6 +278,6 @@ public final class R {
         public static final int ShareButton = 0x7f0e0002;
     }
     public static final class xml {
-        public static final int preferences = 0x7f100001;
+        public static final int preferences = 0x7f100002;
     }
 }
