@@ -1,80 +1,66 @@
-# Waistline <hr>
-<a href="http://tinypic.com?ref=vdgth4" target="_blank"><img src="http://i63.tinypic.com/vdgth4.png" border="0" alt="Image and video hosting by TinyPic"></a>
+# Waistline
+<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/www/img/logo.png" width="25%" height="25%" border="0">
 
-Waistline is a libre calorie counter app for Android. Built with Cordova and is designed to help users stay healthy and in shape, it consists of a weight tracker and a food diary that help users keep track of daily food intake at several intervals. 
-
-&nbsp; 
-&nbsp;
-&nbsp;
-&nbsp;
+Waistline is a libre calorie counter and weight tracker app for Android. It's built with Cordova, OnsenUI, and a few other free libraries.
 
 ### App Features 
-Features of waistline app include;
+Features of waistline include;
 
-- **Dairy**: The is where a user can take inventory of daily food intake at different intervals in a day. 
-- **Food List**: This is where users can create a local database of all the foods they take. This can be done either by inputting the food details manually or by scanning the barcode on the product package. Waistline connects to Open food facts to find information of the product when the scan function is utilized.
-- Import and export functionality.
-- Waistline is a free and open source software.
-- Waistline doesn't contain ads or in-app purchases.
-- Waistline works on Android devices 5.0+
+- **Diary**: The is where users can keep a day by day account of the food they eat at different times.
+- **Food List**: This is where users can create a local database of foods. This can be done either by inputting the food details manually, by scanning the barcode of a product, or by searching for the product online. Waistline connects to the Open Food Facts database to find information about products when the scanning or searching.
+- Import and export functionality to backup and restore app data.
+- Waistline is free and open source software.
+- Waistline doesn't contain any ads or in-app purchases.
+- Waistline works on Android devices 5.0+ (and might work on older devices)
 
-Comprehensive details of Waistline app features and usage instructions are contained in the app as the user guide. <hr>
+Waistline includes a comprehensive userguide. 
 
 ## Privacy Policy
 
-<p>This Privacy Policy explains and gives information regarding the collection, use, and disclosure of personal data when you utilize waistline app and the choices you have associated with that data. By utilizing the software, you accept the terms and conditions of this Policy. This Policy applies to this software and the developer is not responsible for the content or privacy practices on any third party app not operated by the developer to which this software links or that links to this software.
+This Privacy Policy explains and gives information regarding the collection, use, and disclosure of personal data when you utilize Waistline and the choices you have associated with that data. By utilizing the software you accept the terms and conditions of this Policy. This Policy applies to this software and the developer is not responsible for the content or privacy practices on any third party app not operated by the developer to which this software links or that links to this software.
 
-<p>Data and information collected when using this software is used for efficient and improved utilization of the software 
+## Information Collection And Use
+Waistline only requires the availability of an internet connection when the barcode of a product is scanned, when searching for a product, or when uploading a product to the Open Food Facts database. During a scan or a search the only information sent to Open Food Facts is the product barcode or the search terms entered. When uploading a product a unique install ID is sent along with the product information. This is to assist the maintainers of the Open Food Facts database in spotting mistakes or abuse of their systems.
 
-<h2>Information Collection And Use</h2>
-Waistline app only requires the availability of an internet connection when the barcode of a product is scanned. The only information disclosed in the course of this process is the barcode number of the scanned product.
+For the software to function efficiently camera and storage permissions are required. These are needed to be able to scan barcodes, upload product images, and to import and export data.
 
-For the software to function efficiently, some permissions are required to be enabled. The permissions are camera and storage. To scan products barcode, the camera permission is required and the storage permission is required when import/export operations are carried out. No data or information is collected externally by the developer or a third party app while this operation is performed.
+### Types of Data Collected
 
-<h3>Types of Data Collected</h3>
+#### Personal Data
 
-<h4>Personal Data</h4>
+No personal data is collected while utilizing the software
 
-<p>No personal data is collected while utilizing the software</p>
+#### Usage Data
 
-<h4>Usage Data</h4>
-
-<p>Usage data is collected only when a product barcode is scanned is the barcode number.
-
-<h2>Use of Data</h2>
+Usage data is collected only when interacting with the Open Food Facts database. Data and information collected when using this software is used for efficient and improved utilization of the software 
     
-<p>Waistline uses the collected data for various purposes:</p>    
-The barcode number which is the only data collected when using the waistline app is used to fetch product information from the internet.
+## Security Of Data
+The security of your data is important but no method of transmission over the internet or electronic storage is 100% secure, therefore the developer doesn't guarantee its absolute security.
 
-<h2>Security Of Data</h2>
-<p>The security of your data is important, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure therefore the developer doesn't guarantee its absolute security.
+## Service Providers
+Waistline requires a third-party database (Open Food Facts) to facilitate some of its functionality.
 
-<h2>Service Providers</h2>
-<p>Waistline app requires a third-party app (Open food facts) to facilitate its service 
-<p> This third-party app don't have access to your Personal Data only to perform some tasks and are obligated not to disclose or use it for any other purpose.</p>
-
-<h2>Changes To This Privacy Policy</h2>
-<p> This privacy policy may be updated from time to time as the functionalities of the software are further developed and improved and may likely contain disparities that will nullify this current policy. Users will be notified of this changes prior to the change and the Changes to this Privacy Policy are effective when they are made.
+## Changes To This Privacy Policy
+This privacy policy may be updated from time to time as the functionalities of the software are further developed and improved and may likely contain disparities that will nullify this current policy.
       
-<h2>Disclaimer</h2>      
+## Disclaimer      
 
-Waistline app is developed in good faith and for general use. The developer will not be held accountable for how you decide to use this software and will not be liable for any losses and/or damages in connection with the use of the software.
+Waistline is developed in good faith and for general use. The developer will not be held accountable for how you decide to use this software and will not be liable for any losses and/or damages in connection with the use of the software.
 
-<h2>About Us</h2>
+## Developer
+Waistline is developed by me, David Healey, with suggestions and contributions from fellow git-hubbers. Waistline is freely available from the links at the bottom of this page (F-Droid gets the most recent version usually). If you enjoy using this app and would like to buy me a coffee (or some high calorie comestible) here is my PayPal link - https://www.paypal.me/healeyd - Thanks!
 
-The development of Waistline app is a solo effort by the developer David Healey and the functions of the software are intended as is. 
+Please spread the word and share this app with anyone you think could benefit from it. Also, let me know if you find any bugs and I'll try and squish them.
 
-<h2>Contact Us</h2>
+## Contact
 
-Contributions to this project are welcomed. Contributions, suggestions or bug reports can be made by opening an issue or creating pull requests.  contact the project owner [here](https://github.com/davidhealey/waistline) by opening an issue. 
+The best method way to contact me about this app is by opening an issue on [GitHub](https://github.com/davidhealey/waistline). Contributions, suggestions, and bug reports are welcome.
 
-The Waistline line app can be downloaded from
+Waistline can be downloaded from
+
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/packages/com.waist.line/)
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
       alt="Get it on Google Play"
       height="80">](https://play.google.com/store/apps/details?id=com.waist.line)
-
-                                       
-                                       
