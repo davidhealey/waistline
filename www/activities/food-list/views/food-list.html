@@ -18,12 +18,15 @@
 -->
 <ons-page id="food-list-page">
   <ons-toolbar modifier="material">
-    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="left">
+      <ons-toolbar-button id="menu-button" tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button>
+      <ons-back-button id="back-button">Back</ons-back-button>
+    </div>
     <div class="center" data-localize="food-list.title">Food List</div>
     <div class="right">
       <ons-toolbar-button id="scan" onclick="foodList.scan();"><ons-icon icon="barcode"></ons-icon></ons-toolbar-button>
       <ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button>
-      <ons-toolbar-button id="mode"><ons-icon icon="fa-bookmark"></ons-icon></ons-toolbar-button>
+      <ons-toolbar-button id="recipe-button"><ons-icon onclick="nav.replacePage('activities/recipes/views/recipes.html')" icon="fa-bookmark"></ons-icon></ons-toolbar-button>
     </div>
   </ons-toolbar>
 

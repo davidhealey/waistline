@@ -167,7 +167,7 @@ ons.ready(function() {
   .then(function(){
     console.log("App Initialized");
     if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
-    nav.resetToPage("activities/statistics/views/statistics.html");
+    nav.resetToPage("activities/recipes/views/edit-recipe.html");
   });
 });
 

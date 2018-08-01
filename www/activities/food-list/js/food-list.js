@@ -21,6 +21,7 @@ var foodList = {
 
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
+  lastPageId:null, //ID of the page that got us to this page, if there was one
 
   fillListFromDB : function()
   {
@@ -477,6 +478,21 @@ var foodList = {
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e){
+
+  var lastPage = this.previousSibling || null; //Get ID of previous page
+
+  if (lastPage != null)
+  {
+    foodList.lastPageId = lastPage.id; //Make it available throughout the class
+
+    $("#food-list-page #menu-button").hide(); //Hide menu button, back button will be visible instead
+    if (lastPage.id == "edit-recipe") $("#food-list-page #recipe-button").hide(); //If we got here from the recipe edit page, hide the recipe button
+  }
+  else //No last page so hide the back button
+  {
+    $("#food-list-page #back-button").hide();
+  }
+
   $("#food-list-page ons-progress-circular").hide(); //Hide circular progress indicator
   $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
   $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
@@ -525,11 +541,13 @@ $(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
   {
     $("#food-list-page ons-toolbar-button#submit").show(); //show submit button
     $("#food-list-page ons-toolbar-button#scan").hide(); //hide scan button
+    $("#food-list-page #recipe-button").hide(); //Hide recipe button
   }
   else
   {
     $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
     $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+    if (foodList.lastPageId != "edit-recipe") $("#food-list-page #recipe-button").show(); //Show recipe button
   }
 });
 
