@@ -1,3 +1,22 @@
+/*
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 var foodList = {
 
   list:[],
@@ -83,7 +102,7 @@ var foodList = {
     $("#edit-food-item #salt").val(data.nutrition.salt);
 
     //Display image
-    if (data.image_url && navigator.connection.type != "none" && app.storage.getItem("show-images") == "true")
+    if (data.image_url && data.image_url != "undefined" && navigator.connection.type != "none" && app.storage.getItem("show-images") === "true")
     {
       $('#edit-food-item #foodImage').html("<ons-card><img style='display:block; height:auto; width:75%; margin:auto;'></img></ons-card>");
       $('#edit-food-item #foodImage img').attr("src", unescape(data.image_url));
@@ -115,37 +134,42 @@ var foodList = {
     }
   },
 
-  updateEntry : function()
+  processEditForm : function()
   {
-    var data = {}; //Data to insert/update in DB
-    var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
+    return new Promise(function(resolve, reject){
+      var data = {}; //Data to insert/update in DB
+      var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
-    //Get form values
-    var id = parseInt(form.id.value); //ID is hidden field
-    data.barcode = form.barcode.value; //Barcode is hidden field
-    data.name = escape(form.name.value);
-    data.brand = escape(form.brand.value); //Should only be 1 brand per product
-    data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-    data.portion = form.portion.value;
-    data.nutrition = {
-      "calories":parseFloat(form.calories.value),
-      "protein":parseFloat(form.protein.value),
-      "carbs":parseFloat(form.carbs.value),
-      "fat":parseFloat(form.fat.value),
-      "sugar":parseFloat(form.sugar.value),
-      "salt":parseFloat(form.salt.value),
-    };
+      //Get form values
+      var id = parseInt(form.id.value); //ID is hidden field
+      data.barcode = form.barcode.value; //Barcode is hidden field
+      data.name = escape(form.name.value);
+      data.brand = escape(form.brand.value); //Should only be 1 brand per product
+      data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
+      data.portion = form.portion.value;
+      data.nutrition = {
+        "calories":parseFloat(form.calories.value),
+        "protein":parseFloat(form.protein.value),
+        "carbs":parseFloat(form.carbs.value),
+        "fat":parseFloat(form.fat.value),
+        "sugar":parseFloat(form.sugar.value),
+        "salt":parseFloat(form.salt.value),
+      };
 
-    var date = new Date()
-    data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+      var date = new Date()
+      data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 
-    if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
+      if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
-    //Add/update food item
-    data.id == undefined ? dbHandler.insert(data, "foodList") : dbHandler.update(data, "foodList", id);
-
-    foodList.fillListFromDB()
-    .then(nav.popPage());
+      //Add/update food item
+      if (data.id == undefined){
+        dbHandler.insert(data, "foodList").onsuccess = function(){resolve();}
+      }
+      else {
+        dbHandler.update(data, "foodList", id)
+        .then(resolve());
+      }
+    });
   },
 
   deleteEntry : function(id)
@@ -559,7 +583,11 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 
   //Form validation
   if (name != "" && portion != "" && calories != "" && !isNaN(calories)) {
-    $("#edit-food-item #edit-item-form").submit();
+    foodList.processEditForm()
+    .then(function(){
+      foodList.fillListFromDB()
+      .then(function(){nav.popPage();});
+    });
   } else {
     ons.notification.alert(app.strings["dialogs"]["required-fields"]);
   }

@@ -167,7 +167,7 @@ var foodList = {
       }
       else {
         dbHandler.update(data, "foodList", id)
-        .then(resolve);
+        .then(resolve());
       }
     });
   },
@@ -586,7 +586,7 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
     foodList.processEditForm()
     .then(function(){
       foodList.fillListFromDB()
-      .then(nav.popPage());
+      .then(function(){nav.popPage();});
     });
   } else {
     ons.notification.alert(app.strings["dialogs"]["required-fields"]);
