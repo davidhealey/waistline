@@ -136,35 +136,40 @@ var foodList = {
 
   updateEntry : function()
   {
-    var data = {}; //Data to insert/update in DB
-    var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
+    return new Promise(function(resolve, reject){
+      var data = {}; //Data to insert/update in DB
+      var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
-    //Get form values
-    var id = parseInt(form.id.value); //ID is hidden field
-    data.barcode = form.barcode.value; //Barcode is hidden field
-    data.name = escape(form.name.value);
-    data.brand = escape(form.brand.value); //Should only be 1 brand per product
-    data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-    data.portion = form.portion.value;
-    data.nutrition = {
-      "calories":parseFloat(form.calories.value),
-      "protein":parseFloat(form.protein.value),
-      "carbs":parseFloat(form.carbs.value),
-      "fat":parseFloat(form.fat.value),
-      "sugar":parseFloat(form.sugar.value),
-      "salt":parseFloat(form.salt.value),
-    };
+      //Get form values
+      var id = parseInt(form.id.value); //ID is hidden field
+      data.barcode = form.barcode.value; //Barcode is hidden field
+      data.name = escape(form.name.value);
+      data.brand = escape(form.brand.value); //Should only be 1 brand per product
+      data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
+      data.portion = form.portion.value;
+      data.nutrition = {
+        "calories":parseFloat(form.calories.value),
+        "protein":parseFloat(form.protein.value),
+        "carbs":parseFloat(form.carbs.value),
+        "fat":parseFloat(form.fat.value),
+        "sugar":parseFloat(form.sugar.value),
+        "salt":parseFloat(form.salt.value),
+      };
 
-    var date = new Date()
-    data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+      var date = new Date()
+      data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 
-    if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
+      if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
-    //Add/update food item
-    data.id == undefined ? dbHandler.insert(data, "foodList") : dbHandler.update(data, "foodList", id);
-
-    foodList.fillListFromDB()
-    .then(nav.popPage());
+      //Add/update food item
+      if (data.id == undefined){
+        dbHandler.insert(data, "foodList").onsuccess = function(){resolve();}
+      }
+      else {
+        dbHandler.update(data, "foodList", id)
+        .then(resolve);
+      }
+    });
   },
 
   deleteEntry : function(id)
@@ -578,7 +583,11 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 
   //Form validation
   if (name != "" && portion != "" && calories != "" && !isNaN(calories)) {
-    $("#edit-food-item #edit-item-form").submit();
+    foodList.updateEntry()
+    .then(function(){
+      foodList.fillListFromDB()
+      .then(nav.popPage());
+    });
   } else {
     ons.notification.alert(app.strings["dialogs"]["required-fields"]);
   }
