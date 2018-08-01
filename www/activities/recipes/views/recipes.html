@@ -1,0 +1,69 @@
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="recipes">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="center" data-localize="recipes.title">Recipes</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <div>
+    <ons-fab position="bottom right" tappable onclick="nav.pushPage('activities/food-list/views/edit-item.html')">
+      <ons-icon icon="md-plus"></ons-icon>
+    </ons-fab>
+
+    <div style="text-align:center;">
+      <p>
+        <form onsubmit="recipes.filter(this[0].value); return false;">
+          <ons-search-input id="filter" placeholder="Search Recipes"></ons-search-input>
+        </form>
+      </p>
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+
+    <ons-list id="recipe-list"></ons-list>
+  </div>
+
+  <ons-bottom-toolbar id="footer" static>
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="right"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <ons-tabbar swipeable position="auto">
+      <ons-tab page="tab1.html" label="Foods" icon="ion-pizza" active></ons-tab>
+        <ons-tab page="tab2.html" label="Recipes" icon="md-book" active></ons-tab>
+    </ons-tabbar>
+  </ons-bottom-toolbar>
+</ons-page>

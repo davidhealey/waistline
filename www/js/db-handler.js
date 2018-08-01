@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 16;
+      var databaseVersion = 17;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -94,6 +94,16 @@ var dbHandler =
           if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
 
+          //Recipes store
+          if (!DB.objectStoreNames.contains("recipes")) {
+            store = DB.createObjectStore("recipes", {keyPath:'id', autoIncrement:true});
+          } else {
+            store = upgradeTransaction.objectStore('recipes');
+          }
+
+          if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false});
+          if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false}); //Nutrition consumtion
+          if (!store.indexNames.contains("foodIds")) store.createIndex('foodIds', 'foodIds', {unique:false}); //Current weight
           console.log("DB Created/Updated");
       };
     });
