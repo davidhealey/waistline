@@ -134,7 +134,7 @@ var foodList = {
     }
   },
 
-  updateEntry : function()
+  processEditForm : function()
   {
     return new Promise(function(resolve, reject){
       var data = {}; //Data to insert/update in DB
@@ -583,7 +583,7 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 
   //Form validation
   if (name != "" && portion != "" && calories != "" && !isNaN(calories)) {
-    foodList.updateEntry()
+    foodList.processEditForm()
     .then(function(){
       foodList.fillListFromDB()
       .then(nav.popPage());
