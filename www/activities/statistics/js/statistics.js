@@ -171,7 +171,7 @@ $(document).on("change", "#statistics #range", function(e){
   });
 });
 
-$(document).on("tap", "#statistics #weightLog ons-list-item", function(e){
+$(document).on("click", "#statistics #weightLog ons-list-item", function(e){
   var timestamp = new Date($(this).attr("timestamp"));
   diary.recordWeight(timestamp)
   .then(function(){

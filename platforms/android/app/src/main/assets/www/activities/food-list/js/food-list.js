@@ -527,7 +527,7 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 });
 
 //Edit food item by double tapping
-$(document).on("doubletap", "#food-list-page #food-list ons-list-item", function(e) {
+$(document).on("dblclick", "#food-list-page #food-list ons-list-item", function(e) {
 
   var data = JSON.parse($(this).attr("data"));
 

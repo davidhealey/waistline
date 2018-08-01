@@ -271,7 +271,7 @@ var diary = {
       var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
 
       //Show prompt
-      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight})
+      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight, "cancelable":true})
       .then(function(input)
       {
         if (!isNaN(parseFloat(input)))
