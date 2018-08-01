@@ -52,7 +52,7 @@ This privacy policy may be updated from time to time as the functionalities of t
 Waistline is developed in good faith and for general use. The developer will not be held accountable for how you decide to use this software and will not be liable for any losses and/or damages in connection with the use of the software.
 
 ## Developer
-Waistline is developed by me, David Healey, with suggestions and contributions from fellow git-hubbers. Waistline is freely available from the links at the bottom of this page (F-Droid gets the most recent version usually). If you enjoy using this app and would like to buy me a coffee (or some high calorie comestible) here is my PayPal link - https://www.paypal.me/healeyd - Thanks!
+Waistline is developed by me, David Healey, with suggestions and contributions from fellow git-hubbers. Waistline is freely available from the links at the bottom of this page (F-Droid gets the most recent version usually). If you enjoy using this app and would like to buy me a coffee (or some high calorie comestible) here is my [PayPal link](https://www.paypal.me/healeyd) - Thanks!
 
 Please spread the word and share this app with anyone you think could benefit from it. Also, let me know if you find any bugs and I'll try and squish them.
 
