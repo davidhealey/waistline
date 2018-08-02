@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Aug 02 17:28:51 BST 2018
+#Thu Aug 02 17:48:45 BST 2018
 20.base=/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/assets/release
 143.base=/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/assets/release
 493.base=/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/assets/release
