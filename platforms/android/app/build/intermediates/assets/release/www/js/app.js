@@ -69,10 +69,13 @@ var app = {
         $("[data-localize]").localize("locales/locale", {
           callback: function(data, defaultCallback){
             defaultCallback(data);
-            app.strings = $.localize.data["locales/locale"];
+
+            var locale = $.localize.data["locales/locale"]; //Get localized strings
+
+            //Merge the localized strings with the default locale in case there are any missing values
+            app.strings = Object.assign(app.strings, locale);
           }
         });
-        //console.log(app.strings);
 
         dbHandler.initializeDb() //db-handler initialization
         .then(function(){
@@ -167,7 +170,7 @@ ons.ready(function() {
   .then(function(){
     console.log("App Initialized");
     if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
-    nav.resetToPage("activities/statistics/views/statistics.html");
+    nav.resetToPage("activities/meals/views/meals.html");
   });
 });
 

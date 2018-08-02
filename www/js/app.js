@@ -77,9 +77,6 @@ var app = {
           }
         });
 
-
-
-
         dbHandler.initializeDb() //db-handler initialization
         .then(function(){
           //Add a log entry for the current date if there isn't one already

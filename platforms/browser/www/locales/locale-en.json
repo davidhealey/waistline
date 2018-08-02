@@ -116,6 +116,19 @@
     }
   },
 
+  "recipes":{
+    "title":"Recipes",
+    "filter":"Filter Recipes",
+    "edit-recipe":{
+      "title1":"Add Recipe",
+      "title2":"Edit Recipe",
+      "placeholders":{
+        "name":"Recipe Name",
+        "notes":"Notes..."
+      }
+    }
+  },
+
   "settings":{
     "title":"Settings",
     "show-images1":"Show product images",

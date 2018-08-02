@@ -21,6 +21,7 @@ var foodList = {
 
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
+  lastPageId:null, //ID of the page that got us to this page, if there was one
 
   fillListFromDB : function()
   {
@@ -77,7 +78,7 @@ var foodList = {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
         html += "<ons-row>" + unescape(list[i].name) + " - " + list[i].portion + "</ons-row>"
-        html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories + " Calories</i></ons-row>";
+        html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
       }
 
       html += "</ons-list-item>";
@@ -93,7 +94,8 @@ var foodList = {
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(unescape(data.name));
     $("#edit-food-item #brand").val(unescape(data.brand));
-    $("#edit-food-item #portion").val(data.portion);
+    $("#edit-food-item #portion").val(parseFloat(data.portion));
+    $("#edit-food-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
@@ -146,7 +148,7 @@ var foodList = {
       data.name = escape(form.name.value);
       data.brand = escape(form.brand.value); //Should only be 1 brand per product
       data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-      data.portion = form.portion.value;
+      data.portion = form.portion.value + form.unit.value;
       data.nutrition = {
         "calories":parseFloat(form.calories.value),
         "protein":parseFloat(form.protein.value),
@@ -477,6 +479,21 @@ var foodList = {
 
 //Food list page display
 $(document).on("show", "#food-list-page", function(e){
+
+  var lastPage = this.previousSibling || null; //Get ID of previous page
+
+  if (lastPage != null)
+  {
+    foodList.lastPageId = lastPage.id; //Make it available throughout the class
+
+    $("#food-list-page #menu-button").hide(); //Hide menu button, back button will be visible instead
+    if (lastPage.id == "edit-meal") $("#food-list-page #meal-button").hide(); //If we got here from the meal edit page, hide the meal button
+  }
+  else { //No last page
+    $("#food-list-page #back-button").hide();
+    $("#food-list-page #meal-button").hide();
+  }
+
   $("#food-list-page ons-progress-circular").hide(); //Hide circular progress indicator
   $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
   $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
@@ -525,11 +542,13 @@ $(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
   {
     $("#food-list-page ons-toolbar-button#submit").show(); //show submit button
     $("#food-list-page ons-toolbar-button#scan").hide(); //hide scan button
+    $("#food-list-page #meal-button").hide(); //Hide meal button
   }
   else
   {
     $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
     $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+    if (foodList.lastPageId != null) $("#food-list-page #meal-button").show(); //Show meal button
   }
 });
 
@@ -540,13 +559,27 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 
   if (checked.length > 0) //At least 1 item was selected
   {
-    //Add each item to diary
-    for (var i = 0; i < checked.length; i++)
+    if (foodList.lastPageId == "diary-page")
     {
-      var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
-      diary.addEntry(data);
+      //Add each item to diary
+      for (var i = 0; i < checked.length; i++)
+      {
+        var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
+        diary.addEntry(data);
+      }
+      nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
     }
-    nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
+    else if (foodList.lastPageId == "edit-meal")
+    {
+      var foodIds = [];
+
+      //Make array of food IDs to be added to meal
+      for (var i = 0; i < checked.length; i++)
+      {
+        foodIds.push(JSON.parse(checked[i].offsetParent.attributes.data.value)["id"]);
+      }
+      nav.popPage({"data":{"foodIds":foodIds}}); //Go back to previous page, and pass data along
+    }
   }
 });
 
