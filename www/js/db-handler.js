@@ -175,6 +175,23 @@ var dbHandler =
     return request;
   },
 
+  getAllItems : function(storeName)
+  {
+    var results;
+    var objectStore = DB.transaction(storeName).objectStore(storeName);
+
+    objectStore.openCursor().onsuccess = function(event) {
+      var cursor = event.target.result;
+      if (cursor) {
+        results.push(cursor.value);
+        cursor.continue();
+      }
+      else {
+        return results;
+      }
+    };
+  },
+
   getItem: function(key, storeName)
   {
     return DB.transaction(storeName).objectStore(storeName).get(key);
