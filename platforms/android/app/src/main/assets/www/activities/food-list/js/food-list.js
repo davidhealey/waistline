@@ -94,7 +94,8 @@ var foodList = {
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(unescape(data.name));
     $("#edit-food-item #brand").val(unescape(data.brand));
-    $("#edit-food-item #portion").val(data.portion);
+    $("#edit-food-item #portion").val(parseFloat(data.portion));
+    $("#edit-food-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
@@ -147,7 +148,7 @@ var foodList = {
       data.name = escape(form.name.value);
       data.brand = escape(form.brand.value); //Should only be 1 brand per product
       data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-      data.portion = form.portion.value;
+      data.portion = form.portion.value + form.unit.value;
       data.nutrition = {
         "calories":parseFloat(form.calories.value),
         "protein":parseFloat(form.protein.value),
@@ -488,9 +489,9 @@ $(document).on("show", "#food-list-page", function(e){
     $("#food-list-page #menu-button").hide(); //Hide menu button, back button will be visible instead
     if (lastPage.id == "edit-meal") $("#food-list-page #meal-button").hide(); //If we got here from the meal edit page, hide the meal button
   }
-  else //No last page so hide the back button
-  {
+  else { //No last page
     $("#food-list-page #back-button").hide();
+    $("#food-list-page #meal-button").hide();
   }
 
   $("#food-list-page ons-progress-circular").hide(); //Hide circular progress indicator
@@ -547,7 +548,7 @@ $(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
   {
     $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
     $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
-    if (foodList.lastPageId != "edit-meal") $("#food-list-page #meal-button").show(); //Show meal button
+    if (foodList.lastPageId != null) $("#food-list-page #meal-button").show(); //Show meal button
   }
 });
 

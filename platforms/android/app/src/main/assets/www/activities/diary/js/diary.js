@@ -239,6 +239,9 @@ var diary = {
           dbHandler.update(foodData, "foodList", foodId);
           resolve();
         }
+        else {
+          resolve();
+        }
       }
     });
   },

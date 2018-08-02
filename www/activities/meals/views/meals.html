@@ -36,12 +36,12 @@
 -->
 <ons-page id="meals">
   <ons-toolbar modifier="material">
-    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
-    <div class="center" data-localize="meals.title">Meals</div>
-    <div class="right">
-      <ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button>
-      <ons-toolbar-button id="mode"><ons-icon onclick="nav.replacePage('activities/food-list/views/food-list.html')" icon="ion-pizza"></ons-icon></ons-toolbar-button>
+    <div class="left">
+      <ons-toolbar-button id="menu-button" tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button>
+      <ons-back-button id="back-button">Back</ons-back-button>
     </div>
+    <div class="center" data-localize="recipes.title">Recipes</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
   </ons-toolbar>
 
   <ons-fab position="bottom right" tappable onclick="nav.pushPage('activities/meals/views/edit-meal.html')">
@@ -50,11 +50,8 @@
 
   <div style="text-align:center;">
     <p>
-      <form onsubmit="meals.filter(this[0].value); return false;">
-        <ons-search-input id="filter" placeholder="Search Meals"></ons-search-input>
-      </form>
+      <ons-search-input id="filter" placeholder="Search Meals"></ons-search-input>
     </p>
-    <ons-progress-circular indeterminate></ons-progress-circular>
   </div>
 
   <ons-list id="meal-list"></ons-list>

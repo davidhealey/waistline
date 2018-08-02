@@ -161,7 +161,7 @@ var foodList = {
       var date = new Date()
       data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 
-      if (isNaN(id) == false && id != "") {data.id = id}; //Add ID for existing items
+      if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
       //Add/update food item
       if (data.id == undefined){
@@ -489,8 +489,9 @@ $(document).on("show", "#food-list-page", function(e){
     $("#food-list-page #menu-button").hide(); //Hide menu button, back button will be visible instead
     if (lastPage.id == "edit-meal") $("#food-list-page #meal-button").hide(); //If we got here from the meal edit page, hide the meal button
   }
-  else { //No last page so hide the back button
+  else { //No last page
     $("#food-list-page #back-button").hide();
+    $("#food-list-page #meal-button").hide();
   }
 
   $("#food-list-page ons-progress-circular").hide(); //Hide circular progress indicator
@@ -547,7 +548,7 @@ $(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
   {
     $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
     $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
-    if (foodList.lastPageId != "edit-meal") $("#food-list-page #meal-button").show(); //Show meal button
+    if (foodList.lastPageId != null) $("#food-list-page #meal-button").show(); //Show meal button
   }
 });
 
