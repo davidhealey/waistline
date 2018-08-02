@@ -177,7 +177,7 @@ var dbHandler =
 
   getAllItems : function(storeName)
   {
-    var results;
+    var results = [];
     var objectStore = DB.transaction(storeName).objectStore(storeName);
 
     objectStore.openCursor().onsuccess = function(event) {
