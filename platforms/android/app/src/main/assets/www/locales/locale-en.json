@@ -213,6 +213,16 @@
       "p5":"When you run Waistline for the first time the app generates a unique ID. This ID is included automatically in the comment field when you upload a product to Open Food Facts.",
       "p6":"The purpose of this ID is to help the maintainers of the Open Food Facts database detect mistakes and prevent abuse of their system."
     },
+    "recipes":
+    {
+      "title":"Recipes",
+      "p1":"On the recipes screen you can combine food items to create a new item called a recipe. Click on the floating plus button to create a new recipe or double tap an existing recipe to edit it. To delete a recipe just tap and hold on it and click ok on the confirmation.",
+      "p2":"The edit recipe screen allows you to enter a name for the recipe and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your recipe.",
+      "p3":"You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the recipe. You can swipe on this area to see more information.",
+      "p4":"Once you're happy with your recipe you can tap the check button on the top toolbar to save it.",
+      "p5":"The basic procedure to add a recipe to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the recipes screen.",
+      "p6":"When you add a recipe to your diary all of the foods from the recipe will be added individually, this allows you to further customise the recipe as needed without having to create multiple recipes for different variations."
+    },
     "goals":
     {
       "title":"Goals",

@@ -22,15 +22,17 @@ var userguide = {
   localize : function()
   {
     var sections = $("#userguide ons-carousel-item");
-    var para = $("#userguide ons-carousel-item p");
 
     for (var s = 0; s < sections.length; s++) //Each section
     {
       $("#"+sections[s].id + " h3").html(app.strings["user-guide"][sections[s].id]["title"]);
 
+      var para = $("#userguide ons-carousel-item#"+sections[s].id + " p");
+
       for (var p = 0; p < para.length; p++) //Each paragraph
       {
         $("#"+sections[s].id + " #p"+(p+1)).html(app.strings["user-guide"][sections[s].id][para[p].id]);
+        console.log(sections[s].id + " - " + p);
       }
     }
   }
