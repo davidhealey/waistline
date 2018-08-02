@@ -140,20 +140,19 @@ var meals = {
   },
 
   //Gets all meals from the database and displays them as an onsen list
-  renderMealsList : function()
+  renderMealsList : function(list)
   {
-    var items = meals.list;
     var html = "";
 
-    for (var i = 0; i < items.length; i++)
+    for (var i = 0; i < list.length; i++)
     {
-      html += "<ons-list-item tappable modifier='longdivider' id='"+items[i].id+"' data='"+JSON.stringify(items[i])+"'>";
+      html += "<ons-list-item tappable modifier='longdivider' id='"+list[i].id+"' data='"+JSON.stringify(list[i])+"'>";
       html += "<label class='right'>";
-      html += "<ons-checkbox name='meal-checkbox' input-id='"+unescape(items[i].name)+"' data='"+JSON.stringify(items[i])+"'></ons-checkbox>";
+      html += "<ons-checkbox name='meal-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
       html += "</label>";
-      html += "<label for='"+unescape(items[i].name)+"' class='center'>";
-      html += "<ons-row>" + unescape(items[i].name) + "</ons-row>";
-      html += "<ons-row style='color:#636363;'><i>" + items[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
+      html += "<label for='"+unescape(list[i].name)+"' class='center'>";
+      html += "<ons-row>" + unescape(list[i].name) + "</ons-row>";
+      html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
       html += "</label>";
       html += "</ons-list-item>";
     }
@@ -211,6 +210,13 @@ var meals = {
     }
   },
 
+  localize : function()
+  {
+    $("#meals #filter").attr("placeholder", app.strings["recipes"]["filter"]);
+    $("#edit-meal #meal-data #name").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["name"]);
+    $("#edit-meal #meal-data #notes").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["notes"]);
+  }
+
 }
 
 //Show meals page
@@ -220,8 +226,10 @@ $(document).on("show", "ons-page#meals", function(){
   lastPage != null ? $("#meals #menu-button").hide() : $("#meals ons-back-button").hide(); //Hide button based on context
   $("#meals #submit").hide(); //Hide submit button
 
+  meals.localize();
+
   meals.fillListFromDB()
-  .then(function(){meals.renderMealsList()});
+  .then(function(){meals.renderMealsList(meals.list)});
 });
 
 //Double on meal item
@@ -285,8 +293,9 @@ $(document).on("init", "ons-page#edit-meal", function(){
 //Show edit meal form
 $(document).on("show", "#edit-meal", function(){
 
+  meals.localize();
   meals.validateEditForm();
-  $("#edit-meal #title").html("Add Recipe"); //Default title
+  $("#edit-meal #title").html(app.strings["recipes"]["edit-recipe"]["title1"]); //Default title
 
   if (this.data.foodIds) //Food ids passed from food list
   {
@@ -304,7 +313,7 @@ $(document).on("show", "#edit-meal", function(){
   }
   else if (this.data.id) //Meal data for existing meal
   {
-    $("#edit-meal #title").html("Edit Recipe");
+    $("#edit-meal #title").html(app.strings["recipes"]["edit-recipe"]["title2"]);
     meals.fillEditForm(this.data) //Populate edit screen with data
     .then(meals.validateEditForm());
   }
@@ -363,12 +372,12 @@ $(document).on("keyup", "#meals #filter", function(e){
   {
     meals.fillListFromDB()
     .then(function(){
-      meals.renderMealsList();
+      meals.renderMealsList(meals.list);
     });
   }
   else { //Filter the list
-    meals.list = meals.filterList(this.value);
-    meals.renderMealsList();
+    var filteredList = meals.filterList(this.value);
+    meals.renderMealsList(filteredList);
   }
 
 });
