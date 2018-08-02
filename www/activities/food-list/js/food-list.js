@@ -161,7 +161,7 @@ var foodList = {
       var date = new Date()
       data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 
-      if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
+      if (isNaN(id) == false && id != "") {data.id = id}; //Add ID for existing items
 
       //Add/update food item
       if (data.id == undefined){
