@@ -51,7 +51,8 @@ var meals = {
       var date = new Date()
       var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 
-      var id = $("#edit-meal #meal-data #id").val();
+      var id = $("#edit-meal #meal-data #id").val(); //Hidden field
+      var nutrition = JSON.parse($("#edit-meal #meal-data #nutrition").val()); //Hidden field
       var name = escape($("#edit-meal #meal-data #name").val());
       var notes = escape($("#edit-meal #meal-data #notes").val());
       var foods = [];
@@ -73,7 +74,7 @@ var meals = {
         foods.push(foodItem);
       }
 
-      var data = {"dateTime":dateTime, "name":name, "foods":foods, "notes":notes};
+      var data = {"dateTime":dateTime, "name":name, "foods":foods, "notes":notes, "nutrition":nutrition};
       if (id != "") {data.id = id} //If there is an ID add it to the data object
 
       //Add/update food item
@@ -106,9 +107,9 @@ var meals = {
       var html = "";
       for (var i = 0; i < mealItems.length; i++)
       {
-        html += "<ons-list-item id='"+mealItems[i].id+"' data='"+JSON.stringify(mealItems[i])+"'>";
+        html += "<ons-list-item tappable modifier='longdivider' id='"+mealItems[i].id+"' data='"+JSON.stringify(mealItems[i])+"'>";
         html += "<ons-row>" + unescape(mealItems[i].name) + "</ons-row>";
-      //  html += "<ons-row style='color:#636363;'><i>" + mealItems[i].nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
+        html += "<ons-row style='color:#636363;'><i>" + mealItems[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
         html += "</ons-list-item>";
       }
 
@@ -153,6 +154,7 @@ var meals = {
       }
     }
 
+    $("#edit-meal #meal-data #nutrition").val(JSON.stringify(nutrition)); //Store nutritional data in hidden form field
     return nutrition;
   },
 
@@ -161,7 +163,7 @@ var meals = {
   {
     for (n in nutrition)
     {
-      n == "calories" ? $("#edit-meal #nutrition #"+n).html(nutrition[n].toFixed(0)) : $("#edit-meal #nutrition #"+n).html(nutrition[n].toFixed(1) + "g");
+      n == "calories" ? $("#edit-meal #"+n).html(nutrition[n].toFixed(0)) : $("#edit-meal #"+n).html(nutrition[n].toFixed(1) + "g");
     }
   },
 
