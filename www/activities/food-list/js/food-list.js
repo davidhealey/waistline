@@ -95,7 +95,7 @@ var foodList = {
     $("#edit-food-item #name").val(unescape(data.name));
     $("#edit-food-item #brand").val(unescape(data.brand));
     $("#edit-food-item #portion").val(parseFloat(data.portion));
-    $("#edit-food-item #unit").val(data.portion.replace(/[0-9]/g, ''));
+    $("#edit-food-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
@@ -489,8 +489,7 @@ $(document).on("show", "#food-list-page", function(e){
     $("#food-list-page #menu-button").hide(); //Hide menu button, back button will be visible instead
     if (lastPage.id == "edit-meal") $("#food-list-page #meal-button").hide(); //If we got here from the meal edit page, hide the meal button
   }
-  else //No last page so hide the back button
-  {
+  else { //No last page so hide the back button
     $("#food-list-page #back-button").hide();
   }
 

@@ -167,7 +167,7 @@ ons.ready(function() {
   .then(function(){
     console.log("App Initialized");
     if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
-    nav.resetToPage("activities/food-list/views/edit-item.html");
+    nav.resetToPage("activities/meals/views/edit-meal.html");
   });
 });
 

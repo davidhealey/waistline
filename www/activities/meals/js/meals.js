@@ -31,24 +31,17 @@ var meals = {
     });
   },
 
-  //Takes an array of food items and displays them as an onsen list
-  renderFoodList : function(foods)
+  //Takes data of a food item and adds it to the list
+  renderFoodItem : function(data)
   {
-    return new Promise(function(resolve, reject){
+    var html = "";
+    html += "<ons-list-item id='"+data.id+"' data='"+JSON.stringify(data)+"'>";
+    html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
+    html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+    html += "<ons-row style='color:#636363;'><i>" + data.nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
+    html += "</ons-list-item>";
 
-      var html = "";
-      for (var i = 0; i < foods.length; i++)
-      {
-        html += "<ons-list-item id='"+foods[i].id+"' data='"+JSON.stringify(foods[i])+"'>";
-        html += "<ons-row>" + unescape(foods[i].brand) + "</ons-row>";
-        html += "<ons-row>" + unescape(foods[i].name) + " - " + foods[i].portion + "</ons-row>";
-        html += "<ons-row style='color:#636363;'><i>" + foods[i].nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
-        html += "</ons-list-item>";
-      }
-
-      $("#edit-meal ons-list#foods").html(html);
-
-    });
+    $("#edit-meal ons-list#foods").append(html);
   },
 
   //Grabs the onsen list of food items and saves them to the meals database store
@@ -60,26 +53,28 @@ var meals = {
 
       var id = $("#edit-meal #name").val();
       var name = $("#edit-meal #name").val();
-      var foodIds = [];
+      var foods = [];
 
       var listItems = $("#edit-meal #foods ons-list-item"); //Get food items list
-      var nutrition = {};
 
       for (var i = 0; i < listItems.length; i++)
       {
-        foodIds.push(listItems[i].id);
         var foodData = JSON.parse($(listItems[i]).attr("data")); //Get food data from list item
 
-        for (n in foodData.nutrition)
-        {
-          nutrition[n] = nutrition[n] || 0;
-          nutrition[n] += foodData.nutrition[n];
-        }
+        var foodItem = {  //Item to be inserted into foods array
+          "id":foodData.id,
+          "name":foodData.name,
+          "brand":foodData.brand,
+          "portion":foodData.portion,
+          "nutrition":foodData.nutrition,
+        };
+
+        foods.push(foodItem);
       }
 
-      console.log(nutrition);
+      //console.log(foods);
 
-      var data = {"dateTime":dateTime, "name":name, "foodIds":foodIds};
+      var data = {"dateTime":dateTime, "name":name, "foods":foodIds, notes:""};
       if (!isNaN(id)) {data.id = id} //If there is an ID add it to the data object
 
       //Add/update food item
@@ -120,7 +115,27 @@ var meals = {
 
       $("#meals ons-list#meal-list").html(html);
     });
-  }
+  },
+
+  changePortion : function(listItem, newPortion)
+  {
+    var data = JSON.parse($(listItem).attr("data"));;
+    var unit = data.portion.replace(/[^a-z]/gi, '');
+    var nutrition = {};
+
+    //Calculate nutritional data for new portion
+    for (n in data.nutrition)
+    {
+      nutrition[n] = nutrition[n] || 0;
+      nutrition[n] = (data.nutrition[n] / parseFloat(data.portion)) * parseFloat(newPortion);
+    }
+
+    data.portion = newPortion + " " + unit;
+    data.nutrition = nutrition; //Replace object with new one
+
+    $(listItem).remove(); //Remove the existing item from the list
+    meals.renderFoodItem(data); //Readd the item with its updated values
+  },
 
 }
 
@@ -133,6 +148,10 @@ $(document).on("show", "ons-page#meals", function(){
 
 });
 
+$(document).on("init", "ons-page#edit-meal", function(){
+  $("#edit-meal ons-list#foods").append(""); //Clear list
+});
+
 //Show edit meal form
 $(document).on("show", "#edit-meal", function(){
 
@@ -142,7 +161,13 @@ $(document).on("show", "#edit-meal", function(){
   {
     $("#edit-meal #submit").show();
     meals.getFoods(this.data.foodIds)
-    .then(foods => meals.renderFoodList(foods));
+    .then(function(foods)
+    {
+      for (var i = 0; i < foods.length; i++)
+      {
+        meals.renderFoodItem(foods[i]);
+      }
+    });
   }
 });
 
@@ -164,6 +189,26 @@ $(document).on("hold", "#edit-meal #foods ons-list-item", function(){
       meals.validateEditForm();
     }
   });
+});
+
+//Tap on food item
+$(document).on("click", "#edit-meal #foods ons-list-item", function(e){
+
+  var control = this;
+  var data = JSON.parse($(this).attr("data"));
+  var portion = parseFloat(data.portion);
+  var unit = data.portion.replace(/[^a-z]/gi, '');
+
+  //Show prompt
+  ons.notification.prompt("Quantity (" + unit + ")", {"title":"Quantity", "inputType":"number", "defaultValue":portion, "cancelable":true})
+  .then(function(input)
+  {
+    if (!isNaN(parseFloat(input)))
+    {
+      meals.changePortion(control, input, unit);
+    }
+  });
+
 });
 
 //Submit edit form
