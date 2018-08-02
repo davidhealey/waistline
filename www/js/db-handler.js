@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 19;
+      var databaseVersion = 20;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -177,19 +177,21 @@ var dbHandler =
 
   getAllItems : function(storeName)
   {
-    var results = [];
-    var objectStore = DB.transaction(storeName).objectStore(storeName);
+    return new Promise(function(resolve, reject){
+      var results = [];
+      var objectStore = DB.transaction(storeName).objectStore(storeName);
 
-    objectStore.openCursor().onsuccess = function(event) {
-      var cursor = event.target.result;
-      if (cursor) {
-        results.push(cursor.value);
-        cursor.continue();
-      }
-      else {
-        return results;
-      }
-    };
+      objectStore.openCursor().onsuccess = function(event) {
+        var cursor = event.target.result;
+        if (cursor) {
+          results.push(cursor.value);
+          cursor.continue();
+        }
+        else {
+          resolve(results);
+        }
+      };
+    });
   },
 
   getItem: function(key, storeName)
