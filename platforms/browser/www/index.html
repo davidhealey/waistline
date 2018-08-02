@@ -20,7 +20,7 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap ws: 'unsafe-inline'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
@@ -50,10 +50,10 @@
     <body>
 
       <ons-splitter>
-        <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+        <ons-splitter-side id="menu" side="left" width="220px" collapse="" swipeable="">
           <ons-page>
             <ons-list>
-              <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable="" modifier="longdivider">
                 <div class="left" data-localize="stats.title">
                   Statistics
                 </div>
@@ -62,7 +62,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable="" modifier="longdivider">
                 <div class="left" data-localize="diary.title">
                   Diary
                 </div>
@@ -71,7 +71,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/food-list/views/food-list.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/food-list/views/food-list.html').then(menu.close.bind(menu))" tappable="" modifier="longdivider">
                 <div class="left" data-localize="food-list">
                   Food List
                 </div>
@@ -80,7 +80,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/meals/views/meals.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/meals/views/meals.html').then(menu.close.bind(menu))" tappable="" modifier="longdivider">
                 <div class="left" data-localize="recipes.title">
                   Recipes
                 </div>
@@ -89,7 +89,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable="" modifier="longdivider">
                 <div class="left" data-localize="goals.title">
                   Goals
                 </div>
@@ -98,7 +98,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/settings/views/settings.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/settings/views/settings.html').then(menu.close.bind(menu))" tappable="" modifier="longdivider">
                 <div class="left" data-localize="settings.title">
                   Settings
                 </div>
@@ -107,7 +107,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/userguide/views/userguide.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/userguide/views/userguide.html').then(menu.close.bind(menu))" tappable="" modifier="longdivider">
                 <div class="left" data-localize="user-guide.title">
                   User Guide
                 </div>
@@ -116,7 +116,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'], {'title':app.strings['about']['title']})" tappable modifier="longdivider">
+              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'], {'title':app.strings['about']['title']})" tappable="" modifier="longdivider">
                 <div class="left" data-localize="instructions">
                   About
                 </div>
