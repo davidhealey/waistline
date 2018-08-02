@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 20;
+      var databaseVersion = 21;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -104,6 +104,7 @@ var dbHandler =
           if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false});
           if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false}); //Meal name
           if (!store.indexNames.contains("foodIds")) store.createIndex('foodIds', 'foodIds', {unique:false}); //Food ids
+          if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Total nutrition for meal
           console.log("DB Created/Updated");
       };
     });

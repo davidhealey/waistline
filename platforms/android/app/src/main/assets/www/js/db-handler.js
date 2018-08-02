@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 17;
+      var databaseVersion = 21;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -95,15 +95,16 @@ var dbHandler =
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
 
           //Recipes store
-          if (!DB.objectStoreNames.contains("recipes")) {
-            store = DB.createObjectStore("recipes", {keyPath:'id', autoIncrement:true});
+          if (!DB.objectStoreNames.contains("meals")) {
+            store = DB.createObjectStore("meals", {keyPath:'id', autoIncrement:true});
           } else {
-            store = upgradeTransaction.objectStore('recipes');
+            store = upgradeTransaction.objectStore('meals');
           }
 
           if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false});
-          if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false}); //Nutrition consumtion
-          if (!store.indexNames.contains("foodIds")) store.createIndex('foodIds', 'foodIds', {unique:false}); //Current weight
+          if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false}); //Meal name
+          if (!store.indexNames.contains("foodIds")) store.createIndex('foodIds', 'foodIds', {unique:false}); //Food ids
+          if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Total nutrition for meal
           console.log("DB Created/Updated");
       };
     });
@@ -175,9 +176,46 @@ var dbHandler =
     return request;
   },
 
+  getAllItems : function(storeName)
+  {
+    return new Promise(function(resolve, reject){
+      var results = [];
+      var objectStore = DB.transaction(storeName).objectStore(storeName);
+
+      objectStore.openCursor().onsuccess = function(event) {
+        var cursor = event.target.result;
+        if (cursor) {
+          results.push(cursor.value);
+          cursor.continue();
+        }
+        else {
+          resolve(results);
+        }
+      };
+    });
+  },
+
   getItem: function(key, storeName)
   {
     return DB.transaction(storeName).objectStore(storeName).get(key);
+  },
+
+  getByMultipleKeys: function(keys, storeName)
+  {
+    return new Promise(function(resolve, reject){
+
+      var objectStore = DB.transaction(storeName).objectStore(storeName);
+      var results = [];
+
+      keys.forEach(function(key) {
+        objectStore.get(key).onsuccess = function(e) {
+          results.push(e.target.result);
+          if (results.length === keys.length) {
+             resolve(results);
+          }
+        };
+      });
+    });
   },
 
   getIndex: function(key, storeName)
