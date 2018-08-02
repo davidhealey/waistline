@@ -94,7 +94,8 @@ var foodList = {
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(unescape(data.name));
     $("#edit-food-item #brand").val(unescape(data.brand));
-    $("#edit-food-item #portion").val(data.portion);
+    $("#edit-food-item #portion").val(parseFloat(data.portion));
+    $("#edit-food-item #unit").val(data.portion.replace(/[0-9]/g, ''));
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
@@ -147,7 +148,7 @@ var foodList = {
       data.name = escape(form.name.value);
       data.brand = escape(form.brand.value); //Should only be 1 brand per product
       data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-      data.portion = form.portion.value;
+      data.portion = form.portion.value + form.unit.value;
       data.nutrition = {
         "calories":parseFloat(form.calories.value),
         "protein":parseFloat(form.protein.value),
