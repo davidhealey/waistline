@@ -457,3 +457,7 @@ $(document).on("tap", "#diary-page #nextDate", function(e){
   diary.setDate(diary.date)
   .then(diary.populate());
 });
+
+$(document).on("tap", "#diary-page #record-weight", function(e){
+  diary.recordWeight(diary.date);
+});
