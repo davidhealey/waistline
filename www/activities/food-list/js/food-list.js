@@ -198,7 +198,7 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){*/
 
-      var code = "9310072001128"; //Test barcode
+      var code = "40084077"; //Test barcode
       //var code = scanData.text;
       var request = new XMLHttpRequest();
 
@@ -300,20 +300,6 @@ var foodList = {
   {
     var item = {};
 
-    //Get best match for portion/serving size
-    if (product.serving_size)
-    {
-      item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
-    }
-    else if (product.nutrition_data_per)
-    {
-      item.portion = product.nutrition_data_per;
-    }
-    else if (product.quantity)
-    {
-      item.portion = product.quantity;
-    }
-
     var brands = product.brands || "";
     var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
 
@@ -321,14 +307,46 @@ var foodList = {
     item.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
     item.image_url = escape(product.image_url);
     item.barcode = product.code;
-    item.nutrition = {
-      calories: parseInt(product.nutriments.energy_value),
-      protein: product.nutriments.proteins,
-      carbs: product.nutriments.carbohydrates,
-      sugar: product.nutriments.sugars,
-      fat: product.nutriments.fat,
-      saturated: product.nutriments["saturated-fat"],
-      salt: product.nutriments.salt
+
+    //Get best match for portion/serving size
+    if (product.nutrition_data_per == "serving" || (product.serving_size && product.nutriments.energy_serving))
+    {
+      item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
+      item.nutrition = {
+        calories: product.nutriments.energy_serving,
+        protein: product.nutriments.proteins_serving,
+        carbs: product.nutriments.carbohydrates_serving,
+        sugar: product.nutriments.sugars_serving,
+        fat: product.nutriments.fat_serving,
+        saturated: product.nutriments["saturated-fat_serving"] || 0,
+        salt: product.nutriments.salt_serving
+      }
+    }
+    else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g)
+    {
+      item.portion = "100g";
+      item.nutrition = {
+        calories: product.nutriments.energy_100g,
+        protein: product.nutriments.proteins_100g,
+        carbs: product.nutriments.carbohydrates_100g,
+        sugar: product.nutriments.sugars_100g,
+        fat: product.nutriments.fat_100g,
+        saturated: product.nutriments["saturated-fat_100g"],
+        salt: product.nutriments.salt_100g
+      }
+    }
+    else if (product.quantity) //If all else fails
+    {
+      item.portion = product.quantity;
+      item.nutrition = {
+        calories: product.nutriments.energy_value,
+        protein: product.nutriments.proteins,
+        carbs: product.nutriments.carbohydrates,
+        sugar: product.nutriments.sugars,
+        fat: product.nutriments.fat,
+        saturated: product.nutriments["saturated-fat"] || 0,
+        salt: product.nutriments.salt
+      }
     }
 
     //Kilojules to kcalories
@@ -336,7 +354,7 @@ var foodList = {
     {
       item.calories = parseInt(item.calories / 4.15);
     }
-    console.log(item);
+
     return item;
   },
 
