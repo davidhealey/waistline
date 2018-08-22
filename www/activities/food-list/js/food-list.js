@@ -100,8 +100,9 @@ var foodList = {
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
     $("#edit-food-item #fat").val(data.nutrition.fat);
+    $("#edit-food-item #saturated").val(data.nutrition.saturated);
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
-    $("#edit-food-item #salt").val(data.nutrition.salt);
+    $("#edit-food-item #salt").val(parseFloat(data.nutrition.salt).toFixed(2));
 
     //Display image
     if (data.image_url && data.image_url != "undefined" && navigator.connection.type != "none" && app.storage.getItem("show-images") === "true")
@@ -189,16 +190,16 @@ var foodList = {
   scan : function()
   {
     //First check that there is an internet connection
-    if (navigator.connection.type == "none")
+    /*if (navigator.connection.type == "none")
     {
       ons.notification.alert(app.strings["no-internet"]);
       return false;
     }
 
-    cordova.plugins.barcodeScanner.scan(function(scanData){
+    cordova.plugins.barcodeScanner.scan(function(scanData){*/
 
-      //var code = "9310072001128"; //Test barcode
-      var code = scanData.text;
+      var code = "9310072001128"; //Test barcode
+      //var code = scanData.text;
       var request = new XMLHttpRequest();
 
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
@@ -239,13 +240,13 @@ var foodList = {
           }
         }
       };
-    },
+    /*},
     function(e)
     {
       ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
       $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
-    });
+    });*/
   },
 
   search : function(term)
@@ -324,9 +325,10 @@ var foodList = {
       calories: parseInt(product.nutriments.energy_value),
       protein: product.nutriments.proteins,
       carbs: product.nutriments.carbohydrates,
+      sugar: product.nutriments.sugars,
       fat: product.nutriments.fat,
-      salt: product.nutriments.salt,
-      sugar: product.nutriments.sugars
+      saturated: product.nutriments["saturated-fat"],
+      salt: product.nutriments.salt
     }
 
     //Kilojules to kcalories
@@ -334,6 +336,7 @@ var foodList = {
     {
       item.calories = parseInt(item.calories / 4.15);
     }
+    console.log(item);
     return item;
   },
 
