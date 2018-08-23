@@ -22,6 +22,8 @@ var foodList = {
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
   lastPageId:null, //ID of the page that got us to this page, if there was one
+  editFormData:{}, //When edit form is populated store a copy of its data here for reference
+  nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "salt"],
 
   fillListFromDB : function()
   {
@@ -94,15 +96,25 @@ var foodList = {
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(unescape(data.name));
     $("#edit-food-item #brand").val(unescape(data.brand));
+    $("#edit-food-item #original-portion").val(parseFloat(data.portion));
     $("#edit-food-item #portion").val(parseFloat(data.portion));
     $("#edit-food-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
     $("#edit-food-item #fat").val(data.nutrition.fat);
-    $("#edit-food-item #saturated").val(data.nutrition.saturated);
+    $("#edit-food-item #saturated-fat").val(data.nutrition["saturated-fat"]);
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
     $("#edit-food-item #salt").val(parseFloat(data.nutrition.salt).toFixed(2));
+
+    //Store form data in global object
+    var formData = $("#edit-food-item #edit-item-form").serializeArray();
+
+    foodList.editFormData = {};
+    for (i = 0; i < formData.length; i++)
+    {
+      foodList.editFormData[formData[i].name] = formData[i].value;
+    }
 
     //Display image
     if (data.image_url && data.image_url != "undefined" && navigator.connection.type != "none" && app.storage.getItem("show-images") === "true")
@@ -137,6 +149,21 @@ var foodList = {
     }
   },
 
+  changePortion : function(newPortion)
+  {
+    var f = "#edit-food-item #edit-item-form"; //jQuery Selector for form
+    var formData = foodList.editFormData; //Get reference form data
+
+    //Adjust value of each nutriment based on new portion
+    for (i = 0; i < foodList.nutriments.length; i++) //Each nutriment
+    {
+      var n = foodList.nutriments[i]; //Get nutriment name
+      var v = (formData[n] / formData.portion) * newPortion //New value
+
+      n == "calories" ? $(f + " #"+n).val(parseInt(v)) : $(f + " #"+n).val(v.toFixed(2));
+    }
+  },
+
   processEditForm : function()
   {
     return new Promise(function(resolve, reject){
@@ -155,6 +182,7 @@ var foodList = {
         "protein":parseFloat(form.protein.value),
         "carbs":parseFloat(form.carbs.value),
         "fat":parseFloat(form.fat.value),
+        "saturated-fat":parseFloat(form.saturated-fat.value),
         "sugar":parseFloat(form.sugar.value),
         "salt":parseFloat(form.salt.value),
       };
@@ -318,7 +346,7 @@ var foodList = {
         carbs: product.nutriments.carbohydrates_serving,
         sugar: product.nutriments.sugars_serving,
         fat: product.nutriments.fat_serving,
-        saturated: product.nutriments["saturated-fat_serving"] || 0,
+        "saturated-fat": product.nutriments["saturated-fat_serving"],
         salt: product.nutriments.salt_serving
       }
     }
@@ -331,7 +359,7 @@ var foodList = {
         carbs: product.nutriments.carbohydrates_100g,
         sugar: product.nutriments.sugars_100g,
         fat: product.nutriments.fat_100g,
-        saturated: product.nutriments["saturated-fat_100g"],
+        "saturated-fat": product.nutriments["saturated-fat_100g"],
         salt: product.nutriments.salt_100g
       }
     }
@@ -344,7 +372,7 @@ var foodList = {
         carbs: product.nutriments.carbohydrates,
         sugar: product.nutriments.sugars,
         fat: product.nutriments.fat,
-        saturated: product.nutriments["saturated-fat"] || 0,
+        "saturated-fat": product.nutriments["saturated-fat"],
         salt: product.nutriments.salt
       }
     }
@@ -626,6 +654,11 @@ $(document).on("tap", "#food-list-page #food-list .searchItem", function(e) {
 
 $(document).on("init", "#edit-food-item", function(e){
   foodList.localizeEditForm()
+});
+
+//Edit form portion
+$(document).on("keyup", "#edit-food-item #portion", function(e){
+  foodList.changePortion(this.value);
 });
 
 //Edit form submit button action
