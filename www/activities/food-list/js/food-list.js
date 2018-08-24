@@ -741,6 +741,12 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
   }
 });
 
+$(document).on("keyup", "#upload-food-item #portion, #upload-food-item #unit", function(e){
+  var portion = $("#upload-food-item #portion").val();
+  var unit = $("#upload-food-item #unit").val();
+  $("#upload-food-item #serving_size").val(portion + unit);
+});
+
 //Delete an image
 $(document).on("hold", "#upload-food-item #images ons-carousel-item", function(){
 
