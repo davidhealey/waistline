@@ -325,7 +325,7 @@ var foodList = {
 
   //Open food facts product parser
   parseOFFProduct : function(product)
-  {
+  {console.log(product);
     var item = {};
 
     var brands = product.brands || "";
@@ -508,6 +508,7 @@ var foodList = {
     var name = $("#upload-item-form #name").val();
     var brand = $("#upload-item-form #brand").val();
     var serving_size = $("#upload-item-form #serving_size").val();
+    var unit = $("#upload-item-form #unit").val();
     var calories = $("#upload-item-form #calories").val();
 
     //First check that there is an internet connection
@@ -517,7 +518,7 @@ var foodList = {
       return false;
     }
 
-    if (name != "" && brand != "" && serving_size && calories != "" && !isNaN(calories)) {
+    if (name != "" && brand != "" && serving_size != "" && unit != "" && calories != "" && !isNaN(calories)) {
       return true;
     } else {
       ons.notification.alert(app.strings["dialogs"]["required-fields"]);
@@ -666,7 +667,7 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 
   var name = $('#edit-food-item #name').val();
   var portion = $('#edit-food-item #portion').val();
-  var calories = parseFloat($('#edit-food-item #calories').val());
+  var calories = $('#edit-food-item #calories').val();
 
   //Form validation
   if (name != "" && portion != "" && calories != "" && !isNaN(calories)) {
