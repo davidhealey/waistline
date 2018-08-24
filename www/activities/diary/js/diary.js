@@ -23,6 +23,11 @@ var diary = {
   date: undefined,
   consumption:{}, //Nutrition consumed for current diary date
 
+  setCategory : function(index)
+  {
+    diary.category = index;
+  },
+
   populate : function()
   {
     return new Promise(function(resolve, reject){

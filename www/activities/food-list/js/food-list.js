@@ -325,7 +325,7 @@ var foodList = {
 
   //Open food facts product parser
   parseOFFProduct : function(product)
-  {console.log(product);
+  {
     var item = {};
 
     var brands = product.brands || "";
@@ -609,15 +609,47 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 
   if (checked.length > 0) //At least 1 item was selected
   {
-    if (foodList.lastPageId == "diary-page")
+    if (foodList.lastPageId == "diary-page" || foodList.lastPageId == null)
     {
-      //Add each item to diary
-      for (var i = 0; i < checked.length; i++)
+      if (foodList.lastPageId == null) //No last page
       {
-        var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
-        diary.addEntry(data);
+        //Allow user to select diary category
+        var categories = JSON.parse(app.storage.getItem("meal-names"));
+        var options = [];
+        for (var i = 0; i < categories.length; i++)
+        {
+          if (categories[i] == "") continue; //Skip unset meal names
+          options[i] = categories[i];
+        }
+
+        //Ask the user to select the type of image
+        ons.openActionSheet({
+          title: 'What meal is this?',
+          buttons: options
+        })
+        .then(function(input){
+
+          diary.setCategory(input); //Set the diary category
+
+          //Add each item to diary
+          for (var i = 0; i < checked.length; i++)
+          {
+            var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
+            diary.addEntry(data);
+          }
+          nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
+        });
       }
-      nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
+      else //Food list was accessed through diary page so category is already set
+      {
+        //Add each item to diary
+        for (var i = 0; i < checked.length; i++)
+        {
+          var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
+          diary.addEntry(data);
+        }
+        nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
+      }
     }
     else if (foodList.lastPageId == "edit-meal")
     {
