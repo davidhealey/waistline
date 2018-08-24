@@ -30,7 +30,7 @@ var statistics = {
       toDate.setHours(24, 59); //1 minute before midnight tomorrow
 
       var range = $("#statistics #range").val();
-      range == 7 ? fromDate.setDate(fromDate.getDate()-7) : fromDate.setMonth(fromDate.getMonth()-range);
+      range == 7 ? fromDate.setDate(fromDate.getDate()-6) : fromDate.setMonth(fromDate.getMonth()-range);
 
       var data = {"timestamps":[], "nutrition":{}, "weight":[]};
       dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
