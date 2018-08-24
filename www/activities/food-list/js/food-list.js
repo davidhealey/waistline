@@ -559,6 +559,9 @@ $(document).on("init", "#food-list-page", function(e){
 
 $(document).on("keyup", "#food-list-page #filter", function(e){
 
+  $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
+  $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+
   if (this.value == "") //Search box cleared, reset the list
   {
     foodList.fillListFromDB()
