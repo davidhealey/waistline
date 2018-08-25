@@ -42,4 +42,5 @@
     <preference name="SplashScreenDelay" value="1000" />
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.0.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
 </widget>
