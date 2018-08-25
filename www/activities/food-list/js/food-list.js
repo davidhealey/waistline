@@ -182,7 +182,7 @@ var foodList = {
         "protein":parseFloat(form.protein.value),
         "carbs":parseFloat(form.carbs.value),
         "fat":parseFloat(form.fat.value),
-        "saturated-fat":parseFloat(form.saturated-fat.value),
+        "saturated-fat":parseFloat(form["saturated-fat"].value),
         "sugar":parseFloat(form.sugar.value),
         "salt":parseFloat(form.salt.value),
       };
