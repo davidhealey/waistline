@@ -22,6 +22,8 @@ var foodList = {
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
   lastPageId:null, //ID of the page that got us to this page, if there was one
+  editFormData:{}, //When edit form is populated store a copy of its data here for reference
+  nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "salt"],
 
   fillListFromDB : function()
   {
@@ -94,14 +96,25 @@ var foodList = {
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(unescape(data.name));
     $("#edit-food-item #brand").val(unescape(data.brand));
+    $("#edit-food-item #original-portion").val(parseFloat(data.portion));
     $("#edit-food-item #portion").val(parseFloat(data.portion));
     $("#edit-food-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
     $("#edit-food-item #fat").val(data.nutrition.fat);
+    $("#edit-food-item #saturated-fat").val(data.nutrition["saturated-fat"]);
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
-    $("#edit-food-item #salt").val(data.nutrition.salt);
+    $("#edit-food-item #salt").val(parseFloat(data.nutrition.salt).toFixed(2));
+
+    //Store form data in global object
+    var formData = $("#edit-food-item #edit-item-form").serializeArray();
+
+    foodList.editFormData = {};
+    for (i = 0; i < formData.length; i++)
+    {
+      foodList.editFormData[formData[i].name] = formData[i].value;
+    }
 
     //Display image
     if (data.image_url && data.image_url != "undefined" && navigator.connection.type != "none" && app.storage.getItem("show-images") === "true")
@@ -136,6 +149,21 @@ var foodList = {
     }
   },
 
+  changePortion : function(newPortion)
+  {
+    var f = "#edit-food-item #edit-item-form"; //jQuery Selector for form
+    var formData = foodList.editFormData; //Get reference form data
+
+    //Adjust value of each nutriment based on new portion
+    for (i = 0; i < foodList.nutriments.length; i++) //Each nutriment
+    {
+      var n = foodList.nutriments[i]; //Get nutriment name
+      var v = (formData[n] / formData.portion) * newPortion //New value
+
+      n == "calories" ? $(f + " #"+n).val(parseInt(v)) : $(f + " #"+n).val(v.toFixed(2));
+    }
+  },
+
   processEditForm : function()
   {
     return new Promise(function(resolve, reject){
@@ -154,6 +182,7 @@ var foodList = {
         "protein":parseFloat(form.protein.value),
         "carbs":parseFloat(form.carbs.value),
         "fat":parseFloat(form.fat.value),
+        "saturated-fat":parseFloat(form["saturated-fat"].value),
         "sugar":parseFloat(form.sugar.value),
         "salt":parseFloat(form.salt.value),
       };
@@ -197,7 +226,7 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      //var code = "9310072001128"; //Test barcode
+      //var code = "40084077"; //Test barcode
       var code = scanData.text;
       var request = new XMLHttpRequest();
 
@@ -299,20 +328,6 @@ var foodList = {
   {
     var item = {};
 
-    //Get best match for portion/serving size
-    if (product.serving_size)
-    {
-      item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
-    }
-    else if (product.nutrition_data_per)
-    {
-      item.portion = product.nutrition_data_per;
-    }
-    else if (product.quantity)
-    {
-      item.portion = product.quantity;
-    }
-
     var brands = product.brands || "";
     var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
 
@@ -320,13 +335,46 @@ var foodList = {
     item.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
     item.image_url = escape(product.image_url);
     item.barcode = product.code;
-    item.nutrition = {
-      calories: parseInt(product.nutriments.energy_value),
-      protein: product.nutriments.proteins,
-      carbs: product.nutriments.carbohydrates,
-      fat: product.nutriments.fat,
-      salt: product.nutriments.salt,
-      sugar: product.nutriments.sugars
+
+    //Get best match for portion/serving size
+    if (product.nutrition_data_per == "serving" || (product.serving_size && product.nutriments.energy_serving))
+    {
+      item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
+      item.nutrition = {
+        calories: product.nutriments.energy_serving,
+        protein: product.nutriments.proteins_serving,
+        carbs: product.nutriments.carbohydrates_serving,
+        sugar: product.nutriments.sugars_serving,
+        fat: product.nutriments.fat_serving,
+        "saturated-fat": product.nutriments["saturated-fat_serving"],
+        salt: product.nutriments.salt_serving
+      }
+    }
+    else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g)
+    {
+      item.portion = "100g";
+      item.nutrition = {
+        calories: product.nutriments.energy_100g,
+        protein: product.nutriments.proteins_100g,
+        carbs: product.nutriments.carbohydrates_100g,
+        sugar: product.nutriments.sugars_100g,
+        fat: product.nutriments.fat_100g,
+        "saturated-fat": product.nutriments["saturated-fat_100g"],
+        salt: product.nutriments.salt_100g
+      }
+    }
+    else if (product.quantity) //If all else fails
+    {
+      item.portion = product.quantity;
+      item.nutrition = {
+        calories: product.nutriments.energy_value,
+        protein: product.nutriments.proteins,
+        carbs: product.nutriments.carbohydrates,
+        sugar: product.nutriments.sugars,
+        fat: product.nutriments.fat,
+        "saturated-fat": product.nutriments["saturated-fat"],
+        salt: product.nutriments.salt
+      }
     }
 
     //Kilojules to kcalories
@@ -334,6 +382,7 @@ var foodList = {
     {
       item.calories = parseInt(item.calories / 4.15);
     }
+
     return item;
   },
 
@@ -459,6 +508,7 @@ var foodList = {
     var name = $("#upload-item-form #name").val();
     var brand = $("#upload-item-form #brand").val();
     var serving_size = $("#upload-item-form #serving_size").val();
+    var unit = $("#upload-item-form #unit").val();
     var calories = $("#upload-item-form #calories").val();
 
     //First check that there is an internet connection
@@ -468,7 +518,7 @@ var foodList = {
       return false;
     }
 
-    if (name != "" && brand != "" && serving_size && calories != "" && !isNaN(calories)) {
+    if (name != "" && brand != "" && serving_size != "" && unit != "" && calories != "" && !isNaN(calories)) {
       return true;
     } else {
       ons.notification.alert(app.strings["dialogs"]["required-fields"]);
@@ -508,6 +558,9 @@ $(document).on("init", "#food-list-page", function(e){
 });
 
 $(document).on("keyup", "#food-list-page #filter", function(e){
+
+  $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
+  $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
 
   if (this.value == "") //Search box cleared, reset the list
   {
@@ -559,15 +612,47 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 
   if (checked.length > 0) //At least 1 item was selected
   {
-    if (foodList.lastPageId == "diary-page")
+    if (foodList.lastPageId == "diary-page" || foodList.lastPageId == null)
     {
-      //Add each item to diary
-      for (var i = 0; i < checked.length; i++)
+      if (foodList.lastPageId == null) //No last page
       {
-        var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
-        diary.addEntry(data);
+        //Allow user to select diary category
+        var categories = JSON.parse(app.storage.getItem("meal-names"));
+        var options = [];
+        for (var i = 0; i < categories.length; i++)
+        {
+          if (categories[i] == "") continue; //Skip unset meal names
+          options[i] = categories[i];
+        }
+
+        //Ask the user to select the type of image
+        ons.openActionSheet({
+          title: 'What meal is this?',
+          buttons: options
+        })
+        .then(function(input){
+
+          diary.setCategory(input); //Set the diary category
+
+          //Add each item to diary
+          for (var i = 0; i < checked.length; i++)
+          {
+            var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
+            diary.addEntry(data);
+          }
+          nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
+        });
       }
-      nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
+      else //Food list was accessed through diary page so category is already set
+      {
+        //Add each item to diary
+        for (var i = 0; i < checked.length; i++)
+        {
+          var data = JSON.parse(checked[i].offsetParent.attributes.data.value); //Parse data from checkbox attribute
+          diary.addEntry(data);
+        }
+        nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
+      }
     }
     else if (foodList.lastPageId == "edit-meal")
     {
@@ -607,12 +692,17 @@ $(document).on("init", "#edit-food-item", function(e){
   foodList.localizeEditForm()
 });
 
+//Edit form portion
+$(document).on("keyup", "#edit-food-item #portion", function(e){
+  foodList.changePortion(this.value);
+});
+
 //Edit form submit button action
 $(document).on("tap", "#edit-food-item #submit", function(e) {
 
   var name = $('#edit-food-item #name').val();
   var portion = $('#edit-food-item #portion').val();
-  var calories = parseFloat($('#edit-food-item #calories').val());
+  var calories = $('#edit-food-item #calories').val();
 
   //Form validation
   if (name != "" && portion != "" && calories != "" && !isNaN(calories)) {
@@ -684,6 +774,12 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
   {
     return false;
   }
+});
+
+$(document).on("keyup", "#upload-food-item #portion, #upload-food-item #unit", function(e){
+  var portion = $("#upload-food-item #portion").val();
+  var unit = $("#upload-food-item #unit").val();
+  $("#upload-food-item #serving_size").val(portion + unit);
 });
 
 //Delete an image
