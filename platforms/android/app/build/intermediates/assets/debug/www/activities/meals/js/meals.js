@@ -232,7 +232,7 @@ $(document).on("show", "ons-page#meals", function(){
   .then(function(){meals.renderMealsList(meals.list)});
 });
 
-//Double on meal item
+//Double tap on meal item
 $(document).on("dblclick", "#meals #meal-list ons-list-item", function(){
 
   var control = this;
@@ -367,6 +367,8 @@ $(document).on("tap", "#edit-meal #submit", function(){
 });
 
 $(document).on("keyup", "#meals #filter", function(e){
+
+  $("#meals #submit").hide();
 
   if (this.value == "") //Search box cleared, reset the list
   {

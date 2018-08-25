@@ -23,6 +23,11 @@ var diary = {
   date: undefined,
   consumption:{}, //Nutrition consumed for current diary date
 
+  setCategory : function(index)
+  {
+    diary.category = index;
+  },
+
   populate : function()
   {
     return new Promise(function(resolve, reject){
@@ -97,6 +102,7 @@ var diary = {
           //One list per meal
           for (var i = 0; i < lists.length; i++)
           {
+            if (lists[i] == undefined) continue; //Skip unused lists - occurs if user skips a meal type in the diary settings
             html = "";
             html += "<ons-list modifier='inset'>";
             html += lists[i];
