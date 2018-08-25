@@ -111,7 +111,7 @@ var statistics = {
       html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
       html += "<ons-row>"+data.timestamps[i].toLocaleDateString() + " - " + data.weight[i] + " kg" +"</ons-row>";
       html += "<ons-row style='color:#636363;'><i>";
-      if (data.nutrition.calories[i] != undefined) html += data.nutrition.calories[i] + " " + app.strings["calories"];
+      if (data.nutrition.calories[i] != undefined) html += data.nutrition.calories[i].toFixed(0) + " " + app.strings["calories"];
       html += "</i></ons-row>";
       html += "</ons-list-item>";
       $("#statistics #weightLog").prepend(html); //Add to list, reverse order
