@@ -64,6 +64,8 @@ var foodList = {
 
     for (var i = 0; i < list.length; i++)
     {
+      if (list[i].nutrition.calories == undefined) continue; //Skip if calories are undefined
+
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
@@ -226,7 +228,7 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      //var code = "40084077"; //Test barcode
+      //var code = "3596710443307"; //Test barcode
       var code = scanData.text;
       var request = new XMLHttpRequest();
 
@@ -341,7 +343,7 @@ var foodList = {
     {
       item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
       item.nutrition = {
-        calories: product.nutriments.energy_serving,
+        calories: parseInt(product.nutriments.energy_serving / 4.15),
         protein: product.nutriments.proteins_serving,
         carbs: product.nutriments.carbohydrates_serving,
         sugar: product.nutriments.sugars_serving,
@@ -354,7 +356,7 @@ var foodList = {
     {
       item.portion = "100g";
       item.nutrition = {
-        calories: product.nutriments.energy_100g,
+        calories: parseInt(product.nutriments.energy_100g / 4.15),
         protein: product.nutriments.proteins_100g,
         carbs: product.nutriments.carbohydrates_100g,
         sugar: product.nutriments.sugars_100g,
@@ -375,12 +377,9 @@ var foodList = {
         "saturated-fat": product.nutriments["saturated-fat"],
         salt: product.nutriments.salt
       }
-    }
 
-    //Kilojules to kcalories
-    if (product.nutriments.energy_unit == "kJ")
-    {
-      item.calories = parseInt(item.calories / 4.15);
+      //Kilojules to kcalories
+      if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = parseInt(item.nutrition.calories / 4.15));
     }
 
     return item;
