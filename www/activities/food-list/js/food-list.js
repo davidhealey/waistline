@@ -218,7 +218,7 @@ var foodList = {
   scan : function()
   {
     //First check that there is an internet connection
-    /*if (navigator.connection.type == "none")
+    if (navigator.connection.type == "none")
     {
       ons.notification.alert(app.strings["no-internet"]);
       return false;
@@ -226,8 +226,8 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){*/
 
-      var code = "3596710443307"; //Test barcode
-      //var code = scanData.text;
+      //var code = "3596710443307"; //Test barcode
+      var code = scanData.text;
       var request = new XMLHttpRequest();
 
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
@@ -269,13 +269,13 @@ var foodList = {
         }
       };
     },
-    /*function(e)
+    function(e)
     {
       ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
       $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
     });
-  },*/
+  },
 
   search : function(term)
   {
