@@ -64,6 +64,8 @@ var foodList = {
 
     for (var i = 0; i < list.length; i++)
     {
+      if (list[i].nutrition.calories == undefined) continue; //Skip if calories are undefined
+
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
@@ -99,7 +101,7 @@ var foodList = {
     $("#edit-food-item #original-portion").val(parseFloat(data.portion));
     $("#edit-food-item #portion").val(parseFloat(data.portion));
     $("#edit-food-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
-    $("#edit-food-item #calories").val(parseInt(data.nutrition.calories));
+    $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
     $("#edit-food-item #fat").val(data.nutrition.fat);
@@ -224,7 +226,7 @@ var foodList = {
       return false;
     }
 
-    cordova.plugins.barcodeScanner.scan(function(scanData){*/
+    cordova.plugins.barcodeScanner.scan(function(scanData){
 
       //var code = "3596710443307"; //Test barcode
       var code = scanData.text;
@@ -327,7 +329,7 @@ var foodList = {
   parseOFFProduct : function(product)
   {
     var item = {};
-console.log(product);
+
     var brands = product.brands || "";
     var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
 
@@ -341,7 +343,7 @@ console.log(product);
     {
       item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
       item.nutrition = {
-        calories: product.nutriments.energy_serving / 4.15,
+        calories: parseInt(product.nutriments.energy_serving / 4.15),
         protein: product.nutriments.proteins_serving,
         carbs: product.nutriments.carbohydrates_serving,
         sugar: product.nutriments.sugars_serving,
@@ -354,7 +356,7 @@ console.log(product);
     {
       item.portion = "100g";
       item.nutrition = {
-        calories: product.nutriments.energy_100g / 4.15,
+        calories: parseInt(product.nutriments.energy_100g / 4.15),
         protein: product.nutriments.proteins_100g,
         carbs: product.nutriments.carbohydrates_100g,
         sugar: product.nutriments.sugars_100g,
@@ -377,7 +379,7 @@ console.log(product);
       }
 
       //Kilojules to kcalories
-      if (product.nutriments.energy_unit == "kJ") item.nutrition.calories = parseInt(item.nutrition.calories / 4.15);
+      if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = parseInt(item.nutrition.calories / 4.15));
     }
 
     return item;
