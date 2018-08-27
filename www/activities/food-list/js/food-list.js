@@ -681,14 +681,9 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
   }
 });
 
-//Edit food item by double tapping
+//@Todo Quick add food to diary by double tapping
 $(document).on("dblclick", "#food-list-page #food-list ons-list-item", function(e) {
-
   var data = JSON.parse($(this).attr("data"));
-
-  //Go to edit food page then fill in form
-  nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
-    .then(function() {foodList.fillEditForm(data)});
 });
 
 //Same action as double tap on regular list items but this is for items found via search
