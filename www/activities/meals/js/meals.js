@@ -56,8 +56,16 @@ var meals = {
   {
     var html = "";
     html += "<ons-list-item tappable modifier='longdivider' id='"+data.id+"' data='"+JSON.stringify(data)+"'>";
-    html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
-    html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+    if (app.storage.getItem("brand-position") == "false")
+    {
+      html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
+      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+    }
+    else
+    {
+      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+      html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
+    }
     html += "<ons-row style='color:#636363;'><i>" + parseInt(data.nutrition.calories) + " " + app.strings["calories"] + "</i></ons-row>";
     html += "</ons-list-item>";
 
