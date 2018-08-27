@@ -64,7 +64,7 @@ var foodList = {
 
     for (var i = 0; i < list.length; i++)
     {
-      if (list[i].nutrition == undefined || list[i].nutrition.calories == undefined) continue; //Skip if calories are undefined
+      if (list[i].nutrition == undefined || list[i].nutrition.calories == undefined) continue; //Skip if nutrition or calories are undefined
 
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
@@ -573,16 +573,31 @@ $(document).on("keyup", "#food-list-page #filter", function(e){
   }
 });
 
-//Delete item from food list by holding
+//Delete/Edit item from food list by holding
 $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
 
   var data = JSON.parse($(this).attr("data"));
 
-  //Show confirmation dialog
-  ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
-  .then(function(input) {
-    if (input == 1) {//Delete was confirmed
-      foodList.deleteEntry(data.id);
+  //Ask the user to select the type of image
+  ons.openActionSheet({
+    buttons: ['Edit', 'Delete']
+  })
+  .then(function(input){
+    if (input == 0) //Edit
+    {
+      //Go to edit food page then fill in form
+      nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
+        .then(function() {foodList.fillEditForm(data)});
+    }
+    else if (input == 1) //Delete
+    {
+      //Show confirmation dialog
+      ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
+      .then(function(confirm) {
+        if (confirm == 1) {//Delete was confirmed
+          foodList.deleteEntry(data.id);
+        }
+      });
     }
   });
 });
