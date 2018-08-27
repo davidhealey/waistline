@@ -379,9 +379,8 @@ var foodList = {
       }
 
       //Kilojules to kcalories
-      if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = parseInt(item.nutrition.calories / 4.15));
+      if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = item.nutrition.calories / 4.15);
     }
-
     return item;
   },
 

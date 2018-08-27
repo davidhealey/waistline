@@ -64,7 +64,7 @@ var foodList = {
 
     for (var i = 0; i < list.length; i++)
     {
-      if (list[i].nutrition.calories == undefined) continue; //Skip if calories are undefined
+      if (list[i].nutrition == undefined || list[i].nutrition.calories == undefined) continue; //Skip if calories are undefined
 
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
@@ -379,9 +379,8 @@ var foodList = {
       }
 
       //Kilojules to kcalories
-      if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = parseInt(item.nutrition.calories / 4.15));
+      if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = item.nutrition.calories / 4.15);
     }
-
     return item;
   },
 
