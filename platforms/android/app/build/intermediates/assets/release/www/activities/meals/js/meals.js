@@ -56,8 +56,16 @@ var meals = {
   {
     var html = "";
     html += "<ons-list-item tappable modifier='longdivider' id='"+data.id+"' data='"+JSON.stringify(data)+"'>";
-    html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
-    html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+    if (app.storage.getItem("brand-position") == "false")
+    {
+      html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
+      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+    }
+    else
+    {
+      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+      html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
+    }
     html += "<ons-row style='color:#636363;'><i>" + parseInt(data.nutrition.calories) + " " + app.strings["calories"] + "</i></ons-row>";
     html += "</ons-list-item>";
 
@@ -232,28 +240,38 @@ $(document).on("show", "ons-page#meals", function(){
   .then(function(){meals.renderMealsList(meals.list)});
 });
 
-//Double tap on meal item
+//@Todo Double tap on meal item
 $(document).on("dblclick", "#meals #meal-list ons-list-item", function(){
-
   var control = this;
   var data = JSON.parse($(this).attr("data"));
-
-  nav.pushPage("activities/meals/views/edit-meal.html", {"data":data});
-
 });
 
-//Delete meal
+//Delete/Edit meal
 $(document).on("hold", "#meals #meal-list ons-list-item", function(){
 
   var control = this; //The control that triggered the callback
+  var data = JSON.parse($(this).attr("data"));
 
-  //Show confirmation dialog
-  ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
-  .then(function(input) {
-    if (input == 1) {//Delete was confirmed
-      $(control).remove(); //Remove the list item
-      meals.fillList(); //Update meals list
-      var request = dbHandler.deleteItem(parseInt(control.id), "meals");
+  //Ask the user to select the type of image
+  ons.openActionSheet({
+    buttons: ['Edit', 'Delete']
+  })
+  .then(function(input){
+    if (input == 0) //Edit
+    {
+      nav.pushPage("activities/meals/views/edit-meal.html", {"data":data});
+    }
+    else //Delete
+    {
+      //Show confirmation dialog
+      ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
+      .then(function(input) {
+        if (input == 1) {//Delete was confirmed
+          $(control).remove(); //Remove the list item
+          meals.fillList(); //Update meals list
+          var request = dbHandler.deleteItem(parseInt(control.id), "meals");
+        }
+      });
     }
   });
 });

@@ -70,18 +70,39 @@ var foodList = {
       {
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
-        html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
-        html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='center'>";
-        html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-        html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
+
+        if (app.storage.getItem("brand-position") == "false")
+        {
+          html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+          html += "</label>";
+          html += "<label for='"+unescape(list[i].name)+"' class='center'>";
+          html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
+          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
+        }
+        else {
+          html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].brand)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+          html += "</label>";
+          html += "<label for='"+unescape(list[i].brand)+"' class='center'>";
+          html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
+          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].brand) + " - " + list[i].portion + "</i></ons-row>";
+        }
+
         html += "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
-        html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-        html += "<ons-row>" + unescape(list[i].name) + " - " + list[i].portion + "</ons-row>"
+        if (app.storage.getItem("brand-position") == "false")
+        {
+          html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
+          html += "<ons-row>" + unescape(list[i].name) + " - " + list[i].portion + "</ons-row>"
+        }
+        else
+        {
+          html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
+          html += "<ons-row>" + unescape(list[i].brand) + " - " + list[i].portion + "</ons-row>"
+        }
+
         html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
       }
 

@@ -64,24 +64,45 @@ var foodList = {
 
     for (var i = 0; i < list.length; i++)
     {
-      if (list[i].nutrition.calories == undefined) continue; //Skip if calories are undefined
+      if (list[i].nutrition == undefined || list[i].nutrition.calories == undefined) continue; //Skip if nutrition or calories are undefined
 
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
-        html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
-        html += "</label>";
-        html += "<label for='"+unescape(list[i].name)+"' class='center'>";
-        html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-        html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
+
+        if (app.storage.getItem("brand-position") == "false")
+        {
+          html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+          html += "</label>";
+          html += "<label for='"+unescape(list[i].name)+"' class='center'>";
+          html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
+          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
+        }
+        else {
+          html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].brand)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+          html += "</label>";
+          html += "<label for='"+unescape(list[i].brand)+"' class='center'>";
+          html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
+          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].brand) + " - " + list[i].portion + "</i></ons-row>";
+        }
+
         html += "</label>";
       }
       else //Item doesn't have an id, must have been found by searching
       {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
-        html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-        html += "<ons-row>" + unescape(list[i].name) + " - " + list[i].portion + "</ons-row>"
+        if (app.storage.getItem("brand-position") == "false")
+        {
+          html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
+          html += "<ons-row>" + unescape(list[i].name) + " - " + list[i].portion + "</ons-row>"
+        }
+        else
+        {
+          html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
+          html += "<ons-row>" + unescape(list[i].brand) + " - " + list[i].portion + "</ons-row>"
+        }
+
         html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
       }
 
@@ -573,16 +594,31 @@ $(document).on("keyup", "#food-list-page #filter", function(e){
   }
 });
 
-//Delete item from food list by holding
+//Delete/Edit item from food list by holding
 $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
 
   var data = JSON.parse($(this).attr("data"));
 
-  //Show confirmation dialog
-  ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
-  .then(function(input) {
-    if (input == 1) {//Delete was confirmed
-      foodList.deleteEntry(data.id);
+  //Ask the user to select the type of image
+  ons.openActionSheet({
+    buttons: ['Edit', 'Delete']
+  })
+  .then(function(input){
+    if (input == 0) //Edit
+    {
+      //Go to edit food page then fill in form
+      nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
+        .then(function() {foodList.fillEditForm(data)});
+    }
+    else if (input == 1) //Delete
+    {
+      //Show confirmation dialog
+      ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
+      .then(function(confirm) {
+        if (confirm == 1) {//Delete was confirmed
+          foodList.deleteEntry(data.id);
+        }
+      });
     }
   });
 });
@@ -666,14 +702,9 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
   }
 });
 
-//Edit food item by double tapping
+//@Todo Quick add food to diary by double tapping
 $(document).on("dblclick", "#food-list-page #food-list ons-list-item", function(e) {
-
   var data = JSON.parse($(this).attr("data"));
-
-  //Go to edit food page then fill in form
-  nav.pushPage("activities/food-list/views/edit-item.html", {"data":data})
-    .then(function() {foodList.fillEditForm(data)});
 });
 
 //Same action as double tap on regular list items but this is for items found via search

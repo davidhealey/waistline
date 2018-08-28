@@ -74,8 +74,16 @@ var diary = {
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
-          if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
-          html += "<ons-row><i>"+unescape(value.name) + " - " + unescape(value.portion)+"</i></ons-row>";
+          if (app.storage.getItem("brand-position") == "false")
+          {
+            if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
+            html += "<ons-row><i>"+unescape(value.name) + " - " + unescape(value.portion)+"</i></ons-row>";
+          }
+          else
+          {
+            html += "<ons-row><i>"+unescape(value.name) + " - " + unescape(value.portion)+"</i></ons-row>";
+            if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
+          }
           html += "<ons-row style='color:#636363;'>";
           html += value.quantity + " ";
           value.quantity == 1 ? html += app.strings["diary"]["serving"] : html += app.strings["diary"]["servings"];
