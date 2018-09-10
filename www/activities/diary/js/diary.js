@@ -159,13 +159,9 @@ var diary = {
     return new Promise(function(resolve, reject){
 
       //If diary date is undefined set it to today
-      if (diary.date == undefined)
-      {
-        var now = new Date();
-        diary.date = app.getDateAtMidnight(now);
-      }
+      if (diary.date == undefined && date == undefined) diary.date = app.getDateAtMidnight(new Date());
 
-      //If date is blank set date to diary date if a date was passed as a parameter set the date picker to that date
+      //If date picker is blank set to diary date, if a date was passed as a parameter set the date picker to that date
       if ($("#diary-page #date").val() == "" || date != undefined)
       {
         if (date) diary.date = date;
@@ -179,8 +175,6 @@ var diary = {
 
         $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
       }
-
-      diary.date = app.getDateAtMidnight(diary.date);
 
       //Check if there is a log entry for the selected date, if there isn't, add one
       app.addDefaultLogEntry(diary.date)
@@ -455,8 +449,8 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 //Change date
 $(document).on("change", "#diary-page #date", function(e){
   diary.date = app.getDateAtMidnight(new Date($("#diary-page #date").val())); //Set diary object date
-  diary.populate();
-  console.log(diary.date);
+  diary.setDate(diary.date)
+  .then(diary.populate());
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
