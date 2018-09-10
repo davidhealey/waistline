@@ -194,7 +194,7 @@ var foodList = {
         if (foodList.nutriments.indexOf(field.name) != -1)
         {
           var v = field.value / oldPortion * newPortion;
-          field.name == "calories" ? $(f + " #"+field.name).val(parseInt(v)) : $(f + " #"+field.name).val(v.toFixed(2));
+          $(f + " #"+field.name).val(v.toFixed(3));
         }
       });
     }
@@ -214,7 +214,7 @@ var foodList = {
       data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
       data.portion = form.portion.value + form.unit.value;
       data.nutrition = {
-        "calories":parseFloat(form.calories.value),
+        "calories":parseInt(form.calories.value),
         "protein":parseFloat(form.protein.value),
         "carbs":parseFloat(form.carbs.value),
         "fat":parseFloat(form.fat.value),
@@ -260,10 +260,10 @@ var foodList = {
       return false;
     }
 
-    cordova.plugins.barcodeScanner.scan(function(scanData){
+    //cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      //var code = "3596710443307"; //Test barcode
-      var code = scanData.text;
+      var code = "3596710443307"; //Test barcode
+      //var code = scanData.text;
       var request = new XMLHttpRequest();
 
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
@@ -304,13 +304,13 @@ var foodList = {
           }
         }
       };
-    },
+    /*},
     function(e)
     {
       ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
       $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
-    });
+    });*/
   },
 
   search : function(term)
