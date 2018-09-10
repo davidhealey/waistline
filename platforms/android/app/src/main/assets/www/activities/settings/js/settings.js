@@ -128,7 +128,7 @@ $(document).on("show", "#off-settings", function(e){
 });
 
 //Form submission via checkmark button
-$(document).on("tap", "#submit", function(e){
+$(document).on("tap", "#diary-settings #submit, #off-settings", function(e){
   $("form").submit();
   nav.popPage();
 });

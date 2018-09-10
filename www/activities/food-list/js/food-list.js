@@ -567,6 +567,7 @@ var foodList = {
 $(document).on("show", "#food-list-page", function(e){
 
   var lastPage = this.previousSibling || null; //Get ID of previous page
+  foodList.lastPageId = null; //Reset class variable
 
   if (lastPage != null)
   {
@@ -676,7 +677,7 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
           options[i] = categories[i];
         }
 
-        //Ask the user to select the type of image
+        //Ask the user to select the meal category
         ons.openActionSheet({
           title: 'What meal is this?',
           buttons: options
