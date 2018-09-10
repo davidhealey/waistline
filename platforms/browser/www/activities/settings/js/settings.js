@@ -41,7 +41,6 @@ var settings = {
     $.each($(form).serializeArray(), function(i, field) {
         data[field.name] = field.value;
     });
-
     app.storage.setItem("off_credentials", JSON.stringify(data));
   },
 
@@ -57,17 +56,14 @@ var settings = {
     }
   },
 
-  saveDiarySettings : function()
+  saveDiarySettings : function(form)
   {
-    var inputs = $("#diary-settings ons-input");
-    var mealNames = [];
-
-    for (var i = 0; i < inputs.length; i++)
-    {
-      mealNames.push(inputs[i].value);
-    }
-
-    app.storage.setItem("meal-names", JSON.stringify(mealNames));
+    //Get form data
+    var data = [];
+    $.each($(form).serializeArray(), function(i, field) {
+        data.push(field.value);
+    });
+    app.storage.setItem("meal-names", JSON.stringify(data));
   },
 
   loadDiarySettings : function()
@@ -119,12 +115,8 @@ $(document).on("show", "#off-settings", function(e){
   settings.loadOffSettings();
 });
 
-$(document).on("tap", "#diary-settings #submit", function(e){
-  settings.saveDiarySettings();
-  nav.popPage();
-});
-
-$(document).on("tap", "#off-settings #submit", function(e){
+//Form submission via checkmark button
+$(document).on("tap", "#submit", function(e){
   $("form").submit();
   nav.popPage();
 });

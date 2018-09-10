@@ -30,14 +30,14 @@
   </ons-card>
 
   <ons-card>
-    <form onsubmit="; return false;" id="diary-settings-form">
-      <p><ons-input type="text" placeholder="Meal 1" required="true"></ons-input></p>
-      <p><ons-input type="text" placeholder="Meal 2"></ons-input></p>
-      <p><ons-input type="text" placeholder="Meal 3"></ons-input></p>
-      <p><ons-input type="text" placeholder="Meal 4"></ons-input></p>
-      <p><ons-input type="text" placeholder="Meal 5"></ons-input></p>
-      <p><ons-input type="text" placeholder="Meal 6"></ons-input></p>
-      <p><ons-input type="text" placeholder="Meal 7"></ons-input></p>
+    <form onsubmit="settings.saveDiarySettings(this); return false;" id="diary-settings-form">
+      <p><ons-input type="text" name="0" placeholder="Meal 1" required="true"></ons-input></p>
+      <p><ons-input type="text" name="1" placeholder="Meal 2"></ons-input></p>
+      <p><ons-input type="text" name="2" placeholder="Meal 3"></ons-input></p>
+      <p><ons-input type="text" name="3" placeholder="Meal 4"></ons-input></p>
+      <p><ons-input type="text" name="4" placeholder="Meal 5"></ons-input></p>
+      <p><ons-input type="text" name="5" placeholder="Meal 6"></ons-input></p>
+      <p><ons-input type="text" name="6" placeholder="Meal 7"></ons-input></p>
     </form>
   </ons-card>
 

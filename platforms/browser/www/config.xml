@@ -7,7 +7,7 @@
     <author email="dave41264@hotmail.com" href="">
         David Healey
     </author>
-    <content src="browser-sync-start.html" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -15,5 +15,4 @@
     <allow-intent href="*" />
     <allow-navigation href="*" />
     <preference name="SplashScreenDelay" value="1000" />
-    <allow-navigation href="*" />
 </widget>
