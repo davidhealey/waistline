@@ -34,6 +34,29 @@ var settings = {
     }
   },
 
+  saveOffSettings : function(form)
+  {
+    //Get form data
+    var data = {};
+    $.each($(form).serializeArray(), function(i, field) {
+        data[field.name] = field.value;
+    });
+
+    app.storage.setItem("off_credentials", JSON.stringify(data));
+  },
+
+  loadOffSettings : function()
+  {
+    var data = app.storage.getItem("off_credentials");
+
+    if (data)
+    {
+      data = JSON.parse(data);
+      $("#off-settings-form #user_id").val(data.user_id);
+      $("#off-settings-form #password").val(data.password);
+    }
+  },
+
   saveDiarySettings : function()
   {
     var inputs = $("#diary-settings ons-input");
@@ -92,8 +115,17 @@ $(document).on("show", "#diary-settings", function(e){
   settings.loadDiarySettings();
 });
 
+$(document).on("show", "#off-settings", function(e){
+  settings.loadOffSettings();
+});
+
 $(document).on("tap", "#diary-settings #submit", function(e){
   settings.saveDiarySettings();
+  nav.popPage();
+});
+
+$(document).on("tap", "#off-settings #submit", function(e){
+  $("form").submit();
   nav.popPage();
 });
 

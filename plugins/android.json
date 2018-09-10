@@ -28,9 +28,6 @@
     "phonegap-plugin-barcodescanner": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "com.waist.line"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.waist.line"
     }
   },
   "dependent_plugins": {}

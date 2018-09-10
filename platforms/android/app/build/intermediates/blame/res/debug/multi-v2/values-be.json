@@ -1,7 +1,37 @@
 {
     "logs": [
         {
+            "outputFile": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml",
+            "map": [
+                {
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-be/values-be.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "108",
+                        "endOffsets": "159"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml",
+            "map": [
+                {
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-be/values-be.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "108",
+                        "endOffsets": "159"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml",
             "map": [
                 {
                     "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-be/values-be.xml",

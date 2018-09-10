@@ -14,6 +14,36 @@
                     }
                 }
             ]
+        },
+        {
+            "outputFile": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-bn/values-bn.xml",
+            "map": [
+                {
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-bn/values-bn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-bn/values-bn.xml",
+            "map": [
+                {
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-bn/values-bn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
         }
     ]
 }

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/dave/AndroidStudioProjects/waistline/platforms/android/CordovaLib/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/home/dave/AndroidStudioProjects/waistline/platforms/android/CordovaLib/src/debug/jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/CordovaLib/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/CordovaLib/src/debug/jniLibs"/></dataSet></merger>

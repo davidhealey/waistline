@@ -49,7 +49,7 @@
 
     <ons-list-item>
        <div class="center" data-localize="settings.brand-position">
-         Product name before brand.
+         Product name before brand
        </div>
        <div class="right">
          <ons-switch id="brand-position" name="brand-position" tappable onchange="settings.saveSwitches(this);"></ons-switch>
@@ -68,6 +68,10 @@
 
     <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
       <div data-localize="settings.diary.title">Diary Settings</div>
+    </ons-list-item>
+
+    <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/off-settings.html')">
+      <div data-localize="settings.off.title">Open Food Facts Account</div>
     </ons-list-item>
 
     <ons-list-item tappable id="import">
