@@ -492,47 +492,56 @@ var foodList = {
 
   uploadImageToOFF : function(code, imageData)
   {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+    return new Promise(function(resolve, reject)
+    {
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
-       console.log('file system open: ' + fs.name);
+         console.log('file system open: ' + fs.name);
 
-         window.resolveLocalFileSystemURL(imageData.path, function (fileEntry) {
+           window.resolveLocalFileSystemURL(imageData.path, function (fileEntry) {
 
-              console.log("Got the file: " + imageData.imagefield);
+                console.log("Got the file: " + imageData.imagefield);
 
-              fileEntry.file(function (file) {
+                fileEntry.file(function (file) {
 
-                  var reader = new FileReader();
-                  reader.onloadend = function() {
+                    var reader = new FileReader();
+                    reader.onloadend = function() {
 
-                      // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
-                      var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+                        // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+                        var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
 
-                      var formData = new FormData();
-                      formData.append(imageData.uploadType, blob);
-                      formData.append("code", code);
-                      formData.append("imagefield", imageData.imagefield);
+                        var formData = new FormData();
+                        formData.append(imageData.uploadType, blob);
+                        formData.append("code", code);
+                        formData.append("imagefield", imageData.imagefield);
 
-                      console.log("Upload start");
+                        console.log("Upload start");
 
-                      var request = new XMLHttpRequest();
+                        var request = new XMLHttpRequest();
 
-                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
-                      request.setRequestHeader("Content-Type", "multipart/form-data");
-                      request.withCredentials = true;
+                        //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                        request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                        request.setRequestHeader("Content-Type", "multipart/form-data");
+                        request.withCredentials = true;
 
-                      request.onload = function (e) {
-                        console.log("Image uploaded: " + imageData.imagefield);
-                      };
-                      request.send(formData);
-                  };
+                        request.onload = function (e) {
+                          console.log("Image uploaded: " + imageData.imagefield);
+                          resolve(request.response);
+                        };
 
-                  // Read the file as an ArrayBuffer
-                  reader.readAsArrayBuffer(file);
-              }, function (err) { console.error('error getting fileentry file!' + err); reject();});
+                        request.onerror = function(e) {
+                            reject({"status":"Upload Error"});
+                        };
+
+                        request.send(formData);
+                    };
+
+                    // Read the file as an ArrayBuffer
+                    reader.readAsArrayBuffer(file);
+                }, function (err) { console.error('error getting fileentry file!' + err); reject();});
           }, function (err) { console.error('error getting file! ' + err); reject();});
       }, function (err) { console.error('error getting persistent fs! ' + err); reject();});
+    });
   },
 
   validateUploadForm : function()
@@ -793,21 +802,24 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
     foodList.uploadProductInfoToOFF(data) //Upload data
     .then(function(response){
 
+      var promises = [];
+
       //Upload images
       if (foodList.images.length > 0)
       {
         for (var i = 0; i < foodList.images.length; i++)
         {
-          foodList.uploadImageToOFF(code, foodList.images[i]);
+          promises.push(foodList.uploadImageToOFF(code, foodList.images[i]));
         }
       }
-      //Wait 5 seconds
-      setTimeout(function()
-      {
+
+      //Once all images are uploaded
+      Promise.all(promises).then(function(values) {
+        console.log(values);
         $("#upload-food-item ons-modal").hide();
         ons.notification.alert(app.strings["food-list"]["upload-item"]["success"])
         .then(function(){nav.popPage();});
-      }, 5000);
+      });
     })
     .catch(function(err) {
       console.error('Augh, there was an error!', err.statusText);
