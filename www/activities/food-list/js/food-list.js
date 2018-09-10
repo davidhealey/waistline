@@ -22,7 +22,6 @@ var foodList = {
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
   lastPageId:null, //ID of the page that got us to this page, if there was one
-  editFormData:{}, //When edit form is populated store a copy of its data here for reference
   nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "salt"],
 
   fillListFromDB : function()
@@ -133,12 +132,6 @@ var foodList = {
     //Store form data in global object
     var formData = $("#edit-food-item #edit-item-form").serializeArray();
 
-    foodList.editFormData = {};
-    for (i = 0; i < formData.length; i++)
-    {
-      foodList.editFormData[formData[i].name] = formData[i].value;
-    }
-
     //Display image
     if (data.image_url && data.image_url != "undefined" && navigator.connection.type != "none" && app.storage.getItem("show-images") === "true")
     {
@@ -189,18 +182,21 @@ var foodList = {
     }
   },
 
-  changePortion : function(newPortion)
+  changePortion : function(oldPortion, newPortion)
   {
     var f = "#edit-food-item #edit-item-form"; //jQuery Selector for form
-    var formData = foodList.editFormData; //Get reference form data
 
-    //Adjust value of each nutriment based on new portion
-    for (i = 0; i < foodList.nutriments.length; i++) //Each nutriment
+    if (oldPortion > 0 && newPortion > 0) //Sanity test
     {
-      var n = foodList.nutriments[i]; //Get nutriment name
-      var v = (formData[n] / formData.portion) * newPortion //New value
-
-      n == "calories" ? $(f + " #"+n).val(parseInt(v)) : $(f + " #"+n).val(v.toFixed(2));
+      //Get form data
+      var data = {};
+      $.each($(f).serializeArray(), function(i, field) {
+        if (foodList.nutriments.indexOf(field.name) != -1)
+        {
+          var v = field.value / oldPortion * newPortion;
+          field.name == "calories" ? $(f + " #"+field.name).val(parseInt(v)) : $(f + " #"+field.name).val(v.toFixed(2));
+        }
+      });
     }
   },
 
@@ -741,7 +737,8 @@ $(document).on("init", "#edit-food-item", function(e){
 
 //Edit form portion
 $(document).on("keyup", "#edit-food-item #portion", function(e){
-  foodList.changePortion(this.value);
+  foodList.changePortion(this.oldValue, this.value);
+  if (this.value > 0) this.oldValue = this.value; //Update old value
 });
 
 //Edit form submit button action
