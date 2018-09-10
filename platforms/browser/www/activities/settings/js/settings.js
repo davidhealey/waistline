@@ -87,6 +87,17 @@ var settings = {
     $(options[app.storage.getItem("theme")]).attr("selected", "selected");
   },
 
+  loadHomescreenSettings : function()
+  {
+    var options = $("#settings-page #homescreen option");
+
+    for (i = 0; i < options.length; i++)
+    {
+      if (options[i].value == app.storage.getItem("homescreen"))
+      $(options[i]).attr("selected", "selected");
+    }
+  },
+
   //Localises the placeholders of the forms input boxes
   localizeDiarySettingsForm : function()
   {
@@ -104,6 +115,7 @@ var settings = {
 $(document).on("show", "#settings-page", function(e){
   settings.loadSwitches();
   settings.loadThemeSettings();
+  settings.loadHomescreenSettings();
 });
 
 $(document).on("show", "#diary-settings", function(e){
@@ -143,5 +155,10 @@ $(document).on("tap", "#settings-page #export", function(e){
 
 $(document).on("change", "#settings-page #theme", function(e){
   app.storage.setItem("theme", this.value);
+  app.setTheme(this.value);
+});
+
+$(document).on("change", "#settings-page #homescreen", function(e){
+  app.storage.setItem("homescreen", this.value);
   app.setTheme(this.value);
 });
