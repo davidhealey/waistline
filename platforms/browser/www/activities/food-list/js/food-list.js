@@ -160,6 +160,23 @@ var foodList = {
     }
   },
 
+  setUploadCredentials : function()
+  {
+    var credentials = app.storage.getItem("off_credentials"); //Get stored user credentials
+
+    if (credentials)
+    {
+      credentials = JSON.parse(credentials);
+    }
+    else
+    {
+      credentials = {"user_id":"waistline-app", "password":"waistline"}; //Fallback credentials
+    }
+
+    $("#upload-item-form #user_id").val(credentials.user_id);
+    $("#upload-item-form #password").val(credentials.password);
+  },
+
   localizeUploadForm : function()
   {
     var inputs = $("#upload-food-item ons-input");
@@ -746,6 +763,7 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 });
 
 $(document).on("init", "#upload-food-item", function(e){
+  foodList.setUploadCredentials();
   foodList.localizeUploadForm();
 });
 
