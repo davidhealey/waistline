@@ -454,8 +454,7 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 
 //Change date
 $(document).on("change", "#diary-page #date", function(e){
-  diary.date = new Date($("#diary-page #date").val()); //Set diary date object to date picker date
-  diary.date.setHours(0); //Set to midnight
+  diary.date = app.getDateAtMidnight(new Date($("#diary-page #date").val())); //Set diary object date
   diary.populate();
   console.log(diary.date);
 });
