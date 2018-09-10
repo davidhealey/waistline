@@ -1,0 +1,40 @@
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="off-settings">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="settings.off.title">OFF Settings</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <ons-card>
+    <p data-localize="settings.off.instructions1">Here you can set the credentials to be used when uploading to the OFF database.</p>
+    <p data-localize="settings.off.instructions2">If you leave one or both boxes empty the default Waistline OFF account will be used.</p>
+    <p data-localize="settings.off.instructions3">Please note that your credentials will be isolated from other apps but they are <b>not</b> stored in a cryptographically secure way.</p>
+  </ons-card>
+
+  <div style="text-align: left; margin-top: 2em; margin-left:1em;">
+    <form onsubmit="settings.saveOffSettings(this); return false;" id="off-settings-form">
+      <p><ons-input type="text" id="user_id" name="user_id" placeholder="User ID" float></ons-input></p>
+      <p><ons-input type="password" id="password" name="password" placeholder="Password" float></ons-input></p>
+    </form>
+  </div>
+
+</ons-page>

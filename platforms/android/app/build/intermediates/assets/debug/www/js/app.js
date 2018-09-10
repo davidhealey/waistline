@@ -45,6 +45,11 @@ var app = {
         app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"]));
       }
 
+      if (app.storage.getItem("homescreen") == undefined)
+      {
+        app.storage.setItem("homescreen", "statistics");
+      }
+
       //Each install gets a UUID that is added to the comments when uploading to the OFF database, to prevent trolls
       if (app.storage.getItem("uuid") == undefined)
       {
@@ -169,8 +174,10 @@ ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
+
     if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
-    nav.resetToPage("activities/statistics/views/statistics.html");
+    var homescreen = app.storage.getItem("homescreen");
+    nav.resetToPage("activities/"+homescreen+"/views/"+homescreen+".html");
   });
 });
 

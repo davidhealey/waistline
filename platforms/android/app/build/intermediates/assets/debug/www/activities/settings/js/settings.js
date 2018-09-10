@@ -34,17 +34,36 @@ var settings = {
     }
   },
 
-  saveDiarySettings : function()
+  saveOffSettings : function(form)
   {
-    var inputs = $("#diary-settings ons-input");
-    var mealNames = [];
+    //Get form data
+    var data = {};
+    $.each($(form).serializeArray(), function(i, field) {
+        data[field.name] = field.value;
+    });
+    app.storage.setItem("off_credentials", JSON.stringify(data));
+  },
 
-    for (var i = 0; i < inputs.length; i++)
+  loadOffSettings : function()
+  {
+    var data = app.storage.getItem("off_credentials");
+
+    if (data)
     {
-      mealNames.push(inputs[i].value);
+      data = JSON.parse(data);
+      $("#off-settings-form #user_id").val(data.user_id);
+      $("#off-settings-form #password").val(data.password);
     }
+  },
 
-    app.storage.setItem("meal-names", JSON.stringify(mealNames));
+  saveDiarySettings : function(form)
+  {
+    //Get form data
+    var data = [];
+    $.each($(form).serializeArray(), function(i, field) {
+        data.push(field.value);
+    });
+    app.storage.setItem("meal-names", JSON.stringify(data));
   },
 
   loadDiarySettings : function()
@@ -68,6 +87,17 @@ var settings = {
     $(options[app.storage.getItem("theme")]).attr("selected", "selected");
   },
 
+  loadHomescreenSettings : function()
+  {
+    var options = $("#settings-page #homescreen option");
+
+    for (i = 0; i < options.length; i++)
+    {
+      if (options[i].value == app.storage.getItem("homescreen"))
+      $(options[i]).attr("selected", "selected");
+    }
+  },
+
   //Localises the placeholders of the forms input boxes
   localizeDiarySettingsForm : function()
   {
@@ -85,6 +115,7 @@ var settings = {
 $(document).on("show", "#settings-page", function(e){
   settings.loadSwitches();
   settings.loadThemeSettings();
+  settings.loadHomescreenSettings();
 });
 
 $(document).on("show", "#diary-settings", function(e){
@@ -92,8 +123,13 @@ $(document).on("show", "#diary-settings", function(e){
   settings.loadDiarySettings();
 });
 
-$(document).on("tap", "#diary-settings #submit", function(e){
-  settings.saveDiarySettings();
+$(document).on("show", "#off-settings", function(e){
+  settings.loadOffSettings();
+});
+
+//Form submission via checkmark button
+$(document).on("tap", "#submit", function(e){
+  $("form").submit();
   nav.popPage();
 });
 
@@ -119,5 +155,10 @@ $(document).on("tap", "#settings-page #export", function(e){
 
 $(document).on("change", "#settings-page #theme", function(e){
   app.storage.setItem("theme", this.value);
+  app.setTheme(this.value);
+});
+
+$(document).on("change", "#settings-page #homescreen", function(e){
+  app.storage.setItem("homescreen", this.value);
   app.setTheme(this.value);
 });
