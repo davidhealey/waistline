@@ -22,7 +22,6 @@ var foodList = {
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
   lastPageId:null, //ID of the page that got us to this page, if there was one
-  editFormData:{}, //When edit form is populated store a copy of its data here for reference
   nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "salt"],
 
   fillListFromDB : function()
@@ -133,12 +132,6 @@ var foodList = {
     //Store form data in global object
     var formData = $("#edit-food-item #edit-item-form").serializeArray();
 
-    foodList.editFormData = {};
-    for (i = 0; i < formData.length; i++)
-    {
-      foodList.editFormData[formData[i].name] = formData[i].value;
-    }
-
     //Display image
     if (data.image_url && data.image_url != "undefined" && navigator.connection.type != "none" && app.storage.getItem("show-images") === "true")
     {
@@ -189,18 +182,21 @@ var foodList = {
     }
   },
 
-  changePortion : function(newPortion)
+  changePortion : function(oldPortion, newPortion)
   {
     var f = "#edit-food-item #edit-item-form"; //jQuery Selector for form
-    var formData = foodList.editFormData; //Get reference form data
 
-    //Adjust value of each nutriment based on new portion
-    for (i = 0; i < foodList.nutriments.length; i++) //Each nutriment
+    if (oldPortion > 0 && newPortion > 0) //Sanity test
     {
-      var n = foodList.nutriments[i]; //Get nutriment name
-      var v = (formData[n] / formData.portion) * newPortion //New value
-
-      n == "calories" ? $(f + " #"+n).val(parseInt(v)) : $(f + " #"+n).val(v.toFixed(2));
+      //Get form data
+      var data = {};
+      $.each($(f).serializeArray(), function(i, field) {
+        if (foodList.nutriments.indexOf(field.name) != -1)
+        {
+          var v = field.value / oldPortion * newPortion;
+          $(f + " #"+field.name).val(v.toFixed(3));
+        }
+      });
     }
   },
 
@@ -218,7 +214,7 @@ var foodList = {
       data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
       data.portion = form.portion.value + form.unit.value;
       data.nutrition = {
-        "calories":parseFloat(form.calories.value),
+        "calories":parseInt(form.calories.value),
         "protein":parseFloat(form.protein.value),
         "carbs":parseFloat(form.carbs.value),
         "fat":parseFloat(form.fat.value),
@@ -264,10 +260,10 @@ var foodList = {
       return false;
     }
 
-    cordova.plugins.barcodeScanner.scan(function(scanData){
+    //cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      //var code = "3596710443307"; //Test barcode
-      var code = scanData.text;
+      var code = "3596710443307"; //Test barcode
+      //var code = scanData.text;
       var request = new XMLHttpRequest();
 
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
@@ -308,13 +304,13 @@ var foodList = {
           }
         }
       };
-    },
+    /*},
     function(e)
     {
       ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
       $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
-    });
+    });*/
   },
 
   search : function(term)
@@ -496,47 +492,56 @@ var foodList = {
 
   uploadImageToOFF : function(code, imageData)
   {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+    return new Promise(function(resolve, reject)
+    {
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
-       console.log('file system open: ' + fs.name);
+         console.log('file system open: ' + fs.name);
 
-         window.resolveLocalFileSystemURL(imageData.path, function (fileEntry) {
+           window.resolveLocalFileSystemURL(imageData.path, function (fileEntry) {
 
-              console.log("Got the file: " + imageData.imagefield);
+                console.log("Got the file: " + imageData.imagefield);
 
-              fileEntry.file(function (file) {
+                fileEntry.file(function (file) {
 
-                  var reader = new FileReader();
-                  reader.onloadend = function() {
+                    var reader = new FileReader();
+                    reader.onloadend = function() {
 
-                      // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
-                      var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+                        // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+                        var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
 
-                      var formData = new FormData();
-                      formData.append(imageData.uploadType, blob);
-                      formData.append("code", code);
-                      formData.append("imagefield", imageData.imagefield);
+                        var formData = new FormData();
+                        formData.append(imageData.uploadType, blob);
+                        formData.append("code", code);
+                        formData.append("imagefield", imageData.imagefield);
 
-                      console.log("Upload start");
+                        console.log("Upload start");
 
-                      var request = new XMLHttpRequest();
+                        var request = new XMLHttpRequest();
 
-                      //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-                      request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
-                      request.setRequestHeader("Content-Type", "multipart/form-data");
-                      request.withCredentials = true;
+                        //request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+                        request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+                        request.setRequestHeader("Content-Type", "multipart/form-data");
+                        request.withCredentials = true;
 
-                      request.onload = function (e) {
-                        console.log("Image uploaded: " + imageData.imagefield);
-                      };
-                      request.send(formData);
-                  };
+                        request.onload = function (e) {
+                          console.log("Image uploaded: " + imageData.imagefield);
+                          resolve(request.response);
+                        };
 
-                  // Read the file as an ArrayBuffer
-                  reader.readAsArrayBuffer(file);
-              }, function (err) { console.error('error getting fileentry file!' + err); reject();});
+                        request.onerror = function(e) {
+                            reject({"status":"Upload Error"});
+                        };
+
+                        request.send(formData);
+                    };
+
+                    // Read the file as an ArrayBuffer
+                    reader.readAsArrayBuffer(file);
+                }, function (err) { console.error('error getting fileentry file!' + err); reject();});
           }, function (err) { console.error('error getting file! ' + err); reject();});
       }, function (err) { console.error('error getting persistent fs! ' + err); reject();});
+    });
   },
 
   validateUploadForm : function()
@@ -741,7 +746,8 @@ $(document).on("init", "#edit-food-item", function(e){
 
 //Edit form portion
 $(document).on("keyup", "#edit-food-item #portion", function(e){
-  foodList.changePortion(this.value);
+  foodList.changePortion(this.oldValue, this.value);
+  if (this.value > 0) this.oldValue = this.value; //Update old value
 });
 
 //Edit form submit button action
@@ -796,21 +802,24 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
     foodList.uploadProductInfoToOFF(data) //Upload data
     .then(function(response){
 
+      var promises = [];
+
       //Upload images
       if (foodList.images.length > 0)
       {
         for (var i = 0; i < foodList.images.length; i++)
         {
-          foodList.uploadImageToOFF(code, foodList.images[i]);
+          promises.push(foodList.uploadImageToOFF(code, foodList.images[i]));
         }
       }
-      //Wait 5 seconds
-      setTimeout(function()
-      {
+
+      //Once all images are uploaded
+      Promise.all(promises).then(function(values) {
+        console.log(values);
         $("#upload-food-item ons-modal").hide();
         ons.notification.alert(app.strings["food-list"]["upload-item"]["success"])
         .then(function(){nav.popPage();});
-      }, 5000);
+      });
     })
     .catch(function(err) {
       console.error('Augh, there was an error!', err.statusText);

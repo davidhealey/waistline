@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/shaders"/></dataSet><dataSet config="release"><source path="/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/release/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/shaders"/></dataSet><dataSet config="release"><source path="/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/release/shaders"/></dataSet></merger>

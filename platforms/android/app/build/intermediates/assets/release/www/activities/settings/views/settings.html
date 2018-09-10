@@ -49,7 +49,7 @@
 
     <ons-list-item>
        <div class="center" data-localize="settings.brand-position">
-         Product name before brand.
+         Product name before brand
        </div>
        <div class="right">
          <ons-switch id="brand-position" name="brand-position" tappable onchange="settings.saveSwitches(this);"></ons-switch>
@@ -66,8 +66,27 @@
       </div>
     </ons-list-item>
 
+    <ons-list-item expandable>
+      <div data-localize="settings.homescreen">Homescreen</div>
+      <div class="expandable-content">
+        <ons-select name="homescreen" id="homescreen" data-native-menu="false">
+          <option value="statistics" data-localize="settings.light" selected>Statistics</option>
+          <option value="diary" data-localize="settings.dark">Diary</option>
+          <option value="food-list" data-localize="settings.dark">Food List</option>
+          <option value="meals" data-localize="settings.dark">Recipes</option>
+          <option value="goals" data-localize="settings.dark">Goals</option>
+          <option value="settings" data-localize="settings.dark">Settings</option>
+          <option value="userguide" data-localize="settings.dark">Userguide</option>
+        </ons-select>
+      </div>
+    </ons-list-item>
+
     <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
       <div data-localize="settings.diary.title">Diary Settings</div>
+    </ons-list-item>
+
+    <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/off-settings.html')">
+      <div data-localize="settings.off.title">Open Food Facts Account</div>
     </ons-list-item>
 
     <ons-list-item tappable id="import">

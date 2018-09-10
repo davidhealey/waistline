@@ -8,6 +8,6 @@ public final class BuildConfig {
   public static final String APPLICATION_ID = "com.waist.line";
   public static final String BUILD_TYPE = "debug";
   public static final String FLAVOR = "";
-  public static final int VERSION_CODE = 20202;
-  public static final String VERSION_NAME = "2.2.2";
+  public static final int VERSION_CODE = 20300;
+  public static final String VERSION_NAME = "2.3.0";
 }

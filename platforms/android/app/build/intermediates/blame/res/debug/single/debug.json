@@ -80,12 +80,12 @@
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/res/layout/search_book_contents_list_item.xml"
     },
     {
-        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
-    },
-    {
         "merged": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_launcher_icon.png.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/7073d811a919f62a49c93e468b41991c/res/drawable/launcher_icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_action.xml.flat",
@@ -104,16 +104,16 @@
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/ecf2c9fa686ec32ffc010d83d164aac7/res/layout/encode.xml"
     },
     {
-        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
-        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
+        "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_icon.png.flat",
+        "source": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/res/mipmap-xxhdpi/icon.png"
     },
     {
         "merged": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
-        "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_icon.png.flat",
-        "source": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/res/mipmap-xxhdpi/icon.png"
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
     },
     {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
@@ -128,12 +128,12 @@
         "source": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/res/drawable-port-mdpi/screen.png"
     },
     {
-        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-ldpi_screen.png.flat",
-        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-ldpi/screen.png"
-    },
-    {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-ldpi_screen.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-ldpi/screen.png"
     },
     {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/menu_encode.xml.flat",
@@ -180,12 +180,12 @@
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
-        "merged": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi_launcher_icon.png.flat",
-        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/7073d811a919f62a49c93e468b41991c/res/drawable-hdpi/launcher_icon.png"
-    },
-    {
         "merged": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_help.xml.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/7073d811a919f62a49c93e468b41991c/res/layout/help.xml"
+    },
+    {
+        "merged": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi_launcher_icon.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/7073d811a919f62a49c93e468b41991c/res/drawable-hdpi/launcher_icon.png"
     },
     {
         "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
@@ -296,12 +296,12 @@
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable/notification_icon_background.xml"
     },
     {
-        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_media.xml.flat",
-        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/4835094097ab65d8fb6d45e9bfacf7f3/res/layout/notification_template_media.xml"
-    },
-    {
         "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_media.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/4835094097ab65d8fb6d45e9bfacf7f3/res/layout/notification_template_media.xml"
     },
     {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
