@@ -32,6 +32,8 @@ var statistics = {
       var range = $("#statistics #range").val();
       range == 7 ? fromDate.setDate(fromDate.getDate()-6) : fromDate.setMonth(fromDate.getMonth()-range);
 
+      ons.notification.alert(fromDate.toDateString()  + " - " + toDate.toDateString());
+
       var data = {"timestamps":[], "nutrition":{}, "weight":[]};
       dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
       {
