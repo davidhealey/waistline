@@ -162,8 +162,17 @@ var app = {
 
   getDateAtMidnight : function(date)
   {
-    newDate = new Date(date);
-    newDate.setHours(0-(newDate.getTimezoneOffset()/60), 0, 0, 0);
+    var newDate;
+    date == undefined ? newDate = new Date() : newDate = date;
+    newDate.setHours(0, 0, 0, 0);
+  /*  if (newDate.getTimezoneOffset() > 0)
+    {
+      newDate.setMinutes(newDate.getTimezoneOffset());
+    }
+    else {
+      newDate.setMinutes(-newDate.getTimezoneOffset());
+    }*/
+
     return newDate;
   },
 };
@@ -174,6 +183,9 @@ ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
+
+
+
 
     if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
     var homescreen = app.storage.getItem("homescreen");
