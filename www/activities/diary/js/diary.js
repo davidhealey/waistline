@@ -155,18 +155,21 @@ var diary = {
 
   updateDisplayedDate()
   {
-    var dd = diary.date.getDate();
-    var mm = diary.date.getMonth()+1; //January is 0
-    var yyyy = diary.date.getFullYear();
+    return new Promise(function(resolve, reject){
+      var dd = diary.date.getDate();
+      var mm = diary.date.getMonth()+1; //January is 0
+      var yyyy = diary.date.getFullYear();
 
-    //Add leading 0s
-    if (dd < 10) dd = "0"+dd;
-    if (mm < 10) mm = "0"+mm;
+      //Add leading 0s
+      if (dd < 10) dd = "0"+dd;
+      if (mm < 10) mm = "0"+mm;
 
-    $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
+      $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
 
-    //Check if there is a log entry for the selected date, if there isn't, add one
-    app.addDefaultLogEntry(diary.date);
+      //Check if there is a log entry for the selected date, if there isn't, add one
+      app.addDefaultLogEntry(diary.date)
+      .then(resolve());
+    });
   },
 
   fillEditForm : function(data)
@@ -361,9 +364,8 @@ $(document).on("show", "#diary-page", function(e){
     diary.date = new Date();
     diary.date.setHours(0, 0, 0, 0);
   }
-
-  diary.updateDisplayedDate();
-  diary.populate();
+  diary.updateDisplayedDate()
+  .then(diary.populate());
 });
 
 //Deleting an item
@@ -442,19 +444,20 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 $(document).on("change", "#diary-page #date", function(e){
   diary.date = new Date($("#diary-page #date").val()); //Set diary object date
   diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
-  diary.populate();
+  app.addDefaultLogEntry(diary.date)
+  .then(diary.populate());
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
   diary.date.setDate(diary.date.getDate()-1);
-  diary.updateDisplayedDate();
-  diary.populate();
+  diary.updateDisplayedDate()
+  .then(diary.populate());
 });
 
 $(document).on("tap", "#diary-page #nextDate", function(e){
   diary.date.setDate(diary.date.getDate()+1);
-  diary.updateDisplayedDate();
-  diary.populate();
+  diary.updateDisplayedDate()
+  .then(diary.populate());
 });
 
 $(document).on("tap", "#diary-page #record-weight", function(e){

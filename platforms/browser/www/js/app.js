@@ -164,15 +164,7 @@ var app = {
   {
     var newDate;
     date == undefined ? newDate = new Date() : newDate = date;
-    newDate.setHours(0, 0, 0, 0);
-  /*  if (newDate.getTimezoneOffset() > 0)
-    {
-      newDate.setMinutes(newDate.getTimezoneOffset());
-    }
-    else {
-      newDate.setMinutes(-newDate.getTimezoneOffset());
-    }*/
-
+    newDate.setHours(0, 0, 0, 0);    
     return newDate;
   },
 };
