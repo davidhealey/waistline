@@ -39,7 +39,6 @@ var foodList = {
 
         if (cursor)
         {
-          console.log(cursor.value.name);
           foodList.list.push(cursor.value);
           cursor.continue();
         }
