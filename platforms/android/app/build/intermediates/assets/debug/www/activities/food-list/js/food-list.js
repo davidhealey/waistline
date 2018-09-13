@@ -28,7 +28,8 @@ var foodList = {
   {
     return new Promise(function(resolve, reject){
 
-      var dateTime = new Date()
+      var dateTime = new Date();
+      dateTime.setDate(dateTime.getDate()+1);
 
       foodList.list = []; //Clear list
 
@@ -38,6 +39,7 @@ var foodList = {
 
         if (cursor)
         {
+          console.log(cursor.value.name);
           foodList.list.push(cursor.value);
           cursor.continue();
         }
