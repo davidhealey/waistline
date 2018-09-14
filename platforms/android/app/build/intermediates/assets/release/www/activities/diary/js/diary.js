@@ -38,8 +38,7 @@ var diary = {
 
       //Get day after selected date at midnight
       var toDate = new Date(fromDate);
-      toDate.setHours(toDate.getHours()+24);
-      toDate.setMinutes(toDate.getMinutes()-1);
+      toDate.setHours(toDate.getHours()+24, toDate.getMinutes()-1);
 
       var lists = []; //Each diary item is part of a categorised list
       var calorieCount = []; //Calorie count for each category
@@ -154,33 +153,23 @@ var diary = {
     });
   },
 
-  setDate : function(date)
+  updateDisplayedDate()
   {
     return new Promise(function(resolve, reject){
+      var dd = diary.date.getDate();
+      var mm = diary.date.getMonth()+1; //January is 0
+      var yyyy = diary.date.getFullYear();
 
-      //If diary date is undefined set it to today
-      if (diary.date == undefined && date == undefined) diary.date = app.getDateAtMidnight(new Date());
+      //Add leading 0s
+      if (dd < 10) dd = "0"+dd;
+      if (mm < 10) mm = "0"+mm;
 
-      //If date picker is blank set to diary date, if a date was passed as a parameter set the date picker to that date
-      if ($("#diary-page #date").val() == "" || date != undefined)
-      {
-        if (date) diary.date = date;
-        var dd = diary.date.getDate();
-        var mm = diary.date.getMonth()+1; //January is 0!
-        var yyyy = diary.date.getFullYear();
-
-        //Add leading 0s
-        if (dd < 10) dd = "0"+dd;
-        if (mm < 10) mm = "0"+mm;
-
-        $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
-      }
+      $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
 
       //Check if there is a log entry for the selected date, if there isn't, add one
       app.addDefaultLogEntry(diary.date)
       .then(resolve());
     });
-
   },
 
   fillEditForm : function(data)
@@ -214,12 +203,8 @@ var diary = {
   addEntry : function(data)
   {
     return new Promise(function(resolve, reject){
-      //Add the food to the diary store
-      if (diary.date == undefined)
-      {
-        var now = new Date();
-        diary.date = app.getDateAtMidnight(now);
-      }
+
+      if (diary.date == undefined) diary.date = new Date();
 
       var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
       var foodId = data.id;
@@ -370,7 +355,9 @@ var diary = {
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  diary.setDate()
+  if (diary.date == undefined) diary.date = new Date();
+
+  diary.updateDisplayedDate()
   .then(diary.populate());
 });
 
@@ -448,20 +435,21 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 
 //Change date
 $(document).on("change", "#diary-page #date", function(e){
-  diary.date = app.getDateAtMidnight(new Date($("#diary-page #date").val())); //Set diary object date
-  diary.setDate(diary.date)
+  diary.date = new Date($("#diary-page #date").val()); //Set diary object date
+  diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
+  app.addDefaultLogEntry(diary.date)
   .then(diary.populate());
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
   diary.date.setDate(diary.date.getDate()-1);
-  diary.setDate(diary.date)
+  diary.updateDisplayedDate()
   .then(diary.populate());
 });
 
 $(document).on("tap", "#diary-page #nextDate", function(e){
   diary.date.setDate(diary.date.getDate()+1);
-  diary.setDate(diary.date)
+  diary.updateDisplayedDate()
   .then(diary.populate());
 });
 

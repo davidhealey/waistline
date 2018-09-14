@@ -203,12 +203,8 @@ var diary = {
   addEntry : function(data)
   {
     return new Promise(function(resolve, reject){
-      //Add the food to the diary store
-      if (diary.date == undefined)
-      {
-        var now = new Date();
-        diary.date = app.getDateAtMidnight(now);
-      }
+
+      if (diary.date == undefined) diary.date = new Date();
 
       var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
       var foodId = data.id;
@@ -359,11 +355,8 @@ var diary = {
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  if (diary.date == undefined)
-  {
-    diary.date = new Date();
-    diary.date.setHours(0, 0, 0, 0);
-  }
+  if (diary.date == undefined) diary.date = new Date();
+
   diary.updateDisplayedDate()
   .then(diary.populate());
 });

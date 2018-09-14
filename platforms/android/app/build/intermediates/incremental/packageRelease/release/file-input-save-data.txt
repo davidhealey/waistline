@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Sep 10 16:46:52 BST 2018
+#Fri Sep 14 20:28:10 BST 2018
 20.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_
 143.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_
 493.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
@@ -168,7 +168,7 @@
 487.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/layout/bookmark_picker_list_item.xml
 308.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/www/onsen/esm/elements/ons-select.js
 494.set=ASSET
-47.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/layout-v21/notification_template_custom_big.xml
+47.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-mdpi-v4/notification_bg_low_normal.9.png
 372.set=ANDROID_RESOURCE
 16.set=ASSET
 81.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
@@ -413,7 +413,7 @@
 106.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/www/onsen/esm/ons/content-ready.js
 184.set=ASSET
 139.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/html-de/whatsnew.html
-489.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/AndroidManifest.xml
+489.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/mipmap-xhdpi-v4/icon.png
 140.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_
 490.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
 49.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/html-es/scanning.html
@@ -594,7 +594,7 @@
 157.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/www/activities/goals/views/nutrition.html
 328.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/html-ko/about1d.html
 242.set=ASSET
-67.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/layout/history_list_item.xml
+67.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-mdpi-v4/notification_bg_normal.9.png
 120.set=ASSET
 191.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
 495.set=ASSET
@@ -1068,8 +1068,8 @@
 105.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/www/onsen/css/font_awesome/fonts/fontawesome-webfont.woff2
 174.set=ANDROID_RESOURCE
 138.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/www/plugins/cordova-plugin-file/www/requestFileSystem.js
-488.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/mipmap-xhdpi-v4/icon.png
-48.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-mdpi-v4/notification_bg_low_normal.9.png
+488.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/AndroidManifest.xml
+48.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/layout-v21/notification_template_custom_big.xml
 382.set=ASSET
 26.set=ASSET
 82.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
@@ -1254,7 +1254,7 @@
 327.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-port-mdpi-v4/screen.png
 232.set=ASSET
 189.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/layout/notification_template_media.xml
-66.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-mdpi-v4/notification_bg_normal.9.png
+66.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/layout/history_list_item.xml
 110.set=ASSET
 190.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
 99.file=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release/html-zh-rTW/license.html

@@ -120,13 +120,8 @@ var statistics = {
 
   renderDiaryStats : function()
   {
-    var now = new Date();
-now.setHours(0, 0, 0, 0);
-    console.log(now.toString());
-
-    var dateTime = app.getDateAtMidnight(now);
-
-    console.log(dateTime.toString());
+    var dateTime = new Date();
+    dateTime.setHours(0, 0, 0, 0);
 
     //Get diary stats for today
     diary.getStats(dateTime)

@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/layout_app_picker_list_item.xml.flat",
-        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/res/layout/app_picker_list_item.xml"
-    },
-    {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/layout-v21_notification_action_tombstone.xml.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/layout_app_picker_list_item.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/res/layout/app_picker_list_item.xml"
     },
     {
         "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
@@ -28,12 +28,12 @@
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable/notification_icon_background.xml"
     },
     {
-        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/layout-land_share.xml.flat",
-        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/res/layout-land/share.xml"
-    },
-    {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/layout-land_share.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/res/layout-land/share.xml"
     },
     {
         "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/release/drawable-hdpi_launcher_icon.png.flat",
@@ -44,20 +44,20 @@
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/drawable/notification_bg_low.xml"
     },
     {
-        "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/release/raw_beep.ogg.flat",
-        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/ecf2c9fa686ec32ffc010d83d164aac7/res/raw/beep.ogg"
-    },
-    {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/layout_help.xml.flat",
         "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/res/layout/help.xml"
     },
     {
-        "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/release/drawable-port-hdpi_screen.png.flat",
-        "source": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/res/drawable-port-hdpi/screen.png"
+        "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/release/raw_beep.ogg.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/ecf2c9fa686ec32ffc010d83d164aac7/res/raw/beep.ogg"
     },
     {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/drawable-port-mdpi_screen.png.flat",
         "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-mdpi/screen.png"
+    },
+    {
+        "merged": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/release/drawable-port-hdpi_screen.png.flat",
+        "source": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/src/main/res/drawable-port-hdpi/screen.png"
     },
     {
         "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
