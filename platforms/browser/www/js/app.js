@@ -164,7 +164,7 @@ var app = {
   {
     var newDate;
     date == undefined ? newDate = new Date() : newDate = date;
-    newDate.setHours(0, 0, 0, 0);    
+    newDate.setHours(0, 0, 0, 0);
     return newDate;
   },
 };
