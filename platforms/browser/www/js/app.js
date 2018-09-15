@@ -83,14 +83,7 @@ var app = {
         });
 
         dbHandler.initializeDb() //db-handler initialization
-        .then(function(){
-          //Add a log entry for the current date if there isn't one already
-          var now = new Date();
-          var date = app.getDateAtMidnight(now);
-          app.addDefaultLogEntry(date)
-          .then(resolve());
-        });
-
+        .then(resolve());
       });
     });
   },
@@ -125,38 +118,6 @@ var app = {
         console.log("Camera problem");
         reject();
       }, options);
-    });
-  },
-
-  addDefaultLogEntry : function(date)
-  {
-    return new Promise(function(resolve, reject){
-      var request = dbHandler.getItem(date, "log");
-
-      request.onsuccess = function(e){
-
-        if (e.target.result == undefined) //No log entry for given date
-        {
-            var data = {"dateTime":date, "goals":{}, "weight":app.storage.getItem("weight")};
-            var goals = JSON.parse(app.storage.getItem("goals"));
-            var day = date.getDay(); //Week starts on Sunday
-
-            //Get just the goals for the current day
-            for (g in goals)
-            {
-              if (g == "weight") continue; //Weight handled separately
-              data.goals[g] = goals[g][day];
-            }
-
-            data.goals["weight"] = goals.weight;
-
-            var insertRequest = dbHandler.insert(data, "log");
-            insertRequest.onsuccess = function(e){resolve();}
-        }
-        else {
-          resolve();
-        }
-      }
     });
   },
 

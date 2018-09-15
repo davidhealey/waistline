@@ -22,21 +22,16 @@ var log = {
   //Private function. Returns date with time data discarded
   _getDate(date)
   {
-    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()); //Discard any time data
-  },
-
-  //Returns request to log for the given date
-  getRequest : function(date)
-  {
-    var dateTime = log._getDate(date);
-    return dbHandler.getItem(dateTime, "log");
+    var newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); //Discard any time data
+    newDate.getTimezoneOffset() > 0 ? newDate.setMinutes(newDate.getTimezoneOffset()) : newDate.setMinutes(-newDate.getTimezoneOffset());
+    return newDate
   },
 
   //Prompt the user to input a weight to record in the log
   promptToSetWeight : function(date)
   {
     return new Promise(function(resolve, reject){
-      
+
       var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
 
       //Show prompt
@@ -46,32 +41,36 @@ var log = {
         if (!isNaN(parseFloat(input)))
         {
           app.storage.setItem("weight", input);
-          log.setWeight(date, input)
-          .then(resolve());
+          log.update(date, "weight", input)
+          .then(function(){resolve();});
         }
       });
     });
   },
 
-  setWeight : function(date, weight)
+  //Update the data in the log for the given day.
+  //Key can be weight, nutrition, goals, and value should corrospond to this
+  update : function(date, key, value)
   {
+    var timestamp = log._getDate(date);
+
     return new Promise(function(resolve, reject){
-      var request = log.getRequest(date);
+      var request = dbHandler.getItem(timestamp, "log");
 
       request.onsuccess = function(e){
 
         var data = e.target.result || {}; //Get existing object or create new one
 
-        data.dateTime = log._getDate(date); //Get date without time
-        data.weight = weight;
+        data.dateTime = timestamp;
+        data[key] = value;
 
-        dbHandler.update(data, "log", data.dateTime) //Add/update log entry
-        .then(function(){
-          console.log("Log updated");
-          resolve();
-        });
+        //Fill in default values if no values are set
+        if (data.weight == undefined) data.weight = app.storage.getItem("weight");
+        if (data.goals == undefined) data.goals = JSON.parse(app.storage.getItem("goals"));
+
+        var insertRequest = dbHandler.insert(data, "log");
+        insertRequest.onsuccess = function(e) {resolve();}
       }
     });
   },
-
 }

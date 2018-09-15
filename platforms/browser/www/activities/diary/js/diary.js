@@ -124,31 +124,10 @@ var diary = {
             $("#diary-page #diary-lists #category"+i+" span").html(" - " + Math.round(calorieCount[i]));
           }
 
-          diary.updateLog()
+          log.update(diary.date, "nutrition", diary.consumption)
           .then(result => diary.getStats(diary.date))
           .then(result => diary.renderStats(result))
           .catch();
-        }
-      };
-    });
-  },
-
-  updateLog : function()
-  {
-    return new Promise(function(resolve, reject){
-      var request = dbHandler.getItem(diary.date, "log"); //Get existing data from the log (if any)
-
-      request.onsuccess = function(e)
-      {
-        var data = e.target.result || {};
-        data.dateTime = diary.date;
-        data.nutrition = diary.consumption; //Update consumption value
-
-        var insertRequest = dbHandler.insert(data, "log");
-
-        insertRequest.onsuccess = function(e)
-        {
-          resolve();
         }
       };
     });
@@ -167,9 +146,10 @@ var diary = {
 
       $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
 
+      resolve();
       //Check if there is a log entry for the selected date, if there isn't, add one
-      app.addDefaultLogEntry(diary.date)
-      .then(resolve());
+      /*app.addDefaultLogEntry(diary.date)
+      .then(resolve());*/
     });
   },
 
