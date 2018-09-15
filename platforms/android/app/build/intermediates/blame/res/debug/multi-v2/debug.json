@@ -274,10 +274,10 @@
             ]
         },
         {
-            "outputFile": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-lo_values-lo.arsc.flat",
+            "outputFile": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-en-rAU_values-en-rAU.arsc.flat",
             "map": [
                 {
-                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-lo/values-lo.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-en-rAU/values-en-rAU.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -289,10 +289,10 @@
             ]
         },
         {
-            "outputFile": "/home/dave/AndroidStudioProjects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-en-rAU_values-en-rAU.arsc.flat",
+            "outputFile": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-lo_values-lo.arsc.flat",
             "map": [
                 {
-                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-en-rAU/values-en-rAU.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -1017,21 +1017,6 @@
             ]
         },
         {
-            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-en-rGB_values-en-rGB.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-en-rGB/values-en-rGB.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-tr_values-tr.arsc.flat",
             "map": [
                 {
@@ -1066,6 +1051,21 @@
                         "startOffsets": "8764",
                         "endColumns": "100",
                         "endOffsets": "8860"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-en-rGB_values-en-rGB.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-en-rGB/values-en-rGB.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
                     }
                 }
             ]
@@ -1362,6 +1362,21 @@
             ]
         },
         {
+            "outputFile": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-en-rGB_values-en-rGB.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-en-rGB/values-en-rGB.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-tr_values-tr.arsc.flat",
             "map": [
                 {
@@ -1396,21 +1411,6 @@
                         "startOffsets": "8764",
                         "endColumns": "100",
                         "endOffsets": "8860"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "/media/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-en-rGB_values-en-rGB.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-en-rGB/values-en-rGB.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
                     }
                 }
             ]
@@ -1500,21 +1500,6 @@
             ]
         },
         {
-            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-mn_values-mn.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-mn/values-mn.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-id_values-id.arsc.flat",
             "map": [
                 {
@@ -1532,6 +1517,21 @@
                         "startOffsets": "55,108,167,234,295,352,400,474,532,585,658,707,748,809,871,936,990,1049,1121,1189,1250,1306,1361,1410,1470,1532,1594,1650,1716,1773,1825,1878,1943,2004,2076,2125,2223,2278,2328,2390,2450,2496,2545,2598,2645,2742,2868,2922,2976,3032,3135,3186,3236,3349,3397,3449,3503,3636,3700,3752,3843,3921,4000,4049,4099,4169,4248,4399,4486,4542,4621,4712,4796,4892,4999,5076,5159,5293,5382,5461,5535,5600,5678,5749,5814,5906,6019,6125,6231,6309,6389,6455,6521,6582,6778,6856,6926,7025,7100,7250,7331,7387,7468,7530,7663,7745,7815,7908,7976,8097,8185,8248,8323,8392,8464,8533,8588,8648,8708,8771,8826,8879,8946,9005",
                         "endColumns": "52,58,66,60,56,47,73,57,52,72,48,40,60,61,64,53,58,71,67,60,55,54,48,59,61,61,55,65,56,51,52,64,60,71,48,97,54,49,61,59,45,48,52,46,96,125,53,53,55,102,50,49,112,47,51,53,132,63,51,90,77,78,48,49,69,78,150,86,55,78,90,83,95,106,76,82,133,88,78,73,64,77,70,64,91,112,105,105,77,79,65,65,60,195,77,69,98,74,149,80,55,80,61,132,81,69,92,67,120,87,62,74,68,71,68,54,59,59,62,54,52,66,58,83",
                         "endOffsets": "103,162,229,290,347,395,469,527,580,653,702,743,804,866,931,985,1044,1116,1184,1245,1301,1356,1405,1465,1527,1589,1645,1711,1768,1820,1873,1938,1999,2071,2120,2218,2273,2323,2385,2445,2491,2540,2593,2640,2737,2863,2917,2971,3027,3130,3181,3231,3344,3392,3444,3498,3631,3695,3747,3838,3916,3995,4044,4094,4164,4243,4394,4481,4537,4616,4707,4791,4887,4994,5071,5154,5288,5377,5456,5530,5595,5673,5744,5809,5901,6014,6120,6226,6304,6384,6450,6516,6577,6773,6851,6921,7020,7095,7245,7326,7382,7463,7525,7658,7740,7810,7903,7971,8092,8180,8243,8318,8387,8459,8528,8583,8643,8703,8766,8821,8874,8941,9000,9084"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-mn_values-mn.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/res/values-mn/values-mn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
                     }
                 }
             ]

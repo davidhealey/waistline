@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Sep 12 20:51:06 BST 2018
+#Sat Sep 15 11:26:43 BST 2018
 20.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/debug
 143.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 493.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/debug

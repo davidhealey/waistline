@@ -260,10 +260,10 @@ var foodList = {
       return false;
     }
 
-    //cordova.plugins.barcodeScanner.scan(function(scanData){
+    cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      var code = "3596710443307"; //Test barcode
-      //var code = scanData.text;
+      //var code = "3596710443307"; //Test barcode
+      var code = scanData.text;
       var request = new XMLHttpRequest();
 
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
@@ -304,13 +304,13 @@ var foodList = {
           }
         }
       };
-    /*},
+    },
     function(e)
     {
       ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
       $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
       return false;
-    });*/
+    });
   },
 
   search : function(term)
