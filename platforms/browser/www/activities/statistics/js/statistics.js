@@ -124,13 +124,13 @@ var statistics = {
     }
   },
 
-  renderDiaryStats : function()
+  renderDailyLog : function()
   {
     var dateTime = new Date();
-    dateTime.setHours(0, 0, 0, 0);
+    dateTime.getTimezoneOffset() > 0 ? dateTime.setMinutes(dateTime.getTimezoneOffset()) : dateTime.setMinutes(-dateTime.getTimezoneOffset());
 
     //Get diary stats for today
-    diary.getStats(dateTime)
+    log.getData(dateTime)
     .then(function(data) {
 
       if (data.goals && data.nutrition && data.remaining) //Safety check
@@ -180,7 +180,7 @@ var statistics = {
 }
 
 $(document).on("show", "#statistics", function(e){
-  statistics.renderDiaryStats();
+  statistics.renderDailyLog();
   statistics.gatherData()
   .then(function(data){
     statistics.renderChart(data);

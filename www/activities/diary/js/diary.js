@@ -261,34 +261,6 @@ var diary = {
     }
   },
 
-  getStats : function(date)
-  {
-    return new Promise(function(resolve, reject){
-      var request = dbHandler.getItem(date, "log");
-
-      request.onsuccess = function(e)
-      {
-        if (e.target.result)
-        {
-          var data = e.target.result;
-
-          data.remaining = {};
-
-          for (g in data.goals) //Each goal
-          {
-            data.nutrition = data.nutrition || {};
-            if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
-            data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
-          }
-          resolve(data);
-        }
-        else {
-          reject();
-        }
-      }
-    });
-  },
-
   renderStats : function(data)
   {
     var colour = "";

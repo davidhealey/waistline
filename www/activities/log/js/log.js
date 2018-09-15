@@ -66,11 +66,41 @@ var log = {
 
         //Fill in default values if no values are set
         if (data.weight == undefined) data.weight = app.storage.getItem("weight");
-        if (data.goals == undefined) data.goals = JSON.parse(app.storage.getItem("goals"));
+        if (data.goals == undefined) data.goals = goals.getGoalsForDay(timestamp.getDay());
 
         var insertRequest = dbHandler.insert(data, "log");
         insertRequest.onsuccess = function(e) {resolve();}
       }
     });
   },
+
+  //Returns log data for the given date
+  getData : function(date)
+  {
+    var timestamp = log._getDate(date);
+
+    return new Promise(function(resolve, reject){
+      var request = dbHandler.getItem(timestamp, "log");
+
+      request.onsuccess = function(e){
+        if (e.target.result)
+        {
+          var data = e.target.result;
+
+          data.remaining = {};
+
+          for (g in data.goals) //Each goal
+          {
+            data.nutrition = data.nutrition || {};
+            if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
+            data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
+          }
+          resolve(data);
+        }
+        else {
+          reject();
+        }
+      }
+    });
+  }
 }

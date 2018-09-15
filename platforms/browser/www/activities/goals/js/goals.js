@@ -137,48 +137,22 @@ var goals = {
     }
   },
 
-  updateLog : function(date)
+  //Returns the goals that have been set for the given day (0-6)
+  getGoalsForDay : function(day)
   {
-    return new Promise(function(resolve, reject){
+    var goaldata = JSON.parse(app.storage.getItem("goals"));
+    var data = {};
 
-      var dateTime = new Date();
+    for (g in goaldata)
+    {
+      if (g == "weight") continue; //weight is handled separately
+      data[g] = data[g] || 0;
+      data[g] = goaldata[g][day];
+    }
 
-      if (date)
-      {
-        dateTime = date
-      }
-      else {
-        //Store goals (for current day only) in log
-        var now = new Date();
-        dateTime = app.getDateAtMidnight(now);
-      }
-
-      var data = {};
-
-      goals.data = JSON.parse(app.storage.getItem("goals"));
-
-      for (g in goals.data)
-      {
-        if (g == "weight") continue; //weight is handled separately
-        data[g] = data[g] || 0;
-        data[g] = goals.data[g][dateTime.getDay()];
-      }
-
-      data.weight = goals.data.weight;
-
-      var request = dbHandler.update({"dateTime":dateTime, "goals":data}, "log", dateTime);
-
-      if (request)
-      {
-        request.onsuccess = function(e){
-          resolve();
-        }
-      }
-      else {
-        resolve();
-      }
-    });
-  }
+    data.weight = goaldata.weight;
+    return data;
+  },
 };
 
 $(document).on("tap", "#goals-list .nutrition", function(e) {
