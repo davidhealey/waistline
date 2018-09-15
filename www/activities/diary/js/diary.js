@@ -293,13 +293,8 @@ var diary = {
         if (!isNaN(parseFloat(input)))
         {
           app.storage.setItem("weight", input);
-
-          var data = {"dateTime":date, "weight":input};
-          dbHandler.update(data, "log", date) //Add/update log entry
-          .then(function(){
-            console.log("Log updated");
-            resolve();
-          });
+          log.setWeight(date, input)
+          .then(resolve());
         }
       });
     });

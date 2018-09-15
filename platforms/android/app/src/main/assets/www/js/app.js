@@ -176,9 +176,6 @@ ons.ready(function() {
   .then(function(){
     console.log("App Initialized");
 
-
-
-
     if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
     var homescreen = app.storage.getItem("homescreen");
     nav.resetToPage("activities/"+homescreen+"/views/"+homescreen+".html");
