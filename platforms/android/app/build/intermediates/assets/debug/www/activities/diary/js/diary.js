@@ -33,11 +33,11 @@ var diary = {
     return new Promise(function(resolve, reject){
       diary.consumption = {}; //Reset object
 
-      //Get selected date (app.date) at midnight
+      //Get selected date at midnight
       var fromDate = diary.date;
       fromDate.setHours(0, 0, 0 ,0);
 
-      //Get day after selected date at midnight
+      //Get day after selected date
       var toDate = new Date(fromDate);
       toDate.setHours(toDate.getHours()+24, toDate.getMinutes()-1);
 

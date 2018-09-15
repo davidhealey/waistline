@@ -23,11 +23,12 @@ var statistics = {
   {
     return new Promise(function(resolve, reject){
 
-      var now = new Date()
-      var fromDate = app.getDateAtMidnight(now); //Today at midnight
+      //Today at midnight
+      var fromDate = new Date();
+      fromDate.setHours(0, 0, 0, 0);
 
       var toDate = new Date(fromDate);
-      toDate.setHours(24, 59); //1 minute before midnight tomorrow
+      toDate.setHours(toDate.getHours()+24, toDate.getMinutes()-1); //1 minute to next day
 
       var range = $("#statistics #range").val();
       range == 7 ? fromDate.setDate(fromDate.getDate()-6) : fromDate.setMonth(fromDate.getMonth()-range);
@@ -41,14 +42,19 @@ var statistics = {
         {
           if (cursor.value.nutrition != undefined && cursor.value.nutrition.calories != undefined)
           {
-            data.timestamps.push(cursor.value.dateTime); //Use date as labels for charts
-            data.weight.push(cursor.value.weight);
+            var date = new Date(cursor.value.dateTime.getUTCFullYear(), cursor.value.dateTime.getUTCMonth(), cursor.value.dateTime.getUTCDate()); //Get date, ignoring time
 
-            //Store nutition data by nutrition type (calories, fat, protein, etc.)
-            for (k in cursor.value.nutrition)
+            if (data.timestamps.map(Number).indexOf(+date) == -1) //Ignore duplicate log entries (although there shouldn't be any)
             {
-              data.nutrition[k] = data.nutrition[k] || [];
-              data.nutrition[k].push(cursor.value.nutrition[k]);
+              data.timestamps.push(date); //Use date as labels for charts
+              data.weight.push(cursor.value.weight);
+
+              //Store nutition data by nutrition type (calories, fat, protein, etc.)
+              for (k in cursor.value.nutrition)
+              {
+                data.nutrition[k] = data.nutrition[k] || [];
+                data.nutrition[k].push(cursor.value.nutrition[k]);
+              }
             }
           }
           cursor.continue();
