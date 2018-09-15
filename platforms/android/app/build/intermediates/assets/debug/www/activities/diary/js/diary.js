@@ -35,6 +35,7 @@ var diary = {
 
       //Get selected date (app.date) at midnight
       var fromDate = diary.date;
+      fromDate.setHours(0, 0, 0 ,0);
 
       //Get day after selected date at midnight
       var toDate = new Date(fromDate);
