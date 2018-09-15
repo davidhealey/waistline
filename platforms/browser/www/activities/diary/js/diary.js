@@ -281,25 +281,6 @@ var diary = {
     }
   },
 
-  recordWeight: function(date)
-  {
-    return new Promise(function(resolve, reject){
-      var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
-
-      //Show prompt
-      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight, "cancelable":true})
-      .then(function(input)
-      {
-        if (!isNaN(parseFloat(input)))
-        {
-          app.storage.setItem("weight", input);
-          log.setWeight(date, input)
-          .then(resolve());
-        }
-      });
-    });
-  },
-
   getStats : function(date)
   {
     return new Promise(function(resolve, reject){
@@ -450,5 +431,5 @@ $(document).on("tap", "#diary-page #nextDate", function(e){
 });
 
 $(document).on("tap", "#diary-page #record-weight", function(e){
-  diary.recordWeight(diary.date);
+  log.promptToSetWeight(diary.date);
 });

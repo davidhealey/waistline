@@ -27,9 +27,6 @@
     },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.waist.line"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.waist.line"
     }
   },
   "dependent_plugins": {}

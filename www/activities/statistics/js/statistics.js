@@ -113,9 +113,11 @@ var statistics = {
 
     for (var i = 0; i < data.timestamps.length; i++)
     {
+      var xdate = new XDate(data.timestamps[i]); //Get xdate object from timestamp
+
       html = "";
       html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
-      html += "<ons-row>"+data.timestamps[i].toLocaleDateString() + " - " + data.weight[i] + " kg" +"</ons-row>";
+      html += "<ons-row>"+ xdate.toUTCString("ddd, MMM, d, yyyy") + " - " + data.weight[i] + " kg" +"</ons-row>";
       html += "<ons-row style='color:#636363;'><i>";
       if (data.nutrition.calories[i] != undefined) html += data.nutrition.calories[i].toFixed(0) + " " + app.strings["calories"];
       html += "</i></ons-row>";
@@ -198,9 +200,12 @@ $(document).on("change", "#statistics #range", function(e){
 
 $(document).on("click", "#statistics #weightLog ons-list-item", function(e){
   var timestamp = new Date($(this).attr("timestamp"));
-  diary.recordWeight(timestamp)
+
+  console.log(timestamp);
+
+  log.promptToSetWeight(timestamp)
   .then(function(){
     statistics.gatherData()
-    .then(data => statistics.renderWeightLog(data));
+    .then(data => statistics.renderWeightLog(data)); //Update stats display
   });
 });

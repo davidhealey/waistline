@@ -32,6 +32,27 @@ var log = {
     return dbHandler.getItem(dateTime, "log");
   },
 
+  //Prompt the user to input a weight to record in the log
+  promptToSetWeight : function(date)
+  {
+    return new Promise(function(resolve, reject){
+      
+      var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
+
+      //Show prompt
+      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight, "cancelable":true})
+      .then(function(input)
+      {
+        if (!isNaN(parseFloat(input)))
+        {
+          app.storage.setItem("weight", input);
+          log.setWeight(date, input)
+          .then(resolve());
+        }
+      });
+    });
+  },
+
   setWeight : function(date, weight)
   {
     return new Promise(function(resolve, reject){
