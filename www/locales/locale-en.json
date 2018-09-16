@@ -68,8 +68,10 @@
         "protein":"Protein (g)",
         "carbs":"Carbohydrates (g)",
         "fat":"Fat (g)",
+        "saturated-fat":"Saturated Fat (g)",
+        "sugar":"Sugar (g)",
+        "fiber":"Fibre (g)",
         "salt":"Salt (g)",
-        "sugar":"Sugar (g)"
       }
     }
   },
@@ -93,7 +95,9 @@
       "protein":"Protein (g)",
       "carbs":"Carbohydrates (g)",
       "fat":"Fat (g)",
+      "saturated-fat":"Saturated Fat (g)",
       "sugar":"Sugar (g)",
+      "fiber":"Fibre (g)",
       "salt":"Salt (g)"
       }
     },
@@ -111,9 +115,11 @@
         "calories":"Calories per serving*",
         "protein":"Protein (g)",
         "carbs":"Carbohydrate per serving (g)",
-        "fat":"Fat per serving (g)",
-        "sugar":"Sugar per serving (g)",
-        "salt":"Salt per serving (g)"
+        "fat":"Fat (g)",
+        "saturated-fat":"Saturated Fat (g)",
+        "sugar":"Sugar (g)",
+        "fiber":"Fibre (g)",
+        "salt":"Salt (g)"
       }
     }
   },
