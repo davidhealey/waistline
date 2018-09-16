@@ -190,8 +190,7 @@
       "p2":"Vous pouvez utiliser la barre de recherche pour filtrer les produits et trouver celui que vous voulez. Si vous avez une connexion Internet, vous pouvez aussi utiliser la barre de recherche pour trouver un produit issu de la base de données Open Food Facts.",
       "p3":"La liste des produits est automatiquement triée selon les produits ajoutés à votre journal. Les produits les plus souvent ajoutés apparaîtront en haut de la liste.",
       "p4":"Appuyer sur un produit dans la liste le sélectionnera. Quand vous avez sélectionné au moins un produit, un bouton de validation apparaît dans la barre supérieure et vous permet d'ajouter les produits sélectionnés à votre journal.",
-      "p5":"Vous pouvez éditer un produit en appuyant deux fois dessus.",
-      "p6":"Appuyez longuement sur un produit pour le retirer de la liste et de vos données locales."
+      "p5":"Vous pouvez éditer un produit en appuyant deux fois dessus."
     },
     "adding-a-food":
     {

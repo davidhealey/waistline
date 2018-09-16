@@ -7,6 +7,7 @@
   "fat":"Fat",
   "saturated-fat":"Saturated Fat",
   "sugar":"Sugar",
+  "fiber":"Fibre",
   "salt":"Salt",
   "no-internet":"No Internet Connection",
 
@@ -67,8 +68,10 @@
         "protein":"Protein (g)",
         "carbs":"Carbohydrates (g)",
         "fat":"Fat (g)",
-        "salt":"Salt (g)",
-        "sugar":"Sugar (g)"
+        "saturated-fat":"Saturated Fat (g)",
+        "sugar":"Sugar (g)",
+        "fiber":"Fibre (g)",
+        "salt":"Salt (g)"
       }
     }
   },
@@ -92,7 +95,9 @@
       "protein":"Protein (g)",
       "carbs":"Carbohydrates (g)",
       "fat":"Fat (g)",
+      "saturated-fat":"Saturated Fat (g)",
       "sugar":"Sugar (g)",
+      "fiber":"Fibre (g)",
       "salt":"Salt (g)"
       }
     },
@@ -110,9 +115,11 @@
         "calories":"Calories per serving*",
         "protein":"Protein (g)",
         "carbs":"Carbohydrate per serving (g)",
-        "fat":"Fat per serving (g)",
-        "sugar":"Sugar per serving (g)",
-        "salt":"Salt per serving (g)"
+        "fat":"Fat (g)",
+        "saturated-fat":"Saturated Fat (g)",
+        "sugar":"Sugar (g)",
+        "fiber":"Fibre (g)",
+        "salt":"Salt (g)"
       }
     }
   },
@@ -164,15 +171,15 @@
       "p1":"Your body needs a certain amount of calories to maintain your current weight. We'll call this your maintenance level. You can increase your maintenance level by doing lots of exercise or you can decrease it by doing less.",
       "p2":"The easiest method (that is also pretty accurate) to calculate your maintenance level is to use a TDEE calculator. You can find plenty of these online.",
       "p3":"To lose weight you should eat at least 100 calories per day less than your maintenance level, to gain weight you should eat at least 100 calories per day more than your maintenance level.",
-      "p4":"The less you eat per day the more weight you will lose. If you plan to lose weight with a great calorie deficit, consult your doctor and plan what you eat so you get all the nutrition your body needs. Have regular check ups with your doctor so you can react fast if anything goes wrong."
+      "p4":"The less you eat per day the more weight you will lose. If you plan to lose weight with a great calorie deficit consult your doctor and plan what you eat so you get all the nutrition your body needs. Have regular check ups with your doctor so you can react fast if anything goes wrong."
     },
     "statistics":{
       "title":"Statistics",
-      "p1":"On the statistics screen you can see a chart showing the nutritiments you have consumed and variations in your weight during the selected time period.",
+      "p1":"On the statistics screen you can see a chart showing the nutritiments you have consumed and variations in your weight during the selected time period. This screen will be mostly empty the first time you run the app.",
       "p2":"You can select the time frame to display, such as 1 week, from the drop down menu above the chart.",
       "p3":"You can choose what data to show in the chart by tapping on the items in the chart's legend.",
       "p4":"Below the chart is a day by day list of your weight changes and the calories you've recorded. Only dates that you have recorded calories in your diary for will be displayed here. Tapping on an item in this list will allow you to edit the weight recorded for that date.",
-      "p5":"At the top of the screen is a display of the nutriments you have consumed, along with your goal and the amount remaining. You can swipe left and right on this display to scroll through the different nutrients."
+      "p5":"At the top of the screen is a display of the nutriments you have consumed, along with your goal and the amount remaining. You can swipe left and right on this display to scroll through the different nutriments."
     },
     "diary":{
       "title":"Diary",
@@ -183,7 +190,7 @@
       "p5":"Tapping on a food item in your diary will allow you to adjust the number of servings and change the category for that item. These changes only apply to the item in your diary and do not affect the food list.",
       "p6":"Tap and hold on an item in your diary to remove it.",
       "p7":"You can record your weight by tapping on the scales icon on the top toolbar.",
-      "p8":"If you would just like to record some calories without the hassle of adding a product to your food list then you can do that too. Just tap and hold on one of the categories and enter the amount of calories in the box that appears."
+      "p8":"If you would just like to record some calories without the hassle of adding a product to your food list then you can do that too. Just tap and hold on one of the categories and enter the amount of calories in the box that appears. You can also enter a negative number here if you'd like to log calories burned."
     },
     "food-list":{
       "title":"Food List",
@@ -191,23 +198,22 @@
       "p2":"You can use the search box to filter the list of food items to find the one you'd like. If you have an internet connection you can also use the search box to find products in the Open Food Facts database.",
       "p3":"The list of items is automatically sorted by how recently you added them to your diary, so the foods you add most often will appear near the top of the list.",
       "p4":"Tapping on an item in the list will select it. Once you've selected at least one item a tick will appear on the top toolbar, tapping this will add the selected items to your diary.",
-      "p5":"You can edit a food item by double tapping it.",
-      "p6":"Tap and hold on a food item to remove it from the list and your local database."
+      "p5":"You can edit or delete a food item by tapping and holding on it and selecting an option from the popup that appears."
     },
     "adding-a-food":
     {
       "title":"Adding a Food",
-      "p1":"There are three ways to add a new food to your food list. You can click the floating plus button on the food list page, search the Open Food Facts database for products using the food list search bar, or scan the barcode of a product by tapping the barcode icon on the top toolbar of the food list screen.",
-      "p2":"Whichever method you choose will eventually take you to the food edit screen. Here you can manually enter the name of the food, the portion size (e.g. 1 biscuit, 100g, 3 cups, etc.), and the number of nutriments contained in that portion.",
-      "p3":"The data returned by the barcode scanner may not always be accurate for the product or serving size you have, so check the information it adds to the form and adjust it as necessary before saving.",
+      "p1":"There are three ways to add a new food to your food list. You can click the floating plus button on the food list screen, search the Open Food Facts database for products using the food list search bar, or scan the barcode of a product by tapping the barcode icon on the top toolbar of the food list screen.",
+      "p2":"Whichever method you choose will eventually take you to the food edit screen. Here you can manually enter the name of the food, the portion size (e.g. 1 biscuit, 100g, 3 cups, etc.), and the nutriments contained in that portion.",
+      "p3":"The data returned by the barcode scanner may not always be accurate for the product or serving size you have so check the information it adds to the form and adjust it as necessary before saving.",
       "p4":"If no data is available for a scanned product you will be given the option of adding it to the Open Food Facts database.",
       "p5":"Once you're happy with the data in the form you can tap the tick button on the top toolbar to add the item to your food list."
     },
     "uploading-a-product":
     {
       "title":"Uploading a product",
-      "p1":"When you scan a barcode for a product that is not currently in the Open Food Facts database you will be asked if you would like to add it, which you can do from within Waistline.",
-      "p2":"You'll be taken to a screen where you can enter the name and brand of the product and some basic nutritional information. You'll also be able to upload up to three pictures.",
+      "p1":"When you scan a barcode for a product that is not currently in the Open Food Facts database you will be asked if you would like to add it which you can do from within Waistline.",
+      "p2":"You'll be taken to a screen where you can enter the name and brand of the product and some basic nutritional information. You'll also be able to upload upto three pictures.",
       "p3":"Click on the camera icon to take a photo. You can crop the image once you've taken it so that you're only uploading relevant information.",
       "p4":"Once you've taken an image you'll be prompted to tag the image either as the front of the product, the ingredients, or the nutritional information.",
       "p4":"All images that you upload using Waistline are automatically licensed as Creative Commons Attribution ShareAlike.",
@@ -217,7 +223,7 @@
     "recipes":
     {
       "title":"Recipes",
-      "p1":"On the recipes screen you can combine food items to create a new item called a recipe. Click on the floating plus button to create a new recipe or double tap an existing recipe to edit it. To delete a recipe just tap and hold on it and click ok on the confirmation.",
+      "p1":"On the recipes screen you can combine food items to create a new item called a recipe. Click on the floating plus button to create a new recipe. You can edit or delete an existing recipe by tapping and holding on it and selecting from the options that pop up.",
       "p2":"The edit recipe screen allows you to enter a name for the recipe and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your recipe.",
       "p3":"You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the recipe. You can swipe on this area to see more information.",
       "p4":"Once you're happy with your recipe you can tap the check button on the top toolbar to save it.",

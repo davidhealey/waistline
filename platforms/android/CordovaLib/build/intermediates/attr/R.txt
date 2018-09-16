@@ -180,6 +180,7 @@ int attr childIndicatorLeft 0x0101010f
 int attr childIndicatorRight 0x01010110
 int attr childIndicatorStart 0x010103d3
 int attr choiceMode 0x0101012b
+int attr classLoader 0x0101056b
 int attr clearTaskOnLaunch 0x01010015
 int attr clickable 0x010100e5
 int attr clipChildren 0x010100ea
@@ -710,6 +711,7 @@ int attr multiArch 0x0101048e
 int attr multiprocess 0x01010013
 int attr name 0x01010003
 int attr navigationBarColor 0x01010452
+int attr navigationBarDividerColor 0x0101056d
 int attr navigationContentDescription 0x010104c1
 int attr navigationIcon 0x010104c0
 int attr navigationMode 0x010102cf
@@ -972,6 +974,7 @@ int attr showOnLockScreen 0x010103c9
 int attr showSilent 0x010101fb
 int attr showText 0x010104ad
 int attr showWeekNumber 0x0101033e
+int attr showWhenLocked 0x01010569
 int attr shownWeekCount 0x01010341
 int attr shrinkColumns 0x0101014a
 int attr singleLine 0x0101015d
@@ -1230,6 +1233,7 @@ int attr trimPathEnd 0x01010409
 int attr trimPathOffset 0x0101040a
 int attr trimPathStart 0x01010408
 int attr tunerCount 0x0101051d
+int attr turnScreenOn 0x0101056a
 int attr type 0x010101a1
 int attr typeface 0x01010096
 int attr uiOptions 0x01010398
@@ -1313,6 +1317,8 @@ int attr windowFullscreen 0x0101020d
 int attr windowHideAnimation 0x010100b7
 int attr windowIsFloating 0x01010057
 int attr windowIsTranslucent 0x01010058
+int attr windowLayoutInDisplayCutoutMode 0x01010586
+int attr windowLightNavigationBar 0x0101056c
 int attr windowLightStatusBar 0x010104e0
 int attr windowMinWidthMajor 0x01010356
 int attr windowMinWidthMinor 0x01010357

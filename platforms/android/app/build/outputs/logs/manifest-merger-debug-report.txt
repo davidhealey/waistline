@@ -15,18 +15,18 @@ ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/androi
 INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
 INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
 INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/AndroidManifest.xml:2:1-14:12
-MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/ca6235c79fa8a2afc343186cd09d89cd/AndroidManifest.xml:17:1-22:12
+MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/AndroidManifest.xml:2:1-14:12
+MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/3221f6965c7ea4ecbcf443c85e754d4d/AndroidManifest.xml:17:1-22:12
 MERGED from [:CordovaLib] /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/CordovaLib/build/intermediates/manifests/full/debug/AndroidManifest.xml:20:1-27:12
-MERGED from [com.android.support:support-media-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/4835094097ab65d8fb6d45e9bfacf7f3/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-fragment:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/b61d3e9881f3892dac3021a9f21cb3e8/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-ui:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.1.aar/b01c2b33c331496c23c8697326e4b959/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-utils:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.1.aar/671456fa67e71bef6e678127bbc58cb9/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/cd2db6dcf7419ffde91dc5efe682e685/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/34d420648c2d29e0a8174e53880b6e03/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3ff7bc6bfbad218b6ac30142d2555d04/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/da25d4a59a44d37d110c90820042b7fd/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/fafc966af75e711d6830fc7acda41bef/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.1.aar/e7288f75b063f8e8c5bd1443ab84c867/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.1.aar/0d22a89b3b583eb56905cec11681239d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/8963e26f98bf19fa67a4e86968d7399a/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/a2c1a0da5d11a3a712330f1e2c32cc7c/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3dda7842093bb405cd1a87c9aa592305/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/1dfda5987647fe047c71869ab17a3c9c/AndroidManifest.xml:17:1-22:12
 INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
 INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
 INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
@@ -66,8 +66,8 @@ ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/androi
 		ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:4:22-64
 application
 ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:5:5-17:19
-MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/AndroidManifest.xml:11:5-12:19
-MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/AndroidManifest.xml:11:5-12:19
+MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/AndroidManifest.xml:11:5-12:19
+MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/AndroidManifest.xml:11:5-12:19
 	android:supportsRtl
 		ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:5:114-140
 	android:label
@@ -124,30 +124,30 @@ ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/androi
 		ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:16:41-109
 uses-sdk
 ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:5-74
-MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/AndroidManifest.xml:7:5-9:41
-MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/38b34409c9e0dcc455e6df8880e1eb17/AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/ca6235c79fa8a2afc343186cd09d89cd/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/ca6235c79fa8a2afc343186cd09d89cd/AndroidManifest.xml:20:5-44
+MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/AndroidManifest.xml:7:5-9:41
+MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/3221f6965c7ea4ecbcf443c85e754d4d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/3221f6965c7ea4ecbcf443c85e754d4d/AndroidManifest.xml:20:5-44
 MERGED from [:CordovaLib] /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/CordovaLib/build/intermediates/manifests/full/debug/AndroidManifest.xml:25:5-44
 MERGED from [:CordovaLib] /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/CordovaLib/build/intermediates/manifests/full/debug/AndroidManifest.xml:25:5-44
-MERGED from [com.android.support:support-media-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/4835094097ab65d8fb6d45e9bfacf7f3/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/4835094097ab65d8fb6d45e9bfacf7f3/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/b61d3e9881f3892dac3021a9f21cb3e8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/b61d3e9881f3892dac3021a9f21cb3e8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.1.aar/b01c2b33c331496c23c8697326e4b959/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.1.aar/b01c2b33c331496c23c8697326e4b959/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.1.aar/671456fa67e71bef6e678127bbc58cb9/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.1.aar/671456fa67e71bef6e678127bbc58cb9/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e884a34cca8b2b54e91283d702f7195e/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/cd2db6dcf7419ffde91dc5efe682e685/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/cd2db6dcf7419ffde91dc5efe682e685/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/34d420648c2d29e0a8174e53880b6e03/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/34d420648c2d29e0a8174e53880b6e03/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3ff7bc6bfbad218b6ac30142d2555d04/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3ff7bc6bfbad218b6ac30142d2555d04/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/da25d4a59a44d37d110c90820042b7fd/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/da25d4a59a44d37d110c90820042b7fd/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/fafc966af75e711d6830fc7acda41bef/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/fafc966af75e711d6830fc7acda41bef/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.1.aar/e7288f75b063f8e8c5bd1443ab84c867/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.1.aar/e7288f75b063f8e8c5bd1443ab84c867/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.1.aar/0d22a89b3b583eb56905cec11681239d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.1.aar/0d22a89b3b583eb56905cec11681239d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/8963e26f98bf19fa67a4e86968d7399a/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/8963e26f98bf19fa67a4e86968d7399a/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/a2c1a0da5d11a3a712330f1e2c32cc7c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/a2c1a0da5d11a3a712330f1e2c32cc7c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3dda7842093bb405cd1a87c9aa592305/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3dda7842093bb405cd1a87c9aa592305/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/1dfda5987647fe047c71869ab17a3c9c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/1dfda5987647fe047c71869ab17a3c9c/AndroidManifest.xml:20:5-44
 	android:targetSdkVersion
 		ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:42-71
 	android:minSdkVersion

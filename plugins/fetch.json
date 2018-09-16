@@ -10,7 +10,7 @@
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@6.0.1"
+      "id": "cordova-plugin-file@^6.0.1"
     },
     "is_top_level": true,
     "variables": {}
@@ -18,7 +18,7 @@
   "phonegap-plugin-barcodescanner": {
     "source": {
       "type": "registry",
-      "id": "phonegap-plugin-barcodescanner@8.0.0"
+      "id": "phonegap-plugin-barcodescanner@^8.0.0"
     },
     "is_top_level": true,
     "variables": {}
@@ -42,7 +42,7 @@
   "cordova-plugin-network-information": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-network-information"
+      "id": "cordova-plugin-network-information@^2.0.1"
     },
     "is_top_level": true,
     "variables": {}
@@ -50,7 +50,7 @@
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-camera@4.0.3"
+      "id": "cordova-plugin-camera@^4.0.3"
     },
     "is_top_level": true,
     "variables": {}
@@ -58,7 +58,7 @@
   "cordova-plugin-splashscreen": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-splashscreen@5.0.2"
+      "id": "cordova-plugin-splashscreen@^5.0.2"
     },
     "is_top_level": true,
     "variables": {}

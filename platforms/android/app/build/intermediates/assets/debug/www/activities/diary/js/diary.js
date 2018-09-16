@@ -157,7 +157,7 @@ var diary = {
 
     for (n in data.nutrition)
     {
-      $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * data.quantity));
+      $("#edit-diary-item #"+n).val(parseFloat(data.nutrition[n] * data.quantity));
     }
     $("#edit-diary-item #category-idx").val(data.category).change();
   },

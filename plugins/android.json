@@ -10,13 +10,13 @@
     "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.waist.line"
     },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.waist.line"
+    },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.waist.line"
     },
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.waist.line"
-    },
-    "cordova-plugin-indexeddb-async": {
       "PACKAGE_NAME": "com.waist.line"
     },
     "cordova-plugin-network-information": {
@@ -27,6 +27,9 @@
     },
     "phonegap-plugin-barcodescanner": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.waist.line"
+    },
+    "cordova-plugin-indexeddb-async": {
       "PACKAGE_NAME": "com.waist.line"
     }
   },
