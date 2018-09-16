@@ -77,9 +77,11 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
-    goals.updateLog();
-
-    nav.popPage();
+    var date = new Date();
+    log.update(date, "goals", goals.getGoalsForDay(date.getDay()))
+    .then(function(){
+      nav.popPage();
+    });
   },
 
   fillNutritionForm : function(name)
@@ -119,9 +121,11 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
-    goals.updateLog();
-
-    nav.popPage();
+    var date = new Date();
+    log.update(date, "goals", goals.getGoalsForDay(date.getDay()))
+    .then(function(){
+      nav.popPage();
+    });
   },
 
   //Toggle extra goals based on checkbox value
