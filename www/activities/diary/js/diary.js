@@ -380,3 +380,7 @@ $(document).on("tap", "#diary-page #nextDate", function(e){
   diary.updateDisplayedDate();
   diary.populate();
 });
+
+$(document).on("tap", "#diary-page #record-weight", function(e){
+  log.promptToSetWeight(diary.date);
+});
