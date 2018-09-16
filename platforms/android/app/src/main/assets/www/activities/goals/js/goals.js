@@ -23,8 +23,8 @@ var goals = {
 
   setDefaults : function() //Set stored goals to default
   {
-    var types = ["weight", "calories", "protein", "carbs", "fat", "sugar", "salt"];
-    var values = [0, 2000, 45, 230, 70, 90, 6]; //Womens RDAs
+    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fibre", "salt"];
+    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6]; //Womens RDAs
 
     for (var i = 0; i < types.length; i++) //Each type
     {
@@ -34,7 +34,7 @@ var goals = {
 
       goals.data[types[i]]["multi"] = true;
 
-      for (j = 0; j < 7; j++) //Each day
+      for (j = 0; j < 7; j++) //Each day of the week (0-6)
       {
         goals.data[types[i]][j] = values[i];
       }

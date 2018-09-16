@@ -5,6 +5,7 @@
   "protein":"Protein",
   "carbs":"Carbohydrates",
   "fat":"Fat",
+  "saturated-fat":"Saturated Fat",
   "sugar":"Sugar",
   "salt":"Salt",
   "no-internet":"No Internet Connection",
