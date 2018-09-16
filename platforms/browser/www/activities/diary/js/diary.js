@@ -34,10 +34,10 @@ var diary = {
       diary.consumption = {}; //Reset object
 
       //Get selected date at midnight
-      var fromDate = diary.date;
-      fromDate.setHours(0, 0, 0 ,0);
+      var fromDate = new Date(diary.date);
+      fromDate.setHours(0, 0, 0, 0);
 
-      //Get day after selected date
+      //Get end of day
       var toDate = new Date(fromDate);
       toDate.setHours(toDate.getHours()+24, toDate.getMinutes()-1);
 
@@ -125,7 +125,7 @@ var diary = {
           }
 
           log.update(diary.date, "nutrition", diary.consumption)
-          .then(result => diary.getStats(diary.date))
+          .then(result => log.getData(diary.date))
           .then(result => diary.renderStats(result))
           .catch();
         }
@@ -178,7 +178,11 @@ var diary = {
   {
     return new Promise(function(resolve, reject){
 
-      if (diary.date == undefined) diary.date = new Date();
+      if (diary.date == undefined)
+      {
+        diary.date = new Date();
+        diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
+      }
 
       var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
       var foodId = data.id;
@@ -277,7 +281,11 @@ var diary = {
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  if (diary.date == undefined) diary.date = new Date();
+  if (diary.date == undefined)
+  {
+    diary.date = new Date();
+    diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
+  }
 
   diary.updateDisplayedDate();
   diary.populate();
@@ -358,8 +366,7 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 $(document).on("change", "#diary-page #date", function(e){
   diary.date = new Date($("#diary-page #date").val()); //Set diary object date
   diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
-  app.addDefaultLogEntry(diary.date)
-  .then(diary.populate());
+  diary.populate();
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
@@ -372,4 +379,8 @@ $(document).on("tap", "#diary-page #nextDate", function(e){
   diary.date.setDate(diary.date.getDate()+1);
   diary.updateDisplayedDate();
   diary.populate();
+});
+
+$(document).on("tap", "#diary-page #record-weight", function(e){
+  log.promptToSetWeight(diary.date);
 });

@@ -47,7 +47,7 @@ var app = {
 
       if (app.storage.getItem("homescreen") == undefined)
       {
-        app.storage.setItem("homescreen", "statistics");
+        app.storage.setItem("homescreen", "userguide");
       }
 
       //Each install gets a UUID that is added to the comments when uploading to the OFF database, to prevent trolls

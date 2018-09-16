@@ -22,7 +22,7 @@ var foodList = {
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
   lastPageId:null, //ID of the page that got us to this page, if there was one
-  nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "salt"],
+  nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "fiber", "salt"],
 
   fillListFromDB : function()
   {
@@ -126,6 +126,7 @@ var foodList = {
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
     $("#edit-food-item #fat").val(data.nutrition.fat);
     $("#edit-food-item #saturated-fat").val(data.nutrition["saturated-fat"]);
+    $("#edit-food-item #fiber").val(data.nutrition.fiber);
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
     $("#edit-food-item #salt").val(parseFloat(data.nutrition.salt).toFixed(2));
 
@@ -220,11 +221,11 @@ var foodList = {
         "fat":parseFloat(form.fat.value),
         "saturated-fat":parseFloat(form["saturated-fat"].value),
         "sugar":parseFloat(form.sugar.value),
+        "fiber":parseFloat(form.fiber.value),
         "salt":parseFloat(form.salt.value),
       };
 
-      var date = new Date()
-      data.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+      data.dateTime = new Date();
 
       if (isNaN(id) == false) {data.id = id}; //Add ID for existing items
 
@@ -262,7 +263,7 @@ var foodList = {
 
     cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      //var code = "3596710443307"; //Test barcode
+      var code = "3596710443307"; //Test barcode
       var code = scanData.text;
       var request = new XMLHttpRequest();
 
@@ -383,6 +384,7 @@ var foodList = {
         sugar: product.nutriments.sugars_serving,
         fat: product.nutriments.fat_serving,
         "saturated-fat": product.nutriments["saturated-fat_serving"],
+        fiber: product.nutriments.fiber_serving,
         salt: product.nutriments.salt_serving
       }
     }
@@ -396,6 +398,7 @@ var foodList = {
         sugar: product.nutriments.sugars_100g,
         fat: product.nutriments.fat_100g,
         "saturated-fat": product.nutriments["saturated-fat_100g"],
+        fiber: product.nutriments.fiber_100g,
         salt: product.nutriments.salt_100g
       }
     }
@@ -409,6 +412,7 @@ var foodList = {
         sugar: product.nutriments.sugars,
         fat: product.nutriments.fat,
         "saturated-fat": product.nutriments["saturated-fat"],
+        fiber: product.nutriments.fiber,
         salt: product.nutriments.salt
       }
 

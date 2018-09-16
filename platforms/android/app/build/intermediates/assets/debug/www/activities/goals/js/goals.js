@@ -23,8 +23,8 @@ var goals = {
 
   setDefaults : function() //Set stored goals to default
   {
-    var types = ["weight", "calories", "protein", "carbs", "fat", "sugar", "salt"];
-    var values = [0, 2000, 45, 230, 70, 90, 6]; //Womens RDAs
+    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fibre", "salt"];
+    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6]; //Womens RDAs
 
     for (var i = 0; i < types.length; i++) //Each type
     {
@@ -34,7 +34,7 @@ var goals = {
 
       goals.data[types[i]]["multi"] = true;
 
-      for (j = 0; j < 7; j++) //Each day
+      for (j = 0; j < 7; j++) //Each day of the week (0-6)
       {
         goals.data[types[i]][j] = values[i];
       }
@@ -77,9 +77,11 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
-    goals.updateLog();
-
-    nav.popPage();
+    var date = new Date();
+    log.update(date, "goals", goals.getGoalsForDay(date.getDay()))
+    .then(function(){
+      nav.popPage();
+    });
   },
 
   fillNutritionForm : function(name)
@@ -119,9 +121,11 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
-    goals.updateLog();
-
-    nav.popPage();
+    var date = new Date();
+    log.update(date, "goals", goals.getGoalsForDay(date.getDay()))
+    .then(function(){
+      nav.popPage();
+    });
   },
 
   //Toggle extra goals based on checkbox value
@@ -137,48 +141,22 @@ var goals = {
     }
   },
 
-  updateLog : function(date)
+  //Returns the goals that have been set for the given day (0-6)
+  getGoalsForDay : function(day)
   {
-    return new Promise(function(resolve, reject){
+    var goaldata = JSON.parse(app.storage.getItem("goals"));
+    var data = {};
 
-      var dateTime = new Date();
+    for (g in goaldata)
+    {
+      if (g == "weight") continue; //weight is handled separately
+      data[g] = data[g] || 0;
+      data[g] = goaldata[g][day];
+    }
 
-      if (date)
-      {
-        dateTime = date
-      }
-      else {
-        //Store goals (for current day only) in log
-        var now = new Date();
-        dateTime = app.getDateAtMidnight(now);
-      }
-
-      var data = {};
-
-      goals.data = JSON.parse(app.storage.getItem("goals"));
-
-      for (g in goals.data)
-      {
-        if (g == "weight") continue; //weight is handled separately
-        data[g] = data[g] || 0;
-        data[g] = goals.data[g][dateTime.getDay()];
-      }
-
-      data.weight = goals.data.weight;
-
-      var request = dbHandler.update({"dateTime":dateTime, "goals":data}, "log", dateTime);
-
-      if (request)
-      {
-        request.onsuccess = function(e){
-          resolve();
-        }
-      }
-      else {
-        resolve();
-      }
-    });
-  }
+    data.weight = goaldata.weight;
+    return data;
+  },
 };
 
 $(document).on("tap", "#goals-list .nutrition", function(e) {

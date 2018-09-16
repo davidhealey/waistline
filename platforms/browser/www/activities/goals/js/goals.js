@@ -23,7 +23,7 @@ var goals = {
 
   setDefaults : function() //Set stored goals to default
   {
-    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fibre", "salt"];
+    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "salt"];
     var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6]; //Womens RDAs
 
     for (var i = 0; i < types.length; i++) //Each type

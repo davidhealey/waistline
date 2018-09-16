@@ -138,13 +138,7 @@ var statistics = {
         var colour = "";
         var html = "<ons-carousel swipeable auto-scroll auto-refresh>";
 
-        //Sort goals alphabetically
-        var goals = {};
-        Object.keys(data.goals).sort().forEach(function(key) {
-          goals[key] = data.goals[key];
-        });
-
-        for (g in goals)
+        for (g in data.goals)
         {
           if (g == "weight") continue; //Weight is handled separately
 
@@ -152,7 +146,7 @@ var statistics = {
           data.nutrition[g] < data.goals[g] ? colour = "green" : colour = "red";
 
           //For calories the colour is flipped if the user checked the gain weight option
-          if (g == "calories" && goals.weight.gain == true)
+          if (g == "calories" && data.goals.weight.gain == true)
           {
             data.nutrition[g] > data.goals[g] ? colour = "green" : colour = "red";
           }

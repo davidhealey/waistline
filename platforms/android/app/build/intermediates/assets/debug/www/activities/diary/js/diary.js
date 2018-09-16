@@ -34,10 +34,10 @@ var diary = {
       diary.consumption = {}; //Reset object
 
       //Get selected date at midnight
-      var fromDate = diary.date;
-      fromDate.setHours(0, 0, 0 ,0);
+      var fromDate = new Date(diary.date);
+      fromDate.setHours(0, 0, 0, 0);
 
-      //Get day after selected date
+      //Get end of day
       var toDate = new Date(fromDate);
       toDate.setHours(toDate.getHours()+24, toDate.getMinutes()-1);
 
@@ -124,8 +124,8 @@ var diary = {
             $("#diary-page #diary-lists #category"+i+" span").html(" - " + Math.round(calorieCount[i]));
           }
 
-          diary.updateLog()
-          .then(result => diary.getStats(diary.date))
+          log.update(diary.date, "nutrition", diary.consumption)
+          .then(result => log.getData(diary.date))
           .then(result => diary.renderStats(result))
           .catch();
         }
@@ -133,44 +133,17 @@ var diary = {
     });
   },
 
-  updateLog : function()
-  {
-    return new Promise(function(resolve, reject){
-      var request = dbHandler.getItem(diary.date, "log"); //Get existing data from the log (if any)
-
-      request.onsuccess = function(e)
-      {
-        var data = e.target.result || {};
-        data.dateTime = diary.date;
-        data.nutrition = diary.consumption; //Update consumption value
-
-        var insertRequest = dbHandler.insert(data, "log");
-
-        insertRequest.onsuccess = function(e)
-        {
-          resolve();
-        }
-      };
-    });
-  },
-
   updateDisplayedDate()
   {
-    return new Promise(function(resolve, reject){
-      var dd = diary.date.getDate();
-      var mm = diary.date.getMonth()+1; //January is 0
-      var yyyy = diary.date.getFullYear();
+    var dd = diary.date.getDate();
+    var mm = diary.date.getMonth()+1; //January is 0
+    var yyyy = diary.date.getFullYear();
 
-      //Add leading 0s
-      if (dd < 10) dd = "0"+dd;
-      if (mm < 10) mm = "0"+mm;
+    //Add leading 0s
+    if (dd < 10) dd = "0"+dd;
+    if (mm < 10) mm = "0"+mm;
 
-      $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
-
-      //Check if there is a log entry for the selected date, if there isn't, add one
-      app.addDefaultLogEntry(diary.date)
-      .then(resolve());
-    });
+    $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
   },
 
   fillEditForm : function(data)
@@ -205,7 +178,11 @@ var diary = {
   {
     return new Promise(function(resolve, reject){
 
-      if (diary.date == undefined) diary.date = new Date();
+      if (diary.date == undefined)
+      {
+        diary.date = new Date();
+        diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
+      }
 
       var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
       var foodId = data.id;
@@ -281,53 +258,6 @@ var diary = {
     }
   },
 
-  recordWeight: function(date)
-  {
-    return new Promise(function(resolve, reject){
-      var lastWeight = app.storage.getItem("weight") || ""; //Get last recorded weight, if any
-
-      //Show prompt
-      ons.notification.prompt(app.strings["diary"]["current-weight"]+" (kg)", {"title":app.strings["weight"], "inputType":"number", "defaultValue":lastWeight, "cancelable":true})
-      .then(function(input)
-      {
-        if (!isNaN(parseFloat(input)))
-        {
-          app.storage.setItem("weight", input);
-          log.setWeight(date, input)
-          .then(resolve());
-        }
-      });
-    });
-  },
-
-  getStats : function(date)
-  {
-    return new Promise(function(resolve, reject){
-      var request = dbHandler.getItem(date, "log");
-
-      request.onsuccess = function(e)
-      {
-        if (e.target.result)
-        {
-          var data = e.target.result;
-
-          data.remaining = {};
-
-          for (g in data.goals) //Each goal
-          {
-            data.nutrition = data.nutrition || {};
-            if (data.nutrition[g] == undefined) data.nutrition[g] = 0; //If there is no consumption data default to 0
-            data.remaining[g] = data.goals[g] - data.nutrition[g]; //Subtract nutrition from goal to get remining
-          }
-          resolve(data);
-        }
-        else {
-          reject();
-        }
-      }
-    });
-  },
-
   renderStats : function(data)
   {
     var colour = "";
@@ -351,10 +281,14 @@ var diary = {
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  if (diary.date == undefined) diary.date = new Date();
+  if (diary.date == undefined)
+  {
+    diary.date = new Date();
+    diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
+  }
 
-  diary.updateDisplayedDate()
-  .then(diary.populate());
+  diary.updateDisplayedDate();
+  diary.populate();
 });
 
 //Deleting an item
@@ -401,7 +335,6 @@ $(document).on("hold", "#diary-page ons-list-title", function(e){
       .then(diary.populate());
     }
   });
-
 });
 
 $(document).on("init", "#edit-diary-item", function(e){
@@ -433,22 +366,21 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 $(document).on("change", "#diary-page #date", function(e){
   diary.date = new Date($("#diary-page #date").val()); //Set diary object date
   diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
-  app.addDefaultLogEntry(diary.date)
-  .then(diary.populate());
+  diary.populate();
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
   diary.date.setDate(diary.date.getDate()-1);
-  diary.updateDisplayedDate()
-  .then(diary.populate());
+  diary.updateDisplayedDate();
+  diary.populate();
 });
 
 $(document).on("tap", "#diary-page #nextDate", function(e){
   diary.date.setDate(diary.date.getDate()+1);
-  diary.updateDisplayedDate()
-  .then(diary.populate());
+  diary.updateDisplayedDate();
+  diary.populate();
 });
 
 $(document).on("tap", "#diary-page #record-weight", function(e){
-  diary.recordWeight(diary.date);
+  log.promptToSetWeight(diary.date);
 });

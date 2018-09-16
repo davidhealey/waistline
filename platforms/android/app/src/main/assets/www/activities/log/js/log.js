@@ -23,7 +23,7 @@ var log = {
   _getDate(date)
   {
     var newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); //Discard any time data
-    newDate.getTimezoneOffset() > 0 ? newDate.setMinutes(newDate.getTimezoneOffset()) : newDate.setMinutes(-newDate.getTimezoneOffset());
+    newDate.setHours(-newDate.getTimezoneOffset()/60, 0, 0, 0);
     return newDate
   },
 

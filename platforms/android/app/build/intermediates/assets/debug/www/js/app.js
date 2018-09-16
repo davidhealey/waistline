@@ -47,7 +47,7 @@ var app = {
 
       if (app.storage.getItem("homescreen") == undefined)
       {
-        app.storage.setItem("homescreen", "statistics");
+        app.storage.setItem("homescreen", "userguide");
       }
 
       //Each install gets a UUID that is added to the comments when uploading to the OFF database, to prevent trolls
@@ -83,14 +83,7 @@ var app = {
         });
 
         dbHandler.initializeDb() //db-handler initialization
-        .then(function(){
-          //Add a log entry for the current date if there isn't one already
-          var now = new Date();
-          var date = app.getDateAtMidnight(now);
-          app.addDefaultLogEntry(date)
-          .then(resolve());
-        });
-
+        .then(resolve());
       });
     });
   },
@@ -128,38 +121,6 @@ var app = {
     });
   },
 
-  addDefaultLogEntry : function(date)
-  {
-    return new Promise(function(resolve, reject){
-      var request = dbHandler.getItem(date, "log");
-
-      request.onsuccess = function(e){
-
-        if (e.target.result == undefined) //No log entry for given date
-        {
-            var data = {"dateTime":date, "goals":{}, "weight":app.storage.getItem("weight")};
-            var goals = JSON.parse(app.storage.getItem("goals"));
-            var day = date.getDay(); //Week starts on Sunday
-
-            //Get just the goals for the current day
-            for (g in goals)
-            {
-              if (g == "weight") continue; //Weight handled separately
-              data.goals[g] = goals[g][day];
-            }
-
-            data.goals["weight"] = goals.weight;
-
-            var insertRequest = dbHandler.insert(data, "log");
-            insertRequest.onsuccess = function(e){resolve();}
-        }
-        else {
-          resolve();
-        }
-      }
-    });
-  },
-
   getDateAtMidnight : function(date)
   {
     var newDate;
@@ -186,10 +147,3 @@ ons.ready(function() {
 $(document).on("init", "ons-page", function(e){
   $("[data-localize]").localize("locales/locale");
 });
-
-// Array Remove - By John Resig (MIT Licensed)
-Array.prototype.remove = function(from, to) {
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
-};

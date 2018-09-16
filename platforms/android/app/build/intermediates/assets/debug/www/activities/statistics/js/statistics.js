@@ -115,7 +115,7 @@ var statistics = {
     {
       html = "";
       html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
-      html += "<ons-row>"+data.timestamps[i].toLocaleDateString() + " - " + data.weight[i] + " kg" +"</ons-row>";
+      html += "<ons-row>"+ data.timestamps[i].toLocaleDateString() + " - " + data.weight[i] + " kg" +"</ons-row>";
       html += "<ons-row style='color:#636363;'><i>";
       if (data.nutrition.calories[i] != undefined) html += data.nutrition.calories[i].toFixed(0) + " " + app.strings["calories"];
       html += "</i></ons-row>";
@@ -124,13 +124,13 @@ var statistics = {
     }
   },
 
-  renderDiaryStats : function()
+  renderDailyLog : function()
   {
     var dateTime = new Date();
-    dateTime.setHours(0, 0, 0, 0);
+    dateTime.getTimezoneOffset() > 0 ? dateTime.setMinutes(dateTime.getTimezoneOffset()) : dateTime.setMinutes(-dateTime.getTimezoneOffset());
 
     //Get diary stats for today
-    diary.getStats(dateTime)
+    log.getData(dateTime)
     .then(function(data) {
 
       if (data.goals && data.nutrition && data.remaining) //Safety check
@@ -180,7 +180,7 @@ var statistics = {
 }
 
 $(document).on("show", "#statistics", function(e){
-  statistics.renderDiaryStats();
+  statistics.renderDailyLog();
   statistics.gatherData()
   .then(function(data){
     statistics.renderChart(data);
@@ -198,9 +198,10 @@ $(document).on("change", "#statistics #range", function(e){
 
 $(document).on("click", "#statistics #weightLog ons-list-item", function(e){
   var timestamp = new Date($(this).attr("timestamp"));
-  diary.recordWeight(timestamp)
+
+  log.promptToSetWeight(timestamp)
   .then(function(){
     statistics.gatherData()
-    .then(data => statistics.renderWeightLog(data));
+    .then(data => statistics.renderWeightLog(data)); //Update stats display
   });
 });
