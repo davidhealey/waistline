@@ -1,0 +1,101 @@
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="settings-page">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="center" data-localize="settings.title"></div>
+    <div class="right"></div>
+  </ons-toolbar>
+
+  <ons-list>
+    <ons-list-item expandable>
+       <div class="center" data-localize="settings.show-images1">
+         Show product images
+       </div>
+       <div class="right">
+         <ons-switch id="show-images" name="show-images" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+       </div>
+       <div class="expandable-content" data-localize="settings.show-images2">
+         Images will be displayed when connected to the internet. They will not be stored on your device.
+       </div>
+    </ons-list-item>
+    <ons-list-item expandable>
+        <div class="center" data-localize="settings.disable-animations1">
+          Disable animations
+        </div>
+        <div class="right">
+          <ons-switch id="disable-animation" name="disable-animation" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+        </div>
+        <div class="expandable-content" data-localize="settings.disable-animations2">
+          Disabling animations may improve performance on some devices (requires app restart).
+        </div>
+    </ons-list-item>
+
+    <ons-list-item>
+       <div class="center" data-localize="settings.brand-position">
+         Product name before brand
+       </div>
+       <div class="right">
+         <ons-switch id="brand-position" name="brand-position" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+       </div>
+    </ons-list-item>
+
+    <ons-list-item expandable>
+      <div data-localize="settings.theme">Theme</div>
+      <div class="expandable-content">
+        <ons-select name="theme" id="theme" data-native-menu="false">
+          <option value="0" data-localize="settings.light" selected>Light</option>
+          <option value="1" data-localize="settings.dark">Dark</option>
+        </ons-select>
+      </div>
+    </ons-list-item>
+
+    <ons-list-item expandable>
+      <div data-localize="settings.homescreen">Homescreen</div>
+      <div class="expandable-content">
+        <ons-select name="homescreen" id="homescreen" data-native-menu="false">
+          <option value="statistics" data-localize="settings.light" selected>Statistics</option>
+          <option value="diary" data-localize="settings.dark">Diary</option>
+          <option value="food-list" data-localize="settings.dark">Food List</option>
+          <option value="meals" data-localize="settings.dark">Recipes</option>
+          <option value="goals" data-localize="settings.dark">Goals</option>
+          <option value="settings" data-localize="settings.dark">Settings</option>
+          <option value="userguide" data-localize="settings.dark">Userguide</option>
+        </ons-select>
+      </div>
+    </ons-list-item>
+
+    <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
+      <div data-localize="settings.diary.title">Diary Settings</div>
+    </ons-list-item>
+
+    <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/off-settings.html')">
+      <div data-localize="settings.off.title">Open Food Facts Account</div>
+    </ons-list-item>
+
+    <ons-list-item tappable id="import">
+      <div data-localize="settings.import">Import Data</div>
+    </ons-list-item>
+
+    <ons-list-item tappable id="export">
+      <div data-localize="settings.export">Export Data</div>
+    </ons-list-item>
+  </ons-list>
+
+</ons-page>
