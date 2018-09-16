@@ -42,9 +42,9 @@
 
         <!--App Javascript-->
         <script type="text/javascript" src="js/db-handler.js"></script>
-        <script type="text/javascript" src="js/xdate.js"></script>
-        <script type="text/javascript" src="activities/goals/js/goals.js"></script>
+        <script type="text/javascript" src="js/revision.js"></script>
         <script type="text/javascript" src="js/helpers.js"></script>
+        <script type="text/javascript" src="activities/goals/js/goals.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
 
         <title>Waistline</title>
@@ -118,7 +118,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'], {'title':app.strings['about']['title']})" tappable="" modifier="longdivider">
+              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'], {'title':app.strings['about']['title'] + ' - v' + revision.number})" tappable="" modifier="longdivider">
                 <div class="left" data-localize="about.title">
                   About
                 </div>
