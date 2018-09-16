@@ -135,22 +135,15 @@ var diary = {
 
   updateDisplayedDate()
   {
-    return new Promise(function(resolve, reject){
-      var dd = diary.date.getDate();
-      var mm = diary.date.getMonth()+1; //January is 0
-      var yyyy = diary.date.getFullYear();
+    var dd = diary.date.getDate();
+    var mm = diary.date.getMonth()+1; //January is 0
+    var yyyy = diary.date.getFullYear();
 
-      //Add leading 0s
-      if (dd < 10) dd = "0"+dd;
-      if (mm < 10) mm = "0"+mm;
+    //Add leading 0s
+    if (dd < 10) dd = "0"+dd;
+    if (mm < 10) mm = "0"+mm;
 
-      $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
-
-      resolve();
-      //Check if there is a log entry for the selected date, if there isn't, add one
-      /*app.addDefaultLogEntry(diary.date)
-      .then(resolve());*/
-    });
+    $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
   },
 
   fillEditForm : function(data)
@@ -286,8 +279,8 @@ var diary = {
 $(document).on("show", "#diary-page", function(e){
   if (diary.date == undefined) diary.date = new Date();
 
-  diary.updateDisplayedDate()
-  .then(diary.populate());
+  diary.updateDisplayedDate();
+  diary.populate();
 });
 
 //Deleting an item
@@ -334,7 +327,6 @@ $(document).on("hold", "#diary-page ons-list-title", function(e){
       .then(diary.populate());
     }
   });
-
 });
 
 $(document).on("init", "#edit-diary-item", function(e){
@@ -372,16 +364,12 @@ $(document).on("change", "#diary-page #date", function(e){
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
   diary.date.setDate(diary.date.getDate()-1);
-  diary.updateDisplayedDate()
-  .then(diary.populate());
+  diary.updateDisplayedDate();
+  diary.populate();
 });
 
 $(document).on("tap", "#diary-page #nextDate", function(e){
   diary.date.setDate(diary.date.getDate()+1);
-  diary.updateDisplayedDate()
-  .then(diary.populate());
-});
-
-$(document).on("tap", "#diary-page #record-weight", function(e){
-  log.promptToSetWeight(diary.date);
+  diary.updateDisplayedDate();
+  diary.populate();
 });
