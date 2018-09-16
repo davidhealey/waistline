@@ -190,8 +190,7 @@
       "p2":"Du kan använda sökrutan för att filtrera listan över matvaror för att hitta den du vill ha. Om du har en internetanslutning kan du även använda sökrutan för att hitta produkter i databasen Open Food Facts.",
       "p3":"Listan över objekt sorteras automatiskt efter hur nyligen du lagt till dem i din dagbok, så de livsmedel du lägger till oftast kommer att visas nära toppen av listan.",
       "p4":"Om du trycker på ett objekt i listan väljer du det. När du väl har valt minst ett objekt visas ett fält på den övre verktygsfältet, genom att klicka på detta lägger du till de valda objekten i din dagbok.",
-      "p5":"Du kan redigera ett matobjekt genom att dubbelklicka på det.",
-      "p6":"Tryck och håll kvar ett matobjekt för att ta bort det från listan och din lokala databas."
+      "p5":"Du kan redigera ett matobjekt genom att dubbelklicka på det."
     },
     "adding-a-food":
     {
