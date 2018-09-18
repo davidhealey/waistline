@@ -156,9 +156,9 @@ var meals = {
     {
       html += "<ons-list-item tappable modifier='longdivider' id='"+list[i].id+"' data='"+JSON.stringify(list[i])+"'>";
       html += "<label class='right'>";
-      html += "<ons-checkbox name='meal-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+      html += "<ons-checkbox name='meal-checkbox' input-id='meal"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
       html += "</label>";
-      html += "<label for='"+unescape(list[i].name)+"' class='center'>";
+      html += "<label for='meal"+i+"' class='center'>";
       html += "<ons-row>" + unescape(list[i].name) + "</ons-row>";
       html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
       html += "</label>";
