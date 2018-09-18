@@ -254,6 +254,7 @@ $(document).on("hold", "#meals #meal-list ons-list-item", function(){
 
   //Ask the user to select the type of image
   ons.openActionSheet({
+    cancelable: true,
     buttons: ['Edit', 'Delete']
   })
   .then(function(input){
@@ -261,7 +262,7 @@ $(document).on("hold", "#meals #meal-list ons-list-item", function(){
     {
       nav.pushPage("activities/meals/views/edit-meal.html", {"data":data});
     }
-    else //Delete
+    else if (input == 1) //Delete
     {
       //Show confirmation dialog
       ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])

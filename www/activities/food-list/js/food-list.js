@@ -628,6 +628,7 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
 
   //Ask the user to select the type of image
   ons.openActionSheet({
+    cancelable:true,
     buttons: ['Edit', 'Delete']
   })
   .then(function(input){
