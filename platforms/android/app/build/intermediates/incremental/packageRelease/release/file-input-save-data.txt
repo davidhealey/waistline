@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Sep 16 15:00:55 BST 2018
+#Tue Sep 18 11:28:44 BST 2018
 20.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
 143.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/release
 237.path=www/onsen/esm/elements/ons-navigator/ios-swipe-animator.js

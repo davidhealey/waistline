@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.waist.line"
     android:hardwareAccelerated="true"
-    android:versionCode="20303"
-    android:versionName="2.3.3" >
+    android:versionCode="20304"
+    android:versionName="2.3.4" >
 
     <uses-sdk
         android:minSdkVersion="19"

@@ -72,16 +72,16 @@ var foodList = {
 
         if (app.storage.getItem("brand-position") == "false")
         {
-          html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].name)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+          html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
           html += "</label>";
-          html += "<label for='"+unescape(list[i].name)+"' class='center'>";
+          html += "<label for='food-item"+i+"' class='center'>";
           html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
           html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
         }
         else {
-          html += "<ons-checkbox name='food-item-checkbox' input-id='"+unescape(list[i].brand)+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+          html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
           html += "</label>";
-          html += "<label for='"+unescape(list[i].brand)+"' class='center'>";
+          html += "<label for='food-item"+i+"' class='center'>";
           html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
           html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].brand) + " - " + list[i].portion + "</i></ons-row>";
         }
@@ -628,6 +628,7 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
 
   //Ask the user to select the type of image
   ons.openActionSheet({
+    cancelable:true,
     buttons: ['Edit', 'Delete']
   })
   .then(function(input){
