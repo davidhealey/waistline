@@ -1,4 +1,4 @@
-#Tue Sep 18 11:28:44 BST 2018
+#Wed Oct 03 00:11:08 BST 2018
 base.0=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/transforms/dex/release/0
 path.0=classes.dex
 renamed.0=classes.dex

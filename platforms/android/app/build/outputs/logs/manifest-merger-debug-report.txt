@@ -124,7 +124,6 @@ ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/androi
 		ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:16:41-109
 uses-sdk
 ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:5-74
-INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:5-74
 MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/AndroidManifest.xml:7:5-9:41
 MERGED from [:barcodescanner-release-2.1.5:] /home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:support-v4:27.1.1] /home/dave/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/3221f6965c7ea4ecbcf443c85e754d4d/AndroidManifest.xml:20:5-44
@@ -149,13 +148,10 @@ MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/t
 MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/3dda7842093bb405cd1a87c9aa592305/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/1dfda5987647fe047c71869ab17a3c9c/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.core:runtime:1.1.0] /home/dave/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/1dfda5987647fe047c71869ab17a3c9c/AndroidManifest.xml:20:5-44
-INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:5-74
 	android:targetSdkVersion
 		ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:42-71
 	android:minSdkVersion
 		ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:18:15-41
-		INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml
-		INJECTED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from /media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/AndroidManifest.xml:19:5-81
 	android:name

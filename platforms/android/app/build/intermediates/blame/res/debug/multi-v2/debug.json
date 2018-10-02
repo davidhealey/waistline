@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-pa_values-pa.arsc.flat",
+            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-ne_values-ne.arsc.flat",
             "map": [
                 {
-                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/values-pa/values-pa.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/values-ne/values-ne.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -31,10 +31,10 @@
             ]
         },
         {
-            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-ne_values-ne.arsc.flat",
+            "outputFile": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/values-pa_values-pa.arsc.flat",
             "map": [
                 {
-                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/values-ne/values-ne.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/values-pa/values-pa.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
