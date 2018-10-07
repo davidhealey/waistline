@@ -325,7 +325,7 @@ $(document).on("hold", "#diary-page ons-list-title", function(e){
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
 
   //Show prompt
-  ons.notification.prompt(app.strings["diary"]["quick-add"]["body"], {"title":app.strings["diary"]["quick-add"]["title"], "inputType":"number", "defaultValue":100, "cancelable":true})
+  ons.notification.prompt(app.strings["diary"]["quick-add"]["body"], {"title":app.strings["diary"]["quick-add"]["title"], "inputType":"number", "defaultValue":"", "cancelable":true})
   .then(function(input)
   {
     if (!isNaN(parseFloat(input)))
