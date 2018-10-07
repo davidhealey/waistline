@@ -125,7 +125,7 @@ var diary = {
           }
 
           log.update(diary.date, "nutrition", diary.consumption)
-          .then(result => log.getData(diary.date))
+          .then(result => log._getData(diary.date))
           .then(result => diary.renderStats(result))
           .catch();
         }
