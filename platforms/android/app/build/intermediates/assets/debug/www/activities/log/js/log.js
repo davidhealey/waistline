@@ -20,7 +20,7 @@
 var log = {
 
   //Private function. Returns date with time data discarded
-  _getDate(date)
+  _getDate : function(date)
   {
     var newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); //Discard any time data
     newDate.setHours(-newDate.getTimezoneOffset()/60, 0, 0, 0);

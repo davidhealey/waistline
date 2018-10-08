@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Sep 18 11:28:06 BST 2018
+#Mon Oct 08 15:35:06 BST 2018
 20.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/debug
 143.base=/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/assets/debug
 237.path=www/onsen/esm/ons/styler.js
