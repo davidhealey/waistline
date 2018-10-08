@@ -130,7 +130,7 @@ var statistics = {
     dateTime.getTimezoneOffset() > 0 ? dateTime.setMinutes(dateTime.getTimezoneOffset()) : dateTime.setMinutes(-dateTime.getTimezoneOffset());
 
     //Get diary stats for today
-    log._getData(dateTime)
+    log.getData(dateTime)
     .then(function(data) {
 
       if (data.goals && data.nutrition && data.remaining) //Safety check
