@@ -7,7 +7,7 @@
 
 Waistline is a libre calorie counter and weight tracker app for Android. It's built with Cordova, OnsenUI, and a few other free libraries.
 
-### App Features 
+### App Features
 Features of waistline include;
 
 - **Diary**: The is where users can keep a day by day account of the food they eat at different times.
@@ -17,7 +17,10 @@ Features of waistline include;
 - Waistline doesn't contain any ads or in-app purchases.
 - Waistline works on Android devices 5.0+ (and might work on older devices)
 
-Waistline includes a comprehensive userguide. 
+Waistline includes a comprehensive userguide.
+
+## License
+Waistline is licensed under the GPLv3. The full license file is in the www sub-folder and the license notice is placed at the top of every file. The folder outside of the www directory are part of the Cordova framework and contain their own license files (either Apache 2.0 License or MIT).
 
 ## Privacy Policy
 
@@ -36,8 +39,8 @@ No personal data is collected while utilizing the software
 
 #### Usage Data
 
-Usage data is collected only when interacting with the Open Food Facts database. Data and information collected when using this software is used for efficient and improved utilization of the software 
-    
+Usage data is collected only when interacting with the Open Food Facts database. Data and information collected when using this software is used for efficient and improved utilization of the software
+
 ## Security Of Data
 The security of your data is important but no method of transmission over the internet or electronic storage is 100% secure, therefore the developer doesn't guarantee its absolute security.
 
@@ -46,7 +49,7 @@ Waistline requires a third-party database (Open Food Facts) to facilitate some o
 
 ## Changes To This Privacy Policy
 This privacy policy may be updated from time to time as the functionalities of the software are further developed and improved and may likely contain disparities that will nullify this current policy.
-      
+
 ## Disclaimer      
 
 Waistline is developed in good faith and for general use. The developer will not be held accountable for how you decide to use this software and will not be liable for any losses and/or damages in connection with the use of the software.
