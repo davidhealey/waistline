@@ -1,0 +1,3 @@
+files:
+  - source: /www/locales/*
+    translation: '%original_path%'
