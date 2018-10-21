@@ -1,238 +1,238 @@
 {
-  "weight": "Poids",
-  "quantity": "Quantité",
-  "calories": "Calories",
-  "protein": "Protéines",
-  "carbs": "Glucides",
-  "fat": "Matières grasses",
-  "sugar": "Sucre",
-  "salt": "Sel",
-  "no-internet": "Aucune connexion Internet",
+  "weight": "Vikt",
+  "quantity": "Kvantitet",
+  "calories": "Kalori",
+  "protein": "Protein",
+  "carbs": "Kolhydrater",
+  "fat": "Fet",
+  "sugar": "Söcker",
+  "salt": "Salt",
+  "no-internet": "Ingen Internetanslutning",
   "days": {
-    "0": "Dimanche",
-    "1": "Lundi",
-    "2": "Mardi",
-    "3": "Mercredi",
-    "4": "Jeudi",
-    "5": "Vendredi",
-    "6": "Samedi"
+    "0": "Söndag",
+    "1": "Måndag",
+    "2": "Tisdag",
+    "3": "Onsdag",
+    "4": "Torsdag",
+    "5": "Fredag",
+    "6": "Lördag"
   },
   "statistics": {
-    "title": "Statistiques",
-    "goal": "Objectif",
-    "used": "Consommé",
-    "remaining": "Restant",
-    "week": "1 semaine",
-    "month": "1 mois",
-    "3month": "3 mois",
-    "6month": "6 mois",
-    "12month": "1 an"
+    "title": "Statistiken",
+    "goal": "Mål",
+    "used": "Använt",
+    "remaining": "Kvarstående",
+    "week": "1 Vecka",
+    "month": "1 Månad",
+    "3month": "3 Månader",
+    "6month": "6 Månader",
+    "12month": "1 År"
   },
   "goals": {
-    "title": "Objectifs",
+    "title": "Mål",
     "nutrition": {
-      "same-goal": "Même objectif tous les jours"
+      "same-goal": "Samma Mål Varje Dag"
     },
     "weight": {
-      "title": "Objectifs de poids",
-      "target": "Poids idéal (kg)",
-      "weekly": "Objectif hebdomadaire (kg)",
-      "is-min": "Je veux prendre du poids"
+      "title": "Vikt Mål",
+      "target": "Mål Vikt (kg)",
+      "weekly": "Varje Vecka Mål (kg)",
+      "is-min": "Jag Vill Öka I Vikt"
     }
   },
   "diary": {
-    "title": "Journal",
-    "serving": "Portion",
-    "servings": "Portions",
-    "category": "Repas",
-    "current-weight": "Poids actuel",
+    "title": "Dagbok",
+    "serving": "Servering",
+    "servings": "Serveringar",
+    "category": "Kategori",
+    "current-weight": "Nuvarande Vikt",
     "quick-add": {
-      "title": "Ajout rapide",
-      "body": "Nombre de calories"
+      "title": "Snabb Lägg Till",
+      "body": "Antal Kalorier"
     },
     "edit-item": {
-      "title": "Éditer une entrée",
+      "title": "Redigera Posten",
       "placeholders": {
-        "quantity": "Nombre de portions*",
-        "calories": "Calories*",
-        "protein": "Protéines (g)",
-        "carbs": "Glucides (g)",
-        "fat": "Matières grasses (g)",
-        "salt": "Sel (g)",
-        "sugar": "Sucre (g)"
+        "quantity": "Antal Portioner*",
+        "calories": "Kalorier*",
+        "protein": "Protein (g)",
+        "carbs": "Kolhydrater (g)",
+        "fat": "Fet (g)",
+        "salt": "Salt (g)",
+        "sugar": "Söcker (g)"
       }
     }
   },
   "food-list": {
-    "title": "Liste des produits",
-    "search": "Recherche un produit",
-    "name-of-food": "Nom du produit",
-    "no-results": "Aucun résultat trouvé",
-    "scan-failed": "Recherche échouée",
+    "title": "Matlista",
+    "search": "Sök Mat",
+    "name-of-food": "Mat Namnet",
+    "no-results": "Inga matchande resultat",
+    "scan-failed": "Skan Misslyckades",
     "edit-item": {
-      "title1": "Ajouter un produit",
-      "title2": "Éditer un produit",
+      "title1": "Lägg Till Mat",
+      "title2": "Redigera Mat",
       "placeholders": {
-        "name": "Nom*",
-        "brand": "Marque*",
-        "portion": "Portion*",
-        "calories": "Calories*",
-        "protein": "Protéines (g)",
-        "carbs": "Glucides (g)",
-        "fat": "Matières grasses (g)",
-        "sugar": "Sucre (g)",
-        "salt": "Sel (g)"
+        "name": "Namn*",
+        "brand": "Varumärke*",
+        "portion": "Del*",
+        "calories": "Kalorier*",
+        "protein": "Protein (g)",
+        "carbs": "Kolhydrater (g)",
+        "fat": "Fet(g)",
+        "sugar": "Söcker (g)",
+        "salt": "Salt (g)"
       }
     },
     "upload-item": {
-      "title": "Envoyer vers Open Food Facts",
-      "success": "Le produit a été ajouté avec succès à Open Food Facts",
-      "fail": "Malheureusement, l'envoi a échoué. Veuillez essayer ultérieurement ou contacter le développeur.",
+      "title": "Ladda upp till Open Food Facts",
+      "success": "Produkten har lagts till Open Food Facts",
+      "fail": "Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
       "placeholders": {
-        "barcode": "Code-barres*",
-        "name": "Nom*",
-        "brand": "Marque*",
-        "portion": "Taille des portions*",
-        "calories": "Calories par portion*",
-        "protein": "Protéines (g)",
-        "carbs": "Glucides par portion (g)",
-        "fat": "Matières grasses par portion (g)",
-        "sugar": "Sucre par portion (g)",
-        "salt": "Sel par portion (g)"
+        "barcode": "Streckkod*",
+        "name": "Namn*",
+        "brand": "Varumärke**",
+        "portion": "Portion Storlek*",
+        "calories": "Kalorier per portion*",
+        "protein": "Protein (g)",
+        "carbs": "Kolhydrat per portion (g)",
+        "fat": "Fet per portion (g)",
+        "sugar": "Söcker per portion (g)",
+        "salt": "Salt per portion (g)"
       }
     }
   },
   "recipes": {
-    "title": "Recettes",
-    "filter": "Filtrer les recettes",
+    "title": "Recept",
+    "filter": "Filterrecept",
     "edit-recipe": {
-      "title1": "Ajouter une recette",
-      "title2": "Éditer une recette",
+      "title1": "Lägga till Recept",
+      "title2": "Redigera Recept",
       "placeholders": {
-        "name": "Nom de la recette",
-        "notes": "Notes..."
+        "name": "Recept Namn*",
+        "notes": "Anteckningar..."
       }
     }
   },
   "settings": {
-    "title": "Préférences",
-    "show-images1": "Afficher les photos des produits",
-    "show-images2": "Les photos seront affichées si une connexion Internet est disponible. Elles ne seront pas stockées sur votre appareil.",
-    "disable-animations1": "Désactiver les animations",
-    "disable-animations2": "Désactiver les animations peut améliorer les performances sur certains appareils (requiert un redémarrage de l'application).",
-    "import": "Importer une sauvegarde",
-    "export": "Exporter une sauvegarde",
+    "title": "Inställningar",
+    "show-images1": "Visa produktbilder",
+    "show-images2": "Bilder visas när du är ansluten till internet. De lagras inte på din enhet.",
+    "disable-animations1": "Inaktivera animeringar",
+    "disable-animations2": "Inaktivera animeringar kan förbättra prestanda på vissa enheter(kräver omstart av app).",
+    "import": "Importera Data",
+    "export": "Exportera Data",
     "diary": {
-      "title": "Préférences du journal",
-      "instructions1": "Utiliser les textes ci-dessous pour personnaliser le nom des repas dans le journal.",
-      "instructions2": "Tous les textes vides seront ignorés.",
-      "meal": "Repas"
+      "title": "Dagbok Inställningar",
+      "instructions1": "Använd rutorna nedan för att anpassa måltidsnamnen som används i dagboken för mat.",
+      "instructions2": "Alla rutor som är tomma ignoreras.",
+      "meal": "Måltid"
     }
   },
   "dialogs": {
-    "delete": "Supprimer",
-    "cancel": "Annuler",
-    "yes": "Oui",
-    "no": "Non",
-    "confirm-delete": "Êtes-vous sûr(e) de vouloir supprimer cette entrée ?",
-    "delete-title": "Supprimer l'entrée",
-    "required-fields": "Veuillez renseigner tous les champs obligatoires."
+    "delete": "Radera",
+    "cancel": "Annullera",
+    "yes": "Ja",
+    "no": "Nej",
+    "confirm-delete": "Är du säker på att du vill radera det här objektet?",
+    "delete-title": "Ta bort inlägg",
+    "required-fields": "Vänligen fyll i alla obligatoriska fält."
   },
   "user-guide": {
-    "title": "User Guide",
+    "title": "Användarguide",
     "basics": {
-      "title": "Bases",
-      "p1": "Votre corps a besoin d'un certain montant de calories pour maintenir votre poids actuel. Nous appellerons ce montant le niveau de maintenance. Vous pouvez augmenter ce niveau de maintenance en faisant de l'exercice ou le diminuer en en faisant moins.",
-      "p2": "La méthode la plus simple (qui est assez précise) de calculer votre niveau de maintenance est d'utiliser un calculateur de TDEE. Vous en trouverez plus qu'assez sur Internet.",
-      "p3": "Pour perdre du poids, vous devriez manger chaque jour au moins 100 calories de moins que votre niveau de maintenance. Pour prendre du poids, vous devriez manger chaque jour au moins 100 calories de plus que votre niveau de maintenance.",
-      "p4": "Moins vous mangez chaque jour et plus vous perdrez de poids. Si vous prévoyez de perdre du poids avec un grand déficit de calories, veuillez consulter votre médecin et planifier vos repas pour obtenir tous les nutriments dont votre corps a besoin. Ayez aussi des rendez-vous réguliers avec votre docteur pour réagir rapidement si quelque chose se passe mal."
+      "title": "Grunderna",
+      "p1": "Din kropp behöver en viss mängd kalorier för att behålla din nuvarande vikt. Vi kallar detta din underhållsnivå. Du kan öka din underhållsnivå genom att motionera mycket eller du kan minska den genom att göra mindre.",
+      "p2": "Den enklaste metoden (det är också ganska korrekt) för att beräkna din underhållsnivå är att använda en TDEE kalculator. Du kan hitta många av dessa online.",
+      "p3": "För att gå ner i vikt borde du äta minst 100 kalorier per dag mindre än din underhållsnivå, att gå upp i vikt bör du äta minst 100 kalorier per dag mer än din underhållsnivå.",
+      "p4": "Ju mindre du äter per dag desto mer vikt kommer du att förlora. Om du planerar att gå ner i vikt med ett stort kaloriunderskott, rådfråga din läkare och planera vad du äter så att du får all den näring din kropp behöver. Ha regelbundna kontroller med din läkare så att du kan reagera snabbt om något går fel."
     },
     "statistics": {
-      "title": "Statistiques",
-      "p1": "Sur l'écran des statistiques, vous pouvez voir un graphique représentant les nutriments consommés et les variations de votre poids dans la période sélectionnée.",
-      "p2": "Vous pouvez choisir l'intervalle de temps à afficher, comme une semaine, depuis la liste déroulante située au-dessus du graphique.",
-      "p3": "Vous pouvez choisir quelles données afficher dans le graphique en appuyant sur les entrées de la légende du graphique.",
-      "p4": "En dessous du graphique, vous trouverez une liste de vos changements de poids et des calories enregistrées chaque jour. Seules les dates où des calories ont été enregistrées dans le journal seront affichées. Appuyer sur une entrée de cette liste vous permet de saisir votre poids à enregistrer pour cette date.",
-      "p5": "Vous trouverez en haut de l'écran l'affichage des nutriments que vous avez consommé dans la journée, ainsi que l'objectif et le montant restant. Vous pouvez faire défiler cette zone vers la gauche ou la droite pour afficher les informations des autres nutriments."
+      "title": "Statistiken",
+      "p1": "På statistikskärmen kan du se ett diagram som visar de näringsämnen du har konsumerat och variationer i din vikt under den valda tidsperioden.",
+      "p2": "Du kan välja tidsramen som ska visas, t.ex. 1 vecka, från rullgardinsmenyn ovanför diagrammet.",
+      "p3": "Du kan välja vilken data som ska visas i diagrammet genom att klicka på objekten i diagrammets legend.",
+      "p4": "Under diagrammet är en dag för dag lista över dina viktförändringar och kalorierna du har antecknat. Endast datum som du har registrerat kalorier i din dagbok för visas här. Om du trycker på ett objekt i den här listan kan du redigera den vikt som registrerats för det datumet.",
+      "p5": "Överst på skärmen visas de näringsämnen du har konsumerat, tillsammans med ditt mål och kvarstående mängd. Du kan svepa åt vänster och höger på den här skärmen för att bläddra igenom de olika näringsämnena."
     },
     "diary": {
-      "title": "Journal",
-      "p1": "Le journal est l'endroit où vous gardez la trace des produits que vous mangez. Appuyez sur le nom d'un repas comme Breakfast pour ajouter un produit à ce repas.",
-      "p2": "L'application vous redirige à la liste des produits où vous pouvez sélectionner un ou plusieurs produits à ajouter au journal.",
-      "p3": "Les calories de chaque produit seront ajoutées au total pour la date sélectionnée et s'affichera au bas de l'écran.",
-      "p4": "Les boutons de chaque côté de la date affichée peuvent être utilisés pour basculer vers le jour précédent ou le jour suivant. Vous pouvez aussi appuyer sur la date elle-même pour ouvrir un calendrier et sélectionner une date spécifique.",
-      "p5": "Appuyer sur un produit dans votre journal vous permet d'ajuster le nombre de portions et changer le repas pour ce produit. Ces changements sont uniquement effectifs dans votre journal et n'affecte pas la liste des produits.",
-      "p6": "Appuyez longuement sur un produit de votre journal pour le supprimer.",
-      "p7": "Vous pouvez saisir votre poids en appuyant sur l'icône de balance de la barre supérieure.",
-      "p8": "Si vous voulez simplement ajouter des calories sans passer par l'ajout d'un produit à votre liste des produits, vous pouvez le faire. Appuyez juste longuement sur le nom d'un repas et saisissez le montant de calories dans la fenêtre qui apparaît."
+      "title": "Dagbok",
+      "p1": "Dagboken är där du kommer att hålla en logg över maten du äter. Tryck på en rubrik som frukost för att lägga till mat till den kategorin.",
+      "p2": "Detta tar dig till matlistan där du kan välja ett eller flera matvaror att lägga till i dagboken.",
+      "p3": "Kalorierna för varje mat kommer att läggas till summan för det aktuella valda datumet och visas längst ner på skärmen.",
+      "p4": "Knapparna på vardera sidan av det visade datumet kan användas för att gå till föregående eller nästa dag och du kan trycka på datumet för att välja ett visst datum.",
+      "p5": "Genom att knacka på ett matobjekt i din dagbok kan du justera antalet portioner och ändra kategorin för det aktuella objektet. Dessa ändringar gäller endast föremålet i din dagbok och påverkar inte matlistan.",
+      "p6": "Tryck och håll på ett objekt i din dagbok för att ta bort det.",
+      "p7": "Du kan registrera din vikt genom att trycka på våg ikon på översta verktygsfältet.",
+      "p8": "Om du bara vill spela in några kalorier utan att behöva lägga till en produkt i din matlista så kan du också göra det. Klicka bara på och håll kvar på en av kategorierna och ange hur många kalorier som finns i rutan som visas."
     },
     "food-list": {
-      "title": "Liste des produits",
-      "p1": "Cet écran contient la liste de tous les produits que vous avez ajouté à votre base de données locale. Cette liste est vide la première fois que vous exécutez l'application.",
-      "p2": "Vous pouvez utiliser la barre de recherche pour filtrer les produits et trouver celui que vous voulez. Si vous avez une connexion Internet, vous pouvez aussi utiliser la barre de recherche pour trouver un produit issu de la base de données Open Food Facts.",
-      "p3": "La liste des produits est automatiquement triée selon les produits ajoutés à votre journal. Les produits les plus souvent ajoutés apparaîtront en haut de la liste.",
-      "p4": "Appuyer sur un produit dans la liste le sélectionnera. Quand vous avez sélectionné au moins un produit, un bouton de validation apparaît dans la barre supérieure et vous permet d'ajouter les produits sélectionnés à votre journal.",
-      "p5": "Vous pouvez éditer un produit en appuyant deux fois dessus."
+      "title": "Matlista",
+      "p1": "Denna skärm innehåller en lista över alla livsmedel som du har lagt till i din lokala databas. Listan kommer vara tom första gången du kör appen.",
+      "p2": "Du kan använda sökrutan för att filtrera listan över matvaror för att hitta den du vill ha. Om du har en internetanslutning kan du även använda sökrutan för att hitta produkter i databasen Open Food Facts.",
+      "p3": "Listan över objekt sorteras automatiskt efter hur nyligen du lagt till dem i din dagbok, så de livsmedel du lägger till oftast kommer att visas nära toppen av listan.",
+      "p4": "Om du trycker på ett objekt i listan väljer du det. När du väl har valt minst ett objekt visas ett fält på den övre verktygsfältet, genom att klicka på detta lägger du till de valda objekten i din dagbok.",
+      "p5": "Du kan redigera ett matobjekt genom att dubbelklicka på det."
     },
     "adding-a-food": {
-      "title": "Ajouter un produit",
-      "p1": "Il y a trois moyens d'ajouter un produit à la liste des produits. Dans l'écran des produits, vous pouvez appuyer sur le bouton plus (+) flottant pour ajouter un produit, rechercher un produit grâce à son nom dans la base de données Open Food Facts ou encore scanner le code-barres d'un produit en appuyant sur l'icône de code-barres de la barre supérieure.",
-      "p2": "Quelle que soit la méthode que vous choisissez, l'application vous redirige vers l'écran d'édition des produits. Vous pouvez saisir manuellement le nom du produit, la taille de la portion (p. ex. 1 biscuit, 100g, 3 tasses, etc.), et le nombre de nutriments contenus dans cette portion.",
-      "p3": "Les données retournées par un code-barres peuvent être inexactes pour le produit ou les portions que vous avez. Essayez de vérifier ces informations et corrigez les avant de les enregistrer.",
-      "p4": "Si aucune donnée n'est disponible pour un produit scanné, l'application vous proposera d'ajouter ce produit dans la base de données Open Food Facts.",
-      "p5": "Une fois que vous êtes satisfaits des données du produit, vous pouvez valider en appuyant sur le bouton d'enregistrement de la barre supérieure pour ajouter le produit à votre liste des produits."
+      "title": "Lägga till en mat",
+      "p1": "Det finns tre sätt att lägga till en ny mat i din matlista. Du kan klicka på den flytande plusknappen på matlistan, sök i databasen Open Food Facts för produkter som använder matlistans sökfält, eller skanna streckkoden för en produkt genom att knacka på streckkodsikonen på översta verktygsfältet på matlistan skärmen.",
+      "p2": "Oavsett vilken metod du väljer kommer du så småningom att ta dig till matredigeringsskärmen. Här kan du manuellt ange namnet på maten, portion storleken(t.ex. 1 kaka, 100g, 3 koppar, etc.), och antalet näringsämnen som ingår i den portion.",
+      "p3": "Data som returneras av streckkodsläsaren kanske inte alltid är korrekt för den produkt eller serveringsstorlek du har, så kolla informationen som läggs till i formuläret och justera det som behövs innan du sparar.",
+      "p4": "Om ingen data finns tillgänglig för en skannad produkt får du möjlighet att lägga till den i databasen Open Food Facts.",
+      "p5": "När du är nöjd med data i formuläret kan du trycka på kryssrutan på verktygsfältet för att lägga till objektet i din matlista."
     },
     "uploading-a-product": {
-      "title": "Mettre à jour un produit",
-      "p1": "Quand vous scannez un code-barres pour un produit qui n'est pas actuellement dans la base de données Open Food Facts, l'application vous demandera si vous voulez l'ajouter, ce que vous pouvez faire à partir de Waistline.",
-      "p2": "L'application vous redirige sur un écran qui vous permet de saisir le nom et la marque du produit ainsi que quelques informations nutritionnelles basiques. Vous pouvez aussi ajouter trois photos à cette entrée.",
-      "p3": "Appuyez sur l'icône d'appareil photo pour prendre une photo. Vous pouvez rogner l'image après avoir pris la photo, ce qui vous permet de n'envoyer que des informations pertinentes.",
-      "p4": "Toutes les photos que vous envoyez depuis Waistline sont automatiquement placées sous licence Creative Commons Attribution ShareAlike.",
-      "p5": "Quand vous exécutez Waistline pour la première fois, l'application génère un ID unique. Cet ID est automatiquement ajouté dans les commentaires d'un produit quand vous envoyez un produit sur Open Food Facts.",
-      "p6": "Le but de cet ID est d'aider les mainteneurs de la base de données Open Food Facts à détecter les erreurs et prévenir les abus de leur système."
+      "title": "Ladda upp en produkt",
+      "p1": "När du skannar en streckkod för en produkt som inte finns i databasen Open Food Facts kommer du att bli ombedd om du vill lägga till den, som du kan göra inom Waistline.",
+      "p2": "Du kommer att tas till en skärm där du kan ange produktens namn och märke och några grundläggande näringsinformation. Du kan också ladda upp upp till tre bilder.",
+      "p3": "Klicka på kamerans ikon för att ta ett foto. Du kan beskära bilden när du har tagit den så att du bara överför relevant information.",
+      "p4": "Alla bilder som du laddar upp med Waistline licensieras automatiskt som Creative Commons Attribution ShareAlike.",
+      "p5": "När du kör Waistline för första gången genererar appen ett unikt ID. Detta ID ingår automatiskt i kommentarfältet när du laddar upp en produkt till Open Food Facts.",
+      "p6": "Syftet med detta ID är att hjälpa underhållarna av databasen för Open Food Facts att upptäcka misstag och förhindra missbruk av deras system."
     },
     "recipes": {
-      "title": "Recettes",
-      "p1": "Dans l'écran des recettes, vous pouvez combiner des produits alimentaires pour créer une nouvelle entrée nommée recette. Appuyez sur le bouton plus (+) flottant pour créer une nouvelle recette ou appuyez deux fois sur une recette existante pour pouvoir l'éditer. Pour supprimer une recette, appuyez longuement sur la recette et confirmez la suppression.",
-      "p2": "L'écran d'édition d'une recette vous permet d'entrer un nom pour la recette ainsi qu'autant de notes que vous le souhaitez. Vous pouvez appuyez sur le bouton plus (+) flottant de cet écran pour sélectionner les produits que vous voulez ajouter à votre recette.",
-      "p3": "Vous pouvez éditer la quantité de chaque produit que vous avez ajouté en appuyant sur le produit et en entrant une valeur dans la fenêtre qui apparaît. Au-dessus de la liste des produits, vous verrez les informations nutritionnelles totales pour tous les produits de la recette. Vous pouvez défiler à l'intérieur de cette zone pour voir plus d'informations.",
-      "p4": "Une fois que vous êtes satisfaits de votre recette, vous pouvez appuyer sur le bouton de sauvegarde dans la barre supérieure.",
-      "p5": "La procédure basique pour ajouter une recette à votre journal est similaire à l'ajout d'un produit. Appuyez sur le nom d'un repas dans l'écran du journal pour arriver sur l'écran d'ajout de produits. Sur cet écran, vous verrez une icône de signet dans la barre supérieure, appuyez dessus vous enverra sur l'écran des recettes.",
-      "p6": "Quand vous ajoutez une recette à votre journal, tous les produits de la recette sont ajoutés individuellement, ce qui vous permet d'adapter la recette comme désirée sans avoir à créer des multiples recettes avec peu de différences."
+      "title": "Recept",
+      "p1": "På receptskärmen kan du kombinera matvaror för att skapa ett nytt objekt som heter recept. Klicka på den flytande plusknappen för att skapa ett nytt recept eller dubbelklicka på ett existerande recept för att redigera det. För att radera ett recept, tryck bara på och håll kvar det och klicka på OK på bekräftelsen.",
+      "p2": "På skärmen Redigera recept kan du ange ett namn på receptet och eventuella anteckningar du vill ha. Du kan klicka på den flytande plus-knappen på den här skärmen för att välja de livsmedel som du vill lägga till i ditt recept.",
+      "p3": "Du kan redigera mängden av varje mat du har lagt till genom att knacka på maten och ange värdet i rutan som visas. Ovanför livsmedelslistan ser du den totala näringsinformationen för alla de matvaror du har lagt till receptet. Du kan svepa på detta område för att se mer information.",
+      "p4": "När du är nöjd med ditt recept kan du trycka på kontrollknappen på verktygsfältet för att spara den.",
+      "p5": "Grundproceduren för att lägga till ett recept på din dagbok är detsamma som när du lägger till en mat. Klicka på en rubrik på dagbokskärmen, Detta tar dig till matlistan, sedan i matlistan ser du en bokmärkeikon på översta verktygsfältet, genom att knacka på detta kommer du till receptskärmen.",
+      "p6": "När du lägger till ett recept i din dagbok kommer alla livsmedel från receptet att läggas till individuellt, Detta gör det möjligt att ytterligare anpassa receptet efter behov utan att behöva skapa flera recept för olika variationer."
     },
     "goals": {
-      "title": "Objectifs",
-      "p1": "Dans cet écran, vous pouvez définir plusieurs objectifs que vous souhaitez atteindre.",
-      "p2": "Vous pouvez définir un poids idéal et préciser si vous souhaitez prendre ou perdre du poids.",
-      "p3": "Vous pouvez aussi définir une série d'objectifs nutritionnels avec un objectif différent pour chaque jour de la semaine."
+      "title": "Mål",
+      "p1": "Från den här skärmen kan du ställa in de olika målen du vill uppnå.",
+      "p2": "Du kan ställa in ett viktmål och ange om du vill gå ner i vikt eller gå upp i vikt.",
+      "p3": "Och du kan ställa in en rad näringsmål med en annorlunda mål för varje dag i veckan."
     },
     "settings": {
-      "title": "Préférences",
-      "p1": "Il y a plusieurs options sur cet écran qui peuvent être utilisées pour personnaliser l'application. La plupart d'entre elles sont très parlantes.",
-      "p2": "Les options du journal vous permettent de personnaliser les noms des repas utilisés dans le journal. Vous pouvez avoir jusqu'à sept repas. Toutes les entrées qui n'ont pas de nom ne seront pas utilisées."
+      "title": "Inställningar",
+      "p1": "Det finns olika inställningar på den här skärmen som kan användas för att anpassa appen efter din behov. De flesta av dessa är självförklarande.",
+      "p2": "Med dagbokens inställningar kan du anpassa namnen på de kategorier som används i matdagboken. Du kan ha upp till 7 kategorier. Alla kategorier som inte har ett namn kommer inte att användas."
     },
     "export": {
-      "title": "Export",
-      "p1": "Toutes vos données sont stockées localement sur votre appareil. La connexion à Internet est utilisée seulement lorsque vous recherchez un code-barres, rechercher un produit ou envoyer un nouveau produit sur Open Food Facts.",
-      "p2": "C'est une bonne chose car cela signifie que vous êtes propriétaires de vos données et que personne d'autre ne peut y accéder à distance. Le seul point négatif est que vos données ne sont pas sauvegardées dans le cloud (sur un ordinateur qui ne vous appartient pas). Donc si vous changez d'appareil, les données ne seront pas automatiquement disponibles.",
-      "p3": "C'est ici qui le bouton d'export devient utile. Appuyer sur ce bouton va sauvegarder vos données (journal, liste des produits et suivi du poids) vers un simple fichier texte. Ce fichier est nommé waistline_export.json. Vous trouverez ce fichier sur votre appareil dans le dossier 'Android/data/com.waist.line/files/'.",
-      "p4": "C'est un dossier privé qui ne peut être consulté par aucune application. Le bon côté est que cela est sécurisé, mais ce n'est pas vraiment pratique pour le retrouver.",
-      "p5": "À partir du moment où vous avez récupéré ce fichier, vous pouvez installer Waistline sur votre nouvel appareil et déplacer le fichier exporté vers le même emplacement du nouvel appareil. Vous pouvez ensuite restaurer la sauvegarde dans Waistline."
+      "title": "Exportera",
+      "p1": "Alla uppgifter du anger hålls lokalt på din enhet. Den enda gången vilken information som helst skickas från denna app till internet är när du skannar en streckkod, söka efter en produkt, eller ladda upp en ny produkt.",
+      "p2": "Det här är bra eftersom det betyder att du är ansvarig för dina data och ingen kan komma åt det på distans. Den enda nackdelen är att dina data inte säkerhetskopieras till molnet (någon annans dator) så när du går vidare till en ny enhet kommer dina data inte automatiskt att vara tillgängliga.",
+      "p3": "Det är här exportknappen är användbar. Om du trycker på den här knappen exporteras dina data(dagbok, matlista och viktlogg) till en enkel textfil. Den här filen heter waistline_export.json. Du hittar den här filen på din enhet på en plats som liknar 'Android/data/com.waist.line/files/'.",
+      "p4": "Det här är en privat mapp som inte kan nås av andra appar, så det är trevligt och säkert men lite obekvämt att hitta.",
+      "p5": "När du har den här filen kan du installera Waistline på din nya enhet och flytta den exporterade filen till samma plats på den nya enheten. Då kan du importera data tillbaka till Waistline."
     },
     "import": {
-      "title": "Import",
-      "p1": "Attention !!!! L'import des données va effacer toutes vos données existantes. Le seul moment où vous auriez besoin de faire ceci est quand vous changez d'appareil ou quand vous voulez restaurer ce que vous avez sauvegardé.",
-      "p2": "Pour importer les sauvegardes, placez le fichier waistline_export.json dans le répertoire convenu (voir l'export) puis appuyez sur le bouton d'import.",
-      "p3": "Waistline version 2 n'est pas compatible avec la version 1, vous pouvez essayer d'importer des sauvegardes provenant de la version 1 mais cela produira des données incorrectes et incomplètes."
+      "title": "Importera",
+      "p1": "Varning!!!! Importera data kommer att skriva över alla befintliga data. Den enda gången du behöver göra det är när du flyttar till en ny enhet eller återställa data som du har säkerhetskopierat.",
+      "p2": "För att importera data sätta waistline_export.json filen i rätt plats på din enhet (se Exportera). Tryck sedan på importknappen.",
+      "p3": "Waistline version 2 är inte bakåtkompatibel med version 1, Du kan försöka importera data från version 1 men det kommer att ge några konstiga resultat."
     },
     "licenses": {
-      "title": "Licences",
-      "p1": "Waistline est construit avec le framework Cordova et OnsenUI qui sont disponibles sous licence Apache. Sont aussi inclus jQuery, localisation jQuery, et ChartJS qui sont publiés sous licence MIT. Le code HTML, CSS, et autre javascript qui constitue le corps principal de l'application sont sous licence GPLv3.",
-      "p2": "Le code source de Waistline peut être trouvé sur github.com/davidhealey."
+      "title": "Licenser",
+      "p1": "Waistline byggdes med hjälp av Cordovas ramverk ochOnsenUI vilka är tillgängliga under Apache-licensen. Också ingår jQuery, jQuery lokalisera, och ChartJS som är under MIT-licensen. The HTML, CSS, och andra javascript som utgör huvuddelen av appen är under GPLv3 license.",
+      "p2": "Källkoden för Waistline kan hittas på github.com/davidhealey."
     }
   },
   "about": {
-    "title": "À propos",
-    "p1": "Waistline créé par David Healey avec les suggestions et contributions de camarades git-hubbeurs."
+    "title": "Handla om",
+    "p1": "Waistline skapad av David Healey med förslag och bidrag från medarbetare git-hubbers."
   }
 }
