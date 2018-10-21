@@ -1,246 +1,238 @@
 {
-  "weight": "Weight",
-  "quantity": "Quantity",
+  "weight": "Poids",
+  "quantity": "Quantité",
   "calories": "Calories",
-  "protein": "Protein",
-  "carbs": "Carbohydrates",
-  "fat": "Fat",
-  "saturated-fat": "Saturated Fat",
-  "sugar": "Sugar",
-  "fiber": "Fibre",
-  "salt": "Salt",
-  "no-internet": "No Internet Connection",
+  "protein": "Protéines",
+  "carbs": "Glucides",
+  "fat": "Matières grasses",
+  "sugar": "Sucre",
+  "salt": "Sel",
+  "no-internet": "Aucune connexion Internet",
   "days": {
-    "0": "Sunday",
-    "1": "Monday",
-    "2": "Tuesday",
-    "3": "Wednesday",
-    "4": "Thursday",
-    "5": "Friday",
-    "6": "Saturday"
+    "0": "Dimanche",
+    "1": "Lundi",
+    "2": "Mardi",
+    "3": "Mercredi",
+    "4": "Jeudi",
+    "5": "Vendredi",
+    "6": "Samedi"
   },
   "statistics": {
-    "title": "Statistics",
-    "goal": "Goal",
-    "used": "Used",
-    "remaining": "Remaining",
-    "week": "1 Week",
-    "month": "1 Month",
-    "3month": "3 Months",
-    "6month": "6 Months",
-    "12month": "1 Year"
+    "title": "Statistiques",
+    "goal": "Objectif",
+    "used": "Consommé",
+    "remaining": "Restant",
+    "week": "1 semaine",
+    "month": "1 mois",
+    "3month": "3 mois",
+    "6month": "6 mois",
+    "12month": "1 an"
   },
   "goals": {
-    "title": "Goals",
+    "title": "Objectifs",
     "nutrition": {
-      "same-goal": "Same Goal Each Day"
+      "same-goal": "Même objectif tous les jours"
     },
     "weight": {
-      "title": "Weight Goals",
-      "target": "Goal Weight (kg)",
-      "weekly": "Weekly Goal (kg)",
-      "is-min": "I want to gain weight"
+      "title": "Objectifs de poids",
+      "target": "Poids idéal (kg)",
+      "weekly": "Objectif hebdomadaire (kg)",
+      "is-min": "Je veux prendre du poids"
     }
   },
   "diary": {
-    "title": "Diary",
-    "serving": "Serving",
-    "servings": "Servings",
-    "category": "Category",
-    "current-weight": "Current Weight",
+    "title": "Journal",
+    "serving": "Portion",
+    "servings": "Portions",
+    "category": "Repas",
+    "current-weight": "Poids actuel",
     "quick-add": {
-      "title": "Quick Add",
-      "body": "Number of calories"
+      "title": "Ajout rapide",
+      "body": "Nombre de calories"
     },
     "edit-item": {
-      "title": "Edit Entry",
+      "title": "Éditer une entrée",
       "placeholders": {
-        "quantity": "Number of servings*",
+        "quantity": "Nombre de portions*",
         "calories": "Calories*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrates (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
+        "protein": "Protéines (g)",
+        "carbs": "Glucides (g)",
+        "fat": "Matières grasses (g)",
+        "salt": "Sel (g)",
+        "sugar": "Sucre (g)"
       }
     }
   },
   "food-list": {
-    "title": "Food List",
-    "search": "Search Food",
-    "name-of-food": "Name of Food",
-    "no-results": "No matching results",
-    "scan-failed": "Scan Failed",
+    "title": "Liste des produits",
+    "search": "Recherche un produit",
+    "name-of-food": "Nom du produit",
+    "no-results": "Aucun résultat trouvé",
+    "scan-failed": "Recherche échouée",
     "edit-item": {
-      "title1": "Add Food",
-      "title2": "Edit Food",
+      "title1": "Ajouter un produit",
+      "title2": "Éditer un produit",
       "placeholders": {
-        "name": "Name*",
-        "brand": "Brand*",
+        "name": "Nom*",
+        "brand": "Marque*",
         "portion": "Portion*",
         "calories": "Calories*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrates (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
+        "protein": "Protéines (g)",
+        "carbs": "Glucides (g)",
+        "fat": "Matières grasses (g)",
+        "sugar": "Sucre (g)",
+        "salt": "Sel (g)"
       }
     },
     "upload-item": {
-      "title": "Upload to Open Food Facts",
-      "success": "Product successfully added to Open Food Facts",
-      "fail": "Unfortunately the upload failed. Please try again or contact the developer.",
+      "title": "Envoyer vers Open Food Facts",
+      "success": "Le produit a été ajouté avec succès à Open Food Facts",
+      "fail": "Malheureusement, l'envoi a échoué. Veuillez essayer ultérieurement ou contacter le développeur.",
       "placeholders": {
-        "barcode": "Barcode*",
-        "name": "Name*",
-        "brand": "Brand*",
-        "portion": "Serving Size*",
-        "calories": "Calories per serving*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrate per serving (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
+        "barcode": "Code-barres*",
+        "name": "Nom*",
+        "brand": "Marque*",
+        "portion": "Taille des portions*",
+        "calories": "Calories par portion*",
+        "protein": "Protéines (g)",
+        "carbs": "Glucides par portion (g)",
+        "fat": "Matières grasses par portion (g)",
+        "sugar": "Sucre par portion (g)",
+        "salt": "Sel par portion (g)"
       }
     }
   },
   "recipes": {
-    "title": "Recipes",
-    "filter": "Filter Recipes",
+    "title": "Recettes",
+    "filter": "Filtrer les recettes",
     "edit-recipe": {
-      "title1": "Add Recipe",
-      "title2": "Edit Recipe",
+      "title1": "Ajouter une recette",
+      "title2": "Éditer une recette",
       "placeholders": {
-        "name": "Recipe Name",
+        "name": "Nom de la recette",
         "notes": "Notes..."
       }
     }
   },
   "settings": {
-    "title": "Settings",
-    "show-images1": "Show product images",
-    "show-images2": "Images will be displayed when connected to the internet. They will not be stored on your device.",
-    "disable-animations1": "Disable animations",
-    "disable-animations2": "Disabling animations may improve performance on some devices (requires app restart).",
-    "import": "Import Data",
-    "export": "Export Data",
+    "title": "Préférences",
+    "show-images1": "Afficher les photos des produits",
+    "show-images2": "Les photos seront affichées si une connexion Internet est disponible. Elles ne seront pas stockées sur votre appareil.",
+    "disable-animations1": "Désactiver les animations",
+    "disable-animations2": "Désactiver les animations peut améliorer les performances sur certains appareils (requiert un redémarrage de l'application).",
+    "import": "Importer une sauvegarde",
+    "export": "Exporter une sauvegarde",
     "diary": {
-      "title": "Diary Settings",
-      "instructions1": "Use the boxes below to customise the meal names used in the food diary.",
-      "instructions2": "Any boxes left empty will be ignored.",
-      "meal": "Meal"
+      "title": "Préférences du journal",
+      "instructions1": "Utiliser les textes ci-dessous pour personnaliser le nom des repas dans le journal.",
+      "instructions2": "Tous les textes vides seront ignorés.",
+      "meal": "Repas"
     }
   },
   "dialogs": {
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "yes": "Yes",
-    "no": "No",
-    "confirm-delete": "Are you sure you want to delete this item?",
-    "delete-title": "Delete Entry",
-    "required-fields": "Please complete all required fields."
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "yes": "Oui",
+    "no": "Non",
+    "confirm-delete": "Êtes-vous sûr(e) de vouloir supprimer cette entrée ?",
+    "delete-title": "Supprimer l'entrée",
+    "required-fields": "Veuillez renseigner tous les champs obligatoires."
   },
   "user-guide": {
     "title": "User Guide",
     "basics": {
-      "title": "Basics",
-      "p1": "Your body needs a certain amount of calories to maintain your current weight. We'll call this your maintenance level. You can increase your maintenance level by doing lots of exercise or you can decrease it by doing less.",
-      "p2": "The easiest method (that is also pretty accurate) to calculate your maintenance level is to use a TDEE calculator. You can find plenty of these online.",
-      "p3": "To lose weight you should eat at least 100 calories per day less than your maintenance level, to gain weight you should eat at least 100 calories per day more than your maintenance level.",
-      "p4": "The less you eat per day the more weight you will lose. If you plan to lose weight with a great calorie deficit consult your doctor and plan what you eat so you get all the nutrition your body needs. Have regular check ups with your doctor so you can react fast if anything goes wrong."
+      "title": "Bases",
+      "p1": "Votre corps a besoin d'un certain montant de calories pour maintenir votre poids actuel. Nous appellerons ce montant le niveau de maintenance. Vous pouvez augmenter ce niveau de maintenance en faisant de l'exercice ou le diminuer en en faisant moins.",
+      "p2": "La méthode la plus simple (qui est assez précise) de calculer votre niveau de maintenance est d'utiliser un calculateur de TDEE. Vous en trouverez plus qu'assez sur Internet.",
+      "p3": "Pour perdre du poids, vous devriez manger chaque jour au moins 100 calories de moins que votre niveau de maintenance. Pour prendre du poids, vous devriez manger chaque jour au moins 100 calories de plus que votre niveau de maintenance.",
+      "p4": "Moins vous mangez chaque jour et plus vous perdrez de poids. Si vous prévoyez de perdre du poids avec un grand déficit de calories, veuillez consulter votre médecin et planifier vos repas pour obtenir tous les nutriments dont votre corps a besoin. Ayez aussi des rendez-vous réguliers avec votre docteur pour réagir rapidement si quelque chose se passe mal."
     },
     "statistics": {
-      "title": "Statistics",
-      "p1": "On the statistics screen you can see a chart showing the nutritiments you have consumed and variations in your weight during the selected time period. This screen will be mostly empty the first time you run the app.",
-      "p2": "You can select the time frame to display, such as 1 week, from the drop down menu above the chart.",
-      "p3": "You can choose what data to show in the chart by tapping on the items in the chart's legend.",
-      "p4": "Below the chart is a day by day list of your weight changes and the calories you've recorded. Only dates that you have recorded calories in your diary for will be displayed here. Tapping on an item in this list will allow you to edit the weight recorded for that date.",
-      "p5": "At the top of the screen is a display of the nutriments you have consumed, along with your goal and the amount remaining. You can swipe left and right on this display to scroll through the different nutriments."
+      "title": "Statistiques",
+      "p1": "Sur l'écran des statistiques, vous pouvez voir un graphique représentant les nutriments consommés et les variations de votre poids dans la période sélectionnée.",
+      "p2": "Vous pouvez choisir l'intervalle de temps à afficher, comme une semaine, depuis la liste déroulante située au-dessus du graphique.",
+      "p3": "Vous pouvez choisir quelles données afficher dans le graphique en appuyant sur les entrées de la légende du graphique.",
+      "p4": "En dessous du graphique, vous trouverez une liste de vos changements de poids et des calories enregistrées chaque jour. Seules les dates où des calories ont été enregistrées dans le journal seront affichées. Appuyer sur une entrée de cette liste vous permet de saisir votre poids à enregistrer pour cette date.",
+      "p5": "Vous trouverez en haut de l'écran l'affichage des nutriments que vous avez consommé dans la journée, ainsi que l'objectif et le montant restant. Vous pouvez faire défiler cette zone vers la gauche ou la droite pour afficher les informations des autres nutriments."
     },
     "diary": {
-      "title": "Diary",
-      "p1": "The diary is where you will keep a log of the food you eat. Tap on a heading such as Breakfast to add food to that category.",
-      "p2": "This will take you to the food list where you can select one or more food items to add to the diary.",
-      "p3": "The calories for each food will be added to the total for the currently selected date and displayed at the bottom of the screen.",
-      "p4": "The buttons either side of the displayed date can be used to move to the previous or next day and you can tap on the date itself to select a specific date.",
-      "p5": "Tapping on a food item in your diary will allow you to adjust the number of servings and change the category for that item. These changes only apply to the item in your diary and do not affect the food list.",
-      "p6": "Tap and hold on an item in your diary to remove it.",
-      "p7": "You can record your weight by tapping on the scales icon on the top toolbar.",
-      "p8": "If you would just like to record some calories without the hassle of adding a product to your food list then you can do that too. Just tap and hold on one of the categories and enter the amount of calories in the box that appears. You can also enter a negative number here if you'd like to log calories burned."
+      "title": "Journal",
+      "p1": "Le journal est l'endroit où vous gardez la trace des produits que vous mangez. Appuyez sur le nom d'un repas comme Breakfast pour ajouter un produit à ce repas.",
+      "p2": "L'application vous redirige à la liste des produits où vous pouvez sélectionner un ou plusieurs produits à ajouter au journal.",
+      "p3": "Les calories de chaque produit seront ajoutées au total pour la date sélectionnée et s'affichera au bas de l'écran.",
+      "p4": "Les boutons de chaque côté de la date affichée peuvent être utilisés pour basculer vers le jour précédent ou le jour suivant. Vous pouvez aussi appuyer sur la date elle-même pour ouvrir un calendrier et sélectionner une date spécifique.",
+      "p5": "Appuyer sur un produit dans votre journal vous permet d'ajuster le nombre de portions et changer le repas pour ce produit. Ces changements sont uniquement effectifs dans votre journal et n'affecte pas la liste des produits.",
+      "p6": "Appuyez longuement sur un produit de votre journal pour le supprimer.",
+      "p7": "Vous pouvez saisir votre poids en appuyant sur l'icône de balance de la barre supérieure.",
+      "p8": "Si vous voulez simplement ajouter des calories sans passer par l'ajout d'un produit à votre liste des produits, vous pouvez le faire. Appuyez juste longuement sur le nom d'un repas et saisissez le montant de calories dans la fenêtre qui apparaît."
     },
     "food-list": {
-      "title": "Food List",
-      "p1": "This screen contains a list of all the foods you have added to your local database. This list will be empty the first time you run the app.",
-      "p2": "You can use the search box to filter the list of food items to find the one you'd like. If you have an internet connection you can also use the search box to find products in the Open Food Facts database.",
-      "p3": "The list of items is automatically sorted by how recently you added them to your diary, so the foods you add most often will appear near the top of the list.",
-      "p4": "Tapping on an item in the list will select it. Once you've selected at least one item a tick will appear on the top toolbar, tapping this will add the selected items to your diary.",
-      "p5": "You can edit or delete a food item by tapping and holding on it and selecting an option from the popup that appears."
+      "title": "Liste des produits",
+      "p1": "Cet écran contient la liste de tous les produits que vous avez ajouté à votre base de données locale. Cette liste est vide la première fois que vous exécutez l'application.",
+      "p2": "Vous pouvez utiliser la barre de recherche pour filtrer les produits et trouver celui que vous voulez. Si vous avez une connexion Internet, vous pouvez aussi utiliser la barre de recherche pour trouver un produit issu de la base de données Open Food Facts.",
+      "p3": "La liste des produits est automatiquement triée selon les produits ajoutés à votre journal. Les produits les plus souvent ajoutés apparaîtront en haut de la liste.",
+      "p4": "Appuyer sur un produit dans la liste le sélectionnera. Quand vous avez sélectionné au moins un produit, un bouton de validation apparaît dans la barre supérieure et vous permet d'ajouter les produits sélectionnés à votre journal.",
+      "p5": "Vous pouvez éditer un produit en appuyant deux fois dessus."
     },
     "adding-a-food": {
-      "title": "Adding a Food",
-      "p1": "There are three ways to add a new food to your food list. You can click the floating plus button on the food list screen, search the Open Food Facts database for products using the food list search bar, or scan the barcode of a product by tapping the barcode icon on the top toolbar of the food list screen.",
-      "p2": "Whichever method you choose will eventually take you to the food edit screen. Here you can manually enter the name of the food, the portion size (e.g. 1 biscuit, 100g, 3 cups, etc.), and the nutriments contained in that portion.",
-      "p3": "The data returned by the barcode scanner may not always be accurate for the product or serving size you have so check the information it adds to the form and adjust it as necessary before saving.",
-      "p4": "If no data is available for a scanned product you will be given the option of adding it to the Open Food Facts database.",
-      "p5": "Once you're happy with the data in the form you can tap the tick button on the top toolbar to add the item to your food list."
+      "title": "Ajouter un produit",
+      "p1": "Il y a trois moyens d'ajouter un produit à la liste des produits. Dans l'écran des produits, vous pouvez appuyer sur le bouton plus (+) flottant pour ajouter un produit, rechercher un produit grâce à son nom dans la base de données Open Food Facts ou encore scanner le code-barres d'un produit en appuyant sur l'icône de code-barres de la barre supérieure.",
+      "p2": "Quelle que soit la méthode que vous choisissez, l'application vous redirige vers l'écran d'édition des produits. Vous pouvez saisir manuellement le nom du produit, la taille de la portion (p. ex. 1 biscuit, 100g, 3 tasses, etc.), et le nombre de nutriments contenus dans cette portion.",
+      "p3": "Les données retournées par un code-barres peuvent être inexactes pour le produit ou les portions que vous avez. Essayez de vérifier ces informations et corrigez les avant de les enregistrer.",
+      "p4": "Si aucune donnée n'est disponible pour un produit scanné, l'application vous proposera d'ajouter ce produit dans la base de données Open Food Facts.",
+      "p5": "Une fois que vous êtes satisfaits des données du produit, vous pouvez valider en appuyant sur le bouton d'enregistrement de la barre supérieure pour ajouter le produit à votre liste des produits."
     },
     "uploading-a-product": {
-      "title": "Uploading a product",
-      "p1": "When you scan a barcode for a product that is not currently in the Open Food Facts database you will be asked if you would like to add it which you can do from within Waistline.",
-      "p2": "You'll be taken to a screen where you can enter the name and brand of the product and some basic nutritional information. You'll also be able to upload upto three pictures.",
-      "p3": "Click on the camera icon to take a photo. You can crop the image once you've taken it so that you're only uploading relevant information.",
-      "p4": "All images that you upload using Waistline are automatically licensed as Creative Commons Attribution ShareAlike.",
-      "p5": "When you run Waistline for the first time the app generates a unique ID. This ID is included automatically in the comment field when you upload a product to Open Food Facts.",
-      "p6": "The purpose of this ID is to help the maintainers of the Open Food Facts database detect mistakes and prevent abuse of their system."
+      "title": "Mettre à jour un produit",
+      "p1": "Quand vous scannez un code-barres pour un produit qui n'est pas actuellement dans la base de données Open Food Facts, l'application vous demandera si vous voulez l'ajouter, ce que vous pouvez faire à partir de Waistline.",
+      "p2": "L'application vous redirige sur un écran qui vous permet de saisir le nom et la marque du produit ainsi que quelques informations nutritionnelles basiques. Vous pouvez aussi ajouter trois photos à cette entrée.",
+      "p3": "Appuyez sur l'icône d'appareil photo pour prendre une photo. Vous pouvez rogner l'image après avoir pris la photo, ce qui vous permet de n'envoyer que des informations pertinentes.",
+      "p4": "Toutes les photos que vous envoyez depuis Waistline sont automatiquement placées sous licence Creative Commons Attribution ShareAlike.",
+      "p5": "Quand vous exécutez Waistline pour la première fois, l'application génère un ID unique. Cet ID est automatiquement ajouté dans les commentaires d'un produit quand vous envoyez un produit sur Open Food Facts.",
+      "p6": "Le but de cet ID est d'aider les mainteneurs de la base de données Open Food Facts à détecter les erreurs et prévenir les abus de leur système."
     },
     "recipes": {
-      "title": "Recipes",
-      "p1": "On the recipes screen you can combine food items to create a new item called a recipe. Click on the floating plus button to create a new recipe. You can edit or delete an existing recipe by tapping and holding on it and selecting from the options that pop up.",
-      "p2": "The edit recipe screen allows you to enter a name for the recipe and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your recipe.",
-      "p3": "You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the recipe. You can swipe on this area to see more information.",
-      "p4": "Once you're happy with your recipe you can tap the check button on the top toolbar to save it.",
-      "p5": "The basic procedure to add a recipe to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the recipes screen.",
-      "p6": "When you add a recipe to your diary all of the foods from the recipe will be added individually, this allows you to further customise the recipe as needed without having to create multiple recipes for different variations."
+      "title": "Recettes",
+      "p1": "Dans l'écran des recettes, vous pouvez combiner des produits alimentaires pour créer une nouvelle entrée nommée recette. Appuyez sur le bouton plus (+) flottant pour créer une nouvelle recette ou appuyez deux fois sur une recette existante pour pouvoir l'éditer. Pour supprimer une recette, appuyez longuement sur la recette et confirmez la suppression.",
+      "p2": "L'écran d'édition d'une recette vous permet d'entrer un nom pour la recette ainsi qu'autant de notes que vous le souhaitez. Vous pouvez appuyez sur le bouton plus (+) flottant de cet écran pour sélectionner les produits que vous voulez ajouter à votre recette.",
+      "p3": "Vous pouvez éditer la quantité de chaque produit que vous avez ajouté en appuyant sur le produit et en entrant une valeur dans la fenêtre qui apparaît. Au-dessus de la liste des produits, vous verrez les informations nutritionnelles totales pour tous les produits de la recette. Vous pouvez défiler à l'intérieur de cette zone pour voir plus d'informations.",
+      "p4": "Une fois que vous êtes satisfaits de votre recette, vous pouvez appuyer sur le bouton de sauvegarde dans la barre supérieure.",
+      "p5": "La procédure basique pour ajouter une recette à votre journal est similaire à l'ajout d'un produit. Appuyez sur le nom d'un repas dans l'écran du journal pour arriver sur l'écran d'ajout de produits. Sur cet écran, vous verrez une icône de signet dans la barre supérieure, appuyez dessus vous enverra sur l'écran des recettes.",
+      "p6": "Quand vous ajoutez une recette à votre journal, tous les produits de la recette sont ajoutés individuellement, ce qui vous permet d'adapter la recette comme désirée sans avoir à créer des multiples recettes avec peu de différences."
     },
     "goals": {
-      "title": "Goals",
-      "p1": "From this screen you can set the various targets you would like to achieve.",
-      "p2": "You can set a weight goal and indicate if you would like to lose weight or gain weight.",
-      "p3": "And you can set a range of nutritional goals with a different goal for every day of the week."
+      "title": "Objectifs",
+      "p1": "Dans cet écran, vous pouvez définir plusieurs objectifs que vous souhaitez atteindre.",
+      "p2": "Vous pouvez définir un poids idéal et préciser si vous souhaitez prendre ou perdre du poids.",
+      "p3": "Vous pouvez aussi définir une série d'objectifs nutritionnels avec un objectif différent pour chaque jour de la semaine."
     },
     "settings": {
-      "title": "Settings",
-      "p1": "There are various settings on this screen that can be used to customise the app. Most of these are self explanatory.",
-      "p2": "The diary settings allow you to customise the names of the categories used in the food diary. You can have up to 7 categories. Any categories that don't have a name won't be used."
+      "title": "Préférences",
+      "p1": "Il y a plusieurs options sur cet écran qui peuvent être utilisées pour personnaliser l'application. La plupart d'entre elles sont très parlantes.",
+      "p2": "Les options du journal vous permettent de personnaliser les noms des repas utilisés dans le journal. Vous pouvez avoir jusqu'à sept repas. Toutes les entrées qui n'ont pas de nom ne seront pas utilisées."
     },
     "export": {
       "title": "Export",
-      "p1": "All of the data you enter is kept locally on your device. The only time any information is sent from this app to the internet is when you scan a barcode, search for a product, or upload a new product.",
-      "p2": "This is great because it means you are in charge of your data and no-one can access it remotely. The only downside is your data won't be backed up to the cloud (someone else's computer) so when you move on to a new device your data won't automatically be available.",
-      "p3": "This is where the export button is useful. Tapping this button will export your data (diary, food list, and weight log) to a simple text file. This file is called waistline_export.json. You will find this file on your device in a location similar to 'Android/data/com.waist.line/files/'.",
-      "p4": "This is a private folder that can't be accessed by other apps so it's nice and secure but a little bit inconvenient to find.",
-      "p5": "Once you have this file you can install Waistline on your new device and move the exported file to the same location on the new device. Then you can import the data back into Waistline."
+      "p1": "Toutes vos données sont stockées localement sur votre appareil. La connexion à Internet est utilisée seulement lorsque vous recherchez un code-barres, rechercher un produit ou envoyer un nouveau produit sur Open Food Facts.",
+      "p2": "C'est une bonne chose car cela signifie que vous êtes propriétaires de vos données et que personne d'autre ne peut y accéder à distance. Le seul point négatif est que vos données ne sont pas sauvegardées dans le cloud (sur un ordinateur qui ne vous appartient pas). Donc si vous changez d'appareil, les données ne seront pas automatiquement disponibles.",
+      "p3": "C'est ici qui le bouton d'export devient utile. Appuyer sur ce bouton va sauvegarder vos données (journal, liste des produits et suivi du poids) vers un simple fichier texte. Ce fichier est nommé waistline_export.json. Vous trouverez ce fichier sur votre appareil dans le dossier 'Android/data/com.waist.line/files/'.",
+      "p4": "C'est un dossier privé qui ne peut être consulté par aucune application. Le bon côté est que cela est sécurisé, mais ce n'est pas vraiment pratique pour le retrouver.",
+      "p5": "À partir du moment où vous avez récupéré ce fichier, vous pouvez installer Waistline sur votre nouvel appareil et déplacer le fichier exporté vers le même emplacement du nouvel appareil. Vous pouvez ensuite restaurer la sauvegarde dans Waistline."
     },
     "import": {
       "title": "Import",
-      "p1": "Warning!!!! Importing data will overwrite all of your existing data. The only time you'll need to do this is when moving to a new device or restoring data you have backed up.",
-      "p2": "To import data put the waistline_export.json file in the correct location on your device (see Export). Then tap the import button.",
-      "p3": "Waistline version 2 is not backwards compatible with version 1, you can try to import data from version 1 but it will produce some strange results."
+      "p1": "Attention !!!! L'import des données va effacer toutes vos données existantes. Le seul moment où vous auriez besoin de faire ceci est quand vous changez d'appareil ou quand vous voulez restaurer ce que vous avez sauvegardé.",
+      "p2": "Pour importer les sauvegardes, placez le fichier waistline_export.json dans le répertoire convenu (voir l'export) puis appuyez sur le bouton d'import.",
+      "p3": "Waistline version 2 n'est pas compatible avec la version 1, vous pouvez essayer d'importer des sauvegardes provenant de la version 1 mais cela produira des données incorrectes et incomplètes."
     },
     "licenses": {
-      "title": "Licenses",
-      "p1": "Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-      "p2": "The source code for Waistline can be found at github.com/davidhealey."
+      "title": "Licences",
+      "p1": "Waistline est construit avec le framework Cordova et OnsenUI qui sont disponibles sous licence Apache. Sont aussi inclus jQuery, localisation jQuery, et ChartJS qui sont publiés sous licence MIT. Le code HTML, CSS, et autre javascript qui constitue le corps principal de l'application sont sous licence GPLv3.",
+      "p2": "Le code source de Waistline peut être trouvé sur github.com/davidhealey."
     }
   },
   "about": {
-    "title": "About",
-    "p1": "Waistline was created by David Healey with suggestions and contributions from fellow git-hubbers."
+    "title": "À propos",
+    "p1": "Waistline créé par David Healey avec les suggestions et contributions de camarades git-hubbeurs."
   }
 }
