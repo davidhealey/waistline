@@ -1,246 +1,246 @@
 {
-  "weight": "Poids",
-  "quantity": "Quantité",
-  "calories": "Calories",
-  "protein": "Protéines",
-  "carbs": "Glucides",
-  "fat": "Matières grasses",
-  "saturated-fat": "Saturated Fat",
-  "sugar": "Sucre",
-  "fiber": "Fibre",
-  "salt": "Sel",
-  "no-internet": "Aucune connexion Internet",
+  "weight": "משקל",
+  "quantity": "כמות",
+  "calories": "קלוריות",
+  "protein": "חלבון",
+  "carbs": "פחמימות",
+  "fat": "שומן",
+  "saturated-fat": "שומן רווי",
+  "sugar": "סוכר",
+  "fiber": "סיבים",
+  "salt": "מלח",
+  "no-internet": "אין חיבור לאינטרנט",
   "days": {
-    "0": "Dimanche",
-    "1": "Lundi",
-    "2": "Mardi",
-    "3": "Mercredi",
-    "4": "Jeudi",
-    "5": "Vendredi",
-    "6": "Samedi"
+    "0": "יום ראשון",
+    "1": "יום שני",
+    "2": "יום שלישי",
+    "3": "יום רביעי",
+    "4": "יום חמישי",
+    "5": "יום שישי",
+    "6": "שבת"
   },
   "statistics": {
-    "title": "Statistiques",
-    "goal": "Objectif",
-    "used": "Consommé",
-    "remaining": "Restant",
-    "week": "1 semaine",
-    "month": "1 mois",
-    "3month": "3 mois",
-    "6month": "6 mois",
-    "12month": "1 an"
+    "title": "סטטיסטיקה",
+    "goal": "יעד",
+    "used": "נוצלו",
+    "remaining": "נותרו",
+    "week": "שבוע",
+    "month": "חודש",
+    "3month": "3 חודשים",
+    "6month": "חצי שנה",
+    "12month": "שנה"
   },
   "goals": {
-    "title": "Objectifs",
+    "title": "יעדים",
     "nutrition": {
-      "same-goal": "Même objectif tous les jours"
+      "same-goal": "אותו היעד בכל יום"
     },
     "weight": {
-      "title": "Objectifs de poids",
-      "target": "Poids idéal (kg)",
-      "weekly": "Objectif hebdomadaire (kg)",
-      "is-min": "Je veux prendre du poids"
+      "title": "משקל יעד",
+      "target": "משקל יעד (ק״ג)",
+      "weekly": "יעד שבועי (ק״ג)",
+      "is-min": "ברצוני לעלות במשקל"
     }
   },
   "diary": {
-    "title": "Journal",
-    "serving": "Portion",
-    "servings": "Portions",
-    "category": "Repas",
-    "current-weight": "Poids actuel",
+    "title": "יומן",
+    "serving": "מנה",
+    "servings": "מנות",
+    "category": "קטגוריה",
+    "current-weight": "משקל נוכחי",
     "quick-add": {
-      "title": "Ajout rapide",
-      "body": "Nombre de calories"
+      "title": "הוספה מהירה",
+      "body": "מספר קלוריות"
     },
     "edit-item": {
-      "title": "Éditer une entrée",
+      "title": "עריכת רשומה",
       "placeholders": {
-        "quantity": "Nombre de portions*",
-        "calories": "Calories*",
-        "protein": "Protéines (g)",
-        "carbs": "Glucides (g)",
-        "fat": "Matières grasses (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sucre (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Sel (g)"
+        "quantity": "מספר המנות*",
+        "calories": "קלוריות*",
+        "protein": "חלבון (ג׳)",
+        "carbs": "פחמימות (ג׳)",
+        "fat": "שומן (ג׳)",
+        "saturated-fat": "שומן רווי (ג׳)",
+        "sugar": "סוכר (ג׳)",
+        "fiber": "סיבים (ג׳)",
+        "salt": "מלח (ג׳)"
       }
     }
   },
   "food-list": {
-    "title": "Liste des produits",
-    "search": "Recherche un produit",
-    "name-of-food": "Nom du produit",
-    "no-results": "Aucun résultat trouvé",
-    "scan-failed": "Recherche échouée",
+    "title": "רשימת מזון",
+    "search": "חיפוש פריט מזון",
+    "name-of-food": "שם פריט המזון",
+    "no-results": "אין תוצאות מתאימות",
+    "scan-failed": "הסריקה נכשלה",
     "edit-item": {
-      "title1": "Ajouter un produit",
-      "title2": "Éditer un produit",
+      "title1": "הוספת פריט מזון",
+      "title2": "עריכת פריט מזון",
       "placeholders": {
-        "name": "Nom*",
-        "brand": "Marque*",
-        "portion": "Portion*",
-        "calories": "Calories*",
-        "protein": "Protéines (g)",
-        "carbs": "Glucides (g)",
-        "fat": "Matières grasses (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sucre (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Sel (g)"
+        "name": "שם*",
+        "brand": "מותג*",
+        "portion": "כמות מנה*",
+        "calories": "קלוריות*",
+        "protein": "חלבון (ג׳)",
+        "carbs": "פחמימות (ג׳)",
+        "fat": "שומן (ג׳)",
+        "saturated-fat": "שומן רווי (ג׳)",
+        "sugar": "סוכר (ג׳)",
+        "fiber": "סיבים (ג׳)",
+        "salt": "מלח (ג׳)"
       }
     },
     "upload-item": {
-      "title": "Envoyer vers Open Food Facts",
-      "success": "Le produit a été ajouté avec succès à Open Food Facts",
-      "fail": "Malheureusement, l'envoi a échoué. Veuillez essayer ultérieurement ou contacter le développeur.",
+      "title": "העלאה ל־Open Food Facts",
+      "success": "המוצר נוסף בהצלחה אל Open Food Facts",
+      "fail": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
       "placeholders": {
-        "barcode": "Code-barres*",
-        "name": "Nom*",
-        "brand": "Marque*",
-        "portion": "Taille des portions*",
-        "calories": "Calories par portion*",
-        "protein": "Protéines (g)",
-        "carbs": "Glucides par portion (g)",
-        "fat": "Matières grasses par portion (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sucre par portion (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Sel par portion (g)"
+        "barcode": "ברקוד*",
+        "name": "שם*",
+        "brand": "מותג*",
+        "portion": "גודל הגשה*",
+        "calories": "קלוריות בהגשה*",
+        "protein": "חלבון (ג׳)",
+        "carbs": "פחמימות בהגשה (ג׳)",
+        "fat": "שומן (ג׳)",
+        "saturated-fat": "שומן רווי (ג׳)",
+        "sugar": "סוכר (ג׳)",
+        "fiber": "סיבים (ג׳)",
+        "salt": "מלח (ג׳)"
       }
     }
   },
   "recipes": {
-    "title": "Recettes",
-    "filter": "Filtrer les recettes",
+    "title": "מתכונים",
+    "filter": "סינון מתכונים",
     "edit-recipe": {
-      "title1": "Ajouter une recette",
-      "title2": "Éditer une recette",
+      "title1": "הוספת מתכון",
+      "title2": "עריכת מתכון",
       "placeholders": {
-        "name": "Nom de la recette",
-        "notes": "Notes..."
+        "name": "שם המתכון",
+        "notes": "הערות…"
       }
     }
   },
   "settings": {
-    "title": "Préférences",
-    "show-images1": "Afficher les photos des produits",
-    "show-images2": "Les photos seront affichées si une connexion Internet est disponible. Elles ne seront pas stockées sur votre appareil.",
-    "disable-animations1": "Désactiver les animations",
-    "disable-animations2": "Désactiver les animations peut améliorer les performances sur certains appareils (requiert un redémarrage de l'application).",
-    "import": "Importer une sauvegarde",
-    "export": "Exporter une sauvegarde",
+    "title": "הגדרות",
+    "show-images1": "הצגת תמונות המוצר",
+    "show-images2": "התמונות מוצגות כשיש חיבור לאינטרנט. הן לא תאוחסנה במכשיר שלך.",
+    "disable-animations1": "השבתת הנפשות",
+    "disable-animations2": "השבתת הנפשות עשוי לשפר את הביצועים בחלק מהמכשירים (דורש את הפעלת היישומון מחדש).",
+    "import": "ייבוא נתונים",
+    "export": "ייצוא נתונים",
     "diary": {
-      "title": "Préférences du journal",
-      "instructions1": "Utiliser les textes ci-dessous pour personnaliser le nom des repas dans le journal.",
-      "instructions2": "Tous les textes vides seront ignorés.",
-      "meal": "Repas"
+      "title": "הגדרות יומן",
+      "instructions1": "יש להשתמש בתיבות שלהלן כדי להתאים את שמות הארוחות בהן נעשה שימוש ביומן המזון.",
+      "instructions2": "כל התיבות שנשארות ריקות לא יוכללו.",
+      "meal": "ארוחה"
     }
   },
   "dialogs": {
-    "delete": "Supprimer",
-    "cancel": "Annuler",
-    "yes": "Oui",
-    "no": "Non",
-    "confirm-delete": "Êtes-vous sûr(e) de vouloir supprimer cette entrée ?",
-    "delete-title": "Supprimer l'entrée",
-    "required-fields": "Veuillez renseigner tous les champs obligatoires."
+    "delete": "מחיקה",
+    "cancel": "ביטול",
+    "yes": "כן",
+    "no": "לא",
+    "confirm-delete": "למחוק את הפריט הזה?",
+    "delete-title": "מחיקת רשומה",
+    "required-fields": "נא להשלים את כל השדות הנדרשים."
   },
   "user-guide": {
-    "title": "User Guide",
+    "title": "מדריך משתמש",
     "basics": {
-      "title": "Bases",
-      "p1": "Votre corps a besoin d'un certain montant de calories pour maintenir votre poids actuel. Nous appellerons ce montant le niveau de maintenance. Vous pouvez augmenter ce niveau de maintenance en faisant de l'exercice ou le diminuer en en faisant moins.",
-      "p2": "La méthode la plus simple (qui est assez précise) de calculer votre niveau de maintenance est d'utiliser un calculateur de TDEE. Vous en trouverez plus qu'assez sur Internet.",
-      "p3": "Pour perdre du poids, vous devriez manger chaque jour au moins 100 calories de moins que votre niveau de maintenance. Pour prendre du poids, vous devriez manger chaque jour au moins 100 calories de plus que votre niveau de maintenance.",
-      "p4": "Moins vous mangez chaque jour et plus vous perdrez de poids. Si vous prévoyez de perdre du poids avec un grand déficit de calories, veuillez consulter votre médecin et planifier vos repas pour obtenir tous les nutriments dont votre corps a besoin. Ayez aussi des rendez-vous réguliers avec votre docteur pour réagir rapidement si quelque chose se passe mal."
+      "title": "יסודות",
+      "p1": "הגוף שלך זקוק לכמות מסוימת של קלוריות כדי לשמר את המשקל הנוכחי שלך. נקרא לזה רמת תחזוקה. ניתן לשפר את רמת התחזוקה על ידי התעמלות מרובה או להוריד אותה על ידי פעילות מצומצמת.",
+      "p2": "השיטה הקלה ביותר (שנחשבת גם לדי מדויקת) לחישוב רמת התחזוקה שלך היא להשתמש במחשבון TDEE. ניתן למצוא מגוון מחשבונים כאלה ברשת.",
+      "p3": "כדי לרדת במשקל עליך לאכול לפחות 100 קלוריות ביום מתחת לרמת התחזוקה שלך, כדי לעלות במשקל עליך לאכול לפחות 100 קלוריות יותר מרמת התחזוקה שלך.",
+      "p4": "פחות מזון מוביל לירידה חדה יותר במשקל. אם תכניותיך הן לאבד משקל יחד עם צמצום הקלוריות כדאי להיוועץ ברופא שלך ולתכנן מה כדאי לך לאכול כדי לקבל את כל רכיבי ההזנה שהגוף שלך צריך. מומלץ להיבדק באופן תדיר אצל הרופא כדי להיערך במהרה במקרה שמשהו השתבש."
     },
     "statistics": {
-      "title": "Statistiques",
-      "p1": "Sur l'écran des statistiques, vous pouvez voir un graphique représentant les nutriments consommés et les variations de votre poids dans la période sélectionnée.",
-      "p2": "Vous pouvez choisir l'intervalle de temps à afficher, comme une semaine, depuis la liste déroulante située au-dessus du graphique.",
-      "p3": "Vous pouvez choisir quelles données afficher dans le graphique en appuyant sur les entrées de la légende du graphique.",
-      "p4": "En dessous du graphique, vous trouverez une liste de vos changements de poids et des calories enregistrées chaque jour. Seules les dates où des calories ont été enregistrées dans le journal seront affichées. Appuyer sur une entrée de cette liste vous permet de saisir votre poids à enregistrer pour cette date.",
-      "p5": "Vous trouverez en haut de l'écran l'affichage des nutriments que vous avez consommé dans la journée, ainsi que l'objectif et le montant restant. Vous pouvez faire défiler cette zone vers la gauche ou la droite pour afficher les informations des autres nutriments."
+      "title": "סטטיסטיקה",
+      "p1": "במסך הסטטיסטיקה ניתן לראות תרשים שמציג את חומרי ההזנה שצרת ואת השינויים שלך במשקל במהלך תקופת הזמן הנבחרת. מסך זה יופיע ריק עם הפעלת היישומון לראשונה.",
+      "p2": "ניתן לבחור את טווח הזמנים להצגה, כגון שבוע, מהתפריט הנפתח שמעל לתרשים.",
+      "p3": "ניתן לבחור אילו נתונים להציג בתרשים על ידי נגיעה בפריטים במקרא של התרשים.",
+      "p4": "להלן רשימה של שינויי המשקל וצריכת הקלוריות שלך יום אחר יום. כאן יוצגו אך ורק תאריכים בהם תיעדת את הקלוריות ביומן שלך. נגיעה בפריט ברשימה הזאת יאפשר לך לערוך את המשקל שתועד עבור התאריך הזה.",
+      "p5": "בראש המסך יופיעו חומרי ההזנה שצרכת לצד היעד שלך והכמות הנותרת. ניתן להחליק שמאל וימינה בתצוגה כדי לברור בין חומרי ההזנה השונים."
     },
     "diary": {
-      "title": "Journal",
-      "p1": "Le journal est l'endroit où vous gardez la trace des produits que vous mangez. Appuyez sur le nom d'un repas comme Breakfast pour ajouter un produit à ce repas.",
-      "p2": "L'application vous redirige à la liste des produits où vous pouvez sélectionner un ou plusieurs produits à ajouter au journal.",
-      "p3": "Les calories de chaque produit seront ajoutées au total pour la date sélectionnée et s'affichera au bas de l'écran.",
-      "p4": "Les boutons de chaque côté de la date affichée peuvent être utilisés pour basculer vers le jour précédent ou le jour suivant. Vous pouvez aussi appuyer sur la date elle-même pour ouvrir un calendrier et sélectionner une date spécifique.",
-      "p5": "Appuyer sur un produit dans votre journal vous permet d'ajuster le nombre de portions et changer le repas pour ce produit. Ces changements sont uniquement effectifs dans votre journal et n'affecte pas la liste des produits.",
-      "p6": "Appuyez longuement sur un produit de votre journal pour le supprimer.",
-      "p7": "Vous pouvez saisir votre poids en appuyant sur l'icône de balance de la barre supérieure.",
-      "p8": "Si vous voulez simplement ajouter des calories sans passer par l'ajout d'un produit à votre liste des produits, vous pouvez le faire. Appuyez juste longuement sur le nom d'un repas et saisissez le montant de calories dans la fenêtre qui apparaît."
+      "title": "יומן",
+      "p1": "היומן הוא המקום בו יישמר רישום של המזון שאכלת. יש לגעת בכותרת כגון ארוחת בוקר כדי להוסיף מזון לקטגוריה הזאת.",
+      "p2": "מכאן תתבצע העברה לרשימת המזון בה ניתן לבחור פריטי מזון נוספים להוספה ליומן.",
+      "p3": "הקלוריות בכל פריט מזון יתווספו לסך של התאריך הנבחר והן תוצגנה בתחתית המסך.",
+      "p4": "הכפתורים בכל אחד מהצדדים של התאריך המוצג משמשים למעבר ליום הקודם או הבא ובאפשרותך לגעת בתאריך עצמו כדי לבחור בתאריך מסוים.",
+      "p5": "נגיעה בפריט מזון ביומן שלך תאפשר לך להתאים את מספר המנות ולשנות את הקטגוריה עבור הפריט הזה. השינויים האלה חלים רק על הפריט ביומן שלך ואינם משפיעים על רשימת המזון.",
+      "p6": "יש לגעת ולהחזיק פריט ביומן שלך כדי להסיר אותו.",
+      "p7": "באפשרותך לתעד את המשקל שלך על ידי נגיעה בסמל המאזניים בסרגל הכלים העליון.",
+      "p8": "אם כל מה שמעניין אותך הוא לתעד קלוריות ללא הטרחה הכרוכה בהוספת מצרכים לרשימת המזון שלך ניתן לעשות זאת גם כן. עליך פשוט לגעת ולהחזיק את אחת הקטגוריות ולהקליד את כמות הקלוריות בתיבה שמופיעה. ניתן גם להקליד מספר שלילי אם ברצונך לציין קלוריות שנשרפו."
     },
     "food-list": {
-      "title": "Liste des produits",
-      "p1": "Cet écran contient la liste de tous les produits que vous avez ajouté à votre base de données locale. Cette liste est vide la première fois que vous exécutez l'application.",
-      "p2": "Vous pouvez utiliser la barre de recherche pour filtrer les produits et trouver celui que vous voulez. Si vous avez une connexion Internet, vous pouvez aussi utiliser la barre de recherche pour trouver un produit issu de la base de données Open Food Facts.",
-      "p3": "La liste des produits est automatiquement triée selon les produits ajoutés à votre journal. Les produits les plus souvent ajoutés apparaîtront en haut de la liste.",
-      "p4": "Appuyer sur un produit dans la liste le sélectionnera. Quand vous avez sélectionné au moins un produit, un bouton de validation apparaît dans la barre supérieure et vous permet d'ajouter les produits sélectionnés à votre journal.",
-      "p5": "Vous pouvez éditer un produit en appuyant deux fois dessus."
+      "title": "רשימת מזון",
+      "p1": "מסך זה מכיל את רשימת כל פריטי המזון שהוספת למסד הנתונים המקומי שלך. רשימה זו תהיה ריקה בעת הפעלת היישומון לראשונה.",
+      "p2": "ניתן להשתמש בתיבת החיפוש כדי לסנן את רשימת פריטי המזון ולמצוא את הפריטים האהובים עליך. אם יש לך חיבור לאינטרנט ניתן להשתמש בתיבת החיפוש כדי למצוא מצרכים במסד הנתונים של Open Food Facts.",
+      "p3": "רשימת הפריטים מסודרת אוטומטית לפי סדר ההוספה שלהם ליומן, כדי שפריטי מזון שהוספת לעתים קרובות יופיעו בקרבת ראש הרשימה.",
+      "p4": "נגיעה בפריט הרשימה תבחר אותו. לאחר שבחרת פריט אחד לפחות יופיע סמל של סימון בסרגל הכלים העליון, נגיעה בסמל תוסיף את הפריטים הנבחרים ליומן שלך באופן אוטומטי.",
+      "p5": "ניתן לערוך או למחוק פריט מזון על ידי נגיעה בו והחזקתו ואז לבחור באפשרות מהחלונית שקופצת."
     },
     "adding-a-food": {
-      "title": "Ajouter un produit",
-      "p1": "Il y a trois moyens d'ajouter un produit à la liste des produits. Dans l'écran des produits, vous pouvez appuyer sur le bouton plus (+) flottant pour ajouter un produit, rechercher un produit grâce à son nom dans la base de données Open Food Facts ou encore scanner le code-barres d'un produit en appuyant sur l'icône de code-barres de la barre supérieure.",
-      "p2": "Quelle que soit la méthode que vous choisissez, l'application vous redirige vers l'écran d'édition des produits. Vous pouvez saisir manuellement le nom du produit, la taille de la portion (p. ex. 1 biscuit, 100g, 3 tasses, etc.), et le nombre de nutriments contenus dans cette portion.",
-      "p3": "Les données retournées par un code-barres peuvent être inexactes pour le produit ou les portions que vous avez. Essayez de vérifier ces informations et corrigez les avant de les enregistrer.",
-      "p4": "Si aucune donnée n'est disponible pour un produit scanné, l'application vous proposera d'ajouter ce produit dans la base de données Open Food Facts.",
-      "p5": "Une fois que vous êtes satisfaits des données du produit, vous pouvez valider en appuyant sur le bouton d'enregistrement de la barre supérieure pour ajouter le produit à votre liste des produits."
+      "title": "הוספת פריט מזון",
+      "p1": "ישנן שלוש דרכים להוספת מזון חדש לרשימת המזון שלך. ניתן להקליד על סימן הפלוס המרחף במסך רשימת המזון, לחפש במסד הנתונים Open Food Facts אחר מצרכים בעזרת סרגל חיפוש ברשימת המזון או לסרוק את הברקוד של המוצר על ידי נגיעה בסמל הברקוד בסרגל הכלים העליון במסך רשימת המזון.",
+      "p2": "כל שיטה בה בחרת תוביל אותך למסך עריכת המזון. כאן ניתן להקליד את שם פריט המזון ידנית, את גודל המנה (ביסקוויט אחד, 100 גר׳, 3 כוסות וכו׳) ואת הערכים התזונתיים לאותה מנה.",
+      "p3": "הנתונים שמוחזרים על ידי סורק הברקוד עשויים לעתים להיות לא מדויקים בהיבט של תיאור המוצר או גודל ההגשה, מוטב לבדוק את המידע שנוסף לטופס ולהתאים אותו כנדרש בטרם השמירה.",
+      "p4": "אם אין נתונים זמינים על מוצר שסרקת יתאפשר לך להוסיף אותו למסד הנתונים של Open Food Facts.",
+      "p5": "לאחר שהנתונים שבטופס נושאים חן בעיניך באפשרות לגעת בכפתור הסימון בסרגל הכלים העליון כדי להוסיף את הפריט לרשימת המזון שלך."
     },
     "uploading-a-product": {
-      "title": "Mettre à jour un produit",
-      "p1": "Quand vous scannez un code-barres pour un produit qui n'est pas actuellement dans la base de données Open Food Facts, l'application vous demandera si vous voulez l'ajouter, ce que vous pouvez faire à partir de Waistline.",
-      "p2": "L'application vous redirige sur un écran qui vous permet de saisir le nom et la marque du produit ainsi que quelques informations nutritionnelles basiques. Vous pouvez aussi ajouter trois photos à cette entrée.",
-      "p3": "Appuyez sur l'icône d'appareil photo pour prendre une photo. Vous pouvez rogner l'image après avoir pris la photo, ce qui vous permet de n'envoyer que des informations pertinentes.",
-      "p4": "Toutes les photos que vous envoyez depuis Waistline sont automatiquement placées sous licence Creative Commons Attribution ShareAlike.",
-      "p5": "Quand vous exécutez Waistline pour la première fois, l'application génère un ID unique. Cet ID est automatiquement ajouté dans les commentaires d'un produit quand vous envoyez un produit sur Open Food Facts.",
-      "p6": "Le but de cet ID est d'aider les mainteneurs de la base de données Open Food Facts à détecter les erreurs et prévenir les abus de leur système."
+      "title": "העלאת מוצר",
+      "p1": "בעת סריקת ברקוד עבור מוצר שלא נמצא במסד הנתונים של Open Food Facts תופיע שאלה האם ברצונך להוסיף אותו, תהליך שניתן לבצע מתוך Waistline.",
+      "p2": "תתבצע העברה למסך בו ניתן להקליד שם ומותג של המוצר ופרטים תזונתיים בסיסיים. תהיה לך גם אפשרות להעלות עד 3 תמונות.",
+      "p3": "יש ללחוץ על סמל המצלמה כדי לצלם תמונה. לאחר מכן ניתן לחתוך את התמונה שצילמת כדי שהצילום שיישלח יכיל רק את מה שנחוץ לתיעוד.",
+      "p4": "כל התמונות שנשלחות באמצעות Waistline מוגשות אוטומטית במסגרת הרישיון Creative Commons Attribution ShareAlike.",
+      "p5": "בעת ההפעלה הראשונה של Waistline היישומון מייצר מזהה ייחודי. המזהה הזה נכלל אוטומטית בשדה התגובות בעת העלאת מוצר כלשהו ל־Open Food Facts.",
+      "p6": "מטרת המזהה הזה היא לסייע למתחזקים של מסד הנתונים Open Food Facts לזהות טעויות ולמנוע שימוש לרעה במערכת שלהם."
     },
     "recipes": {
-      "title": "Recettes",
-      "p1": "Dans l'écran des recettes, vous pouvez combiner des produits alimentaires pour créer une nouvelle entrée nommée recette. Appuyez sur le bouton plus (+) flottant pour créer une nouvelle recette ou appuyez deux fois sur une recette existante pour pouvoir l'éditer. Pour supprimer une recette, appuyez longuement sur la recette et confirmez la suppression.",
-      "p2": "L'écran d'édition d'une recette vous permet d'entrer un nom pour la recette ainsi qu'autant de notes que vous le souhaitez. Vous pouvez appuyez sur le bouton plus (+) flottant de cet écran pour sélectionner les produits que vous voulez ajouter à votre recette.",
-      "p3": "Vous pouvez éditer la quantité de chaque produit que vous avez ajouté en appuyant sur le produit et en entrant une valeur dans la fenêtre qui apparaît. Au-dessus de la liste des produits, vous verrez les informations nutritionnelles totales pour tous les produits de la recette. Vous pouvez défiler à l'intérieur de cette zone pour voir plus d'informations.",
-      "p4": "Une fois que vous êtes satisfaits de votre recette, vous pouvez appuyer sur le bouton de sauvegarde dans la barre supérieure.",
-      "p5": "La procédure basique pour ajouter une recette à votre journal est similaire à l'ajout d'un produit. Appuyez sur le nom d'un repas dans l'écran du journal pour arriver sur l'écran d'ajout de produits. Sur cet écran, vous verrez une icône de signet dans la barre supérieure, appuyez dessus vous enverra sur l'écran des recettes.",
-      "p6": "Quand vous ajoutez une recette à votre journal, tous les produits de la recette sont ajoutés individuellement, ce qui vous permet d'adapter la recette comme désirée sans avoir à créer des multiples recettes avec peu de différences."
+      "title": "מתכונים",
+      "p1": "במסך המתכונים ניתן לשלב פריטי מזון כדי ליצור פריט חדש שנקרא מתכון. יש ללחוץ על סימן הפלוס המרחף כדי ליצור מתכון חדש. ניתן לערוך או למחוק מתכון קיים על ידי נגיעה והחזקה שלו ובחירה מהאפשרויות שמופיעות בחלונית.",
+      "p2": "מסך עריכת המתכונים מאפשר לך להוסיף שם והערות למתכון כרצונך. ניתן לגעת בסמל הפלוס המרחף במסך זה כדי לבחור את פריטי המזון שברצונך להוסיף למתכון שלך.",
+      "p3": "ניתן לערוך את כמות המזון שהוספת על ידי נגיעה במזון והקלדת הערך בתיבה שמופיעה. מעל לרשימת המזון יופיע מידע תזונתי עבור כל פריטי המזון שהוספת למתכון. ניתן להחליק באזור זה כדי לצפות במידע נוסף.",
+      "p4": "לאחר שהמתכון נושא חן בעיניך ניתן לגעת בכפתור הסימון בסרגל הכלים העליון כדי לשמור אותו.",
+      "p5": "התהליך הבסיסי של הוספת מתכון ליומן שלך זהה להוספת מזון. יש ללחוץ על כותרת מסך היומן, פעולה זו תוביל אותך אל רשימת המזון, לאחר מכן ברשימת המזון יופיע סמל סימנייה בסרגל הכלים העליון, נגיעה בו תעביר אותך אל מסך המתכונים.",
+      "p6": "בעת הוספת מתכון ליומן של כל פריטי המזון מהמתכון יתווספו באופן יחידני, כך יתאפשר לך להתאים את המתכון כנדרש מבלי ליצור מגוון מתכונים עם שינויים קטנים ביניהם."
     },
     "goals": {
-      "title": "Objectifs",
-      "p1": "Dans cet écran, vous pouvez définir plusieurs objectifs que vous souhaitez atteindre.",
-      "p2": "Vous pouvez définir un poids idéal et préciser si vous souhaitez prendre ou perdre du poids.",
-      "p3": "Vous pouvez aussi définir une série d'objectifs nutritionnels avec un objectif différent pour chaque jour de la semaine."
+      "title": "יעדים",
+      "p1": "במסך הזה ניתן להגדיר את מגוון היעדים שברצונך להשיג.",
+      "p2": "ניתן להגדיר משקל יעד ולציין אם ברצונך לעלות או לרדת במשקל.",
+      "p3": "ובאפשרותך להגדיר מגוון של יעדים תזונתיים עם יעד שונה בכל יום של השבוע."
     },
     "settings": {
-      "title": "Préférences",
-      "p1": "Il y a plusieurs options sur cet écran qui peuvent être utilisées pour personnaliser l'application. La plupart d'entre elles sont très parlantes.",
-      "p2": "Les options du journal vous permettent de personnaliser les noms des repas utilisés dans le journal. Vous pouvez avoir jusqu'à sept repas. Toutes les entrées qui n'ont pas de nom ne seront pas utilisées."
+      "title": "הגדרות",
+      "p1": "ישנן מגוון הגדרות במסך זה בהן ניתן להשתמש כדי להתאים אישית את היישומון. רובן מובנות מאליהן.",
+      "p2": "הגדרות היומן מאפשרות לך להתאים את שמות הקטגוריות בהן נעשה שימוש ביומן המזון. ניתן להוסיף עד 7 קטגוריות. בקטגוריות שאין להן שם לא ייעשה שימוש."
     },
     "export": {
-      "title": "Export",
-      "p1": "Toutes vos données sont stockées localement sur votre appareil. La connexion à Internet est utilisée seulement lorsque vous recherchez un code-barres, rechercher un produit ou envoyer un nouveau produit sur Open Food Facts.",
-      "p2": "C'est une bonne chose car cela signifie que vous êtes propriétaires de vos données et que personne d'autre ne peut y accéder à distance. Le seul point négatif est que vos données ne sont pas sauvegardées dans le cloud (sur un ordinateur qui ne vous appartient pas). Donc si vous changez d'appareil, les données ne seront pas automatiquement disponibles.",
-      "p3": "C'est ici qui le bouton d'export devient utile. Appuyer sur ce bouton va sauvegarder vos données (journal, liste des produits et suivi du poids) vers un simple fichier texte. Ce fichier est nommé waistline_export.json. Vous trouverez ce fichier sur votre appareil dans le dossier 'Android/data/com.waist.line/files/'.",
-      "p4": "C'est un dossier privé qui ne peut être consulté par aucune application. Le bon côté est que cela est sécurisé, mais ce n'est pas vraiment pratique pour le retrouver.",
-      "p5": "À partir du moment où vous avez récupéré ce fichier, vous pouvez installer Waistline sur votre nouvel appareil et déplacer le fichier exporté vers le même emplacement du nouvel appareil. Vous pouvez ensuite restaurer la sauvegarde dans Waistline."
+      "title": "ייצוא",
+      "p1": "כל הנתונים שהוספת נשמרים במכשיר שלך. הפעם היחידה שמידע כלשהו נשלח מהיישומון אל האינטרנט הוא בעת סריקת ברקוד, חיפוש מוצר או העלאת מוצר חדש.",
+      "p2": "מדובר בתכונה מצוינת כיוון שמשמעות הדבר היא שיש לך שליטה על הנתונים שלך ולאף אחד אין גישה אליהם מרחוק. החיסרון היחיד הוא שהנתונים שלך לא יגובו לענן (מחשב של מישהו אחר) כך שבעת מעבר להתקן חדש הנתונים שלך לא יהיו זמינים אוטומטית.",
+      "p3": "כפתור הייצוא הוא חברך למקרה שכזה. נגיעה בכפתור הזה תייצא את הנתונים שלך (יומן, רשימת מזון ורישום משקל) לקובץ טקסט פשוט. הקובץ הזה נקרא waistline_export.json. ניתן למצוא את הקובץ הזה במכשיר שלך במיקום שנראה בערך כך: Android/data/com.waist.line/files/‎.",
+      "p4": "זו תיקייה פרטית שלא ניתן לגשת אליה מיישומונים אחרים כדי שתהיה נעימה ומאובטחת אבל מעט מסובכת לאיתור.",
+      "p5": "לאחר שיש לך את הקובץ הזה ניתן להתקין את Waistline על המכשיר החדש שלך ולהעביר את הקובץ שייוצא לאותו המקום במכשיר החדש. לאחר מכן באפשרותך לייבא את הנתונים בחזרה לתוך Waistline."
     },
     "import": {
-      "title": "Import",
-      "p1": "Attention !!!! L'import des données va effacer toutes vos données existantes. Le seul moment où vous auriez besoin de faire ceci est quand vous changez d'appareil ou quand vous voulez restaurer ce que vous avez sauvegardé.",
-      "p2": "Pour importer les sauvegardes, placez le fichier waistline_export.json dans le répertoire convenu (voir l'export) puis appuyez sur le bouton d'import.",
-      "p3": "Waistline version 2 n'est pas compatible avec la version 1, vous pouvez essayer d'importer des sauvegardes provenant de la version 1 mais cela produira des données incorrectes et incomplètes."
+      "title": "ייבוא",
+      "p1": "אזהרה!!!! ייבוא נתונים ישכתב את כל הנתונים הקיימים שלך. הפעם היחידה שמוטב לך לעשות את הפעולה הזאת היא בעת מעבר למכשיר חדש או שחזור מידע שגיבית.",
+      "p2": "כדי לייבא נתונים עליך להציב את הקובץ waistline_export.json במיקום הנכון בהתקן שלך (יש לעיין בייצוא). לאחר מכן יש לגעת בכפתור הייבוא.",
+      "p3": "ל־Waistline גרסה 2 אין תמיכה לאחור בגרסה 1, ניתן לנסות לייבא נתונים מגרסה 1 אך התוצאות עשויות להיות מוזרות."
     },
     "licenses": {
-      "title": "Licences",
-      "p1": "Waistline est construit avec le framework Cordova et OnsenUI qui sont disponibles sous licence Apache. Sont aussi inclus jQuery, localisation jQuery, et ChartJS qui sont publiés sous licence MIT. Le code HTML, CSS, et autre javascript qui constitue le corps principal de l'application sont sous licence GPLv3.",
-      "p2": "Le code source de Waistline peut être trouvé sur github.com/davidhealey."
+      "title": "רישיונות",
+      "p1": "היישומון Waistline נבנה על גבי תשתית Cordova ו־OnsenUI שזמינות תחת רישיון Apache. בנוסף נכללות המערכות jQuery,‏ jQuery localize ו־ChartJS שכפופות לרישיון MIT. תשתיות ה־HTML,‏ ה־CSS ושאר ה־javascript שמרכיבים את הגוף הראשי של היישומון כפופות לרישיון GPLv3.",
+      "p2": "ניתן למצוא את קוד המקור של Waistline בכתובת github.com/davidhealey."
     }
   },
   "about": {
-    "title": "À propos",
-    "p1": "Waistline créé par David Healey avec les suggestions et contributions de camarades git-hubbeurs."
+    "title": "על אודות",
+    "p1": "היישומון Waistline נוצר על ידי David Healey עם הצעות ותרומות מחברים בגיטהאב."
   }
 }
