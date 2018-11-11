@@ -181,7 +181,6 @@ var diary = {
       if (diary.date == undefined)
       {
         diary.date = new Date();
-        diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
       }
 
       var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
@@ -284,7 +283,6 @@ $(document).on("show", "#diary-page", function(e){
   if (diary.date == undefined)
   {
     diary.date = new Date();
-    diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
   }
 
   diary.updateDisplayedDate();
@@ -365,7 +363,6 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 //Change date
 $(document).on("change", "#diary-page #date", function(e){
   diary.date = new Date($("#diary-page #date").val()); //Set diary object date
-  diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
   diary.populate();
 });
 
