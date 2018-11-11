@@ -1,0 +1,15 @@
+---
+language: android
+android:
+  components:
+    - build-tools-26.0.2
+    - android-27
+jdk: openjdk8
+before_install:
+  - nvm install 8
+  - npm install -g cordova
+install:
+  - npm install
+  - cordova prepare
+script:
+  - cordova build android
