@@ -120,12 +120,11 @@ var app = {
     });
   },
 
-  getDateAtMidnight : function(date)
+  getDateAtMidnight : function()
   {
-    var newDate;
-    date == undefined ? newDate = new Date() : newDate = date;
-    newDate.setHours(0, 0, 0, 0);
-    return newDate;
+    var now = new Date();
+    // use UTC midnight of the current day for the diary
+    return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
   },
 };
 

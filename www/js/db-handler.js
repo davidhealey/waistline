@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 24;
+      var databaseVersion = 25;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -93,6 +93,21 @@ var dbHandler =
           if (!store.indexNames.contains("category_name")) store.createIndex('category_name', 'category_name', {unique:false}); //user assigned name of the category
           if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
+
+          if (e.oldVersion < 25) {
+            console.log("Converting diary entries from local time to UTC");
+            store.openCursor().onsuccess = function(event) {
+              var cursor = event.target.result;
+              if (cursor) {
+                var value = cursor.value;
+                var date = value.dateTime;
+                date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
+                value.dateTime = date;
+                cursor.update(value);
+                cursor.continue();
+              }
+            };
+          }
 
           //Recipes store
           if (!DB.objectStoreNames.contains("meals")) {

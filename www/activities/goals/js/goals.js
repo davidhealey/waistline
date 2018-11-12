@@ -77,8 +77,8 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
-    var date = new Date();
-    log.update(date, "goals", goals.getGoalsForDay(date.getDay()))
+    var date = app.getDateAtMidnight();
+    log.update(date, "goals", goals.getGoalsForDay(date.getUTCDay()))
     .then(function(){
       nav.popPage();
     });
@@ -121,8 +121,8 @@ var goals = {
     //Save data in local storage
     app.storage.setItem("goals", JSON.stringify(goals.data));
 
-    var date = new Date();
-    log.update(date, "goals", goals.getGoalsForDay(date.getDay()))
+    var date = app.getDateAtMidnight();
+    log.update(date, "goals", goals.getGoalsForDay(date.getUTCDay()))
     .then(function(){
       nav.popPage();
     });

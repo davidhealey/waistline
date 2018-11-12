@@ -28,8 +28,8 @@ var foodList = {
   {
     return new Promise(function(resolve, reject){
 
-      var dateTime = new Date();
-      dateTime.setDate(dateTime.getDate()+1); //Go a day ahead just to be sure.
+      var dateTime = app.getDateAtMidnight();
+      dateTime.setUTCDate(dateTime.getUTCDate()+1); //Go a day ahead just to be sure.
 
       foodList.list = []; //Clear list
 
