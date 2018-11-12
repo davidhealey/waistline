@@ -22,8 +22,9 @@ var log = {
   //Private function. Returns date with time data discarded
   _getDate : function(date)
   {
-    var newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); //Discard any time data
-    newDate.setHours(-newDate.getTimezoneOffset()/60, 0, 0, 0);
+    var newDate = date;
+    //Discard any time data
+    date.setUTCHours(0);
     return newDate
   },
 
@@ -66,7 +67,7 @@ var log = {
 
         //Fill in default values if no values are set
         if (data.weight == undefined) data.weight = app.storage.getItem("weight");
-        if (data.goals == undefined) data.goals = goals.getGoalsForDay(timestamp.getDay());
+        if (data.goals == undefined) data.goals = goals.getGoalsForDay(timestamp.getUTCDay());
 
         var insertRequest = dbHandler.insert(data, "log");
         insertRequest.onsuccess = function(e) {resolve();}

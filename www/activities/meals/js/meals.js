@@ -93,8 +93,7 @@ var meals = {
   update : function()
   {
     return new Promise(function(resolve, reject){
-      var date = new Date()
-      var dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+      var dateTime = new Date()
 
       var id = parseInt($("#edit-meal #meal-data #id").val()); //Hidden field
       var nutrition = JSON.parse($("#edit-meal #meal-data #nutrition").val()); //Hidden field

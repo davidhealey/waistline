@@ -24,17 +24,16 @@ var statistics = {
     return new Promise(function(resolve, reject){
 
       //Today at midnight
-      var fromDate = new Date();
-      fromDate.setHours(0, 0, 0, 0);
+      var fromDate = app.getDateAtMidnight();
 
       var toDate = new Date(fromDate);
-      toDate.setHours(toDate.getHours()+24, toDate.getMinutes()-1); //1 minute to next day
+      toDate.setUTCHours(toDate.getUTCHours()+24);
 
       var range = $("#statistics #range").val();
-      range == 7 ? fromDate.setDate(fromDate.getDate()-6) : fromDate.setMonth(fromDate.getMonth()-range);
+      range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate()-6) : fromDate.setUTCMonth(fromDate.getUTCMonth()-range);
 
       var data = {"timestamps":[], "nutrition":{}, "weight":[]};
-      dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
+      dbHandler.getObjectStore("log").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e)
       {
         var cursor = e.target.result;
 
@@ -42,7 +41,8 @@ var statistics = {
         {
           if (cursor.value.nutrition != undefined && cursor.value.nutrition.calories != undefined)
           {
-            var date = new Date(cursor.value.dateTime.getUTCFullYear(), cursor.value.dateTime.getUTCMonth(), cursor.value.dateTime.getUTCDate()); //Get date, ignoring time
+            var date = cursor.value.dateTime;
+            date.setUTCHours(0); //Get date, ignoring time
 
             if (data.timestamps.map(Number).indexOf(+date) == -1) //Ignore duplicate log entries (although there shouldn't be any)
             {
@@ -114,8 +114,11 @@ var statistics = {
     for (var i = 0; i < data.timestamps.length; i++)
     {
       html = "";
-      html += "<ons-list-item tappable timestamp='"+data.timestamps[i].toISOString()+"'>";
-      html += "<ons-row>"+ data.timestamps[i].toLocaleDateString() + " - " + data.weight[i] + " kg" +"</ons-row>";
+      var utcDate = data.timestamps[i];
+      // the user sees the UTC date as if it were the local date
+      var localDate = new Date(utcDate.getUTCFullYear(), utcDate.getUTCMonth(), utcDate.getUTCDate());
+      html += "<ons-list-item tappable timestamp='"+utcDate.toISOString()+"'>";
+      html += "<ons-row>"+ localDate.toLocaleDateString() + " - " + data.weight[i] + " kg" +"</ons-row>";
       html += "<ons-row style='color:#636363;'><i>";
       if (data.nutrition.calories[i] != undefined) html += data.nutrition.calories[i].toFixed(0) + " " + app.strings["calories"];
       html += "</i></ons-row>";
@@ -126,8 +129,7 @@ var statistics = {
 
   renderDailyLog : function()
   {
-    var dateTime = new Date();
-    dateTime.getTimezoneOffset() > 0 ? dateTime.setMinutes(dateTime.getTimezoneOffset()) : dateTime.setMinutes(-dateTime.getTimezoneOffset());
+    var dateTime = app.getDateAtMidnight();
 
     //Get diary stats for today
     log.getData(dateTime)

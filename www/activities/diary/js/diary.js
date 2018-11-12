@@ -20,7 +20,7 @@
 var diary = {
 
   category:"0", //Category index
-  date: undefined,
+  date: app.getDateAtMidnight(),
   consumption:{}, //Nutrition consumed for current diary date
 
   setCategory : function(index)
@@ -34,12 +34,11 @@ var diary = {
       diary.consumption = {}; //Reset object
 
       //Get selected date at midnight
-      var fromDate = new Date(diary.date);
-      fromDate.setHours(0, 0, 0, 0);
+      var fromDate = diary.date;
 
       //Get end of day
       var toDate = new Date(fromDate);
-      toDate.setHours(toDate.getHours()+24, toDate.getMinutes()-1);
+      toDate.setUTCHours(toDate.getUTCHours()+24);
 
       var lists = []; //Each diary item is part of a categorised list
       var calorieCount = []; //Calorie count for each category
@@ -55,7 +54,7 @@ var diary = {
 
       var html = "";
 
-      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate)).onsuccess = function(e)
+      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e)
       {
         var cursor = e.target.result;
 
@@ -135,9 +134,9 @@ var diary = {
 
   updateDisplayedDate()
   {
-    var dd = diary.date.getDate();
-    var mm = diary.date.getMonth()+1; //January is 0
-    var yyyy = diary.date.getFullYear();
+    var dd = diary.date.getUTCDate();
+    var mm = diary.date.getUTCMonth()+1; //January is 0
+    var yyyy = diary.date.getUTCFullYear();
 
     //Add leading 0s
     if (dd < 10) dd = "0"+dd;
@@ -177,12 +176,6 @@ var diary = {
   addEntry : function(data)
   {
     return new Promise(function(resolve, reject){
-
-      if (diary.date == undefined)
-      {
-        diary.date = new Date();
-        diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
-      }
 
       var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
       var foodId = data.id;
@@ -281,12 +274,6 @@ var diary = {
 
 //Diary page display
 $(document).on("show", "#diary-page", function(e){
-  if (diary.date == undefined)
-  {
-    diary.date = new Date();
-    diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
-  }
-
   diary.updateDisplayedDate();
   diary.populate();
 });
@@ -365,18 +352,17 @@ $(document).on("keyup change", "#edit-diary-item #quantity", function(e){
 //Change date
 $(document).on("change", "#diary-page #date", function(e){
   diary.date = new Date($("#diary-page #date").val()); //Set diary object date
-  diary.date.getTimezoneOffset() > 0 ? diary.date.setMinutes(diary.date.getTimezoneOffset()) : diary.date.setMinutes(-diary.date.getTimezoneOffset());
   diary.populate();
 });
 
 $(document).on("tap", "#diary-page #previousDate", function(e){
-  diary.date.setDate(diary.date.getDate()-1);
+  diary.date.setUTCDate(diary.date.getUTCDate()-1);
   diary.updateDisplayedDate();
   diary.populate();
 });
 
 $(document).on("tap", "#diary-page #nextDate", function(e){
-  diary.date.setDate(diary.date.getDate()+1);
+  diary.date.setUTCDate(diary.date.getUTCDate()+1);
   diary.updateDisplayedDate();
   diary.populate();
 });

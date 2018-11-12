@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 24;
+      var databaseVersion = 25;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -107,9 +107,35 @@ var dbHandler =
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Total nutritional values for the whole meal
           if (!store.indexNames.contains("notes")) store.createIndex('notes', 'notes', {unique:false}); //Useful to add notes to recipes
           
+          dbHandler.upgradeData(e.oldVersion, upgradeTransaction);
+
           console.log("DB Created/Updated");
       };
     });
+  },
+
+  upgradeData: function(oldVersion, transaction)
+  {
+    // version is 0 on a fresh DB
+    if (!oldVersion)
+      return;
+
+    if (oldVersion < 25) {
+      console.log("Converting diary entries from local time to UTC");
+      var diary = transaction.objectStore('diary');
+
+      diary.openCursor().onsuccess = function(event) {
+        var cursor = event.target.result;
+        if (cursor) {
+          var value = cursor.value;
+          var date = value.dateTime;
+          date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
+          value.dateTime = date;
+          cursor.update(value);
+          cursor.continue();
+        }
+      };
+    }
   },
 
   insert: function(data, storeName)
@@ -266,6 +292,8 @@ var dbHandler =
             //Append object store to file once all objects have been gathered
             if (Object.keys(exportObject).length == storeNames.length)
             {
+              // this needs to be here because of the key count logic
+              exportObject._version = DB.version;
               dbHandler.writeToFile(JSON.stringify(exportObject));
             }
           }
@@ -277,8 +305,28 @@ var dbHandler =
   importFromJson: function(jsonString)
   {
     var t = DB.transaction(DB.objectStoreNames, "readwrite"); //Get transaction
+
+    t.onerror = function(e)
+    {
+      console.log("Error importing database. " + e.target.error.message);
+      alert("Something went wrong, are you sure the file exists?");
+    };
+
+    t.oncomplete = function(e)
+    {
+      console.log("Database import success");
+      alert("Database Import Complete");
+    };
+
     var storeNames = dbHandler.getArrayFromObject(DB.objectStoreNames);
     var importObject = JSON.parse(jsonString); //Parse recieved JSON string
+
+    var version = importObject._version;
+    // this key needs to be deleted for the key counting logic
+    delete importObject._version;
+    // _version was added in 25, so we just assume it's 24
+    if (version === undefined)
+      version = 24;
 
     //Go through each object store and add the imported data
     storeNames.forEach(function(storeName)
@@ -304,12 +352,6 @@ var dbHandler =
 
             var request = t.objectStore(storeName).add(toAdd);
 
-            request.onerror = function(e)
-            {
-              console.log("Problem importing database. Stopped at " + storeName + " object store:", e.target.error.message);
-              alert("Something went wrong, are you sure the file exists?");
-            }
-
             request.onsuccess = function(e)
             {
               count++;
@@ -320,8 +362,7 @@ var dbHandler =
 
                 if(Object.keys(importObject).length == 0) //added all object stores
                 {
-                 console.log("Database import success");
-                 alert("Database Import Complete");
+                  dbHandler.upgradeData(version, t);
                 }
               }
             }
