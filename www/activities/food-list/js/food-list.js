@@ -28,12 +28,9 @@ var foodList = {
   {
     return new Promise(function(resolve, reject){
 
-      var dateTime = app.getDateAtMidnight();
-      dateTime.setUTCDate(dateTime.getUTCDate()+1); //Go a day ahead just to be sure.
-
       foodList.list = []; //Clear list
 
-      dbHandler.getIndex("dateTime", "foodList").openCursor(IDBKeyRange.upperBound(dateTime), "prev").onsuccess = function(e)
+      dbHandler.getIndex("dateTime", "foodList").openCursor(null, "prev").onsuccess = function(e)
       {
         var cursor = e.target.result;
 
