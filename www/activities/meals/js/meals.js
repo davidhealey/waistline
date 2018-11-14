@@ -333,7 +333,7 @@ $(document).on("show", "#edit-meal", function(){
   {
     $("#edit-meal #title").html(app.strings["recipes"]["edit-recipe"]["title2"]);
     meals.fillEditForm(this.data) //Populate edit screen with data
-    .then(meals.validateEditForm());
+    .then(() => meals.validateEditForm());
   }
 });
 
@@ -381,7 +381,7 @@ $(document).on("click", "#edit-meal #foods ons-list-item", function(e){
 //Submit edit form
 $(document).on("tap", "#edit-meal #submit", function(){
   meals.update()
-  .then(nav.popPage());
+  .then(() => nav.popPage());
 });
 
 $(document).on("keyup", "#meals #filter", function(e){

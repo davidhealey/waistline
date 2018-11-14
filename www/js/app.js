@@ -83,7 +83,7 @@ var app = {
         });
 
         dbHandler.initializeDb() //db-handler initialization
-        .then(resolve());
+        .then(resolve);
       });
     });
   },
