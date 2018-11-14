@@ -335,6 +335,8 @@ $(document).on("show", "#edit-meal", function(){
     meals.fillEditForm(this.data) //Populate edit screen with data
     .then(() => meals.validateEditForm());
   }
+
+  this.data = {};
 });
 
 //Edit meal name
