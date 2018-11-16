@@ -47,11 +47,15 @@ var foodList = {
     });
   },
 
-  filterList : function(term)
+  setFilter : function(term)
   {
-    return filteredList = foodList.list.filter(function (el) {
-      return (el.name.match(new RegExp(term, "i")) || el.brand.match(new RegExp(term, "i"))); //Allow partial match and case insensitive
-    });
+    var list = this.list;
+    if (term) {
+      //Allow partial match and case insensitive
+      var exp = new RegExp(term, "i");
+      list = list.filter(el => el.name.match(exp) || el.brand.match(exp));
+    }
+    this.populate(list);
   },
 
   populate : function(list)
@@ -600,22 +604,12 @@ $(document).on("init", "#food-list-page", function(e){
   });
 });
 
-$(document).on("keyup", "#food-list-page #filter", function(e){
+$(document).on("input", "#food-list-page #filter", function(e){
 
   $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
   $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
 
-  if (this.value == "") //Search box cleared, reset the list
-  {
-    foodList.fillListFromDB()
-    .then(function(){
-      foodList.populate(foodList.list);
-    });
-  }
-  else { //Filter the list
-    var filteredList = foodList.filterList(this.value);
-    foodList.populate(filteredList);
-  }
+  foodList.setFilter(this.value);
 });
 
 //Delete/Edit item from food list by holding
