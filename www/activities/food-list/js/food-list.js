@@ -347,14 +347,13 @@ var foodList = {
         {
           var products = result.products;
 
-          foodList.list = []; //Clear list
-          var item = {};
+          var list = []; //Clear list
           for (var i = 0; i <  products.length; i++)
           {
-            item = foodList.parseOFFProduct(products[i]);
-            foodList.list.push(item);
+            var item = foodList.parseOFFProduct(products[i]);
+            list.push(item);
           }
-          foodList.populate(foodList.list);
+          foodList.populate(list);
           $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
         }
       }
