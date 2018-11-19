@@ -2,14 +2,22 @@
 language: android
 android:
   components:
+    - tools
+    - platform-tools
     - build-tools-26.0.2
     - android-27
 jdk: openjdk8
-before_install:
+install:
+  - echo y | sdkmanager tools emulator "system-images;android-24;default;armeabi-v7a"
+  - echo no | avdmanager create avd -n test -k "system-images;android-24;default;armeabi-v7a"
+  - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -no-snapshot -no-boot-anim -memory 512&
   - nvm install 8
   - npm install -g cordova
-install:
+before_script:
   - npm install
+  - pushd test && npm install --chromedriver_version="2.23" && popd
   - cordova prepare
 script:
   - cordova build android
+  - android-wait-for-emulator
+  - travis_wait ./test/run
