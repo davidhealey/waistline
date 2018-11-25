@@ -133,7 +133,7 @@ $(document).on("tap", "#diary-settings #submit, #off-settings", function(e){
   nav.popPage();
 });
 
-$(document).on("doubletap", "#settings-page #import", function(e){
+$(document).on("tap", "#settings-page #import", function(e){
   ons.notification.confirm("Are you sure you want to import? Doing so will overwrite your existing data.", {"title":"Confirm Import"})
   .then(function(input) {
     if (input == 1)
