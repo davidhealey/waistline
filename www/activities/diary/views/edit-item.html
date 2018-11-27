@@ -32,6 +32,11 @@
       <input type="hidden" id="data"><!--Used for storing other data so that it can be accessed by other functions-->
 
       <p><ons-input type="number" id="quantity" step="any" required="true" placeholder="Quantity" float value="1"></ons-input></p>
+      <ons-row>
+        <ons-col style="padding-right:0.25em;"><ons-input type="number" min="1" inputmode="decimal" step="any" name="portion" id="portion" required="true" placeholder="Portion*" float value="1" onfocus="this.oldValue = this.value;"></ons-input></ons-col>
+        <ons-col style="padding-left:0.25em;"><ons-input type="text" pattern="[A-Za-z]*" name="unit" id="unit" required="true" placeholder="Unit*" float readonly></ons-input></ons-col>
+        <ons-col></ons-col>
+      </ons-row>
       <p><ons-input type="number" id="calories" step="any" placeholder="Calories" float readonly value="0"></ons-input></p>
       <p><ons-input type="number" id="fat" step="any" placeholder="Fat (g)" float readonly value="0"></ons-input></p>
       <p><ons-input type="number" id="saturated-fat" step="any" placeholder="Saturated Fat(g)" float readonly value="0"></ons-input></p>
