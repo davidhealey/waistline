@@ -151,8 +151,8 @@ var diary = {
     $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
     $("#edit-diary-item #name i").html(unescape(data.name) + " - " + unescape(data.portion));
     if (data.brand) $("#edit-diary-item #brand").html(unescape(data.brand));
-    $("#edit-diary-item #portion").val(parseFloat(data.portion));
-    $("#edit-diary-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
+    //$("#edit-diary-item #portion").val(parseFloat(data.portion));
+    //$("#edit-diary-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
     $("#edit-diary-item #quantity").val(data.quantity);
 
     for (n in data.nutrition)
