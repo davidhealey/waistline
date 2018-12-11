@@ -1,0 +1,19 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "appium": "^1.9.1",
+    "appium-doctor": "^1.6.0",
+    "wdio-appium-service": "^0.2.3",
+    "wdio-jasmine-framework": "^0.3.7",
+    "wdio-spec-reporter": "^0.1.5",
+    "webdriverio": "^4.14.0"
+  },
+  "dependencies": {
+    "appium-chromedriver": "^4.8.0"
+  }
+}
