@@ -121,7 +121,7 @@ var foodList = {
     $("#edit-food-item #brand").val(unescape(data.brand));
     $("#edit-food-item #original-portion").val(parseFloat(data.portion));
     $("#edit-food-item #portion").val(parseFloat(data.portion));
-    $("#edit-food-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
+    $("#edit-food-item #unit").val(data.portion.replace(/[0-9]/g, ''));
     $("#edit-food-item #calories").val(data.nutrition.calories);
     $("#edit-food-item #protein").val(data.nutrition.protein);
     $("#edit-food-item #carbs").val(data.nutrition.carbs);
