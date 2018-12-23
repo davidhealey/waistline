@@ -159,7 +159,7 @@ var foodList = {
   {
     var credentials = app.storage.getItem("off_credentials"); //Get stored user credentials
 
-    if (credentials)
+    if (credentials.user_id != "" && credentials.password != "")
     {
       credentials = JSON.parse(credentials);
     }
@@ -775,6 +775,7 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 $(document).on("init", "#upload-food-item", function(e){
   foodList.setUploadCredentials();
   foodList.localizeUploadForm();
+  $("#upload-item-form #countries").val(app.storage.getItem("food-list-country")); //Set upload country
 });
 
 $(document).on("show", "#upload-food-item", function(e){
