@@ -208,13 +208,18 @@ var foodList = {
       var data = {}; //Data to insert/update in DB
       var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
+      //Add a space at the begining of unit, unless it is usually displayed without a leading space
+      var standardUnits = ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"];
+      var unit = form.unit.value.trim(); //Remove any whitespace by default
+      if (standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+
       //Get form values
       var id = parseInt(form.id.value); //ID is hidden field
       data.barcode = form.barcode.value; //Barcode is hidden field
       data.name = escape(form.name.value);
       data.brand = escape(form.brand.value); //Should only be 1 brand per product
       data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-      data.portion = form.portion.value + form.unit.value;
+      data.portion = form.portion.value + unit;
       data.nutrition = {
         "calories":parseInt(form.calories.value),
         "protein":parseFloat(form.protein.value),
