@@ -47,15 +47,6 @@
         </div>
     </ons-list-item>
 
-    <ons-list-item>
-       <div class="center" data-localize="settings.brand-position">
-         Product name before brand
-       </div>
-       <div class="right">
-         <ons-switch id="brand-position" name="brand-position" tappable onchange="settings.saveSwitches(this);"></ons-switch>
-       </div>
-    </ons-list-item>
-
     <ons-list-item expandable>
       <div data-localize="settings.theme">Theme</div>
       <div class="expandable-content">
@@ -83,6 +74,10 @@
 
     <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/diary-settings.html')">
       <div data-localize="settings.diary.title">Diary Settings</div>
+    </ons-list-item>
+
+    <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/food-list-settings.html')">
+      <div data-localize="settings.food.title">Food Settings</div>
     </ons-list-item>
 
     <ons-list-item modifier="chevron" tappable onclick="nav.pushPage('activities/settings/views/off-settings.html')">

@@ -19,14 +19,29 @@
 
 var settings = {
 
+  saveSelect : function(controlId, value)
+  {
+    app.storage.setItem(controlId, value);
+  },
+
+  loadSelects : function(pageId)
+  {
+    var selects = $("#" + pageId + " ons-select");
+
+    for (var i = 0; i < selects.length; i++)
+    {
+      selects[i].value = app.storage.getItem(selects[i].id);
+    }
+  },
+
   saveSwitches : function(control)
   {
     app.storage.setItem(control.id, control.checked);
   },
 
-  loadSwitches : function()
+  loadSwitches : function(pageId)
   {
-    var switches = $("#settings-page ons-switch");
+    var switches = $("#" + pageId + " ons-switch");
 
     for (var i = 0; i < switches.length; i++)
     {
@@ -112,19 +127,23 @@ var settings = {
   },
 }
 
+//Main settings screen
 $(document).on("show", "#settings-page", function(e){
-  settings.loadSwitches();
+  settings.loadSwitches("settings-page");
   settings.loadThemeSettings();
   settings.loadHomescreenSettings();
 });
 
+//Food list settings
+$(document).on("show", "#food-list-settings", function(e){
+  settings.loadSwitches("food-list-settings");
+  settings.loadSelects("food-list-settings");
+});
+
+//Diary settings
 $(document).on("show", "#diary-settings", function(e){
   settings.localizeDiarySettingsForm();
   settings.loadDiarySettings();
-});
-
-$(document).on("show", "#off-settings", function(e){
-  settings.loadOffSettings();
 });
 
 //Form submission via checkmark button
@@ -133,6 +152,24 @@ $(document).on("tap", "#diary-settings #submit, #off-settings", function(e){
   nav.popPage();
 });
 
+//Open food facts account
+$(document).on("show", "#off-settings", function(e){
+  settings.loadOffSettings();
+});
+
+//Theme
+$(document).on("change", "#settings-page #theme", function(e){
+  app.storage.setItem("theme", this.value);
+  app.setTheme(this.value);
+});
+
+//Homescreen
+$(document).on("change", "#settings-page #homescreen", function(e){
+  app.storage.setItem("homescreen", this.value);
+  app.setTheme(this.value);
+});
+
+//Import/Export
 $(document).on("tap", "#settings-page #import", function(e){
   ons.notification.confirm("Are you sure you want to import? Doing so will overwrite your existing data.", {"title":"Confirm Import"})
   .then(function(input) {
@@ -151,14 +188,4 @@ $(document).on("tap", "#settings-page #export", function(e){
       dbHandler.exportToFile();
     }
   });
-});
-
-$(document).on("change", "#settings-page #theme", function(e){
-  app.storage.setItem("theme", this.value);
-  app.setTheme(this.value);
-});
-
-$(document).on("change", "#settings-page #homescreen", function(e){
-  app.storage.setItem("homescreen", this.value);
-  app.setTheme(this.value);
 });

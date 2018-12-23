@@ -372,7 +372,7 @@ var foodList = {
 
     var brands = product.brands || "";
     var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
-
+console.log(product);
     item.name = escape(product.product_name);
     item.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
     item.image_url = escape(product.image_url);
