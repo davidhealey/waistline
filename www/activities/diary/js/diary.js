@@ -47,7 +47,7 @@ var diary = {
       var categories = JSON.parse(app.storage.getItem("meal-names"));
       for (var i = 0; i < categories.length; i++)
       {
-        if (categories[i] == "") continue; //Skip unset meal names
+        if (categories[i].trim() == "") continue; //Skip unset meal names
         lists[i] = "<ons-list-title id='category"+i+"' category-idx='"+i+"'>"+categories[i]+"<span></span></ons-list-title>";
         calorieCount[i] = 0;
       }
