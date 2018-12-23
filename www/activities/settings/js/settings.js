@@ -76,7 +76,7 @@ var settings = {
     //Get form data
     var data = [];
     $.each($(form).serializeArray(), function(i, field) {
-        data.push(field.value);
+        data.push(field.value.trim());
     });
     app.storage.setItem("meal-names", JSON.stringify(data));
   },
