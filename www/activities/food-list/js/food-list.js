@@ -329,9 +329,12 @@ var foodList = {
       return false;
     }
 
+    //Get country name
+    var country = app.storage.getItem("food-list-country");
+
     var request = new XMLHttpRequest();
 
-    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&sort_by=last_modified_t&action=process&json=1", true);
+    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&countries="+country+"&sort_by=last_modified_t&action=process&json=1", true);
     request.send();
 
     $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
@@ -372,7 +375,7 @@ var foodList = {
 
     var brands = product.brands || "";
     var n = brands.indexOf(','); //Only first brand should be displayed, use this to get rid of any after ,
-console.log(product);
+
     item.name = escape(product.product_name);
     item.brand = escape(brands.substring(0, n != -1 ? n : brands.length)); //Should only be 1 brand per product
     item.image_url = escape(product.image_url);
