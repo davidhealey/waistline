@@ -40,6 +40,6 @@
     </plugin>
     <plugin name="cordova-plugin-indexeddb-async" spec="~0.0.1" />
     <preference name="loadUrlTimeoutValue" value="900000" />
-    <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.1.2" />
+    <engine name="browser" spec="^5.0.4" />
 </widget>

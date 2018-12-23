@@ -77,14 +77,14 @@ var foodList = {
           html += "</label>";
           html += "<label for='food-item"+i+"' class='center'>";
           html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + " - " + list[i].portion + "</i></ons-row>";
+          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + ": " + list[i].portion + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
         }
         else {
           html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
           html += "</label>";
           html += "<label for='food-item"+i+"' class='center'>";
           html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
-          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].brand) + " - " + list[i].portion + "</i></ons-row>";
+          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].brand) + ": " + list[i].portion + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
         }
 
         html += "</label>";
