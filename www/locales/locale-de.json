@@ -116,10 +116,10 @@
 		}
 	},
 
-	"recipes": {
+	"meals": {
 		"title": "Rezepte",
 		"filter": "Rezepte filter",
-		"edit-recipe": {
+		"edit-meal": {
 			"title1": "Rezept hinzufügen",
 			"title2": "Rezept bearbeiten",
 			"placeholders": {
@@ -209,7 +209,7 @@
 			"p6": "Wenn Sie Waistline zum ersten Mal ausführen, generiert die App eine eindeutige ID. Diese ID wird automatisch in das Kommentarfeld eingetragen, wenn Sie ein Produkt bei Open Food Facts hochladen.",
 			"p7": "Der Zweck dieser ID ist es, den Betreuern der Open Food Facts Datenbank zu helfen, Fehler zu erkennen und Missbrauch ihres Systems zu verhindern."
 		},
-		"recipes": {
+		"meals": {
 			"title": "Rezepte",
 			"p1": "Auf dem Rezeptbildschirm können Sie Lebensmittel kombinieren, um ein neues Produkt namens Rezept zu erstellen. Klicken Sie auf die '+'-Schaltfläche, um ein neues Rezept zu erstellen. Sie können ein bestehendes Rezept bearbeiten oder löschen, indem Sie es antippen und festhalten.",
 			"p2": "Auf dem Bildschirm zum Bearbeiten von Rezepten können Sie einen Namen für das Rezept und alle gewünschten Daten eingeben. Sie können auf diesem Bildschirm auf die '+'-Schaltfläche klicken, um die Lebensmittel auszuwählen, die Sie Ihrem Rezept hinzufügen möchten.",

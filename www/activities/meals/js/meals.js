@@ -219,9 +219,9 @@ var meals = {
 
   localize : function()
   {
-    $("#meals #filter").attr("placeholder", app.strings["recipes"]["filter"]);
-    $("#edit-meal #meal-data #name").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["name"]);
-    $("#edit-meal #meal-data #notes").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["notes"]);
+    $("#meals #filter").attr("placeholder", app.strings["meals"]["filter"]);
+    $("#edit-meal #meal-data #name").attr("placeholder", app.strings["meals"]["edit-meal"]["placeholders"]["name"]);
+    $("#edit-meal #meal-data #notes").attr("placeholder", app.strings["meals"]["edit-meal"]["placeholders"]["notes"]);
   }
 
 }
@@ -313,7 +313,7 @@ $(document).on("show", "#edit-meal", function(){
 
   meals.localize();
   meals.validateEditForm();
-  $("#edit-meal #title").html(app.strings["recipes"]["edit-recipe"]["title1"]); //Default title
+  $("#edit-meal #title").html(app.strings["meals"]["edit-meal"]["title1"]); //Default title
 
   if (this.data.foodIds) //Food ids passed from food list
   {
@@ -331,7 +331,7 @@ $(document).on("show", "#edit-meal", function(){
   }
   else if (this.data.id) //Meal data for existing meal
   {
-    $("#edit-meal #title").html(app.strings["recipes"]["edit-recipe"]["title2"]);
+    $("#edit-meal #title").html(app.strings["meals"]["edit-meal"]["title2"]);
     meals.fillEditForm(this.data) //Populate edit screen with data
     .then(() => meals.validateEditForm());
   }

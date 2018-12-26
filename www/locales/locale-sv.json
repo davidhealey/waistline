@@ -116,10 +116,10 @@
     }
   },
 
-  "recipes":{
+  "meals":{
     "title":"Recept",
     "filter":"Filterrecept",
-    "edit-recipe":{
+    "edit-meal":{
       "title1":"Lägga till Recept",
       "title2":"Redigera Recept",
       "placeholders":{
@@ -212,7 +212,7 @@
       "p5":"När du kör Waistline för första gången genererar appen ett unikt ID. Detta ID ingår automatiskt i kommentarfältet när du laddar upp en produkt till Open Food Facts.",
       "p6":"Syftet med detta ID är att hjälpa underhållarna av databasen för Open Food Facts att upptäcka misstag och förhindra missbruk av deras system."
     },
-    "recipes":
+    "meals":
     {
       "title":"Recept",
       "p1":"På receptskärmen kan du kombinera matvaror för att skapa ett nytt objekt som heter recept. Klicka på den flytande plusknappen för att skapa ett nytt recept eller dubbelklicka på ett existerande recept för att redigera det. För att radera ett recept, tryck bara på och håll kvar det och klicka på OK på bekräftelsen.",

@@ -124,14 +124,14 @@
     }
   },
 
-  "recipes":{
-    "title":"Recipes",
-    "filter":"Filter Recipes",
-    "edit-recipe":{
-      "title1":"Add Recipe",
-      "title2":"Edit Recipe",
+  "meals":{
+    "title":"Meals",
+    "filter":"Filter Meals",
+    "edit-meal":{
+      "title1":"Add Meal",
+      "title2":"Edit Meal",
       "placeholders":{
-        "name":"Recipe Name",
+        "name":"Meal Name",
         "notes":"Notes..."
       }
     }
@@ -220,15 +220,15 @@
       "p5":"When you run Waistline for the first time the app generates a unique ID. This ID is included automatically in the comment field when you upload a product to Open Food Facts.",
       "p6":"The purpose of this ID is to help the maintainers of the Open Food Facts database detect mistakes and prevent abuse of their system."
     },
-    "recipes":
+    "meals":
     {
-      "title":"Recipes",
-      "p1":"On the recipes screen you can combine food items to create a new item called a recipe. Click on the floating plus button to create a new recipe. You can edit or delete an existing recipe by tapping and holding on it and selecting from the options that pop up.",
-      "p2":"The edit recipe screen allows you to enter a name for the recipe and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your recipe.",
-      "p3":"You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the recipe. You can swipe on this area to see more information.",
-      "p4":"Once you're happy with your recipe you can tap the check button on the top toolbar to save it.",
-      "p5":"The basic procedure to add a recipe to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the recipes screen.",
-      "p6":"When you add a recipe to your diary all of the foods from the recipe will be added individually, this allows you to further customise the recipe as needed without having to create multiple recipes for different variations."
+      "title":"Meals",
+      "p1":"On the meals screen you can combine food items to create a new item called a meal. Click on the floating plus button to create a new meal. You can edit or delete an existing meal by tapping and holding on it and selecting from the options that pop up.",
+      "p2":"The edit meal screen allows you to enter a name for the meal and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your meal.",
+      "p3":"You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the meal. You can swipe on this area to see more information.",
+      "p4":"Once you're happy with your meal you can tap the check button on the top toolbar to save it.",
+      "p5":"The basic procedure to add a meal to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the meals screen.",
+      "p6":"When you add a meal to your diary all of the foods from the meal will be added individually, this allows you to further customise the meal as needed without having to create multiple meals for different variations."
     },
     "goals":
     {

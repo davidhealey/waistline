@@ -116,10 +116,10 @@
     }
   },
 
-  "recipes":{
+  "meals":{
     "title":"Recettes",
     "filter":"Filtrer les recettes",
-    "edit-recipe":{
+    "edit-meal":{
       "title1":"Ajouter une recette",
       "title2":"Éditer une recette",
       "placeholders":{
@@ -212,7 +212,7 @@
       "p5":"Quand vous exécutez Waistline pour la première fois, l'application génère un ID unique. Cet ID est automatiquement ajouté dans les commentaires d'un produit quand vous envoyez un produit sur Open Food Facts.",
       "p6":"Le but de cet ID est d'aider les mainteneurs de la base de données Open Food Facts à détecter les erreurs et prévenir les abus de leur système."
     },
-    "recipes":
+    "meals":
     {
       "title":"Recettes",
       "p1":"Dans l'écran des recettes, vous pouvez combiner des produits alimentaires pour créer une nouvelle entrée nommée recette. Appuyez sur le bouton plus (+) flottant pour créer une nouvelle recette ou appuyez deux fois sur une recette existante pour pouvoir l'éditer. Pour supprimer une recette, appuyez longuement sur la recette et confirmez la suppression.",

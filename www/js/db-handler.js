@@ -94,7 +94,7 @@ var dbHandler =
           if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
 
-          //Recipes store
+          //Meals store
           if (!DB.objectStoreNames.contains("meals")) {
             store = DB.createObjectStore("meals", {keyPath:'id', autoIncrement:true});
           } else {
@@ -105,7 +105,7 @@ var dbHandler =
           if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false}); //Meal name
           if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {unique:false}); //Food items - record is separate from foods table
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Total nutritional values for the whole meal
-          if (!store.indexNames.contains("notes")) store.createIndex('notes', 'notes', {unique:false}); //Useful to add notes to recipes
+          if (!store.indexNames.contains("notes")) store.createIndex('notes', 'notes', {unique:false}); //Useful to add notes to meals
           
           dbHandler.upgradeData(e.oldVersion, upgradeTransaction);
 
