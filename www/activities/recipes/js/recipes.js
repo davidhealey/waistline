@@ -16,24 +16,24 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
-var meals = {
+var recipes = {
 
   list:[],
 
   fillList : function()
   {
-    var items = $("#meals #meal-list ons-list-item"); //Get all list items
+    var items = $("#recipes #recipe-list ons-list-item"); //Get all list items
 
     for (var i = 0; i < items.length; i++)
     {
         var itemData = JSON.parse($(items[i]).attr("data"));
-        meals.list.push(itemData);
+        recipes.list.push(itemData);
     }
   },
 
   filterList : function(term)
   {
-    return list = meals.list.filter(function (el) {
+    return list = recipes.list.filter(function (el) {
       if (el.name) return (el.name.match(new RegExp(term, "i"))); //Allow partial match and case insensitive
     });
   },
@@ -51,7 +51,7 @@ var meals = {
     });
   },
 
-  //Takes data of a food item and adds it to the list
+  //Takes data of a food item and adds it to the recipe's list
   renderFoodItem : function(data)
   {
     var html = "";
@@ -75,31 +75,41 @@ var meals = {
   fillEditForm : function(data)
   {
     return new Promise(function(resolve, reject){
-      $("#edit-meal #meal-data #id").val(data.id); //Hidden field
-      $("#edit-meal #meal-data #name").val(unescape(data.name));
+      $("#edit-recipe #recipe-data #id").val(data.id); //Hidden field
+      $("#edit-recipe #recipe-data #name").val(unescape(data.name));
+      $("#edit-recipe #recipe-data #quantity").val(parseFloat(data.portion));
+      $("#edit-recipe #recipe-data #unit").val(data.portion.replace(/[0-9]/g, ''));
+      $("#edit-recipe #recipe-data #notes").val(unescape(data.notes));
 
       var foods = data.foods;
       for (var i = 0; i < foods.length; i++)
       {
         //Display food items
-        $("#edit-meal ons-list#foods").append(meals.renderFoodItem(foods[i]));
-        meals.renderTotalNutrition(meals.getTotalNutrition());
+        $("#edit-recipe ons-list#foods").append(recipes.renderFoodItem(foods[i]));
+        recipes.renderTotalNutrition(recipes.getTotalNutrition());
       }
     });
   },
 
-  //Grabs the onsen list of food items and saves them to the meals database store
+  //Grabs the onsen list of food items and saves them to the recipes database store
   update : function()
   {
     return new Promise(function(resolve, reject){
       var dateTime = new Date()
 
-      var id = parseInt($("#edit-meal #meal-data #id").val()); //Hidden field
-      var nutrition = JSON.parse($("#edit-meal #meal-data #nutrition").val()); //Hidden field
-      var name = escape($("#edit-meal #meal-data #name").val());
+      var id = parseInt($("#edit-recipe #recipe-data #id").val()); //Hidden field
+      var nutrition = JSON.parse($("#edit-recipe #recipe-data #nutrition").val()); //Hidden field
+      var name = escape($("#edit-recipe #recipe-data #name").val());
+      var quantity = escape($("#edit-recipe #recipe-data #quantity").val());
+      var unit = escape($("#edit-recipe #recipe-data #unit").val());
+      var notes = escape($("#edit-recipe #recipe-data #notes").val());
       var foods = [];
 
-      var listItems = $("#edit-meal #foods ons-list-item"); //Get food items list
+      //Add a space at the begining of unit, unless it is usually displayed without a leading space
+      unit = unit.trim(); //Remove any whitespace
+      if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+
+      var listItems = $("#edit-recipe #foods ons-list-item"); //Get food items list
 
       for (var i = 0; i < listItems.length; i++)
       {
@@ -112,40 +122,45 @@ var meals = {
           "portion":foodData.portion,
           "nutrition":foodData.nutrition,
         };
-
         foods.push(foodItem);
       }
 
-      var data = {"dateTime":dateTime, "name":name, "foods":foods, "nutrition":nutrition};
+      var data = {"dateTime":dateTime, "name":name, "foods":foods, "portion":quantity+unit,"notes":notes, "nutrition":nutrition};
       if (isNaN(id) == false) {data.id = id} //If there is an ID add it to the data object
 
-      dbHandler.insert(data, "meals").onsuccess = function(){resolve();} //Insert/update the record
+      dbHandler.insert(data, "recipes").onsuccess = function(){resolve();} //Insert/update the record
     });
   },
 
-  //Passively validates the edit meal page
+  //Validates the edit recipe page
   validateEditForm : function()
   {
-    $("#edit-meal #submit").hide(); //Hide submit button until form is complete
-    if ($("#edit-meal #foods ons-list-item").length > 0 && $("#edit-meal #meal-data #name").val() != "")
+    if ($("#edit-recipe #foods ons-list-item").length > 0 &&
+    $("#edit-recipe #recipe-data #name").val() != "" &&
+    $("#edit-recipe #recipe-data #quantity").val() > 0 &&
+    $("#edit-recipe #recipe-data #unit").val() != "")
     {
-      $("#edit-meal #submit").show();
+      $("#edit-recipe #submit").show();
+    }
+    else
+    {
+      $("#edit-recipe #submit").hide();
     }
   },
 
   fillListFromDB : function()
   {
     return new Promise(function(resolve, reject){
-      dbHandler.getAllItems("meals")
+      dbHandler.getAllItems("recipes")
       .then(function(items){
-        meals.list = items;
+        recipes.list = items;
         resolve();
       });
     });
   },
 
-  //Gets all meals from the database and displays them as an onsen list
-  renderMealsList : function(list)
+  //Gets all recipes from the database and displays them as an onsen list
+  renderRecipesList : function(list)
   {
     var html = "";
 
@@ -153,16 +168,16 @@ var meals = {
     {
       html += "<ons-list-item tappable modifier='longdivider' id='"+list[i].id+"' data='"+JSON.stringify(list[i])+"'>";
       html += "<label class='right'>";
-      html += "<ons-checkbox name='meal-checkbox' input-id='meal"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+      html += "<ons-checkbox name='recipe-checkbox' input-id='recipe"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
       html += "</label>";
-      html += "<label for='meal"+i+"' class='center'>";
+      html += "<label for='recipe"+i+"' class='center'>";
       html += "<ons-row>" + unescape(list[i].name) + "</ons-row>";
-      html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
+      html += "<ons-row style='color:#636363;'><i>" + list[i].portion + ", " + list[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
       html += "</label>";
       html += "</ons-list-item>";
     }
 
-    $("#meals ons-list#meal-list").html(html);
+    $("#recipes ons-list#recipe-list").html(html);
   },
 
   changePortion : function(listItem, newPortion)
@@ -181,14 +196,14 @@ var meals = {
     data.portion = newPortion + unit;
     data.nutrition = nutrition; //Replace object with new one
 
-    var html = meals.renderFoodItem(data); //Regenerate the html for this list item
+    var html = recipes.renderFoodItem(data); //Regenerate the html for this list item
     $(listItem).replaceWith(html); //Replace list item with updated html
   },
 
   //Totals up the nutritional value of all of the items in the edit list
   getTotalNutrition : function()
   {
-    var listItems = $("#edit-meal #foods ons-list-item"); //Get all list items
+    var listItems = $("#edit-recipe #foods ons-list-item"); //Get all list items
     var nutrition = {};
 
     for (var i = 0; i < listItems.length; i++)
@@ -202,7 +217,7 @@ var meals = {
       }
     }
 
-    $("#edit-meal #meal-data #nutrition").val(JSON.stringify(nutrition)); //Store nutritional data in hidden form field
+    $("#edit-recipe #recipe-data #nutrition").val(JSON.stringify(nutrition)); //Store nutritional data in hidden form field
     return nutrition;
   },
 
@@ -211,41 +226,41 @@ var meals = {
   {
     for (n in nutrition)
     {
-      n == "calories" ? $("#edit-meal #"+n).html(nutrition[n].toFixed(0)) : $("#edit-meal #"+n).html(nutrition[n].toFixed(1) + "g");
+      n == "calories" ? $("#edit-recipe #"+n).html(nutrition[n].toFixed(0)) : $("#edit-recipe #"+n).html(nutrition[n].toFixed(1) + "g");
     }
   },
 
   localize : function()
   {
-    $("#meals #filter").attr("placeholder", app.strings["meals"]["filter"]);
-    $("#edit-meal #meal-data #name").attr("placeholder", app.strings["meals"]["edit-meal"]["placeholders"]["name"]);
+    $("#recipes #filter").attr("placeholder", app.strings["recipes"]["filter"]);
+    $("#edit-recipe #recipe-data #name").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["name"]);
+    $("#edit-recipe #recipe-data #notes").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["notes"]);
   }
-
 }
 
-//Show meals page
-$(document).on("show", "ons-page#meals", function(e){
+//Show recipes page
+$(document).on("show", "ons-page#recipes", function(){
 
   //Hide the menu button or back button depending on where the page is in the navigator stack
-  nav.pages.length > 1 ? $("#meals #menu-button").hide() : $("#meals ons-back-button").hide(); //Hide button based on context
+  nav.pages.length > 1 ? $("#recipes #menu-button").hide() : $("#recipes ons-back-button").hide(); //Hide button based on context
 
   //Hide submit button
-  $("#meals #submit").hide();
+  $("#recipes #submit").hide();
 
-  meals.localize();
+  recipes.localize();
 
-  meals.fillListFromDB()
-  .then(function(){meals.renderMealsList(meals.list)});
+  recipes.fillListFromDB()
+  .then(function(){recipes.renderRecipesList(recipes.list)});
 });
 
-//@Todo Double tap on meal item
-$(document).on("dblclick", "#meals #meal-list ons-list-item", function(){
+//@Todo Double tap on recipe item
+$(document).on("dblclick", "#recipes #recipe-list ons-list-item", function(){
   var control = this;
   var data = JSON.parse($(this).attr("data"));
 });
 
-//Delete/Edit meal
-$(document).on("hold", "#meals #meal-list ons-list-item", function(){
+//Delete/Edit recipe
+$(document).on("hold", "#recipes #recipe-list ons-list-item", function(){
 
   var control = this; //The control that triggered the callback
   var data = JSON.parse($(this).attr("data"));
@@ -258,7 +273,7 @@ $(document).on("hold", "#meals #meal-list ons-list-item", function(){
   .then(function(input){
     if (input == 0) //Edit
     {
-      nav.pushPage("activities/meals/views/edit-meal.html", {"data":data});
+      nav.pushPage("activities/recipes/views/edit-recipe.html", {"data":data});
     }
     else if (input == 1) //Delete
     {
@@ -267,8 +282,8 @@ $(document).on("hold", "#meals #meal-list ons-list-item", function(){
       .then(function(input) {
         if (input == 1) {//Delete was confirmed
           $(control).remove(); //Remove the list item
-          meals.fillList(); //Update meals list
-          var request = dbHandler.deleteItem(parseInt(control.id), "meals");
+          recipes.fillList(); //Update recipes list
+          var request = dbHandler.deleteItem(parseInt(control.id), "recipes");
         }
       });
     }
@@ -276,75 +291,75 @@ $(document).on("hold", "#meals #meal-list ons-list-item", function(){
 });
 
 //Checkbox selection
-$(document).on("change", "#meals #meal-list ons-checkbox", function(e){
-  var checked = $("#meals #meal-list input[name=meal-checkbox]:checked"); //Get all checked items
-  checked.length > 0 ? $("#meals #submit").show() : $("#meals #submit").hide();
+$(document).on("change", "#recipes #recipe-list ons-checkbox", function(e){
+  var checked = $("#recipes #recipe-list input[name=recipe-checkbox]:checked"); //Get all checked items
+  checked.length > 0 ? $("#recipes #submit").show() : $("#recipes #submit").hide();
 });
 
-//Add meals to diary
-$(document).on("tap", "#meals #submit", function(){
+//Add recipes to diary
+$(document).on("tap", "#recipes #submit", function(){
 
-  var meals = $("#meals #meal-list input[name=meal-checkbox]:checked"); //Get selected meal checkboxes
+  var recipes = $("#recipes #recipe-list input[name=recipe-checkbox]:checked"); //Get selected recipe checkboxes
 
-  if (meals.length > 0)
+  if (recipes.length > 0)
   {
-    for (var i = 0; i < meals.length; i++) //Each meal
+    for (var i = 0; i < recipes.length; i++) //Each recipe
     {
-      var foods = JSON.parse(meals[i].offsetParent.attributes.data.value)["foods"]; //Get food data from attribute
+      var data = JSON.parse(recipes[i].offsetParent.attributes.data.value); //Recipe data
 
-      for (var f = 0; f < foods.length; f++)
-      {
-        diary.addEntry(foods[f]);
-      }
+      var item = {
+        "name":data.name,
+        "recipeId":data.id,
+        "nutrition":data.nutrition,
+        "portion":data.portion,
+        "quantity":1
+      };
+
+      diary.addEntry(item);
     }
     nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
   }
 
 });
 
-//Initialise meal edit page
-$(document).on("init", "ons-page#edit-meal", function(){
-  $("#edit-meal ons-list#foods").append(""); //Clear list
+//Initialise recipe edit page
+$(document).on("init", "ons-page#edit-recipe", function(){
+  $("#edit-recipe ons-list#foods").append(""); //Clear list
 });
 
-//Show edit meal form
-$(document).on("show", "#edit-meal", function(){
+//Show edit recipe form
+$(document).on("show", "#edit-recipe", function(){
 
-  meals.localize();
-  meals.validateEditForm();
-  $("#edit-meal #title").html(app.strings["meals"]["edit-meal"]["title1"]); //Default title
+  recipes.localize();
+  recipes.validateEditForm();
+  $("#edit-recipe #title").html(app.strings["recipes"]["edit-recipe"]["title1"]); //Default title
 
   if (this.data.foodIds) //Food ids passed from food list
   {
-    meals.getFoods(this.data.foodIds)
+    recipes.getFoods(this.data.foodIds)
     .then(function(foods)
     {
       for (var i = 0; i < foods.length; i++)
       {
         //Display food items
-        $("#edit-meal ons-list#foods").append(meals.renderFoodItem(foods[i]));
-        meals.renderTotalNutrition(meals.getTotalNutrition());
+        $("#edit-recipe ons-list#foods").append(recipes.renderFoodItem(foods[i]));
+        recipes.renderTotalNutrition(recipes.getTotalNutrition());
       }
-      meals.validateEditForm();
+      recipes.validateEditForm();
     });
   }
-  else if (this.data.id) //Meal data for existing meal
+  else if (this.data.id) //Recipe data for existing recipe
   {
-    $("#edit-meal #title").html(app.strings["meals"]["edit-meal"]["title2"]);
-    meals.fillEditForm(this.data) //Populate edit screen with data
-    .then(() => meals.validateEditForm());
+    $("#edit-recipe #title").html(app.strings["recipes"]["edit-recipe"]["title2"]);
+    recipes.fillEditForm(this.data) //Populate edit screen with data
+    .then(() => recipes.validateEditForm());
   }
 
   this.data = {};
 });
 
-//Edit meal name
-$(document).on("keyup", "#edit-meal #name", function(){
-  meals.validateEditForm();
-});
-
-//Delete food from meal
-$(document).on("hold", "#edit-meal #foods ons-list-item", function(){
+//Delete food from recipe
+$(document).on("hold", "#edit-recipe #foods ons-list-item", function(){
 
   var control = this; //The control that triggered the callback
 
@@ -353,14 +368,14 @@ $(document).on("hold", "#edit-meal #foods ons-list-item", function(){
   .then(function(input) {
     if (input == 1) {//Delete was confirmed
       $(control).remove(); //Remove the list item
-      meals.renderTotalNutrition(meals.getTotalNutrition());
-      meals.validateEditForm();
+      recipes.renderTotalNutrition(recipes.getTotalNutrition());
+      recipes.validateEditForm();
     }
   });
 });
 
 //Tap on food item
-$(document).on("click", "#edit-meal #foods ons-list-item", function(e){
+$(document).on("click", "#edit-recipe #foods ons-list-item", function(e){
 
   var control = this;
   var data = JSON.parse($(this).attr("data"));
@@ -373,32 +388,33 @@ $(document).on("click", "#edit-meal #foods ons-list-item", function(e){
   {
     if (!isNaN(parseFloat(input)))
     {
-      meals.changePortion(control, input, unit)
-      meals.renderTotalNutrition(meals.getTotalNutrition());
+      recipes.changePortion(control, input, unit)
+      recipes.renderTotalNutrition(recipes.getTotalNutrition());
     }
   });
 });
 
 //Submit edit form
-$(document).on("tap", "#edit-meal #submit", function(){
-  meals.update()
+$(document).on("tap", "#edit-recipe #submit", function(){
+  recipes.update()
   .then(() => nav.popPage());
 });
 
-$(document).on("keyup", "#meals #filter", function(e){
+//List filter
+$(document).on("keyup", "#recipes #filter", function(e){
 
-  $("#meals #submit").hide();
+  $("#recipes #submit").hide();
 
   if (this.value == "") //Search box cleared, reset the list
   {
-    meals.fillListFromDB()
+    recipes.fillListFromDB()
     .then(function(){
-      meals.renderMealsList(meals.list);
+      recipes.renderRecipesList(recipes.list);
     });
   }
   else { //Filter the list
-    var filteredList = meals.filterList(this.value);
-    meals.renderMealsList(filteredList);
+    var filteredList = recipes.filterList(this.value);
+    recipes.renderRecipesList(filteredList);
   }
 
 });

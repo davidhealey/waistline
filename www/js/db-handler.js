@@ -26,7 +26,7 @@ var dbHandler =
     return new Promise(function(resolve, reject){
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 25;
+      var databaseVersion = 27;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -92,6 +92,7 @@ var dbHandler =
           if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {unique:false}); //Index of the category
           if (!store.indexNames.contains("category_name")) store.createIndex('category_name', 'category_name', {unique:false}); //user assigned name of the category
           if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {unique:false}); //ID of food in food object store - might be useful for some stuff
+          if (!store.indexNames.contains("recipeId")) store.createIndex('recipeId', 'recipeId', {unique:false}); //ID of recipe in recipe object store - might be useful for some stuff
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //All of the nutrition per portion
 
           //Meals store
@@ -103,10 +104,23 @@ var dbHandler =
 
           if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false});
           if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false}); //Meal name
-          if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {unique:false}); //Food items - record is separate from foods table
+          if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {unique:false}); //Food or recipe items
           if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Total nutritional values for the whole meal
-          if (!store.indexNames.contains("notes")) store.createIndex('notes', 'notes', {unique:false}); //Useful to add notes to meals
-          
+
+          //Recipes store
+          if (!DB.objectStoreNames.contains("recipes")) {
+            store = DB.createObjectStore("recipes", {keyPath:'id', autoIncrement:true});
+          } else {
+            store = upgradeTransaction.objectStore('recipes');
+          }
+
+          if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {unique:false});
+          if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {unique:false}); //Recipe name
+          if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {unique:false}); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
+          if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {unique:false}); //Food items - record is separate from foods table
+          if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {unique:false}); //Total nutritional values for the whole recipe
+          if (!store.indexNames.contains("notes")) store.createIndex('notes', 'notes', {unique:false}); //Useful to add notes to recipes
+
           dbHandler.upgradeData(e.oldVersion, upgradeTransaction);
 
           console.log("DB Created/Updated");

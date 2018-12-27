@@ -180,6 +180,7 @@ var diary = {
 
       var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
       var foodId = data.id;
+      var recipeId = data.recipeId;
 
       var entryData = {
         "dateTime":diary.date,
@@ -190,7 +191,8 @@ var diary = {
         "nutrition":data.nutrition,
         "category":diary.category,
         "category_name":categories[diary.category],
-        "foodId":foodId
+        "foodId":foodId,
+        "recipeId":recipeId
       };
 
       var request = dbHandler.insert(entryData, "diary"); //Add item to diary
@@ -304,7 +306,7 @@ $(document).on("tap", "#diary-page ons-list-item", function(e) {
 //Header tap action
 $(document).on("tap", "#diary-page ons-list-title", function(e) {
   diary.category = $(this).attr("category-idx"); //Assign category from header ID
-  nav.pushPage("activities/food-list/views/food-list.html"); //Go to the food list page
+  nav.pushPage("activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
 });
 
 //Header hold

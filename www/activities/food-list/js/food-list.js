@@ -49,10 +49,12 @@ var foodList = {
 
   setFilter : function(term)
   {
+    var list = this.list;
+
     if (term) {
       var exp = new RegExp(term, "i");
 
-      list = this.list.filter(function (el) {
+      list = list.filter(function (el) {
         if (el.name || el.brand) return el.name.match(exp) || el.brand.match(exp);
       });
     }
@@ -212,9 +214,8 @@ var foodList = {
       var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
       //Add a space at the begining of unit, unless it is usually displayed without a leading space
-      var standardUnits = ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"];
       var unit = form.unit.value.trim(); //Remove any whitespace by default
-      if (standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+      if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
 
       //Get form values
       var id = parseInt(form.id.value); //ID is hidden field
@@ -584,22 +585,10 @@ var foodList = {
 }
 
 //Food list page display
-$(document).on("show", "#food-list-page", function(e){
+$(document).on("show", "ons-page#food-list-page", function(){
 
-  var lastPage = this.previousSibling || null; //Get ID of previous page
-  foodList.lastPageId = null; //Reset class variable
-
-  if (lastPage != null)
-  {
-    foodList.lastPageId = lastPage.id; //Make it available throughout the class
-
-    $("#food-list-page #menu-button").hide(); //Hide menu button, back button will be visible instead
-    if (lastPage.id == "edit-meal") $("#food-list-page #meal-button").hide(); //If we got here from the meal edit page, hide the meal button
-  }
-  else { //No last page
-    $("#food-list-page #back-button").hide();
-    $("#food-list-page #meal-button").hide();
-  }
+  //Hide the menu button or back button depending on where the page is in the navigator stack
+  nav.pages.length > 1 ? $("#food-list-page #menu-button").hide() : $("#food-list-page ons-back-button").hide(); //Hide button based on context
 
   $("#food-list-page ons-progress-circular").hide(); //Hide circular progress indicator
   $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
@@ -658,13 +647,11 @@ $(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
   {
     $("#food-list-page ons-toolbar-button#submit").show(); //show submit button
     $("#food-list-page ons-toolbar-button#scan").hide(); //hide scan button
-    $("#food-list-page #meal-button").hide(); //Hide meal button
   }
   else
   {
     $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
     $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
-    if (foodList.lastPageId != null) $("#food-list-page #meal-button").show(); //Show meal button
   }
 });
 
@@ -675,9 +662,9 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 
   if (checked.length > 0) //At least 1 item was selected
   {
-    if (foodList.lastPageId == "diary-page" || foodList.lastPageId == null)
+    if (nav.pages[nav.pages.length-2].id == "diary-page" || nav.pages.length == 1)
     {
-      if (foodList.lastPageId == null) //No last page
+      if (nav.pages.length == 1) //No last page
       {
         //Allow user to select diary category
         var categories = JSON.parse(app.storage.getItem("meal-names"));
@@ -717,11 +704,11 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
         nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
       }
     }
-    else if (foodList.lastPageId == "edit-meal")
+    else if (nav.pages[nav.pages.length-2].id == "edit-meal" || nav.pages[nav.pages.length-2].id == "edit-recipe")
     {
       var foodIds = [];
 
-      //Make array of food IDs to be added to meal
+      //Make array of food IDs to be added to meal/recipe
       for (var i = 0; i < checked.length; i++)
       {
         foodIds.push(JSON.parse(checked[i].offsetParent.attributes.data.value)["id"]);

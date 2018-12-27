@@ -21,6 +21,7 @@ var app = {
 
   storage:{}, //Local storage
   strings: {},
+  standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
 
   // Application Constructor
   initialize: function()

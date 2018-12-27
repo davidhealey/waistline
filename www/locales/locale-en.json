@@ -126,12 +126,25 @@
 
   "meals":{
     "title":"Meals",
-    "filter":"Filter Meals",
+    "filter":"Search Meals",
     "edit-meal":{
       "title1":"Add Meal",
       "title2":"Edit Meal",
       "placeholders":{
         "name":"Meal Name",
+        "notes":"Notes..."
+      }
+    }
+  },
+
+  "recipes":{
+    "title":"Recipes",
+    "filter":"Search Recipes",
+    "edit-recipe":{
+      "title1":"Add Recipe",
+      "title2":"Edit Recipe",
+      "placeholders":{
+        "name":"Recipe Name",
         "notes":"Notes..."
       }
     }
