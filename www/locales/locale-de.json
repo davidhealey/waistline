@@ -147,6 +147,11 @@
       "instructions1": "Nutze die Kästchen unten um die Namen der Mahlzeiten im Tagebuch zu ändern.",
       "instructions2": "Leere Kästchen werden ignoriert.",
       "meal": "Mahlzeit"
+    },
+    "foods": {
+      "brand-position": "Product name before brand",
+      "sort": "Sort foods alphabetically",
+      "country": "Country"
     }
   },
   "dialogs": {
