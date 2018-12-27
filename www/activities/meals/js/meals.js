@@ -219,8 +219,44 @@ var meals = {
   {
     $("#meals #filter").attr("placeholder", app.strings["meals"]["filter"]);
     $("#edit-meal #meal-data #name").attr("placeholder", app.strings["meals"]["edit-meal"]["placeholders"]["name"]);
-  }
+  },
 
+  getYesterdaysMeal : function()
+  {
+    return new Promise(function(resolve, reject){
+      var categoryId = diary.getCategory(); //Get last selected category from diary
+      var categoryName = JSON.parse(app.storage.getItem("meal-names"))[categoryId]
+
+      //Get yesterday's date at midnight
+      var yesterday = app.getDateAtMidnight();
+      yesterday.setUTCHours(yesterday.getUTCHours()-24);
+
+      //Get meal data from the diary
+      diary.getMeal(yesterday, categoryId)
+      .then(function(data){
+
+        if (data.length > 0)
+        {
+          var item = {"dateTime":yesterday, "id":-1, "name":escape("Yesterday's " + categoryName), "foods":[], "nutrition": {}};
+
+          for (var i = 0; i < data.length; i++)
+          {
+            //Add to item's foods array
+            item.foods.push({"brand":data[i].brand, "name":data[i].name, "id":data[i].foodId, "nutrition":data[i].nutrition, "portion":data[i].portion});
+
+            //Item's nutrition object
+            for (k in data[i].nutrition)
+            {
+              item.nutrition[k] = item.nutrition[k] || 0;
+              item.nutrition[k] += data[i].nutrition[k];
+            }
+          }
+          resolve(item);
+        }
+        resolve(null);
+      });
+    });
+  }
 }
 
 //Show meals page
@@ -234,8 +270,23 @@ $(document).on("show", "ons-page#meals", function(e){
 
   meals.localize();
 
+  //Fill the meal list and add yesterday's meal (for the last selected diary category) to the start of the list
   meals.fillListFromDB()
-  .then(function(){meals.renderMealsList(meals.list)});
+  .then(function(){
+    if (nav.pages.length > 1) //If this page was called from the diary
+    {
+      meals.getYesterdaysMeal()
+      .then(function(yesterdaysMeal)
+      {
+        if (yesterdaysMeal) meals.list.unshift(yesterdaysMeal); //Add yesterday's meal to start of list
+        meals.renderMealsList(meals.list)
+      });
+    }
+    else //Did not arrive here from the diary page so don't worry about getting yesterday's meal
+    {
+      meals.renderMealsList(meals.list)
+    }
+  });
 });
 
 //@Todo Double tap on meal item
@@ -250,29 +301,32 @@ $(document).on("hold", "#meals #meal-list ons-list-item", function(){
   var control = this; //The control that triggered the callback
   var data = JSON.parse($(this).attr("data"));
 
-  //Ask the user to select the type of image
-  ons.openActionSheet({
-    cancelable: true,
-    buttons: ['Edit', 'Delete']
-  })
-  .then(function(input){
-    if (input == 0) //Edit
-    {
-      nav.pushPage("activities/meals/views/edit-meal.html", {"data":data});
-    }
-    else if (input == 1) //Delete
-    {
-      //Show confirmation dialog
-      ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
-      .then(function(input) {
-        if (input == 1) {//Delete was confirmed
-          $(control).remove(); //Remove the list item
-          meals.fillList(); //Update meals list
-          var request = dbHandler.deleteItem(parseInt(control.id), "meals");
-        }
-      });
-    }
-  });
+  if (data.id != -1) //Yesterday's meals can't be edited or deleted
+  {
+    //Ask the user to select the type of image
+    ons.openActionSheet({
+      cancelable: true,
+      buttons: ['Edit', 'Delete']
+    })
+    .then(function(input){
+      if (input == 0) //Edit
+      {
+        nav.pushPage("activities/meals/views/edit-meal.html", {"data":data});
+      }
+      else if (input == 1) //Delete
+      {
+        //Show confirmation dialog
+        ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
+        .then(function(input) {
+          if (input == 1) {//Delete was confirmed
+            $(control).remove(); //Remove the list item
+            meals.fillList(); //Update meals list
+            var request = dbHandler.deleteItem(parseInt(control.id), "meals");
+          }
+        });
+      }
+    });
+  }
 });
 
 //Checkbox selection

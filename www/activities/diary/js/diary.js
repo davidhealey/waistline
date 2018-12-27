@@ -23,9 +23,36 @@ var diary = {
   date: app.getDateAtMidnight(),
   consumption:{}, //Nutrition consumed for current diary date
 
+  getCategory : function()
+  {
+    return diary.category;
+  },
+
   setCategory : function(index)
   {
     diary.category = index;
+  },
+
+  //Returns the diary entry for the specified date and category
+  getMeal : function(dateTime, category)
+  {
+    return new Promise(function(resolve, reject){
+
+      var results = [];
+
+      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.only(dateTime)).onsuccess = function(e) //Filter by date
+      {
+        var cursor = e.target.result;
+        if (cursor) {
+          if (cursor.value.category == category) results.push(cursor.value); //Filter by category
+          cursor.continue();
+        }
+        else
+        {
+          resolve(results);
+        }
+      }
+    });
   },
 
   populate : function()
