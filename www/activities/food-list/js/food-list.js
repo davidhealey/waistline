@@ -49,12 +49,10 @@ var foodList = {
 
   setFilter : function(term)
   {
-    var list = this.list; //Allow partial match and case insensitive
-
     if (term) {
       var exp = new RegExp(term, "i");
 
-      list = list.filter(function (el) {
+      list = this.list.filter(function (el) {
         if (el.name || el.brand) return el.name.match(exp) || el.brand.match(exp);
       });
     }
@@ -87,7 +85,9 @@ var foodList = {
           html += "</label>";
           html += "<label for='food-item"+i+"' class='center'>";
           html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
-          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].brand) + ": " + list[i].portion + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
+          html += "<ons-row style='color:#636363;'><i>";
+          if (list[i].brand) html += unescape(list[i].brand) + ": ";
+          html += list[i].portion + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
         }
 
         html += "</label>";
