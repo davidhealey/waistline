@@ -147,6 +147,11 @@
       "instructions1": "Använd rutorna nedan för att anpassa måltidsnamnen som används i dagboken för mat.",
       "instructions2": "Alla rutor som är tomma ignoreras.",
       "meal": "Måltid"
+    },
+    "foods": {
+      "brand-position": "Product name before brand",
+      "sort": "Sort foods alphabetically",
+      "country": "Country"
     }
   },
   "dialogs": {
