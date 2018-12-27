@@ -68,7 +68,7 @@
     }
   },
   "food-list": {
-    "title": "Liste des produits",
+    "title": "Foods",
     "search": "Recherche un produit",
     "name-of-food": "Nom du produit",
     "no-results": "Aucun résultat trouvé",
@@ -110,9 +110,21 @@
       }
     }
   },
+  "meals": {
+    "title": "Meals",
+    "filter": "Search Meals",
+    "edit-meal": {
+      "title1": "Add Meal",
+      "title2": "Edit Meal",
+      "placeholders": {
+        "name": "Meal Name",
+        "notes": "Notes..."
+      }
+    }
+  },
   "recipes": {
     "title": "Recettes",
-    "filter": "Filtrer les recettes",
+    "filter": "Search Recipes",
     "edit-recipe": {
       "title1": "Ajouter une recette",
       "title2": "Éditer une recette",
@@ -199,14 +211,14 @@
       "p5": "Quand vous exécutez Waistline pour la première fois, l'application génère un ID unique. Cet ID est automatiquement ajouté dans les commentaires d'un produit quand vous envoyez un produit sur Open Food Facts.",
       "p6": "Le but de cet ID est d'aider les mainteneurs de la base de données Open Food Facts à détecter les erreurs et prévenir les abus de leur système."
     },
-    "recipes": {
-      "title": "Recettes",
-      "p1": "Dans l'écran des recettes, vous pouvez combiner des produits alimentaires pour créer une nouvelle entrée nommée recette. Appuyez sur le bouton plus (+) flottant pour créer une nouvelle recette ou appuyez deux fois sur une recette existante pour pouvoir l'éditer. Pour supprimer une recette, appuyez longuement sur la recette et confirmez la suppression.",
-      "p2": "L'écran d'édition d'une recette vous permet d'entrer un nom pour la recette ainsi qu'autant de notes que vous le souhaitez. Vous pouvez appuyez sur le bouton plus (+) flottant de cet écran pour sélectionner les produits que vous voulez ajouter à votre recette.",
-      "p3": "Vous pouvez éditer la quantité de chaque produit que vous avez ajouté en appuyant sur le produit et en entrant une valeur dans la fenêtre qui apparaît. Au-dessus de la liste des produits, vous verrez les informations nutritionnelles totales pour tous les produits de la recette. Vous pouvez défiler à l'intérieur de cette zone pour voir plus d'informations.",
-      "p4": "Une fois que vous êtes satisfaits de votre recette, vous pouvez appuyer sur le bouton de sauvegarde dans la barre supérieure.",
-      "p5": "La procédure basique pour ajouter une recette à votre journal est similaire à l'ajout d'un produit. Appuyez sur le nom d'un repas dans l'écran du journal pour arriver sur l'écran d'ajout de produits. Sur cet écran, vous verrez une icône de signet dans la barre supérieure, appuyez dessus vous enverra sur l'écran des recettes.",
-      "p6": "Quand vous ajoutez une recette à votre journal, tous les produits de la recette sont ajoutés individuellement, ce qui vous permet d'adapter la recette comme désirée sans avoir à créer des multiples recettes avec peu de différences."
+    "meals": {
+      "title": "Meals",
+      "p1": "On the meals screen you can combine food items to create a new item called a meal. Click on the floating plus button to create a new meal. You can edit or delete an existing meal by tapping and holding on it and selecting from the options that pop up.",
+      "p2": "The edit meal screen allows you to enter a name for the meal and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your meal.",
+      "p3": "You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the meal. You can swipe on this area to see more information.",
+      "p4": "Once you're happy with your meal you can tap the check button on the top toolbar to save it.",
+      "p5": "The basic procedure to add a meal to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the meals screen.",
+      "p6": "When you add a meal to your diary all of the foods from the meal will be added individually, this allows you to further customise the meal as needed without having to create multiple meals for different variations."
     },
     "goals": {
       "title": "Objectifs",
