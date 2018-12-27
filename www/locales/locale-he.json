@@ -147,6 +147,11 @@
       "instructions1": "יש להשתמש בתיבות שלהלן כדי להתאים את שמות הארוחות בהן נעשה שימוש ביומן המזון.",
       "instructions2": "כל התיבות שנשארות ריקות לא יוכללו.",
       "meal": "ארוחה"
+    },
+    "foods": {
+      "brand-position": "Product name before brand",
+      "sort": "Sort foods alphabetically",
+      "country": "Country"
     }
   },
   "dialogs": {
