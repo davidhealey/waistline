@@ -49,17 +49,13 @@ var foodList = {
 
   setFilter : function(term)
   {
-    var list = this.list;
-    console.log(list);
+    var list = this.list; //Allow partial match and case insensitive
+
     if (term) {
-      //Allow partial match and case insensitive
       var exp = new RegExp(term, "i");
 
-      list = list.filter(function(el){
-        if (el.name || el.brand) //Filter out entries that for some reason don't have a name or brand
-        {
-          return el.name.match(exp) || el.brand.match(exp)
-        }
+      list = list.filter(function (el) {
+        if (el.name || el.brand) return el.name.match(exp) || el.brand.match(exp);
       });
     }
     this.populate(list);
