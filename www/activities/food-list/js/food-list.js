@@ -30,7 +30,12 @@ var foodList = {
 
       foodList.list = []; //Clear list
 
-      dbHandler.getIndex("dateTime", "foodList").openCursor(null, "prev").onsuccess = function(e)
+      if (app.storage.getItem("sort-foods") == "true")
+        dbHandler.getIndex("name", "foodList").openCursor(null).onsuccess = processResult; //Sort foods alphabetically
+      else
+        dbHandler.getIndex("dateTime", "foodList").openCursor(null, "prev").onsuccess = processResult; //Sort foods by date
+
+      function processResult(e)
       {
         var cursor = e.target.result;
 

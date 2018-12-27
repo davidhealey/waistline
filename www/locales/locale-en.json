@@ -163,6 +163,11 @@
       "instructions1":"Use the boxes below to customise the meal names used in the food diary.",
       "instructions2":"Any boxes left empty will be ignored.",
       "meal":"Meal"
+    },
+    "foods":{
+      "brand-position":"Product name before brand",
+      "sort":"Sort foods alphabetically",
+      "country":"Country"
     }
   },
 

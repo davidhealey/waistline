@@ -26,7 +26,7 @@
 
   <ons-list>
     <ons-list-item>
-       <div class="center" data-localize="settings.brand-position">
+       <div class="center" data-localize="settings.foods.brand-position">
          Product name before brand
        </div>
        <div class="right">
@@ -34,8 +34,17 @@
        </div>
     </ons-list-item>
 
+    <ons-list-item>
+       <div class="center" data-localize="settings.foods.sort">
+         Sort foods alphabetically
+       </div>
+       <div class="right">
+         <ons-switch id="sort-foods" name="sort-foods" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+       </div>
+    </ons-list-item>
+
     <ons-list-item expandable>
-      <div data-localize="settings.food-list.countries">Country</div>
+      <div data-localize="settings.foods.country">Country</div>
       <div class="expandable-content">
         <ons-select name="food-list-country" id="food-list-country" data-native-menu="false" onchange="settings.saveSelect(this.id, this.value);">
           <option value="France">France</option>
