@@ -147,6 +147,11 @@
       "instructions1": "Utiliser les textes ci-dessous pour personnaliser le nom des repas dans le journal.",
       "instructions2": "Tous les textes vides seront ignorés.",
       "meal": "Repas"
+    },
+    "foods": {
+      "brand-position": "Product name before brand",
+      "sort": "Sort foods alphabetically",
+      "country": "Country"
     }
   },
   "dialogs": {
