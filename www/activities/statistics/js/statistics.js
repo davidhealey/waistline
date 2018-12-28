@@ -85,6 +85,9 @@ var statistics = {
 
     for (k in data.nutrition)
     {
+      if (app.storage.getItem("salt_to_sodium") == "true" && k == "salt") continue;
+      if (app.storage.getItem("salt_to_sodium") == "false" && k == "sodium") continue;
+
       c = (c + 1) % colours.length;
       dataset = {};
       dataset.label = app.strings[k];
@@ -143,6 +146,10 @@ var statistics = {
         for (g in data.goals)
         {
           if (g == "weight") continue; //Weight is handled separately
+
+          //Hide salt/sodium depending on user preference
+          if (app.storage.getItem("salt_to_sodium") == "true" && g == "salt") continue;
+          if (app.storage.getItem("salt_to_sodium") == "false" && g == "sodium") continue;
 
           //Set colour for remaining text
           data.nutrition[g] < data.goals[g] ? colour = "green" : colour = "red";
