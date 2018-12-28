@@ -203,7 +203,7 @@ var meals = {
       for (n in data.nutrition)
       {
         nutrition[n] = nutrition[n] || 0;
-        nutrition[n] += data.nutrition[n];
+        n != "sodium" ? nutrition[n] += data.nutrition[n] : nutrition[n] += data.nutrition[n] / 1000;
       }
     }
 
@@ -216,7 +216,12 @@ var meals = {
   {
     for (n in nutrition)
     {
-      n == "calories" ? $("#edit-meal #"+n).html(nutrition[n].toFixed(0)) : $("#edit-meal #"+n).html(nutrition[n].toFixed(1) + "g");
+      switch (n)
+      {
+        case "calories": $("#edit-meal #"+n).html(nutrition[n].toFixed(0)); break;
+        case "sodium": $("#edit-meal #"+n).html(nutrition[n].toFixed(4) + "mg"); break;
+        default: $("#edit-meal #"+n).html(nutrition[n].toFixed(1) + "g");
+      }
     }
   },
 
@@ -371,7 +376,13 @@ $(document).on("show", "#edit-meal", function(){
 
   meals.localize();
   meals.validateEditForm();
-  $("#edit-meal #title").html(app.strings["meals"]["edit-meal"]["title1"]); //Default title
+
+  //Default title
+  $("#edit-meal #title").html(app.strings["meals"]["edit-meal"]["title1"]);
+
+  //Hide salt/sodium depending on user preference
+  app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-meal #salt").hide(0) : $("#edit-meal #sodium").hide(0);
+  app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-meal #salt_heading").hide(0) : $("#edit-meal #sodium_heading").hide(0);
 
   if (this.data.foodIds) //Food ids passed from food list
   {
