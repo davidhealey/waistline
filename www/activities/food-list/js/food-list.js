@@ -82,19 +82,16 @@ var foodList = {
       {
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
         html += "<label class='right'>";
+        html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
+        html += "</label>";
+        html += "<label for='food-item"+i+"' class='center'>";
 
         if (app.storage.getItem("brand-position") == "false")
         {
-          html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
-          html += "</label>";
-          html += "<label for='food-item"+i+"' class='center'>";
           if (list[i].brand) html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
           html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + ": " + parseFloat(list[i].portion) + unit + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
         }
         else {
-          html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
-          html += "</label>";
-          html += "<label for='food-item"+i+"' class='center'>";
           html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
           html += "<ons-row style='color:#636363;'><i>";
           if (list[i].brand) html += unescape(list[i].brand) + ": ";
@@ -123,7 +120,6 @@ var foodList = {
 
       html += "</ons-list-item>";
     }
-
     $("#food-list-page #food-list").html(html); //Insert into HTML
   },
 
@@ -293,7 +289,7 @@ var foodList = {
       request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
       request.send();
 
-      $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
+      $("#food-list-page ons-progress-circular").show(0); //Circular progress indicator
 
       request.onreadystatechange = function(){
 
@@ -359,7 +355,7 @@ var foodList = {
     request.open("GET", query, true);
     request.send();
 
-    $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
+    $("#food-list-page ons-progress-circular").show(0); //Circular progress indicator
 
     request.onreadystatechange = function(){
 
@@ -483,7 +479,7 @@ var foodList = {
         var imageData = {"imagefield":imageTypes[input], "path":image, "uploadType":"imgupload_"+imageTypes[input]};
         foodList.images.push(imageData);
 
-        $("#upload-food-item #images").show(); //Reveal image card
+        $("#upload-food-item #images").show(0); //Reveal image card
 
         var html ="<ons-carousel-item id='"+input+"'>";
         html += "<img style='width:95%;' src='"+image+"'></img>";
@@ -613,8 +609,7 @@ $(document).on("show", "ons-page#food-list-page", function(){
 
   $("#food-list-page ons-progress-circular").hide(0); //Hide circular progress indicator
   $("#food-list-page ons-toolbar-button#submit").hide(0); //Hide submit button until items are checked
-  $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
-  foodList.populate(foodList.list);
+  $("#food-list-page ons-toolbar-button#scan").show(0); //show scan button
 });
 
 $(document).on("init", "#food-list-page", function(e){
@@ -627,7 +622,7 @@ $(document).on("init", "#food-list-page", function(e){
 $(document).on("input", "#food-list-page #filter", function(e){
 
   $("#food-list-page ons-toolbar-button#submit").hide(0); //Hide submit button until items are checked
-  $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+  $("#food-list-page ons-toolbar-button#scan").show(0); //show scan button
 
   foodList.setFilter(this.value);
 });
@@ -663,16 +658,18 @@ $(document).on("hold", "#food-list-page #food-list ons-list-item", function(e) {
 });
 
 $(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
+
   var checked = $('input[name=food-item-checkbox]:checked'); //Get all checked items
+
   if (checked.length > 0)
   {
-    $("#food-list-page ons-toolbar-button#submit").show(); //show submit button
+    $("#food-list-page ons-toolbar-button#submit").show(0); //show submit button
     $("#food-list-page ons-toolbar-button#scan").hide(0); //hide scan button
   }
   else
   {
     $("#food-list-page ons-toolbar-button#submit").hide(0); //hide submit button
-    $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
+    $("#food-list-page ons-toolbar-button#scan").show(0); //show scan button
   }
 });
 
@@ -811,7 +808,7 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
   if (foodList.validateUploadForm() == true)
   {
     //Diplay uploading indicator
-    $("#upload-food-item ons-modal").show();
+    $("#upload-food-item ons-modal").show(0);
 
     foodList.uploadProductInfoToOFF(data) //Upload data
     .then(function(response){
