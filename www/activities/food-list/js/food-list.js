@@ -88,7 +88,7 @@ var foodList = {
           html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
           html += "</label>";
           html += "<label for='food-item"+i+"' class='center'>";
-          html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
+          if (list[i].brand) html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
           html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + ": " + parseFloat(list[i].portion) + unit + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
         }
         else {
@@ -108,13 +108,14 @@ var foodList = {
         html += "<ons-list-item modifier='chevron' tappable class='searchItem' data='"+JSON.stringify(list[i])+"'>";
         if (app.storage.getItem("brand-position") == "false")
         {
-          html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-          html += "<ons-row>" + unescape(list[i].name) + " - " + parseFloat(list[i].portion) + unit + "</ons-row>"
+          if (list[i].brand) html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
+          html += "<ons-row>" + unescape(list[i].name) + " - " + parseFloat(list[i].portion) + unit + "</ons-row>";
         }
         else
         {
           html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
-          html += "<ons-row>" + unescape(list[i].brand) + " - " + parseFloat(list[i].portion) + unit + "</ons-row>"
+          if (list[i].brand) html += "<ons-row>" + unescape(list[i].brand) + " - ";
+          html += parseFloat(list[i].portion) + unit + "</ons-row>";
         }
 
         html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
@@ -343,9 +344,14 @@ var foodList = {
     //Get country name
     var country = app.storage.getItem("food-list-country");
 
-    var request = new XMLHttpRequest();
+    //Build search string
+    var query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=200";
+    if (app.storage.getItem("food-list-country") != "All") query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+    query += "&sort_by=last_modified_t&action=process&json=1";
 
-    request.open("GET", "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&countries="+country+"&sort_by=last_modified_t&action=process&json=1", true);
+    //Create request
+    var request = new XMLHttpRequest();
+    request.open("GET", query, true);
     request.send();
 
     $("#food-list-page ons-progress-circular").show(); //Circular progress indicator
@@ -772,7 +778,10 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 $(document).on("init", "#upload-food-item", function(e){
   foodList.setUploadCredentials();
   foodList.localizeUploadForm();
-  $("#upload-item-form #countries").val(app.storage.getItem("food-list-country")); //Set upload country
+
+  //Set upload country
+  if (app.storage.getItem("food-list-country") != "All")
+    $("#upload-item-form #countries").val(app.storage.getItem("food-list-country"));
 });
 
 $(document).on("show", "#upload-food-item", function(e){
