@@ -448,10 +448,10 @@ var foodList = {
         salt: product.nutriments.salt,
         sodium: product.nutriments.sodium
       }
-
       //Kilojules to kcalories
       if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = item.nutrition.calories / 4.15);
     }
+
     return item;
   },
 
