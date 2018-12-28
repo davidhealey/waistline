@@ -53,7 +53,7 @@ var statistics = {
               for (k in cursor.value.nutrition)
               {
                 data.nutrition[k] = data.nutrition[k] || [];
-                data.nutrition[k].push(cursor.value.nutrition[k]);
+                k != "sodium" ? data.nutrition[k].push(cursor.value.nutrition[k]) : data.nutrition[k].push(cursor.value.nutrition[k]/1000);
               }
             }
           }
