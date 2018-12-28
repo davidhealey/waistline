@@ -45,4 +45,5 @@
     <preference name="FadeSplashScreenDuration" value="0" />
     <engine name="android" spec="^7.1.2" />
     <engine name="browser" spec="^5.0.4" />
+    <plugin name="openscale" spec="android_plugins/openscale" />
 </widget>
