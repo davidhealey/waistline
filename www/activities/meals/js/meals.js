@@ -54,19 +54,24 @@ var meals = {
   //Takes data of a food item and adds it to the list
   renderFoodItem : function(data)
   {
+    //Add a space at the begining of unit, unless it is usually displayed without a leading space
+    unit = data.portion.replace(/[0-9]/g, '');
+    if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+
     var html = "";
     html += "<ons-list-item tappable modifier='longdivider' id='"+data.id+"' data='"+JSON.stringify(data)+"'>";
     if (app.storage.getItem("brand-position") == "false")
     {
       html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
-      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+      html += "<ons-row style='color:#636363;'><i>" + unescape(data.name) + ": " + parseFloat(data.portion) + unit + ", " + data.nutrition.calories + "kcal</i></ons-row>";
     }
     else
     {
-      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
-      html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
+      html += "<ons-row>" + unescape(data.name) + " - " + parseFloat(data.portion) + unit + "</ons-row>";
+      html += "<ons-row style='color:#636363;'><i>";
+      if (data.brand) html += unescape(data.brand) + ": ";
+      html += parseFloat(data.portion) + unit + ", " + data.nutrition.calories + "kcal</i></ons-row>";
     }
-    html += "<ons-row style='color:#636363;'><i>" + parseInt(data.nutrition.calories) + " " + app.strings["calories"] + "</i></ons-row>";
     html += "</ons-list-item>";
 
     return html;

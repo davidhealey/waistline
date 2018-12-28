@@ -54,19 +54,24 @@ var recipes = {
   //Takes data of a food item and adds it to the recipe's list
   renderFoodItem : function(data)
   {
+    //Add a space at the begining of unit, unless it is usually displayed without a leading space
+    unit = data.portion.replace(/[0-9]/g, '');
+    if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+
     var html = "";
     html += "<ons-list-item tappable modifier='longdivider' id='"+data.id+"' data='"+JSON.stringify(data)+"'>";
     if (app.storage.getItem("brand-position") == "false")
     {
       html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
-      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
+      html += "<ons-row style='color:#636363;'><i>" + unescape(data.name) + ": " + parseFloat(data.portion) + unit + ", " + data.nutrition.calories + "kcal</i></ons-row>";
     }
     else
     {
-      html += "<ons-row>" + unescape(data.name) + " - " + data.portion + "</ons-row>";
-      html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
+      html += "<ons-row>" + unescape(data.name) + " - " + parseFloat(data.portion) + unit + "</ons-row>";
+      html += "<ons-row style='color:#636363;'><i>";
+      if (data.brand) html += unescape(data.brand) + ": ";
+      html += parseFloat(data.portion) + unit + ", " + data.nutrition.calories + "kcal</i></ons-row>";
     }
-    html += "<ons-row style='color:#636363;'><i>" + parseInt(data.nutrition.calories) + " " + app.strings["calories"] + "</i></ons-row>";
     html += "</ons-list-item>";
 
     return html;
@@ -100,14 +105,10 @@ var recipes = {
       var id = parseInt($("#edit-recipe #recipe-data #id").val()); //Hidden field
       var nutrition = JSON.parse($("#edit-recipe #recipe-data #nutrition").val()); //Hidden field
       var name = escape($("#edit-recipe #recipe-data #name").val());
-      var quantity = escape($("#edit-recipe #recipe-data #quantity").val());
-      var unit = escape($("#edit-recipe #recipe-data #unit").val());
+      var quantity = $("#edit-recipe #recipe-data #quantity").val();
+      var unit = $("#edit-recipe #recipe-data #unit").val().trim();
       var notes = escape($("#edit-recipe #recipe-data #notes").val());
       var foods = [];
-
-      //Add a space at the begining of unit, unless it is usually displayed without a leading space
-      unit = unit.trim(); //Remove any whitespace
-      if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
 
       var listItems = $("#edit-recipe #foods ons-list-item"); //Get food items list
 
@@ -166,13 +167,17 @@ var recipes = {
 
     for (var i = 0; i < list.length; i++)
     {
+      //Add a space at the begining of unit, unless it is usually displayed without a leading space
+      unit = list[i].portion.replace(/[0-9]/g, ''); //Remove any whitespace
+      if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+
       html += "<ons-list-item tappable modifier='longdivider' id='"+list[i].id+"' data='"+JSON.stringify(list[i])+"'>";
       html += "<label class='right'>";
       html += "<ons-checkbox name='recipe-checkbox' input-id='recipe"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
       html += "</label>";
       html += "<label for='recipe"+i+"' class='center'>";
       html += "<ons-row>" + unescape(list[i].name) + "</ons-row>";
-      html += "<ons-row style='color:#636363;'><i>" + list[i].portion + ", " + list[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
+      html += "<ons-row style='color:#636363;'><i>" + parseFloat(list[i].portion) + unit + ", " + list[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
       html += "</label>";
       html += "</ons-list-item>";
     }

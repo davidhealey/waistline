@@ -97,17 +97,21 @@ var diary = {
           //If a user changes the names of their lists then existing diary items won't have a meal category, this line solves that
           lists[value.category] = lists[value.category] || "<ons-list-title id='category"+value.category+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-title>";
 
+          //Add a space at the begining of unit, unless it is usually displayed without a leading space
+          unit = value.portion.replace(/[0-9]/g, '');
+          if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+
           //Build HTML
           html = ""; //Reset variable
           html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tappable>";
           if (app.storage.getItem("brand-position") == "false")
           {
             if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
-            html += "<ons-row><i>"+unescape(value.name) + " - " + unescape(value.portion)+"</i></ons-row>";
+            html += "<ons-row><i>"+unescape(value.name) + " - " + parseFloat(value.portion) + unit +"</i></ons-row>";
           }
           else
           {
-            html += "<ons-row><i>"+unescape(value.name) + " - " + unescape(value.portion)+"</i></ons-row>";
+            html += "<ons-row><i>"+unescape(value.name) + " - " + parseFloat(value.portion) + unit +"</i></ons-row>";
             if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
           }
           html += "<ons-row style='color:#636363;'>";

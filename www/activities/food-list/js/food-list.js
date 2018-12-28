@@ -74,6 +74,10 @@ var foodList = {
     {
       if (list[i].nutrition == undefined || list[i].nutrition.calories == undefined) continue; //Skip if nutrition or calories are undefined
 
+      //Add a space at the begining of unit, unless it is usually displayed without a leading space
+      var unit = list[i].portion.replace(/[0-9]/g, '');
+      if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+
       if (list[i].id) //Item has an ID, then it must already be in the database
       {
         html += "<ons-list-item tappable modifier='longdivider' class='foodListItem' data='"+JSON.stringify(list[i])+"'>";
@@ -85,7 +89,7 @@ var foodList = {
           html += "</label>";
           html += "<label for='food-item"+i+"' class='center'>";
           html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + ": " + list[i].portion + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
+          html += "<ons-row style='color:#636363;'><i>" + unescape(list[i].name) + ": " + parseFloat(list[i].portion) + unit + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
         }
         else {
           html += "<ons-checkbox name='food-item-checkbox' input-id='food-item"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
@@ -94,7 +98,7 @@ var foodList = {
           html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
           html += "<ons-row style='color:#636363;'><i>";
           if (list[i].brand) html += unescape(list[i].brand) + ": ";
-          html += list[i].portion + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
+          html += parseFloat(list[i].portion) + unit + ", " + list[i].nutrition.calories + "kcal</i></ons-row>";
         }
 
         html += "</label>";
@@ -105,12 +109,12 @@ var foodList = {
         if (app.storage.getItem("brand-position") == "false")
         {
           html += "<ons-row>"+unescape(list[i].brand)+"</ons-row>";
-          html += "<ons-row>" + unescape(list[i].name) + " - " + list[i].portion + "</ons-row>"
+          html += "<ons-row>" + unescape(list[i].name) + " - " + parseFloat(list[i].portion) + unit + "</ons-row>"
         }
         else
         {
           html += "<ons-row>"+unescape(list[i].name)+"</ons-row>";
-          html += "<ons-row>" + unescape(list[i].brand) + " - " + list[i].portion + "</ons-row>"
+          html += "<ons-row>" + unescape(list[i].brand) + " - " + parseFloat(list[i].portion) + unit + "</ons-row>"
         }
 
         html += "<ons-row style='color:#636363;'><i>" + list[i].nutrition.calories + " " + app.strings["calories"] + "</i></ons-row>";
@@ -124,7 +128,9 @@ var foodList = {
 
   fillEditForm : function(data)
   {
+    //Set page title
     data.id ? $("#edit-food-item #title").html("Edit Food") : $("#edit-food-item #title").html("Add Food");
+
     $("#edit-food-item #id").val(data.id);
     $("#edit-food-item #barcode").val(data.barcode);
     $("#edit-food-item #name").val(unescape(data.name));
@@ -218,17 +224,13 @@ var foodList = {
       var data = {}; //Data to insert/update in DB
       var form = $("#edit-food-item #edit-item-form")[0]; //Get form data
 
-      //Add a space at the begining of unit, unless it is usually displayed without a leading space
-      var unit = form.unit.value.trim(); //Remove any whitespace by default
-      if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
-
       //Get form values
       var id = parseInt(form.id.value); //ID is hidden field
       data.barcode = form.barcode.value; //Barcode is hidden field
       data.name = escape(form.name.value);
       data.brand = escape(form.brand.value); //Should only be 1 brand per product
       data.image_url = escape($('#edit-food-item #foodImage img').attr("src"));
-      data.portion = form.portion.value + unit;
+      data.portion = form.portion.value + form.unit.value.trim();
       data.nutrition = {
         "calories":parseInt(form.calories.value),
         "protein":parseFloat(form.protein.value),
