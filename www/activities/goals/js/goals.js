@@ -23,8 +23,8 @@ var goals = {
 
   setDefaults : function() //Set stored goals to default
   {
-    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "salt"];
-    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6]; //Womens RDAs
+    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "salt", "sodium"];
+    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2.4]; //Womens RDAs
 
     for (var i = 0; i < types.length; i++) //Each type
     {
@@ -169,6 +169,9 @@ $(document).on("tap", "#goals-list .nutrition", function(e) {
 
 $(document).on("show", "ons-page#goals", function(e) {
   goals.data = JSON.parse(app.storage.getItem("goals")); //Pull data from local storage
+
+  //Hide salt/sodium depending on user preference
+  app.storage.getItem("salt_to_sodium") == "true" ? $("#goals-list #salt").hide(0) : $("#goals-list #sodium").hide(0);
 });
 
 $(document).on("show", "#nutrition", function(e) {
