@@ -1,0 +1,17 @@
+{
+  "name": "openscale",
+  "version": "1.0.0",
+  "description": "openScale cordova plugin",
+  "cordova": {
+    "id": "openscale",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "olie.xdev",
+  "license": "GPL-3.0"
+}
