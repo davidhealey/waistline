@@ -669,7 +669,7 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 
   if (checked.length > 0) //At least 1 item was selected
   {
-    if (nav.pages[nav.pages.length-2].id == "diary-page" || nav.pages.length == 1)
+    if ((nav.pages.length > 2 && nav.pages[nav.pages.length-2].id == "diary-page") || nav.pages.length == 1)
     {
       if (nav.pages.length == 1) //No last page
       {
