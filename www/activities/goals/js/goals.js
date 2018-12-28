@@ -23,7 +23,7 @@ var goals = {
 
   setDefaults : function() //Set stored goals to default
   {
-    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "salt", "sodium"];
+    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "salt"];
     var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2.4]; //Womens RDAs
 
     for (var i = 0; i < types.length; i++) //Each type
@@ -112,7 +112,8 @@ var goals = {
 
     for (var i = 0; i < inputs.length; i++)
     {
-      goals.data[name][inputs[i].id] = inputs[i].value;
+      goals.data[name] = goals.data[name] || {};
+      goals.data[name][inputs[i].id] = parseFloat(inputs[i].value);
     }
 
     //Multi goal checkbox
