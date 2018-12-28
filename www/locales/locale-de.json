@@ -151,7 +151,8 @@
     "foods": {
       "brand-position": "Product name before brand",
       "sort": "Sort foods alphabetically",
-      "country": "Country"
+      "country": "Country",
+      "sodium": "Use sodium instead of salt"
     }
   },
   "dialogs": {
