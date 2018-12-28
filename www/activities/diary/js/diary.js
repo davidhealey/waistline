@@ -188,8 +188,15 @@ var diary = {
 
     for (n in data.nutrition)
     {
-      $("#edit-diary-item #"+n).val(parseFloat(data.nutrition[n] * data.quantity));
+      if (n == "sodium")
+        $("#edit-diary-item #"+n).val(parseFloat(data.nutrition[n] * data.quantity) / 1000); //Sodium is displayed as mg
+      else
+        $("#edit-diary-item #"+n).val(parseFloat(data.nutrition[n] * data.quantity));
     }
+
+    //Hide salt/sodium depending on user preference
+    app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-diary-item #salt").hide(0) : $("#edit-diary-item #sodium").hide(0);
+
     $("#edit-diary-item #category-idx").val(data.category).change();
   },
 

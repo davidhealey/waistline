@@ -147,7 +147,7 @@ var foodList = {
     $("#edit-food-item #fiber").val(data.nutrition.fiber);
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
     $("#edit-food-item #salt").val(parseFloat(data.nutrition.salt).toFixed(2));
-    $("#edit-food-item #sodium").val(parseFloat(data.nutrition.sodium).toFixed(2));
+    $("#edit-food-item #sodium").val(parseFloat(data.nutrition.sodium/1000).toFixed(5));
 
     //Hide salt/sodium depending on user preference
     app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-food-item #salt").hide(0) : $("#edit-food-item #sodium").hide(0);
@@ -245,7 +245,7 @@ var foodList = {
         "sugar":parseFloat(form.sugar.value),
         "fiber":parseFloat(form.fiber.value),
         "salt":parseFloat(form.salt.value),
-        "sodium":parseFloat(form.sodium.value),
+        "sodium":parseFloat(form.sodium.value*1000),
       };
 
       data.dateTime = new Date();
