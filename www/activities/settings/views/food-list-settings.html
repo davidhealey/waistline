@@ -34,6 +34,16 @@
        </div>
     </ons-list-item>
 
+    <ons-list>
+      <ons-list-item>
+         <div class="center" data-localize="settings.foods.sodium">
+           Use sodium instead of salt
+         </div>
+         <div class="right">
+           <ons-switch id="salt_to_sodium" name="salt_to_sodium" tappable onchange="settings.saveSwitches(this);"></ons-switch>
+         </div>
+      </ons-list-item>
+
     <ons-list-item>
        <div class="center" data-localize="settings.foods.sort">
          Sort foods alphabetically

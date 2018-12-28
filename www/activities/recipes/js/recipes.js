@@ -145,7 +145,7 @@ var recipes = {
     }
     else
     {
-      $("#edit-recipe #submit").hide();
+      $("#edit-recipe #submit").hide(0);
     }
   },
 
@@ -247,10 +247,10 @@ var recipes = {
 $(document).on("show", "ons-page#recipes", function(){
 
   //Hide the menu button or back button depending on where the page is in the navigator stack
-  nav.pages.length > 1 ? $("#recipes #menu-button").hide() : $("#recipes ons-back-button").hide(); //Hide button based on context
+  nav.pages.length > 1 ? $("#recipes #menu-button").hide(0) : $("#recipes ons-back-button").hide(0); //Hide button based on context
 
   //Hide submit button
-  $("#recipes #submit").hide();
+  $("#recipes #submit").hide(0);
 
   recipes.localize();
 
@@ -298,7 +298,7 @@ $(document).on("hold", "#recipes #recipe-list ons-list-item", function(){
 //Checkbox selection
 $(document).on("change", "#recipes #recipe-list ons-checkbox", function(e){
   var checked = $("#recipes #recipe-list input[name=recipe-checkbox]:checked"); //Get all checked items
-  checked.length > 0 ? $("#recipes #submit").show() : $("#recipes #submit").hide();
+  checked.length > 0 ? $("#recipes #submit").show() : $("#recipes #submit").hide(0);
 });
 
 //Add recipes to diary
@@ -408,7 +408,7 @@ $(document).on("tap", "#edit-recipe #submit", function(){
 //List filter
 $(document).on("keyup", "#recipes #filter", function(e){
 
-  $("#recipes #submit").hide();
+  $("#recipes #submit").hide(0);
 
   if (this.value == "") //Search box cleared, reset the list
   {

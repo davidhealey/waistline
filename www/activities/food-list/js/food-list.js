@@ -22,7 +22,7 @@ var foodList = {
   list:[],
   images:[], //Place to store image uris when uploading a product to Open Food Facts
   lastPageId:null, //ID of the page that got us to this page, if there was one
-  nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "fiber", "salt"],
+  nutriments:["calories", "fat", "saturated-fat", "carbs", "sugar", "protein", "fiber", "salt", "sodium"],
 
   fillListFromDB : function()
   {
@@ -147,6 +147,10 @@ var foodList = {
     $("#edit-food-item #fiber").val(data.nutrition.fiber);
     $("#edit-food-item #sugar").val(data.nutrition.sugar);
     $("#edit-food-item #salt").val(parseFloat(data.nutrition.salt).toFixed(2));
+    $("#edit-food-item #sodium").val(parseFloat(data.nutrition.sodium).toFixed(2));
+
+    //Hide salt/sodium depending on user preference
+    app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-food-item #salt").hide(0) : $("#edit-food-item #sodium").hide(0);
 
     //Store form data in global object
     var formData = $("#edit-food-item #edit-item-form").serializeArray();
@@ -241,6 +245,7 @@ var foodList = {
         "sugar":parseFloat(form.sugar.value),
         "fiber":parseFloat(form.fiber.value),
         "salt":parseFloat(form.salt.value),
+        "sodium":parseFloat(form.sodium.value),
       };
 
       data.dateTime = new Date();
@@ -306,7 +311,7 @@ var foodList = {
               }
             });
 
-            $("#food-list-page ons-progress-circular").hide();
+            $("#food-list-page ons-progress-circular").hide(0);
             return false;
           }
 
@@ -327,7 +332,7 @@ var foodList = {
     function(e)
     {
       ons.notification.alert(app.strings["food-list"]["scan-failed"] + ": " + e);
-      $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
+      $("#food-list-page ons-progress-circular").hide(0); //Circular progress indicator
       return false;
     });
   },
@@ -365,7 +370,7 @@ var foodList = {
         if (result.products.length == 0)
         {
           ons.notification.alert(app.strings["food-list"]["no-results"]);
-          $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
+          $("#food-list-page ons-progress-circular").hide(0); //Circular progress indicator
           return false;
         }
         else
@@ -379,7 +384,7 @@ var foodList = {
             list.push(item);
           }
           foodList.populate(list);
-          $("#food-list-page ons-progress-circular").hide(); //Circular progress indicator
+          $("#food-list-page ons-progress-circular").hide(0); //Circular progress indicator
         }
       }
     };
@@ -399,7 +404,7 @@ var foodList = {
     item.barcode = product.code;
 
     //Get best match for portion/serving size
-    if (product.nutrition_data_per == "serving" || (product.serving_size && product.nutriments.energy_serving))
+    if (product.serving_size && (product.nutrition_data_per == "serving" || product.nutriments.energy_serving))
     {
       item.portion = product.serving_size.replace(/\s+/g, ''); //Remove white space
       item.nutrition = {
@@ -410,7 +415,8 @@ var foodList = {
         fat: product.nutriments.fat_serving,
         "saturated-fat": product.nutriments["saturated-fat_serving"],
         fiber: product.nutriments.fiber_serving,
-        salt: product.nutriments.salt_serving
+        salt: product.nutriments.salt_serving,
+        sodium: product.nutriments.sodium_serving
       }
     }
     else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g)
@@ -424,7 +430,8 @@ var foodList = {
         fat: product.nutriments.fat_100g,
         "saturated-fat": product.nutriments["saturated-fat_100g"],
         fiber: product.nutriments.fiber_100g,
-        salt: product.nutriments.salt_100g
+        salt: product.nutriments.salt_100g,
+        sodium: product.nutriments.sodium_100g
       }
     }
     else if (product.quantity) //If all else fails
@@ -438,7 +445,8 @@ var foodList = {
         fat: product.nutriments.fat,
         "saturated-fat": product.nutriments["saturated-fat"],
         fiber: product.nutriments.fiber,
-        salt: product.nutriments.salt
+        salt: product.nutriments.salt,
+        sodium: product.nutriments.sodium
       }
 
       //Kilojules to kcalories
@@ -601,10 +609,10 @@ var foodList = {
 $(document).on("show", "ons-page#food-list-page", function(){
 
   //Hide the menu button or back button depending on where the page is in the navigator stack
-  nav.pages.length > 1 ? $("#food-list-page #menu-button").hide() : $("#food-list-page ons-back-button").hide(); //Hide button based on context
+  nav.pages.length > 1 ? $("#food-list-page #menu-button").hide(0) : $("#food-list-page ons-back-button").hide(0); //Hide button based on context
 
-  $("#food-list-page ons-progress-circular").hide(); //Hide circular progress indicator
-  $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
+  $("#food-list-page ons-progress-circular").hide(0); //Hide circular progress indicator
+  $("#food-list-page ons-toolbar-button#submit").hide(0); //Hide submit button until items are checked
   $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
   foodList.populate(foodList.list);
 });
@@ -618,7 +626,7 @@ $(document).on("init", "#food-list-page", function(e){
 
 $(document).on("input", "#food-list-page #filter", function(e){
 
-  $("#food-list-page ons-toolbar-button#submit").hide(); //Hide submit button until items are checked
+  $("#food-list-page ons-toolbar-button#submit").hide(0); //Hide submit button until items are checked
   $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
 
   foodList.setFilter(this.value);
@@ -659,11 +667,11 @@ $(document).on("change", "#food-list-page #food-list ons-checkbox", function(e){
   if (checked.length > 0)
   {
     $("#food-list-page ons-toolbar-button#submit").show(); //show submit button
-    $("#food-list-page ons-toolbar-button#scan").hide(); //hide scan button
+    $("#food-list-page ons-toolbar-button#scan").hide(0); //hide scan button
   }
   else
   {
-    $("#food-list-page ons-toolbar-button#submit").hide(); //hide submit button
+    $("#food-list-page ons-toolbar-button#submit").hide(0); //hide submit button
     $("#food-list-page ons-toolbar-button#scan").show(); //show scan button
   }
 });
@@ -778,10 +786,6 @@ $(document).on("tap", "#edit-food-item #submit", function(e) {
 $(document).on("init", "#upload-food-item", function(e){
   foodList.setUploadCredentials();
   foodList.localizeUploadForm();
-
-  //Set upload country
-  if (app.storage.getItem("food-list-country") != "All")
-    $("#upload-item-form #countries").val(app.storage.getItem("food-list-country"));
 });
 
 $(document).on("show", "#upload-food-item", function(e){
@@ -795,8 +799,8 @@ $(document).on("show", "#upload-food-item", function(e){
   foodList.images = [];
 
   //Hide the images card - it will be displayed again once an image is added
-  $("#upload-food-item #images").hide();
-  $("#upload-food-item #images ons-carousel-item").hide(); //Hide all image carousel items until an image is added
+  $("#upload-food-item #images").hide(0);
+  $("#upload-food-item #images ons-carousel-item").hide(0); //Hide all image carousel items until an image is added
 });
 
 $(document).on("tap", "#upload-food-item #submit", function(e){
@@ -826,14 +830,14 @@ $(document).on("tap", "#upload-food-item #submit", function(e){
       //Once all images are uploaded
       Promise.all(promises).then(function(values) {
         console.log(values);
-        $("#upload-food-item ons-modal").hide();
+        $("#upload-food-item ons-modal").hide(0);
         ons.notification.alert(app.strings["food-list"]["upload-item"]["success"])
         .then(function(){nav.popPage();});
       });
     })
     .catch(function(err) {
       console.error('Augh, there was an error!', err.statusText);
-      $("#upload-food-item ons-modal").hide();
+      $("#upload-food-item ons-modal").hide(0);
       ons.notification.alert(app.strings["food-list"]["upload-item"]["fail"]);
     });
   }
@@ -864,7 +868,7 @@ $(document).on("hold", "#upload-food-item #images ons-carousel-item", function()
       $(control).remove(); //Remove the image carousel item
 
       //If there are no images, hide the card
-      if (foodList.images.length == 0) $("ons-page#upload-food-item #images").hide();
+      if (foodList.images.length == 0) $("ons-page#upload-food-item #images").hide(0);
     }
   });
 });

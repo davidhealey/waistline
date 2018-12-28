@@ -131,7 +131,7 @@ var meals = {
   //Passively validates the edit meal page
   validateEditForm : function()
   {
-    $("#edit-meal #submit").hide(); //Hide submit button until form is complete
+    $("#edit-meal #submit").hide(0); //Hide submit button until form is complete
     if ($("#edit-meal #foods ons-list-item").length > 0 && $("#edit-meal #meal-data #name").val() != "")
     {
       $("#edit-meal #submit").show();
@@ -268,10 +268,10 @@ var meals = {
 $(document).on("show", "ons-page#meals", function(e){
 
   //Hide the menu button or back button depending on where the page is in the navigator stack
-  nav.pages.length > 1 ? $("#meals #menu-button").hide() : $("#meals ons-back-button").hide(); //Hide button based on context
+  nav.pages.length > 1 ? $("#meals #menu-button").hide(0) : $("#meals ons-back-button").hide(0); //Hide button based on context
 
   //Hide submit button
-  $("#meals #submit").hide();
+  $("#meals #submit").hide(0);
 
   meals.localize();
 
@@ -337,7 +337,7 @@ $(document).on("hold", "#meals #meal-list ons-list-item", function(){
 //Checkbox selection
 $(document).on("change", "#meals #meal-list ons-checkbox", function(e){
   var checked = $("#meals #meal-list input[name=meal-checkbox]:checked"); //Get all checked items
-  checked.length > 0 ? $("#meals #submit").show() : $("#meals #submit").hide();
+  checked.length > 0 ? $("#meals #submit").show() : $("#meals #submit").hide(0);
 });
 
 //Add meals to diary
@@ -446,7 +446,7 @@ $(document).on("tap", "#edit-meal #submit", function(){
 
 $(document).on("keyup", "#meals #filter", function(e){
 
-  $("#meals #submit").hide();
+  $("#meals #submit").hide(0);
 
   if (this.value == "") //Search box cleared, reset the list
   {
