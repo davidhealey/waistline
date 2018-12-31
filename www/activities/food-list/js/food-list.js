@@ -680,7 +680,7 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
 
   if (checked.length > 0) //At least 1 item was selected
   {
-    if ((nav.pages.length > 2 && nav.pages[nav.pages.length-2].id == "diary-page") || nav.pages.length == 1)
+    if ((nav.pages.length >= 2 && nav.pages[nav.pages.length-2].id == "diary-page") || nav.pages.length == 1)
     {
       if (nav.pages.length == 1) //No last page
       {
@@ -722,7 +722,7 @@ $(document).on("tap", "#food-list-page #submit", function(e) {
         nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
       }
     }
-    else if (nav.pages[nav.pages.length-2].id == "edit-meal" || nav.pages[nav.pages.length-2].id == "edit-recipe")
+    else if (nav.pages.length >= 2 && (nav.pages[nav.pages.length-2].id == "edit-meal" || nav.pages[nav.pages.length-2].id == "edit-recipe"))
     {
       var foodIds = [];
 
