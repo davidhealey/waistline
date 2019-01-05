@@ -43,7 +43,7 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <preference name="SplashScreenDelay" value="0" />
     <preference name="FadeSplashScreenDuration" value="0" />
+    <plugin name="openscale" spec="android_plugins/openscale" />
     <engine name="android" spec="^7.1.2" />
     <engine name="browser" spec="^5.0.4" />
-    <plugin name="openscale" spec="android_plugins/openscale" />
 </widget>

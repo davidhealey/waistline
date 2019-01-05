@@ -32,6 +32,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 public class openscale extends CordovaPlugin {
     final int REQUEST_CODE = 1;
 
@@ -63,22 +65,25 @@ public class openscale extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
-        if (cordova.hasPermission(REQUIRED_PERMISSION)) {
+        System.out.println("openScale exec called");
+        
+        if (action.equals("exportWaistlineData")) {
+            long timestamp = args.getLong(0);
+            double calories = args.getDouble(1);
+
+            Date date = new Date(timestamp);
+            
+            System.out.println("timestamp: " + date + " calories " + calories);
+        }
+        
+        /*if (cordova.hasPermission(REQUIRED_PERMISSION)) {
             System.out.println("PERMISSION GRANTED");
             getProviderData();
         } else {
             System.out.println("REQUEST PERMISSION");
             cordova.requestPermission(this, REQUEST_CODE, REQUIRED_PERMISSION);
-        }
-
-        /*if (action.equals("coolMethod")) {
-            String message = args.getString(0);
-            this.coolMethod(message, callbackContext);
-            return true;
-        }
-
-        return false;
-        */
+        }*/
+        
         return true;
     }
 
@@ -171,16 +176,12 @@ public class openscale extends CordovaPlugin {
 
         System.out.println("openScale data: " + s.toString());
     }
-
-    /*private void coolMethod(String message, CallbackContext callbackContext) {
-        System.out.println("Hello World my foo");
-        if (message != null && message.length() > 0) {
-            callbackContext.success(message);
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
-        }
-    }*/
 }
+
+
+
+
+
 
 
 
