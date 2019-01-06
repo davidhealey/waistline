@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="openscale" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>openscale</name>
+        <js-module name="openscale" src="www/openscale.js">
+            <clobbers target="cordova.plugins.openscale" />
+        </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="openscale"><param name="android-package" value="openscale.openscale" /></feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="com.health.openscale.READ_WRITE_DATA" />
+        </config-file>
+        <source-file src="src/android/openscale.java" target-dir="src/openscale/openscale" />
+    </platform>
+</plugin>

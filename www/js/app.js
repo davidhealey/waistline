@@ -129,12 +129,66 @@ var app = {
   },
 };
 
+window.requestOpenScalePermission = function(callback) {
+    cordova.exec(callback, function(errMsg) {
+        console.log(errMsg);
+    }, "openscale", "requestPermission", []);
+};
+
+window.exportDataToOpenScale = function(timestamp, calories, callback) {
+    cordova.exec(callback, function(errMsg) {
+        console.log('error exporting waistline data to openScale (' + errMsg +')');
+    }, "openscale", "exportWaistlineData", [timestamp, calories]);
+};
+
+window.importOpenScaleData = function(callback) {
+    cordova.exec(callback, function(errMsg) {
+        console.log('error importing openScale data to waistline (' + errMsg +')');
+    }, "openscale", "importOpenScaleData", []);
+};
+
 ons.ready(function() {
   console.log("Cordova Ready");
   navigator.camera.cleanup(function(){console.log("Camera cleanup success")}); //Remove any old camera cache files
   app.initialize()
   .then(function(){
     console.log("App Initialized");
+
+    console.log("openScale Initializing");
+
+    window.requestOpenScalePermission(function(msg) {
+        console.log(msg);
+    });
+
+    window.importOpenScaleData(function(values) {
+      for (var i =0; i<values.length; i++) {
+        console.log("imported openScale data timestamp: " + values[i].timestamp + " weight: " + values[i].weight);
+      }
+    });
+
+    dbHandler.getObjectStore("log").openCursor().onsuccess = function(e)
+    {
+      var cursor = e.target.result;
+
+      if (cursor)
+      {
+        if (cursor.value.nutrition != undefined && cursor.value.nutrition.calories != undefined)
+        {
+          var date = cursor.value.dateTime;
+          date.setUTCHours(0); //Get date, ignoring time
+
+          if (date != undefined) {
+            //console.log(date + " weight " + cursor.value.weight + " callo " + cursor.value.nutrition.calories);
+
+            window.exportDataToOpenScale(date.getTime(), cursor.value.nutrition.calories, function(echoValue) {
+                console.log(echoValue);
+            });
+          }
+        }
+
+        cursor.continue();
+      }
+    };
 
     if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
     var homescreen = app.storage.getItem("homescreen");
