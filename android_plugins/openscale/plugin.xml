@@ -9,7 +9,7 @@
             <feature name="openscale"><param name="android-package" value="openscale.openscale" /></feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
-            <uses-permission android:name="com.health.openscale.READ_DATA" />
+            <uses-permission android:name="com.health.openscale.READ_WRITE_DATA" />
         </config-file>
         <source-file src="src/android/openscale.java" target-dir="src/openscale/openscale" />
     </platform>

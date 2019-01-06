@@ -129,10 +129,22 @@ var app = {
   },
 };
 
+window.requestOpenScalePermission = function(callback) {
+    cordova.exec(callback, function(errMsg) {
+        console.log(errMsg);
+    }, "openscale", "requestPermission", []);
+};
+
 window.exportDataToOpenScale = function(timestamp, calories, callback) {
-    cordova.exec(callback, function(err) {
-        callback('Nothing to echo.');
+    cordova.exec(callback, function(errMsg) {
+        console.log('error exporting waistline data to openScale (' + errMsg +')');
     }, "openscale", "exportWaistlineData", [timestamp, calories]);
+};
+
+window.importOpenScaleData = function(callback) {
+    cordova.exec(callback, function(errMsg) {
+        console.log('error importing openScale data to waistline (' + errMsg +')');
+    }, "openscale", "importOpenScaleData", []);
 };
 
 ons.ready(function() {
@@ -143,6 +155,16 @@ ons.ready(function() {
     console.log("App Initialized");
 
     console.log("openScale Initializing");
+
+    window.requestOpenScalePermission(function(msg) {
+        console.log(msg);
+    });
+
+    window.importOpenScaleData(function(values) {
+      for (var i =0; i<values.length; i++) {
+        console.log("imported openScale data timestamp: " + values[i].timestamp + " weight: " + values[i].weight);
+      }
+    });
 
     dbHandler.getObjectStore("log").openCursor().onsuccess = function(e)
     {
@@ -156,7 +178,7 @@ ons.ready(function() {
           date.setUTCHours(0); //Get date, ignoring time
 
           if (date != undefined) {
-            console.log(date + " weight " + cursor.value.weight + " callo " + cursor.value.nutrition.calories);
+            //console.log(date + " weight " + cursor.value.weight + " callo " + cursor.value.nutrition.calories);
 
             window.exportDataToOpenScale(date.getTime(), cursor.value.nutrition.calories, function(echoValue) {
                 console.log(echoValue);
