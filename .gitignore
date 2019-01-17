@@ -1,7 +1,10 @@
 /deliverables/
 /images/master/
-node_modules/
-/platforms/
+/node_modules/
 /plugins/
 /package.json
 /package-lock.json
+/platforms/browser/
+/platforms/android/.gradle/
+/platforms/android/build/
+/platforms/android/app/build/
