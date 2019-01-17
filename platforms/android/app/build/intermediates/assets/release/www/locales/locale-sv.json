@@ -1,0 +1,267 @@
+{
+  "weight":"Vikt",
+  "quantity": "Kvantitet",
+  "calories": "Kalori",
+  "protein":"Protein",
+  "carbs":"Kolhydrater",
+  "fat":"Fet",
+  "sugar":"Söcker",
+  "salt":"Salt",
+  "no-internet":"Ingen Internetanslutning",
+
+  "days":{
+    "0":"Söndag",
+    "1":"Måndag",
+    "2":"Tisdag",
+    "3":"Onsdag",
+    "4":"Torsdag",
+    "5":"Fredag",
+    "6":"Lördag"
+  },
+
+  "statistics":{
+    "title":"Statistiken",
+    "goal":"Mål",
+    "used":"Använt",
+    "remaining":"Kvarstående",
+    "week": "1 Vecka",
+    "month": "1 Månad",
+    "3month": "3 Månader",
+    "6month": "6 Månader",
+    "12month": "1 År"
+  },
+
+  "goals":
+  {
+    "title":"Mål",
+    "nutrition":{
+      "same-goal":"Samma Mål Varje Dag"
+    },
+    "weight":{
+      "title":"Vikt Mål",
+      "target":"Mål Vikt (kg)",
+      "weekly":"Varje Vecka Mål (kg)",
+      "is-min":"Jag Vill Öka I Vikt"
+    }
+  },
+
+  "diary":
+  {
+    "title":"Dagbok",
+    "serving": "Servering",
+    "servings": "Serveringar",
+    "category": "Kategori",
+    "current-weight":"Nuvarande Vikt",
+    "quick-add":
+    {
+      "title":"Snabb Lägg Till",
+      "body":"Antal Kalorier"
+    },
+    "edit-item":{
+      "title":"Redigera Posten",
+      "placeholders":
+      {
+        "quantity":"Antal Portioner*",
+        "calories":"Kalorier*",
+        "protein":"Protein (g)",
+        "carbs":"Kolhydrater (g)",
+        "fat":"Fet (g)",
+        "salt":"Salt (g)",
+        "sugar":"Söcker (g)"
+      }
+    }
+  },
+
+  "food-list":
+  {
+    "title":"Matlista",
+    "search":"Sök Mat",
+    "name-of-food": "Mat Namnet",
+    "no-results": "Inga matchande resultat",
+    "scan-failed": "Skan Misslyckades",
+    "edit-item":
+    {
+    "title1":"Lägg Till Mat",
+    "title2":"Redigera Mat",
+    "placeholders":{
+      "name":"Namn*",
+      "brand":"Varumärke*",
+      "portion":"Del*",
+      "calories":"Kalorier*",
+      "protein":"Protein (g)",
+      "carbs":"Kolhydrater (g)",
+      "fat":"Fet(g)",
+      "sugar":"Söcker (g)",
+      "salt":"Salt (g)"
+      }
+    },
+    "upload-item":
+    {
+      "title":"Ladda upp till Open Food Facts",
+      "success":"Produkten har lagts till Open Food Facts",
+      "fail":"Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
+      "placeholders":
+      {
+        "barcode":"Streckkod*",
+        "name":"Namn*",
+        "brand":"Varumärke**",
+        "portion":"Portion Storlek*",
+        "calories":"Kalorier per portion*",
+        "protein":"Protein (g)",
+        "carbs":"Kolhydrat per portion (g)",
+        "fat":"Fet per portion (g)",
+        "sugar":"Söcker per portion (g)",
+        "salt":"Salt per portion (g)"
+      }
+    }
+  },
+
+  "meals":{
+    "title":"Recept",
+    "filter":"Filterrecept",
+    "edit-meal":{
+      "title1":"Lägga till Recept",
+      "title2":"Redigera Recept",
+      "placeholders":{
+        "name":"Recept Namn*",
+        "notes":"Anteckningar..."
+      }
+    }
+  },
+
+  "settings":{
+    "title":"Inställningar",
+    "show-images1":"Visa produktbilder",
+    "show-images2":"Bilder visas när du är ansluten till internet. De lagras inte på din enhet.",
+    "disable-animations1":"Inaktivera animeringar",
+    "disable-animations2":"Inaktivera animeringar kan förbättra prestanda på vissa enheter(kräver omstart av app).",
+    "import":"Importera Data",
+    "export":"Exportera Data",
+    "diary":{
+      "title":"Dagbok Inställningar",
+      "instructions1":"Använd rutorna nedan för att anpassa måltidsnamnen som används i dagboken för mat.",
+      "instructions2":"Alla rutor som är tomma ignoreras.",
+      "meal":"Måltid"
+    }
+  },
+
+  "dialogs":
+  {
+    "delete": "Radera",
+    "cancel": "Annullera",
+    "yes":"Ja",
+    "no":"Nej",
+    "confirm-delete": "Är du säker på att du vill radera det här objektet?",
+    "delete-title": "Ta bort inlägg",
+    "required-fields": "Vänligen fyll i alla obligatoriska fält."
+  },
+
+  "user-guide":{
+    "title":"Användarguide",
+    "basics":{
+      "title":"Grunderna",
+      "p1":"Din kropp behöver en viss mängd kalorier för att behålla din nuvarande vikt. Vi kallar detta din underhållsnivå. Du kan öka din underhållsnivå genom att motionera mycket eller du kan minska den genom att göra mindre.",
+      "p2":"Den enklaste metoden (det är också ganska korrekt) för att beräkna din underhållsnivå är att använda en TDEE kalculator. Du kan hitta många av dessa online.",
+      "p3":"För att gå ner i vikt borde du äta minst 100 kalorier per dag mindre än din underhållsnivå, att gå upp i vikt bör du äta minst 100 kalorier per dag mer än din underhållsnivå.",
+      "p4":"Ju mindre du äter per dag desto mer vikt kommer du att förlora. Om du planerar att gå ner i vikt med ett stort kaloriunderskott, rådfråga din läkare och planera vad du äter så att du får all den näring din kropp behöver. Ha regelbundna kontroller med din läkare så att du kan reagera snabbt om något går fel."
+    },
+    "statistics":{
+      "title":"Statistiken",
+      "p1":"På statistikskärmen kan du se ett diagram som visar de näringsämnen du har konsumerat och variationer i din vikt under den valda tidsperioden.",
+      "p2":"Du kan välja tidsramen som ska visas, t.ex. 1 vecka, från rullgardinsmenyn ovanför diagrammet.",
+      "p3":"Du kan välja vilken data som ska visas i diagrammet genom att klicka på objekten i diagrammets legend.",
+      "p4":"Under diagrammet är en dag för dag lista över dina viktförändringar och kalorierna du har antecknat. Endast datum som du har registrerat kalorier i din dagbok för visas här. Om du trycker på ett objekt i den här listan kan du redigera den vikt som registrerats för det datumet.",
+      "p5":"Överst på skärmen visas de näringsämnen du har konsumerat, tillsammans med ditt mål och kvarstående mängd. Du kan svepa åt vänster och höger på den här skärmen för att bläddra igenom de olika näringsämnena."
+    },
+    "diary":{
+      "title":"Dagbok",
+      "p1":"Dagboken är där du kommer att hålla en logg över maten du äter. Tryck på en rubrik som frukost för att lägga till mat till den kategorin.",
+      "p2":"Detta tar dig till matlistan där du kan välja ett eller flera matvaror att lägga till i dagboken.",
+      "p3":"Kalorierna för varje mat kommer att läggas till summan för det aktuella valda datumet och visas längst ner på skärmen.",
+      "p4":"Knapparna på vardera sidan av det visade datumet kan användas för att gå till föregående eller nästa dag och du kan trycka på datumet för att välja ett visst datum.",
+      "p5":"Genom att knacka på ett matobjekt i din dagbok kan du justera antalet portioner och ändra kategorin för det aktuella objektet. Dessa ändringar gäller endast föremålet i din dagbok och påverkar inte matlistan.",
+      "p6":"Tryck och håll på ett objekt i din dagbok för att ta bort det.",
+      "p7":"Du kan registrera din vikt genom att trycka på våg ikon på översta verktygsfältet.",
+      "p8":"Om du bara vill spela in några kalorier utan att behöva lägga till en produkt i din matlista så kan du också göra det. Klicka bara på och håll kvar på en av kategorierna och ange hur många kalorier som finns i rutan som visas."
+    },
+    "food-list":{
+      "title":"Matlista",
+      "p1":"Denna skärm innehåller en lista över alla livsmedel som du har lagt till i din lokala databas. Listan kommer vara tom första gången du kör appen.",
+      "p2":"Du kan använda sökrutan för att filtrera listan över matvaror för att hitta den du vill ha. Om du har en internetanslutning kan du även använda sökrutan för att hitta produkter i databasen Open Food Facts.",
+      "p3":"Listan över objekt sorteras automatiskt efter hur nyligen du lagt till dem i din dagbok, så de livsmedel du lägger till oftast kommer att visas nära toppen av listan.",
+      "p4":"Om du trycker på ett objekt i listan väljer du det. När du väl har valt minst ett objekt visas ett fält på den övre verktygsfältet, genom att klicka på detta lägger du till de valda objekten i din dagbok.",
+      "p5":"Du kan redigera ett matobjekt genom att dubbelklicka på det."
+    },
+    "adding-a-food":
+    {
+      "title":"Lägga till en mat",
+      "p1":"Det finns tre sätt att lägga till en ny mat i din matlista. Du kan klicka på den flytande plusknappen på matlistan, sök i databasen Open Food Facts för produkter som använder matlistans sökfält, eller skanna streckkoden för en produkt genom att knacka på streckkodsikonen på översta verktygsfältet på matlistan skärmen.",
+      "p2":"Oavsett vilken metod du väljer kommer du så småningom att ta dig till matredigeringsskärmen. Här kan du manuellt ange namnet på maten, portion storleken(t.ex. 1 kaka, 100g, 3 koppar, etc.), och antalet näringsämnen som ingår i den portion.",
+      "p3":"Data som returneras av streckkodsläsaren kanske inte alltid är korrekt för den produkt eller serveringsstorlek du har, så kolla informationen som läggs till i formuläret och justera det som behövs innan du sparar.",
+      "p4":"Om ingen data finns tillgänglig för en skannad produkt får du möjlighet att lägga till den i databasen Open Food Facts.",
+      "p5":"När du är nöjd med data i formuläret kan du trycka på kryssrutan på verktygsfältet för att lägga till objektet i din matlista."
+    },
+    "uploading-a-product":
+    {
+      "title":"Ladda upp en produkt",
+      "p1":"När du skannar en streckkod för en produkt som inte finns i databasen Open Food Facts kommer du att bli ombedd om du vill lägga till den, som du kan göra inom Waistline.",
+      "p2":"Du kommer att tas till en skärm där du kan ange produktens namn och märke och några grundläggande näringsinformation. Du kan också ladda upp upp till tre bilder.",
+      "p3":"Klicka på kamerans ikon för att ta ett foto. Du kan beskära bilden när du har tagit den så att du bara överför relevant information.",
+      "p4":"När du tagit en bild blir du uppmanad att märka bilden antingen som produktens framsida, ingredienserna, eller näringsinformationen.",
+      "p4":"Alla bilder som du laddar upp med Waistline licensieras automatiskt som Creative Commons Attribution ShareAlike.",
+      "p5":"När du kör Waistline för första gången genererar appen ett unikt ID. Detta ID ingår automatiskt i kommentarfältet när du laddar upp en produkt till Open Food Facts.",
+      "p6":"Syftet med detta ID är att hjälpa underhållarna av databasen för Open Food Facts att upptäcka misstag och förhindra missbruk av deras system."
+    },
+    "meals":
+    {
+      "title":"Recept",
+      "p1":"På receptskärmen kan du kombinera matvaror för att skapa ett nytt objekt som heter recept. Klicka på den flytande plusknappen för att skapa ett nytt recept eller dubbelklicka på ett existerande recept för att redigera det. För att radera ett recept, tryck bara på och håll kvar det och klicka på OK på bekräftelsen.",
+      "p2":"På skärmen Redigera recept kan du ange ett namn på receptet och eventuella anteckningar du vill ha. Du kan klicka på den flytande plus-knappen på den här skärmen för att välja de livsmedel som du vill lägga till i ditt recept.",
+      "p3":"Du kan redigera mängden av varje mat du har lagt till genom att knacka på maten och ange värdet i rutan som visas. Ovanför livsmedelslistan ser du den totala näringsinformationen för alla de matvaror du har lagt till receptet. Du kan svepa på detta område för att se mer information.",
+      "p4":"När du är nöjd med ditt recept kan du trycka på kontrollknappen på verktygsfältet för att spara den.",
+      "p5":"Grundproceduren för att lägga till ett recept på din dagbok är detsamma som när du lägger till en mat. Klicka på en rubrik på dagbokskärmen, Detta tar dig till matlistan, sedan i matlistan ser du en bokmärkeikon på översta verktygsfältet, genom att knacka på detta kommer du till receptskärmen.",
+      "p6":"När du lägger till ett recept i din dagbok kommer alla livsmedel från receptet att läggas till individuellt, Detta gör det möjligt att ytterligare anpassa receptet efter behov utan att behöva skapa flera recept för olika variationer."
+    },
+    "goals":
+    {
+      "title":"Mål",
+      "p1":"Från den här skärmen kan du ställa in de olika målen du vill uppnå.",
+      "p2":"Du kan ställa in ett viktmål och ange om du vill gå ner i vikt eller gå upp i vikt.",
+      "p3":"Och du kan ställa in en rad näringsmål med en annorlunda mål för varje dag i veckan."
+    },
+    "settings":
+    {
+      "title":"Inställningar",
+      "p1":"Det finns olika inställningar på den här skärmen som kan användas för att anpassa appen efter din behov. De flesta av dessa är självförklarande.",
+      "p2":"Med dagbokens inställningar kan du anpassa namnen på de kategorier som används i matdagboken. Du kan ha upp till 7 kategorier. Alla kategorier som inte har ett namn kommer inte att användas."
+    },
+    "export":
+    {
+      "title":"Exportera",
+      "p1":"Alla uppgifter du anger hålls lokalt på din enhet. Den enda gången vilken information som helst skickas från denna app till internet är när du skannar en streckkod, söka efter en produkt, eller ladda upp en ny produkt.",
+      "p2":"Det här är bra eftersom det betyder att du är ansvarig för dina data och ingen kan komma åt det på distans. Den enda nackdelen är att dina data inte säkerhetskopieras till molnet (någon annans dator) så när du går vidare till en ny enhet kommer dina data inte automatiskt att vara tillgängliga.",
+      "p3":"Det är här exportknappen är användbar. Om du trycker på den här knappen exporteras dina data(dagbok, matlista och viktlogg) till en enkel textfil. Den här filen heter waistline_export.json. Du hittar den här filen på din enhet på en plats som liknar 'Android/data/com.waist.line/files/'.",
+      "p4":"Det här är en privat mapp som inte kan nås av andra appar, så det är trevligt och säkert men lite obekvämt att hitta.",
+      "p5":"När du har den här filen kan du installera Waistline på din nya enhet och flytta den exporterade filen till samma plats på den nya enheten. Då kan du importera data tillbaka till Waistline."
+    },
+    "import":
+    {
+      "title":"Importera",
+      "p1":"Varning!!!! Importera data kommer att skriva över alla befintliga data. Den enda gången du behöver göra det är när du flyttar till en ny enhet eller återställa data som du har säkerhetskopierat.",
+      "p2":"För att importera data sätta waistline_export.json filen i rätt plats på din enhet (se Exportera). Tryck sedan på importknappen.",
+      "p3":"Waistline version 2 är inte bakåtkompatibel med version 1, Du kan försöka importera data från version 1 men det kommer att ge några konstiga resultat."
+    },
+    "licenses":
+    {
+      "title":"Licenser",
+      "p1":"Waistline byggdes med hjälp av Cordovas ramverk ochOnsenUI vilka är tillgängliga under Apache-licensen. Också ingår jQuery, jQuery lokalisera, och ChartJS som är under MIT-licensen. The HTML, CSS, och andra javascript som utgör huvuddelen av appen är under GPLv3 license.",
+      "p2":"Källkoden för Waistline kan hittas på github.com/davidhealey."
+    }
+  },
+
+  "about":
+  {
+    "title":"Handla om",
+    "p1":"Waistline skapad av David Healey med förslag och bidrag från medarbetare git-hubbers."
+  }
+}

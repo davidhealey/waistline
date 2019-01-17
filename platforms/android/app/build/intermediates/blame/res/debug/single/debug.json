@@ -1,0 +1,302 @@
+[
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_action_tombstone.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi_launcher_icon.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/drawable-hdpi/launcher_icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-ldpi_capture.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout-ldpi/capture.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_part_chronometer.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_part_time.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_icon.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/mipmap-xhdpi/icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_media_action.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_lines_media.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_template_lines_media.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_icon_group.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media_narrow_custom.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-v21_notification_action_background.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_flip_camera.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/drawable/flip_camera.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/xml_config.xml.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/xml/config.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_share.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/share.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_share_via_barcode.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/drawable/share_via_barcode.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-hdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_bg_low.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_tile_bg.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_action.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout/notification_action.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_media_cancel_action.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_icon.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/mipmap-hdpi/icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_launcher_icon.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/drawable/launcher_icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_search_book_contents_list_item.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/search_book_contents_list_item.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_bg.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_media.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_encode.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/encode.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi_launcher_icon.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/drawable-xhdpi/launcher_icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/xml_preferences.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/xml/preferences.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/mipmap-xxxhdpi/icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-land_encode.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout-land/encode.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_icon.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/mipmap-xxhdpi/icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi_launcher_icon.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/drawable-xxhdpi/launcher_icon.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_media_custom.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_template_media_custom.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_search_book_contents_header.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/search_book_contents_header.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-ldpi_screen.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-ldpi/screen.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-mdpi_screen.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-mdpi/screen.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/menu_encode.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/menu/encode.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-v16_notification_template_custom_big.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout-v16/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_search_book_contents.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/search_book_contents.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/raw_beep.ogg.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/raw/beep.ogg"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_icon_group.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_toggle_torch.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/drawable/toggle_torch.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_bookmark_picker_list_item.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/bookmark_picker_list_item.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-land_share.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout-land/share.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media_custom.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/menu_history.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/menu/history.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_capture.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/capture.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media_narrow.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/3b99ecb9c7e0592838b6de1368bfc6fc/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-hdpi_screen.png.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/drawable-port-hdpi/screen.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_history_list_item.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/history_list_item.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_app_picker_list_item.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/app_picker_list_item.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/menu_capture.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/menu/capture.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout_help.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/barcodescanner-release-2.1.5.aar/32327fef066ab648250763ec92fca00c/res/layout/help.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action_tombstone.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/xml_camera_provider_paths.xml.flat",
+        "source": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/src/main/res/xml/camera_provider_paths.xml"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/media/dave/Work 2/Android Studio Projects/waistline/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_icon_background.xml.flat",
+        "source": "/home/dave/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/3b7b730f3679beadc343a3f56744e807/res/drawable/notification_icon_background.xml"
+    }
+]

@@ -1,0 +1,44 @@
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="diary-settings">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="settings.diary.title">Diary Settings</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <ons-card>
+    <p data-localize="settings.diary.instructions1">Use the boxes below to customise the meal names used in the food diary.</p>
+    <p data-localize="settings.diary.instructions2">Any boxes left empty will be ignored.</p>
+  </ons-card>
+
+  <ons-card>
+    <form onsubmit="settings.saveDiarySettings(this); return false;" id="diary-settings-form">
+      <p><ons-input type="text" name="0" placeholder="Meal 1" required="true"></ons-input></p>
+      <p><ons-input type="text" name="1" placeholder="Meal 2"></ons-input></p>
+      <p><ons-input type="text" name="2" placeholder="Meal 3"></ons-input></p>
+      <p><ons-input type="text" name="3" placeholder="Meal 4"></ons-input></p>
+      <p><ons-input type="text" name="4" placeholder="Meal 5"></ons-input></p>
+      <p><ons-input type="text" name="5" placeholder="Meal 6"></ons-input></p>
+      <p><ons-input type="text" name="6" placeholder="Meal 7"></ons-input></p>
+    </form>
+  </ons-card>
+
+</ons-page>

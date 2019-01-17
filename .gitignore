@@ -1,7 +1,7 @@
 /deliverables/
 /images/master/
-node_modules/
-/platforms/
+/node_modules/
+/platforms/browser/
 /plugins/
 /package.json
 /package-lock.json

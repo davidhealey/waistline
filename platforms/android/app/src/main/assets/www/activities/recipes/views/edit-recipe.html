@@ -1,0 +1,78 @@
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="edit-recipe">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="recipe.title">Edit Recipe</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <ons-fab position="bottom right" tappable onclick="nav.pushPage('activities/food-list/views/food-list.html')">
+    <ons-icon icon="md-plus"></ons-icon>
+  </ons-fab>
+
+  <div>
+    <div id="recipe-data" style="text-align: left; margin-top: 2em; margin-left:1em; margin-bottom:2em;">
+      <input type="hidden" id="id" name="id" value=""></input>
+      <input type="hidden" id="nutrition" name="nutrition"></input>
+      <p><ons-input type="text" id="name" name="name" placeholder="Recipe Name" value="" oninput="recipes.validateEditForm();"></ons-input></p>
+      <ons-row>
+        <ons-col style="padding-right:0.25em;"><ons-input type="number" min="1" inputmode="decimal" step="any" name="quantity" id="quantity" required="true" placeholder="Quantity*" float value="1" onchange="recipes.validateEditForm();"></ons-input></ons-col>
+        <ons-col style="padding-left:0.25em;"><ons-input type="text" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="unit" id="unit" required="true" placeholder="Unit*" float oninput="recipes.validateEditForm();"></ons-input></ons-col>
+        <ons-col></ons-col>
+      </ons-row>
+      <textarea style="width:90%; margin-top:2em;" rows="4" cols="50" maxlength="1000" id="notes" name="notes" placeholder="Notes..."></textarea>
+    </div>
+
+    <ons-card style="margin-bottom:2em;">
+      <ons-carousel swipeable auto-scroll>
+        <ons-carousel-item style="text-align:center;">
+          <ons-row>
+            <ons-col>Calories</ons-col>
+            <ons-col>Protein</ons-col>
+            <ons-col>Fat</ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col id="calories">0kcal</ons-col>
+            <ons-col id="protein">0g</ons-col>
+            <ons-col id="fat">0g</ons-col>
+          </ons-row>
+        </ons-carousel-item>
+
+        <ons-carousel-item style="text-align:center;">
+          <ons-row>
+            <ons-col>Carbs</ons-col>
+            <ons-col>Sugar</ons-col>
+            <ons-col id="salt_heading">Salt</ons-col>
+            <ons-col id="sodium_heading">Sodium</ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col id="carbs">0g</ons-col>
+            <ons-col id="sugar">0g</ons-col>
+            <ons-col id="salt">0g</ons-col>
+            <ons-col id="sodium">0mg</ons-col>
+          </ons-row>
+        </ons-carousel-item>
+      </ons-carousel>
+    </ons-card>
+  </div>
+
+  <ons-list id="foods"></ons-list>
+
+</ons-page>
