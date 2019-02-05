@@ -107,11 +107,15 @@ var diary = {
           if (app.storage.getItem("brand-position") == "false")
           {
             if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
-            html += "<ons-row><i>"+unescape(value.name) + " - " + parseFloat(value.portion) + unit +"</i></ons-row>";
+            html += "<ons-row><i>"+unescape(value.name) + " - ";
+            if (!isNaN (value.portion)) html += parseFloat(value.portion);
+            html += unit +"</i></ons-row>";
           }
           else
           {
-            html += "<ons-row><i>"+unescape(value.name) + " - " + parseFloat(value.portion) + unit +"</i></ons-row>";
+            html += "<ons-row><i>"+unescape(value.name) + " - ";
+            if (!isNaN (value.portion)) html += parseFloat(value.portion);
+            html += unit +"</i></ons-row>";
             if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
           }
           html += "<ons-row style='color:#636363;'>";
