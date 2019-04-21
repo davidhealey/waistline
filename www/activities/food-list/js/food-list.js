@@ -347,7 +347,14 @@ var foodList = {
 
     //Build search string
     var query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=200";
-    if (app.storage.getItem("food-list-country") != "All") query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+
+    //Filter by selected country
+    var searchCountry = app.storage.getItem("food-list-country");
+
+    if (searchCountry != "All" && searchCountry != null)
+      query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+
+    //Complete query
     query += "&sort_by=last_modified_t&action=process&json=1";
 
     //Create request

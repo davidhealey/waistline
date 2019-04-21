@@ -1,5 +1,5 @@
 /*
-  Copyright 2018 David Healey
+  Copyright 2018, 2019 David Healey
 
   This file is part of Waistline.
 
