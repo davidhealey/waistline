@@ -27,9 +27,25 @@
         <meta charset="UTF-8">
 
         <!--OnsenUI-->
-        <link rel="stylesheet" href="assets/onsen/css/onsenui.min.css">
-        <link rel="stylesheet" href="assets/onsen/css/onsen-css-components.min.css" id="themecss">
-        <script src="assets/onsen/js/onsenui.min.js"></script>
+        <link rel="stylesheet" href="onsen/css/onsenui.css">
+        <link rel="stylesheet" href="onsen/css/light-onsen-css-components.min.css" id="themecss">
+        <script src="onsen/js/onsenui.min.js"></script>
+
+        <!--jQuery-->
+        <script src="js/jquery-1.11.3.min.js"></script>
+
+        <!-- Chart JS -->
+        <script src="js/Chart.bundle.min.js"></script>
+
+        <!-- Localisation -->
+        <script src="js/jquery.localize.min.js"></script>
+
+        <!--App Javascript-->
+        <script type="text/javascript" src="js/db-handler.js"></script>
+        <script type="text/javascript" src="js/revision.js"></script>
+        <script type="text/javascript" src="js/helpers.js"></script>
+        <script type="text/javascript" src="activities/goals/js/goals.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
 
         <title>Waistline</title>
     </head>
@@ -48,7 +64,7 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('src/activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
                 <div class="left" data-localize="diary.title">
                   Diary
                 </div>
@@ -115,5 +131,13 @@
       </script>
 
       <script type="text/javascript" src="cordova.js"></script>
+      <script type="text/javascript" src="activities/log/js/log.js"></script>
+      <script type="text/javascript" src="activities/diary/js/diary.js"></script>
+      <script type="text/javascript" src="activities/statistics/js/statistics.js"></script>
+      <script type="text/javascript" src="activities/food-list/js/food-list.js"></script>
+      <script type="text/javascript" src="activities/meals/js/meals.js"></script>
+      <script type="text/javascript" src="activities/recipes/js/recipes.js"></script>
+      <script type="text/javascript" src="activities/settings/js/settings.js"></script>
+      <script type="text/javascript" src="activities/userguide/js/userguide.js"></script>
     </body>
 </html>
