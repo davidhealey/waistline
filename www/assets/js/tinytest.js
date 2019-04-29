@@ -40,6 +40,7 @@
 const TinyTest = {
 
     run: function(tests) {
+        console.log("Running Tiny Test");
         let failures = 0;
         for (let group in tests)
         {
@@ -47,10 +48,10 @@ const TinyTest = {
               let testAction = tests[group][testName];
               try {
                   testAction();
-                  console.log('Test:', testName, 'OK');
+                  console.log('Test:', group, "-", testName, 'OK');
               } catch (e) {
                   failures++;
-                  console.error('Test:', testName, 'FAILED', e);
+                  console.error('Test:', group, "-", testName, 'FAILED', e);
                   console.error(e.stack);
               }
           }
