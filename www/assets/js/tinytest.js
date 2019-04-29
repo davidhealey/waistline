@@ -44,7 +44,7 @@ const TinyTest = {
         for (let group in tests)
         {
           for (let testName in tests[group]) {
-              let testAction = testName;
+              let testAction = tests[group][testName];
               try {
                   testAction();
                   console.log('Test:', testName, 'OK');
