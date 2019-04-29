@@ -41,16 +41,19 @@ const TinyTest = {
 
     run: function(tests) {
         let failures = 0;
-        for (let testName in tests) {
-            let testAction = tests[testName];
-            try {
-                testAction();
-                console.log('Test:', testName, 'OK');
-            } catch (e) {
-                failures++;
-                console.error('Test:', testName, 'FAILED', e);
-                console.error(e.stack);
-            }
+        for (let group in tests)
+        {
+          for (let testName in tests[group]) {
+              let testAction = testName;
+              try {
+                  testAction();
+                  console.log('Test:', testName, 'OK');
+              } catch (e) {
+                  failures++;
+                  console.error('Test:', testName, 'FAILED', e);
+                  console.error(e.stack);
+              }
+          }
         }
         setTimeout(function() { // Give document a chance to complete
             if (window.document && document.body) {
@@ -87,5 +90,4 @@ const fail                = TinyTest.fail,
       assert              = TinyTest.assert,
       assertEquals        = TinyTest.assertEquals,
       eq                  = TinyTest.assertEquals, // alias for assertEquals
-      assertStrictEquals  = TinyTest.assertStrictEquals,
-      tests               = TinyTest.run;
+      assertStrictEquals  = TinyTest.assertStrictEquals;
