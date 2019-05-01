@@ -18,20 +18,22 @@ along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 
 class FoodCollection {
 
-  constructor(){}
+  constructor(){
+    this.items = {};
+  }
 
-  this.items = {};
-
-  this.addFood = function(food){
+  addFood(food){
       this.items[food.id] = food;
   }
 
-  this.removeFood = function(food){
+  removeFood(food){
     delete this.items[food.id];
   }
 
-  this.updateDB() {
-
+  getLength(){
+    return Object.keys(this.items).length;
   }
+
+  updateDB(){}
 
 }

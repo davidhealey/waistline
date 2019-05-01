@@ -16,34 +16,169 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ons-page id="diary-page">
-  <ons-toolbar modifier="material">
+<ons-page id="diary">
+
+  <link rel="stylesheet" href="src/activities/diary/views/diary.css">
+
+  <ons-toolbar>
     <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
     <div class="center" data-localize="diary.title">Diary</div>
     <div class="right"><ons-toolbar-button id="record-weight"><ons-icon icon="fa-balance-scale"></ons-icon></ons-toolbar-button></div>
   </ons-toolbar>
 
-  <ons-card id="date-selector" style="text-align:center;">
-    <ons-row>
-      <ons-col><ons-button style="background-color:white; box-shadow:none; color:#000000" tappable id="previousDate"><ons-icon icon="chevron-left"></ons-icon></ons-button></ons-col>
-      <ons-col><ons-input style="text-align:center; margin-top:0.3em;" id="date" type="date"></ons-input></ons-col>
-      <ons-col><ons-button style="background-color:white; box-shadow:none; color:#000000" tappable id="nextDate"><ons-icon icon="chevron-right"></ons-icon></ons-button></ons-col>
+  <ons-card id="header">
+    <ons-row id="diary-date">
+      <ons-col><ons-button tappable class="adjacent-date"><ons-icon icon="chevron-left"></ons-icon></ons-button></ons-col>
+      <ons-col><ons-input  id="date-picker" type="date"></ons-input></ons-col>
+      <ons-col><ons-button tappable class="adjacent-date"><ons-icon icon="chevron-right"></ons-icon></ons-button></ons-col>
     </ons-row>
+    <div id="diary-nutrition">
+    </div>
   </ons-card>
 
-  <div id="diary-lists"></div> <!--Populated dynamically-->
+  <div id="diary-day">
+  </div>
 
-  <ons-bottom-toolbar id="stat-bar" static>
-    <div class="progressBar" style="max-width:100%; height:.1em; margin-bottom: 0.2em;"></div>
-    <ons-row style="margin-bottom:0; margin-top:0;">
-      <ons-col style='text-align:center;' data-localize="statistics.goal"><b>Goal</b></ons-col>
-      <ons-col style='text-align:center;' data-localize="statistics.used"><b>Used</b></ons-col>
-      <ons-col style='text-align:center;' data-localize="statistics.remaining"><b>Remaining</b></ons-col>
-    </ons-row>
-    <ons-row>
-      <ons-col id="goal" style='text-align:center;'></ons-col>
-      <ons-col id="used" style='text-align:center;'></ons-col>
-      <ons-col id="remaining" style='text-align:center;'></ons-col>
-    </ons-row>
-  </ons-bottom-toolbar>
-</ons-page>
+  <!--<ons-carousel id="diary-lists" auto-scroll swipeable initial-index="1">
+    <ons-carousel-item class="diary-day">0</ons-carousel-item>
+    <ons-carousel-item class="diary-day">1</ons-carousel-item>
+    <ons-carousel-item class="diary-day">2</ons-carousel-item>
+  </ons-carousel>
+
+<!--  <ons-carousel id="diary-lists" auto-scroll swipeable>
+    <ons-carousel-item>
+      <ons-card id="diary-nutrition">
+        <ons-carousel auto-scroll swipeable>
+          <ons-carousel-item>
+            <ons-row class="values">
+              <ons-col id="calories">510/1500</ons-col>
+              <ons-col id="protien">10/50</ons-col>
+              <ons-col id="carbs">20/70</ons-col>
+            </ons-row>
+            <ons-row class="headings">
+              <ons-col>Calories</ons-col>
+              <ons-col>Protein</ons-col>
+              <ons-col>Carbs</ons-col>
+            </ons-row>
+          </ons-carousel-item>
+          <ons-carousel-item>
+            <ons-row class="values">
+              <ons-col id="fat">510/1500</ons-col>
+              <ons-col id="saturated-fat">10/50</ons-col>
+              <ons-col id="sugar">20/70</ons-col>
+            </ons-row>
+            <ons-row class="headings">
+              <ons-col>Fat</ons-col>
+              <ons-col>Saturated Fat</ons-col>
+              <ons-col>Sugar</ons-col>
+            </ons-row>
+          </ons-carousel-item>
+        </ons-carousel>
+      </ons-card>
+      <ons-card>BREAKFAST</ons-card>
+      <ons-card>LUNCH</ons-card>
+      <ons-card>DINNER</ons-card>
+      <ons-card>SNACKS</ons-card>
+    </ons-carousel-item>
+
+    <ons-carousel-item>
+      <ons-card id="diary-nutrition">
+        <ons-carousel auto-scroll swipeable>
+          <ons-carousel-item>
+            <ons-row class="values">
+              <ons-col id="calories">510/1500</ons-col>
+              <ons-col id="protien">10/50</ons-col>
+              <ons-col id="carbs">20/70</ons-col>
+            </ons-row>
+            <ons-row class="headings">
+              <ons-col>Calories</ons-col>
+              <ons-col>Protein</ons-col>
+              <ons-col>Carbs</ons-col>
+            </ons-row>
+          </ons-carousel-item>
+          <ons-carousel-item>
+            <ons-row class="values">
+              <ons-col id="fat">510/1500</ons-col>
+              <ons-col id="saturated-fat">10/50</ons-col>
+              <ons-col id="sugar">20/70</ons-col>
+            </ons-row>
+            <ons-row class="headings">
+              <ons-col>Fat</ons-col>
+              <ons-col>Saturated Fat</ons-col>
+              <ons-col>Sugar</ons-col>
+            </ons-row>
+          </ons-carousel-item>
+        </ons-carousel>
+      </ons-card>
+      <ons-card>BREAKFAST</ons-card>
+      <ons-card>LUNCH</ons-card>
+      <ons-card>DINNER</ons-card>
+      <ons-card>SNACKS</ons-card>
+    </ons-carousel-item>
+  </ons-carousel>
+
+  <!--Populated dynamically-->
+  <!--<ons-carousel id="diary-lists" auto-scroll swipeable>
+    <ons-card>
+      <ons-list>
+        <ons-list-item expandable id="meal0-title">
+          Breakfast - 0
+          <div class="expandable-content">
+            <ons-list id="meal0-list">
+              <ons-list-item>
+                Weetos
+              </ons-list-item>
+            </ons-list>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    </ons-card>
+    <ons-card>
+      <ons-list>
+        <ons-list-item expandable id="meal1-title">
+          Lunch - 0
+          <div class="expandable-content">
+            <ons-list id="meal0-list">
+              <ons-list-item>
+                Weetos
+              </ons-list-item>
+            </ons-list>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    </ons-card>
+    <ons-card>
+      <ons-list>
+        <ons-list-item expandable id="meal2-title">
+          Dinner - 0
+          <div class="expandable-content">
+            <ons-list id="meal0-list">
+              <ons-list-item>
+                Weetos
+              </ons-list-item>
+            </ons-list>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    </ons-card>
+    <ons-card>
+      <ons-list>
+        <ons-list-item expandable id="meal3-title">
+          Snacks - 0
+          <div class="expandable-content">
+            <ons-list id="meal0-list">
+              <ons-list-item>
+                Weetos
+              </ons-list-item>
+            </ons-list>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    </ons-card>
+  </ons-carousel>
+
+  <ons-fab id="add-food" position="bottom right" onclick="diary.addFood(this);">
+    <ons-icon icon="md-plus"></ons-icon>
+  </ons-fab>
+
+</ons-page>-->

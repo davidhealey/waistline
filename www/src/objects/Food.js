@@ -30,7 +30,5 @@ class Food {
     this.barcode = barcode;
   }
 
-  this.updateDB() {
-
-  }
+  updateDB(){}
 }

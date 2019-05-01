@@ -1,0 +1,10 @@
+ons-page#diary #diary-date {margin-bottom: 0.5em; padding-top: 0.2em; padding-bottom: 0.2em; text-align:center; position:sticky;}
+ons-page#diary #diary-date ons-button {background-color:inherit; color:black; box-shadow:none; text-align: center;}
+
+ons-page#diary #header {background-color: inherit; box-shadow:none;}
+ons-page#diary #diary-nutrition {background-color: inherit; box-shadow:none;}
+ons-page#diary #diary-nutrition ons-carousel {height:3.5em; border-bottom: 1px solid grey;}
+ons-page#diary #diary-nutrition ons-col {text-align: center;}
+ons-page#diary #diary-nutrition .nutrition-total-values {padding-bottom: 0.2em;}
+ons-page#diary #diary-nutrition .nutrition-total-values ons-col {font-size: 1em; font-weight:bold;}
+ons-page#diary #diary-nutrition .nutrition-total-title ons-col {font-size: 0.9em;}
