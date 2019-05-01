@@ -123,9 +123,27 @@ var diary = {
 
       //Render entries
       for (let i = 0; i < entries[category].length; i++) {
-        var entry = entries[category][i];
-        var li = document.createElement("ons-list-item");
-        li.innerText = unescape(entry.name);
+        let entry = entries[category][i];
+
+        let li = document.createElement("ons-list-item");
+        let name = document.createElement("ons-row");
+        name.className = "diary-entry-name";
+        name.innerText = unescape(entry.name);
+        li.appendChild(name);
+
+        if (entry.brand != "")
+        {
+          let brand = document.createElement("ons-row");
+          brand.className = "diary-entry-brand";
+          brand.innerHTML = unescape(entry.brand).italics();
+          li.appendChild(brand);
+        }
+
+        let info = document.createElement("ons-row");
+        info.className = "diary-entry-info";
+        info.innerText = entry.portion + ", " + entry.nutrition.calories + " Calories";
+        li.appendChild(info);
+
         lists[category].appendChild(li);
       }
     }
@@ -145,8 +163,7 @@ var diary = {
 
     for (let nutriment in goals) {
 
-      if (count % 3 == 0) //Every third nutriment
-      {
+      if (count % 3 == 0) { //Every third nutriment
         carouselItem = document.createElement("ons-carousel-item");
         rows[0] = document.createElement("ons-row");
         rows[0].className = "nutrition-total-values";
