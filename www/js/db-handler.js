@@ -164,6 +164,11 @@ var dbHandler =
     return request;
   },
 
+  insertBulk: function(data, storeName)
+  {
+
+  },
+
   update: function(data, storeName, key)
   {
     return new Promise(function(resolve, reject){
@@ -177,7 +182,7 @@ var dbHandler =
         if (result)
         {
           //Update the result with values from the passed data object
-          for (k in data) //Each key in data
+          for (let k in data) //Each key in data
           {
               result[k] = data[k];
           }
@@ -190,7 +195,7 @@ var dbHandler =
         updateRequest.onsuccess = function(e)
         {
           resolve();
-        }
+        };
       };
 
       request.onerror = function(event) {
@@ -208,7 +213,7 @@ var dbHandler =
     request.oncomplete = function(e)
     {
       console.log("Transaction Complete");
-    }
+    };
 
     request.onerror = function(e)
     {
@@ -311,7 +316,7 @@ var dbHandler =
               dbHandler.writeToFile(JSON.stringify(exportObject));
             }
           }
-        }
+        };
       });
     }
   },
@@ -379,9 +384,9 @@ var dbHandler =
                   dbHandler.upgradeData(version, t);
                 }
               }
-            }
+            };
           });
-        }
+        };
       }
     });
   },
@@ -469,4 +474,4 @@ var dbHandler =
       });
     }
   },
-}
+};
