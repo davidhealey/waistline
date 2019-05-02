@@ -1,3 +1,22 @@
+/*
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 ons-page#diary #diary-date {margin-bottom: 0.5em; padding-top: 0.2em; padding-bottom: 0.2em; text-align:center; position:sticky;}
 ons-page#diary #diary-date ons-button {background-color:inherit; color:black; box-shadow:none; text-align: center;}
 
@@ -5,6 +24,12 @@ ons-page#diary #header {background-color: inherit; box-shadow:none;}
 ons-page#diary #diary-nutrition {background-color: inherit; box-shadow:none;}
 ons-page#diary #diary-nutrition ons-carousel {height:3.5em; border-bottom: 1px solid grey;}
 ons-page#diary #diary-nutrition ons-col {text-align: center;}
-ons-page#diary #diary-nutrition .nutrition-total-values {padding-bottom: 0.2em;}
+ons-page#diary #diary-nutrition .nutrition-total-values {padding-bottom: 0.3em;}
 ons-page#diary #diary-nutrition .nutrition-total-values ons-col {font-size: 1em; font-weight:bold;}
 ons-page#diary #diary-nutrition .nutrition-total-title ons-col {font-size: 0.9em;}
+
+ons-page#diary #diary-day ons-list-item:not(:last-child) {border-bottom: 1px solid black;}
+ons-page#diary #diary-day .meal-heading {font-size:1.1em; font-weight: lighter;}
+ons-page#diary #diary-day .diary-entry-name {font-size: 1em;}
+ons-page#diary #diary-day .diary-entry-brand {font-size: 0.8em;}
+ons-page#diary #diary-day .diary-entry-info {font-size: 0.8em; font-weight: lighter;}

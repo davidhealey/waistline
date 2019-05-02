@@ -1,0 +1,46 @@
+<!--
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="foodlist">
+
+  <link rel="stylesheet" href="src/activities/foodlist/views/foodlist.css">
+
+  <ons-toolbar>
+    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="center" data-localize="foodlist.title">Food List</div>
+    <div class="right">
+      <ons-toolbar-button id="scan"><ons-icon icon="barcode"></ons-icon></ons-toolbar-button>
+      <ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <div id="filter-container">
+    <form onsubmit="foodList.search(this[0].value); return false;">
+      <ons-search-input id="filter" placeholder="Search Food"></ons-search-input>
+    </form>
+    <!--<ons-progress-circular indeterminate></ons-progress-circular>-->
+  </div>
+
+  <div id=list-container">
+    <ons-list>
+      <ons-lazy-repeat id="infinite-list">
+      </ons-lazy-repeat>
+    </ons-list>
+  </div>
+
+</ons-page>
