@@ -156,17 +156,33 @@ var dbHandler =
   {
     var request = DB.transaction(storeName, "readwrite").objectStore(storeName).put(data); //Add/update data
 
-    request.onerror = function(e)
-    {
+    request.onerror = function(e) {
       console.log("Transaction Error!");
     };
 
     return request;
   },
 
-  insertBulk: function(data, storeName)
+  bulkPut: function(data, storeName)
   {
+    return new Promise(function(resolve, reject){
 
+      var request;
+      let transaction = DB.transaction(storeName, "readwrite");
+      let store = transaction.objectStore(storeName);
+
+      function errorHandler(e) {
+        console.log("Something went wrong", e);
+      }
+
+      for (var i = 0; i < data.length; ++i) {
+        request = store.put(data[i]);
+        request.onerror = errorHandler;
+      }
+
+      request.onerror = errorHandler;
+      request.onsuccess = resolve(); //Only listen for last succes callback
+    });
   },
 
   update: function(data, storeName, key)
