@@ -19,3 +19,4 @@
 
 ons-page#foodlist #filter-container {text-align: center; padding-top: 1em; padding-bottom: 0.5em;}
 ons-page#foodlist #submit {display:none;}
+ons-page#foodlist ons-progress-circular {display:none;}

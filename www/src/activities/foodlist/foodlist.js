@@ -86,14 +86,14 @@ var foodlist = {
     li.appendChild(center);
 
     let name = document.createElement("ons-row");
-    name.innerText = item.name;
+    name.innerText = unescape(item.name);
     center.appendChild(name);
 
     let calories = 0;
     if (item.nutrition != undefined) calories = item.nutrition.calories;
 
     let info = document.createElement("ons-row");
-    info.innerText = item.brand + ", " + item.portion + ", " + calories + "kcal";
+    info.innerText = unescape(item.brand) + ", " + item.portion + ", " + calories + "kcal";
     center.appendChild(info);
 
     //Checkbox
@@ -102,19 +102,20 @@ var foodlist = {
     li.appendChild(right);
 
     let checkbox = document.createElement("ons-checkbox");
+    checkbox.setAttribute("name", "food-item-checkbox");
+    checkbox.setAttribute("data", JSON.stringify(item)); //Add list item as checkbox parent's data attribute
     checkbox.addEventListener('change', this.checkboxChange); //Attach event
-    checkbox.name = "food-item-checkbox";
     right.appendChild(checkbox);
 
     return li;
   },
 
   //Checkbox change event callback function
-  checkboxChange: function(){
+  checkboxChange: function() {
 
     let btnScan = foodlist.page.querySelector('#scan'); //Barcode button
     let btnCheck = foodlist.page.querySelector('#submit'); //Barcode button
-    let checkedboxes = foodlist.page.querySelectorAll('input[type=checkbox]:checked'); //All checked boxes
+    let checkedboxes = foodlist.page.querySelectorAll('input[name=food-item-checkbox]:checked'); //All checked boxes
 
     if (checkedboxes.length == 0) {
       btnScan.style.display = "initial";
@@ -125,6 +126,36 @@ var foodlist = {
       btnCheck.style.display = "block";
     }
   },
+
+  submitButtonAction: function() {
+
+    const checked = this.page.querySelectorAll('input[name=food-item-checkbox]:checked'); //Get all checked items
+
+    if (checked.length > 0) {//Sanity test
+      //Get data from checked items
+      let items = [];
+
+      for (let i = 0; i < checked.length; i++) {
+        items.push(JSON.parse(checked[i].offsetParent.getAttribute("data"))); //Add food items' data to array
+      }
+
+      if (nav.pages.length == 1) {//No previous page - default to diary
+
+        //Ask the user to select the meal category
+        ons.openActionSheet({
+          title: 'What meal is this?',
+          buttons: JSON.parse(window.localStorage.getItem("meal-names"))
+        })
+        .then(function(input){
+          if (input != -1)
+            nav.resetToPage("src/activities/diary/views/diary.html", {"data":{"items":items, "category":input}}); //Switch to diary page and pass data
+        });
+      }
+      else {
+        nav.popPage({"data":{"items":items}}); //Go back to previous page and pass data along
+      }
+    }
+  }
 };
 
 //Page initialization
@@ -168,6 +199,12 @@ document.addEventListener("init", function(event){
     filter.addEventListener("input", function(event){
       let value = event.target.value;
       foodlist.setFilter(value);
+    });
+
+    //Food list submit button
+    const submit = foodlist.page.querySelector('#submit');
+    submit.addEventListener("tap", function(event){
+      foodlist.submitButtonAction();
     });
  }
 });
