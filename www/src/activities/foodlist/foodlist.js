@@ -27,6 +27,15 @@ var foodlist = {
 
     //Setup lazy list
     this.infiniteList = document.querySelector('#foodlist #infinite-list');
+
+    //Show/Hide back button
+    let menuButton = document.querySelector("ons-page#foodlist #menu-button");
+    let backButton = document.querySelector("ons-page#foodlist #back-button");
+    backButton.style.display = "none"; //Hide back button by default
+    if (nav.pages.length > 1) {
+      backButton.style.display = "block";
+      menuButton.style.display = "none";
+    }
   },
 
   setFilter : function(term)
@@ -140,7 +149,6 @@ var foodlist = {
       }
 
       if (nav.pages.length == 1) {//No previous page - default to diary
-
         //Ask the user to select the meal category
         ons.openActionSheet({
           title: 'What meal is this?',

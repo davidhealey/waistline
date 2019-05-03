@@ -21,7 +21,10 @@
   <link rel="stylesheet" href="src/activities/foodlist/views/foodlist.css">
 
   <ons-toolbar>
-    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+    <div class="left">
+      <ons-toolbar-button id="menu-button" tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button>
+      <ons-back-button id="back-button">Back</ons-back-button>
+    </div>
     <div class="center" data-localize="foodlist.title">Food List</div>
     <div class="right">
       <ons-toolbar-button id="scan"><ons-icon icon="barcode"></ons-icon></ons-toolbar-button>
