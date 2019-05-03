@@ -20,9 +20,13 @@
 var diary = {
 
   initialize: function() {
-    var now = new Date("2018-12-27");
+
+    this.page = document.querySelector('ons-page#diary');
+    this.data = {};
+    this.currentCategory = 0;
+    var now = new Date();
     this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    this.changeDate(0);
+    console.log("Diary Initialized");
   },
 
   changeDay: function(date) {
@@ -103,42 +107,49 @@ var diary = {
     const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
 
     for (let i = 0; i < mealNames.length; i++) {
+
+      if (mealNames[i] == "") continue;
+
       //One card per meal - breakfast, lunch, dinner, etc.
       cards[i] = document.createElement("ons-card");
 
       //One expandable list per card
       let ul = document.createElement("ons-list");
       let li = document.createElement("ons-list-item");
-      li.setAttribute("expandable");
+      li.setAttribute("expandable", "");
+      li.setAttribute("category", i);
       li.className = "meal-heading";
+      li.addEventListener("doubletap", this.goToFoodList);
 
-      let calories = 0; //Per category calorie count
-      if (nutrition[i]) calories = nutrition[i].calories;
-      let text = document.createTextNode(mealNames[i] + " - " + calories);
-      li.appendChild(text);
+      let span = document.createElement("span"); //Populated by renderNutrition function
+      span.className = "header-text";
+      li.appendChild(span);
 
-      ul.appendChild(li);
-      cards[i].appendChild(ul); //Attach list to card
+      //Gesture detector
+      let gd = document.createElement("ons-gesture-detector");
+      gd.appendChild(li);
 
       //Expandable content holder
       let content = document.createElement("div");
       content.className = "expandable-content";
-      li.appendChild(content);
 
       //The expanded list that will contain diary entries
       let innerUl = document.createElement("ons-list");
       content.appendChild(innerUl);
       lists[i] = innerUl; //Expanded content list
 
+      li.appendChild(content);
+      ul.appendChild(li);
+      cards[i].appendChild(ul); //Attach list to card
       container.appendChild(cards[i]); //Attach card to carousel item
-      if (calories > 0) li.showExpansion(); //Expand lists that have entires
     }
 
-    //Render entires
+    //Render entries
     for (let category in entries) {
 
       //List for each category card
       var ul = document.createElement("ons-list");
+      ul.id = mealNames[category] + "-list";
       cards[category].appendChild(ul);
 
       //Render entries
@@ -146,13 +157,21 @@ var diary = {
         let entry = entries[category][i];
 
         let li = document.createElement("ons-list-item");
+        li.id = "entry-" + entry.id;
+        li.className = "entry";
+        li.setAttribute("data", JSON.stringify(entry));
+
+        //Gesture detector
+        let gd = document.createElement("ons-gesture-detector");
+        gd.appendChild(li);
+
         let name = document.createElement("ons-row");
         name.className = "diary-entry-name";
         name.innerText = unescape(entry.name);
         li.appendChild(name);
+        li.addEventListener("hold", this.deleteItem);
 
-        if (entry.brand != "")
-        {
+        if (entry.brand != "") {
           let brand = document.createElement("ons-row");
           brand.className = "diary-entry-brand";
           brand.innerHTML = unescape(entry.brand).italics();
@@ -167,8 +186,48 @@ var diary = {
         lists[category].appendChild(li);
       }
     }
+  },
 
-    //Render total nutrition
+  renderNutrition: function() {
+
+    //Gather data from DOM
+    let entries = document.getElementsByClassName('entry'); //Get all entries
+    let nutrition = {};
+    let totals = {};
+    let goals = this.getDailyGoals();
+
+    for (let i = 0; i < entries.length; i++) {
+      let item = JSON.parse(entries[i].getAttribute("data")); //Get data object for each entry
+
+      nutrition[item.category] = nutrition[item.category] || {}; //Nutrition per category
+
+      for (let nutriment in item.nutrition) {
+        nutrition[item.category][nutriment] = nutrition[item.category][nutriment] || 0;
+        nutrition[item.category][nutriment] += item.nutrition[nutriment];
+
+        //Nutrition totals
+        totals[nutriment] = totals[nutriment] || 0;
+        totals[nutriment] += item.nutrition[nutriment];
+      }
+    }
+
+    //Render category calorie count
+    const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
+    const headings = document.querySelectorAll('.meal-heading[category]'); //Category heading list items
+
+    for (let i = 0; i < headings.length; i++) {
+      let category = headings[i].getAttribute("category");
+      let calories = 0; //Per category calorie count
+      if (nutrition[category]) calories = nutrition[category].calories;
+
+      //Set category heading text
+      let headingText = headings[i].getElementsByClassName("header-text")[0];
+      headingText.innerText = mealNames[category] + " - " + calories;
+
+      if (calories > 0) headings[i].showExpansion(); //Expand lists that have entires*/
+    }
+
+    //Render total nutrition / goals
     let count = 0;
     let carouselItem;
     let rows = [];
@@ -182,8 +241,7 @@ var diary = {
     nutritionContainer.appendChild(carousel);
 
     for (let nutriment in goals) {
-
-      if (count % 3 == 0) { //Every third nutriment
+      if (count % 3 == 0) { //Every third nutriment gets a new carousel item
         carouselItem = document.createElement("ons-carousel-item");
         rows[0] = document.createElement("ons-row");
         rows[0].className = "nutrition-total-values";
@@ -215,21 +273,71 @@ var diary = {
 
       count++;
     }
-
   },
 
-  changeDate: function(hours) {
+  goToFoodList: function(e) {
+    diary.currentCategory = this.getAttribute("category");
+    nav.pushPage("src/activities/foodlist/views/foodlist.html"); //Go to the food list page
+  },
 
-    //Update diary date
-    diary.date.setUTCHours(diary.date.getUTCHours()+hours);
-    document.querySelector('#diary-date #date-picker').value = diary.date; //Update displayed date
+  loadDiary: function() {
+    //Update date display
+    this.page.querySelector('#date-picker').value = diary.date; //Update displayed date
 
     //Get diary entries for date and render
     diary.getEntriesFromDB(diary.date)
     .then(function(data){
-      data.goals = diary.getDailyGoals();
       diary.data = data;
       diary.render();
+      diary.renderNutrition();
+    });
+  },
+
+  deleteItem: function() {
+
+    let id = this.id;
+
+    ons.notification.confirm("Delete this item?")
+    .then(function(input) {
+      if (input == 1) {//Delete was confirmed
+
+        let request = dbHandler.deleteItem(parseInt(id.replace(/[^0-9.]+/g, '')), "diary");
+
+        //If the request was successful remove the list item
+        request.onsuccess = function(e) {
+          let child = document.querySelector('#diary-day #' + id);
+          let parent = child.parentElement;
+          parent.removeChild(child);
+          diary.renderNutrition();
+        };
+      }
+    });
+  },
+
+  //Bulk Insert/Update
+  pushItemsToDB: function(items) {
+    return new Promise(function(resolve, reject){
+
+      //Meal category names
+      const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
+
+      for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+
+        item.dateTime = diary.date;
+        item.category = diary.currentCategory;
+        item.category_name = mealNames[diary.currentCategory];
+        item.quantity = 1;
+
+        //If there is no food id set, use the item's ID as the food id
+        if (item.foodId == undefined) {
+          item.foodId = item.id;
+          delete item.id;
+        }
+      }
+
+      //Insert/update the record
+      dbHandler.bulkPut(items, "diary").then(resolve());
     });
   },
 };
@@ -241,12 +349,29 @@ document.addEventListener("init", function(event){
     //Call constructor
     diary.initialize();
 
+    //Page show event
+    diary.page.addEventListener("show", function(e){
+
+      //If items have been passed to the page, add them to the diary
+      if (this.data.items) {
+        if (this.data.category != undefined)
+          diary.currentCategory = this.data.category; //Update current category if passed with data
+
+        diary.pushItemsToDB(this.data.items)
+        .then(diary.loadDiary()); //Refresh the display
+      }
+      else {
+        diary.loadDiary();
+      }
+    });
+
     //Previous & Next date buttons
     const btnDate = document.getElementsByClassName("adjacent-date");
     Array.from(btnDate).forEach(function(element) {
       element.addEventListener('tap', function(event){
-        if (this == btnDate[0]) diary.changeDate(-24); //Previous day
-        if (this == btnDate[1]) diary.changeDate(24); //Next day
+        if (this == btnDate[0]) diary.date.setUTCHours(diary.date.getUTCHours()-24); //Previous day
+        if (this == btnDate[1]) diary.date.setUTCHours(diary.date.getUTCHours()+24); //Next day
+        diary.loadDiary();
       });
     });
 
@@ -254,7 +379,7 @@ document.addEventListener("init", function(event){
     const datePicker = document.querySelector('#diary-date #date-picker');
     datePicker.addEventListener("change", function(event){
       diary.date = new Date(this.value);
-      diary.changeDate(0);
+      diary.loadDiary();
     });
  }
 });
