@@ -173,11 +173,11 @@ var foodlist = {
       item.name = "test food " + i;
       item.brand = "test brand";
       item.dateTime = new Date();
-      item.portion = "100" + i*3 + "g";
+      item.portion = "100g";
       item.nutrition = {};
-      item.nutrition.calories = 100 + i;
-      item.nutrition.fat = 20 + i;
-      item.nutrition.protein = 12 + i;
+      item.nutrition.calories = 100;
+      item.nutrition.fat = 20;
+      item.nutrition.protein = 12;
       dbHandler.put(item, "foodList");
     }
   },

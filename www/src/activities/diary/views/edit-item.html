@@ -35,7 +35,7 @@
       <ons-row>
         <ons-col width="75%" data-localize="diary.edit-item.num-servings">Number of Servings</ons-col>
         <ons-col class="align-right">
-          <ons-input id="quantity" name="quantity" type="number" min="1" inputmode="decimal"></ons-input>
+          <ons-input id="quantity" name="quantity" type="number" min="1" inputmode="decimal" step="any"></ons-input>
         </ons-col>
         <ons-row>
       </ons-row>
@@ -48,30 +48,4 @@
     </ons-card>
     <ons-list id="nutrition" modifier="inset"></ons-list>
   </div>
-  
-  <!--<div style="text-align: left; margin-top: 2em; margin-left:1em;">
-    <h3 id="brand"></h3>
-    <h4 id="name"><i></i></h4>
-    <br>
-    <form onsubmit="diary.updateEntry(); return false;" id="edit-item-form">
-      <input type="hidden" id="id"> <!--The ID of the diary entry being edited-->
-      <!--<input type="hidden" id="data"><!--Used for storing other data so that it can be accessed by other functions-->
-
-      <!--<p><ons-input type="number" id="quantity" step="any" required="true" placeholder="Quantity" float value="1"></ons-input></p>
-      <!--<ons-row>
-        <ons-col style="padding-right:0.25em;"><ons-input type="number" min="1" inputmode="decimal" step="any" name="portion" id="portion" required="true" placeholder="Portion*" float value="1" onfocus="this.oldValue = this.value;"></ons-input></ons-col>
-        <ons-col style="padding-left:0.25em;"><ons-input type="text" pattern="[A-Za-z]*" name="unit" id="unit" required="true" placeholder="Unit*" float readonly></ons-input></ons-col>
-        <ons-col></ons-col>
-      </ons-row>-->
-      <!--<p><ons-input type="number" class="nutrition" id="calories" step="any" placeholder="Calories" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="fat" step="any" placeholder="Fat (g)" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="saturated-fat" step="any" placeholder="Saturated Fat(g)" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="carbs" step="any" placeholder="Carbs (g)" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="sugar" step="any" placeholder="Sugar (g)" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="protein" step="any" placeholder="Protein (g)" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="fiber" step="any" placeholder="Fibre (g)" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="salt" step="any" placeholder="Salt (g)" float readonly value="0"></ons-input></p>
-      <p><ons-input type="number" class="nutrition" id="sodium" step="any" placeholder="Sodium (mg)" float readonly value="0"></ons-input></p>
-    </form>
-  </div>-->
 </ons-page>

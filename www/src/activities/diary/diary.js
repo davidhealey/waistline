@@ -181,7 +181,7 @@ var diary = {
 
         let info = document.createElement("ons-row");
         info.className = "diary-entry-info";
-        info.innerText = entry.portion + ", " + entry.nutrition.calories + " Calories";
+        info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
         li.appendChild(info);
 
         lists[category].appendChild(li);
@@ -223,7 +223,7 @@ var diary = {
 
       //Set category heading text
       let headingText = headings[i].getElementsByClassName("header-text")[0];
-      headingText.innerText = mealNames[category] + " - " + calories;
+      headingText.innerText = mealNames[category] + " - " + parseInt(calories);
 
       if (calories > 0) headings[i].showExpansion(); //Expand lists that have entires*/
     }
@@ -287,6 +287,8 @@ var diary = {
     .then(function() {
       populateEditor(itemdata);
       document.querySelector('ons-page#diary-edit-item #submit').addEventListener("tap", function(){ processEditor(itemdata);});
+      document.querySelector('ons-page#diary-edit-item #quantity').addEventListener("change", function(){ changeServing(itemdata);});
+      document.querySelector('ons-page#diary-edit-item #portion').addEventListener("change", function(){ changeServing(itemdata);});
     });
 
     function populateEditor(data) {
@@ -322,6 +324,8 @@ var diary = {
       const nutritionList = document.querySelector("ons-page#diary-edit-item #nutrition");
       for (let nutriment in data.nutrition) {
 
+        if (data.nutrition[nutriment] == null) continue;
+
         let li = document.createElement("ons-list-item");
         nutritionList.appendChild(li);
 
@@ -335,15 +339,15 @@ var diary = {
 
         let right = document.createElement("div");
         right.className = "right";
+        right.id = nutriment;
         li.appendChild(right);
 
-        tnode = document.createTextNode(data.nutrition[nutriment] || 0);
+        tnode = document.createTextNode(parseFloat((data.nutrition[nutriment] * data.quantity).toFixed(2)) || 0);
         right.appendChild(tnode);
       }
     }
 
-    function processEditor(data)
-    {
+    function processEditor(data) {
       //Get values from form and push to DB
       let unit = document.getElementById('unit').innerText;
       data.category = parseInt(document.getElementById('category').value);
@@ -352,10 +356,30 @@ var diary = {
       data.portion = document.getElementById('portion').value + unit;
       data.dateTime = new Date(data.dateTime); //dateTime must be a Date object
 
-      //Update the DB
+      for (let nutriment in data.nutrition) {
+        let t = document.querySelector("#diary-edit-item #"+nutriment);
+        data.nutrition[nutriment] = parseFloat(t.innerText / data.quantity);
+      }
+
+      //Update the DB and return to diary
       dbHandler.put(data, "diary").onsuccess = function() {
-        nav.popPage(); //Return to diary
+        nav.resetToPage('src/activities/diary/views/diary.html');
       };
+    }
+
+    function changeServing(data) {
+
+      let oldP = parseFloat(data.portion); //Get original portion
+      let newP = document.querySelector('#diary-edit-item #portion').value; //New portion
+      let newQ = document.querySelector('#diary-edit-item #quantity').value; //New quantity
+
+      if (oldP > 0 || newP > 0) {
+        for (let nutriment in data.nutrition) {
+          let v = (data.nutrition[nutriment] / oldP) * newP;
+          let t = document.querySelector("#diary-edit-item #"+nutriment);
+          t.innerText = parseFloat((v*newQ).toFixed(2));
+        }
+      }
     }
   },
 
