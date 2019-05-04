@@ -152,7 +152,7 @@ var dbHandler =
     }
   },
 
-  insert: function(data, storeName)
+  put: function(data, storeName)
   {
     var request = DB.transaction(storeName, "readwrite").objectStore(storeName).put(data); //Add/update data
 
@@ -226,13 +226,11 @@ var dbHandler =
   {
     var request = DB.transaction(storeName, "readwrite").objectStore(storeName).delete(key);
 
-    request.oncomplete = function(e)
-    {
+    request.oncomplete = function(e) {
       console.log("Transaction Complete");
     };
 
-    request.onerror = function(e)
-    {
+    request.onerror = function(e) {
       console.log("Transaction Error!: " + e);
     };
 
