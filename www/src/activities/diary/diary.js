@@ -266,10 +266,12 @@ var diary = {
       col.appendChild(t);
       rows[0].appendChild(col);
 
+      //Title
       col = document.createElement("ons-col");
       col.id = nutriment + "-title";
-      let tt = document.createTextNode(nutriment);
-      col.appendChild(tt);
+      let text = app.strings[nutriment] || nutriment; //Localize
+      let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
+      col.appendChild(tnode);
       rows[1].appendChild(col);
 
       count++;
