@@ -19,105 +19,71 @@
 
 var app = {
 
-  storage:{}, //Local storage
+  mode: "development",
+  tests:{}, //Object to hold test functions to be run by TinyTest
   strings: {},
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
+
+  setTestGoals : function() //Set stored goals to default
+  {
+    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "salt"];
+    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2.4]; //Womens RDAs
+    var data = {};
+
+    for (var i = 0; i < types.length; i++) //Each type
+    {
+      data[types[i]] = data[types[i]] || {};
+
+      if (types[i] == "weight") continue; //Weight is handled separately
+
+      data[types[i]].multi = true;
+
+      for (j = 0; j < 7; j++) //Each day of the week (0-6)
+      {
+        data[types[i]][j] = values[i];
+      }
+    }
+
+    data.weight = {"target":75, "weekly":0.25, "gain":false}; //Default weight goals
+
+    //Save data in local storage
+    window.localStorage.setItem("goals", JSON.stringify(data));
+  },
 
   // Application Constructor
   initialize: function()
   {
+
+    //Set some default settings
+    if (window.localStorage.getItem("goals") == undefined) this.setTestGoals(); //Goals
+    if (window.localStorage.getItem("weight") == undefined) window.localStorage.setItem("weight", 70); //Weight
+    if (window.localStorage.getItem("meal-names") == undefined) window.localStorage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"])); //Meal names
+
+
     return new Promise(function(resolve, reject){
-
-      app.storage = window.localStorage; //Simple storage object
-
-      //Set some default settings
-      if (app.storage.getItem("goals") == undefined) goals.setDefaults(); //Goals
-      if (app.storage.getItem("weight") == undefined) app.storage.setItem("weight", 70); //Weight
-      if (app.storage.getItem("meal-names") == undefined) app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"])); //Meal names
-      if (app.storage.getItem("homescreen") == undefined) app.storage.setItem("homescreen", "userguide"); //Homescreen
-      if (app.storage.getItem("uuid") == undefined) app.storage.setItem("uuid", app.uuidv4()); //UUID
-      if (app.storage.getItem("theme") == undefined) app.storage.setItem("theme", 0); //Set defualt theme
-      app.setTheme(app.storage.getItem("theme")); //Set theme CSS
-
-      //Localisation
-
-      //Set fallback locale data
-      $.getJSON("locales/locale-en.json", function(data) {
-        console.log(data);
-          app.strings = data;
-      })
-      .then(function(){
-        $("[data-localize]").localize("locales/locale", {
-          callback: function(data, defaultCallback){
-            defaultCallback(data);
-
-            let locale = $.localize.data["locales/locale"]; //Get localized strings
-
-            //Merge the fallback with the localized strings in case there are any missing values
-            app.strings = Object.assign(app.strings, locale);
-          }
-        });
-
         dbHandler.initializeDb() //db-handler initialization
         .then(resolve);
       });
-    });
-  },
-
-  //UUID generator
-  uuidv4 : function()
-  {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
-  },
-
-  setTheme : function(theme)
-  {
-    switch(theme)
-    {
-      case "0":
-        $("#themecss").attr("href", "onsen/css/light-onsen-css-components.min.css");
-      break;
-      case "1":
-        $("#themecss").attr("href", "onsen/css/dark-onsen-css-components.min.css");
-      break;
-    }
-  },
-
-  takePicture : function(options)
-  {
-    return new Promise(function(resolve, reject){
-      navigator.camera.getPicture(function(image_uri){
-        resolve(image_uri)
-      },
-      function(){
-        console.log("Camera problem");
-        reject();
-      }, options);
-    });
   },
 
   getDateAtMidnight : function()
   {
-    var now = new Date();
     // use UTC midnight of the current day for the diary
+    var now = new Date();
     return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-  },
+  }
 };
 
 ons.ready(function() {
-  console.log("Cordova Ready");
-  navigator.camera.cleanup(function(){console.log("Camera cleanup success")}); //Remove any old camera cache files
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-
-    if (app.storage.getItem("disable-animation") == "true") ons.disableAnimations(); //Disable all animations if setting enabled
-    var homescreen = app.storage.getItem("homescreen");
-    nav.resetToPage("activities/"+homescreen+"/views/"+homescreen+".html");
+    nav.resetToPage("src/activities/diary/views/diary.html")
+    .then(function(){
+      if (app.mode != "release")
+      {
+        TinyTest.run(app.tests); //Run tests
+      }
+    });
   });
 });
-
-//Localize when any page is initialized
-/*$(document).on("init", "ons-page", function(e){
-  $("[data-localize]").localize("locales/locale");
-});*/
