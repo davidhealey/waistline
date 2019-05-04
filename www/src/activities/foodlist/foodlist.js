@@ -163,13 +163,31 @@ var foodlist = {
         nav.popPage({"data":{"items":items}}); //Go back to previous page and pass data along
       }
     }
-  }
+  },
+
+  insertItems: function()
+  {
+    let item = {};
+
+    for (var i = 1; i < 4; i++) {
+      item.name = "test food " + i;
+      item.brand = "test brand";
+      item.dateTime = new Date();
+      item.portion = "100" + i*3 + "g";
+      item.nutrition = {};
+      item.nutrition.calories = 100 + i;
+      item.nutrition.fat = 20 + i;
+      item.nutrition.protein = 12 + i;
+      dbHandler.put(item, "foodList");
+    }
+  },
+
 };
 
 //Page initialization
 document.addEventListener("init", function(event){
   if (event.target.matches('ons-page#foodlist')) {
-
+//foodlist.insertItems();
     //Call constructor
     foodlist.initialize();
 
@@ -179,10 +197,12 @@ document.addEventListener("init", function(event){
       foodlist.list = list;
       foodlist.listCopy = list;
 
+      if (list.length == 0) return true; //Exit if list is empty
+
       //Setup lazy list delegate callbacks
       foodlist.infiniteList.delegate = {
         createItemContent: function(index, template) {
-          return foodlist.renderListItem(index);
+            return foodlist.renderListItem(index);
         },
 
         countItems: function() {
