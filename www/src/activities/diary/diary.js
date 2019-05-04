@@ -170,6 +170,7 @@ var diary = {
         name.innerText = unescape(entry.name);
         li.appendChild(name);
         li.addEventListener("hold", this.deleteItem);
+        li.addEventListener("tap", this.openItemEditor);
 
         if (entry.brand != "") {
           let brand = document.createElement("ons-row");
@@ -275,7 +276,67 @@ var diary = {
     }
   },
 
-  goToFoodList: function(e) {
+  openItemEditor: function()
+  {
+    let data = JSON.parse(this.getAttribute("data"));
+    nav.pushPage("src/activities/diary/views/edit-item.html", {"data":data})
+    .then(function() {populateItemEditor(data);});
+
+    function populateItemEditor(data) {
+
+      //Item info
+      const info = document.querySelector("ons-page#diary-edit-item #info");
+      let name = document.createElement("h3");
+      name.innerText = unescape(data.name);
+      info.appendChild(name);
+
+      let brand = document.createElement("h4");
+      brand.innerText = unescape(data.brand);
+      info.appendChild(brand);
+
+      //Category selection menu
+      const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
+      const select = document.querySelector('ons-page#diary-edit-item #category');
+
+      for (var i = 0; i < mealNames.length; i++) {
+        let option = document.createElement("option");
+        option.value = i;
+        option.text = mealNames[i];
+        select.append(option);
+      }
+
+      //Serving
+      let unit = data.portion.replace(/[^a-z]/gi, ''); //Exctact unit from portion
+      document.querySelector('#diary-edit-item #quantity').value = data.quantity;
+      document.querySelector('#diary-edit-item #portion').value = parseFloat(data.portion);
+      document.querySelector('#diary-edit-item #unit').innerText = unit;
+
+      //Nutrition
+      const nutritionList = document.querySelector("ons-page#diary-edit-item #nutrition");
+      for (let nutriment in data.nutrition) {
+
+        let li = document.createElement("ons-list-item");
+        nutritionList.appendChild(li);
+
+        let center = document.createElement("div");
+        center.className = "center";
+        li.appendChild(center);
+
+        let text = app.strings[nutriment] || nutriment; //Localize
+        let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
+        center.appendChild(tnode);
+
+        let right = document.createElement("div");
+        right.className = "right";
+        li.appendChild(right);
+
+        tnode = document.createTextNode(data.nutrition[nutriment] || 0);
+        right.appendChild(tnode);
+      }
+    }
+  },
+
+  goToFoodList: function() {
     diary.currentCategory = this.getAttribute("category");
     nav.pushPage("src/activities/foodlist/views/foodlist.html"); //Go to the food list page
   },

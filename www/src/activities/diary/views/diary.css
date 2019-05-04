@@ -33,3 +33,7 @@ ons-page#diary #diary-day .meal-heading {font-size:1.1em; font-weight: lighter;}
 ons-page#diary #diary-day .diary-entry-name {font-size: 1em;}
 ons-page#diary #diary-day .diary-entry-brand {font-size: 0.8em;}
 ons-page#diary #diary-day .diary-entry-info {font-size: 0.8em; font-weight: lighter;}
+
+ons-page#diary-edit-item ons-card {box-shadow:none; border:solid 0.5px LightGrey;}
+ons-page#diary-edit-item .align-right, ons-page#diary-edit-item input {text-align: right;}
+ons-page#diary-edit-item ons-row:not(:last-child) {margin-bottom: 1em;}
