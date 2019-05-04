@@ -170,7 +170,7 @@ var diary = {
         name.innerText = unescape(entry.name);
         li.appendChild(name);
         li.addEventListener("hold", this.deleteItem);
-        li.addEventListener("tap", this.openItemEditor);
+        li.addEventListener("tap", this.itemEditor);
 
         if (entry.brand != "") {
           let brand = document.createElement("ons-row");
@@ -278,13 +278,18 @@ var diary = {
     }
   },
 
-  openItemEditor: function()
+  itemEditor: function()
   {
-    let data = JSON.parse(this.getAttribute("data"));
-    nav.pushPage("src/activities/diary/views/edit-item.html", {"data":data})
-    .then(function() {populateItemEditor(data);});
+    const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
+    let itemdata = JSON.parse(this.getAttribute("data"));
 
-    function populateItemEditor(data) {
+    nav.pushPage("src/activities/diary/views/edit-item.html", {"data":itemdata})
+    .then(function() {
+      populateEditor(itemdata);
+      document.querySelector('ons-page#diary-edit-item #submit').addEventListener("tap", function(){ processEditor(itemdata);});
+    });
+
+    function populateEditor(data) {
 
       //Item info
       const info = document.querySelector("ons-page#diary-edit-item #info");
@@ -297,13 +302,13 @@ var diary = {
       info.appendChild(brand);
 
       //Category selection menu
-      const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
       const select = document.querySelector('ons-page#diary-edit-item #category');
 
-      for (var i = 0; i < mealNames.length; i++) {
+      for (let i = 0; i < mealNames.length; i++) {
         let option = document.createElement("option");
         option.value = i;
         option.text = mealNames[i];
+        if (i == data.category) option.setAttribute("selected", "");
         select.append(option);
       }
 
@@ -335,6 +340,22 @@ var diary = {
         tnode = document.createTextNode(data.nutrition[nutriment] || 0);
         right.appendChild(tnode);
       }
+    }
+
+    function processEditor(data)
+    {
+      //Get values from form and push to DB
+      let unit = document.getElementById('unit').innerText;
+      data.category = parseInt(document.getElementById('category').value);
+      data.category_name = mealNames[data.category];
+      data.quantity = parseFloat(document.getElementById('quantity').value);
+      data.portion = document.getElementById('portion').value + unit;
+      data.dateTime = new Date(data.dateTime); //dateTime must be a Date object
+
+      //Update the DB
+      dbHandler.put(data, "diary").onsuccess = function() {
+        nav.popPage(); //Return to diary
+      };
     }
   },
 
@@ -399,8 +420,8 @@ var diary = {
         }
       }
 
-      //Insert/update the record
-      dbHandler.bulkPut(items, "diary").then(resolve());
+      //Insert the items
+      dbHandler.bulkInsert(items, "diary").then(resolve());
     });
   },
 };
