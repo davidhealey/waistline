@@ -152,9 +152,14 @@ var dbHandler =
     }
   },
 
-  put: function(data, storeName)
+  put: function(data, storeName, key)
   {
-    var request = DB.transaction(storeName, "readwrite").objectStore(storeName).put(data); //Add/update data
+    let request = DB.transaction(storeName, "readwrite").objectStore(storeName);
+
+    if (key == undefined)
+      request.put(data); //Add data
+    else
+      request.put(data, key); //Update data
 
     request.onerror = function(e) {
       console.log("Transaction Error!");
@@ -163,7 +168,7 @@ var dbHandler =
     return request;
   },
 
-  bulkPut: function(data, storeName)
+  bulkInsert: function(data, storeName)
   {
     return new Promise(function(resolve, reject){
 
