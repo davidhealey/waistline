@@ -87,11 +87,16 @@ var foodlist = {
     let item = this.list[index];
 
     let li = document.createElement("ons-list-item");
-    li.id = "food-item" + index;
+    li.id = "food-item" + item.id;
+    li.addEventListener("hold", foodlist.deleteItem);
 
     //Name and info
+    let gd = document.createElement("ons-gesture-detector");
+    gd.appendChild(li);
+
     let center = document.createElement("div");
     center.className = "center";
+    center.addEventListener("tap", function(){ foodlist.foodEditor(item); });
     li.appendChild(center);
 
     let name = document.createElement("ons-row");
@@ -165,29 +170,161 @@ var foodlist = {
     }
   },
 
-  insertItems: function()
-  {
-    let item = {};
+  foodEditor: function(itemdata) {
 
-    for (var i = 1; i < 4; i++) {
-      item.name = "test food " + i;
-      item.brand = "test brand";
-      item.dateTime = new Date();
-      item.portion = "100g";
-      item.nutrition = {};
-      item.nutrition.calories = 100;
-      item.nutrition.fat = 20;
-      item.nutrition.protein = 12;
-      dbHandler.put(item, "foodList");
+    const nutriments = app.nutriments; //Get array of nutriment names
+
+    nav.pushPage("src/activities/foodlist/views/food-editor.html", {"data":itemdata})
+    .then(function() {
+      populateEditor(itemdata);
+      document.querySelector('ons-page#food-editor #submit').addEventListener("tap", function(){ processEditor(itemdata);});
+      if (itemdata) document.querySelector('ons-page#food-editor #portion').addEventListener("change", function(){ changePortion(itemdata);});
+    });
+
+    function populateEditor(data) {
+
+      //Existing item info
+      if (data) {
+        document.querySelector('#food-editor #name').value = unescape(data.name);
+        document.querySelector('#food-editor #brand').value = unescape(data.brand);
+        document.querySelector('#food-editor #portion').value = parseFloat(data.portion);
+        document.querySelector('#food-editor #unit').value = data.portion.replace(/[^a-z]/gi, '');
+      }
+
+      const nutrition = document.querySelector("ons-page#food-editor #nutrition");
+      for (let i = 0; i < nutriments.length; i++) {
+
+        let nutriment = nutriments[i];
+
+        let row = document.createElement("ons-row");
+        nutrition.appendChild(row);
+
+        //Nutriment name and unit
+        let nutrimentUnits = app.nutrimentUnits;
+        let col = document.createElement("ons-col");
+        col.setAttribute("vertical-align", "center");
+        col.setAttribute("width", "80%");
+        row.appendChild(col);
+
+        let text = app.strings[nutriment] || nutriment; //Localize
+        let nutrimentUnit = nutrimentUnits[nutriment] || "g";
+        let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " ("+nutrimentUnit+")");
+        col.appendChild(tnode);
+
+        //Nutriment input box
+        col = document.createElement("ons-col");
+        row.appendChild(col);
+
+        let input = document.createElement("ons-input");
+        input.setAttribute("name", nutriment);
+        input.setAttribute("placeholder", "0");
+        input.setAttribute("type", "number");
+
+        if (nutriment == "calories") {
+          input.setAttribute("pattern", "pattern='[0-9]*'");
+          input.setAttribute("inputmode", "numeric");
+          input.setAttribute("required", "true");
+        }
+        else {
+          input.setAttribute("inputmode", "decimal");
+          input.setAttribute("step", "any");
+        }
+
+        if (data && data.nutrition[nutriment]) input.value = parseFloat(data.nutrition[nutriment].toFixed(2));
+
+        col.appendChild(input);
+      }
+    }
+
+    function processEditor(data) {
+
+      var now = new Date();
+
+      data = data || {"nutrition":{}};
+      data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
+      let inputs = document.querySelectorAll('#food-editor input');
+      let unit = document.querySelector('#food-editor #unit').value;
+
+      let validation = app.validateInputs(inputs);
+
+      if (validation == true) {
+        for (let i = 0; i < inputs.length; i++) {
+          let input = inputs[i];
+          let name = input.getAttribute("name");
+          let v = input.value;
+
+          if (v == null || v == "") continue; //Ignore unset values
+
+          if (nutriments.indexOf(name) != -1) //Nutriments
+            data.nutrition[name] = parseFloat(v);
+          else
+          {
+            if (name == "unit") continue;
+            if (name == "portion") v = v + unit;
+            data[name] = v;
+          }
+        }
+
+        //Update the DB
+        dbHandler.put(data, "foodList").onsuccess = function() {
+          nav.resetToPage('src/activities/foodlist/views/foodlist.html');
+        };
+      }
+      else {
+        //Display validation messages
+        let message = "Please add values to the following fields: <br><ul>";
+        for (let i = 0; i < validation.length; i++) {
+          message += "<li>" + validation[i].charAt(0).toUpperCase() + validation[i].slice(1) + "</li>";
+        }
+        message += "<ul>";
+        ons.notification.alert(message, {"messageHTML":true});
+      }
+    }
+
+    function changePortion(data) {
+      let inputs = document.querySelectorAll('#food-editor input');
+      let oldP = parseFloat(data.portion); //Get original portion
+      let newP = document.querySelector('#food-editor #portion').value; //New portion
+
+      if (oldP > 0 && newP > 0) {
+        for (var i = 0; i < inputs.length; i++) {
+          let name = inputs[i].getAttribute("name");
+
+          if (nutriments.indexOf(name) != -1) {
+            let v = parseFloat(((data.nutrition[name] / oldP) * newP).toFixed(2));
+            inputs[i].value = v;
+          }
+        }
+      }
     }
   },
 
+  deleteItem: function() {
+
+    let id = this.id;
+
+    ons.notification.confirm("Delete this item?")
+    .then(function(input) {
+
+      if (input == 1) { //Delete was confirmed
+        let request = dbHandler.deleteItem(parseInt(id.replace("food-item", "")), "foodList");
+
+        //If the request was successful remove the list item
+        request.onsuccess = function(e) {
+          let child = document.querySelector('#foodlist #' + id);
+          let parent = child.parentElement;
+          parent.removeChild(child);
+        };
+      }
+    });
+  },
 };
 
 //Page initialization
 document.addEventListener("init", function(event){
   if (event.target.matches('ons-page#foodlist')) {
-//foodlist.insertItems();
+
     //Call constructor
     foodlist.initialize();
 
@@ -215,9 +352,9 @@ document.addEventListener("init", function(event){
         },*/
 
         destroyItem: function(index, e) {
-          //Remove checkbox event listener
-          let checkbox = e.element.querySelector("ons-checkbox");
-          checkbox.removeEventListener('change', foodlist.checkboxChange);
+          //Remove item event listeners
+          e.element.querySelector("ons-checkbox").removeEventListener('change', foodlist.checkboxChange);
+          e.element.removeEventListener("hold", foodlist.deleteItem);
         }
       };
     });
@@ -233,6 +370,12 @@ document.addEventListener("init", function(event){
     const submit = foodlist.page.querySelector('#submit');
     submit.addEventListener("tap", function(event){
       foodlist.submitButtonAction();
+    });
+
+    //Fab button to add new food
+    const fab = foodlist.page.querySelector('ons-fab');
+    fab.addEventListener("tap", function(event){
+      foodlist.foodEditor();
     });
  }
 });

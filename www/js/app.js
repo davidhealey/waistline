@@ -23,6 +23,30 @@ var app = {
   tests:{}, //Object to hold test functions to be run by TinyTest
   strings: {},
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
+  nutriments: ["calories", "proteins", "carbohydrates","fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium","vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
+  nutrimentUnits: {
+    "calories":"kcal",
+    "cholesterol":"mg",
+    "sodium":"mg",
+    "potassium":"mg",
+    "vitamin":"mg",
+    "calcium":"mg",
+    "iron":"mg",
+    "magnesium":"mg",
+    "zinc":"mg",
+    "caffeine":"mg",
+    "alcohol":"%",
+    "vitamin-a":"mg",
+    "vitamin-d":"mg",
+    "vitamin-e":"mg",
+    "vitamin-k":"mg",
+    "vitamin-c":"mg",
+    "vitamin-b1":"mg",
+    "vitamin-b2":"mg",
+    "vitamin-b6":"mg",
+    "vitamin-b9":"mg",
+    "vitamin-b12":"mg"
+  },
 
   setTestGoals : function() //Set stored goals to default
   {
@@ -71,6 +95,23 @@ var app = {
     // use UTC midnight of the current day for the diary
     var now = new Date();
     return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  },
+
+  validateInputs: function(inputs) {
+
+    let messages = [];
+
+    for (let i = 0; i < inputs.length; i++) {
+      let input = inputs[i];
+      if (input.hasAttribute("required")) {
+        if (input.value == null || input.value == ""){
+          messages.push(input.getAttribute("name"));
+        }
+      }
+    }
+
+    if (messages.length > 0) return messages;
+    return true;
   }
 };
 
@@ -78,7 +119,7 @@ ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-    nav.resetToPage("src/activities/diary/views/diary.html")
+    nav.resetToPage("src/activities/foodlist/views/foodlist.html")
     .then(function(){
       if (app.mode != "release")
       {

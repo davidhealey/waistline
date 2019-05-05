@@ -20,3 +20,6 @@
 ons-page#foodlist #filter-container {text-align: center; padding-top: 1em; padding-bottom: 0.5em;}
 ons-page#foodlist #submit {display:none;}
 ons-page#foodlist ons-progress-circular {display:none;}
+
+ons-page#food-editor ons-card {box-shadow:none; border:solid 0.5px LightGrey;}
+ons-page#food-editor ons-row:not(:last-child) {margin-bottom: 1em;}

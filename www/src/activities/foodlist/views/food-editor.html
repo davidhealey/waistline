@@ -1,0 +1,88 @@
+<!--
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="food-editor">
+
+  <link rel="stylesheet" href="src/activities/foodlist/views/foodlist.css">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="add-food">Add Food</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <div id="item-data">
+    <ons-card>
+      <ons-row>
+        <ons-col vertical-align="center" width="45%">Name</ons-col>
+        <ons-col>
+          <ons-input type="text" id="name" name="name" required="true"></ons-input>
+        </ons-col>
+      </ons-row>
+
+      <ons-row>
+        <ons-col vertical-align="center" width="45%">Brand</ons-col>
+        <ons-col>
+          <ons-input type="text" id="brand" name="brand" required="true"></ons-input>
+        </ons-col>
+      </ons-row>
+
+      <ons-row>
+        <ons-col vertical-align="center" width="45%" data-localize="food.edit-item.portion-size">Portion Size</ons-col>
+        <ons-col class="align-right">
+          <ons-input id="portion" name="portion" type="number" min="1" inputmode="decimal" step="any" required="true" float></ons-input>
+        </ons-col>
+        <ons-col></ons-col>
+        <ons-col>
+          <ons-input type="text" id="unit" name="unit" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true" placeholder="Unit" float></ons-input>
+        </ons-col>
+      </ons-row>
+    </ons-card>
+
+    <!--<ons-list id="nutrition" modifier="inset"></ons-list>-->
+    <ons-card id="nutrition"></ons-card>
+  </div>
+
+
+  <!--<div style="text-align: left; margin-top: 2em; margin-left:1em;">
+    <form id="edit-item-form">
+      <input type="hidden" id="id">
+      <input type="hidden" id="barcode" value="">
+
+      <p><ons-input type="text" name="name" id="name" required="true" placeholder="Name*" float></ons-input></p>
+      <p><ons-input type="text" name="brand" id="brand" placeholder="Brand" float></ons-input></p>
+      <ons-row>
+        <ons-col style="padding-right:0.25em;"><ons-input type="number" min="1" inputmode="decimal" step="any" name="portion" id="portion" required="true" placeholder="Portion*" float value="1" onfocus="this.oldValue = this.value;"></ons-input></ons-col>
+        <ons-col style="padding-left:0.25em;"><ons-input type="text" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="unit" id="unit" required="true" placeholder="Unit*" float></ons-input></ons-col>
+        <ons-col></ons-col>
+      </ons-row>
+      <p><ons-input type="number" inputmode="numeric" pattern="[0-9]*" name="calories" id="calories" required="true" placeholder="Calories*" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="fat" id="fat" placeholder="Fat(g)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="saturated-fat" id="saturated-fat" placeholder="Saturated Fat(g)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="carbs" id="carbs" placeholder="Carbs(g)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="sugar" id="sugar" placeholder="Sugar(g)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="protein" id="protein" placeholder="Protein(g)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="fiber" id="fiber" placeholder="Fibre(g)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="salt" id="salt" placeholder="Salt(g)" float></ons-input></p>
+      <p><ons-input type="number" inputmode="decimal" step="any" name="sodium" id="sodium" placeholder="Sodium(mg)" float></ons-input></p>
+    </form>
+  </div>-->
+
+  <div id="foodImage"></div>
+
+</ons-page>
