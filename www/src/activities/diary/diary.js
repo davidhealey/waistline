@@ -357,6 +357,7 @@ var diary = {
       data.dateTime = new Date(data.dateTime); //dateTime must be a Date object
 
       for (let nutriment in data.nutrition) {
+        if (data.nutrition[nutriment] == null) continue; //Skip empty values - sanity test
         let t = document.querySelector("#diary-edit-item #"+nutriment);
         data.nutrition[nutriment] = parseFloat(t.innerText / data.quantity);
       }
@@ -373,7 +374,7 @@ var diary = {
       let newP = document.querySelector('#diary-edit-item #portion').value; //New portion
       let newQ = document.querySelector('#diary-edit-item #quantity').value; //New quantity
 
-      if (oldP > 0 || newP > 0) {
+      if (oldP > 0 && newP > 0) {
         for (let nutriment in data.nutrition) {
           let v = (data.nutrition[nutriment] / oldP) * newP;
           let t = document.querySelector("#diary-edit-item #"+nutriment);
@@ -385,7 +386,7 @@ var diary = {
 
   goToFoodList: function() {
     diary.currentCategory = this.getAttribute("category");
-    nav.pushPage("src/activities/foodlist/views/foodlist.html"); //Go to the food list page
+    nav.pushPage("src/activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
   },
 
   loadDiary: function() {
@@ -459,14 +460,17 @@ document.addEventListener("init", function(event){
 
     //Page show event
     diary.page.addEventListener("show", function(e){
-
       //If items have been passed to the page, add them to the diary
-      if (this.data.items) {
+      if (this.data && this.data.items) {
         if (this.data.category != undefined)
           diary.currentCategory = this.data.category; //Update current category if passed with data
 
+        let that = this;
         diary.pushItemsToDB(this.data.items)
-        .then(diary.loadDiary()); //Refresh the display
+        .then(function(){
+          diary.loadDiary(); //Refresh the display
+          delete that.data.items; //Unset data
+        });
       }
       else {
         diary.loadDiary();
@@ -488,6 +492,12 @@ document.addEventListener("init", function(event){
     datePicker.addEventListener("change", function(event){
       diary.date = new Date(this.value);
       diary.loadDiary();
+    });
+
+    //Fab button
+    const fab = diary.page.querySelector('ons-fab');
+    fab.addEventListener("tap", function(event){
+      nav.resetToPage("src/activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
     });
  }
 });

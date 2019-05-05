@@ -26,25 +26,29 @@
   <div id="item-data">
     <ons-card>
       <div id="info"></div>
+
       <ons-row>
         <ons-col vertical-align="center" width="50%">Meal</ons-col>
         <ons-col class="align-right">
           <ons-select select-id="category" name="category" data-native-menu="false"></ons-select>
         </ons-col>
       </ons-row>
+
       <ons-row>
         <ons-col width="75%" data-localize="diary.edit-item.num-servings">Number of Servings</ons-col>
         <ons-col class="align-right">
           <ons-input id="quantity" name="quantity" type="number" min="1" inputmode="decimal" step="any"></ons-input>
         </ons-col>
-        <ons-row>
       </ons-row>
+
+      <ons-row>
         <ons-col width="75%" data-localize="diary.edit-item.portion-size">Portion Size</ons-col>
         <ons-col class="align-right">
           <ons-input id="portion" name="portion" type="number" min="1" inputmode="decimal" step="any" float></ons-input>
         </ons-col>
         <ons-col id="unit"></ons-col>
       </ons-row>
+
     </ons-card>
     <ons-list id="nutrition" modifier="inset"></ons-list>
   </div>
