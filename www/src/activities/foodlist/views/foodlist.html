@@ -25,7 +25,7 @@
       <ons-toolbar-button id="menu-button" tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button>
       <ons-back-button id="back-button">Back</ons-back-button>
     </div>
-    <div class="center" data-localize="foodlist.title">Food List</div>
+    <div class="center" data-localize="foodlist.title">Foods</div>
     <div class="right">
       <ons-toolbar-button id="scan"><ons-icon icon="barcode"></ons-icon></ons-toolbar-button>
       <ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button>
@@ -33,7 +33,7 @@
   </ons-toolbar>
 
   <div id="filter-container">
-    <form onsubmit="foodList.search(this[0].value); return false;">
+    <form>
       <ons-search-input id="filter" placeholder="Search Food"></ons-search-input>
     </form>
     <ons-progress-circular indeterminate></ons-progress-circular>

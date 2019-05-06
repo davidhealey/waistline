@@ -38,8 +38,7 @@ var foodlist = {
     }
   },
 
-  setFilter : function(term)
-  {
+  setFilter : function(term) {
     var list = this.listCopy; //Search is performed on copy of list
 
     if (term) {
@@ -54,9 +53,8 @@ var foodlist = {
     this.infiniteList.refresh();
   },
 
-  getFromDB: function()
-  {
-    return new Promise(function(resolve, reject){
+  getFromDB: function() {
+    return new Promise(function(resolve, reject) {
 
       let list = [];
 
@@ -69,17 +67,123 @@ var foodlist = {
       {
         var cursor = e.target.result;
 
-        if (cursor)
-        {
+        if (cursor) {
           list.push(cursor.value);
           cursor.continue();
         }
-        else
-        {
+        else {
           resolve(list);
         }
       }
     });
+  },
+
+  search : function(term) {
+    //First check that there is an internet connection
+    if (navigator.connection.type == "none") {
+      ons.notification.alert(app.strings["no-internet"]);
+      return false;
+    }
+
+      //Get country name
+    //var country = app.storage.getItem("food-list-country");
+
+    //Build search string
+    let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=500";
+
+    //Filter by selected country
+    //var searchCountry = app.storage.getItem("food-list-country");
+
+    //if (searchCountry != "All" && searchCountry != null)
+    //  query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+
+    //Complete query
+    query += "&sort_by=last_modified_t&action=process&json=1";
+
+    //Create request
+    /*let request = new XMLHttpRequest();
+    request.open("GET", query, true);
+    request.send();*/
+
+    //Show circular progress indicator
+    document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "block";
+
+    //Test data
+    let result = testOFFResult;
+
+//    request.onreadystatechange = function() {
+
+//      if (request.readyState == 4 && request.status == 200) {
+
+        //let result = JSON.parse(request.responseText);
+
+        if (result.products.length == 0) {
+          ons.notification.alert(app.strings["food-list"]["no-results"]);
+          return false;
+        }
+        else {
+          let products = result.products;
+
+          let list = [];
+          for (let i = 0; i < products.length; i++) {
+            let item = foodlist.parseOFFProduct(products[i]);
+            if (item) list.push(item);
+          }
+          foodlist.list = list;
+          foodlist.infiniteList.refresh();
+        }
+        document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
+      //}
+//    };
+  },
+
+  parseOFFProduct: function(product) {
+
+    const nutriments = app.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
+    let item = {"nutrition":{}};
+
+    item.name = escape(product.product_name);
+    item.image_url = escape(product.image_url);
+    item.barcode = product.code;
+
+    //Get first brand if there is more than one
+    let brands = product.brands || "";
+    let n = brands.indexOf(',');
+    item.brand = escape(brands.substring(0, n != -1 ? n : brands.length));
+
+    //Nutrition
+    let perTag = "";
+    if (product.serving_size && (product.nutrition_data_per == "serving" || product.nutriments.energy_serving)) {
+
+      item.portion = product.serving_size.replace(" ", "");
+      item.nutrition.calories = parseInt(product.nutriments.energy_serving / 4.15);
+      perTag = "_serving";
+    }
+    else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g) {
+      item.portion = "100g";
+      item.nutrition.calories = parseInt(product.nutriments.energy_100g / 4.15);
+      perTag = "_100g";
+    }
+    else if (product.quantity) { //If all else fails
+      item.portion = product.quantity;
+      item.nutrition.calories = product.nutriments.energy_value;
+    }
+
+    //Each nutriment
+    for (let i = 0; i < nutriments.length; i++) {
+      let nutriment = nutriments[i];
+      if (nutriment == "calories") continue;
+      item.nutrition[nutriment] = product.nutriments[nutriment + perTag];
+    }
+
+    //Kilojules to kcalories
+    if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = item.nutrition.calories / 4.15);
+
+    //Don't return results with no calories or missing portion
+    if (item.nutrition.calories == 0 || item.portion == undefined)
+      return undefined;
+    else
+      return item;
   },
 
   renderListItem: function(index)
@@ -87,7 +191,7 @@ var foodlist = {
     let item = this.list[index];
 
     let li = document.createElement("ons-list-item");
-    li.id = "food-item" + item.id;
+    if (item.id) li.id = "food-item" + item.id;
     li.addEventListener("hold", foodlist.deleteItem);
 
     //Name and info
@@ -104,10 +208,11 @@ var foodlist = {
     center.appendChild(name);
 
     let calories = 0;
-    if (item.nutrition != undefined) calories = item.nutrition.calories;
+    if (item.nutrition != undefined) calories = item.nutrition.calories || 0;
 
     let info = document.createElement("ons-row");
-    info.innerText = unescape(item.brand) + ", " + item.portion + ", " + calories + "kcal";
+    /*jshint expr: true*/ item.brand ? item.brand = unescape(item.brand) + ", " : item.brand = "";
+    info.innerText = item.brand + item.portion + ", " + calories + "kcal";
     center.appendChild(info);
 
     //Checkbox
@@ -145,14 +250,32 @@ var foodlist = {
 
     const checked = this.page.querySelectorAll('input[name=food-item-checkbox]:checked'); //Get all checked items
 
-    if (checked.length > 0) {//Sanity test
+    if (checked.length > 0) { //Sanity test
       //Get data from checked items
       let items = [];
+      let addToDB = false;
 
       for (let i = 0; i < checked.length; i++) {
-        items.push(JSON.parse(checked[i].offsetParent.getAttribute("data"))); //Add food items' data to array
+        items[i] = JSON.parse(checked[i].offsetParent.getAttribute("data")); //Add food items' data to array
+
+        if (items[i].id == undefined) { //Items are not in the food table, must be from search result
+          addToDB = true; //Set flag
+        }
       }
 
+      if (addToDB == true) { //Add the items to the foodlist table
+        console.log("Adding to foodList Table");
+        dbHandler.bulkInsert(items, "foodList").
+        then(function(e) {
+          console.log(e);
+        });
+      }
+      else {
+        addToDiary(items);
+      }
+    }
+
+    function addToDiary(items) {
       if (nav.pages.length == 1) {//No previous page - default to diary
         //Ask the user to select the meal category
         ons.openActionSheet({
@@ -230,7 +353,8 @@ var foodlist = {
           input.setAttribute("step", "any");
         }
 
-        if (data && data.nutrition[nutriment]) input.value = parseFloat(data.nutrition[nutriment].toFixed(2));
+        if (data && data.nutrition[nutriment])
+          input.value = Number(parseFloat(data.nutrition[nutriment]).toFixed(4));
 
         col.appendChild(input);
       }
@@ -328,6 +452,7 @@ document.addEventListener("init", function(event){
     //Call constructor
     foodlist.initialize();
 
+
     //Populate initial list from DB
     foodlist.getFromDB()
     .then(function(list){
@@ -364,6 +489,12 @@ document.addEventListener("init", function(event){
     filter.addEventListener("input", function(event){
       let value = event.target.value;
       foodlist.setFilter(value);
+    });
+
+    const filterForm = foodlist.page.querySelector("#filter-container");
+    filterForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      foodlist.search(filter.value);
     });
 
     //Food list submit button

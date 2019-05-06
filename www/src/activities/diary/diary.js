@@ -208,7 +208,7 @@ var diary = {
 
         //Nutrition totals
         totals[nutriment] = totals[nutriment] || 0;
-        totals[nutriment] += item.nutrition[nutriment];
+        totals[nutriment] += Number(item.nutrition[nutriment]);
       }
     }
 
@@ -439,7 +439,7 @@ var diary = {
         item.quantity = 1;
 
         //If there is no food id set, use the item's ID as the food id
-        if (item.foodId == undefined) {
+        if (item.foodId == undefined && item.id) {
           item.foodId = item.id;
           delete item.id;
         }
