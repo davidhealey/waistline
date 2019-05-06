@@ -393,17 +393,19 @@ var foodlist = {
         document.querySelector('#food-editor #portion').value = parseFloat(data.portion);
         document.querySelector('#food-editor #unit').value = data.portion.replace(/[^a-z]/gi, '');
 
-        //Product images
+        //Product images - only when connected to wifi
         if (data.image_url && data.image_url != undefined) {
-          let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
-          imageCarousel.closest("ons-card").style.display = "block";
+          if (navigator.connection.type == "WIFI" || app.mode == "development") {
+            let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
+            imageCarousel.closest("ons-card").style.display = "block";
 
-          let c = document.createElement("ons-carousel-item");
-          imageCarousel.appendChild(c);
+            let c = document.createElement("ons-carousel-item");
+            imageCarousel.appendChild(c);
 
-          let img = document.createElement("img");
-          img.setAttribute("src", unescape(data.image_url));
-          c.appendChild(img);
+            let img = document.createElement("img");
+            img.setAttribute("src", unescape(data.image_url));
+            c.appendChild(img);
+          }
         }
       }
 
