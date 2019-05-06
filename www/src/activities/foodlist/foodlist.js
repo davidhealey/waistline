@@ -393,9 +393,9 @@ var foodlist = {
         document.querySelector('#food-editor #portion').value = parseFloat(data.portion);
         document.querySelector('#food-editor #unit').value = data.portion.replace(/[^a-z]/gi, '');
 
-        //Product images - only when connected to wifi
+        //Product images - only when connected to internet
         if (data.image_url && data.image_url != undefined) {
-          if (navigator.connection.type == "WIFI" || app.mode == "development") {
+          if ((navigator.connection.type != "none" && navigator.connection.type != "unknown") || app.mode == "development") {
             let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
             imageCarousel.closest("ons-card").style.display = "block";
 
