@@ -418,6 +418,9 @@ var diary = {
           let parent = child.parentElement;
           parent.removeChild(child);
           diary.renderNutrition();
+          //If there are no items left in the category then close the expanded list
+          if (parent.children.length == 0)
+            parent.closest(".meal-heading[category]").hideExpansion();
         };
       }
     });
