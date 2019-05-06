@@ -95,30 +95,32 @@ var foodlist = {
     //var searchCountry = app.storage.getItem("food-list-country");
 
     //if (searchCountry != "All" && searchCountry != null)
-    //  query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+      //query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
 
     //Complete query
     query += "&sort_by=last_modified_t&action=process&json=1";
 
     //Create request
-    /*let request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     request.open("GET", query, true);
-    request.send();*/
+    request.send();
 
     //Show circular progress indicator
-    document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "block";
+    document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
 
     //Test data
-    let result = testOFFResult;
+    //let result = testOFFResult;
 
-//    request.onreadystatechange = function() {
+    request.onreadystatechange = function() {
 
-//      if (request.readyState == 4 && request.status == 200) {
+      if (request.readyState == 4 && request.status == 200) {
 
-        //let result = JSON.parse(request.responseText);
+        document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
+
+        let result = JSON.parse(request.responseText);
 
         if (result.products.length == 0) {
-          ons.notification.alert(app.strings["food-list"]["no-results"]);
+          ons.notification.alert(/*app.strings["food-list"]["no-results"]*/ "No results found.");
           return false;
         }
         else {
@@ -130,11 +132,12 @@ var foodlist = {
             if (item) list.push(item);
           }
           foodlist.list = list;
+          foodlist.listCopy = list;
           foodlist.infiniteList.refresh();
         }
-        document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
-      //}
-//    };
+
+      }
+    };
   },
 
   parseOFFProduct: function(product) {
@@ -145,6 +148,9 @@ var foodlist = {
     item.name = escape(product.product_name);
     item.image_url = escape(product.image_url);
     item.barcode = product.code;
+
+    let now = new Date();
+    item.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
     //Get first brand if there is more than one
     let brands = product.brands || "";
@@ -191,6 +197,7 @@ var foodlist = {
     let item = this.list[index];
 
     let li = document.createElement("ons-list-item");
+    if (item == undefined) return li; //If item is undefined just return an empty li
     if (item.id) li.id = "food-item" + item.id;
     li.addEventListener("hold", foodlist.deleteItem);
 
@@ -211,8 +218,8 @@ var foodlist = {
     if (item.nutrition != undefined) calories = item.nutrition.calories || 0;
 
     let info = document.createElement("ons-row");
-    /*jshint expr: true*/ item.brand ? item.brand = unescape(item.brand) + ", " : item.brand = "";
-    info.innerText = item.brand + item.portion + ", " + calories + "kcal";
+    if (item.brand) info.innerText = unescape(item.brand) + ", ";
+    info.innerText += item.portion + ", " + calories + "kcal";
     center.appendChild(info);
 
     //Checkbox
@@ -253,22 +260,35 @@ var foodlist = {
     if (checked.length > 0) { //Sanity test
       //Get data from checked items
       let items = [];
-      let addToDB = false;
+      let searchResult = false;
+
+      //For searching and inserting into the DB
+      let transaction = dbHandler.getTransaction("foodList", "readwrite");
+      let store = transaction.objectStore("foodList");
 
       for (let i = 0; i < checked.length; i++) {
         items[i] = JSON.parse(checked[i].offsetParent.getAttribute("data")); //Add food items' data to array
 
-        if (items[i].id == undefined) { //Items are not in the food table, must be from search result
-          addToDB = true; //Set flag
+        //If the item doesn't have an ID it must from a search result
+        if (items[i].id == undefined) {
+          searchResult = true; //Set flag
+
+          //Check if items are already in table, if not add them and retrieve their ID. Otherwise get their existing ID.
+          /*jshint loopfunc: true */
+          store.index("barcode").get(items[i].barcode).onsuccess = function(e) {
+            if (e.target.result)
+              items[i].id = e.target.result.id;
+            else
+              store.put(items[i]).onsuccess = function(e){items[i].id = e.target.result;};
+          };
         }
       }
 
-      if (addToDB == true) { //Add the items to the foodlist table
-        console.log("Adding to foodList Table");
-        dbHandler.bulkInsert(items, "foodList").
-        then(function(e) {
-          console.log(e);
-        });
+      if (searchResult == true) { //Items were from search result
+        transaction.oncomplete = function(){
+          console.log("Transaction complete");
+          addToDiary(items);
+        };
       }
       else {
         addToDiary(items);
@@ -280,6 +300,7 @@ var foodlist = {
         //Ask the user to select the meal category
         ons.openActionSheet({
           title: 'What meal is this?',
+          cancelable: true,
           buttons: JSON.parse(window.localStorage.getItem("meal-names"))
         })
         .then(function(input){
@@ -452,14 +473,11 @@ document.addEventListener("init", function(event){
     //Call constructor
     foodlist.initialize();
 
-
     //Populate initial list from DB
     foodlist.getFromDB()
     .then(function(list){
       foodlist.list = list;
       foodlist.listCopy = list;
-
-      if (list.length == 0) return true; //Exit if list is empty
 
       //Setup lazy list delegate callbacks
       foodlist.infiniteList.delegate = {
@@ -477,6 +495,7 @@ document.addEventListener("init", function(event){
         },*/
 
         destroyItem: function(index, e) {
+          if (foodlist.list[index] == undefined) return true; //If list is empty just return
           //Remove item event listeners
           e.element.querySelector("ons-checkbox").removeEventListener('change', foodlist.checkboxChange);
           e.element.removeEventListener("hold", foodlist.deleteItem);
