@@ -140,6 +140,64 @@ var foodlist = {
     };
   },
 
+  scan : function() {
+    //First check that there is an internet connection
+    if (navigator.connection.type == "none") {
+      ons.notification.alert(app.strings["no-internet"]);
+      return false;
+    }
+
+  //  cordova.plugins.barcodeScanner.scan(function(scanData){
+
+      let code = "3596710443307"; //Test barcode
+      //var code = scanData.text;
+      let request = new XMLHttpRequest();
+
+      request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+      request.send();
+
+      //Show progress indicator
+      document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
+
+      request.onreadystatechange = function(){
+
+        if (request.readyState == 4 && request.status == 200) {
+
+          //Hide progress indicator
+          document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none";
+
+          var result = JSON.parse(request.responseText);
+
+          if (result.status == 0) {//Product not found
+
+            //Ask the user if they would like to add the product to the open food facts database
+            ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+            .then(function(input) {
+              if (input == 1) {
+                //nav.pushPage("activities/food-list/views/upload-item.html", {"data":{"code":code}});
+                return true;
+              }
+            });
+            return false;
+          }
+
+          //Check if item is already in food list - only one item so not great overhead
+          let item = {};
+          let index = dbHandler.getIndex("barcode", "foodList");
+          index.get(result.code).onsuccess = function(e) {
+            if (e.target.result)
+              item = e.target.result;
+            else
+              item = foodlist.parseOFFProduct(result.product);
+
+            //Go to food item edit form and fill in form with retrieved data
+            foodlist.foodEditor(item);
+          };
+        }
+      };
+    //}
+  },
+
   parseOFFProduct: function(product) {
 
     const nutriments = app.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
@@ -270,14 +328,15 @@ var foodlist = {
         items[i] = JSON.parse(checked[i].offsetParent.getAttribute("data")); //Add food items' data to array
 
         //If the item doesn't have an ID it must from a search result
+        //Check if item is already in table, if not add it and retrieve ID. Otherwise get existing ID.
+        //Do this here and not when processing the search result to reduce overhead. Here we only process checked items not all results
         if (items[i].id == undefined) {
           searchResult = true; //Set flag
 
-          //Check if items are already in table, if not add them and retrieve their ID. Otherwise get their existing ID.
           /*jshint loopfunc: true */
           store.index("barcode").get(items[i].barcode).onsuccess = function(e) {
             if (e.target.result)
-              items[i].id = e.target.result.id;
+              items[i] = e.target.result;
             else
               store.put(items[i]).onsuccess = function(e){items[i].id = e.target.result;};
           };
@@ -520,6 +579,12 @@ document.addEventListener("init", function(event){
     const submit = foodlist.page.querySelector('#submit');
     submit.addEventListener("tap", function(event){
       foodlist.submitButtonAction();
+    });
+
+    //Barcode scan button
+    const btnScan = foodlist.page.querySelector("#scan");
+    scan.addEventListener("tap", function(event) {
+      foodlist.scan();
     });
 
     //Fab button to add new food
