@@ -23,3 +23,5 @@ ons-page#foodlist ons-progress-circular {display:none;}
 
 ons-page#food-editor ons-card {box-shadow:none; border:solid 0.5px LightGrey;}
 ons-page#food-editor ons-row:not(:last-child) {margin-bottom: 1em;}
+ons-page#food-editor #images {display:none; height:300px;}
+ons-page#food-editor #images img {display:block; height:100%; width:auto; margin:auto; padding:0px;}
