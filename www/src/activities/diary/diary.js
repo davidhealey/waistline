@@ -35,7 +35,7 @@ var diary = {
 
   },
 
-  getDailyGoals:function()
+  getDailyGoals: function()
   {
     const goals = JSON.parse(window.localStorage.getItem("goals"));
     let data = {};
@@ -315,16 +315,17 @@ var diary = {
       }
 
       //Serving
-      let unit = data.portion.replace(/[^a-z]/gi, ''); //Exctact unit from portion
+      let unit = data.portion.replace(/[^a-z]/gi, ''); //Exctract unit from portion
       document.querySelector('#diary-edit-item #quantity').value = data.quantity;
       document.querySelector('#diary-edit-item #portion').value = parseFloat(data.portion);
       document.querySelector('#diary-edit-item #unit').innerText = unit;
 
       //Nutrition
+      let units = app.nutrimentUnits;
       const nutritionList = document.querySelector("ons-page#diary-edit-item #nutrition");
-      for (let nutriment in data.nutrition) {
+      for (let n in data.nutrition) {
 
-        if (data.nutrition[nutriment] == null) continue;
+        if (data.nutrition[n] == null) continue;
 
         let li = document.createElement("ons-list-item");
         nutritionList.appendChild(li);
@@ -333,17 +334,14 @@ var diary = {
         center.className = "center";
         li.appendChild(center);
 
-        let text = app.strings[nutriment] || nutriment; //Localize
-        let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-        center.appendChild(tnode);
+        let text = app.strings[n] || n; //Localize
+        center.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ");
 
         let right = document.createElement("div");
         right.className = "right";
-        right.id = nutriment;
+        right.id = n;
+        right.innerText = (parseFloat((data.nutrition[n] * data.quantity).toFixed(2)) || 0) + (units[n] || "g");
         li.appendChild(right);
-
-        tnode = document.createTextNode(parseFloat((data.nutrition[nutriment] * data.quantity).toFixed(2)) || 0);
-        right.appendChild(tnode);
       }
     }
 
