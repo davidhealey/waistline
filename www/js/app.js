@@ -29,23 +29,22 @@ var app = {
     "cholesterol":"mg",
     "sodium":"mg",
     "potassium":"mg",
-    "vitamin":"mg",
     "calcium":"mg",
     "iron":"mg",
     "magnesium":"mg",
     "zinc":"mg",
-    "caffeine":"mg",
-    "alcohol":"%",
-    "vitamin-a":"mg",
-    "vitamin-d":"mg",
+    "caffeine":"g",
+    "alcohol":"% vol",
+    "vitamin-a":"µg",
+    "vitamin-d":"µg",
     "vitamin-e":"mg",
-    "vitamin-k":"mg",
+    "vitamin-k":"µg",
     "vitamin-c":"mg",
     "vitamin-b1":"mg",
     "vitamin-b2":"mg",
-    "vitamin-b6":"mg",
-    "vitamin-b9":"mg",
-    "vitamin-b12":"mg"
+    "vitamin-b6":"g",
+    "vitamin-b9":"µg",
+    "vitamin-b12":"µg"
   },
 
   setTestGoals : function() //Set stored goals to default
@@ -119,7 +118,7 @@ ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-    nav.resetToPage("src/activities/foodlist/views/foodlist.html")
+    nav.resetToPage("src/activities/meals/views/meals.html")
     .then(function(){
       if (app.mode != "release")
       {
