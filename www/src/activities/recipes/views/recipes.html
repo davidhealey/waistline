@@ -16,41 +16,33 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
+<ons-page id="recipes">
 
-<ons-page id="meal-editor">
+  <link rel="stylesheet" href="src/activities/recipes/views/recipes.css">
 
-  <link rel="stylesheet" href="src/activities/meals/views/meals.css">
-  
   <ons-toolbar modifier="material">
-    <div class="left"><ons-back-button>Back</ons-back-button></div>
-    <div class="center" id="title" data-localize="meal.title">New Meal</div>
+    <div class="left">
+      <ons-toolbar-button id="menu-button" tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button>
+      <ons-back-button id="back-button">Back</ons-back-button>
+    </div>
+    <div class="center" data-localize="recipes.title">Recipes</div>
     <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
   </ons-toolbar>
 
-  <div id="item-data">
-    <ons-card>
-      <ons-row>
-        <ons-col vertical-align="center" width="45%">Name</ons-col>
-        <ons-col>
-          <ons-input type="text" id="name" name="name" required="true"></ons-input>
-        </ons-col>
-      </ons-row>
-    </ons-card>
+  <div id="filter-container">
+    <form>
+      <ons-search-input id="filter" placeholder="Search Recipes"></ons-search-input>
+    </form>
   </div>
 
-  <ons-list id="foods" modifier="inset"></ons-list>
-
-  <ons-list modifier="inset">
-    <ons-list-item expandable>
-      <span>Nutritional Info</span>
-      <div class="expandable-content">
-        <ons-list id="nutrition"></ons-list>
-      </div>
-    </ons-list-item>
-  </ons-list>
+  <div id=list-container">
+    <ons-list>
+      <ons-lazy-repeat id="infinite-list">
+      </ons-lazy-repeat>
+    </ons-list>
+  </div>
 
   <ons-fab position="bottom right">
-    <ons-icon icon="fa-utensils"></ons-icon>
+    <ons-icon icon="md-plus"></ons-icon>
   </ons-fab>
-
 </ons-page>

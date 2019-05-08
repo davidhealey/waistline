@@ -153,6 +153,7 @@ var mealEditor = {
     let food = mealEditor.foods[index];
     let portion = parseFloat(parseFloat(food.portion).toFixed(2));
     let unit = food.portion.replace(/[^a-z]/gi, '');
+    document.querySelector('ons-page#meal-editor #submit').style.display = "block";
 
     ons.notification.prompt({message:"Enter a new portion (" + unit + ")", title:"Change Portion", defaultValue:portion, cancelable:true})
     .then(function(input) {

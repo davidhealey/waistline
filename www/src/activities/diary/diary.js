@@ -158,6 +158,8 @@ var diary = {
 
         let li = document.createElement("ons-list-item");
         li.id = "entry-" + entry.id;
+        if (entry.foodId) li.setAttribute("foodId", entry.foodId);
+        if (entry.recipeId) li.setAttribute("recipeId", entry.recipeId);
         li.className = "entry";
         li.setAttribute("data", JSON.stringify(entry));
 
@@ -172,7 +174,7 @@ var diary = {
         li.addEventListener("hold", this.deleteItem);
         li.addEventListener("tap", this.itemEditor);
 
-        if (entry.brand != "") {
+        if (entry.brand && entry.brand != "") {
           let brand = document.createElement("ons-row");
           brand.className = "diary-entry-brand";
           brand.innerHTML = unescape(entry.brand).italics();
@@ -299,9 +301,12 @@ var diary = {
       name.innerText = unescape(data.name);
       info.appendChild(name);
 
-      let brand = document.createElement("h4");
-      brand.innerText = unescape(data.brand);
-      info.appendChild(brand);
+      if (data.brand && data.brand != "")
+      {
+        let brand = document.createElement("h4");
+        brand.innerText = unescape(data.brand);
+        info.appendChild(brand);  
+      }
 
       //Category selection menu
       const select = document.querySelector('ons-page#diary-edit-item #category');
