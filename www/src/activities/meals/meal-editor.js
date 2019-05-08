@@ -50,7 +50,8 @@ var mealEditor = {
 
       //Fab button
       document.querySelector('ons-page#meal-editor ons-fab').addEventListener("tap", function() {
-        nav.bringPageTop("src/activities/foods-meals-recipes/views/foods-recipes.html"); //Go to the food/recipe page
+        //nav.bringPageTop("src/activities/foods-meals-recipes/views/foods-recipes.html"); //Go to the food/recipe page
+        nav.bringPageTop("src/activities/foodlist/views/foodlist.html"); //Go to the food/recipe page
       });
 
       //Page show event
@@ -58,7 +59,7 @@ var mealEditor = {
 
         //If items have been passed to the page, add them to the meal
         if (this.data && this.data.items) {
-          mealEditor.foods = foods.concat(this.data.items); //Add to editor's foods array
+          mealEditor.foods = mealEditor.foods.concat(this.data.items); //Add to editor's foods array
           document.querySelector('ons-page#meal-editor #submit').style.display = "block";
           mealEditor.renderFoodList();
           mealEditor.renderNutrition();

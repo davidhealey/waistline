@@ -45,6 +45,7 @@ var meals = {
     let li = document.createElement("ons-list-item");
     if (meal == undefined) return li; //If meal is undefined just return an empty li
     if (meal.id) li.id = "meal" + meal.id;
+    li.setAttribute("foods", JSON.stringify(meal.foods)); //Add the meals food items to DOM
     li.addEventListener("hold", meals.deleteMeal);
 
     //Name and info
@@ -107,6 +108,23 @@ var meals = {
       }
     });
   },
+
+  submitButtonAction: function() {
+
+    const checked = this.page.querySelectorAll('input[type=checkbox]:checked'); //Get all checked items
+
+    if (checked.length > 0) { //Sanity test
+
+      let items = [];
+
+      for (var i = 0; i < checked.length; i++) { //Each selected meal
+        let foods = JSON.parse(checked[i].closest("ons-list-item").getAttribute("foods")); //Get meal's foods
+        items = items.concat(foods);
+      }
+
+      foodsMealsRecipes.returnItems(items); //Return items[] to last page
+    }
+  }
 };
 
 //Page initialization
@@ -144,6 +162,12 @@ document.addEventListener("init", function(event){
           e.element.removeEventListener("hold", meals.deleteMeal);
         }
       };
+    });
+
+    //Submit button
+    const submit = meals.page.querySelector('#submit');
+    submit.addEventListener("tap", function(event){
+      meals.submitButtonAction();
     });
 
     //List filter

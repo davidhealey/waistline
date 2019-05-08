@@ -64,12 +64,25 @@ var foodsMealsRecipes = {
     return list; //Replace master copy with filtered list
   },
 
+  returnItems: function(items) {
+    if (nav.pages.length == 1) {//No previous page - default to diary
+      //Ask the user to select the meal category
+      ons.openActionSheet({
+        title: 'What meal is this?',
+        cancelable: true,
+        buttons: JSON.parse(window.localStorage.getItem("meal-names"))
+      })
+      .then(function(input){
+        if (input != -1)
+          nav.resetToPage("src/activities/diary/views/diary.html", {"data":{"items":items, "category":input}}); //Switch to diary page and pass data
+      });
+    }
+    else {
+      nav.popPage({"data":{"items":items}}); //Go back to previous page and pass data along
+    }
+  }
 };
 
 document.addEventListener("init", function(event){
-  if (event.target.matches('ons-page#foods-meals-recipes')) {
-
-    console.log(nav.pages);
-
-  }
+  if (event.target.matches('ons-page#foods-meals-recipes')) {}
 });
