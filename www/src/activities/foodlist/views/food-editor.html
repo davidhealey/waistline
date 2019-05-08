@@ -23,7 +23,10 @@
   <ons-toolbar modifier="material">
     <div class="left"><ons-back-button>Back</ons-back-button></div>
     <div class="center" id="title" data-localize="add-food">Add Food</div>
-    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
+    <div class="right">
+      <ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button>
+      <ons-toolbar-button id="upload"><ons-icon icon="upload"></ons-icon></ons-toolbar-button>
+    </div>
   </ons-toolbar>
 
   <div id="item-data">
@@ -33,61 +36,49 @@
     </ons-card>
 
     <ons-card>
+      <div id="barcode-container">
+        <ons-row>
+          <ons-col vertical-align="center" width="45%">Barcode</ons-col>
+          <ons-col id="barcode"></ons-col>
+        </ons-row>
+      </div>
+
       <ons-row>
         <ons-col vertical-align="center" width="45%">Name</ons-col>
         <ons-col>
-          <ons-input type="text" id="name" name="name" required="true"></ons-input>
+          <ons-input type="text" id="name" name="name" required="true" value="test product"></ons-input>
         </ons-col>
       </ons-row>
 
       <ons-row>
         <ons-col vertical-align="center" width="45%">Brand</ons-col>
         <ons-col>
-          <ons-input type="text" id="brand" name="brand"></ons-input>
+          <ons-input type="text" id="brand" name="brand" value="test brand"></ons-input>
         </ons-col>
       </ons-row>
 
       <ons-row>
         <ons-col vertical-align="center" width="45%" data-localize="food.edit-item.portion-size">Portion Size</ons-col>
         <ons-col class="align-right">
-          <ons-input id="portion" name="portion" type="number" min="1" inputmode="decimal" step="any" required="true" float></ons-input>
+          <ons-input id="portion" name="portion" type="number" min="1" inputmode="decimal" step="any" required="true" float value="100"></ons-input>
         </ons-col>
         <ons-col></ons-col>
         <ons-col>
-          <ons-input type="text" id="unit" name="unit" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true" placeholder="Unit" float></ons-input>
+          <ons-input type="text" id="unit" name="unit" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true" placeholder="Unit" float value="g"></ons-input>
         </ons-col>
       </ons-row>
     </ons-card>
 
-    <!--<ons-list id="nutrition" modifier="inset"></ons-list>-->
     <ons-card id="nutrition"></ons-card>
+
+    <div id="upload-fields">
+      <input type="hidden" name="user_id" id="user_id" value="waistline-app"></input>
+      <input type="hidden" name="password" id="password" value="waistline"></input>
+    </div>
   </div>
 
-
-  <!--<div style="text-align: left; margin-top: 2em; margin-left:1em;">
-    <form id="edit-item-form">
-      <input type="hidden" id="id">
-      <input type="hidden" id="barcode" value="">
-
-      <p><ons-input type="text" name="name" id="name" required="true" placeholder="Name*" float></ons-input></p>
-      <p><ons-input type="text" name="brand" id="brand" placeholder="Brand" float></ons-input></p>
-      <ons-row>
-        <ons-col style="padding-right:0.25em;"><ons-input type="number" min="1" inputmode="decimal" step="any" name="portion" id="portion" required="true" placeholder="Portion*" float value="1" onfocus="this.oldValue = this.value;"></ons-input></ons-col>
-        <ons-col style="padding-left:0.25em;"><ons-input type="text" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="unit" id="unit" required="true" placeholder="Unit*" float></ons-input></ons-col>
-        <ons-col></ons-col>
-      </ons-row>
-      <p><ons-input type="number" inputmode="numeric" pattern="[0-9]*" name="calories" id="calories" required="true" placeholder="Calories*" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="fat" id="fat" placeholder="Fat(g)" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="saturated-fat" id="saturated-fat" placeholder="Saturated Fat(g)" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="carbs" id="carbs" placeholder="Carbs(g)" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="sugar" id="sugar" placeholder="Sugar(g)" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="protein" id="protein" placeholder="Protein(g)" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="fiber" id="fiber" placeholder="Fibre(g)" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="salt" id="salt" placeholder="Salt(g)" float></ons-input></p>
-      <p><ons-input type="number" inputmode="decimal" step="any" name="sodium" id="sodium" placeholder="Sodium(mg)" float></ons-input></p>
-    </form>
-  </div>-->
-
-  <div id="foodImage"></div>
+  <ons-fab id="camera" position="bottom right" tappable>
+    <ons-icon icon="camera"></ons-icon>
+  </ons-fab>
 
 </ons-page>
