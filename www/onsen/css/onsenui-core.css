@@ -1,4 +1,4 @@
-/*! onsenui - v2.10.4 - 2018-07-20 */
+/*! onsenui - v2.10.8-build.5870 - 2019-04-01 */
 ons-page, ons-navigator,
 ons-tabbar,
 ons-gesture-detector {
@@ -276,6 +276,11 @@ ons-carousel[fullscreen] {
   overflow-y: auto;
 }
 
+@import url("./ionicons/css/ionicons.min.css");
+@import url("./material-design-iconic-font/css/material-design-iconic-font.min.css");
+@import url("./font_awesome/css/font-awesome.min.css");
+@import url("./font_awesome/css/v4-shims.min.css");
+
 ons-row {
   display: -webkit-box;
   display: -webkit-flex;
@@ -469,6 +474,14 @@ limitations under the License.
 
 .ons-icon--5x {
   font-size: 5em;
+}
+
+/**
+ * ons-icon with Font Awesome backward compatibility
+ */
+.ons-icon.fa {
+  font-family: 'Font Awesome 5 Brands', 'Font Awesome 5 Free';
+  font-weight: 900;
 }
 
 ons-input, ons-radio, ons-checkbox, ons-search-input {

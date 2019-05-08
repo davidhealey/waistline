@@ -1,6 +1,6 @@
 console.warn('From Onsen UI 2.11.0, the AngularJS binding will no longer be part of the core package. You will need to install the new angularjs-onsenui package. See https://onsen.io/v2/guide/angular1/#migrating-to-angularjs-onsenui-package for more details.');
 
-/* angularjs-onsenui v1.0.0 - 2018-07-20 */
+/* angularjs-onsenui v1.0.1 - 2019-04-01 */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory() :

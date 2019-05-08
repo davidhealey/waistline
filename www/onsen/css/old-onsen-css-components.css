@@ -5908,7 +5908,8 @@ h4, h5, h6 {
     <button class="fab"><i class="zmdi zmdi-car"></i></button>
     <button class="fab" disabled><i class="zmdi zmdi-car"></i></button>
 */
-.fab {
+/* stylelint-disable */
+ons-fab.fab, ons-speed-dial-item.fab, button.fab {
   position: relative;
   display: inline-block;
   box-sizing: border-box;
@@ -5945,16 +5946,28 @@ h4, h5, h6 {
   box-shadow: 0 3px 6px rgba(0, 0, 0, .12);
   transition: all 0.1s linear;
 }
-.fab:active {
+ons-fab.fab:active, ons-speed-dial-item.fab:active, button.fab:active {
   box-shadow: 0 3px 6 rgba(0, 0, 0, .12);
   background-color: rgba(24, 103, 194, .61);
   transition: all 0.2s ease;
   box-shadow: 0 0 6 rgba(0, 0, 0, .12);
 }
-.fab:focus {
+ons-fab.fab:focus, ons-speed-dial-item.fab:focus, button.fab:focus {
   outline: 0;
 }
-.fab__icon {
+ons-fab.fab:disabled,
+    ons-fab.fab[disabled],
+    ons-speed-dial-item.fab:disabled,
+    ons-speed-dial-item.fab[disabled],
+    button.fab:disabled,
+    button.fab[disabled] {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: none;
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+ons-fab.fab__icon, ons-speed-dial-item.fab__icon, button.fab__icon {
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -5965,14 +5978,7 @@ h4, h5, h6 {
   z-index: 100;
   line-height: 56px;
 }
-.fab:disabled,
-.fab[disabled] {
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: none;
-  opacity: 0.3;
-  cursor: default;
-  pointer-events: none;
-}
+/* stylelint-enable */
 /*~
   name: Material Fab
   category: Fab
@@ -5981,7 +5987,8 @@ h4, h5, h6 {
     <button class="fab fab--material"><i class="zmdi zmdi-car"></i></button>
     <button class="fab fab--material" disabled><i class="zmdi zmdi-car"></i></button>
 */
-.fab--material {
+/* stylelint-disable */
+ons-fab.fab--material, ons-speed-dial-item.fab--material, button.fab--material {
   position: relative;
   display: inline-block;
   box-sizing: border-box;
@@ -6033,7 +6040,7 @@ h4, h5, h6 {
       0 2px 4px -1px rgba(0, 0, 0, .4);
   transition: all 0.2s ease-in-out;
 }
-.fab--material:active {
+ons-fab.fab--material:active, ons-speed-dial-item.fab--material:active, button.fab--material:active {
   box-shadow:
       0 8px 10px 1px rgba(0, 0, 0, .14),
       0 3px 14px 2px rgba(0, 0, 0, .12),
@@ -6041,10 +6048,10 @@ h4, h5, h6 {
   background-color: rgba(0, 150, 136, .85);
   transition: all 0.2s ease;
 }
-.fab--material:focus {
+ons-fab.fab--material:focus, ons-speed-dial-item.fab--material:focus, button.fab--material:focus {
   outline: 0;
 }
-.fab--material__icon {
+ons-fab.fab--material__icon, ons-speed-dial-item.fab--material__icon, button.fab--material__icon {
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -6055,14 +6062,19 @@ h4, h5, h6 {
   z-index: 100;
   line-height: 56px;
 }
-.fab--material:disabled,
-.fab--material[disabled] {
+ons-fab.fab--material:disabled,
+  ons-fab.fab--material[disabled],
+  ons-speed-dial-item.fab--material:disabled,
+  ons-speed-dial-item.fab--material[disabled],
+  button.fab--material:disabled,
+  button.fab--material[disabled] {
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: none;
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
 }
+/* stylelint-enable */
 /*~
   name: Fab Mini
   category: Fab
@@ -6079,48 +6091,51 @@ h4, h5, h6 {
     <button class="fab fab--material fab--mini"><i class="zmdi zmdi-plus"></i></button>
     <button class="fab fab--material fab--mini" disabled><i class="zmdi zmdi-plus"></i></button>
 */
-.fab--mini {
+/* stylelint-disable */
+ons-fab.fab--mini, ons-speed-dial-item.fab--mini, button.fab--mini {
   width: 40px;
   height: 40px;
   line-height: 40px;
 }
-.fab--mini__icon {
+ons-fab.fab--mini__icon, ons-speed-dial-item.fab--mini__icon, button.fab--mini__icon {
   line-height: 40px;
 }
-.speed-dial__item {
+ons-fab.speed-dial__item,  ons-speed-dial-item.speed-dial__item,  button.speed-dial__item  {
   position: absolute;
   -webkit-transform: scale(0);
           transform: scale(0);
 }
-.fab--top__right {
+/* stylelint-enable */
+/* stylelint-disable */
+ons-fab.fab--top__right, button.fab--top__right, .speed-dial.fab--top__right {
   top: 20px;
   bottom: auto;
   right: 20px;
   left: auto;
   position: absolute;
 }
-.fab--bottom__right {
+ons-fab.fab--bottom__right, button.fab--bottom__right, .speed-dial.fab--bottom__right {
   top: auto;
   bottom: 20px;
   right: 20px;
   left: auto;
   position: absolute;
 }
-.fab--top__left {
+ons-fab.fab--top__left, button.fab--top__left, .speed-dial.fab--top__left {
   top: 20px;
   bottom: auto;
   right: auto;
   left: 20px;
   position: absolute;
 }
-.fab--bottom__left {
+ons-fab.fab--bottom__left, button.fab--bottom__left, .speed-dial.fab--bottom__left {
   top: auto;
   bottom: 20px;
   right: auto;
   left: 20px;
   position: absolute;
 }
-.fab--top__center {
+ons-fab.fab--top__center, button.fab--top__center, .speed-dial.fab--top__center {
   top: 20px;
   bottom: auto;
   margin-left: -28px;
@@ -6128,7 +6143,7 @@ h4, h5, h6 {
   right: auto;
   position: absolute;
 }
-.fab--bottom__center {
+ons-fab.fab--bottom__center, button.fab--bottom__center, .speed-dial.fab--bottom__center {
   top: auto;
   bottom: 20px;
   margin-left: -28px;
@@ -6136,6 +6151,7 @@ h4, h5, h6 {
   right: auto;
   position: absolute;
 }
+/* stylelint-enable */
 /*~
   name: Modal
   category: Modal
