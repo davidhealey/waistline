@@ -30,9 +30,11 @@
         <link rel="stylesheet" href="assets/onsen/css/onsen-css-components.min.css" id="themecss">
         <script src="assets/onsen/js/onsenui.min.js"></script>
 
-        <script src="assets/js/tinytest.js"></script>
+        <!--CSS-->
+        <link rel="stylesheet" href="assets/css/global-styles.css">
 
         <!--JS-->
+        <script src="js/db-handler.js"></script>
         <script src="js/app.js"></script>
 
         <title>Waistline</title>
@@ -60,12 +62,12 @@
                 </div>
               </ons-list-item>
 
-              <ons-list-item onclick="nav.resetToPage('activities/foods-meals-recipes/views/foods-meals-recipes.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
+              <ons-list-item onclick="nav.resetToPage('src/activities/foods-meals-recipes/views/foods-meals-recipes.html').then(menu.close.bind(menu))"" tappable modifier="longdivider">
                 <div class="left" data-localize="foods-meals-recipes.title">
                   Foods
                 </div>
                 <div class="right">
-                  <ons-icon icon="ion-pizza"></ons-icon>
+                  <ons-icon icon="fa-utensils"></ons-icon>
                 </div>
               </ons-list-item>
 
@@ -118,12 +120,23 @@
       </script>
 
       <script type="text/javascript" src="cordova.js"></script>
-      <script src="src/objects/Food.js"></script>
-      <script src="src/objects/FoodCollection.js"></script>
-      <script src="src/objects/DiaryDay.js"></script>
+      <script src="src/activities/goals/goals.js"></script>
       <script src="src/activities/diary/diary.js"></script>
+      <script src="src/activities/foods-meals-recipes/foods-meals-recipes.js"></script>
+      <script src="src/activities/foodlist/foodlist.js"></script>
+      <script src="src/activities/meals/meals.js"></script>
+      <script src="src/activities/meals/meal-editor.js"></script>
+
 
       <!--Testing-->
-      <script src="src/activities/diary/diary_test.js"></script>
+      <script>
+        if(app.mode != 'release')
+        {
+          console.log("Mode: ", app.mode);
+          document.write(unescape('%3Cscript src="assets/js/tinytest.js"%3E%3C/script%3E'));
+          document.write(unescape('%3Cscript src="src/activities/diary/diary_test.js"%3E%3C/script%3E'));
+          document.write(unescape('%3Cscript src="src/activities/foodlist/assets/test-off-result.js"%3E%3C/script%3E'));
+        }
+      </script>
     </body>
 </html>
