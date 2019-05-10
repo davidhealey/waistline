@@ -26,7 +26,7 @@ var foodlist = {
     this.listCopy = []; //A backup copy of the list is always maintained for filtering
 
     //Setup lazy list
-    this.infiniteList = document.querySelector('#foodlist #infinite-list');
+    this.infiniteList = this.page.querySelector('#food-list');
 
     //Show/Hide back button
     let menuButton = document.querySelector("ons-page#foodlist #menu-button");
@@ -116,62 +116,64 @@ var foodlist = {
   },
 
   scan : function() {
-    //First check that there is an internet connection
-    if (navigator.connection.type == "none") {
-      ons.notification.alert(app.strings["no-internet"]);
-      return false;
-    }
 
-  //  cordova.plugins.barcodeScanner.scan(function(scanData){
+    return new Promise(function(resolve, reject){
+      //First check that there is an internet connection
+      if (navigator.connection.type == "none") {
+        ons.notification.alert(app.strings["no-internet"] || "No Internet");
+        return reject(new Error("No Internet Connection"));
+      }
 
-      //let code = "3596710443307"; //Test barcode
-      let code = "3596710443307111"; //Test barcode - no results
-      //var code = scanData.text;
-      let request = new XMLHttpRequest();
-      let item = {};
+    //  cordova.plugins.barcodeScanner.scan(function(scanData){
 
-      request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
-      request.send();
+        //let code = "3596710443307"; //Test barcode
+        let code = "3596710443307111"; //Test barcode - no results
+        //var code = scanData.text;
+        let request = new XMLHttpRequest();
+        let item = {};
 
-      //Show progress indicator
-      document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
+        request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+        request.send();
 
-      request.onreadystatechange = function(){
+        //Show progress indicator
+        document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
 
-        if (request.readyState == 4 && request.status == 200) {
+        request.onreadystatechange = function(){
 
-          //Hide progress indicator
-          document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none";
+          if (request.readyState == 4 && request.status == 200) {
 
-          let result = JSON.parse(request.responseText);
+            //Hide progress indicator
+            document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none";
 
-          if (result.status == 0) {//Product not found
+            let result = JSON.parse(request.responseText);
 
-            //Ask the user if they would like to add the product to the open food facts database
-            /*ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
-            .then(function(input) {
-              if (input == 1) {*/
-                item.barcode = code;
-                foodlist.foodEditor(item, true);
-            /*  }
-          });*/
-            return false;
+            if (result.status == 0) {//Product not found
+
+              //Ask the user if they would like to add the product to the open food facts database
+              ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+              .then(function(input) {
+                if (input == 1) {
+                  item.barcode = code;
+                  return resolve(item);
+                }
+            });
+              return reject(new Error("Product not found"));
+            }
+
+            //Check if item is already in food list - only one item so not great overhead
+            let index = dbHandler.getIndex("barcode", "foodList");
+            index.get(result.code).onsuccess = function(e) {
+              if (e.target.result)
+                item = e.target.result;
+              else
+                item = foodlist.parseOFFProduct(result.product);
+
+              return resolve(item);
+            };
           }
-
-          //Check if item is already in food list - only one item so not great overhead
-          let index = dbHandler.getIndex("barcode", "foodList");
-          index.get(result.code).onsuccess = function(e) {
-            if (e.target.result)
-              item = e.target.result;
-            else
-              item = foodlist.parseOFFProduct(result.product);
-
-            //Go to food item edit form and fill in form with retrieved data
-            foodlist.foodEditor(item);
-          };
-        }
-      };
-    //}
+        };
+      //}
+    });
   },
 
   parseOFFProduct: function(product) {
@@ -240,7 +242,7 @@ var foodlist = {
 
     let center = document.createElement("div");
     center.className = "center";
-    center.addEventListener("tap", function(){ foodlist.foodEditor(item); });
+    center.addEventListener("tap", function(){ foodEditor.open(item); });
     li.appendChild(center);
 
     let name = document.createElement("ons-row");
@@ -330,343 +332,6 @@ var foodlist = {
     }
   },
 
-  foodEditor: function(itemdata, uploader) {
-
-    const nutriments = app.nutriments; //Get array of nutriment names
-    let uploadImages = [];
-
-    nav.pushPage("src/activities/foodlist/views/food-editor.html", {"data":itemdata})
-    .then(function() {
-      populateEditor(itemdata);
-
-      //If editor is being used for upload setup extra stuff
-      if (uploader == true)
-        setupUploadFields(itemdata);
-      else {
-        document.querySelector('ons-page#food-editor #submit').addEventListener("tap", function(){ processEditor(itemdata);});
-        if (itemdata) document.querySelector('ons-page#food-editor #portion').addEventListener("change", function(){ changePortion(itemdata);});
-      }
-    });
-
-    function populateEditor(data) {
-
-      //Existing item info
-      if (data) {
-        if (Object.keys(data).length > 1) { //If there is only 1 key it's a scanned item's barcode
-          document.querySelector("#food-editor #title").innerText = unescape(data.name);
-          document.querySelector('#food-editor #name').value = unescape(data.name);
-          document.querySelector('#food-editor #brand').value = unescape(data.brand);
-          document.querySelector('#food-editor #portion').value = parseFloat(data.portion);
-          document.querySelector('#food-editor #unit').value = data.portion.replace(/[^a-z]/gi, '');
-
-          //Product images - only when connected to internet
-          if (data.image_url && data.image_url != undefined) {
-            if ((navigator.connection.type != "none" && navigator.connection.type != "unknown") || app.mode == "development") {
-              let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
-              imageCarousel.closest("ons-card").style.display = "block";
-
-              let c = document.createElement("ons-carousel-item");
-              imageCarousel.appendChild(c);
-
-              let img = document.createElement("img");
-              img.setAttribute("src", unescape(data.image_url));
-              c.appendChild(img);
-            }
-          }
-        }
-
-        //Display barcode if present
-        if (data.barcode) {
-          document.querySelector('#food-editor #barcode-container').style.display = "block";
-          document.querySelector('#food-editor #barcode').innerText = data.barcode;
-        }
-      }
-
-      //Render nutrition
-      const nutrition = document.querySelector("ons-page#food-editor #nutrition");
-      for (let i = 0; i < nutriments.length; i++) {
-
-        let nutriment = nutriments[i];
-
-        let row = document.createElement("ons-row");
-        nutrition.appendChild(row);
-
-        //Nutriment name and unit
-        let nutrimentUnits = app.nutrimentUnits;
-        let col = document.createElement("ons-col");
-        col.setAttribute("vertical-align", "center");
-        col.setAttribute("width", "80%");
-        row.appendChild(col);
-
-        let text = app.strings[nutriment] || nutriment; //Localize
-        let nutrimentUnit = nutrimentUnits[nutriment] || "g";
-        let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " ("+nutrimentUnit+")");
-        col.appendChild(tnode);
-
-        //Nutriment input box
-        col = document.createElement("ons-col");
-        row.appendChild(col);
-
-        let input = document.createElement("ons-input");
-        input.setAttribute("name", nutriment);
-        input.setAttribute("placeholder", "0");
-        input.setAttribute("type", "number");
-
-        if (nutriment == "calories") {
-          input.setAttribute("pattern", "pattern='[0-9]*'");
-          input.setAttribute("inputmode", "numeric");
-          input.setAttribute("required", "true");
-        }
-        else {
-          input.setAttribute("inputmode", "decimal");
-          input.setAttribute("step", "any");
-        }
-
-        if (data && data.nutrition && data.nutrition[nutriment])
-          input.value = Number(parseFloat(data.nutrition[nutriment]).toFixed(4));
-
-        col.appendChild(input);
-      }
-    }
-
-    function setupUploadFields(data) {
-      document.querySelector("#food-editor #title").innerText = "Upload";
-      document.querySelector('#food-editor #submit').style.display = "none";
-      document.querySelector('#food-editor #upload-fields').style.display = "block";
-
-      const btnCamera = document.querySelector('#food-editor #camera');
-      btnCamera.style.display = "block";
-      btnCamera.addEventListener("tap", takePicture);
-
-      const btnUpload = document.querySelector('#food-editor #upload');
-      btnUpload.style.display = "block";
-      btnUpload.addEventListener("tap", function(event){processEditor(data);});
-    }
-
-    function processEditor(data) {
-
-      //Make sure there is data object set up correctly
-      data = data || {};
-      data.nutrition = data.nutrition || {};
-
-      //Add date time
-      var now = new Date();
-      data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-
-      let inputs = document.querySelectorAll('#food-editor input');
-      let unit = document.querySelector('#food-editor #unit').value;
-
-      let validation = app.validateInputs(inputs);
-validation = true;
-      if (validation == true) {
-        for (let i = 0; i < inputs.length; i++) {
-          let input = inputs[i];
-          let name = input.getAttribute("name");
-          let v = input.value;
-
-          if (v == null || v == "") continue; //Ignore unset values
-
-          if (nutriments.indexOf(name) != -1) //Nutriments
-            data.nutrition[name] = parseFloat(v);
-          else
-          {
-            if (name == "unit") continue;
-            if (name == "portion") v = v + unit;
-            data[name] = v;
-          }
-        }
-        uploadToOFF(data);
-        //Update the DB
-        /*dbHandler.put(data, "foodList").onsuccess = function() {
-          if (uploader == true)
-            uploadToOFF(data);
-          else
-            nav.resetToPage('src/activities/foodlist/views/foodlist.html');
-        };*/
-      }
-      else {
-        //Display validation messages
-        let message = "Please add values to the following fields: <br><ul>";
-        for (let i = 0; i < validation.length; i++) {
-          message += "<li>" + validation[i].charAt(0).toUpperCase() + validation[i].slice(1) + "</li>";
-        }
-        message += "<ul>";
-        ons.notification.alert(message, {"messageHTML":true});
-      }
-    }
-
-    function uploadToOFF(data) {
-
-      /* jshint expr: true */
-      let user_id, password;
-      app.mode == "development" ? user_id = "off" : user_id = "waistline-app";
-      app.mode == "development" ? password = "off" : password = "waistline";
-      //let lang = app.getLocale() || "en";
-      let s = "";
-      //Put data into the correct format for OFF request
-      //let s = "user_id=" + escape(user_id) + "&password=" + password;
-      //s += "&lang=" + lang;
-      s += "&code=" + data.barcode;
-      s += "&product_name=" + escape(data.name);
-      s += "&brands=" + escape(data.brand);
-      s += "&product_quantity=" + escape(data.portion);
-      s += "&nutrition_data_per=serving&serving_size="+escape(data.portion);
-      s += "&nutriment_energy_unit=kcal";
-//3596710443307111
-      for (let n in data.nutrition) {
-
-        if (n == "calories")
-          s += "&nutriment_energy=";
-        else
-          s += "&nutriment_" + n + "=";
-
-        s += data.nutrition[n];
-      }
-
-      //Make request to OFF
-      let endPoint;
-      if (app.mode == "development")
-        endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?";
-      else
-        endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?";
-
-      let request = new XMLHttpRequest();
-      request.open("GET", endPoint + s, true); //Testing server
-      request.setRequestHeader("Content-Type", "multipart/form-data");
-      request.withCredentials = true;
-
-      request.onload = function() {
-        console.log(this.status);
-        if (this.status >= 200 && this.status < 300) {
-         console.log(request.response);
-        }
-        else {
-         /*reject({
-           status: this.status,
-           statusText: request.statusText
-         });*/
-         alert(this.status + " - " + request.statusText);
-        }
-      };
-
-      request.onerror = function() {
-        /*reject({
-          status: this.status,
-          statusText: request.statusText
-        });*/
-        alert(this.status + " - " + request.statusText);
-      };
-
-      request.send();
-
-
-    /*  return new Promise(function(resolve, reject){
-
-
-
-        request.onerror = function() {
-          reject({
-            status: this.status,
-            statusText: request.statusText
-          });
-        };
-
-        request.send();
-      });*/
-    }
-
-    function changePortion(data) {
-      let inputs = document.querySelectorAll('#food-editor input');
-      let oldP = parseFloat(data.portion); //Get original portion
-      let newP = document.querySelector('#food-editor #portion').value; //New portion
-
-      if (oldP > 0 && newP > 0) {
-        for (var i = 0; i < inputs.length; i++) {
-          let name = inputs[i].getAttribute("name");
-
-          if (nutriments.indexOf(name) != -1) {
-            let v = parseFloat(((data.nutrition[name] / oldP) * newP).toFixed(2));
-            inputs[i].value = v;
-          }
-        }
-      }
-    }
-
-    function takePicture() {
-      let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
-      let options = {"allowEdit":true, "saveToPhotoAlbum":false};
-let image_uri = "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2017/04/one-pot-poached-chicken.jpg?itok=R3NMZk-d";
-      //navigator.camera.getPicture(function(image_uri) {
-        //Ask the user to select the type of image
-        ons.openActionSheet({
-          title: 'What is this image of?',
-          buttons: ['Front Image', 'Ingredients', 'Nutrition']
-        })
-        .then(function(input) {
-          let imageTypes = ["front", "ingredients", "nutrition"];
-
-          //Make sure there is only one image per imagefield
-          for (let i = 0; i < uploadImages.length; i++) {
-            if (uploadImages[i].imagefield == imageTypes[input]) {
-              uploadImages.splice(i, 1); //Remove item from images array
-              //Remove image from carousel
-              let img = document.querySelector("#food-editor #images #"+imageTypes[input] + " img");
-              img.removeEventListener("hold", deleteImage); //Remove img event listener
-              let child = img.closest("ons-carousel-item");
-              let parent = child.parentElement;
-              parent.removeChild(child);
-            }
-          }
-
-          let imageData = {"imagefield":imageTypes[input], "path":image_uri, "uploadType":"imgupload_"+imageTypes[input]};
-          uploadImages.push(imageData);
-
-          //Show images container
-          imageCarousel.closest("ons-card").style.display = "block";
-
-          //Create carousel item with image and append to imageCarousel
-          let ci = document.createElement("ons-carousel-item");
-          ci.id = imageTypes[input];
-          imageCarousel.appendChild(ci);
-
-          let img = document.createElement("img");
-          img.setAttribute("src", image_uri);
-          img.addEventListener("hold", deleteImage);
-
-          let gd = document.createElement("ons-gesture-detector");
-          gd.appendChild(img);
-
-          ci.appendChild(gd);
-        });
-      /*},
-      function() {
-        console.log("Camera problem");
-      }, options);*/
-
-      function deleteImage() {
-        let ci = this.closest("ons-carousel-item");
-        let img = this;
-
-        ons.notification.confirm("Delete this item?")
-        .then(function(input) {
-          if (input == 1) { //Delete was confirmed
-            uploadImages.splice(ci.id, 1); //Remove item from images array
-            //If there are no images left hide the image container
-            if (uploadImages.length == 0) {
-              document.querySelector('ons-page#food-editor #images').style.display = "none";
-            }
-            this.removeEventListener("hold", deleteImage); //Remove the event handler
-
-            //Remove the carousel item
-            let parent = ci.parentElement;
-            parent.removeChild(ci);
-          }
-        });
-      }
-
-    }
-  },
-
   deleteItem: function() {
 
     let id = this.id;
@@ -748,13 +413,21 @@ document.addEventListener("init", function(event){
     //Barcode scan button
     const btnScan = foodlist.page.querySelector("#scan");
     btnScan.addEventListener("tap", function(event) {
-      foodlist.scan();
+      foodlist.scan()
+      .then(function(item){
+        if (item) {
+          if (item.name)
+            foodEditor.open(item); //Existing item so open editor as usual
+          else
+            foodEditor.open(item, true); //No name so must be scanned item for upload
+        }
+      }, function(err){console.log(err);});
     });
 
     //Fab button to add new food
     const fab = foodlist.page.querySelector('ons-fab');
     fab.addEventListener("tap", function(event){
-      foodlist.foodEditor();
+      foodEditor.open();
     });
  }
 });

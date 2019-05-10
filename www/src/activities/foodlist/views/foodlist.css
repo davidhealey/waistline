@@ -27,3 +27,4 @@ ons-page#food-editor #barcode-container {display:none; margin-bottom: 1em;}
 ons-page#food-editor ons-row:not(:last-child) {margin-bottom: 1em;}
 ons-page#food-editor #images {display:none; height:300px;}
 ons-page#food-editor #images img {display:block; height:100%; width:auto; margin:auto; padding:0px;}
+ons-page#food-editor .nutriment-unit {line-height: 1.7em; margin-left: 0.3em; padding:0;}
