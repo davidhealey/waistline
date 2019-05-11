@@ -21,6 +21,7 @@ var foodEditor = {
 
   open: function(food, uploader) {
 
+    foodEditor.uploader = uploader; //Make uploader status class wide
     foodEditor.foodImages = [];
 
     nav.pushPage("src/activities/foodlist/views/food-editor.html", {"data":food})
@@ -209,10 +210,8 @@ var foodEditor = {
 
     function finalise(data) {
 
-      let modal = document.querySelector('#food-editor ons-modal');
-
-      if (uploader == true) {
-        if (foodImages.length == 0) { //No images have been added for upload :(
+      if (foodEditor.uploader == true) {
+        if (foodEditor.foodImages.length == 0) { //No images have been added for upload :(
           ons.notification.confirm({
               message:"You haven't added any product images. Adding images helps keep the Open Food Facts database accurate. Would you like to cancel the upload and add images?",
               buttonLabels:["No", "Yes!"]
@@ -220,30 +219,32 @@ var foodEditor = {
           .then(function(input) {
             if (input == 1)
              return true;
-            else {
-              modal.show();
-            foodEditor.uploadToOFF(data)
-            .then(function(data){
-              alert("upload complete");
-              modal.hide();
-              //addToDB(data)
-            });
-            console.log("TEMP");
-            }
+            else
+              postAndAddToDB(data);
           });
         }
-        else {
-          modal.show();
-          foodEditor.uploadToOFF(data)
-          .then(function(data){
-            modal.hide();
-            foodEditor.addToDB(data);
-          });
-        }
+        else
+          postAndAddToDB(data);
       }
       else {
-        fooodEditor.addToDB(data);
+        foodEditor.addToDB(data);
       }
+    }
+
+    function postAndAddToDB(data) {
+      let modal = document.querySelector('#food-editor ons-modal');
+      modal.show();
+      foodEditor.uploadToOFF(data)
+      .then(function(data) {
+        alert("upload complete");
+        modal.hide();
+        foodEditor.addToDB(data);
+      })
+      .catch(function(e) {
+        console.log(e);
+        modal.hide();
+        ons.notification.alert("Check Open Food Facts Username and Password", {title:"Upload Error"});
+      });
     }
   },
 
@@ -264,7 +265,7 @@ var foodEditor = {
 
     const btnUpload = document.querySelector('#food-editor #upload');
     btnUpload.style.display = "block";
-    btnUpload.addEventListener("tap", function(event){foodEditor.processEditor(data);});
+    btnUpload.addEventListener("tap", function(event) {foodEditor.processEditor(data);});
   },
 
   takePicture: function() {
@@ -282,9 +283,9 @@ var foodEditor = {
         let imageTypes = ["front", "ingredients", "nutrition"];
 
         //Make sure there is only one image per imagefield
-        for (let i = 0; i < foodImages.length; i++) {
-          if (foodImages[i].imagefield == imageTypes[input]) {
-            foodImages.splice(i, 1); //Remove item from images array
+        for (let i = 0; i < foodEditor.foodImages.length; i++) {
+          if (foodEditor.foodImages[i].imagefield == imageTypes[input]) {
+            foodEditor.foodImages.splice(i, 1); //Remove item from images array
             //Remove image from carousel
             let img = document.querySelector("#food-editor #images #"+imageTypes[input] + " img");
             img.removeEventListener("hold", deleteImage); //Remove img event listener
@@ -349,13 +350,13 @@ var foodEditor = {
 
       /* jshint expr: true */
       let user_id, password;
-      app.mode == "development" ? user_id = "off" : user_id = "waistline-app";
-      app.mode == "development" ? password = "off" : password = "waistline";
-      let lang = app.getLocale() || "en";
+      app.mode == "development" ? user_id = "" : user_id = "waistline-app";
+      app.mode == "development" ? password = "" : password = "waistline";
+      //let lang = app.getLocale() || "en";
 
       //Put data into the correct format for OFF request
       let s = "user_id=" + escape(user_id) + "&password=" + password;
-      s += "&lang=" + lang;
+      //s += "&lang=" + lang;
       s += "&code=" + data.barcode;
       s += "&product_name=" + escape(data.name);
       s += "&brands=" + escape(data.brand);
@@ -378,7 +379,7 @@ var foodEditor = {
       //Make request to OFF
       let endPoint;
       if (app.mode == "development")
-        endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
+        endPoint = "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
       else
         endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; //Real server
 
@@ -391,40 +392,29 @@ var foodEditor = {
 
         console.log(this.status);
 
-        if (this.status >= 200 && this.status < 300) {
-          console.log(request.response);
-
+        if (this.response && this.response.status == 1) { //Everything went well
           //Upload images, if any
-          if (foodImages.length > 0) {
-            uploadImagesToOFF(data.barcode, foodImages)
-            .then(function(response) {
-              console.log(response);
+          if (foodEditor.foodImages.length > 0) {
+            foodEditor.uploadImagesToOFF(data.barcode, foodEditor.foodImages)
+            .then(function() {
               resolve(data);
             });
           }
-          else {
+          else
             resolve(data);
-          }
         }
-        else {
-         reject({
-           status: this.status,
-           statusText: request.statusText
-         });
-         alert(this.status + " - " + request.statusText);
-        }
+        else
+          reject(new Error(this));
       };
 
       request.onerror = function() {
-        reject({
-          status: this.status,
-          statusText: request.statusText
-        });
+        reject(new Error(this));
       };
+
       request.send();
     });
   },
-  
+
   uploadImagesToOFF: function(code, images) {
     return new Promise(function(resolve, reject) {
 
@@ -432,7 +422,7 @@ var foodEditor = {
 
       //Upload images
       for (let i = 0; i < images.length; i++) {
-        promises.push(uploadImage(code, images[i]));
+        promises.push(uploadImage(code, images[i])); //Use sub-function (uploadImage)
       }
 
       //When all promises have completed
@@ -443,7 +433,7 @@ var foodEditor = {
     })
     .catch(function(err) {
       console.error('Augh, there was an error!', err.statusText);
-      reject();
+      reject(err.statusText);
     });
 
     //This function won't work in the browser, must be tested on device
@@ -451,7 +441,72 @@ var foodEditor = {
 
       return new Promise(function(resolve, reject) {
 
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
+
+        function fsSuccess(fs) {
+          console.log('file system open: ' + fs.name);
+          window.resolveLocalFileSystemURL(image.path, getFileSuccess, getFileFail);
+        }
+
+        function getFileSuccess(fileEntry) {
+          console.log("Got the file: " + image.imagefield);
+          fileEntry.file(readFile, fileEntryFail);
+        }
+
+        function readFile(file) {
+
+          console.log("Reading file");
+
+          let reader = new FileReader();
+          reader.onloadend = function() {
+              // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+              let blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+
+              let formdata = new FormData();
+              formdata.append(image.uploadType, blob);
+              formdata.append("code", code);
+              formdata.append("imagefield", image.imagefield);
+              postImage(formdata); //Send image to OFF
+          };
+
+          // Read the file as an ArrayBuffer
+          reader.readAsArrayBuffer(file);
+        }
+
+        function postImage(formdata) {
+
+          console.log("Upload start");
+
+          var request = new XMLHttpRequest();
+
+          if (app.mode == "development")
+            request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+          else
+            request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+
+          request.setRequestHeader("Content-Type", "multipart/form-data");
+          request.withCredentials = true;
+
+          request.onload = function (e) {
+            console.log("Image uploaded: " + image.imagefield);
+            resolve(request.response);
+          };
+
+          request.onerror = function(e) {reject(e);};
+
+          request.send(formdata);
+        }
+
+        function fsFail(err) {console.error('error getting persistent fs! ' + err); reject();}
+        function getFileFail(err) {console.error('error getting file! ' + err); reject();}
+        function fileEntryFail(err) {console.error('error getting fileentry file!' + err); reject();}
+      })
+      .catch(function(err) {
+        console.error('Augh, there was an error!', err.statusText);
+        reject();
+      });
+
+        /*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
            console.log('file system open: ' + fs.name);
 
@@ -505,7 +560,7 @@ var foodEditor = {
       .catch(function(err) {
         console.error('Augh, there was an error!', err.statusText);
         reject();
-      });
+      });*/
     }
   }
 };

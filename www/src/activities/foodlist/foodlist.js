@@ -117,60 +117,65 @@ var foodlist = {
 
   scan : function() {
 
-    return new Promise(function(resolve, reject){
-      //First check that there is an internet connection
-      if (navigator.connection.type == "none") {
-        ons.notification.alert(app.strings["no-internet"] || "No Internet");
-        return reject(new Error("No Internet Connection"));
-      }
+    return new Promise(function(resolve, reject) {
 
     //  cordova.plugins.barcodeScanner.scan(function(scanData){
 
         //let code = "3596710443307"; //Test barcode
-        let code = "3596710443307111"; //Test barcode - no results
+        let code = "35967104433071"; //Test barcode - no results
         //var code = scanData.text;
         let request = new XMLHttpRequest();
         let item = {};
 
-        request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
-        request.send();
-
-        //Show progress indicator
-        document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
-
-        request.onreadystatechange = function(){
-
-          if (request.readyState == 4 && request.status == 200) {
-
-            //Hide progress indicator
-            document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none";
-
-            let result = JSON.parse(request.responseText);
-
-            if (result.status == 0) {//Product not found
-
-              //Ask the user if they would like to add the product to the open food facts database
-              ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
-              .then(function(input) {
-                if (input == 1) {
-                  item.barcode = code;
-                  return resolve(item);
-                }
-            });
-              return reject(new Error("Product not found"));
+        //Check if item is already in food list - only one item so not great overhead
+        let index = dbHandler.getIndex("barcode", "foodList");
+        index.get(code).onsuccess = function(e) /*{
+          if (e.target.result) {
+            console.log("Result found in local DB");
+            item = e.target.result;
+            return resolve(item); //Return the version from the database
+          }
+          else*/ { //Not in foodlist already so search OFF
+            //First check that there is an internet connection
+            if (navigator.connection.type == "none") {
+              ons.notification.alert(app.strings["no-internet"] || "No Internet");
+              return reject(new Error("No Internet Connection"));
             }
 
-            //Check if item is already in food list - only one item so not great overhead
-            let index = dbHandler.getIndex("barcode", "foodList");
-            index.get(result.code).onsuccess = function(e) {
-              if (e.target.result)
-                item = e.target.result;
-              else
-                item = foodlist.parseOFFProduct(result.product);
+            //Show progress indicator
+            document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
 
-              return resolve(item);
+            request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+            request.send();
+            request.onreadystatechange = function(){
+
+              if (request.readyState == 4 && request.status == 200) {
+
+                //Hide progress indicator
+                document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none";
+
+                let result = JSON.parse(request.responseText);
+
+                if (result.status == 0) { //Product not found
+
+                  //Ask the user if they would like to add the product to the open food facts database
+                  ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
+                  .then(function(input) {
+                    if (input == 1) {
+                      item.barcode = code;
+                      return resolve(item);
+                    }
+                    else
+                      return reject(new Error("Product not found"));
+                  });
+                }
+                else { //Product found
+                    item = foodlist.parseOFFProduct(result.product); //Return the item
+                    return resolve(item);
+                }
+              }
             };
-          }
+      //    }
         };
       //}
     });
