@@ -91,8 +91,7 @@ var diary = {
     });
   },
 
-  render: function()
-  {
+  render: function() {
     const entries = diary.data.entries; //Diary food entries
     const nutrition = diary.data.nutrition; //Nutritional nutrition by category
     const totals = diary.data.nutritionTotals; //Nutrition totals
@@ -123,6 +122,7 @@ var diary = {
 
       let span = document.createElement("span"); //Populated by renderNutrition function
       span.className = "header-text";
+      span.addEventListener("hold", this.quickAdd);
       li.appendChild(span);
 
       //Gesture detector
@@ -305,7 +305,7 @@ var diary = {
       {
         let brand = document.createElement("h4");
         brand.innerText = unescape(data.brand);
-        info.appendChild(brand);  
+        info.appendChild(brand);
       }
 
       //Category selection menu
@@ -453,6 +453,41 @@ var diary = {
 
       //Insert the items
       dbHandler.bulkInsert(items, "diary").then(resolve());
+    });
+  },
+
+  quickAdd: function() {
+
+    diary.current_category = this.getAttribute("category");
+
+    ons.createElement('src/activities/diary/views/quick-add.html', { append: true }) //Load dialog from file
+    .then(function(dialog) {
+      dialog.show();
+
+      dialog.querySelector('#cancel').addEventListener("tap", function(){dialog.hide();}); //Cancel button
+      dialog.querySelector('#ok').addEventListener("tap", function() { //Ok button
+        let inputs = dialog.querySelectorAll('input'); //Get input fields
+        let validation = app.validateInputs(inputs); //Validate inputs
+
+        //If inputs are valid
+        if (validation == true) {
+          let data = {"portion":"Quick Add", "nutrition":{}}; //Set up object to insert into diary
+
+          //Calories
+          data.nutrition.calories = Number(dialog.querySelector('#calories').value);
+
+          //Name
+          name = dialog.querySelector('#name').value;
+          data.name = name || "Quick Add Calories";
+
+          //Add to diary
+          diary.pushItemsToDB([data])
+          .then(function() {
+            dialog.hide();
+            diary.loadDiary(); //Refresh the display
+          });
+        }
+      });
     });
   },
 };

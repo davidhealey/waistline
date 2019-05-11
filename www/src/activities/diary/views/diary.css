@@ -21,6 +21,7 @@ ons-page#diary #diary-date {margin-bottom: 0.5em; padding-top: 0.2em; padding-bo
 ons-page#diary #diary-date ons-button {background-color:inherit; color:black; box-shadow:none; text-align: center;}
 
 ons-page#diary #header {background-color: inherit; box-shadow:none;}
+ons-page#diary .header-text {width:100%;}
 ons-page#diary #diary-nutrition {background-color: inherit; box-shadow:none;}
 ons-page#diary #diary-nutrition ons-carousel {height:3.5em; border-bottom: 1px solid grey;}
 ons-page#diary #diary-nutrition ons-col {text-align: center;}
@@ -37,3 +38,5 @@ ons-page#diary #diary-day .diary-entry-info {font-size: 0.8em; font-weight: ligh
 ons-page#diary-edit-item ons-card {box-shadow:none; border:solid 0.5px LightGrey;}
 ons-page#diary-edit-item ons-row:not(:last-child) {margin-bottom: 1em;}
 ons-page#diary-edit-item input {text-align: right;}
+
+#quick-add ons-input:not(:last-child) {margin-bottom: 1em;}
