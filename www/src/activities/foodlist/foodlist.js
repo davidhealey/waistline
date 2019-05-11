@@ -38,6 +38,29 @@ var foodlist = {
     }
   },
 
+  getImages: function(code, field) {
+    return new Promise(function(resolve, reject) {
+      if (navigator.connection.type == "none" && app.mode != "development") {return reject(false);}
+
+      let endPoint;
+      if (app.mode == "development")
+        endPoint = "https://off:off@world.openfoodfacts.net/api/v0/product/"+code+".json?fields=" + field; //Testing server
+      else
+        endPoint = "https://world.openfoodfacts.org/api/v0/product/"+code+".json?fields=images" + field; //Real server
+
+      let request = new XMLHttpRequest();
+      request.open("GET", endPoint, true);
+      request.send();
+      request.onreadystatechange = function(){
+
+        if (request.readyState == 4 && request.status == 200) {
+          let result = JSON.parse(request.responseText);
+          resolve(result.product[field]);
+        }
+      };
+    });
+  },
+
   setFilter : function(term) {
     var list = this.listCopy; //Search is performed on copy of list
 
@@ -110,7 +133,6 @@ var foodlist = {
           foodlist.listCopy = list;
           foodlist.infiniteList.refresh();
         }
-
       }
     };
   },
@@ -122,7 +144,7 @@ var foodlist = {
     //  cordova.plugins.barcodeScanner.scan(function(scanData){
 
         //let code = "3596710443307"; //Test barcode
-        let code = "35967104433071"; //Test barcode - no results
+        let code = "3596710443307111"; //Test barcode - no results
         //var code = scanData.text;
         let request = new XMLHttpRequest();
         let item = {};

@@ -42,34 +42,50 @@ var foodEditor = {
 
     //Existing item info
     if (data) {
-      if (Object.keys(data).length > 1) { //If there is only 1 key it's a scanned item's barcode
+
+      //If there is only 1 key then it's just a barcode from a scan. If there is more than one then display the other stuff
+      if (Object.keys(data).length > 1) {
         document.querySelector("#food-editor #title").innerText = unescape(data.name);
         document.querySelector('#food-editor #name').value = unescape(data.name);
         document.querySelector('#food-editor #brand').value = unescape(data.brand);
         document.querySelector('#food-editor #portion').value = parseFloat(data.portion);
         document.querySelector('#food-editor #unit').value = data.portion.replace(/[^a-z]/gi, '');
-
-        //Product images - only when connected to internet
-        if (data.image_url && data.image_url != undefined) {
-          if ((navigator.connection.type != "none" && navigator.connection.type != "unknown") || app.mode == "development") {
-            let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
-            imageCarousel.closest("ons-card").style.display = "block";
-
-            let c = document.createElement("ons-carousel-item");
-            imageCarousel.appendChild(c);
-
-            let img = document.createElement("img");
-            img.setAttribute("src", unescape(data.image_url));
-            c.appendChild(img);
-          }
-        }
       }
 
       //Display barcode if present
       if (data.barcode) {
         document.querySelector('#food-editor #barcode-container').style.display = "block";
         document.querySelector('#food-editor #barcode').innerText = data.barcode;
-        //If connected to the internet and data doesn't contain image url download pictures
+
+        //If data doesn't contain image url download images - internet connection will be checked by getImages function
+        if (!data.image_url || data.image_url == "" || data.image_url == null) {
+          foodlist.getImages(data.barcode, "image_front_url")
+          .then(function(image_url) {
+            //If an image was found add its URL to the data object
+            if (image_url != false) {
+              data.image_url = image_url; //Update data object
+              renderImages(data);
+            }
+          });
+        }
+        else if (data.image_url) {
+          renderImages(data);
+        }
+      }
+    }
+
+    //Product images - only when connected to internet
+    function renderImages(data) {
+      if ((navigator.connection.type != "none" && navigator.connection.type != "unknown") || app.mode == "development") {
+        let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
+        imageCarousel.closest("ons-card").style.display = "block";
+
+        let c = document.createElement("ons-carousel-item");
+        imageCarousel.appendChild(c);
+
+        let img = document.createElement("img");
+        img.setAttribute("src", unescape(data.image_url));
+        c.appendChild(img);
       }
     }
 
