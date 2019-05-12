@@ -98,9 +98,12 @@ var goalEditor = {
           inputs[i].value = data[type][inputs[i].id] || 0;
         }
 
-        //Multi goal checkbox
+        //Multi goal switch
         document.querySelector('#goal-editor #multi-goal').checked = data[type].multi;
         goalEditor.toggleSameGoal();
+
+        //Show in diary switch
+        document.querySelector('#goal-editor #diary-display').checked = data[type].diaryDisplay;
       }
     }
   },
@@ -121,8 +124,11 @@ var goalEditor = {
         data[type][inputs[i].id] = Number(inputs[i].value);
       }
 
-      //Multi goal checkbox
+      //Multi goal switch
       data[type].multi = document.querySelector('#goal-editor #multi-goal').checked;
+
+      //Show in diary switch
+      data[type].diaryDisplay = document.querySelector('#goal-editor #diary-display').checked;
 
       //Daily/Weekly radio buttons
       if (document.querySelector('#goal-editor #daily-mode').checked)

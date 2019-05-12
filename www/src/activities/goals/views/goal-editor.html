@@ -56,20 +56,19 @@
       <ons-row><ons-col><ons-input type="number" id="6" class="daily" inputmode="decimal" step="any" placeholder="Saturday" float value=0></ons-input></ons-col></ons-row>
       <ons-row><ons-col><ons-input type="number" id="0" class="daily" inputmode="decimal" step="any" placeholder="Sunday" float value=0></ons-input></ons-col></ons-row>
       <ons-row>
-        <ons-col>
-          <label class="left">
-            <ons-checkbox input-id="multigoal" id="multi-goal"></ons-checkbox>
-          </label>
-          <label for="multigoal" class="center" data-localize="same-goal">
-            Same Goal Each Day
-          </label>
-        </ons-col>
+        <ons-col class="center" width="80%">Use Same Goal Every Day</ons-col>
+        <ons-col class="right"><ons-switch id="multi-goal"></ons-switch></ons-col>
       </ons-row>
     </div>
 
     <div id="weekly-goal" class="goal-container">
       <ons-row><ons-col><ons-input type="number" id="weekly" class="weekly" inputmode="decimal" step="any" placeholder="Weekly Goal" float></ons-input></ons-col></ons-row>
     </div>
+
+    <ons-row id="switch-container">
+      <ons-col class="center" width="80%">Show In Diary?</ons-col>
+      <ons-col class="right"><ons-switch id="diary-display"></ons-switch></ons-col>
+    </ons-row>
   </div>
 
   <div id="weight-goals" class="goal-container">
