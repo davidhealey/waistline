@@ -1,0 +1,79 @@
+<!--
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ons-page id="goal-editor">
+
+  <link rel="stylesheet" href="src/activities/goals/views/goals.css">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title">Goals</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <div id="nutrition-goals">
+    <ons-list>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-radio id="daily-mode" name="goal-mode" input-id="daily" checked></ons-radio>
+        </label>
+        <label for="daily" class="center">
+          Use Daily Goal
+        </label>
+      </ons-list-item>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-radio id="weekly-mode" name="goal-mode" input-id="weekly"></ons-radio>
+        </label>
+        <label for="weekly" class="center">
+          Use Weekly Goal
+        </label>
+      </ons-list-item>
+    </ons-list>
+
+    <div id="daily-goal" class="goal-container">
+      <ons-row><ons-col><ons-input type="number" id="1" class="daily" inputmode="decimal" step="any" placeholder="Monday" float value=0></ons-input></ons-col></ons-row>
+      <ons-row><ons-col><ons-input type="number" id="2" class="daily" inputmode="decimal" step="any" placeholder="Tuesday" float value=0></ons-input></ons-col></ons-row>
+      <ons-row><ons-col><ons-input type="number" id="3" class="daily" inputmode="decimal" step="any" placeholder="Wednesday" float value=0></ons-input></ons-col></ons-row>
+      <ons-row><ons-col><ons-input type="number" id="4" class="daily" inputmode="decimal" step="any" placeholder="Thursday" float value=0></ons-input></ons-col></ons-row>
+      <ons-row><ons-col><ons-input type="number" id="5" class="daily" inputmode="decimal" step="any" placeholder="Friday" float value=0></ons-input></ons-col></ons-row>
+      <ons-row><ons-col><ons-input type="number" id="6" class="daily" inputmode="decimal" step="any" placeholder="Saturday" float value=0></ons-input></ons-col></ons-row>
+      <ons-row><ons-col><ons-input type="number" id="0" class="daily" inputmode="decimal" step="any" placeholder="Sunday" float value=0></ons-input></ons-col></ons-row>
+      <ons-row>
+        <ons-col>
+          <label class="left">
+            <ons-checkbox input-id="multigoal" id="multi-goal"></ons-checkbox>
+          </label>
+          <label for="multigoal" class="center" data-localize="same-goal">
+            Same Goal Each Day
+          </label>
+        </ons-col>
+      </ons-row>
+    </div>
+
+    <div id="weekly-goal" class="goal-container">
+      <ons-row><ons-col><ons-input type="number" id="weekly" class="weekly" inputmode="decimal" step="any" placeholder="Weekly Goal" float></ons-input></ons-col></ons-row>
+    </div>
+  </div>
+
+  <div id="weight-goals" class="goal-container">
+    <ons-row><ons-col><ons-input type="number" id="weight" inputmode="decimal" step="any" placeholder="Goal Weight (kg)" float value=0></ons-input></ons-col></ons-row>
+  </div>
+
+</ons-page>

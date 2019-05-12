@@ -38,6 +38,39 @@ var goals = {
 
     result.weight = data.weight;
     return result;
-  }
+  },
 
+  populateList: function() {
+
+    let goalTypes = app.nutriments;
+    goalTypes.unshift("weight");
+    let ul = document.querySelector('ons-page#goals #goals-list');
+    ul.innerText = "";
+
+    for (let i = 0; i < goalTypes.length; i++) {
+      let g = goalTypes[i];
+
+      let li = document.createElement("ons-list-item");
+      li.id = g;
+      li.className = "nutrition";
+      li.setAttribute("modifier", "chevron");
+      li.setAttribute("tappable", true);
+      li.addEventListener("tap", goalEditor.open);
+      ul.appendChild(li);
+
+      let span = document.createElement("span");
+      span.setAttribute("data-localize", g);
+      span.innerText = g.charAt(0).toUpperCase() + g.slice(1);
+      li.appendChild(span);
+    }
+  },
 };
+
+//Page initialization
+document.addEventListener("init", function(event){
+  if (event.target.matches('ons-page#goals')) {
+
+    goals.populateList();
+
+  }
+});
