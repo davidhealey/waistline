@@ -20,3 +20,5 @@
 
 ons-page#goal-editor ons-row:not(:last-child) {margin-bottom:1em;}
 ons-page#goal-editor .goal-container {padding-left: 1em; background-color: white; padding-top: 2em; padding-bottom: 2em;}
+ons-page#goal-editor #nutrition-goals {display:none;}
+ons-page#goal-editor #weight-goals {display:none;}

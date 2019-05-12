@@ -47,37 +47,11 @@ var app = {
     "vitamin-b12":"µg"
   },
 
-  setTestGoals : function() //Set stored goals to default
-  {
-    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "salt"];
-    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2.4]; //Womens RDAs
-    var data = {};
-
-    for (var i = 0; i < types.length; i++) //Each type
-    {
-      data[types[i]] = data[types[i]] || {};
-
-      if (types[i] == "weight") continue; //Weight is handled separately
-
-      data[types[i]].multi = true;
-
-      for (j = 0; j < 7; j++) //Each day of the week (0-6)
-      {
-        data[types[i]][j] = values[i];
-      }
-    }
-
-    data.weight = {"target":75, "weekly":0.25, "gain":false}; //Default weight goals
-
-    //Save data in local storage
-    window.localStorage.setItem("goals", JSON.stringify(data));
-  },
-
   // Application Constructor
   initialize: function() {
 
     //Set some default settings
-    if (window.localStorage.getItem("goals") == undefined) this.setTestGoals(); //Goals
+    if (window.localStorage.getItem("goals") == undefined) goals.setDefaultGoals(); //Goals
     if (window.localStorage.getItem("weight") == undefined) window.localStorage.setItem("weight", 70); //Weight
     if (window.localStorage.getItem("meal-names") == undefined) window.localStorage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"])); //Meal names
 
@@ -121,10 +95,9 @@ ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-    nav.resetToPage("src/activities/diary/views/diary.html")
+    nav.resetToPage("src/activities/goals/views/goals.html")
     .then(function(){
-      if (app.mode != "release")
-      {
+      if (app.mode == "development") {
         TinyTest.run(app.tests); //Run tests
       }
     });

@@ -29,11 +29,11 @@ var goalEditor = {
       //Set editor title
       document.querySelector('#goal-editor #title').innerText = goalEditor.type.charAt(0).toUpperCase() + goalEditor.type.slice(1);
 
-      //Show weight or nutrition goals depending on type
+      //Show weight or nutrition goals depending on type - both are hidden by default
       if (goalEditor.type == "weight")
-        document.querySelector('#goal-editor #nutrition-goals').style.display = "none";
+        document.querySelector('#goal-editor #weight-goals').style.display = "block";
       else
-        document.querySelector('#goal-editor #weight-goals').style.display = "none";
+        document.querySelector('#goal-editor #nutrition-goals').style.display = "block";
 
       //Load up goal editor
       goalEditor.load();
@@ -159,6 +159,5 @@ document.addEventListener("init", function(event){
 
     //Submit button
     document.querySelector('#goal-editor #submit').addEventListener("tap", goalEditor.save);
-
   }
 });

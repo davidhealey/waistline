@@ -64,6 +64,31 @@ var goals = {
       li.appendChild(span);
     }
   },
+
+  setDefaultGoals : function() //Set stored goals to default
+  {
+    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "sodium", "salt"];
+    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2200, 2.4]; //Womens RDAs
+    var data = {};
+
+    for (let i = 0; i < types.length; i++) //Each type
+    {
+      data[types[i]] = data[types[i]] || {};
+
+      if (types[i] == "weight") continue; //Weight is handled separately
+
+      data[types[i]].multi = true;
+
+      for (let j = 0; j < 7; j++) { //Each day of the week (0-6)
+        data[types[i]][j] = values[i];
+      }
+    }
+
+    data.weight = {"target":75, "weekly":0.25, "gain":false}; //Default weight goals
+
+    //Save data in local storage
+    window.localStorage.setItem("goals", JSON.stringify(data));
+  },
 };
 
 //Page initialization
