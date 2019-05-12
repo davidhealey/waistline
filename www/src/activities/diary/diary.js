@@ -43,25 +43,13 @@ var diary = {
     return diary.currentCategory;
   },
 
-  getDailyGoals: function()
-  {
-    const goals = JSON.parse(window.localStorage.getItem("goals"));
-    let data = {};
-
-    for (let item in goals) {
-      if (item == "weight") continue;
-      data[item] = goals[item][diary.date.getDay()];
-    }
-    return data;
-  },
-
   getEntriesFromDB: function(date)
   {
     return new Promise(function(resolve, reject){
 
       let to = new Date(date);
       to.setUTCHours(to.getUTCHours()+24);
-      diary.getDailyGoals();
+
       var data = {"entries":{}, "nutrition":{}, "nutritionTotals":{}};
 
       //Diary entries and nutrition
@@ -69,8 +57,7 @@ var diary = {
       {
         let cursor = e.target.result;
 
-        if (cursor)
-        {
+        if (cursor) {
           let item = cursor.value;
 
           //Diary food entries
@@ -87,7 +74,7 @@ var diary = {
 
             //Nutrition totals
             data.nutritionTotals[nutriment] = data.nutritionTotals[nutriment] || 0;
-            data.nutritionTotals[nutriment] += item.nutrition[nutriment];
+            data.nutritionTotals[nutriment] += Number(item.nutrition[nutriment]);
           }
 
           cursor.continue();
@@ -203,24 +190,10 @@ var diary = {
 
     //Gather data from DOM
     let entries = document.getElementsByClassName('entry'); //Get all entries
-    let nutrition = {};
-    let totals = {};
-    let goals = this.getDailyGoals();
-
-    for (let i = 0; i < entries.length; i++) {
-      let item = JSON.parse(entries[i].getAttribute("data")); //Get data object for each entry
-
-      nutrition[item.category] = nutrition[item.category] || {}; //Nutrition per category
-
-      for (let nutriment in item.nutrition) {
-        nutrition[item.category][nutriment] = nutrition[item.category][nutriment] || 0;
-        nutrition[item.category][nutriment] += item.nutrition[nutriment];
-
-        //Nutrition totals
-        totals[nutriment] = totals[nutriment] || 0;
-        totals[nutriment] += Number(item.nutrition[nutriment]);
-      }
-    }
+    let nutrition = diary.data.nutrition; //nutritionData.byCategory;
+    let totals = diary.data.nutritionTotals; //nutritionData.totals;
+    let goalData = goals.getGoalsByDate(diary.date);
+    delete goalData.weight; //Not needed here
 
     //Render category calorie count
     const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
@@ -251,7 +224,7 @@ var diary = {
     nutritionContainer.firstChild.remove();
     nutritionContainer.appendChild(carousel);
 
-    for (let nutriment in goals) {
+    for (let nutriment in goalData) {
       if (count % 3 == 0) { //Every third nutriment gets a new carousel item
         carouselItem = document.createElement("ons-carousel-item");
         rows[0] = document.createElement("ons-row");
@@ -269,9 +242,9 @@ var diary = {
       //Value/goals text
       let t = document.createTextNode("");
       if (totals[nutriment] != undefined)
-        t.nodeValue = parseFloat(totals[nutriment].toFixed(2)) + "/" + goals[nutriment];
+        t.nodeValue = parseFloat(totals[nutriment].toFixed(2)) + "/" + goalData[nutriment];
       else
-        t.nodeValue = "0/" + goals[nutriment];
+        t.nodeValue = "0/" + goalData[nutriment];
 
       col.appendChild(t);
       rows[0].appendChild(col);
@@ -401,15 +374,18 @@ var diary = {
   },
 
   loadDiary: function() {
-    //Update date display
-    this.page.querySelector('#date-picker').value = diary.date; //Update displayed date
+    return new Promise(function(resolve, reject) {
+      //Update date display
+      diary.page.querySelector('#date-picker').value = diary.date; //Update displayed date
 
-    //Get diary entries for date and render
-    diary.getEntriesFromDB(diary.date)
-    .then(function(data){
-      diary.data = data;
-      diary.render();
-      diary.renderNutrition();
+      //Get diary entries for date and render
+      diary.getEntriesFromDB(diary.date)
+      .then(function(data){
+        diary.data = data;
+        diary.render();
+        diary.renderNutrition();
+        resolve();
+      });
     });
   },
 
@@ -428,7 +404,10 @@ var diary = {
           let child = document.querySelector('#diary-day #' + id);
           let parent = child.parentElement;
           parent.removeChild(child);
-          diary.renderNutrition();
+          diary.loadDiary()
+          .then(function() {
+            diary.updateLog();
+          });
           //If there are no items left in the category then close the expanded list
           if (parent.children.length == 0)
             parent.closest(".meal-heading[category]").hideExpansion();
@@ -492,11 +471,18 @@ var diary = {
           diary.pushItemsToDB([data])
           .then(function() {
             dialog.hide();
-            diary.loadDiary(); //Refresh the display
+            diary.loadDiary() //Refresh the display
+            .then(function() {
+              diary.updateLog();
+            });
           });
         }
       });
     });
+  },
+
+  updateLog: function() {
+    log.update(diary.date, {"nutrition":diary.data.nutritionTotals}); //Update the log
   },
 
   //Return all the items in a category from the specified date
@@ -535,8 +521,11 @@ document.addEventListener("init", function(event){
         let that = this;
         diary.pushItemsToDB(this.data.items)
         .then(function(){
-          diary.loadDiary(); //Refresh the display
-          delete that.data.items; //Unset data
+          diary.loadDiary() //Refresh the display
+          .then(function() {
+            diary.updateLog();
+            delete that.data.items; //Unset data
+          });
         });
       }
       else {

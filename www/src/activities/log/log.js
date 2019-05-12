@@ -19,23 +19,7 @@
 
 var log = {
 
-  putEntry(dateTime, data) {
-    return new Promise(function(resolve, reject) {
-
-      //Make sure all log entries are populated, if not add default values
-      let lastWeight = window.localStorage.getItem("weight") || "";
-      let dailyGoals = goals.getGoalsByDate(dateTime);
-
-      data.dateTime = data.dateTime || dateTime;
-      data.weight = data.weight || lastWeight;
-      data.goals = data.goals || dailyGoals;
-      data.nutrition = data.nutrition || {};
-
-      dbHandler.put(data, "log")
-      .then(resolve());
-    });
-  },
-
+  //Retrieves an entry from the DB
   getEntry: function(dateTime) {
     return new Promise(function(resolve, reject) {
       let request = dbHandler.getItem(dateTime, "log");
@@ -44,8 +28,39 @@ var log = {
         if (e.target && e.target.result) {
           return resolve(e.target.result);
         }
-        resolve();
+        resolve(undefined);
       };
+    });
+  },
+
+  //Update or add an entry
+  update: function(dateTime, data) {
+
+    return new Promise(function(resolve, reject) {
+      log.getEntry(dateTime) //Get existing entry (if there is one)
+      .then (function(entry) {
+
+        //If there's no existing entry create a new one and populate with defaults
+        if (!entry) {
+          let lastWeight = window.localStorage.getItem("weight") || "";
+          let dailyGoals = goals.getGoalsByDate(dateTime);
+          entry = {};
+          entry.dateTime = dateTime;
+          entry.weight = lastWeight;
+          entry.goals = dailyGoals;
+          entry.nutrition = {};
+        }
+
+        //Update entry's fields from data
+        for (let k in data) {
+          entry[k] = data[k];
+        }
+
+        //Update the DB and return modified entry
+        let r = dbHandler.put(entry, "log");
+        r.onsuccess = function(e) {return resolve(entry);};
+
+      });
     });
   },
 
@@ -74,10 +89,9 @@ var log = {
             if (dateTime.valueOf() == today.valueOf())
               window.localStorage.setItem("weight", input); //Update local storage weight
 
-            //Set the weight value of entry and update the DB
+            //Set the weight value of entry and update/insert the DB
             entry.weight = input;
-            log.putEntry(dateTime, entry)
-            .then(function() {return resolve();});
+            log.update(dateTime, entry).then(function() {return resolve();});
           }
           resolve(undefined);
         });
@@ -97,7 +111,7 @@ document.addEventListener("init", function(event){
       let dateTime = new Date(this.getAttribute("dateTime"));
 
       //If element doesn't have a dateTime attribute use today's date
-      if (dateTime == null) {
+      if (this.getAttribute("dateTime") == null) {
         let now = new Date();
         dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
       }
@@ -113,8 +127,7 @@ window.addEventListener("appInitialized", function() {
 
   log.getEntry(today)
   .then(function(entry) {
-      if (entry == undefined) {
-        log.putEntry(today, entry);
-      }
+    if (entry == undefined)
+      log.update(today);
   });
 });
