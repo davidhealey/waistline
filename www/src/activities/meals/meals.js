@@ -54,8 +54,9 @@ var meals = {
 
     let center = document.createElement("div");
     center.className = "center";
-    center.addEventListener("tap", function(){ mealEditor.open(meal); });
     li.appendChild(center);
+    //Only meals with an id are editable. Not yesterday's breakfast for example
+    if (meal.id) center.addEventListener("tap", function(){ mealEditor.open(meal);});
 
     let name = document.createElement("ons-row");
     name.innerText = unescape(meal.name);
@@ -124,6 +125,47 @@ var meals = {
 
       foodsMealsRecipes.returnItems(items); //Return items[] to last page
     }
+  },
+
+  getYesterdaysMeal: function() {
+    return new Promise(function(resolve, reject) {
+      const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
+
+      //Get yesterday's dateTime
+      let now = new Date();
+      let yesterday = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      yesterday.setUTCHours(yesterday.getUTCHours()-24);
+
+      //Get category from diary
+      let category = diary.getCategory();
+
+      //Setup new meal object
+      let meal = {dateTime:yesterday, foods:[], nutrition:{}, name:escape("Yesterday's " + mealNames[category])};
+
+      if (category) {
+        diary.getEntries(yesterday, category)
+        .then(function(entries) {
+
+          if (entries) {
+            for (let i = 0; i < entries.length; i++) {
+              let entry = entries[i]; //Make a copy of the entry that will be modified to become a food items
+              let food = {id: entry.foodId, name: entry.name, brand: entry.brand, portion: entry.portion, nutrition: entry.nutrition, image_url: entry.image_url, barcode: entry.barcode};
+              meal.foods.push(food);
+
+              //Get total nutrition for meal
+              for (let n in entry.nutrition) {
+                meal.nutrition[n] = meal.nutrition[n] || 0;
+                meal.nutrition[n] += parseFloat(entry.nutrition[n]);
+              }
+            }
+            return resolve(meal);
+          }
+          resolve(null);
+        });
+      }
+      else
+      resolve(null);
+    });
   }
 };
 
@@ -137,8 +179,12 @@ document.addEventListener("init", function(event){
     //Populate initial list from DB
     foodsMealsRecipes.getFromDB("meals", window.localStorage.getItem("sort-foods"))
     .then(function(list){
-      meals.list = list;
-      meals.listCopy = list;
+      meals.getYesterdaysMeal()
+      .then(function(meal){
+        if (meal != null) list.unshift(meal);
+        meals.list = list;
+        meals.listCopy = list;
+
 
       //Setup lazy list delegate callbacks
       meals.infiniteList.delegate = {
@@ -162,6 +208,7 @@ document.addEventListener("init", function(event){
           e.element.removeEventListener("hold", meals.deleteMeal);
         }
       };
+      });
     });
 
     //Submit button
