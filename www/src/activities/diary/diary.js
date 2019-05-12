@@ -24,15 +24,23 @@ var diary = {
     this.page = document.querySelector('ons-page#diary');
     this.data = {};
     this.currentCategory = 0;
-    var now = new Date();
+    let now = new Date();
     this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
     console.log("Diary Initialized");
   },
 
-  changeDay: function(date) {
-    var previousDate = diary.date;
-    diary.date = date;
+  getDate: function() {
 
+    if (diary.date)
+      return diary.date;
+    else {
+      let now = new Date();
+      return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    }
+  },
+
+  getCategory: function() {
+    return diary.currentCategory;
   },
 
   getDailyGoals: function()
@@ -490,6 +498,24 @@ var diary = {
       });
     });
   },
+
+  //Return all the items in a category from the specified date
+  getEntries: function(dateTime, category) {
+    return new Promise(function(resolve, reject) {
+      let entries = [];
+
+      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.only(dateTime)).onsuccess = function(e) { //Filter by date
+        var cursor = e.target.result;
+        if (cursor) {
+          if (cursor.value.category == category) //Filter by category
+            entries.push(cursor.value);
+          cursor.continue();
+        }
+        else
+          resolve(entries);
+      };
+    });
+  },
 };
 
 //Page initialization
@@ -524,6 +550,7 @@ document.addEventListener("init", function(event){
       element.addEventListener('tap', function(event){
         if (this == btnDate[0]) diary.date.setUTCHours(diary.date.getUTCHours()-24); //Previous day
         if (this == btnDate[1]) diary.date.setUTCHours(diary.date.getUTCHours()+24); //Next day
+        document.querySelector('#diary #log-weight').setAttribute("dateTime", diary.date);
         diary.loadDiary();
       });
     });

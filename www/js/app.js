@@ -34,7 +34,7 @@ var app = {
     "magnesium":"mg",
     "zinc":"mg",
     "caffeine":"g",
-    "alcohol":"% vol",
+    "alcohol":"%",
     "vitamin-a":"µg",
     "vitamin-d":"µg",
     "vitamin-e":"mg",
@@ -74,19 +74,22 @@ var app = {
   },
 
   // Application Constructor
-  initialize: function()
-  {
+  initialize: function() {
 
     //Set some default settings
     if (window.localStorage.getItem("goals") == undefined) this.setTestGoals(); //Goals
     if (window.localStorage.getItem("weight") == undefined) window.localStorage.setItem("weight", 70); //Weight
     if (window.localStorage.getItem("meal-names") == undefined) window.localStorage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"])); //Meal names
 
-
-    return new Promise(function(resolve, reject){
-        dbHandler.initializeDb() //db-handler initialization
-        .then(resolve);
+  return new Promise(function(resolve, reject){
+      dbHandler.initializeDb() //db-handler initialization
+      .then(function() {
+        //Add appInitialized event
+        let event = new CustomEvent("appInitialized");
+        window.dispatchEvent(event);
+        resolve();
       });
+    });
   },
 
   getDateAtMidnight : function()
@@ -118,7 +121,7 @@ ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-    nav.resetToPage("src/activities/meals/views/meals.html")
+    nav.resetToPage("src/activities/diary/views/diary.html")
     .then(function(){
       if (app.mode != "release")
       {
