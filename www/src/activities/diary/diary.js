@@ -224,6 +224,7 @@ var diary = {
     nutritionContainer.appendChild(carousel);
 
     for (let n in goalData) {
+
       if (goals.shouldShowInDiary(n) == true) {
         if (count % 3 == 0) {
           carouselItem = document.createElement("ons-carousel-item");
@@ -236,15 +237,20 @@ var diary = {
           carousel.appendChild(carouselItem);
         }
 
+        let goal = goalData[n];
+        if (goals.isGoalWeekly(n) == true) {
+          goal = goals.getWeeklyGoal(n) / 7;
+        }
+
         let col = document.createElement("ons-col");
         col.id = n + "-value";
 
         //Value/goals text
         let t = document.createTextNode("");
         if (totals[n] != undefined)
-          t.nodeValue = parseFloat(totals[n].toFixed(2)) + "/" + goalData[n];
+          t.nodeValue = parseFloat(totals[n].toFixed(2)) + "/" + parseFloat(goal.toFixed(2));
         else
-          t.nodeValue = "0/" + goalData[n];
+          t.nodeValue = "0/" + parseFloat(goal.toFixed(2));
 
         col.appendChild(t);
         rows[0].appendChild(col);

@@ -42,10 +42,20 @@ var goals = {
 
   shouldShowInDiary: function(type) {
     let data = JSON.parse(window.localStorage.getItem("goals"));
+    if (data && data[type]) return data[type].diaryDisplay;
+    return false;
+  },
 
-    if (data && data[type]) {
-      return data[type].diaryDisplay;
-    }
+  isGoalWeekly: function(type) {
+    let data = JSON.parse(window.localStorage.getItem("goals"));
+    if (data && data[type]) return data[type].mode == "weekly";
+    return false;
+  },
+
+  getWeeklyGoal: function(type) {
+    let data = JSON.parse(window.localStorage.getItem("goals"));
+    if (data && data[type]) return data[type].weekly;
+    return 0;
   },
 
   populateList: function() {
