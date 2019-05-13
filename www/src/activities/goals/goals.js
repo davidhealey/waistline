@@ -40,10 +40,19 @@ var goals = {
     return result;
   },
 
+  shouldShowInDiary: function(type) {
+    let data = JSON.parse(window.localStorage.getItem("goals"));
+
+    if (data && data[type]) {
+      return data[type].diaryDisplay;
+    }
+  },
+
   populateList: function() {
 
     let goalTypes = app.nutriments;
     goalTypes.unshift("weight");
+
     let ul = document.querySelector('ons-page#goals #goals-list');
     ul.innerText = "";
 
@@ -78,6 +87,7 @@ var goals = {
       if (types[i] == "weight") continue; //Weight is handled separately
 
       data[types[i]].multi = true;
+      data[types[i]].diaryDisplay = true;
 
       for (let j = 0; j < 7; j++) { //Each day of the week (0-6)
         data[types[i]][j] = values[i];

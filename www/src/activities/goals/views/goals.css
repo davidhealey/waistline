@@ -17,7 +17,6 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 ons-page#goal-editor ons-row:not(:last-child) {margin-bottom:1em;}
 ons-page#goal-editor .goal-container {padding-left: 1em; background-color: white; padding-top: 2em; padding-bottom: 1.5em;}
 ons-page#goal-editor #switch-container {padding-left: 1em; background-color: white; padding-bottom: 1.5em;}

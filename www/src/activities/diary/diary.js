@@ -90,7 +90,6 @@ var diary = {
     const entries = diary.data.entries; //Diary food entries
     const nutrition = diary.data.nutrition; //Nutritional nutrition by category
     const totals = diary.data.nutritionTotals; //Nutrition totals
-    const goals = diary.data.goals;
     const cards = [];
     const lists = [];
 
@@ -224,8 +223,49 @@ var diary = {
     nutritionContainer.firstChild.remove();
     nutritionContainer.appendChild(carousel);
 
-    for (let nutriment in goalData) {
-      if (count % 3 == 0) { //Every third nutriment gets a new carousel item
+    for (let n in goalData) {
+      if (goals.shouldShowInDiary(n) == true) {
+        if (count % 3 == 0) {
+          carouselItem = document.createElement("ons-carousel-item");
+          rows[0] = document.createElement("ons-row");
+          rows[0].className = "nutrition-total-values";
+          rows[1] = document.createElement("ons-row");
+          rows[1].className = "nutrition-total-title";
+          carouselItem.appendChild(rows[0]);
+          carouselItem.appendChild(rows[1]);
+          carousel.appendChild(carouselItem);
+        }
+
+        let col = document.createElement("ons-col");
+        col.id = n + "-value";
+
+        //Value/goals text
+        let t = document.createTextNode("");
+        if (totals[n] != undefined)
+          t.nodeValue = parseFloat(totals[n].toFixed(2)) + "/" + goalData[n];
+        else
+          t.nodeValue = "0/" + goalData[n];
+
+        col.appendChild(t);
+        rows[0].appendChild(col);
+
+        //Title
+        col = document.createElement("ons-col");
+        col.id = n + "-title";
+        let text = app.strings[n] || n; //Localize
+        let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
+        col.appendChild(tnode);
+        rows[1].appendChild(col);
+
+        count++;
+      }
+    }
+
+
+    /*for (let nutriment in goalData) {
+
+      //Every third nutriment gets a new carousel item
+      if (count % 3 == 0 && goals.shouldShowInDiary(nutriment)) {
         carouselItem = document.createElement("ons-carousel-item");
         rows[0] = document.createElement("ons-row");
         rows[0].className = "nutrition-total-values";
@@ -258,7 +298,7 @@ var diary = {
       rows[1].appendChild(col);
 
       count++;
-    }
+    }*/
   },
 
   itemEditor: function()
