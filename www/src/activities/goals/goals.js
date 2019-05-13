@@ -61,7 +61,7 @@ var goals = {
   populateList: function() {
 
     let goalTypes = app.nutriments;
-    goalTypes.unshift("weight");
+    if (goalTypes.indexOf("weight") == -1) goalTypes.unshift("weight");
 
     let ul = document.querySelector('ons-page#goals #goals-list');
     ul.innerText = "";
@@ -114,8 +114,6 @@ var goals = {
 //Page initialization
 document.addEventListener("init", function(event){
   if (event.target.matches('ons-page#goals')) {
-
     goals.populateList();
-
   }
 });
