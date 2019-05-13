@@ -1,0 +1,63 @@
+<!--
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="theme-settings">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" data-localize="settings.theme.title">Theme</div>
+    <div class="right"></div>
+  </ons-toolbar>
+
+  <ons-list>
+    <ons-list-item>
+      <div class="center" data-localize="settings.theme.colour-scheme">Colour Scheme</div>
+      <div class="right">
+        <ons-select name="theme" id="theme" data-native-menu="false">
+          <option value="0" data-localize="settings.theme.colour-scheme.light" selected>Light</option>
+          <option value="1" data-localize="settings.theme.colour-scheme.dark">Dark</option>
+        </ons-select>
+      </div>
+    </ons-list-item>
+
+    <ons-list-item>
+      <div class="center" data-localize="settings.theme.homescreen">Homescreen</div>
+      <div class="right">
+        <ons-select name="homescreen" id="homescreen" data-native-menu="false">
+          <option value="statistics" >Statistics</option>
+          <option value="diary" selected>Diary</option>
+          <option value="foods-meals-recipes">Foods</option>
+          <option value="goals">Goals</option>
+        </ons-select>
+      </div>
+    </ons-list-item>
+
+    <ons-list-item>
+      <div class="center" data-localize="settings.theme.language">Language</div>
+      <div class="right">
+        <ons-select name="language" id="language" data-native-menu="false">
+        </ons-select>
+      </div>
+    </ons-list-item>
+
+    <ons-list-item>
+      <div class="center" data-localize="settings.theme.disable-animation">Disable Animations</div>
+      <div class="right"><ons-switch></ons-switch></div>
+    </ons-list-item>
+  </ons-list>
+
+</ons-page>
