@@ -21,21 +21,47 @@ var foodlist = {
 
   initialize: function() {
 
-    this.page = document.querySelector('ons-page#foodlist');
-    this.list = [];
-    this.listCopy = []; //A backup copy of the list is always maintained for filtering
+    return new Promise(function(resolve, reject) {
+      foodlist.page = document.querySelector('ons-page#foodlist');
+      foodlist.list = [];
+      foodlist.listCopy = []; //A backup copy of the list is always maintained for filtering
 
-    //Setup lazy list
-    this.infiniteList = this.page.querySelector('#food-list');
+      //Setup lazy list
+      foodlist.infiniteList = foodlist.page.querySelector('#food-list');
 
-    //Show/Hide back button
-    let menuButton = document.querySelector("ons-page#foodlist #menu-button");
-    let backButton = document.querySelector("ons-page#foodlist #back-button");
-    backButton.style.display = "none"; //Hide back button by default
-    if (nav.pages.length > 1) {
-      backButton.style.display = "block";
-      menuButton.style.display = "none";
-    }
+      //Setup lazy list delegate callbacks
+      foodlist.infiniteList.delegate = {
+        createItemContent: function(index, template) {
+            return foodlist.renderListItem(index);
+        },
+
+        countItems: function() {
+          return foodlist.list.length;
+        },
+
+        /*calculateItemHeight: function(index) {
+          // Optional: return the height of the item at position `index`.
+          // This can enhance calculations and allow better scrolling.
+        },*/
+
+        destroyItem: function(index, e) {
+          if (foodlist.list[index] == undefined) return true; //If list is empty just return
+          //Remove item event listeners
+          e.element.querySelector("ons-checkbox").removeEventListener('change', foodlist.checkboxChange);
+          e.element.removeEventListener("hold", foodlist.deleteItem);
+        }
+      };
+
+      //Show/Hide back button
+      let menuButton = document.querySelector("ons-page#foodlist #menu-button");
+      let backButton = document.querySelector("ons-page#foodlist #back-button");
+      backButton.style.display = "none"; //Hide back button by default
+      if (nav.pages.length > 1) {
+        backButton.style.display = "block";
+        menuButton.style.display = "none";
+      }
+      resolve();
+    });
   },
 
   getImages: function(code, field) {
@@ -377,6 +403,17 @@ var foodlist = {
       }
     });
   },
+
+  populate: function() {
+    let settings = JSON.parse(window.localStorage.getItem("settings")) || {"foodlist":{"sort":"date"}};
+
+    foodsMealsRecipes.getFromDB("foodList", settings.foodlist.sort)
+    .then(function(list){
+      foodlist.list = list;
+      foodlist.listCopy = list;
+      foodlist.infiniteList.refresh();
+    });
+  }
 };
 
 //Page initialization
@@ -384,37 +421,8 @@ document.addEventListener("init", function(event){
   if (event.target.matches('ons-page#foodlist')) {
 
     //Call constructor
-    foodlist.initialize();
-
-    //Populate initial list from DB
-    foodsMealsRecipes.getFromDB("foodList", window.localStorage.getItem("sort-foods"))
-    .then(function(list){
-      foodlist.list = list;
-      foodlist.listCopy = list;
-
-      //Setup lazy list delegate callbacks
-      foodlist.infiniteList.delegate = {
-        createItemContent: function(index, template) {
-            return foodlist.renderListItem(index);
-        },
-
-        countItems: function() {
-          return foodlist.list.length;
-        },
-
-        /*calculateItemHeight: function(index) {
-          // Optional: return the height of the item at position `index`.
-          // This can enhance calculations and allow better scrolling.
-        },*/
-
-        destroyItem: function(index, e) {
-          if (foodlist.list[index] == undefined) return true; //If list is empty just return
-          //Remove item event listeners
-          e.element.querySelector("ons-checkbox").removeEventListener('change', foodlist.checkboxChange);
-          e.element.removeEventListener("hold", foodlist.deleteItem);
-        }
-      };
-    });
+    foodlist.initialize()
+    .then(foodlist.populate);
 
     //Search/filter form
     const filter = document.querySelector('ons-page#foodlist #filter');
@@ -454,6 +462,13 @@ document.addEventListener("init", function(event){
     const fab = foodlist.page.querySelector('ons-fab');
     fab.addEventListener("tap", function(event){
       foodEditor.open();
+    });
+
+    //Sort button
+    let sort = foodlist.page.querySelector('ons-toolbar-button#sort');
+    sort.addEventListener("tap", function() {
+      foodsMealsRecipes.sortingOptions("foodlist")
+      .then(foodlist.populate);
     });
  }
 });

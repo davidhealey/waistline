@@ -24,7 +24,7 @@ var foodsMealsRecipes = {
 
       let list = [];
 
-      if (sort == "true")
+      if (sort == "alpha")
         dbHandler.getIndex("name", store).openCursor(null).onsuccess = processResult; //Sort foods alphabetically
       else
         dbHandler.getIndex("dateTime", store).openCursor(null, "prev").onsuccess = processResult; //Sort foods by date
@@ -80,6 +80,51 @@ var foodsMealsRecipes = {
     else {
       nav.popPage({"data":{"items":items}}); //Go back to previous page and pass data along
     }
+  },
+
+  sortingOptions: function(caller) {
+
+    return new Promise(function(resolve, reject) {
+      let settings = JSON.parse(window.localStorage.getItem("settings")) || {}; //Get settings object
+
+      ons.createElement('src/activities/foods-meals-recipes/views/sort-options.html', {append:true}) //Load dialog from file
+      .then(function(dialog) {
+
+        dialog.show();
+
+        dialog.addEventListener("postshow", function() {
+          let option = settings[caller].sort;
+          document.querySelector("#sort-options #"+ option).checked = true;
+
+          //If existing setting, set it in the dialog
+          if (settings && settings[caller] && settings[caller].sort) {
+            let option = settings[caller].sort;
+            document.querySelector("#sort-options #"+ option).checked = true;
+          }
+
+          //Attach event handlers to dialog buttons
+          dialog.querySelector('#sort-options #cancel').addEventListener("tap", function cancel() {dialog.hide();}); //Cancel button
+          dialog.querySelector('#sort-options #ok').addEventListener("tap", saveSortSetting); //Ok button
+        });
+
+        //Remove from DOM on hide
+        dialog.addEventListener("posthide", function() {
+          dialog.querySelector('#sort-options #cancel').removeEventListener("tap", cancel);
+          dialog.querySelector('#sort-options #ok').removeEventListener("tap", saveSortSetting);
+          dialog.parentNode.removeChild(dialog);
+          resolve();
+        });
+
+        //Save selected setting in localStorage
+        function saveSortSetting() {
+          let option = document.querySelector('#sort-options input[name="sorting"]:checked').id; //Get the selected radio button
+          settings[caller] = settings[caller] || {};
+          settings[caller].sort = option;
+          window.localStorage.setItem("settings", JSON.stringify(settings));
+          dialog.hide();
+        }
+      });
+    });
   }
 };
 
