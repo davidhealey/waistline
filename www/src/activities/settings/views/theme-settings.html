@@ -27,7 +27,7 @@
     <ons-list-item>
       <div class="center" data-localize="settings.theme.colour-scheme">Colour Scheme</div>
       <div class="right">
-        <ons-select name="theme" id="theme" data-native-menu="false">
+        <ons-select name="colour-scheme" id="colour-scheme" data-native-menu="false" field="theme">
           <option value="0" data-localize="settings.theme.colour-scheme.light" selected>Light</option>
           <option value="1" data-localize="settings.theme.colour-scheme.dark">Dark</option>
         </ons-select>
@@ -37,7 +37,7 @@
     <ons-list-item>
       <div class="center" data-localize="settings.theme.homescreen">Homescreen</div>
       <div class="right">
-        <ons-select name="homescreen" id="homescreen" data-native-menu="false">
+        <ons-select name="homescreen" id="homescreen" data-native-menu="false" field="theme">
           <option value="statistics" >Statistics</option>
           <option value="diary" selected>Diary</option>
           <option value="foods-meals-recipes">Foods</option>
@@ -49,14 +49,14 @@
     <ons-list-item>
       <div class="center" data-localize="settings.theme.language">Language</div>
       <div class="right">
-        <ons-select name="language" id="language" data-native-menu="false">
+        <ons-select name="language" id="language" data-native-menu="false" field="theme">
         </ons-select>
       </div>
     </ons-list-item>
 
     <ons-list-item>
       <div class="center" data-localize="settings.theme.disable-animation">Disable Animations</div>
-      <div class="right"><ons-switch></ons-switch></div>
+      <div class="right"><ons-switch field="theme" id="animations" name="animations"></ons-switch></div>
     </ons-list-item>
   </ons-list>
 

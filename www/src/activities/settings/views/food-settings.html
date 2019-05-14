@@ -27,13 +27,13 @@
 
     <ons-list-item>
       <div class="center" data-localize="settings.food.images">Show Food Images</div>
-      <div class="right"><ons-switch></ons-switch></div>
+      <div class="right"><ons-switch field="foodlist" name="show-images"></ons-switch></div>
     </ons-list-item>
 
     <ons-list-item>
       <div class="center" width="60%" data-localize="settings.food.country">Search Country</div>
       <div class="right">
-        <ons-select name="country" id="country" data-native-menu="false">
+        <ons-select name="country" id="country" data-native-menu="false" field="foodlist">
           <option value="All">All</option>
           <option value="France">France</option>
           <option value="United States">United States</option>

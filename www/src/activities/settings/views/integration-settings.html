@@ -17,6 +17,9 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ons-page id="integration-settings">
+
+  <link rel="stylesheet" href="src/activities/settings/views/settings.css">
+
   <ons-toolbar modifier="material">
     <div class="left"><ons-back-button>Back</ons-back-button></div>
     <div class="center" data-localize="settings.integration.title">Integration settings</div>
@@ -24,7 +27,23 @@
   </ons-toolbar>
 
   <ons-list>
-      <ons-list-item data-localize="settings.integration.off" tappable modifier="chevron">Open Food Facts Account</ons-list-item>
+      <ons-list-item id="open-off-settings" data-localize="settings.integration.off" tappable>Set Open Food Facts Credentials</ons-list-item>
   </ons-list>
 
+  <!--Dialogs-->
+  <ons-alert-dialog id="off-credentials-dialog">
+    <div class="alert-dialog-title">OFF Credentials</div>
+    <div class="alert-dialog-content">
+      <ons-row>
+        <ons-col><ons-input id="username" type="text" required="true" placeholder="Username*" float value="waistline-app"></ons-input></ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col><ons-input id="password" type="password" required="true" placeholder="Password*" float value="waistline"></ons-input></ons-col>
+      </ons-row>
+    </div>
+    <div class="alert-dialog-footer">
+      <ons-alert-dialog-button id="cancel"">Cancel</ons-alert-dialog-button>
+      <ons-alert-dialog-button id="save">Save</ons-alert-dialog-button>
+    </div>
+  </ons-alert-dialog>
 </ons-page>

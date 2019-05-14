@@ -19,4 +19,158 @@
 
 var settings = {
 
+  putSetting: function(field, setting, value) {
+    let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
+    settings[field] = settings[field] || {};
+    settings[field][setting] = value;
+    window.localStorage.setItem("settings", JSON.stringify(settings));
+  },
+
+  getSetting: function(field, setting) {
+    let settings = JSON.parse(window.localStorage.getItem("settings"));
+    if (settings && settings[field] && settings[field][setting]) {
+      return settings[field][setting];
+    }
+    return undefined;
+  },
+
+  //Save value of drop down menu
+  saveSelect: function() {
+    let selected = this.options[this.selectedIndex];
+    let field = selected.closest("ons-select").getAttribute("field");
+    let setting = selected.closest("ons-select").getAttribute("name");
+    settings.putSetting(field, setting, selected.value);
+  },
+
+  //Save value of checkboxes and checkboxes
+  saveCheckbox: function() {
+    let field = this.getAttribute("field");
+    let setting = this.getAttribute("name");
+    settings.putSetting(field, setting, this.checked);
+  },
+
+  //Restore values of dropdown boxes
+  restoreSelects: function() {
+    const selects = document.querySelectorAll('ons-select');
+    for (let i = 0; i < selects.length; i++) {
+      let field = selects[i].getAttribute("field");
+      let setting = selects[i].getAttribute("name");
+      let selected = settings.getSetting(field, setting);
+      selects[i].value = selected;
+    }
+  },
+
+  //Restore values of checkboxes and switches
+  restoreCheckboxes: function() {
+    const switches = document.querySelectorAll('ons-switch');
+    for (let i = 0; i < switches.length; i++) {
+      let field = switches[i].getAttribute("field");
+      let setting = switches[i].getAttribute("name");
+      let value = settings.getSetting(field, setting);
+      switches[i].checked = value;
+    }
+  },
+
+  offIntegration: function() {
+    let dialog = document.getElementById("off-credentials-dialog");
+    dialog.show();
+
+    //Fill dialog inputs on show
+    dialog.addEventListener("postshow", function() {
+      let username = settings.getSetting("integrations", "off-username");
+      let password = settings.getSetting("integrations", "off-password");
+      dialog.querySelector('#username').value = username;
+      dialog.querySelector('#password').value = password;
+    });
+
+    //Save and cancel buttons
+    dialog.querySelector('#cancel').addEventListener("tap", function() {dialog.hide();});
+    dialog.querySelector('#save').addEventListener("tap", saveOffCredentials);
+
+    //Save button action
+    function saveOffCredentials() {
+      let username = dialog.querySelector('#username').value;
+      let password = dialog.querySelector('#password').value;
+
+      if (username != "" && password != "") {
+        settings.putSetting("integrations", "off-username", username);
+        settings.putSetting("integrations", "off-password", password);
+      }
+      dialog.hide();
+    }
+  },
+
+  mealNames: function() {
+    let dialog = document.getElementById("meal-names-dialog");
+    let inputs = dialog.querySelectorAll('ons-input');
+
+    dialog.show();
+
+    //Fill dialog inputs on show
+    dialog.addEventListener("postshow", function() {
+      let mealNames = settings.getSetting("diary", "meal-names");
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = mealNames[i];
+      }
+    });
+
+    //Save and cancel buttons
+    dialog.querySelector('#cancel').addEventListener("tap", function() {dialog.hide();});
+    dialog.querySelector('#save').addEventListener("tap", saveMealNames);
+
+    //Save button action
+    function saveMealNames() {
+      let mealNames = [];
+      for (let i = 0; i < inputs.length; i++) {
+        let input = inputs[i];
+        mealNames.push(input.value);
+      }
+      settings.putSetting("diary", "meal-names", mealNames);
+      dialog.hide();
+    }
+  }
 };
+
+
+//Page initialization
+document.addEventListener("init", function(event){
+
+  //All settings sub-pages
+  if (event.target.id.indexOf("settings") != -1 && event.target.id != "settings") {
+
+    settings.restoreSelects();
+    settings.restoreCheckboxes();
+
+    //Drop down menus
+    const selects = document.querySelectorAll('ons-select');
+    for (let i = 0; i < selects.length; i++) {
+      selects[i].addEventListener("change", settings.saveSelect);
+    }
+
+    //Switches
+    const switches = document.querySelectorAll('ons-switch');
+    for (let i = 0; i < switches.length; i++) {
+      switches[i].addEventListener("change", settings.saveCheckbox);
+    }
+  }
+
+  //Diary settings
+  if (event.target.matches("ons-page#diary-settings")) {
+
+    //Meal names dialog
+    document.querySelector('#open-meal-names-dialog').addEventListener("tap", function() {
+      settings.mealNames();
+    });
+  }
+
+  //Integration settings
+  if (event.target.matches("ons-page#integration-settings")) {
+
+    //OFF Credentials dialog
+    document.querySelector('#open-off-settings').addEventListener("tap", function() {
+      settings.offIntegration();
+    });
+  }
+
+
+});
