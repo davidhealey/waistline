@@ -84,6 +84,7 @@ var goalEditor = {
     if (type == "weight") {
       if (data && data.weight && data.weight.target) {
         document.querySelector('#goal-editor #weight').value = data.weight.target;
+        document.querySelector('#goal-editor #weight-unit').value = settings.get("goals", "weight-unit") || "kg";
       }
     }
     else {
@@ -116,6 +117,10 @@ var goalEditor = {
     if (type == "weight") {
       data.weight = data.weight || {target:0, weekly:0, gain:false};
       data.weight.target = document.querySelector('#goal-editor #weight').value; //Only target is currently implemented
+
+      let select = document.querySelector('#goal-editor #weight-unit');
+      let weightUnit = select.options[select.selectedIndex].value;
+      settings.putSetting("goals", "weight-unit", weightUnit);
     }
     else {
       let inputs = document.querySelectorAll('#goal-editor ons-input');
@@ -152,7 +157,7 @@ document.addEventListener("init", function(event){
 
     //Daily goal - Monday's input box
     let monday = document.querySelector('#goal-editor .daily');
-    monday.addEventListener("keyup", goalEditor.changeDailyGoal);
+    monday.addEventListener("input", goalEditor.changeDailyGoal);
 
     //Same daily goal checkbox
     document.querySelector('#goal-editor #multi-goal').addEventListener("change", goalEditor.toggleSameGoal);

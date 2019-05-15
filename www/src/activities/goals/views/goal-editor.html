@@ -72,7 +72,21 @@
   </div>
 
   <div id="weight-goals" class="goal-container">
-    <ons-row><ons-col><ons-input type="number" id="weight" inputmode="decimal" step="any" placeholder="Goal Weight (kg)" float value=0></ons-input></ons-col></ons-row>
+    <ons-row>
+
+      <ons-col width="30%">
+        <ons-input type="number" id="weight" inputmode="decimal" step="any" placeholder="Goal Weight" float value=0></ons-input>
+      </ons-col>
+      
+      <ons-col></ons-col>
+
+      <ons-col>
+        <ons-select name="weight-unit" id="weight-unit" data-native-menu="false" field="goals">
+          <option value="kg" selected>Kilograms (kg)</option>
+          <option value="lb">Pounds (lb)</option>
+        </ons-select>
+      </ons-col>
+    </ons-row>
   </div>
 
 </ons-page>
