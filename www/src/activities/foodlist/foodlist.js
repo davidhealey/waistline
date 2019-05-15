@@ -24,7 +24,7 @@ var foodlist = {
     return new Promise(function(resolve, reject) {
       foodlist.page = document.querySelector('ons-page#foodlist');
       foodlist.list = [];
-      foodlist.listCopy = []; //A backup copy of the list is always maintained for filtering
+      foodlist.filterCopy = []; //A backup copy of the list is always maintained for filtering
 
       //Setup lazy list
       foodlist.infiniteList = foodlist.page.querySelector('#food-list');
@@ -87,21 +87,6 @@ var foodlist = {
     });
   },
 
-  setFilter : function(term) {
-    var list = this.listCopy; //Search is performed on copy of list
-
-    if (term) {
-      var exp = new RegExp(term, "i");
-
-      //Filter by name and brand
-      list = list.filter(function (el) {
-        if (el.name || el.brand) return el.name.match(exp) || el.brand.match(exp);
-      });
-    }
-    this.list = list; //Replace master copy with filtered list
-    this.infiniteList.refresh();
-  },
-
   search : function(term) {
     //First check that there is an internet connection
     if (navigator.connection.type == "none") {
@@ -109,17 +94,14 @@ var foodlist = {
       return false;
     }
 
-      //Get country name
-    //var country = app.storage.getItem("food-list-country");
-
     //Build search string
     let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=500";
 
-    //Filter by selected country
-    //var searchCountry = app.storage.getItem("food-list-country");
+    //Get country name
+    let country = settings.get("foodlist", "country") || undefined;
 
-    //if (searchCountry != "All" && searchCountry != null)
-      //query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+    if (country && country != "All")
+      query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
 
     //Complete query
     query += "&sort_by=last_modified_t&action=process&json=1";
@@ -156,7 +138,7 @@ var foodlist = {
             if (item) list.push(item);
           }
           foodlist.list = list;
-          foodlist.listCopy = list;
+          foodlist.filterCopy = list;
           foodlist.infiniteList.refresh();
         }
       }
@@ -327,15 +309,18 @@ var foodlist = {
   checkboxChange: function() {
 
     let btnScan = foodlist.page.querySelector('#scan');
+    let btnSort = foodlist.page.querySelector('#sort');
     let btnCheck = foodlist.page.querySelector('#submit');
     let checkedboxes = foodlist.page.querySelectorAll('input[name=food-item-checkbox]:checked'); //All checked boxes
 
     if (checkedboxes.length == 0) {
       btnScan.style.display = "initial";
+      btnSort.style.display = "initial";
       btnCheck.style.display = "none";
     }
     else {
       btnScan.style.display = "none";
+      btnSort.style.display = "none";
       btnCheck.style.display = "block";
     }
   },
@@ -405,12 +390,12 @@ var foodlist = {
   },
 
   populate: function() {
-    let settings = JSON.parse(window.localStorage.getItem("settings")) || {"foodlist":{"sort":"date"}};
+    let sort = settings.get("foodlist", "sort");
 
-    foodsMealsRecipes.getFromDB("foodList", settings.foodlist.sort)
+    foodsMealsRecipes.getFromDB("foodList", sort)
     .then(function(list){
       foodlist.list = list;
-      foodlist.listCopy = list;
+      foodlist.filterCopy = list;
       foodlist.infiniteList.refresh();
     });
   }
@@ -428,8 +413,12 @@ document.addEventListener("init", function(event){
     const filter = document.querySelector('ons-page#foodlist #filter');
     filter.addEventListener("input", function(event){
       let value = event.target.value;
-      foodlist.list = foodsMealsRecipes.setFilter(value, foodlist.listCopy);
-      foodlist.infiniteList.refresh();
+      if (value != "") {
+        foodlist.list = foodsMealsRecipes.setFilter(value, foodlist.filterCopy);
+        foodlist.infiniteList.refresh();
+      }
+      else
+        foodlist.populate();
     });
 
     const filterForm = foodlist.page.querySelector("#filter-container");

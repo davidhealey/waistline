@@ -76,16 +76,18 @@ var foodEditor = {
 
     //Product images - only when connected to internet
     function renderImages(data) {
-      if ((navigator.connection.type != "none" && navigator.connection.type != "unknown") || app.mode == "development") {
-        let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
-        imageCarousel.closest("ons-card").style.display = "block";
+      if (settings.get("foodlist", "show-images") == true) {
+        if ((navigator.connection.type != "none" && navigator.connection.type != "unknown") || app.mode == "development") {
+          let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
+          imageCarousel.closest("ons-card").style.display = "block";
 
-        let c = document.createElement("ons-carousel-item");
-        imageCarousel.appendChild(c);
+          let c = document.createElement("ons-carousel-item");
+          imageCarousel.appendChild(c);
 
-        let img = document.createElement("img");
-        img.setAttribute("src", unescape(data.image_url));
-        c.appendChild(img);
+          let img = document.createElement("img");
+          img.setAttribute("src", unescape(data.image_url));
+          c.appendChild(img);
+        }
       }
     }
 
@@ -364,14 +366,17 @@ var foodEditor = {
 
       let units = app.nutrimentUnits;
 
-      /* jshint expr: true */
-      let user_id, password;
-      app.mode == "development" ? user_id = "" : user_id = "waistline-app";
-      app.mode == "development" ? password = "" : password = "waistline";
+      let username = settings.get("integrations", "off-username") || "waistline-app";
+      let password = settings.get("integrations", "off-password") || "waistline";
+
+      if (app.mode == "development") {
+        username = "";
+        password = "";
+      }
       //let lang = app.getLocale() || "en";
 
       //Put data into the correct format for OFF request
-      let s = "user_id=" + escape(user_id) + "&password=" + password;
+      let s = "user_id=" + username + "&password=" + password;
       //s += "&lang=" + lang;
       s += "&code=" + data.barcode;
       s += "&product_name=" + escape(data.name);
@@ -434,6 +439,8 @@ var foodEditor = {
   uploadImagesToOFF: function(code, images) {
     return new Promise(function(resolve, reject) {
 
+      let username = settings.get("integrations", "off-username") || "waistline-app";
+      let password = settings.get("integrations", "off-password") || "waistline";
       let promises = [];
 
       //Upload images
@@ -482,6 +489,8 @@ var foodEditor = {
               formdata.append(image.uploadType, blob);
               formdata.append("code", code);
               formdata.append("imagefield", image.imagefield);
+              formdata.append("user_id", username);
+              formdata.append("password", password);
               postImage(formdata); //Send image to OFF
           };
 
