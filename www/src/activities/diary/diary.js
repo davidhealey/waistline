@@ -24,8 +24,10 @@ var diary = {
     this.page = document.querySelector('ons-page#diary');
     this.data = {};
     this.currentCategory = 0;
+    this.mealNames = settings.get("diary", "meal-names");
     let now = new Date();
-    this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()));
+
     console.log("Diary Initialized");
   },
 
@@ -35,7 +37,7 @@ var diary = {
       return diary.date;
     else {
       let now = new Date();
-      return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()));
     }
   },
 
@@ -47,13 +49,15 @@ var diary = {
   {
     return new Promise(function(resolve, reject){
 
-      let to = new Date(date);
+      let from = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())); //Discard time
+
+      let to = new Date(from);
       to.setUTCHours(to.getUTCHours()+24);
 
       var data = {"entries":{}, "nutrition":{}, "nutritionTotals":{}};
 
       //Diary entries and nutrition
-      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(date, to, false, true)).onsuccess = function(e)
+      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(from, to, false, true)).onsuccess = function(e)
       {
         let cursor = e.target.result;
 
@@ -97,11 +101,9 @@ var diary = {
     container.innerHTML = "";
 
     //Setup meal cards for carousel item
-    const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
+    for (let i = 0; i < diary.mealNames.length; i++) {
 
-    for (let i = 0; i < mealNames.length; i++) {
-
-      if (mealNames[i] == "") continue;
+      if (diary.mealNames[i] == "") continue;
 
       //One card per meal - breakfast, lunch, dinner, etc.
       cards[i] = document.createElement("ons-card");
@@ -141,9 +143,11 @@ var diary = {
     //Render entries
     for (let category in entries) {
 
+      if (diary.mealNames[category] == "") continue;
+
       //List for each category card
       var ul = document.createElement("ons-list");
-      ul.id = mealNames[category] + "-list";
+      ul.id = diary.mealNames[category] + "-list";
       cards[category].appendChild(ul);
 
       //Render entries
@@ -175,10 +179,19 @@ var diary = {
           li.appendChild(brand);
         }
 
+        //Entry info
         let info = document.createElement("ons-row");
         info.className = "diary-entry-info";
         info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
         li.appendChild(info);
+
+        //Timestamp
+        if (settings.get("diary", "show-timestamps") == true) {
+          let timestamp = document.createElement("ons-row");
+          timestamp.className = "diary-entry-info";
+          timestamp.innerHTML = entry.dateTime.toLocaleString();
+          li.appendChild(timestamp);
+        }
 
         lists[category].appendChild(li);
       }
@@ -195,7 +208,6 @@ var diary = {
     delete goalData.weight; //Not needed here
 
     //Render category calorie count
-    const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
     const headings = document.querySelectorAll('.meal-heading[category]'); //Category heading list items
 
     for (let i = 0; i < headings.length; i++) {
@@ -205,9 +217,10 @@ var diary = {
 
       //Set category heading text
       let headingText = headings[i].getElementsByClassName("header-text")[0];
-      headingText.innerText = mealNames[category] + " - " + parseInt(calories);
+      headingText.innerText = diary.mealNames[category] + " - " + parseInt(calories);
 
-      if (calories > 0) headings[i].showExpansion(); //Expand lists that have entires*/
+      if (settings.get("diary", "expand-meals") == true && calories > 0)
+       headings[i].showExpansion(); //Expand lists that have entires
     }
 
     //Render total nutrition / goals
@@ -266,58 +279,18 @@ var diary = {
         count++;
       }
     }
-
-
-    /*for (let nutriment in goalData) {
-
-      //Every third nutriment gets a new carousel item
-      if (count % 3 == 0 && goals.shouldShowInDiary(nutriment)) {
-        carouselItem = document.createElement("ons-carousel-item");
-        rows[0] = document.createElement("ons-row");
-        rows[0].className = "nutrition-total-values";
-        rows[1] = document.createElement("ons-row");
-        rows[1].className = "nutrition-total-title";
-        carouselItem.appendChild(rows[0]);
-        carouselItem.appendChild(rows[1]);
-        carousel.appendChild(carouselItem);
-      }
-
-      let col = document.createElement("ons-col");
-      col.id = nutriment + "-value";
-
-      //Value/goals text
-      let t = document.createTextNode("");
-      if (totals[nutriment] != undefined)
-        t.nodeValue = parseFloat(totals[nutriment].toFixed(2)) + "/" + goalData[nutriment];
-      else
-        t.nodeValue = "0/" + goalData[nutriment];
-
-      col.appendChild(t);
-      rows[0].appendChild(col);
-
-      //Title
-      col = document.createElement("ons-col");
-      col.id = nutriment + "-title";
-      let text = app.strings[nutriment] || nutriment; //Localize
-      let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-      col.appendChild(tnode);
-      rows[1].appendChild(col);
-
-      count++;
-    }*/
   },
 
   itemEditor: function()
   {
-    const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
     let itemdata = JSON.parse(this.getAttribute("data"));
 
     nav.pushPage("src/activities/diary/views/edit-item.html", {"data":itemdata})
     .then(function() {
       populateEditor(itemdata);
       document.querySelector('ons-page#diary-edit-item #submit').addEventListener("tap", function(){ processEditor(itemdata);});
-      document.querySelector('ons-page#diary-edit-item #quantity').addEventListener("change", function(){ changeServing(itemdata);});
-      document.querySelector('ons-page#diary-edit-item #portion').addEventListener("change", function(){ changeServing(itemdata);});
+      document.querySelector('ons-page#diary-edit-item #quantity').addEventListener("input", function(){ changeServing(itemdata);});
+      document.querySelector('ons-page#diary-edit-item #portion').addEventListener("input", function(){ changeServing(itemdata);});
     });
 
     function populateEditor(data) {
@@ -338,10 +311,10 @@ var diary = {
       //Category selection menu
       const select = document.querySelector('ons-page#diary-edit-item #category');
 
-      for (let i = 0; i < mealNames.length; i++) {
+      for (let i = 0; i < diary.mealNames.length; i++) {
         let option = document.createElement("option");
         option.value = i;
-        option.text = mealNames[i];
+        option.text = diary.mealNames[i];
         if (i == data.category) option.setAttribute("selected", "");
         select.append(option);
       }
@@ -381,7 +354,7 @@ var diary = {
       //Get values from form and push to DB
       let unit = document.getElementById('unit').innerText;
       data.category = parseInt(document.getElementById('category').value);
-      data.category_name = mealNames[data.category];
+      data.category_name = diary.mealNames[data.category];
       data.quantity = parseFloat(document.getElementById('quantity').value);
       data.portion = document.getElementById('portion').value + unit;
       data.dateTime = new Date(data.dateTime); //dateTime must be a Date object
@@ -467,14 +440,12 @@ var diary = {
     return new Promise(function(resolve, reject){
 
       //Meal category names
-      const mealNames = JSON.parse(window.localStorage.getItem("meal-names"));
-
       for (let i = 0; i < items.length; i++) {
         let item = items[i];
 
         item.dateTime = diary.date;
         item.category = diary.currentCategory;
-        item.category_name = mealNames[diary.currentCategory];
+        item.category_name = diary.mealNames[diary.currentCategory];
         item.quantity = 1;
 
         //If there is no food id set, use the item's ID as the food id
@@ -483,7 +454,6 @@ var diary = {
           delete item.id;
         }
       }
-
       //Insert the items
       dbHandler.bulkInsert(items, "diary").then(resolve());
     });
