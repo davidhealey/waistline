@@ -60,9 +60,7 @@ var goals = {
 
   populateList: function() {
 
-    let goalTypes = app.nutriments;
-    if (goalTypes.indexOf("weight") == -1) goalTypes.unshift("weight");
-
+    let goalTypes = ["weight"].concat(app.nutriments);
     let ul = document.querySelector('ons-page#goals #goals-list');
     ul.innerText = "";
 
