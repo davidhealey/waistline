@@ -167,7 +167,7 @@ var diary = {
 
         let name = document.createElement("ons-row");
         name.className = "diary-entry-name";
-        name.innerText = unescape(entry.name);
+        name.innerText = foodsMealsRecipes.formatItemText(entry.name, 30);
         li.appendChild(name);
         li.addEventListener("hold", this.deleteItem);
         li.addEventListener("tap", this.itemEditor);
@@ -175,7 +175,7 @@ var diary = {
         if (entry.brand && entry.brand != "") {
           let brand = document.createElement("ons-row");
           brand.className = "diary-entry-brand";
-          brand.innerHTML = unescape(entry.brand).italics();
+          brand.innerHTML = foodsMealsRecipes.formatItemText(entry.brand, 20).italics();
           li.appendChild(brand);
         }
 
@@ -298,13 +298,12 @@ var diary = {
       //Item info
       const info = document.querySelector("ons-page#diary-edit-item #info");
       let name = document.createElement("h3");
-      name.innerText = unescape(data.name);
+      name.innerText = foodsMealsRecipes.formatItemText(data.name, 30);
       info.appendChild(name);
 
-      if (data.brand && data.brand != "")
-      {
+      if (data.brand && data.brand != "") {
         let brand = document.createElement("h4");
-        brand.innerText = unescape(data.brand);
+        brand.innerHTML = foodsMealsRecipes.formatItemText(data.brand, 20).italics();
         info.appendChild(brand);
       }
 

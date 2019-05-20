@@ -45,9 +45,9 @@ var foodEditor = {
 
       //If there is only 1 key then it's just a barcode from a scan. If there is more than one then display the other stuff
       if (Object.keys(data).length > 1) {
-        document.querySelector("#food-editor #title").innerText = unescape(data.name);
-        document.querySelector('#food-editor #name').value = unescape(data.name);
-        document.querySelector('#food-editor #brand').value = unescape(data.brand);
+        document.querySelector("#food-editor #title").innerText = foodsMealsRecipes.formatItemText(data.name, 30);
+        document.querySelector('#food-editor #name').value = foodsMealsRecipes.formatItemText(data.name, 200);
+        document.querySelector('#food-editor #brand').value = foodsMealsRecipes.formatItemText(data.brand, 200);
         document.querySelector('#food-editor #portion').value = parseFloat(data.portion);
         document.querySelector('#food-editor #unit').value = data.portion.replace(/[^a-z]/gi, '');
       }
@@ -58,17 +58,18 @@ var foodEditor = {
         document.querySelector('#food-editor #barcode').innerText = data.barcode;
 
         //If data doesn't contain image url download images - internet connection will be checked by getImages function
-        if (!data.image_url || data.image_url == "" || data.image_url == null) {
+        if (data.barcode.indexOf("usda") != -1 && (!data.image_url || data.image_url == "" || data.image_url == null)) {
           foodlist.getImages(data.barcode, "image_front_url")
           .then(function(image_url) {
             //If an image was found add its URL to the data object
             if (image_url != false) {
               data.image_url = image_url; //Update data object
-              renderImages(data);
+              if (data.image_url)
+                renderImages(data);
             }
           });
         }
-        else if (data.image_url) {
+        else if (data.barcode.indexOf("usda") != -1 && data.image_url) {
           renderImages(data);
         }
       }

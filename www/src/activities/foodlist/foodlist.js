@@ -81,7 +81,10 @@ var foodlist = {
 
         if (request.readyState == 4 && request.status == 200) {
           let result = JSON.parse(request.responseText);
-          resolve(result.product[field]);
+          if (result && result.product)
+            resolve(result.product[field]);
+          else
+            resolve(undefined);
         }
       };
     });
@@ -94,43 +97,50 @@ var foodlist = {
       return false;
     }
 
+    let list = [];
+    let promises = [];
+
     //Show circular progress indicator
     document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
 
-    //Search OFF database, if USDA is also enabled then search that too
-    foodlist.searchOFF(term)
-    .then(function(offItems) {
-      addItemsToList(offItems);
-      if (settings.get("foodlist", "usda-search")) {
-        foodlist.searchUSDA(term)
-        .then (function(usdaItems) {
-          addItemsToList(usdaItems);
-        });
-      }
-
-      document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
+    //Search OFF database
+    promises[0] = foodlist.searchOFF(term)
+    .then(function(items){
+      list = list.concat(items);
     });
 
-    function addItemsToList(items) {
-      foodlist.list = foodlist.list.concat(items);
-      foodlist.filterCopy = foodlist.list;
-      foodlist.infiniteList.refresh();
+    //Search USDA if enabled
+    if (settings.get("foodlist", "usda-search")) {
+      promises[1] = foodlist.searchUSDA(term)
+      .then(function(items) {
+        list = list.concat(items);
+      });
     }
+
+    //Wait for all promises to resolve
+    Promise.all(promises).then(function(values) {
+      document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
+      if (list.length == 0) {
+        ons.notification.alert("No results found.");
+        return false;
+      }
+      else {
+        foodlist.list = list;
+        foodlist.sortList();
+      }
+    });
   },
 
   searchOFF : function(term) {
     return new Promise(function(resolve, reject) {
       //Build search string
-      let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=5";
+      let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
 
       //Get country name
       let country = settings.get("foodlist", "country") || undefined;
 
       if (country && country != "All")
         query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
-
-      //Complete query
-      query += "&sort_by=last_modified_t&action=process&json=1";
 
       //Create request
       let request = new XMLHttpRequest();
@@ -142,21 +152,18 @@ var foodlist = {
         if (request.readyState == 4 && request.status == 200) {
 
           let result = JSON.parse(request.responseText);
+          let list = [];
 
-          if (result.products.length == 0) {
-            ons.notification.alert("No results found.");
-            return false;
-          }
-          else {
+          if (result && result.products && result.products.length != 0) {
+
             let products = result.products;
 
-            let list = [];
             for (let i = 0; i < products.length; i++) {
               let item = foodlist.parseOFFProduct(products[i]);
               if (item) list.push(item);
             }
-            return resolve(list);
           }
+          return resolve(list);
         }
       };
     });
@@ -170,7 +177,7 @@ var foodlist = {
       let api_key = "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ"; //USDA Gov API key
 
       //Build query
-      let query = "https://api.nal.usda.gov/ndb/search/?format=json&q=" + term + "&sort=r&max=5&api_key=" + "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ&location=Denver+CO";
+      let query = "https://api.nal.usda.gov/ndb/search/?format=json&q=" + term + "&sort=r&max=50&api_key=" + api_key;
 
       //Create request
       let request = new XMLHttpRequest();
@@ -198,14 +205,20 @@ var foodlist = {
             });
           }
           else {
-            ons.notification.alert("No results found.");
-            return resolve(false);
+            return resolve(list);
           }
+        }
+        else if (request.status == 400) {
+          return resolve(list);
         }
       };
     });
 
     function addFoodToList(item) {
+      //Check if an item with the same name is already in the list, if it is then don't add the passed item (avoid duplicates!)
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].name == item.name) return false;
+      }
       if (item) list.push(item);
     }
   },
@@ -215,7 +228,7 @@ var foodlist = {
     return new Promise(function(resolve, reject) {
 
       //Build query
-      let query = "https://api.nal.usda.gov/ndb/reports/?format=json&ndbno=" + product.ndbno +"&api_key=" + "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ&location=Denver+CO";
+      let query = "https://api.nal.usda.gov/ndb/reports/?format=json&ndbno=" + product.ndbno +"&api_key=" + api_key;
 
       //Create request
       let request = new XMLHttpRequest();
@@ -228,20 +241,17 @@ var foodlist = {
 
           let food = JSON.parse(request.responseText).report.food;
 
-          if (food) {
+          if (food && food.name != "") {
             const nutriments = app.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
             let item = {"nutrition":{}};
 
             let now = new Date();
             item.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-            if (food.name.indexOf(",") != -1)
-              item.name = escape(food.name.substring(0, food.name.indexOf(",")));
-            else
               item.name = escape(food.name);
-
-              if (food.manu) item.brand = food.manu;
-              item.portion = "100g";
+              item.barcode = "usda_" + food.ndbno; //Use ndb number as barcode
+              item.brand = food.manu || "";
+              item.portion = "100" + food.ru;
 
               //Nutrition
               for (let i = 0; i < food.nutrients.length; i++) {
@@ -394,7 +404,7 @@ var foodlist = {
     if (product.nutriments.energy_unit == "kJ") parseInt(item.nutrition.calories = item.nutrition.calories / 4.15);
 
     //Don't return results with no calories or missing portion
-    if (item.nutrition.calories == 0 || item.portion == undefined)
+    if (item.name == "" || item.nutrition.calories == undefined || item.nutrition.calories == 0 || item.portion == undefined)
       return undefined;
     else
       return item;
@@ -418,15 +428,15 @@ var foodlist = {
     li.appendChild(center);
 
     let name = document.createElement("ons-row");
-    name.innerText = unescape(item.name);
+    name.innerText = foodsMealsRecipes.formatItemText(item.name, 30);
     center.appendChild(name);
 
     let calories = 0;
     if (item.nutrition != undefined) calories = item.nutrition.calories || 0;
 
     let info = document.createElement("ons-row");
-    if (item.brand) info.innerText = unescape(item.brand) + ", ";
-    info.innerText += item.portion + ", " + calories + "kcal";
+    if (item.brand && item.brand != "") info.innerHTML = foodsMealsRecipes.formatItemText(item.brand, 20).italics() + ", ";
+    info.innerHTML += item.portion + ", " + parseInt(calories) + "kcal";
     center.appendChild(info);
 
     //Checkbox
@@ -485,13 +495,19 @@ var foodlist = {
         if (items[i].id == undefined) {
           searchResult = true; //Set flag
 
-          /*jshint loopfunc: true */
-          store.index("barcode").get(items[i].barcode).onsuccess = function(e) {
-            if (e.target.result)
-              items[i] = e.target.result;
-            else
-              store.put(items[i]).onsuccess = function(e){items[i].id = e.target.result;};
-          };
+          if (items[i].barcode) { //If the item has a barcode then it's a result from OFF or USDA (ndb#)
+            //Check the database, see if the item already exists - search by barcode
+            /*jshint loopfunc: true */
+            store.index("barcode").get(items[i].barcode).onsuccess = function(e) {
+              if (e.target.result)
+                items[i] = e.target.result;
+              else
+                store.put(items[i]).onsuccess = function(e){items[i].id = e.target.result;};
+            };
+          }
+          else { //No barcode, result must be from a different API. Can't check for this in the DB so just insert and leave duplicates up to the user
+            store.put(items[i]).onsuccess = function(e){items[i].id = e.target.result;};
+          }
         }
       }
 
@@ -536,7 +552,19 @@ var foodlist = {
       foodlist.filterCopy = list;
       foodlist.infiniteList.refresh();
     });
-  }
+  },
+
+  //Sorts the foodlist.list array by the currently selected sort option
+  sortList: function() {
+
+    if (settings.get("foodlist", "sort") == "alpha")
+      foodlist.list.sort(app.dynamicSort("name"));
+    else
+      foodlist.list.sort(app.dynamicSort("dateTime", "date"));
+
+    foodlist.filterCopy = foodlist.list;
+    foodlist.infiniteList.refresh();
+  },
 };
 
 //Page initialization
@@ -595,7 +623,7 @@ document.addEventListener("init", function(event){
     let sort = foodlist.page.querySelector('ons-toolbar-button#sort');
     sort.addEventListener("tap", function() {
       foodsMealsRecipes.sortingOptions("foodlist")
-      .then(foodlist.populate);
+      .then(foodlist.sortList());
     });
  }
 });

@@ -66,13 +66,6 @@ var app = {
     });
   },
 
-  getDateAtMidnight : function()
-  {
-    // use UTC midnight of the current day for the diary
-    var now = new Date();
-    return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-  },
-
   validateInputs: function(inputs) {
 
     let messages = [];
@@ -88,14 +81,37 @@ var app = {
 
     if (messages.length > 0) return messages;
     return true;
-  }
+  },
+
+  setTheme: function(theme) {
+    let e = document.querySelector('#theme-css');
+    switch(theme) {
+      case "0": e.setAttribute("href", "assets/onsen/css/light-onsen-css-components.min.css"); break;
+      case "1": e.setAttribute("href", "assets/onsen/css/dark-onsen-css-components.min.css"); break;
+    }
+  },
+
+  // Function to sort ascending an array of objects by some specific key.
+  dynamicSort: function(property, type) {
+
+    if (type == "date")
+      return function (a,b) {return new Date(b[property]).getTime() - new Date(a[property]).getTime();};
+    else
+      return function (a,b) {return a[property].localeCompare(b[property]);};
+  },
 };
 
 ons.ready(function() {
   app.initialize()
   .then(function(){
     console.log("App Initialized");
-    nav.resetToPage("src/activities/goals/views/goals.html")
+
+    let colourScheme = settings.get("theme", "colour-scheme");
+    app.setTheme(colourScheme);
+
+    let homescreen = settings.get("theme", "homescreen") || "diary";
+
+    nav.resetToPage("src/activities/" + homescreen + "/views/" + homescreen + ".html")
     .then(function(){
       if (app.mode == "development") {
         TinyTest.run(app.tests); //Run tests

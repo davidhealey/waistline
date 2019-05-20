@@ -48,8 +48,8 @@ var foodsMealsRecipes = {
 
     let list = listCopy;
 
-    if (term) {
-      var exp = new RegExp(term, "i");
+    if (term != "") {
+      let exp = new RegExp(term, "i");
 
       //Filter by name and brand
       list = list.filter(function (el) {
@@ -125,7 +125,20 @@ var foodsMealsRecipes = {
         }
       });
     });
-  }
+  },
+
+  formatItemText: function(text, maxLength) {
+
+    let t = unescape(text);
+
+    if (text.length > maxLength)
+      t = t.substring(0, maxLength-2) + "..";
+
+    //Format to title case
+    return t.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  },
 };
 
 document.addEventListener("init", function(event){
