@@ -26,7 +26,7 @@ var settings = {
     window.localStorage.setItem("settings", JSON.stringify(settings));
   },
 
-  getSetting: function(field, setting) {
+  get: function(field, setting) {
     let settings = JSON.parse(window.localStorage.getItem("settings"));
     if (settings && settings[field] && settings[field][setting]) {
       return settings[field][setting];
@@ -55,8 +55,8 @@ var settings = {
     for (let i = 0; i < selects.length; i++) {
       let field = selects[i].getAttribute("field");
       let setting = selects[i].getAttribute("name");
-      let selected = settings.getSetting(field, setting);
-      selects[i].value = selected;
+      let selected = settings.get(field, setting);
+      if (selected) selects[i].value = selected;
     }
   },
 
@@ -66,19 +66,20 @@ var settings = {
     for (let i = 0; i < switches.length; i++) {
       let field = switches[i].getAttribute("field");
       let setting = switches[i].getAttribute("name");
-      let value = settings.getSetting(field, setting);
-      switches[i].checked = value;
+      let value = settings.get(field, setting);
+      if (value) switches[i].checked = value;
     }
   },
 
+  //Open Food Facts Integration
   offIntegration: function() {
     let dialog = document.getElementById("off-credentials-dialog");
     dialog.show();
 
     //Fill dialog inputs on show
     dialog.addEventListener("postshow", function() {
-      let username = settings.getSetting("integrations", "off-username");
-      let password = settings.getSetting("integrations", "off-password");
+      let username = settings.get("integrations", "off-username");
+      let password = settings.get("integrations", "off-password");
       dialog.querySelector('#username').value = username;
       dialog.querySelector('#password').value = password;
     });
@@ -100,6 +101,7 @@ var settings = {
     }
   },
 
+  //Diary Meal Name Headings
   mealNames: function() {
     let dialog = document.getElementById("meal-names-dialog");
     let inputs = dialog.querySelectorAll('ons-input');
@@ -108,7 +110,7 @@ var settings = {
 
     //Fill dialog inputs on show
     dialog.addEventListener("postshow", function() {
-      let mealNames = settings.getSetting("diary", "meal-names");
+      let mealNames = settings.get("diary", "meal-names");
       for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = mealNames[i];
       }
@@ -128,7 +130,7 @@ var settings = {
       settings.putSetting("diary", "meal-names", mealNames);
       dialog.hide();
     }
-  }
+  },
 };
 
 
@@ -154,6 +156,15 @@ document.addEventListener("init", function(event){
     }
   }
 
+  //Theme settings
+  if (event.target.matches("ons-page#theme-settings")) {
+
+    document.querySelector('#colour-scheme').addEventListener("change", function() {
+      settings.putSetting("theme", "colour-scheme", this.options[this.selectedIndex].value);
+      app.setTheme(this.options[this.selectedIndex].value);
+    });
+  }
+
   //Diary settings
   if (event.target.matches("ons-page#diary-settings")) {
 
@@ -171,6 +182,4 @@ document.addEventListener("init", function(event){
       settings.offIntegration();
     });
   }
-
-
 });

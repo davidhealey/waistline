@@ -87,62 +87,200 @@ var foodlist = {
     });
   },
 
-  search : function(term) {
+  search: function(term) {
     //First check that there is an internet connection
     if (navigator.connection.type == "none") {
       ons.notification.alert(app.strings["no-internet"]);
       return false;
     }
 
-    //Build search string
-    let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=500";
-
-    //Get country name
-    let country = settings.get("foodlist", "country") || undefined;
-
-    if (country && country != "All")
-      query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
-
-    //Complete query
-    query += "&sort_by=last_modified_t&action=process&json=1";
-
-    //Create request
-    let request = new XMLHttpRequest();
-    request.open("GET", query, true);
-    request.send();
-
     //Show circular progress indicator
     document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
 
-    //Test data
-    //let result = testOFFResult;
-
-    request.onreadystatechange = function() {
-
-      if (request.readyState == 4 && request.status == 200) {
-
-        document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
-
-        let result = JSON.parse(request.responseText);
-
-        if (result.products.length == 0) {
-          ons.notification.alert(/*app.strings["food-list"]["no-results"]*/ "No results found.");
-          return false;
-        }
-        else {
-          let products = result.products;
-
-          let list = [];
-          for (let i = 0; i < products.length; i++) {
-            let item = foodlist.parseOFFProduct(products[i]);
-            if (item) list.push(item);
-          }
-          foodlist.list = list;
-          foodlist.filterCopy = list;
-          foodlist.infiniteList.refresh();
-        }
+    //Search OFF database, if USDA is also enabled then search that too
+    foodlist.searchOFF(term)
+    .then(function(offItems) {
+      addItemsToList(offItems);
+      if (settings.get("foodlist", "usda-search")) {
+        foodlist.searchUSDA(term)
+        .then (function(usdaItems) {
+          addItemsToList(usdaItems);
+        });
       }
-    };
+
+      document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
+    });
+
+    function addItemsToList(items) {
+      foodlist.list = foodlist.list.concat(items);
+      foodlist.filterCopy = foodlist.list;
+      foodlist.infiniteList.refresh();
+    }
+  },
+
+  searchOFF : function(term) {
+    return new Promise(function(resolve, reject) {
+      //Build search string
+      let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=5";
+
+      //Get country name
+      let country = settings.get("foodlist", "country") || undefined;
+
+      if (country && country != "All")
+        query += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+
+      //Complete query
+      query += "&sort_by=last_modified_t&action=process&json=1";
+
+      //Create request
+      let request = new XMLHttpRequest();
+      request.open("GET", query, true);
+      request.send();
+
+      request.onreadystatechange = function() {
+
+        if (request.readyState == 4 && request.status == 200) {
+
+          let result = JSON.parse(request.responseText);
+
+          if (result.products.length == 0) {
+            ons.notification.alert("No results found.");
+            return false;
+          }
+          else {
+            let products = result.products;
+
+            let list = [];
+            for (let i = 0; i < products.length; i++) {
+              let item = foodlist.parseOFFProduct(products[i]);
+              if (item) list.push(item);
+            }
+            return resolve(list);
+          }
+        }
+      };
+    });
+  },
+
+  searchUSDA: function(term) {
+
+    let list = [];
+
+    return new Promise(function(resolve, reject) {
+      let api_key = "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ"; //USDA Gov API key
+
+      //Build query
+      let query = "https://api.nal.usda.gov/ndb/search/?format=json&q=" + term + "&sort=r&max=5&api_key=" + "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ&location=Denver+CO";
+
+      //Create request
+      let request = new XMLHttpRequest();
+      request.open("GET", query, true);
+      request.send();
+
+      request.onreadystatechange = function() {
+
+        if (request.readyState == 4 && request.status == 200) {
+
+          let result = JSON.parse(request.responseText).list;
+
+          if (result && result.item) {
+
+            let items = result.item;
+            let promises = [];
+
+            for (let i = 0; i < items.length; i++) {
+              promises.push(foodlist.parseUSDAItem(items[i], api_key).then(addFoodToList));
+            }
+
+            //Wait for all promises to resolve
+            Promise.all(promises).then(function(values) {
+              return resolve(list);
+            });
+          }
+          else {
+            ons.notification.alert("No results found.");
+            return resolve(false);
+          }
+        }
+      };
+    });
+
+    function addFoodToList(item) {
+      if (item) list.push(item);
+    }
+  },
+
+  parseUSDAItem: function(product, api_key) {
+
+    return new Promise(function(resolve, reject) {
+
+      //Build query
+      let query = "https://api.nal.usda.gov/ndb/reports/?format=json&ndbno=" + product.ndbno +"&api_key=" + "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ&location=Denver+CO";
+
+      //Create request
+      let request = new XMLHttpRequest();
+      request.open("GET", query, true);
+      request.send();
+
+      request.onreadystatechange = function() {
+
+        if (request.readyState == 4 && request.status == 200) {
+
+          let food = JSON.parse(request.responseText).report.food;
+
+          if (food) {
+            const nutriments = app.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
+            let item = {"nutrition":{}};
+
+            let now = new Date();
+            item.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
+            if (food.name.indexOf(",") != -1)
+              item.name = escape(food.name.substring(0, food.name.indexOf(",")));
+            else
+              item.name = escape(food.name);
+
+              if (food.manu) item.brand = food.manu;
+              item.portion = "100g";
+
+              //Nutrition
+              for (let i = 0; i < food.nutrients.length; i++) {
+                let n = food.nutrients[i]; //Nutrient
+                let nName = n.name; //Nutrient name, as lowercase
+
+                switch (nName) {
+                  case "Energy":
+                    item.nutrition.calories = n.value;
+                    break;
+                  case "Total lipid (fat)":
+                    item.nutrition.fat = n.value;
+                    break;
+                  case "Fatty acids, total saturated":
+                    item.nutrition["saturated-fat"] = n.value;
+                    break;
+                  case "Fatty acids, total trans":
+                    item.nutrition["trans-fat"] = n.value;
+                    break;
+                  default:
+                    //Remove commas and anything after from nutrient name
+                    if (nName.indexOf(",") != -1) nName = nName.substring(0, nName.indexOf(","));
+                    nName.replace(" ", "-"); //We use "-" instead of spaces in off nutriment names
+                    nName = nName.toLowerCase(); //Make it lowercase
+
+                    if (nutriments.indexOf(nName) != -1) {
+                      item.nutrition[nName] = n.value;
+                    }
+                }
+              }
+              return resolve(item);
+          }
+          return resolve(undefined);
+        }
+        else if (request.status == 400) {
+          return resolve(undefined);
+        }
+      };
+    });
   },
 
   scan : function() {
