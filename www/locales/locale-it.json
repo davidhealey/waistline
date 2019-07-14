@@ -1,0 +1,295 @@
+{
+  "weight":"Peso",
+  "quantity": "Quantità",
+  "calories": "Calorie",
+  "protein":"Proteine",
+  "carbs":"Carboidrati",
+  "fat":"Grassi",
+  "saturated-fat":"Grassi Saturi",
+  "sugar":"Zuccheri",
+  "fiber":"Fibre",
+  "salt":"Sale",
+  "sodium":"Sodio",
+  "no-internet":"Nessuna Connessione a Internet",
+
+  "days":{
+    "0":"Domenica",
+    "1":"Lunedì",
+    "2":"Martedì",
+    "3":"Mercoledì",
+    "4":"Giovedì",
+    "5":"Venerdì",
+    "6":"Sabato"
+  },
+
+  "statistics":{
+    "title":"Statistiche",
+    "goal":"Obiettivo",
+    "used":"Assunte",
+    "remaining":"Rimanenti",
+    "week": "1 Settimana",
+    "month": "1 Mese",
+    "3month": "3 Mesi",
+    "6month": "6 Mesi",
+    "12month": "1 Anno"
+  },
+
+  "goals":
+  {
+    "title":"Obiettivi",
+    "nutrition":{
+      "same-goal":"Stesso Obiettivo Ogni Giorno"
+    },
+    "weight":{
+      "title":"Obiettivi - Peso",
+      "target":"Peso da raggiungere (kg)",
+      "weekly":"Obiettivo Settimanale (kg)",
+      "is-min":"Voglio prendere peso"
+    }
+  },
+
+  "diary":
+  {
+    "title":"Diario",
+    "serving": "Porzione",
+    "servings": "Porzioni",
+    "category": "Categoria",
+    "current-weight":"Peso Attuale",
+    "quick-add":
+    {
+      "title":"Aggiunta Rapida",
+      "body":"Numero di calorie"
+    },
+    "edit-item":{
+      "title":"Modifica Elemento",
+      "placeholders":
+      {
+        "quantity":"Numero di porzioni*",
+        "calories":"Calorie*",
+        "protein":"Proteine (g)",
+        "carbs":"Carboidrati (g)",
+        "fat":"Grassi (g)",
+        "saturated-fat":"Grassi Saturi (g)",
+        "sugar":"Zuccheri (g)",
+        "fiber":"Fibre (g)",
+        "salt":"Sale (g)"
+      }
+    }
+  },
+
+  "food-list":
+  {
+    "title":"Cibi",
+    "search":"Cerca Cibo",
+    "name-of-food": "Nome del Cibo",
+    "no-results": "Nessun risultato corrispondente",
+    "scan-failed": "Scansione Fallita",
+    "edit-item":
+    {
+    "title1":"Aggiungi Cibo",
+    "title2":"Modifica Cibo",
+    "placeholders":{
+      "name":"Nome*",
+      "brand":"Marca*",
+      "portion":"Porzione*",
+      "calories":"Calorie*",
+      "protein":"Proteine (g)",
+      "carbs":"Carboidrati (g)",
+      "fat":"Grassi (g)",
+      "saturated-fat":"Grassi Saturi (g)",
+      "sugar":"Zuccheri (g)",
+      "fiber":"Fibre (g)",
+      "salt":"Sale (g)"
+      }
+    },
+    "upload-item":
+    {
+      "title":"Upload su Open Food Facts",
+      "success":"Il prodotto è stato aggiunto con successo a Open Food Facts",
+      "fail":"Upload fallito. Riprova più tardi o contatta lo sviluppatore.",
+      "placeholders":
+      {
+        "barcode":"Codice a barre*",
+        "name":"Nome*",
+        "brand":"Marca*",
+        "portion":"Dimensione Porzione*",
+        "calories":"Calorie per porzione*",
+        "protein":"Proteine (g)",
+        "carbs":"Carboidrati per porzione (g)",
+        "fat":"Grassi (g)",
+        "saturated-fat":"Grassi Saturi (g)",
+        "sugar":"Zuccheri (g)",
+        "fiber":"Fibre (g)",
+        "salt":"Sale (g)"
+      }
+    }
+  },
+
+  "meals":{
+    "title":"Pasti",
+    "filter":"Cerca Pasti",
+    "edit-meal":{
+      "title1":"Aggiungi Pasto",
+      "title2":"Modifica Pasto",
+      "placeholders":{
+        "name":"Nome Pasto",
+        "notes":"Note..."
+      }
+    }
+  },
+
+  "recipes":{
+    "title":"Ricette",
+    "filter":"Cerca Ricette",
+    "edit-recipe":{
+      "title1":"Aggiungi Ricetta",
+      "title2":"Modifica Ricetta",
+      "placeholders":{
+        "name":"Nome Ricetta",
+        "notes":"Note..."
+      }
+    }
+  },
+
+  "settings":{
+    "title":"Impostazioni",
+    "show-images1":"Mostra immagini prodotto",
+    "show-images2":"Le immagini saranno visualizzate quando connessi ad internet. Esse non saranno memorizzate sul tuo dispositivo.",
+    "disable-animations1":"Disabilita animazioni",
+    "disable-animations2":"Disabilitare le animazioni può migliorare le prestazioni su alcuni dispositivi (richiede un riavvio dell'app).",
+    "import":"Importa Dati",
+    "export":"Esporta Dati",
+    "diary":{
+      "title":"Impostazioni Diario",
+      "instructions1":"Usa i campi in basso per personalizzare i nomi dei pasti usati nel diario.",
+      "instructions2":"I campi lasciati vuoti saranno ignorati.",
+      "meal":"Pasto"
+    },
+    "foods":{
+      "brand-position":"Nome del prodotto prima della marca",
+      "sort":"Cibi in ordine alfabetico",
+      "country":"Paese",
+      "sodium":"Usa sodio invece del sale"
+    }
+  },
+
+  "dialogs":
+  {
+    "delete": "Elimina",
+    "cancel": "Annulla",
+    "yes":"Sì",
+    "no":"No",
+    "confirm-delete": "Sei sicuro di voler eliminare questo elemento?",
+    "delete-title": "Elimina Elemento",
+    "required-fields": "Completa tutti i campi obbligatori."
+  },
+
+  "user-guide":{
+    "title":"Guida Utente",
+    "basics":{
+      "title":"Introduzione",
+      "p1":"Il tuo corpo ha bisogno di una certa quantità di calorie per mantenere il tuo peso attuale. Questa quantità è il tuo livello di mantenimento. Puoi aumentare o ridurre il tuo livello di mantenimento facendo tanto o poco esercizio fisico.",
+      "p2":"Il metodo più semplice (e anche abbastanza preciso) per calcolare il tuo livello di mantenimento è usare il calcolatore TDEE. Puoi trovare molti di questi calcolatori cercando online.",
+      "p3":"Per perdere peso dovresti mangiare almeno 100 calorie al giorno in meno rispetto al tuo livello di mantenimento, per prendere peso dovresti mangiare almeno 100 calorie al giorno in più rispetto al tuo livello di mantenimento.",
+      "p4":"Meno mangi ogni giorno più peso perderai. Se hai intenzione di perdere peso con un gran deficit di calorie consulta il tuo medico e pianifica ciò che mangi così da ottenere tutto il nutrimento di cui il tuo corpo ha bisogno. Fai controlli regolari dal tuo medico così da intervenire rapidamente in caso di problemi."
+    },
+    "statistics":{
+      "title":"Statistiche",
+      "p1":"Nella schermata delle statistiche puoi vedere un grafico che mostra i nutrienti che hai consumato e le variazioni di peso durante il periodo selezionato. Questa schermata sarà perlopiù vuota la prima volta che eseguirai l'app.",
+      "p2":"Puoi selezionare un periodo di tempo da visualizzare, ad esempio 1 settimana, dal menù a tendina sopra al grafico.",
+      "p3":"Puoi selezionare i dati da visualizzare nel grafico facendo tap sugli elementi nella legenda del grafico.",
+      "p4":"Sotto il grafico c'è una lista giornaliera delle variazioni di peso e delle calorie che hai memorizzato. Verranno visualizzate in quest'area solo le date in cui hai memorizzato le calorie nel tuo diario. Facendo tap su un elemento in questa lista ti permetterà di modificare il peso memorizzato per quella data.",
+      "p5":"In cima alla schermata c'è un resoconto dei nutrienti che hai consumato, insieme al tuo obiettivo e alla quantità rimanente. Puoi effettuare uno swipe a sinistra e destra su questa schermata per scorrere tra i differenti nutrienti."
+    },
+    "diary":{
+      "title":"Diario",
+      "p1":"Il diario è dove terrai traccia del cibo che mangi. Fai tap su un titolo come Breakfast per aggiungere cibo a quella categoria.",
+      "p2":"Ciò ti porterò alla lista dei cibi dove puoi selezionare uno o più cibi da aggiungere al diario.",
+      "p3":"Le calorie per ogni cibo saranno aggiunte al totale per la data correntemente selezionata e visualizzate in fondo alla schermata.",
+      "p4":"I tasti ad entrambi i lati della data visualizzata possono essere usati per spostarsi al giorno precedente o successivo e puoi fare tap sulla data stessa per selezionare una data specifica.",
+      "p5":"Facendo tap su un cibo nel tuo diario ti permetterà di modificare il numero di porzioni e cambiare la categoria per quell'elemento. Questi cambiamenti si applicano soltanto all'elemento nel tuo diario e non avranno effetto nella lista cibi.",
+      "p6":"Fai tap e tieni premuto su un elemento nel tuo diario per rimuoverlo.",
+      "p7":"Puoi memorizzare il tuo peso facendo tap sull'icona della bilancia nella toolbar in alto.",
+      "p8":"Se vuoi soltanto memorizzare alcune calorie senza dover aggiungere un prodotto alla tua lista cibi puoi farlo senza problemi. Fai tap e tieni premuto su una delle categorie e inserisci la quantità di calorie nel campo che appare. Puoi anche inserire un numero negativo se vuoi tenere traccia delle calorie bruciate."
+    },
+    "food-list":{
+      "title":"Lista Cibi",
+      "p1":"Questa schermata contiene una lista di tutti i cibi che hai aggiunto al tuo database locale. Quest'ultimo sarà vuoto la prima volta che eseguirai l'app.",
+      "p2":"Puoi usare il campo di ricerca per filtrare la lista dei cibi per trovare quello che cerchi. Se è disponibile una connessione ad internet puoi usare il campo di ricerca per cercare prodotti nel database di Open Food Facts.",
+      "p3":"La lista di elementi è ordinata automaticamente in base alla data in cui li hai aggiunti al tuo diario, così i cibi che aggiungerai spesso saranno mostrati in cima alla lista.",
+      "p4":"Facendo tap su un elemento nella lista questo sarà selezionato. Una selezionato almeno un elemento una casella di controllo apparirà nella toolbar superiore. Facendo tap su quest'ultima aggiungerai gli elementi selezionati al diario.",
+      "p5":"Puoi modificare o cancellare un cibo facendo tap e tenendo premuto su di esso e selezionando la relativa opzione dal popup che appare."
+    },
+    "adding-a-food":
+    {
+      "title":"Aggiungere un Cibo",
+      "p1":"Ci sono tre modi per aggiungere un nuovo cibo alla lista. Puoi fare tap sul tasto <+> fluttuante nella schermata della lista cibi, cercare i prodotti nel database Open Food Facts usando la barra di ricerca, o scansionare il codice a barre di un prodotto facendo tap sull'icone del codice a barre nella toolbar superiore nella schermata della lista cibi.",
+      "p2":"Qualasiasi metodo tu scelga ti porterà alla schermata di modifica cibo. Qui puoi inserire manualmente il nome del cibo, la dimensione della porzione (ad esempio 1 biscotto, 100g, 3 tazze, ecc.), e i nutrienti contenuti in quella porzione.",
+      "p3":"I dati restituiti dallo scanner di codici a barre potrebbero non essere sempre accurati per il prodotto o per la quantità della porzione, quindi dovrai controllare le informazioni che inserirà nel form ed eventualmente modificarle prima di salvare.",
+      "p4":"Se non ci sono dati disponibili per un prodotto scansionato avrai la possibilità di aggiungerle al database Open Food Facts.",
+      "p5":"Quando sarai soddisfatto dei dati nel form puoi fare tap sul tasto di conferma nella toolbar superiore per aggiungere l'elemento alla tua lista cibi."
+    },
+    "uploading-a-product":
+    {
+      "title":"Upload di un prodotto",
+      "p1":"Quando scansioni il codice a barre di un prodotto che non è presente nel database Open Food Facts ti sarà chiesto se vuoi aggiungerlo ad esso direttamente all'interno di Waistline.",
+      "p2":"Verrà visualizzata una schermata dove potrai inserire il nome e la marca del prodotto e alcune informazioni nutrizionali di base. Potrai anche effettuare l'upload di tre immagini.",
+      "p3":"Clicca sull'icona della fotocamera per scattare una foto. Puoi ritagliare l'immagine una volta scattata così potrai effettuare l'upload delle sole informazioni rilevanti.",
+      "p4":"Quando avrai scelto l'immagine ti verrà chiesto di taggare l'immagine come parte anteriore del prodtto, ingredienti o informazioni nutrizionali.",
+      "p4":"Tutte le immagini che caricherai usando Waistline saranno automaticamente licenziate come Creative Commons Attribution ShareAlike.",
+      "p5":"Quando esegui Waistline per la prima volta, l'app genera un ID unico. Questo ID è incluso automaticamente nel campo commento quando farai upload di un prodotto nel database Open Food Facts.",
+      "p6":"Lo scopo di questo ID è di aiutare i mantainer del database Open Food Facts nel rilevamento di errori e per prevenire l'abuso dei loro sistemi."
+    },
+    "meals":
+    {
+      "title":"Pasti",
+      "p1":"Nella schermata dei pasti puoi combinare dei cibi per creare un nuovo elemento chiamato pasto. Clicca sul tasto <+> fluttuante per creare un nuovo pasto. Puoi modificare o eliminare un pasto esistente facendo tap e tenendo premuto su di esso e selezionando la relativa opzione dal popup.",
+      "p2":"La schermata di modifica pasto ti permette di inserire un nome per il pasto e qualsiasi nota tu voglia. Puoi fare tup sul tasto <+> fluttuante su questa schermata per selezionare i cibi che vorresti aggiungere al pasto.",
+      "p3":"Puoi modificare la quantità di ogni cibo aggiunto facendo tap sul cibo e inserendo il valore nel campo che appare. Sopra la lista dei cibi vedrai il totale delle informazioni nutrizionali per tutti i cibi che hai aggiunto al pasto. Puoi fare swipe su quest'area per visualizzare più informazioni.",
+      "p4":"Quando avrai terminato puoi fare tap sul tasto di conferma nella toolbar superiore per salvarlo.",
+      "p5":"La procedura di base per aggiungere un pasto al tuo diario è la stessa usata per aggiungere un cibo. Clicca su un titolo nella schermata del diario: ciò ti porterà alla lista cibi, qui vedrai un'icona segnalibro nella toolbar superiore, facendo tap su di essa ti porterà alla schermata dei pasti.",
+      "p6":"Quando aggiungi un pasto al diario tutti i cibi di cui è composto verranno aggiunti singolarmente, questo ti permette di personalizzare il pasto successivamente evitando di dover creare più pasti per ogni variazione."
+    },
+    "goals":
+    {
+      "title":"Obiettivi",
+      "p1":"Da questa schermata puoi selezionare vari obiettivi che vorresti raggiungere.",
+      "p2":"Puoi impostare un obiettivo sul peso indicando se vuoi perdere o prendere peso.",
+      "p3":"E puoi impostare un range di obiettivi nutrizionali con un differente obiettivo per ogni giorno della settimana."
+    },
+    "settings":
+    {
+      "title":"Impostazioni",
+      "p1":"Ci sono diverse impostazioni in questa schermata che possono essere utilizzate per personalizzare l'app. Molte di queste sono auto esplicative.",
+      "p2":"Le impostazioni del diario ti permettono di personalizzare i nomi delle categorie. Puoi avere fino a 7 categorie. Ogni categoria senza nome non verrà usata."
+    },
+    "export":
+    {
+      "title":"Esporta",
+      "p1":"Tutti i dati che inserisci sono memorizzati localmente sul tuo dispositivo. L'unica volta in cui delle informazioni sono inviate su internet è quando si scansiona un codice a barre, si cerca un prodotto o si effettua un upload di un nuovo prodotto.",
+      "p2":"Ciò è fantastico perché significa che tu sei responsabile dei tuoi dati e nessuno può accedere ad essi da remoto. L'unico svantaggio è che i tuoi dati non saranno conservati in cloud (il computer di qualcun altro), quindi quando cambierai dispositivo i tuoi dati non saranno automaticamente disponibili.",
+      "p3":"È in questo caso che entra in gioco il tasto esporta. Facendo tap su questo tasto esporterai i tuoi dati (diario, lista cibi, e il log del peso) in un semplice file di testo. Questo file si chiama waistline_export.json e lo troverai nel tuo dispositivo in un percorso simile a 'Android/data/com.waist.line/files/'.",
+      "p4":"Questa è una directory privata che non può essere acceduta da altre app. Ciò è bello dal punto di vista della sicurezza, anche se è un po' scomoda da trovare.",
+      "p5":"Una volta ottenuto questo file puoi installare Waistline sul tuo nuovo dispositivo e spostare il file esportato nello stesso percorso sul nuovo dispositivo. Quindi puoi importare i dati in Waistline."
+    },
+    "import":
+    {
+      "title":"Importa",
+      "p1":"Attenzione!!!! Importare i dati sovrascriverà tutti i dati esistenti. L'unica volta in cui è necessario è quando si migra ad un nuovo dispositivo o per ripristinare dei dati di cui si è effettuato un backup.",
+      "p2":"Per importare i dati inserisci il file waistline_export.json nel percorso corretto sul tuo dispositivo (vedere Esporta). Quindi fai tap sul tasto importa.",
+      "p3":"Waistline versione 2 non è compatibile con la versione 1. Puoi provare ad importare i dati dalla versione 1, ma ciò potrebbe produrre risultati strani."
+    },
+    "licenses":
+    {
+      "title":"Licenze",
+      "p1":"Waistline è stato costruito usando il framework Cordova e OnsenUI che sono disponibili sotto licenza Apache. Esso include anche jQuery, jQuery localize, e ChartJS che sono sotto licenza MIT. L'HTML, CSS, e altro javascript che formano il main body dell'app sono sotto licenza GPLv3.",
+      "p2":"Il codice sorgente di Waistline si trova su github.com/davidhealey."
+    }
+  },
+
+  "about":
+  {
+    "title":"Informazioni su",
+    "p1":"Waistline è stato creato da David Healey con i suggerimenti e il contributo egli utenti di GitHub."
+  }
+}
