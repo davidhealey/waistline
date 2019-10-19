@@ -9,7 +9,7 @@
   "sugar": "סוכר",
   "fiber": "סיבים",
   "salt": "מלח",
-  "sodium": "Sodium",
+  "sodium": "נתרן",
   "no-internet": "אין חיבור לאינטרנט",
   "days": {
     "0": "יום ראשון",
@@ -69,7 +69,7 @@
     }
   },
   "food-list": {
-    "title": "Foods",
+    "title": "סוגי מזון",
     "search": "חיפוש פריט מזון",
     "name-of-food": "שם פריט המזון",
     "no-results": "אין תוצאות מתאימות",
@@ -112,20 +112,20 @@
     }
   },
   "meals": {
-    "title": "Meals",
-    "filter": "Search Meals",
+    "title": "ארוחות",
+    "filter": "חיפוש ארוחות",
     "edit-meal": {
-      "title1": "Add Meal",
-      "title2": "Edit Meal",
+      "title1": "הוספת ארוחה",
+      "title2": "עריכת ארוחה",
       "placeholders": {
-        "name": "Meal Name",
-        "notes": "Notes..."
+        "name": "שם הארוחה",
+        "notes": "הערות…"
       }
     }
   },
   "recipes": {
     "title": "מתכונים",
-    "filter": "Search Recipes",
+    "filter": "חיפוש מתכונים",
     "edit-recipe": {
       "title1": "הוספת מתכון",
       "title2": "עריכת מתכון",
@@ -150,10 +150,10 @@
       "meal": "ארוחה"
     },
     "foods": {
-      "brand-position": "Product name before brand",
-      "sort": "Sort foods alphabetically",
-      "country": "Country",
-      "sodium": "Use sodium instead of salt"
+      "brand-position": "שם המוצר לפי המותג",
+      "sort": "מיון סוגי המזון לפי האלפבית",
+      "country": "מדינה",
+      "sodium": "להשתמש בנתרן במקום במלח"
     }
   },
   "dialogs": {
@@ -219,13 +219,13 @@
       "p6": "מטרת המזהה הזה היא לסייע למתחזקים של מסד הנתונים Open Food Facts לזהות טעויות ולמנוע שימוש לרעה במערכת שלהם."
     },
     "meals": {
-      "title": "Meals",
-      "p1": "On the meals screen you can combine food items to create a new item called a meal. Click on the floating plus button to create a new meal. You can edit or delete an existing meal by tapping and holding on it and selecting from the options that pop up.",
-      "p2": "The edit meal screen allows you to enter a name for the meal and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your meal.",
-      "p3": "You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the meal. You can swipe on this area to see more information.",
-      "p4": "Once you're happy with your meal you can tap the check button on the top toolbar to save it.",
-      "p5": "The basic procedure to add a meal to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the meals screen.",
-      "p6": "When you add a meal to your diary all of the foods from the meal will be added individually, this allows you to further customise the meal as needed without having to create multiple meals for different variations."
+      "title": "ארוחות",
+      "p1": "במסך הארוחות ניתן לשלב פריטי מזון כדי ליצור פריט חדש בשם ארוחה. יש ללחוץ על כפתור הפלוס המרחף כדי ליצור ארוחה חדשה. ניתן לערוך או למחוק ארוחה קיימת בלחיצה והחזקה עליה ובחירה מתפריט האפשרויות שקופץ.",
+      "p2": "מסך עריכת הארוחות מאפשר לך להוסיף שם והערות לארוחה כרצונך. ניתן לגעת בסמל הפלוס המרחף במסך זה כדי לבחור את פריטי המזון שברצונך להוסיף לארוחה שלך.",
+      "p3": "ניתן לערוך את כמות המזון שהוספת על ידי נגיעה במזון והקלדת הערך בתיבה שמופיעה. מעל לרשימת המזון יופיע מידע תזונתי עבור כל פריטי המזון שהוספת לארוחה. ניתן להחליק באזור זה כדי לצפות במידע נוסף.",
+      "p4": "לאחר שהארוחה נושאת חן בעיניך ניתן לגעת בכפתור הסימון בסרגל הכלים העליון כדי לשמור אותה.",
+      "p5": "התהליך הבסיסי של הוספת ארוחה ליומן שלך זהה להוספת מזון. יש ללחוץ על כותרת מסך היומן, פעולה זו תוביל אותך אל רשימת המזון, לאחר מכן ברשימת המזון יופיע סמל סימנייה בסרגל הכלים העליון, נגיעה בו תעביר אותך אל מסך הארוחות.",
+      "p6": "בעת הוספת ארוחה ליומן כל פריטי המזון מהארוחה יתווספו באופן יחידני, כך יתאפשר לך להתאים את הארוחה כנדרש מבלי ליצור מגוון ארוחות עם שינויים קטנים ביניהם."
     },
     "goals": {
       "title": "יעדים",
