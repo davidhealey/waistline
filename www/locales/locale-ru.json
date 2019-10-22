@@ -78,8 +78,8 @@
       "title1": "Add Food",
       "title2": "Edit Food",
       "placeholders": {
-        "name": "Name*",
-        "brand": "Brand*",
+        "name": "Название*",
+        "brand": "Производитель(Брэнд)*",
         "portion": "Portion*",
         "calories": "Calories*",
         "protein": "Белки (г)",
@@ -98,16 +98,16 @@
       "placeholders": {
         "barcode": "Штрих-код*",
         "name": "Имя*",
-        "brand": "Brand*",
-        "portion": "Serving Size*",
+        "brand": "Производитель(Брэнд)*",
+        "portion": "Размер порции*",
         "calories": "Calories per serving*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrate per serving (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
+        "protein": "Белки (г)",
+        "carbs": "Углеводов на порцию (г)",
+        "fat": "Жиры (г)",
+        "saturated-fat": "Насыщенные жиры (г)",
+        "sugar": "Сахара (г)",
+        "fiber": "Клетчатка (г)",
+        "salt": "Соль (г)"
       }
     }
   },
