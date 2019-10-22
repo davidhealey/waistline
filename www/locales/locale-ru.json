@@ -141,10 +141,10 @@
     "show-images2": "Images will be displayed when connected to the internet. They will not be stored on your device.",
     "disable-animations1": "Disable animations",
     "disable-animations2": "Disabling animations may improve performance on some devices (requires app restart).",
-    "import": "Import Data",
-    "export": "Export Data",
+    "import": "Импорт данных",
+    "export": "Экспорт данных",
     "diary": {
-      "title": "Diary Settings",
+      "title": "Настройка дневника",
       "instructions1": "Use the boxes below to customise the meal names used in the food diary.",
       "instructions2": "Any boxes left empty will be ignored.",
       "meal": "Meal"
