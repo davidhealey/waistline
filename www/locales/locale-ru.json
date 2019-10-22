@@ -83,21 +83,21 @@
         "portion": "Portion*",
         "calories": "Calories*",
         "protein": "Белки (г)",
-        "carbs": "Carbohydrates (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
+        "carbs": "Углеводы (г)",
+        "fat": "Жиры (г)",
+        "saturated-fat": "Насыщенные жиры (г)",
+        "sugar": "Сахара (г)",
+        "fiber": "Клетчатка (г)",
+        "salt": "Соль (г)"
       }
     },
     "upload-item": {
-      "title": "Upload to Open Food Facts",
+      "title": "Загрузить на Open Food Facts",
       "success": "Product successfully added to Open Food Facts",
-      "fail": "Unfortunately the upload failed. Please try again or contact the developer.",
+      "fail": "К сожалению, загрузка не удалась. Пожалуйста, попробуйте еще раз или свяжитесь с разработчиком.",
       "placeholders": {
-        "barcode": "Barcode*",
-        "name": "Name*",
+        "barcode": "Штрих-код*",
+        "name": "Имя*",
         "brand": "Brand*",
         "portion": "Serving Size*",
         "calories": "Calories per serving*",
