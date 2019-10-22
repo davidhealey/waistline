@@ -1,75 +1,75 @@
 {
-  "weight": "Weight",
-  "quantity": "Quantity",
-  "calories": "Calories",
-  "protein": "Protein",
-  "carbs": "Carbohydrates",
-  "fat": "Fat",
-  "saturated-fat": "Saturated Fat",
-  "sugar": "Sugar",
-  "fiber": "Fibre",
-  "salt": "Salt",
-  "sodium": "Sodium",
-  "no-internet": "No Internet Connection",
+  "weight": "Вес",
+  "quantity": "Количество",
+  "calories": "Калории",
+  "protein": "Белки",
+  "carbs": "Углеводы",
+  "fat": "Жиры",
+  "saturated-fat": "Насыщенные жиры",
+  "sugar": "Сахара",
+  "fiber": "Клетчатка",
+  "salt": "Соль",
+  "sodium": "Натрий",
+  "no-internet": "Нет подключения к Интернету",
   "days": {
-    "0": "Sunday",
-    "1": "Monday",
-    "2": "Tuesday",
-    "3": "Wednesday",
-    "4": "Thursday",
-    "5": "Friday",
-    "6": "Saturday"
+    "0": "Воскресенье",
+    "1": "Понедельник",
+    "2": "Вторник",
+    "3": "Среда",
+    "4": "Четверг",
+    "5": "Пятница",
+    "6": "Суббота"
   },
   "statistics": {
-    "title": "Statistics",
-    "goal": "Goal",
+    "title": "Статистика",
+    "goal": "Цель",
     "used": "Used",
     "remaining": "Remaining",
-    "week": "1 Week",
-    "month": "1 Month",
-    "3month": "3 Months",
-    "6month": "6 Months",
-    "12month": "1 Year"
+    "week": "1 неделя",
+    "month": "1 месяц",
+    "3month": "3 месяца",
+    "6month": "6 месяцев",
+    "12month": "1 год"
   },
   "goals": {
-    "title": "Goals",
+    "title": "Цели",
     "nutrition": {
       "same-goal": "Same Goal Each Day"
     },
     "weight": {
       "title": "Weight Goals",
-      "target": "Goal Weight (kg)",
-      "weekly": "Weekly Goal (kg)",
-      "is-min": "I want to gain weight"
+      "target": "Целевой вес (кг)",
+      "weekly": "Недельная цель (кг)",
+      "is-min": "Я хочу набрать вес"
     }
   },
   "diary": {
-    "title": "Diary",
-    "serving": "Serving",
-    "servings": "Servings",
-    "category": "Category",
-    "current-weight": "Current Weight",
+    "title": "Дневник",
+    "serving": "Порция",
+    "servings": "Порций",
+    "category": "Категория",
+    "current-weight": "Текущий вес",
     "quick-add": {
-      "title": "Quick Add",
+      "title": "Быстрое добавление",
       "body": "Number of calories"
     },
     "edit-item": {
-      "title": "Edit Entry",
+      "title": "Изменить запись",
       "placeholders": {
-        "quantity": "Number of servings*",
-        "calories": "Calories*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrates (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
+        "quantity": "Количество порций",
+        "calories": "Калории*",
+        "protein": "Белки (г)",
+        "carbs": "Углеводы (г)",
+        "fat": "Жиры (г)",
+        "saturated-fat": "Насыщенные жиры (г)",
+        "sugar": "Сахара (г)",
+        "fiber": "Клетчатка (г)",
+        "salt": "Соль (г)"
       }
     }
   },
   "food-list": {
-    "title": "Foods",
+    "title": "Продукты",
     "search": "Search Food",
     "name-of-food": "Name of Food",
     "no-results": "No matching results",
@@ -82,7 +82,7 @@
         "brand": "Brand*",
         "portion": "Portion*",
         "calories": "Calories*",
-        "protein": "Protein (g)",
+        "protein": "Белки (г)",
         "carbs": "Carbohydrates (g)",
         "fat": "Fat (g)",
         "saturated-fat": "Saturated Fat (g)",
