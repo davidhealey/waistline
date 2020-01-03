@@ -69,7 +69,7 @@
     }
   },
   "food-list": {
-    "title": "Nahrungsmittel",
+    "title": "Lebensmittel",
     "search": "Lebensmittel suchen",
     "name-of-food": "Name des Lebensmittels",
     "no-results": "Keine Übereinstimmung",
@@ -224,8 +224,8 @@
       "p2": "Auf dem Bildschirm können Sie einen Namen für die Mahlzeit und alle gewünschten Notizen eingeben. Sie können auf die schwebende Plus-Schaltfläche auf diesem Bildschirm klicken, um die Lebensmittel auszuwählen, die Sie zu Ihrer Mahlzeit hinzufügen möchten.",
       "p3": "Sie können die Menge der einzelnen hinzugefügten Lebensmittel bearbeiten, indem Sie auf das Lebensmittel tippen und den Wert in das angezeigte Feld eingeben. Über der Liste der Lebensmittel sehen Sie die gesamten Nährwertangaben für alle Lebensmittel, die Sie der Mahlzeit hinzugefügt haben. Sie können über diesen Bereich wischen, um weitere Informationen zu erhalten.",
       "p4": "Wenn Sie mit Ihrer Mahlzeit zufrieden sind, können Sie auf den Haken in der oberen Symbolleiste tippen, um sie zu speichern.",
-      "p5": "The basic procedure to add a meal to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the meals screen.",
-      "p6": "When you add a meal to your diary all of the foods from the meal will be added individually, this allows you to further customise the meal as needed without having to create multiple meals for different variations."
+      "p5": "Die grundlegende Vorgehensweise, um eine Mahlzeit zu Ihrem Tagebuch hinzuzufügen, ist die gleiche wie beim Hinzufügen eines Lebensmittels. Klicken Sie auf eine Überschrift auf dem Bildschirm des Tagebuchs, dies führt Sie zur Lebensmittelliste, dann sehen Sie in der Lebensmittelliste ein Lesezeichen-Symbol in der oberen Symbolleiste. Durch Antippen gelangen Sie zum Bildschirm mit den Mahlzeiten.",
+      "p6": "Wenn Sie Ihrem Tagebuch eine Mahlzeit hinzufügen, werden alle Lebensmittel aus der Mahlzeit einzeln hinzugefügt. So können Sie die Mahlzeit nach Bedarf anpassen, ohne dass Sie mehrere Mahlzeiten für verschiedene Variationen kreieren müssen."
     },
     "goals": {
       "title": "Ziele",
@@ -239,7 +239,7 @@
       "p2": "Unter 'Tagebuch' können Sie die Kategorien, die im Tagebuch verwedet werden, ändern. Dabei sind bis zu sieben Kategorien möglich, wobei unbenannte ignoriert werden."
     },
     "export": {
-      "title": "Export",
+      "title": "Exportieren",
       "p1": "All Ihre Daten werden nur auf Ihrem Gerät gespeichert. Die App sendet lediglich Daten ans Internet, wenn dies für das Scannen eines Produkts notwendig ist, ein Produkt online gesucht oder hochgeladen wird.",
       "p2": "Sie bestimmen also selbst, wer Ihre Daten sehen darf. Das bedeutet jedoch auch, dass Ihre Daten nicht in der Cloud gesichert sind. Daher werden sie auch nicht automatisch auf Ihre anderen Geräte übernommen",
       "p3": "Daher können Sie mit dem 'Export'-Button manuell Ihre Daten als Textdatei (namens 'waistline_export.json') sichern. Die Datei finden Sie dann im Ordner 'Android/data/com.waist.line/files/', oder einem ähnlichen Verzeichnis.",
@@ -247,7 +247,7 @@
       "p5": "Jetzt können Sie jederzeit eine exportierte Datei in dieses Verzeichnis kopieren, um die Daten (zum Beispiel auf einem anderen Gerät) zu übernehmen."
     },
     "import": {
-      "title": "Import",
+      "title": "Importieren",
       "p1": "Achtung! Ein Import überschreibt Ihre existierenden Daten. Nutzen Sie diese Funktion nur, um ein erstelltes Back-up zu laden.",
       "p2": "Um Daten zu importieren, kopieren Sie die 'waistline_export.json' Datei in den korrekten Ordner (Siehe 'Export') und tippe auf 'Importieren'.",
       "p3": "Waistline Version 2 (diese hier) ist nicht mit Daten der alten Version kompatibel."
