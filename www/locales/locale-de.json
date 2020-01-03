@@ -9,7 +9,7 @@
   "sugar": "Zucker",
   "fiber": "Ballaststoffe",
   "salt": "Salz",
-  "sodium": "Sodium",
+  "sodium": "Natrium",
   "no-internet": "Keine Internetverbindung",
   "days": {
     "0": "Sonntag",
@@ -69,7 +69,7 @@
     }
   },
   "food-list": {
-    "title": "Foods",
+    "title": "Nahrungsmittel",
     "search": "Lebensmittel suchen",
     "name-of-food": "Name des Lebensmittels",
     "no-results": "Keine Übereinstimmung",
