@@ -58,20 +58,20 @@
       "placeholders": {
         "quantity": "Количество на порцията*",
         "calories": "Калории*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrates (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
+        "protein": "Протеини (г)",
+        "carbs": "Въглехидрати (г)",
+        "fat": "Мазнини (г)",
+        "saturated-fat": "Наситени мазнини (г)",
+        "sugar": "Захар (г)",
+        "fiber": "Фибри (г)",
+        "salt": "Сол (г)"
       }
     }
   },
   "food-list": {
     "title": "Foods",
     "search": "Search Food",
-    "name-of-food": "Name of Food",
+    "name-of-food": "Наименование на храната",
     "no-results": "No matching results",
     "scan-failed": "Scan Failed",
     "edit-item": {
