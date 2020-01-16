@@ -1,46 +1,46 @@
 {
   "weight": "Тегло",
-  "quantity": "Quantity",
-  "calories": "Calories",
-  "protein": "Protein",
-  "carbs": "Carbohydrates",
-  "fat": "Fat",
-  "saturated-fat": "Saturated Fat",
-  "sugar": "Sugar",
-  "fiber": "Fibre",
-  "salt": "Salt",
-  "sodium": "Sodium",
-  "no-internet": "No Internet Connection",
+  "quantity": "Количество",
+  "calories": "Калории",
+  "protein": "Белтъци",
+  "carbs": "Въглехидрати",
+  "fat": "Мазнини",
+  "saturated-fat": "Наситени мазнини",
+  "sugar": "Захар",
+  "fiber": "Фибри",
+  "salt": "Сол",
+  "sodium": "Натрий",
+  "no-internet": "Няма връзка с интернет",
   "days": {
-    "0": "Sunday",
-    "1": "Monday",
-    "2": "Tuesday",
-    "3": "Wednesday",
-    "4": "Thursday",
-    "5": "Friday",
-    "6": "Saturday"
+    "0": "Неделя",
+    "1": "Понеделник",
+    "2": "Вторник",
+    "3": "Сряда",
+    "4": "Четвъртък",
+    "5": "Петък",
+    "6": "Събота"
   },
   "statistics": {
-    "title": "Statistics",
-    "goal": "Goal",
-    "used": "Used",
-    "remaining": "Remaining",
-    "week": "1 Week",
-    "month": "1 Month",
-    "3month": "3 Months",
-    "6month": "6 Months",
-    "12month": "1 Year"
+    "title": "Статистика",
+    "goal": "Цел",
+    "used": "Използвани",
+    "remaining": "Оставащи",
+    "week": "1 седмица",
+    "month": "1 месец",
+    "3month": "3 месеца",
+    "6month": "6 месеца",
+    "12month": "1 година"
   },
   "goals": {
-    "title": "Goals",
+    "title": "Цели",
     "nutrition": {
-      "same-goal": "Same Goal Each Day"
+      "same-goal": "Една и съща цел всеки ден"
     },
     "weight": {
-      "title": "Weight Goals",
-      "target": "Goal Weight (kg)",
-      "weekly": "Weekly Goal (kg)",
-      "is-min": "I want to gain weight"
+      "title": "Желано тегло",
+      "target": "Желано тегло (кг)",
+      "weekly": "Седмична цел (кг)",
+      "is-min": "Искам да кача килограми"
     }
   },
   "diary": {
