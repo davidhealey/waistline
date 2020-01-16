@@ -44,8 +44,8 @@
     }
   },
   "diary": {
-    "title": "Diary",
-    "serving": "Serving",
+    "title": "Дневник",
+    "serving": "Порция",
     "servings": "Servings",
     "category": "Category",
     "current-weight": "Current Weight",
