@@ -46,18 +46,18 @@
   "diary": {
     "title": "Дневник",
     "serving": "Порция",
-    "servings": "Servings",
-    "category": "Category",
-    "current-weight": "Current Weight",
+    "servings": "Порции",
+    "category": "Категория",
+    "current-weight": "Текущо тегло",
     "quick-add": {
-      "title": "Quick Add",
-      "body": "Number of calories"
+      "title": "Бързо добавяне",
+      "body": "Количество калории"
     },
     "edit-item": {
-      "title": "Edit Entry",
+      "title": "Редактиране на запис",
       "placeholders": {
-        "quantity": "Number of servings*",
-        "calories": "Calories*",
+        "quantity": "Количество на порцията*",
+        "calories": "Калории*",
         "protein": "Protein (g)",
         "carbs": "Carbohydrates (g)",
         "fat": "Fat (g)",
