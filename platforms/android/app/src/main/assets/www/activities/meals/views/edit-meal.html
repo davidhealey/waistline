@@ -1,0 +1,72 @@
+<!--
+  Copyright 2018 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="edit-meal">
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="meal.title">Edit Meal</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="ion-navicon, material:md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <ons-fab position="bottom right" tappable onclick="nav.pushPage('activities/food-list/views/food-list.html')">
+    <ons-icon icon="md-plus"></ons-icon>
+  </ons-fab>
+
+  <div id="meal-data" style="text-align: left; margin-top: 2em; margin-left:1em; margin-bottom:2em;">
+    <input type="hidden" id="id" name="id" value=""></input>
+    <input type="hidden" id="nutrition" name="nutrition"></input>
+    <ons-input type="text" id="name" name="name" placeholder="Meal Name" value=""></ons-input>
+  </div>
+
+  <div>
+    <ons-card style="margin-bottom:2em;">
+      <ons-carousel swipeable auto-scroll>
+        <ons-carousel-item style="text-align:center;">
+          <ons-row>
+            <ons-col>Calories</ons-col>
+            <ons-col>Protein</ons-col>
+            <ons-col>Fat</ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col id="calories">0kcal</ons-col>
+            <ons-col id="protein">0g</ons-col>
+            <ons-col id="fat">0g</ons-col>
+          </ons-row>
+        </ons-carousel-item>
+
+        <ons-carousel-item style="text-align:center;">
+          <ons-row>
+            <ons-col>Carbs</ons-col>
+            <ons-col>Sugar</ons-col>
+            <ons-col id="salt_heading">Salt</ons-col>
+            <ons-col id="sodium_heading">Sodium</ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col id="carbs">0g</ons-col>
+            <ons-col id="sugar">0g</ons-col>
+            <ons-col id="salt">0g</ons-col>
+            <ons-col id="sodium">0mg</ons-col>
+          </ons-row>
+        </ons-carousel-item>
+      </ons-carousel>
+    </ons-card>
+
+    <ons-list id="foods"></ons-list>
+  </div>
+
+</ons-page>

@@ -9,3 +9,4 @@
 /platforms/android/build/
 /platforms/android/app/build/
 /platforms/android/CordovaLib/build
+.jshintrc

@@ -1,0 +1,76 @@
+<!--
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ons-page id="diary-settings">
+
+  <link rel="stylesheet" href="src/activities/settings/views/settings.css">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" data-localize="settings.diary.title">Diary Settings</div>
+    <div class="right"></div>
+  </ons-toolbar>
+
+  <ons-list>
+    <ons-list-item id="open-meal-names-dialog" data-localize="settings.diary.meal-names" tappable>Meal Names</ons-list-item>
+
+    <ons-list-item data-localize="settings.diary.meal-names">
+      <div class="center">Auto Expand Meals</div>
+      <div class="right"><ons-switch name="expand-meals" field="diary"></ons-switch></div>
+    </ons-list-item>
+
+    <ons-list-item data-localize="settings.diary.meal-names">
+      <div class="center">Show Entry Timestamps</div>
+      <div class="right"><ons-switch name="show-timestamps" field="diary"></ons-switch></div>
+    </ons-list-item>
+  </ons-list>
+
+
+  <!--Dialogs-->
+  <ons-alert-dialog id="meal-names-dialog">
+    <div class="alert-dialog-title">Meal Names</div>
+    <div class="alert-dialog-content">
+      <ons-row>
+        <ons-col><ons-input id="0" type="text" required="true" placeholder="Meal 1*" float value="Breakfast"></ons-input></ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col><ons-input id="1" type="text" placeholder="Meal 2" float value="Lunch"></ons-input></ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col><ons-input id="2" type="text" placeholder="Meal 3" float value="Dinner"></ons-input></ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col><ons-input id="3" type="text" placeholder="Meal 4" float value="Snacks"></ons-input></ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col><ons-input id="4" type="text" placeholder="Meal 5" float></ons-input></ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col><ons-input id="5" type="text" placeholder="Meal 6" float></ons-input></ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col><ons-input id="6" type="text" placeholder="Meal 7" float></ons-input></ons-col>
+      </ons-row>
+    </div>
+    <div class="alert-dialog-footer">
+      <ons-alert-dialog-button id="cancel"">Cancel</ons-alert-dialog-button>
+      <ons-alert-dialog-button id="save">Save</ons-alert-dialog-button>
+    </div>
+  </ons-alert-dialog>
+
+</ons-page>

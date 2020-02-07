@@ -1,0 +1,74 @@
+<!--
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ons-page id="recipe-editor">
+
+  <link rel="stylesheet" href="src/activities/recipes/views/recipes.css">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="recipe.title">New Recipe</div>
+    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
+  </ons-toolbar>
+
+  <div id="item-data">
+    <ons-card>
+      <ons-row>
+        <ons-col vertical-align="center" width="45%">Name</ons-col>
+        <ons-col>
+          <ons-input type="text" id="name" name="name" required="true"></ons-input>
+        </ons-col>
+      </ons-row>
+
+      <ons-row>
+        <ons-col vertical-align="center" width="45%" data-localize="food.edit-item.portion-size">Portion Size</ons-col>
+        <ons-col class="align-right">
+          <ons-input id="portion" name="portion" type="number" min="1" inputmode="decimal" step="any" required="true" float></ons-input>
+        </ons-col>
+        <ons-col></ons-col>
+        <ons-col>
+          <ons-input type="text" id="unit" name="unit" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true" placeholder="Unit" float></ons-input>
+        </ons-col>
+      </ons-row>
+
+      <ons-row>
+        <ons-col>
+          <textarea id="notes" name="notes" rows="8" cols="50" maxlength="1000" placeholder="Notes..."></textarea>
+        </ons-col>
+      </ons-row>
+
+    </ons-card>
+  </div>
+
+  <ons-list id="foods" modifier="inset"></ons-list>
+
+  <ons-list modifier="inset">
+    <ons-list-item expandable>
+      <span>Nutritional Info</span>
+      <div class="expandable-content">
+        <ons-list id="nutrition"></ons-list>
+      </div>
+    </ons-list-item>
+  </ons-list>
+
+  <ons-fab position="bottom right">
+    <ons-icon icon="fa-utensils"></ons-icon>
+  </ons-fab>
+
+</ons-page>

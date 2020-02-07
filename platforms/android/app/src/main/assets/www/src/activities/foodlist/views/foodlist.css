@@ -1,0 +1,30 @@
+/*
+  Copyright 2018, 2019 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+ons-page#foodlist #filter-container {text-align: center; padding-top: 1em; padding-bottom: 0.5em;}
+ons-page#foodlist #submit {display:none;}
+ons-page#foodlist ons-progress-circular {display:none;}
+
+ons-page#food-editor ons-card {box-shadow:none; border:solid 0.5px LightGrey;}
+ons-page#food-editor #upload, ons-page#food-editor #upload-fields, ons-page#food-editor #camera {display:none;}
+ons-page#food-editor #barcode-container {display:none; margin-bottom: 1em;}
+ons-page#food-editor ons-row:not(:last-child) {margin-bottom: 1em;}
+ons-page#food-editor #images {display:none; height:300px;}
+ons-page#food-editor #images img {display:block; height:100%; width:auto; margin:auto; padding:0px;}
+ons-page#food-editor .nutriment-unit {line-height: 1.7em; margin-left: 0.3em; padding:0;}

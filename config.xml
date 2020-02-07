@@ -15,6 +15,7 @@
     <allow-intent href="*" />
     <allow-navigation href="*" />
     <platform name="android">
+        <preference name="android-minSdkVersion" value="27" />
         <allow-intent href="market:*" />
         <icon density="mdpi" src="res/android/mdpi.png" />
         <icon density="hdpi" src="res/android/hdpi.png" />
@@ -26,23 +27,18 @@
         <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
         <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
     </platform>
-    <platform name="ios">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
-    </platform>
+    <preference name="loadUrlTimeoutValue" value="900000" />
+    <preference name="SplashScreenDelay" value="0" />
+    <preference name="FadeSplashScreenDuration" value="0" />
     <plugin name="cordova-plugin-camera" spec="~4.0.3" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-indexeddb-async" spec="~0.0.1" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="phonegap-plugin-barcodescanner" spec="^8.0.0">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
-    <plugin name="cordova-plugin-indexeddb-async" spec="~0.0.1" />
-    <preference name="loadUrlTimeoutValue" value="900000" />
-    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
-    <preference name="SplashScreenDelay" value="0" />
-    <preference name="FadeSplashScreenDuration" value="0" />
-    <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
-    <engine name="browser" spec="^5.0.4" />
-    <engine name="android" spec="^7.1.2" />
+    <engine name="browser" spec="~5.0.4" />
+    <engine name="android" spec="^7.1.4" />
 </widget>
