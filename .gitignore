@@ -4,6 +4,7 @@
 /plugins/
 /package.json
 /package-lock.json
+/platforms/
 /platforms/browser/
 /platforms/android/.gradle/
 /platforms/android/build/
