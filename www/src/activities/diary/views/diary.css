@@ -29,7 +29,7 @@ ons-page#diary #diary-nutrition .nutrition-total-values {padding-bottom: 0.3em;}
 ons-page#diary #diary-nutrition .nutrition-total-values ons-col {font-size: 1em; font-weight:bold;}
 ons-page#diary #diary-nutrition .nutrition-total-title ons-col {font-size: 0.9em;}
 
-ons-page#diary #diary-day ons-list-item:not(:last-child) {border-bottom: 1px solid black;}
+/*ons-page#diary #diary-day ons-list-item:not(:last-child) {border-bottom: 1px solid black;}*/
 ons-page#diary #diary-day .meal-heading {font-size:1.1em; font-weight: lighter;}
 ons-page#diary #diary-day .diary-entry-name {font-size: 1em;}
 ons-page#diary #diary-day .diary-entry-brand {font-size: 0.8em;}

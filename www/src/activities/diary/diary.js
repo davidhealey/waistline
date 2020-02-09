@@ -106,6 +106,7 @@ var diary = {
 
       //One expandable list per meal
       let ul = document.createElement("ons-list");
+      ul.setAttribute("modifier", "inset");
       
       //Expandable list item
       let li = document.createElement("ons-list-item");
@@ -134,11 +135,20 @@ var diary = {
 
       li.appendChild(content);
       ul.appendChild(li);
+
+      //List footer
+      let ft = document.createElement("ons-list-item");
+      let left = document.createElement("div");
+      left.className = "left add-button";
+      left.innerText = "Add Food";
       
-      //Add food button
-      /*let addLi = document.createElement("ons-list-item");
-      addLi.innerText = "+ Add Food";
-      ul.appendChild(addLi);*/
+      let right = document.createElement("div");
+      right.className = "right calorie-count";
+      right.innerText = "56 Cal";
+      
+      ft.appendChild(left);
+      ft.appendChild(right);
+      ul.appendChild(ft);
       
       container.appendChild(ul);
     }
@@ -209,8 +219,9 @@ var diary = {
     let goalData = goals.getGoalsByDate(diary.date);
     delete goalData.weight; //Not needed here
 
-    //Render category calorie count
+    //Render category name and calorie count
     const headings = document.querySelectorAll('.meal-heading[category]'); //Category heading list items
+    const calorieCount = document.querySelectorAll("#diary-day .calorie-count"); //Calorie count div
 
     for (let i = 0; i < headings.length; i++) {
       let category = headings[i].getAttribute("category");
@@ -219,7 +230,10 @@ var diary = {
 
       //Set category heading text
       let headingText = headings[i].getElementsByClassName("header-text")[0];
-      headingText.innerText = diary.mealNames[category] + " - " + parseInt(calories);
+      headingText.innerText = diary.mealNames[category];
+      
+      //Set calorie count text
+      calorieCount[i].innerText = parseInt(calories) + " Cal";
 
       if (settings.get("diary", "expand-meals") == true && calories > 0)
        headings[i].showExpansion(); //Expand lists that have entires
