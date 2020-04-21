@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Copyright 2018 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -19,107 +19,91 @@
 -->
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         <meta http-equiv="Content-Security-Policy" content="default-src * data: ws: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="theme-color" content="#2196f3"> <!-- Color theme for statusbar (Android only) -->
 
-        <!--OnsenUI-->
+        <!--OnsenUI--
         <link rel="stylesheet" href="assets/onsen/css/onsenui.min.css">
         <link rel="stylesheet" href="assets/onsen/css/onsen-css-components.min.css" id="theme-css">
         <script src="assets/onsen/js/onsenui.min.js"></script>
 
-        <!--CSS-->
+		<!--Material Icons font-->
+		<link rel="stylesheet" type="text/css" href="assets/iconfont/material-icons.css">
+
+		<!--Framework7-->
+		<link rel="stylesheet" type="text/css" href="assets/framework7/css/framework7.bundle.min.css">
+
+        <!--CSS--
         <link rel="stylesheet" href="assets/css/global-styles.css">
 
         <!--JS-->
-        <script src="js/db-handler.js"></script>
-        <script src="js/app.js"></script>
+        <script src="assets/js/db-handler.js"></script>
 
         <title>Waistline</title>
     </head>
     <body>
-      <ons-splitter>
-        <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
-          <ons-page>
-            <ons-list>
-              <ons-list-item onclick="nav.resetToPage('activities/statistics/views/statistics.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
-                <div class="left" data-localize="statistics.title">
-                  Statistics
-                </div>
-                <div class="right">
-                  <ons-icon icon="bar-chart"></ons-icon>
-                </div>
-              </ons-list-item>
+    
+		<div id="app">
+		
+		    <!-- Left panel -->
+			<div class="panel panel-left panel-cover panel-init">
+				<div class="list">
+					<ul>
+		
+						<li class="no-chevron">
+                        	<a href="#" class="item-link item-content">
+                        		<div class="item-media"><i class="icon material-icons">timeline</i></div>
+								<div class="item-inner" data-localize="statistics.title">Statistics</div>
+							</a>
+						</li>
 
-              <ons-list-item onclick="nav.resetToPage('src/activities/diary/views/diary.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
-                <div class="left" data-localize="diary.title">
-                  Diary
-                </div>
-                <div class="right">
-                  <ons-icon icon="calendar"></ons-icon>
-                </div>
-              </ons-list-item>
+						<li class="no-chevron">
+                        	<a href="/diary/" class="item-link item-content">
+                        		<div class="item-media"><i class="icon material-icons">today</i></div>
+								<div class="item-inner" data-localize="diary.title">Diary</div>
+							</a>
+						</li>
+					
+						<li class="no-chevron">
+                        	<a href="#" class="item-link item-content">
+                        		<div class="item-media"><i class="icon material-icons">restaurant</i></div>
+								<div class="item-inner" data-localize="foods-meals-recipes.title">Food</div>
+							</a>
+						</li>
+						
+						<li class="no-chevron">
+                        	<a href="#" class="item-link item-content">
+                        		<div class="item-media"><i class="icon material-icons">track_changes</i></div>
+								<div class="item-inner" data-localize="goals.title">Goals</div>
+							</a>
+						</li>
 
-              <ons-list-item onclick="nav.resetToPage('src/activities/foods-meals-recipes/views/foods-meals-recipes.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
-                <div class="left" data-localize="foods-meals-recipes.title">
-                  Foods
-                </div>
-                <div class="right">
-                  <ons-icon icon="fa-utensils"></ons-icon>
-                </div>
-              </ons-list-item>
+						<li class="no-chevron">
+                        	<a href="#" class="item-link item-content">
+                        		<div class="item-media"><i class="icon material-icons">settings</i></div>
+								<div class="item-inner" data-localize="settings.title">Settings</div>
+							</a>
+						</li>
 
-              <ons-list-item onclick="nav.resetToPage('src/activities/goals/views/goals.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
-                <div class="left" data-localize="goals.title">
-                  Goals
-                </div>
-                <div class="right">
-                  <ons-icon icon="bullseye"></ons-icon>
-                </div>
-              </ons-list-item>
+						<li class="no-chevron">
+                        	<a href="#" class="item-link item-content">
+                        		<div class="item-media"><i class="icon material-icons">info</i></div>
+								<div class="item-inner" data-localize="about.title">About</div>
+							</a>
+						</li>
+					</ul> 
+				</div>
+    		</div>
 
-              <ons-list-item onclick="nav.resetToPage('src/activities/settings/views/settings.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
-                <div class="left" data-localize="settings.title">
-                  Settings
-                </div>
-                <div class="right">
-                  <ons-icon icon="cog"></ons-icon>
-                </div>
-              </ons-list-item>
-
-              <ons-list-item onclick="nav.resetToPage('activities/userguide/views/userguide.html').then(menu.close.bind(menu))" tappable modifier="longdivider">
-                <div class="left" data-localize="user-guide.title">
-                  User Guide
-                </div>
-                <div class="right">
-                  <ons-icon icon="book"></ons-icon>
-                </div>
-              </ons-list-item>
-
-              <ons-list-item onclick="ons.notification.alert(app.strings['about']['p1'], {'title':app.strings['about']['title'] + ' - v' + revision.number})" tappable modifier="longdivider">
-                <div class="left" data-localize="about.title">
-                  About
-                </div>
-                <div class="right">
-                  <ons-icon icon="question"></ons-icon>
-                </div>
-              </ons-list-item>
-
-            </ons-list>
-          </ons-page>
-        </ons-splitter-side>
-        <ons-splitter-content id="content">
-          <ons-navigator id="mainNavigator"></ons-navigator>
-        </ons-splitter-content>
-      </ons-splitter>
-
-      <script>
-        window.nav = document.getElementById('mainNavigator'); //Make navigator globally available
-      </script>
+			<div class="view view-main"></div>
+		</div>
 
       <script type="text/javascript" src="cordova.js"></script>
+      <script src="assets/framework7/js/framework7.bundle.min.js"></script>
+      <script src="assets/js/app.js"></script>
       <script src="src/activities/settings/settings.js"></script>
       <script src="src/activities/log/log.js"></script>
       <script src="src/activities/goals/goals.js"></script>
@@ -133,7 +117,7 @@
       <script src="src/activities/recipes/recipes.js"></script>
       <script src="src/activities/recipes/recipe-editor.js"></script>
 
-      <!--Testing-->
+      <!--Testing--
       <script>
         if(app.mode != 'release')
         {
@@ -142,6 +126,6 @@
           document.write(unescape('%3Cscript src="src/activities/diary/diary_test.js"%3E%3C/script%3E'));
           document.write(unescape('%3Cscript src="src/activities/foodlist/assets/test-off-result.js"%3E%3C/script%3E'));
         }
-      </script>
+      </script>-->
     </body>
 </html>
