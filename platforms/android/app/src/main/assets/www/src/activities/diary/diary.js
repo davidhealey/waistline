@@ -1,5 +1,5 @@
 /*
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -20,13 +20,20 @@
 var diary = {
 
   initialize: function() {
-
+    
     this.page = document.querySelector('ons-page#diary');
     this.data = {};
     this.currentCategory = 0;
     this.mealNames = settings.get("diary", "meal-names");
     let now = new Date();
     this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()));
+
+    this.dateInput = app.calendar.create({
+      inputEl: "#diary-date",
+      openIn: "customModal",
+      header: true,
+      footer: true,
+    });
 
     console.log("Diary Initialized");
   },
@@ -106,14 +113,14 @@ var diary = {
 
       //One expandable list per meal
       let ul = document.createElement("ons-list");
+      ul.setAttribute("modifier", "inset");
       
       //Expandable list item
       let li = document.createElement("ons-list-item");
       li.setAttribute("expandable", "");
       li.setAttribute("category", i);
       li.className = "meal-heading";
-      li.addEventListener("doubletap", this.goToFoodList);
-
+     
       let span = document.createElement("span"); //Populated by renderNutrition function
       span.className = "header-text";
       span.addEventListener("hold", this.quickAdd);
@@ -134,11 +141,20 @@ var diary = {
 
       li.appendChild(content);
       ul.appendChild(li);
+
+      //List footer
+      let ft = document.createElement("ons-list-item");
+      let left = document.createElement("div");
+      left.addEventListener("tap", this.goToFoodList);
+      left.className = "left add-button";
+      left.innerText = "Add Food";
+
+      let right = document.createElement("div");
+      right.className = "right calorie-count";
       
-      //Add food button
-      /*let addLi = document.createElement("ons-list-item");
-      addLi.innerText = "+ Add Food";
-      ul.appendChild(addLi);*/
+      ft.appendChild(left);
+      ft.appendChild(right);
+      ul.appendChild(ft);
       
       container.appendChild(ul);
     }
@@ -168,11 +184,12 @@ var diary = {
         gd.appendChild(li);
 
         let name = document.createElement("ons-row");
-        name.className = "diary-entry-name";
+        name.className = "diary-entry-name itemlist";
         name.innerText = foodsMealsRecipes.formatItemText(entry.name, 30);
         li.appendChild(name);
         li.addEventListener("hold", this.deleteItem);
         li.addEventListener("tap", this.itemEditor);
+        //li.addEventListener("dragleft", function(){console.log("SWIPED")});
 
         if (entry.brand && entry.brand != "") {
           let brand = document.createElement("ons-row");
@@ -209,8 +226,9 @@ var diary = {
     let goalData = goals.getGoalsByDate(diary.date);
     delete goalData.weight; //Not needed here
 
-    //Render category calorie count
+    //Render category name and calorie count
     const headings = document.querySelectorAll('.meal-heading[category]'); //Category heading list items
+    const calorieCount = document.querySelectorAll("#diary-day .calorie-count"); //Calorie count div
 
     for (let i = 0; i < headings.length; i++) {
       let category = headings[i].getAttribute("category");
@@ -219,7 +237,10 @@ var diary = {
 
       //Set category heading text
       let headingText = headings[i].getElementsByClassName("header-text")[0];
-      headingText.innerText = diary.mealNames[category] + " - " + parseInt(calories);
+      headingText.innerText = diary.mealNames[category];
+      
+      //Set calorie count text
+      calorieCount[i].innerText = parseInt(calories) + " Cal";
 
       if (settings.get("diary", "expand-meals") == true && calories > 0)
        headings[i].showExpansion(); //Expand lists that have entires
@@ -262,8 +283,12 @@ var diary = {
 
         //Value/goals text
         let t = document.createTextNode("");
-        if (totals[n] != undefined)
-          t.nodeValue = parseFloat(totals[n].toFixed(2)) + "/" + parseFloat(goal.toFixed(2));
+        if (totals[n] != undefined) {        
+          if (n == "calories")
+            t.nodeValue = parseInt(totals[n]) + "/" + parseInt(goal);
+          else
+            t.nodeValue = parseFloat(totals[n].toFixed(2)) + "/" + parseFloat(goal.toFixed(2));
+        }
         else
           t.nodeValue = "0/" + parseFloat(goal.toFixed(2));
 
@@ -436,7 +461,7 @@ var diary = {
     });
   },
 
-  //Bulk Insert/Update
+  //Bulk Insert/Update -- OLD
   pushItemsToDB: function(items) {
     return new Promise(function(resolve, reject){
 
@@ -460,9 +485,33 @@ var diary = {
     });
   },
 
+  //Bulk Insert/Update
+  pushItemsToDB2: function(items, category)
+  {
+    return new Promise(function(resolve, reject){
+
+      for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+
+        item.dateTime = diary.date;
+        item.category = category;
+        item.category_name = diary.mealNames[category];
+        item.quantity = 1;
+
+        //If there is no food id set, use the item's ID as the food id
+        if (item.foodId == undefined && item.id) {
+          item.foodId = item.id;
+          delete item.id;
+        }
+      }
+      //Insert the items
+      dbHandler.bulkInsert(items, "diary").then(resolve());
+    });
+  },
+
   quickAdd: function() {
 
-    diary.current_category = this.getAttribute("category");
+    let category = this.closest("ons-list-item").getAttribute("category");
 
     ons.createElement('src/activities/diary/views/quick-add.html', { append: true }) //Load dialog from file
     .then(function(dialog) {
@@ -485,7 +534,7 @@ var diary = {
           data.name = name || "Quick Add Calories";
 
           //Add to diary
-          diary.pushItemsToDB([data])
+          diary.pushItemsToDB2([data], category)
           .then(function() {
             dialog.hide();
             diary.loadDiary() //Refresh the display
@@ -522,14 +571,14 @@ var diary = {
 };
 
 //Page initialization
-document.addEventListener("init", function(event){
-  if (event.target.matches('ons-page#diary')) {
+document.addEventListener("page:init", function(event){
+  if (event.target.matches(".page[data-name='diary']")) {
 
     //Call constructor
     diary.initialize();
 
     //Page show event
-    diary.page.addEventListener("show", function(e){
+    /*diary.page.addEventListener("show", function(e){
       //If items have been passed to the page, add them to the diary
       if (this.data && this.data.items) {
         if (this.data.category != undefined)
@@ -572,6 +621,6 @@ document.addEventListener("init", function(event){
     const fab = diary.page.querySelector('ons-fab');
     fab.addEventListener("tap", function(event){
       nav.resetToPage("src/activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
-    });
+    });*/
  }
 });

@@ -248,14 +248,14 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-  "cordova-plugin-browsersync": "0.1.7",
   "cordova-plugin-camera": "4.0.3",
   "cordova-plugin-file": "6.0.1",
   "cordova-plugin-indexeddb-async": "0.0.1",
   "cordova-plugin-network-information": "2.0.1",
   "cordova-plugin-splashscreen": "5.0.2",
   "cordova-plugin-whitelist": "1.3.3",
-  "phonegap-plugin-barcodescanner": "8.0.1"
+  "phonegap-plugin-barcodescanner": "8.0.1",
+  "cordova-plugin-browsersync-gen2": "1.1.7"
 };
 // BOTTOM OF METADATA
 });
