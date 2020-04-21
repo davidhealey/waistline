@@ -1,5 +1,5 @@
 /*
-  Copyright 2018 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -17,7 +17,7 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var app = {
+/*var app = {
 
   mode: "development",
   tests:{}, //Object to hold test functions to be run by TinyTest
@@ -118,4 +118,61 @@ ons.ready(function() {
       }
     });
   });
+});
+*/
+
+var app = new Framework7({
+  // App root element
+  root: "#app",
+  // App Name
+  name: "Waistline",
+  // App id
+  id: "com.waist.line",
+  version: "2.5",
+    // Enable swipe panel
+  panel: {
+    swipe: "left",
+  },
+    calendar: {
+    url: 'calendar/',
+    dateFormat: 'dd.mm.yyyy',
+  },
+  // Add default routes
+  routes: [
+    {
+      name: "Statistics",
+      path: "/statistics/",
+      url: "/www/src/activities/statistics/views/statistics.html"
+    },
+    {
+      name: "Diary",
+      path: "/diary/",
+      url: "/www/src/activities/diary/views/diary.html"
+    },
+    {
+      name: "Foods, Meals, Recipes",
+      path: "/foods-meals-recipes/",
+      url: "/www/src/activities/foods-meals-recipes/views/foods-meals-recipes.html"
+    },
+    {
+      name: "Goals",
+      path: "/goals/",
+      url: "/www/src/activities/goals/views/goals.html"
+    },
+    {
+      name: "About",
+      path: "/about/",
+      url: "about.html"
+    },
+  ]
+});
+
+var mainView = app.views.create(".view-main");
+
+document.addEventListener("page:init", function(event){
+
+  //Close panel when switching pages
+  var panelLeft = app.panel.get('.panel-left');
+  panelLeft.close(true);
+  
 });
