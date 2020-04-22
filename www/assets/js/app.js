@@ -173,6 +173,9 @@ document.addEventListener("page:init", function(event){
 
   //Close panel when switching pages
   var panelLeft = app.panel.get('.panel-left');
-  panelLeft.close(true);
+  if (panelLeft)
+    panelLeft.close(true);
   
 });
+
+//app.views.main.router.navigate("/diary/");

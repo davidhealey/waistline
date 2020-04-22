@@ -47,3 +47,8 @@ ons-page#diary-edit-item input {text-align: right;}
     display: none;
     -webkit-appearance: none;
 }
+
+
+.col-left {display: flex; align-items: left; justify-content: left;}
+.col-centre {display: flex; align-items: center; justify-content: center;}
+.col-right {display: flex; align-items: right; justify-content: right;}

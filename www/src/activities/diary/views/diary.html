@@ -45,6 +45,9 @@
 </ons-page>-->
 
 <div class="page" data-name="diary">
+	
+	<link rel="stylesheet" href="src/activities/diary/views/diary.css">
+	
 	<div class="navbar">
 		<div class="navbar-bg"></div>
       	<div class="navbar-inner">
@@ -58,9 +61,23 @@
 	</div>
 
 	<div class="page-content">
-		<div class="card">
+		<div class="card no-border">
   			<div class="card-content">
-				<input type="text" placeholder="Select date" readonly="readonly" id="diary-date"/>
+  				<div class="row">
+  					<div class="col-25 col-left">
+						<a href="#" class="link icon-only">
+							<i class="icon material-icons">navigate_before</i>
+						</a>
+					</div>
+		  			<div class="col-50 col-centre">
+		  				<input type="text" placeholder="Select date" readonly="readonly" id="diary-date"/>
+		  			</div>
+  					<div class="col-25 col-right">
+						<a href="#" class="link icon-only">
+							<i class="icon material-icons">navigate_next</i>
+						</a>
+					</div>
+				</div>  			
 			</div>
 		</div>
 	</div>
