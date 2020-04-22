@@ -121,7 +121,17 @@ ons.ready(function() {
 });
 */
 
-var app = new Framework7({
+//App setup
+var waistline = {
+  
+  mode: "development",
+  tests:{}, //Object to hold test functions to be run by TinyTest
+  strings: {}, //Localization strings
+  
+};
+
+//Framework7 Setup
+var f7 = new Framework7({
   // App root element
   root: "#app",
   // App Name
@@ -167,30 +177,20 @@ var app = new Framework7({
   ]
 });
 
-var mainView = app.views.create(".view-main");
+var mainView = f7.views.create(".view-main");
 
 document.addEventListener("page:init", function(event){
 
   //Close panel when switching pages
-  var panelLeft = app.panel.get('.panel-left');
+  var panelLeft = f7.panel.get('.panel-left');
   if (panelLeft)
     panelLeft.close(true);
-  
 });
 
-app.on("init", function(event){
-  app.views.main.router.navigate("/diary/");
+f7.on("init", function(event){
   
-  return new Promise(function(resolve, reject){
-      dbHandler.initializeDb() //db-handler initialization
-      .then(function() {
-        //Add appInitialized event
-        let event = new CustomEvent("appInitialized");
-        window.dispatchEvent(event);
-        resolve();
-      });
-    });
-  };
-  
-  
+  //Database setup
+  dbHandler.initializeDb();
+
+  f7.views.main.router.navigate("/diary/"); 
 });

@@ -29,7 +29,7 @@ var diary = {
     this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()));
     
     //Initialize date picker
-    this.calendar = app.calendar.create({
+    this.calendar = f7.calendar.create({
       inputEl: "#diary-date",
       openIn: "customModal",
       on: {
@@ -60,18 +60,17 @@ var diary = {
     Array.from(btnDate).forEach(function(element) {
       element.addEventListener("click", function(event){
       
-        let current = new Date(calendar.getValue()[0]);
-        let d;
+        let d = new Date(calendar.getValue()[0]);
       
         if (this == btnDate[0])       
-          d = new Date().setDate(current.getDate() - 1); 
+          d.setDate(d.getDate() - 1); 
         else
-          d = new Date().setDate(current.getDate() + 1);
+          d.setDate(d.getDate() + 1);
         
         calendar.setValue([d]);
       
         //document.querySelector('#diary #log-weight').setAttribute("dateTime", diary.date);
-        //diary.loadDiary();
+        diary.loadDiary();
       });
     });
       
@@ -146,12 +145,59 @@ var diary = {
     const container = document.getElementById("diary-day");
     container.innerHTML = "";
 
-    //Setup lists for each category
+    //Setup lists for each category - one per meal
     for (let i = 0; i < diary.mealNames.length; i++) {
 
       if (diary.mealNames[i] == "") continue;
 
-      //One expandable list per meal
+      let div = document.createElement("div");
+      div.className = "list";
+      
+      let ul = document.createElement("ul")
+      div.appendChild(ul);
+      
+      let li = document.createElement("li");
+      li.className = "accordion-item";
+      
+      ul.appendChild(li);
+            
+      let a = document.createElement("a");
+      a.className = "item-link item-content";
+      a.innerHTML = "<div class='item-inner'><div class='item-title'>" + diary.mealNames[i] + "</div></div>"
+      
+      li.appendChild(a);
+      
+      let content = document.createElement("div");
+      content.className = "accordion-item-content";
+      
+      lists[i] = content; //Expanded content list
+      
+      li.appendChild(content);      
+            
+      //List footer
+      /*let ft = document.createElement("li");
+      
+      ul.appendChild(ft);
+
+      //Add food button
+      let left = document.createElement("div");
+      left.className = "left add-button";
+      left.innerText = "Add Food";
+      
+      ft.appendChild(left);
+      
+      //Calorie count
+      let right = document.createElement("div");
+      right.className = "right calorie-count";
+      right.innerText = "56 Cal";
+            
+      ft.appendChild(right);*/
+
+      container.appendChild(div);
+      
+      
+
+      /*//One expandable list per meal
       let ul = document.createElement("ons-list");
       ul.setAttribute("modifier", "inset");
       
@@ -197,7 +243,7 @@ var diary = {
       ft.appendChild(right);
       ul.appendChild(ft);
       
-      container.appendChild(ul);
+      container.appendChild(ul);*/
     }
 
     //Render entries
@@ -206,7 +252,73 @@ var diary = {
       if (diary.mealNames[category] == "") continue;
 
       //List for each category card
-      let ul = document.createElement("ons-list");
+      let div = document.createElement("div");
+      div.className = "list";
+      
+      let ul = document.createElement("ul");
+      
+      div.appendChild(ul);
+      
+      for (let i = 0; i < entries[category].length; i++) {
+        let entry = entries[category][i];
+      
+        let li = document.createElement("li");
+        li.id = "entry-" + entry.id;
+        if (entry.foodId) li.setAttribute("foodId", entry.foodId);
+        if (entry.recipeId) li.setAttribute("recipeId", entry.recipeId);
+        li.className = "item-content entry";
+        li.setAttribute("data", JSON.stringify(entry));
+      
+        ul.appendChild(li);
+      
+        let content = document.createElement("div");
+        content.className = "item-inner item-cell";
+        
+        li.appendChild(content);
+      
+        //Item name
+        let nameRow = document.createElement("div");
+        nameRow.className = "item-row";
+      
+        content.appendChild(nameRow);
+      
+        let name = document.createElement("div");
+        name.className = "item-cell diary-entry-name";
+        name.innerHTML = foodsMealsRecipes.formatItemText(entry.name, 30);
+      
+        nameRow.appendChild(name);
+      
+        //Item brand
+        if (entry.brand && entry.brand != "") {
+          let brandRow = document.createElement("div");
+          brandRow.className = "item-row";
+          
+          content.appendChild(brandRow);
+          
+          let brand = document.createElement("div");
+          brand.className = "item-cell diary-entry-brand";
+          brand.innerHTML = foodsMealsRecipes.formatItemText(entry.brand, 20).italics();
+          
+          brandRow.appendChild(brand);
+        }
+      
+        //Item calorie count
+        let infoRow = document.createElement("div");
+        infoRow.className = "item-row";
+        
+        content.appendChild(infoRow);
+        
+        let info = document.createElement("div");
+        info.className = "item-cell diary-entry-info";
+        info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
+        
+        infoRow.appendChild(info);        
+      
+        lists[category].appendChild(div);
+      }
+      
+      
+      /*let ul = document.createElement("ons-list");
       ul.id = diary.mealNames[category] + "-list";
 
       //Render entries
@@ -253,7 +365,7 @@ var diary = {
         }
 
         lists[category].appendChild(li);
-      }
+      }*/
     }
   },
 
@@ -454,15 +566,14 @@ var diary = {
     nav.pushPage("src/activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
   },
 
+  //Get diary entries for current date and render
   loadDiary: function() {
     return new Promise(function(resolve, reject) {
-
-      //Get diary entries for date and render
       diary.getEntriesFromDB(diary.getDate())
       .then(function(data){
         diary.data = data;
         diary.render();
-        diary.renderNutrition();
+        //diary.renderNutrition();
         resolve();
       });
     });

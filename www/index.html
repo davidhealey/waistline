@@ -37,10 +37,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/framework7/css/framework7.bundle.min.css">
 
         <!--CSS--
-        <link rel="stylesheet" href="assets/css/global-styles.css">
-
-        <!--JS-->
-        <script src="assets/js/db-handler.js"></script>
+        <link rel="stylesheet" href="assets/css/global-styles.css">-->        
 
         <title>Waistline</title>
     </head>
@@ -101,27 +98,28 @@
 			<div class="view view-main"></div>
 		</div>
 
-      <script type="text/javascript" src="cordova.js"></script>
-      <script src="assets/framework7/js/framework7.bundle.min.js"></script>
-      <script src="assets/js/app.js"></script>
-      <script src="src/activities/settings/settings.js"></script>
-      <script src="src/activities/log/log.js"></script>
-      <script src="src/activities/goals/goals.js"></script>
-      <script src="src/activities/goals/goal-editor.js"></script>
-      <script src="src/activities/diary/diary.js"></script>
-      <script src="src/activities/foods-meals-recipes/foods-meals-recipes.js"></script>
-      <script src="src/activities/foodlist/foodlist.js"></script>
-      <script src="src/activities/foodlist/food-editor.js"></script>
-      <script src="src/activities/meals/meals.js"></script>
-      <script src="src/activities/meals/meal-editor.js"></script>
-      <script src="src/activities/recipes/recipes.js"></script>
-      <script src="src/activities/recipes/recipe-editor.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+	    <script src="assets/framework7/js/framework7.bundle.min.js"></script>
+	    <script src="assets/js/db-handler.js"></script>
+      	<script src="assets/js/app.js"></script>
+      	<script src="src/activities/settings/settings.js"></script>
+	    <script src="src/activities/log/log.js"></script>
+    	<script src="src/activities/goals/goals.js"></script>
+    	<script src="src/activities/goals/goal-editor.js"></script>
+      	<script src="src/activities/diary/diary.js"></script>
+      	<script src="src/activities/foods-meals-recipes/foods-meals-recipes.js"></script>
+      	<script src="src/activities/foodlist/foodlist.js"></script>
+      	<script src="src/activities/foodlist/food-editor.js"></script>
+      	<script src="src/activities/meals/meals.js"></script>
+      	<script src="src/activities/meals/meal-editor.js"></script>
+      	<script src="src/activities/recipes/recipes.js"></script>
+      	<script src="src/activities/recipes/recipe-editor.js"></script>
 
       <!--Testing--
       <script>
-        if(app.mode != 'release')
+        if(waistline.mode != 'release')
         {
-          console.log("Mode: ", app.mode);
+          console.log("Mode: ", waistline.mode);
           document.write(unescape('%3Cscript src="assets/js/tinytest.js"%3E%3C/script%3E'));
           document.write(unescape('%3Cscript src="src/activities/diary/diary_test.js"%3E%3C/script%3E'));
           document.write(unescape('%3Cscript src="src/activities/foodlist/assets/test-off-result.js"%3E%3C/script%3E'));
