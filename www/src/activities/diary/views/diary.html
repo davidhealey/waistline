@@ -16,7 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ons-page id="diary">
+<!--<ons-page id="diary">
 
   <link rel="stylesheet" href="src/activities/diary/views/diary.css">
 
@@ -42,4 +42,26 @@
     <ons-icon icon="fa-utensils"></ons-icon>
   </ons-fab>
 
-</ons-page>
+</ons-page>-->
+
+<div class="page" data-name="diary">
+	<div class="navbar">
+		<div class="navbar-bg"></div>
+      	<div class="navbar-inner">
+			<div class="left">
+				<a href="#" class="link icon-only panel-toggle" data-panel=".panel-left">
+					<i class="icon material-icons">menu</i>
+				</a>
+			</div>
+  			<div class="title" data-localize="diary.title">Diary</div>
+		</div>
+	</div>
+
+	<div class="page-content">
+		<div class="card">
+  			<div class="card-content">
+				<input type="text" placeholder="Select date" readonly="readonly" id="diary-date"/>
+			</div>
+		</div>
+	</div>
+</div>

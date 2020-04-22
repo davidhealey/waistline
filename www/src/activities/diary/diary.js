@@ -28,6 +28,14 @@ var diary = {
     let now = new Date();
     this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()));
 
+    this.datePicker = app.calendar.create({
+      inputEl: "#diary-date",
+      openIn: "customModal",
+      header: true,
+      footer: true,
+    });
+
+
     console.log("Diary Initialized");
   },
 
@@ -536,14 +544,14 @@ var diary = {
 };
 
 //Page initialization
-document.addEventListener("init", function(event){
-  if (event.target.matches('ons-page#diary')) {
+document.addEventListener("page:init", function(event){
+  if (event.target.matches(".page[data-name='diary']")) {
 
     //Call constructor
     diary.initialize();
 
     //Page show event
-    diary.page.addEventListener("show", function(e){
+    /*diary.page.addEventListener("show", function(e){
       //If items have been passed to the page, add them to the diary
       if (this.data && this.data.items) {
         if (this.data.category != undefined)
@@ -586,6 +594,6 @@ document.addEventListener("init", function(event){
     const fab = diary.page.querySelector('ons-fab');
     fab.addEventListener("tap", function(event){
       nav.resetToPage("src/activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
-    });
+    });*/
  }
 });
