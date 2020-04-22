@@ -61,24 +61,26 @@
 	</div>
 
 	<div class="page-content">
-		<div class="card no-border">
-  			<div class="card-content">
-  				<div class="row">
-  					<div class="col-25 col-left">
-						<a href="#" class="link icon-only">
-							<i class="icon material-icons">navigate_before</i>
-						</a>
-					</div>
-		  			<div class="col-50 col-centre">
-		  				<input type="text" placeholder="Select date" readonly="readonly" id="diary-date"/>
-		  			</div>
-  					<div class="col-25 col-right">
-						<a href="#" class="link icon-only">
-							<i class="icon material-icons">navigate_next</i>
-						</a>
-					</div>
-				</div>  			
-			</div>
+		<div id="header">
+    		<div class="row no-gap">
+    			<div class="col-25">
+    				<button class="button change-date">
+    					<i class="icon material-icons">navigate_before</i>
+    				</button>
+    			</div>
+    			<div class="col-50">
+    				<input type="text" placeholder="Select date" readonly="readonly" id="diary-date"/>
+    			</div>
+    			<div class="col-25">
+    				<button class="button change-date">
+    					<i class="icon material-icons">navigate_next</i>
+    				</button>
+    			</div>
+    		</div>
+    		<div class="row" id="diary-nutrition"></div>
 		</div>
+		
+		<div id="diary-day"></div>
+		
 	</div>
 </div>

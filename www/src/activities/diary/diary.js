@@ -27,22 +27,61 @@ var diary = {
     this.mealNames = settings.get("diary", "meal-names");
     let now = new Date();
     this.date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()));
-
-    this.datePicker = app.calendar.create({
+    
+    //Initialize date picker
+    this.calendar = app.calendar.create({
       inputEl: "#diary-date",
       openIn: "customModal",
-      header: true,
-      footer: true,
+      on: {
+        "init": function(c) {
+    
+          let now = new Date();
+          let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+          if (c.getValue() == undefined)
+            c.setValue([today]);
+        
+          diary.initializeCalendarButtons(c);
+        },
+        "dayClick": function(c) {
+          c.close();
+        }
+      }
     });
 
-
     console.log("Diary Initialized");
+  },
+  
+  initializeCalendarButtons: function(calendar)
+  {
+    //Previous/Next date buttons
+    const btnDate = document.getElementsByClassName("change-date");
+
+    Array.from(btnDate).forEach(function(element) {
+      element.addEventListener("click", function(event){
+      
+        let current = new Date(calendar.getValue()[0]);
+        let d;
+      
+        if (this == btnDate[0])       
+          d = new Date().setDate(current.getDate() - 1); 
+        else
+          d = new Date().setDate(current.getDate() + 1);
+        
+        calendar.setValue([d]);
+      
+        //document.querySelector('#diary #log-weight').setAttribute("dateTime", diary.date);
+        //diary.loadDiary();
+      });
+    });
+      
+    
   },
 
   getDate: function() {
 
-    if (diary.date)
-      return diary.date;
+    if (diary.calendar.getValue() !== undefined)
+      return diary.calendar.getValue()[0];
     else {
       let now = new Date();
       return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()));
@@ -417,11 +456,9 @@ var diary = {
 
   loadDiary: function() {
     return new Promise(function(resolve, reject) {
-      //Update date display
-      diary.page.querySelector('#date-picker').value = diary.date; //Update displayed date
 
       //Get diary entries for date and render
-      diary.getEntriesFromDB(diary.date)
+      diary.getEntriesFromDB(diary.getDate())
       .then(function(data){
         diary.data = data;
         diary.render();
@@ -550,6 +587,10 @@ document.addEventListener("page:init", function(event){
     //Call constructor
     diary.initialize();
 
+    diary.loadDiary();
+
+
+
     //Page show event
     /*diary.page.addEventListener("show", function(e){
       //If items have been passed to the page, add them to the diary
@@ -573,7 +614,7 @@ document.addEventListener("page:init", function(event){
     });
 
     //Previous & Next date buttons
-    const btnDate = document.getElementsByClassName("adjacent-date");
+    /*const btnDate = document.getElementsByClassName("adjacent-date");
     Array.from(btnDate).forEach(function(element) {
       element.addEventListener('tap', function(event){
         if (this == btnDate[0]) diary.date.setUTCHours(diary.date.getUTCHours()-24); //Previous day

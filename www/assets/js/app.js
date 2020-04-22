@@ -178,4 +178,19 @@ document.addEventListener("page:init", function(event){
   
 });
 
-//app.views.main.router.navigate("/diary/");
+app.on("init", function(event){
+  app.views.main.router.navigate("/diary/");
+  
+  return new Promise(function(resolve, reject){
+      dbHandler.initializeDb() //db-handler initialization
+      .then(function() {
+        //Add appInitialized event
+        let event = new CustomEvent("appInitialized");
+        window.dispatchEvent(event);
+        resolve();
+      });
+    });
+  };
+  
+  
+});
