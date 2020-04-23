@@ -1,1 +1,2 @@
 .align-right {text-align: right;}
+.disable-long-tap {-moz-user-select: none; -webkit-user-select: none; user-select: none;}

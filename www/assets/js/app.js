@@ -22,30 +22,7 @@
   mode: "development",
   tests:{}, //Object to hold test functions to be run by TinyTest
   strings: {},
-  standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
-  nutriments: ["calories", "proteins", "carbohydrates","fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium","vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
-  nutrimentUnits: {
-    "calories":"kcal",
-    "cholesterol":"mg",
-    "sodium":"mg",
-    "potassium":"mg",
-    "calcium":"mg",
-    "iron":"mg",
-    "magnesium":"mg",
-    "zinc":"mg",
-    "caffeine":"g",
-    "alcohol":"%",
-    "vitamin-a":"µg",
-    "vitamin-d":"µg",
-    "vitamin-e":"mg",
-    "vitamin-k":"µg",
-    "vitamin-c":"mg",
-    "vitamin-b1":"mg",
-    "vitamin-b2":"mg",
-    "vitamin-b6":"g",
-    "vitamin-b9":"µg",
-    "vitamin-b12":"µg"
-  },
+
 
   // Application Constructor
   initialize: function() {
@@ -127,6 +104,30 @@ var waistline = {
   mode: "development",
   tests:{}, //Object to hold test functions to be run by TinyTest
   strings: {}, //Localization strings
+  standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
+  nutriments: ["calories", "proteins", "carbohydrates","fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium","vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
+  nutrimentUnits: {
+    "calories":"kcal",
+    "cholesterol":"mg",
+    "sodium":"mg",
+    "potassium":"mg",
+    "calcium":"mg",
+    "iron":"mg",
+    "magnesium":"mg",
+    "zinc":"mg",
+    "caffeine":"g",
+    "alcohol":"%",
+    "vitamin-a":"µg",
+    "vitamin-d":"µg",
+    "vitamin-e":"mg",
+    "vitamin-k":"µg",
+    "vitamin-c":"mg",
+    "vitamin-b1":"mg",
+    "vitamin-b2":"mg",
+    "vitamin-b6":"g",
+    "vitamin-b9":"µg",
+    "vitamin-b12":"µg"
+  },
   
 };
 
@@ -147,6 +148,9 @@ var f7 = new Framework7({
     url: 'calendar/',
     dateFormat: 'dd.mm.yyyy',
   },
+  touch: {
+    tapHold: true //enable tap hold events
+  },
   // Add default routes
   routes: [
     {
@@ -157,7 +161,17 @@ var f7 = new Framework7({
     {
       name: "Diary",
       path: "/diary/",
-      url: "/www/src/activities/diary/views/diary.html"
+      url: "/www/src/activities/diary/views/diary.html",
+      routes: [
+      {
+        name: "Item Editor",
+        path: "/edit/",
+        url: "/www/src/activities/diary/views/edit-item.html",
+        options: {
+          transition: "f7-parallax"
+        }
+      }
+      ]
     },
     {
       name: "Foods, Meals, Recipes",
@@ -194,3 +208,6 @@ f7.on("init", function(event){
 
   f7.views.main.router.navigate("/diary/"); 
 });
+
+//Prevent chrome displaying context menu on long click
+window.addEventListener("contextmenu", function(e) { e.preventDefault();})

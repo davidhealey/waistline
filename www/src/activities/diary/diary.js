@@ -136,7 +136,7 @@ var diary = {
 
   render: function() {
     const entries = diary.data.entries; //Diary food entries
-    const nutrition = diary.data.nutrition; //Nutritional nutrition by category
+    const nutrition = diary.data.nutrition; //Nutrition by category
     const totals = diary.data.nutritionTotals; //Nutrition totals
     const lists = [];
 
@@ -192,8 +192,10 @@ var diary = {
 
       //Add food button
       let left = document.createElement("div");
-      left.className = "col-40 add-button";
-      left.innerHTML = "<button class='button button-md add-button'>Add Food</button>";
+      left.className = "col-10 add-button";
+      left.setAttribute("category", i);
+      left.innerHTML = "<button class='button button-md add-button disable-long-tap'><i class='fas fa-plus'></i></button>";
+      left.addEventListener("taphold", function(e) {diary.quickAdd(this.getAttribute("category"));});
       
       row.appendChild(left);
       
@@ -227,11 +229,13 @@ var diary = {
         let entry = entries[category][i];
       
         let li = document.createElement("li");
-        li.id = "entry-" + entry.id;
+        li.id = entry.id;
         if (entry.foodId) li.setAttribute("foodId", entry.foodId);
         if (entry.recipeId) li.setAttribute("recipeId", entry.recipeId);
-        li.className = "item-content entry";
+        li.className = "item-content entry disable-long-tap ripple";
         li.setAttribute("data", JSON.stringify(entry));
+        li.addEventListener("taphold", function(e) {diary.deleteItem(li);});
+        li.addEventListener("click", function(e) {diary.itemEditor(li);});
       
         ul.appendChild(li);
       
@@ -274,7 +278,11 @@ var diary = {
         
         let info = document.createElement("div");
         info.className = "item-cell diary-entry-info";
-        info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
+        
+        if (entry.portion != undefined && entry.portion != "")
+          info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
+        else
+          info.innerText = parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
         
         infoRow.appendChild(info);
         
@@ -308,9 +316,9 @@ var diary = {
     //Render total nutrition / goals
     let count = 0;
     let rows = [];
+    let swiper = f7.swiper.get('#diary-nutrition .swiper-container');
     let swiperWrapper = document.querySelector('#diary-nutrition .swiper-wrapper');
-    console.log(swiperWrapper);
-    swiperWrapper.innerHTML = "";
+    swiperWrapper.innerHTML = "";    
 
     for (let n in goalData) {
 
@@ -322,7 +330,7 @@ var diary = {
           let slide = document.createElement("div");
           slide.className = "swiper-slide";
         
-          swiperWrapper.appendChild(slide);
+          swiper.appendSlide(slide);
         
           rows[0] = document.createElement("div");
           rows[0].className = "row nutrition-total-values";
@@ -373,17 +381,71 @@ var diary = {
     }
   },
 
-  itemEditor: function()
+  itemEditor: function(item)
   {
-    let itemdata = JSON.parse(this.getAttribute("data"));
+    let data = JSON.parse(item.getAttribute("data"));
 
-    nav.pushPage("src/activities/diary/views/edit-item.html", {"data":itemdata})
+    /*nav.pushPage("src/activities/diary/views/edit-item.html", {"data":itemdata})
     .then(function() {
       populateEditor(itemdata);
       document.querySelector('ons-page#diary-edit-item #submit').addEventListener("tap", function(){ processEditor(itemdata);});
       document.querySelector('ons-page#diary-edit-item #quantity').addEventListener("input", function(){ changeServing(itemdata);});
       document.querySelector('ons-page#diary-edit-item #portion').addEventListener("input", function(){ changeServing(itemdata);});
+    });*/
+
+    f7.views.main.router.navigate("/diary/edit/");
+    
+    document.addEventListener("page:init", function(event) {
+      if (event.target.matches(".page[data-name='diary-edit-item']")) {
+        setupEditor(data);
+      };
     });
+    
+    function setupEditor(data)
+    {
+      let name = document.getElementById("item-name");
+      name.innerText = data.name;
+      
+      let brand = document.getElementById("item-brand");
+      brand.innerText = data.brand || "";
+    
+      //Populate category choices
+      let select = document.getElementById("category");
+
+      for (let i = 0; i < diary.mealNames.length; i++) {
+        let option = document.createElement("option");
+        option.value = i;
+        option.text = diary.mealNames[i];
+        if (option.text == "" || option.text == undefined) continue;
+        if (i == data.category) option.setAttribute("selected", "");
+        select.append(option);
+      }
+      
+      //Nutrition
+      let units = waistline.nutrimentUnits;
+      let ul = document.getElementById("diary-edit-form").getElementsByTagName("ul")[0];
+            
+      for (let n in data.nutrition) {
+
+        if (data.nutrition[n] == null) continue;
+
+        let li = document.createElement("li");
+        ul.appendChild(li);
+
+        let center = document.createElement("div");
+        center.className = "center";
+        li.appendChild(center);
+
+        let text = app.strings[n] || n; //Localize
+        center.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ");
+
+        let right = document.createElement("div");
+        right.className = "right";
+        right.id = n;
+        right.innerText = (parseFloat((data.nutrition[n] * data.quantity).toFixed(2)) || 0) + (units[n] || "g");
+        li.appendChild(right);
+      }
+    }
 
     function populateEditor(data) {
 
@@ -399,17 +461,6 @@ var diary = {
         info.appendChild(brand);
       }
 
-      //Category selection menu
-      const select = document.querySelector('ons-page#diary-edit-item #category');
-
-      for (let i = 0; i < diary.mealNames.length; i++) {
-        let option = document.createElement("option");
-        option.value = i;
-        option.text = diary.mealNames[i];
-        if (i == data.category) option.setAttribute("selected", "");
-        select.append(option);
-      }
-
       //Serving
       let unit = data.portion.replace(/[^a-z]/gi, ''); //Exctract unit from portion
       document.querySelector('#diary-edit-item #quantity').value = data.quantity;
@@ -417,7 +468,7 @@ var diary = {
       document.querySelector('#diary-edit-item #unit').innerText = unit;
 
       //Nutrition
-      let units = app.nutrimentUnits;
+      let units = waistline.nutrimentUnits;
       const nutritionList = document.querySelector("ons-page#diary-edit-item #nutrition");
       for (let n in data.nutrition) {
 
@@ -496,31 +547,22 @@ var diary = {
     });
   },
 
-  deleteItem: function() {
+  deleteItem: function(item) {
 
-    let id = this.id;
+    let dialog = f7.dialog.confirm("Are you sure?", "Delete", callbackOk);
 
-    ons.notification.confirm("Delete this item?")
-    .then(function(input) {
-      if (input == 1) {//Delete was confirmed
+    function callbackOk()
+    {    
+      let request = dbHandler.deleteItem(parseInt(item.id), "diary");
 
-        let request = dbHandler.deleteItem(parseInt(id.replace(/[^0-9.]+/g, '')), "diary");
-
-        //If the request was successful remove the list item
-        request.onsuccess = function(e) {
-          let child = document.querySelector('#diary-day #' + id);
-          let parent = child.parentElement;
-          parent.removeChild(child);
-          diary.loadDiary()
-          .then(function() {
-            diary.updateLog();
-          });
-          //If there are no items left in the category then close the expanded list
-          if (parent.children.length == 0)
-            parent.closest(".meal-heading[category]").hideExpansion();
-        };
-      }
-    });
+      //If the request was successful remove the list item
+      request.onsuccess = function(e) {
+        diary.loadDiary()
+        .then(function() {
+          diary.updateLog();            
+        });
+      };
+    }
   },
 
   //Bulk Insert/Update
@@ -532,8 +574,8 @@ var diary = {
         let item = items[i];
 
         item.dateTime = diary.date;
-        item.category = diary.currentCategory;
-        item.category_name = diary.mealNames[diary.currentCategory];
+        item.category = item.category || diary.currentCategory;
+        item.category_name = diary.mealNames[item.category];
         item.quantity = 1;
 
         //If there is no food id set, use the item's ID as the food id
@@ -547,42 +589,44 @@ var diary = {
     });
   },
 
-  quickAdd: function() {
-
-    diary.current_category = this.getAttribute("category");
-
-    ons.createElement('src/activities/diary/views/quick-add.html', { append: true }) //Load dialog from file
-    .then(function(dialog) {
-      dialog.show();
-
-      dialog.querySelector('#cancel').addEventListener("tap", function(){dialog.hide();}); //Cancel button
-      dialog.querySelector('#ok').addEventListener("tap", function() { //Ok button
-        let inputs = dialog.querySelectorAll('input'); //Get input fields
-        let validation = app.validateInputs(inputs); //Validate inputs
-
-        //If inputs are valid
-        if (validation == true) {
-          let data = {"portion":"Quick Add", "nutrition":{}}; //Set up object to insert into diary
-
-          //Calories
-          data.nutrition.calories = Number(dialog.querySelector('#calories').value);
-
-          //Name
-          name = dialog.querySelector('#name').value;
-          data.name = name || "Quick Add Calories";
-
-          //Add to diary
-          diary.pushItemsToDB([data])
-          .then(function() {
-            dialog.hide();
-            diary.loadDiary() //Refresh the display
-            .then(function() {
-              diary.updateLog();
-            });
-          });
+  quickAdd: function(category) {
+       
+    let dialog = f7.dialog.create({
+      title: "Quick Add",
+      text: "Calories",
+      content: '<div id="quick-add" class="dialog-input-field item-input"><div class="item-input-wrap"><input type="number" class="dialog-input"></div></div>',
+      buttons: [
+        {
+          text: "Cancel",
+          keyCodes: [27],
+          close: true
+        },
+        {
+          text: "Ok",
+          bold: true,
+          keyCodes: [13]
         }
-      });
-    });
+      ],
+      onClick(dialog, index) {
+        const inputValue = document.querySelector('#quick-add .dialog-input').value;
+        if (index === 1 && callbackOk) callbackOk("Quick Add", inputValue);
+      },
+      destroyOnClose: true,
+    }).open()
+    
+    function callbackOk(name, value) {
+
+      let data = {"name":name, "category":category, "portion":"", "nutrition":{"calories":parseInt(value)}}; //Set up object to insert into diary
+
+      //Add to diary
+      diary.pushItemsToDB([data])
+      .then (function() {
+        diary.loadDiary() //Refresh display
+        .then (function() {
+          diary.updateLog();
+        });
+      }); 
+    }
   },
 
   updateLog: function() {

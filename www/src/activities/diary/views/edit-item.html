@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -16,7 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ons-page id="diary-edit-item">
+<!--<ons-page id="diary-edit-item">
   <ons-toolbar modifier="material">
     <div class="left"><ons-back-button>Back</ons-back-button></div>
     <div class="center" data-localize="diary.edit-item.title">Edit Entry</div>
@@ -52,4 +52,69 @@
     </ons-card>
     <ons-list id="nutrition" modifier="inset"></ons-list>
   </div>
-</ons-page>
+</ons-page>-->
+
+<div class="page" data-name="diary-edit-item">
+	
+	<div class="navbar">
+		<div class="navbar-bg"></div>
+      	<div class="navbar-inner">
+			<div class="left">
+       			<a class="link back">
+            		<i class="icon fas fa-arrow-left"></i>
+          		</a>
+			</div>
+  			<div class="title" data-localize="diary.title">Edit Item</div>
+			<div class="right">
+				<a href="#" class="link icon-only">
+					<i class="icon fas fa-check"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-content">
+	
+		<div class="card no-shadow no-border">
+			<div class="card-header" id="item-name"></div>
+			<div class="card-content">
+				<p id="item-brand"></p>
+			</div>
+		</div>
+
+      	<form class="list" id="diary-edit-form">
+			<ul>
+           		<li>
+            		<div class="item-content item-input">
+              			<div class="item-inner">
+                			<div class="item-title item-label">Category</div>
+                			<div class="item-input-wrap">
+                  				<select id="category" name="category"></select>
+                			</div>
+              			</div>
+            		</div>
+          		</li>
+          		<li>
+            		<div class="item-content item-input">
+              			<div class="item-inner">
+                			<div class="item-title item-label">Serving Size</div>
+                			<div class="item-input-wrap">
+            					<input type="text" name="portion">
+                			</div>
+              			</div>
+            		</div>
+          		</li>
+          		<li>
+            		<div class="item-content item-input">
+              			<div class="item-inner">
+                			<div class="item-title item-label">Number of servings</div>
+                			<div class="item-input-wrap">
+            					<input type="number" name="quantity">
+                			</div>
+              			</div>
+            		</div>
+          		</li>
+        	</ul>
+      	</form>
+	</div>
+</div>
