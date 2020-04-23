@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -64,25 +64,32 @@
 	</div>
 
 	<div class="page-content">
-		<div id="header">
-    		<div class="row no-gap">
-    			<div class="col-25">
-    				<button class="button change-date">
-    					<i class="icon material-icons">navigate_before</i>
-    				</button>
-    			</div>
-    			<div class="col-50">
-    				<input type="text" placeholder="Select date" readonly="readonly" id="diary-date"/>
-    			</div>
-    			<div class="col-25">
-    				<button class="button change-date">
-    					<i class="icon material-icons">navigate_next</i>
-    				</button>
-    			</div>
+		<div class="card no-border no-shadow" id="header">
+			<div class="card-content">
+	      		<div class="row">
+        			<div class="col-25">
+        				<button class="button change-date">
+        					<i class="icon fas fa-chevron-left"></i>
+        				</button>
+        			</div>
+        			<div class="col-50">
+        				<input type="text" placeholder="Select date" readonly="readonly" id="diary-date"/>
+        			</div>
+        			<div class="col-25">
+        				<button class="button change-date">
+        					<i class="icon fas fa-chevron-right"></i>
+        				</button>
+        			</div>
+        		</div>
+				<div class="row" id="diary-nutrition">
+					<div class="col-100">
+						<div class="swiper-container swiper-init">
+							<div class="swiper-wrapper"></div>
+						</div>
+					</div>
+				</div>
     		</div>
-    		<div class="row" id="diary-nutrition"></div>
 		</div>
-		
 		<div id="diary-day"></div>		
 	</div>
 </div>

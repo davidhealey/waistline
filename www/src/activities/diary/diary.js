@@ -43,7 +43,8 @@ var diary = {
         
           diary.initializeCalendarButtons(c);
         },
-        "dayClick": function(c) {
+        "change": function(c) {
+          diary.loadDiary();
           c.close();
         }
       }
@@ -70,16 +71,13 @@ var diary = {
         calendar.setValue([d]);
       
         //document.querySelector('#diary #log-weight').setAttribute("dateTime", diary.date);
-        diary.loadDiary();
       });
     });
-      
-    
   },
 
   getDate: function() {
 
-    if (diary.calendar.getValue() !== undefined)
+    if (diary.calendar && diary.calendar.getValue() !== undefined)
       return diary.calendar.getValue()[0];
     else {
       let now = new Date();
@@ -149,15 +147,23 @@ var diary = {
     for (let i = 0; i < diary.mealNames.length; i++) {
 
       if (diary.mealNames[i] == "") continue;
-
-      let div = document.createElement("div");
-      div.className = "list";
+           
+      let list = document.createElement("div");
+      list.className = "list card card-outline"; 
       
+      container.appendChild(list);
+           
       let ul = document.createElement("ul")
-      div.appendChild(ul);
       
+      list.appendChild(ul);
+      
+      //Collapsable list item
       let li = document.createElement("li");
       li.className = "accordion-item";
+      
+      //Auto expand list if setting is true
+      if (settings.get("diary", "expand-meals") == true && nutrition[i] != undefined)
+        li.classList.add("accordion-item-opened"); 
       
       ul.appendChild(li);
             
@@ -175,75 +181,32 @@ var diary = {
       li.appendChild(content);      
             
       //List footer
-      /*let ft = document.createElement("li");
+      let ft = document.createElement("li");
       
       ul.appendChild(ft);
+
+      let row = document.createElement("div");
+      row.className = "row item-content";
+      
+      ft.appendChild(row);
 
       //Add food button
       let left = document.createElement("div");
-      left.className = "left add-button";
-      left.innerText = "Add Food";
+      left.className = "col-40 add-button";
+      left.innerHTML = "<button class='button button-md add-button'>Add Food</button>";
       
-      ft.appendChild(left);
+      row.appendChild(left);
       
       //Calorie count
       let right = document.createElement("div");
-      right.className = "right calorie-count";
-      right.innerText = "56 Cal";
+      right.className = "col-25 calorie-count";
+      
+      if (nutrition[i] != undefined)
+        right.innerHTML = parseInt(nutrition[i].calories) + " Cal";
+      else
+        right.innerHTML = "0 Cal";
             
-      ft.appendChild(right);*/
-
-      container.appendChild(div);
-      
-      
-
-      /*//One expandable list per meal
-      let ul = document.createElement("ons-list");
-      ul.setAttribute("modifier", "inset");
-      
-      //Expandable list item
-      let li = document.createElement("ons-list-item");
-      li.setAttribute("expandable", "");
-      li.setAttribute("category", i);
-      li.className = "meal-heading";
-      li.addEventListener("doubletap", this.goToFoodList);
-
-      let span = document.createElement("span"); //Populated by renderNutrition function
-      span.className = "header-text";
-      span.addEventListener("hold", this.quickAdd);
-      li.appendChild(span);
-      
-      //Gesture detector
-      let gd = document.createElement("ons-gesture-detector");
-      gd.appendChild(li);
-
-      //Expandable content holder
-      let content = document.createElement("div");
-      content.className = "expandable-content";
-
-      //The expanded list that will contain diary entries
-      let innerUl = document.createElement("ons-list");
-      content.appendChild(innerUl);
-      lists[i] = innerUl; //Expanded content list
-
-      li.appendChild(content);
-      ul.appendChild(li);
-
-      //List footer
-      let ft = document.createElement("ons-list-item");
-      let left = document.createElement("div");
-      left.className = "left add-button";
-      left.innerText = "Add Food";
-      
-      let right = document.createElement("div");
-      right.className = "right calorie-count";
-      right.innerText = "56 Cal";
-      
-      ft.appendChild(left);
-      ft.appendChild(right);
-      ul.appendChild(ft);
-      
-      container.appendChild(ul);*/
+      row.appendChild(right);      
     }
 
     //Render entries
@@ -258,8 +221,9 @@ var diary = {
       let ul = document.createElement("ul");
       
       div.appendChild(ul);
-      
+
       for (let i = 0; i < entries[category].length; i++) {
+
         let entry = entries[category][i];
       
         let li = document.createElement("li");
@@ -312,60 +276,23 @@ var diary = {
         info.className = "item-cell diary-entry-info";
         info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
         
-        infoRow.appendChild(info);        
+        infoRow.appendChild(info);
+        
+        //Timestamp
+        if (settings.get("diary", "show-timestamps") == true) {
+          let timestampRow = document.createElement("div");
+          timestampRow.className = "item-row";
+          
+          content.appendChild(timestampRow);
+          
+          let timestamp = document.createElement("div");
+          timestamp.className = "item-cell diary-entry-info";       
+          timestamp.innerHTML = entry.dateTime.toLocaleString();
+          timestampRow.appendChild(timestamp);
+        }        
       
         lists[category].appendChild(div);
       }
-      
-      
-      /*let ul = document.createElement("ons-list");
-      ul.id = diary.mealNames[category] + "-list";
-
-      //Render entries
-      for (let i = 0; i < entries[category].length; i++) {
-        let entry = entries[category][i];
-
-        let li = document.createElement("ons-list-item");
-        li.id = "entry-" + entry.id;
-        if (entry.foodId) li.setAttribute("foodId", entry.foodId);
-        if (entry.recipeId) li.setAttribute("recipeId", entry.recipeId);
-        li.className = "entry";
-        li.setAttribute("data", JSON.stringify(entry));
-
-        //Gesture detector
-        let gd = document.createElement("ons-gesture-detector");
-        gd.appendChild(li);
-
-        let name = document.createElement("ons-row");
-        name.className = "diary-entry-name";
-        name.innerText = foodsMealsRecipes.formatItemText(entry.name, 30);
-        li.appendChild(name);
-        li.addEventListener("hold", this.deleteItem);
-        li.addEventListener("tap", this.itemEditor);
-
-        if (entry.brand && entry.brand != "") {
-          let brand = document.createElement("ons-row");
-          brand.className = "diary-entry-brand";
-          brand.innerHTML = foodsMealsRecipes.formatItemText(entry.brand, 20).italics();
-          li.appendChild(brand);
-        }
-
-        //Entry info
-        let info = document.createElement("ons-row");
-        info.className = "diary-entry-info";
-        info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
-        li.appendChild(info);
-
-        //Timestamp
-        if (settings.get("diary", "show-timestamps") == true) {
-          let timestamp = document.createElement("ons-row");
-          timestamp.className = "diary-entry-info";
-          timestamp.innerHTML = entry.dateTime.toLocaleString();
-          li.appendChild(timestamp);
-        }
-
-        lists[category].appendChild(li);
-      }*/
     }
   },
 
@@ -378,78 +305,68 @@ var diary = {
     let goalData = goals.getGoalsByDate(diary.date);
     delete goalData.weight; //Not needed here
 
-    //Render category name and calorie count
-    const headings = document.querySelectorAll('.meal-heading[category]'); //Category heading list items
-    const calorieCount = document.querySelectorAll("#diary-day .calorie-count"); //Calorie count div
-
-    for (let i = 0; i < headings.length; i++) {
-      let category = headings[i].getAttribute("category");
-      let calories = 0; //Per category calorie count
-      if (nutrition[category]) calories = nutrition[category].calories;
-
-      //Set category heading text
-      let headingText = headings[i].getElementsByClassName("header-text")[0];
-      headingText.innerText = diary.mealNames[category];
-      
-      //Set calorie count text
-      calorieCount[i].innerText = parseInt(calories) + " Cal";
-
-      if (settings.get("diary", "expand-meals") == true && calories > 0)
-       headings[i].showExpansion(); //Expand lists that have entires
-    }
-
     //Render total nutrition / goals
     let count = 0;
-    let carouselItem;
     let rows = [];
-    let carousel = document.createElement("ons-carousel");
-    carousel.id = "nutrition-carousel";
-    carousel.setAttribute("swipeable", "");
-    carousel.setAttribute("auto-scroll", "");
-
-    let nutritionContainer = document.getElementById("diary-nutrition");
-    nutritionContainer.firstChild.remove();
-    nutritionContainer.appendChild(carousel);
+    let swiperWrapper = document.querySelector('#diary-nutrition .swiper-wrapper');
+    console.log(swiperWrapper);
+    swiperWrapper.innerHTML = "";
 
     for (let n in goalData) {
 
       if (goals.shouldShowInDiary(n) == true) {
+    
+        //Show 3 nutrition stats at a time
         if (count % 3 == 0) {
-          carouselItem = document.createElement("ons-carousel-item");
-          rows[0] = document.createElement("ons-row");
-          rows[0].className = "nutrition-total-values";
-          rows[1] = document.createElement("ons-row");
-          rows[1].className = "nutrition-total-title";
-          carouselItem.appendChild(rows[0]);
-          carouselItem.appendChild(rows[1]);
-          carousel.appendChild(carouselItem);
+        
+          let slide = document.createElement("div");
+          slide.className = "swiper-slide";
+        
+          swiperWrapper.appendChild(slide);
+        
+          rows[0] = document.createElement("div");
+          rows[0].className = "row nutrition-total-values";
+        
+          slide.appendChild(rows[0]);
+        
+          rows[1] = document.createElement("div");
+          rows[1].className = "row nutrition-total-title";
+        
+          slide.appendChild(rows[1]);
         }
-
+      
         let goal = goalData[n];
-        if (goals.isGoalWeekly(n) == true) {
+      
+        if (goals.isGoalWeekly(n))
           goal = goals.getWeeklyGoal(n) / 7;
-        }
-
-        let col = document.createElement("ons-col");
-        col.id = n + "-value";
-
+        
+        let values = document.createElement("div")
+        values.className = "col";
+        values.id = n + "-value"; 
+            
         //Value/goals text
         let t = document.createTextNode("");
-        if (totals[n] != undefined)
-          t.nodeValue = parseFloat(totals[n].toFixed(2)) + "/" + parseFloat(goal.toFixed(2));
+      
+        if (totals[n] != undefined) {
+          if (n != "calories")
+            t.nodeValue = parseFloat(totals[n].toFixed(2)) + "/" + parseFloat(goal.toFixed(2));
+          else
+            t.nodeValue = parseInt(totals[n]) + "/" + parseInt(goal);
+        }
         else
           t.nodeValue = "0/" + parseFloat(goal.toFixed(2));
-
-        col.appendChild(t);
-        rows[0].appendChild(col);
-
+        
+        values.appendChild(t);
+        rows[0].appendChild(values);
+      
         //Title
-        col = document.createElement("ons-col");
-        col.id = n + "-title";
-        let text = app.strings[n] || n; //Localize
+        let title = document.createElement("div");
+        title.className = "col"
+        title.id = n + "-title";
+        let text = waistline.strings[n] || n; //Localize
         let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-        col.appendChild(tnode);
-        rows[1].appendChild(col);
+        title.appendChild(tnode);
+        rows[1].appendChild(title);
 
         count++;
       }
@@ -570,10 +487,10 @@ var diary = {
   loadDiary: function() {
     return new Promise(function(resolve, reject) {
       diary.getEntriesFromDB(diary.getDate())
-      .then(function(data){
+      .then(function(data) {
         diary.data = data;
         diary.render();
-        //diary.renderNutrition();
+        diary.renderNutrition();
         resolve();
       });
     });
