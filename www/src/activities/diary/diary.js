@@ -385,14 +385,6 @@ var diary = {
   {
     let data = JSON.parse(item.getAttribute("data"));
 
-    /*nav.pushPage("src/activities/diary/views/edit-item.html", {"data":itemdata})
-    .then(function() {
-      populateEditor(itemdata);
-      document.querySelector('ons-page#diary-edit-item #submit').addEventListener("tap", function(){ processEditor(itemdata);});
-      document.querySelector('ons-page#diary-edit-item #quantity').addEventListener("input", function(){ changeServing(itemdata);});
-      document.querySelector('ons-page#diary-edit-item #portion').addEventListener("input", function(){ changeServing(itemdata);});
-    });*/
-
     f7.views.main.router.navigate("/diary/edit/");
     
     document.addEventListener("page:init", function(event) {
@@ -403,13 +395,18 @@ var diary = {
     
     function setupEditor(data)
     {
+      //Name
       let name = document.getElementById("item-name");
-      name.innerText = data.name;
+      name.innerHTML = "<h3>" + foodsMealsRecipes.formatItemText(data.name, 30) + "</h3>";
       
+      //Brand
       let brand = document.getElementById("item-brand");
-      brand.innerText = data.brand || "";
+      brand.innerHTML = "";
+      
+      if (data.brand && data.brand != "") 
+        brand.innerHTML = "<h4>" + foodsMealsRecipes.formatItemText(data.brand, 20).italics() + "</h4>";
     
-      //Populate category choices
+      //Category
       let select = document.getElementById("category");
 
       for (let i = 0; i < diary.mealNames.length; i++) {
@@ -421,74 +418,47 @@ var diary = {
         select.append(option);
       }
       
+      //Serving
+      let unit = data.portion.replace(/[^a-z]/gi, ''); //Extract unit from portion
+      document.querySelector('#diary-edit-form #quantity').value = data.quantity;
+      
+      let portion = document.querySelector('#diary-edit-form #portion');
+
+      if (typeof data.portion == "number")
+        portion.value = parseFloat(data.portion);
+      else
+      {
+        portion.setAttribute("placeholder", "N/A");
+        portion.disabled = true;
+      }      
+      
+      //document.querySelector('#diary-edit-form #unit').innerText = unit;
+      
       //Nutrition
       let units = waistline.nutrimentUnits;
       let ul = document.getElementById("diary-edit-form").getElementsByTagName("ul")[0];
-            
+      let thead = document.getElementById("table-headings");
+      let tbody = document.getElementById("table-data");
+      thead.innerHTML = "";
+      tbody.innerHTML = "";
+
       for (let n in data.nutrition) {
 
         if (data.nutrition[n] == null) continue;
 
-        let li = document.createElement("li");
-        ul.appendChild(li);
+        let th = document.createElement("th");
+        th.className = "numeric-cell";
+        
+        let text = waistline.strings[n] || n; //Localize
+        th.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " (" + (units[n] || "g") + ")";
 
-        let center = document.createElement("div");
-        center.className = "center";
-        li.appendChild(center);
+        thead.appendChild(th);
+        
+        let td = document.createElement("td");
+        td.className = "numeric-cell";;
+        td.innerText = (parseFloat((data.nutrition[n] * data.quantity).toFixed(2)) || 0);        
 
-        let text = app.strings[n] || n; //Localize
-        center.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ");
-
-        let right = document.createElement("div");
-        right.className = "right";
-        right.id = n;
-        right.innerText = (parseFloat((data.nutrition[n] * data.quantity).toFixed(2)) || 0) + (units[n] || "g");
-        li.appendChild(right);
-      }
-    }
-
-    function populateEditor(data) {
-
-      //Item info
-      const info = document.querySelector("ons-page#diary-edit-item #info");
-      let name = document.createElement("h3");
-      name.innerText = foodsMealsRecipes.formatItemText(data.name, 30);
-      info.appendChild(name);
-
-      if (data.brand && data.brand != "") {
-        let brand = document.createElement("h4");
-        brand.innerHTML = foodsMealsRecipes.formatItemText(data.brand, 20).italics();
-        info.appendChild(brand);
-      }
-
-      //Serving
-      let unit = data.portion.replace(/[^a-z]/gi, ''); //Exctract unit from portion
-      document.querySelector('#diary-edit-item #quantity').value = data.quantity;
-      document.querySelector('#diary-edit-item #portion').value = parseFloat(data.portion);
-      document.querySelector('#diary-edit-item #unit').innerText = unit;
-
-      //Nutrition
-      let units = waistline.nutrimentUnits;
-      const nutritionList = document.querySelector("ons-page#diary-edit-item #nutrition");
-      for (let n in data.nutrition) {
-
-        if (data.nutrition[n] == null) continue;
-
-        let li = document.createElement("ons-list-item");
-        nutritionList.appendChild(li);
-
-        let center = document.createElement("div");
-        center.className = "center";
-        li.appendChild(center);
-
-        let text = app.strings[n] || n; //Localize
-        center.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ");
-
-        let right = document.createElement("div");
-        right.className = "right";
-        right.id = n;
-        right.innerText = (parseFloat((data.nutrition[n] * data.quantity).toFixed(2)) || 0) + (units[n] || "g");
-        li.appendChild(right);
+        tbody.appendChild(td);
       }
     }
 

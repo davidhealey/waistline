@@ -16,43 +16,6 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!--<ons-page id="diary-edit-item">
-  <ons-toolbar modifier="material">
-    <div class="left"><ons-back-button>Back</ons-back-button></div>
-    <div class="center" data-localize="diary.edit-item.title">Edit Entry</div>
-    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
-  </ons-toolbar>
-
-  <div id="item-data">
-    <ons-card>
-      <div id="info"></div>
-
-      <ons-row>
-        <ons-col vertical-align="center" width="50%">Meal</ons-col>
-        <ons-col class="align-right">
-          <ons-select select-id="category" name="category" data-native-menu="false"></ons-select>
-        </ons-col>
-      </ons-row>
-
-      <ons-row>
-        <ons-col width="75%" data-localize="diary.edit-item.num-servings">Number of Servings</ons-col>
-        <ons-col class="align-right">
-          <ons-input id="quantity" name="quantity" type="number" min="1" inputmode="decimal" step="any"></ons-input>
-        </ons-col>
-      </ons-row>
-
-      <ons-row>
-        <ons-col width="75%" data-localize="diary.edit-item.portion-size">Portion Size</ons-col>
-        <ons-col class="align-right">
-          <ons-input id="portion" name="portion" type="number" min="1" inputmode="decimal" step="any" float></ons-input>
-        </ons-col>
-        <ons-col id="unit"></ons-col>
-      </ons-row>
-
-    </ons-card>
-    <ons-list id="nutrition" modifier="inset"></ons-list>
-  </div>
-</ons-page>-->
 
 <div class="page" data-name="diary-edit-item">
 	
@@ -97,24 +60,41 @@
           		<li>
             		<div class="item-content item-input">
               			<div class="item-inner">
-                			<div class="item-title item-label">Serving Size</div>
+                			<div class="item-title item-label">Number of servings</div>
                 			<div class="item-input-wrap">
-            					<input type="text" name="portion">
+            					<input type="number" id="quantity" name="quantity">
                 			</div>
               			</div>
             		</div>
           		</li>
-          		<li>
+        		<li>
             		<div class="item-content item-input">
               			<div class="item-inner">
-                			<div class="item-title item-label">Number of servings</div>
+                			<div class="item-title item-label">Serving Size</div>
                 			<div class="item-input-wrap">
-            					<input type="number" name="quantity">
+            					<input type="text" id="portion" name="portion">
                 			</div>
               			</div>
             		</div>
           		</li>
         	</ul>
       	</form>
+        <div class="card data-table data-table-collapsible data-table-init no-border no-shadow">
+          <div class="card-header">
+            <div class="data-table-title">Nutrition</div>
+          </div>
+          <div class="card-content">
+            <table>
+              <thead>
+                <tr id="table-headings">
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="table-data">
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 	</div>
 </div>
