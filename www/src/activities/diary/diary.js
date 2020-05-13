@@ -115,14 +115,14 @@ var diary = {
           //Nutrition
           data.nutrition[item.category] = data.nutrition[item.category] || {}; //Nutrition per category
 
-          for (let nutriment in item.nutrition) {
+          for (let n in item.nutrition) {
 
-            data.nutrition[item.category][nutriment] = data.nutrition[item.category][nutriment] || 0;
-            data.nutrition[item.category][nutriment] += item.nutrition[nutriment];
+            data.nutrition[item.category][n] = data.nutrition[item.category][n] || 0;
+            data.nutrition[item.category][n] += item.nutrition[n] * item.quantity;
 
             //Nutrition totals
-            data.nutritionTotals[nutriment] = data.nutritionTotals[nutriment] || 0;
-            data.nutritionTotals[nutriment] += Number(item.nutrition[nutriment]);
+            data.nutritionTotals[n] = data.nutritionTotals[n] || 0;
+            data.nutritionTotals[n] += Number(item.nutrition[n]);
           }
 
           cursor.continue();
@@ -235,7 +235,7 @@ var diary = {
         li.className = "item-content entry disable-long-tap ripple";
         li.setAttribute("data", JSON.stringify(entry));
         li.addEventListener("taphold", function(e) {diary.deleteItem(li);});
-        li.addEventListener("click", function(e) {diary.itemEditor(li);});
+        li.addEventListener("click", function(e) {diary.gotoItemEditor(li);});
       
         ul.appendChild(li);
       
@@ -278,8 +278,8 @@ var diary = {
         
         let info = document.createElement("div");
         info.className = "item-cell diary-entry-info";
-        
-        if (entry.portion != undefined && entry.portion != "")
+
+        if (entry.portion != undefined && entry.portion != "" && entry.portion.indexOf("NaN") == -1)
           info.innerText = entry.portion + ", " + parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
         else
           info.innerText = parseInt(entry.nutrition.calories * entry.quantity) + " Calories";
@@ -381,123 +381,19 @@ var diary = {
     }
   },
 
-  itemEditor: function(item)
-  {
+  gotoItemEditor: function(item) {
+
     let data = JSON.parse(item.getAttribute("data"));
 
     f7.views.main.router.navigate("/diary/edit/");
     
     document.addEventListener("page:init", function(event) {
       if (event.target.matches(".page[data-name='diary-edit-item']")) {
-        setupEditor(data);
+        diary.editItem.init(data);
       };
     });
-    
-    function setupEditor(data)
-    {
-      //Name
-      let name = document.getElementById("item-name");
-      name.innerHTML = "<h3>" + foodsMealsRecipes.formatItemText(data.name, 30) + "</h3>";
-      
-      //Brand
-      let brand = document.getElementById("item-brand");
-      brand.innerHTML = "";
-      
-      if (data.brand && data.brand != "") 
-        brand.innerHTML = "<h4>" + foodsMealsRecipes.formatItemText(data.brand, 20).italics() + "</h4>";
-    
-      //Category
-      let select = document.getElementById("category");
-
-      for (let i = 0; i < diary.mealNames.length; i++) {
-        let option = document.createElement("option");
-        option.value = i;
-        option.text = diary.mealNames[i];
-        if (option.text == "" || option.text == undefined) continue;
-        if (i == data.category) option.setAttribute("selected", "");
-        select.append(option);
-      }
-      
-      //Serving
-      let unit = data.portion.replace(/[^a-z]/gi, ''); //Extract unit from portion
-      document.querySelector('#diary-edit-form #quantity').value = data.quantity;
-      
-      let portion = document.querySelector('#diary-edit-form #portion');
-
-      if (typeof data.portion == "number")
-        portion.value = parseFloat(data.portion);
-      else
-      {
-        portion.setAttribute("placeholder", "N/A");
-        portion.disabled = true;
-      }      
-      
-      //document.querySelector('#diary-edit-form #unit').innerText = unit;
-      
-      //Nutrition
-      let units = waistline.nutrimentUnits;
-      let ul = document.getElementById("diary-edit-form").getElementsByTagName("ul")[0];
-      let thead = document.getElementById("table-headings");
-      let tbody = document.getElementById("table-data");
-      thead.innerHTML = "";
-      tbody.innerHTML = "";
-
-      for (let n in data.nutrition) {
-
-        if (data.nutrition[n] == null) continue;
-
-        let th = document.createElement("th");
-        th.className = "numeric-cell";
-        
-        let text = waistline.strings[n] || n; //Localize
-        th.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " (" + (units[n] || "g") + ")";
-
-        thead.appendChild(th);
-        
-        let td = document.createElement("td");
-        td.className = "numeric-cell";;
-        td.innerText = (parseFloat((data.nutrition[n] * data.quantity).toFixed(2)) || 0);        
-
-        tbody.appendChild(td);
-      }
-    }
-
-    function processEditor(data) {
-      //Get values from form and push to DB
-      let unit = document.getElementById('unit').innerText;
-      data.category = parseInt(document.getElementById('category').value);
-      data.category_name = diary.mealNames[data.category];
-      data.quantity = parseFloat(document.getElementById('quantity').value);
-      data.portion = document.getElementById('portion').value + unit;
-      data.dateTime = new Date(data.dateTime); //dateTime must be a Date object
-
-      for (let nutriment in data.nutrition) {
-        if (data.nutrition[nutriment] == null) continue; //Skip empty values - sanity test
-        let t = document.querySelector("#diary-edit-item #"+nutriment);
-        data.nutrition[nutriment] = parseFloat(t.innerText / data.quantity);
-      }
-
-      //Update the DB and return to diary
-      dbHandler.put(data, "diary").onsuccess = function() {
-        nav.resetToPage('src/activities/diary/views/diary.html');
-      };
-    }
-
-    function changeServing(data) {
-
-      let oldP = parseFloat(data.portion); //Get original portion
-      let newP = document.querySelector('#diary-edit-item #portion').value; //New portion
-      let newQ = document.querySelector('#diary-edit-item #quantity').value; //New quantity
-
-      if (oldP > 0 && newP > 0) {
-        for (let nutriment in data.nutrition) {
-          let v = (data.nutrition[nutriment] / oldP) * newP;
-          let t = document.querySelector("#diary-edit-item #"+nutriment);
-          t.innerText = parseFloat((v*newQ).toFixed(2));
-        }
-      }
-    }
   },
+  
 
   goToFoodList: function() {
     diary.currentCategory = this.getAttribute("category");
@@ -622,13 +518,14 @@ var diary = {
   },
 };
 
+
+
 //Page initialization
 document.addEventListener("page:init", function(event){
   if (event.target.matches(".page[data-name='diary']")) {
 
     //Call constructor
     diary.initialize();
-
     diary.loadDiary();
 
 

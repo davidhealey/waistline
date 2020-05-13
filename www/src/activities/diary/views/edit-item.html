@@ -17,7 +17,7 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<div class="page" data-name="diary-edit-item">
+<div class="page" data-name="diary-edit-item" id="diary-edit-item">
 	
 	<div class="navbar">
 		<div class="navbar-bg"></div>
@@ -29,7 +29,7 @@
 			</div>
   			<div class="title" data-localize="diary.title">Edit Item</div>
 			<div class="right">
-				<a href="#" class="link icon-only">
+				<a id="submit" href="#" class="link icon-only">
 					<i class="icon fas fa-check"></i>
 				</a>
 			</div>
@@ -62,7 +62,7 @@
               			<div class="item-inner">
                 			<div class="item-title item-label">Number of servings</div>
                 			<div class="item-input-wrap">
-            					<input type="number" id="quantity" name="quantity">
+            					<input type="number" min="0" id="quantity" name="quantity">
                 			</div>
               			</div>
             		</div>
@@ -72,29 +72,20 @@
               			<div class="item-inner">
                 			<div class="item-title item-label">Serving Size</div>
                 			<div class="item-input-wrap">
-            					<input type="text" id="portion" name="portion">
+            					<input type="text" min="0" id="portion" name="portion">
                 			</div>
               			</div>
             		</div>
           		</li>
         	</ul>
+            <div class="card data-table data-table-collapsible data-table-init no-border no-shadow">
+              <div class="card-header">
+                <div class="data-table-title">Nutrition</div>
+              </div>
+              <div class="card-content list inline-labels">
+              	<ul id="nutrition"></ul>
+              </div>
+            </div>
       	</form>
-        <div class="card data-table data-table-collapsible data-table-init no-border no-shadow">
-          <div class="card-header">
-            <div class="data-table-title">Nutrition</div>
-          </div>
-          <div class="card-content">
-            <table>
-              <thead>
-                <tr id="table-headings">
-                </tr>
-              </thead>
-              <tbody>
-                <tr id="table-data">
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
 	</div>
 </div>
