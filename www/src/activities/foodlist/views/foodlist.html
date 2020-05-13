@@ -16,10 +16,10 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ons-page id="foodlist">
+<!--<ons-page id="foodlist">
 
   <link rel="stylesheet" href="src/activities/foodlist/views/foodlist.css">
-
+ 
   <ons-toolbar>
     <div class="left">
       <ons-toolbar-button id="menu-button" tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button>
@@ -40,7 +40,7 @@
     <ons-progress-circular indeterminate></ons-progress-circular>
   </div>
 
-  <div id=list-container">
+  <div id="list-container">
     <ons-list>
       <ons-lazy-repeat id="food-list">
       </ons-lazy-repeat>
@@ -53,4 +53,42 @@
     </ons-icon>
   </ons-fab>
 
-</ons-page>
+</ons-page>-->
+
+<div class="page" data-name="foodlist" id="foodlist">
+	<div class="navbar">
+	  <div class="navbar-bg"></div>
+	  <div class="navbar-inner">
+		  <div class="left">
+			  <a href="#" class="link icon-only panel-toggle" data-panel=".panel-left">
+				  <i class="icon fas fa-bars"></i>
+			  </a>
+		  </div>
+		  <div class="title" data-localize="foodlist.title">Foods</div>
+		  <div class="right">
+			  <a href="#" class="link icon-only"><i class="icon fas fa-barcode"></i></a>
+		  </div>
+	  </div>
+	</div>
+	
+	<div class="page-content infinite-scroll-content">
+	
+	  <!-- static seachbar -->
+	  <div class="searchbar-backdrop"></div>
+	  <form class="searchbar">
+        <div class="searchbar-inner">
+          <div class="searchbar-input-wrap">
+            <input type="search" placeholder="Search">
+            <i class="searchbar-icon"></i>
+            <span class="input-clear-button"></span>
+          </div>
+          <span class="searchbar-disable-button">Cancel</span>
+        </div>
+	  </form>
+
+      <div class="list" id="list-container">
+        <ul>
+        </ul>
+      </div>
+      <div class="preloader infinite-scroll-preloader"></div>
+</div>

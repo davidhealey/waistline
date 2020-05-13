@@ -163,20 +163,47 @@ var f7 = new Framework7({
       path: "/diary/",
       url: "/www/src/activities/diary/views/diary.html",
       routes: [
-      {
-        name: "Item Editor",
-        path: "/edit/",
-        url: "/www/src/activities/diary/views/edit-item.html",
-        options: {
-          transition: "f7-parallax"
+        {
+          name: "Item Editor",
+          path: "/edit/",
+          url: "/www/src/activities/diary/views/edit-item.html",
+          options: {
+            transition: "f7-parallax"
+          }
         }
-      }
       ]
     },
     {
       name: "Foods, Meals, Recipes",
       path: "/foods-meals-recipes/",
-      url: "/www/src/activities/foods-meals-recipes/views/foods-meals-recipes.html"
+      url: "/www/src/activities/foods-meals-recipes/views/foods-meals-recipes.html",
+      tabs: [
+        {
+          path: '/',
+          id: 'tab-1',
+          url: '/www/src/activities/foodlist/views/foodlist.html'
+        },
+        {
+          path: '/tab-2/',
+          id: 'tab-2',
+          url: '/www/src/activities/recipes/views/recipes.html'
+        },
+        {
+          path: '/tab-3/',
+          id: 'tab-3',
+          url: '/www/src/activities/meals/views/meals.html'
+        }
+      ],
+    },
+    {
+      name: "Recipes",
+      path: "/recipes/",
+      url: "/www/src/activities/recipes/views/recipes.html"
+    },
+    {
+      name: "Meals",
+      path: "/meals/",
+      url: "/www/src/activities/meals/views/meals.html"
     },
     {
       name: "Goals",
@@ -206,7 +233,7 @@ f7.on("init", function(event){
   //Database setup
   dbHandler.initializeDb();
 
-  f7.views.main.router.navigate("/diary/"); 
+  f7.views.main.router.navigate("/foods-meals-recipes/"); 
 });
 
 //Prevent chrome displaying context menu on long click

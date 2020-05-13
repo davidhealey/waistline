@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -16,21 +16,20 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ons-page id="food-meals-recipes">
 
-  <ons-tabbar swipeable id="food-meals-recipes-tabbar">
-    <ons-tab active
-      label="Foods"
-      page="src/activities/foodlist/views/foodlist.html">
-    </ons-tab>
-    <ons-tab
-      label="Meals"
-      page="src/activities/meals/views/meals.html">
-    </ons-tab>
-    <ons-tab
-      label="Recipes"
-      page="src/activities/recipes/views/recipes.html">
-    </ons-tab>
-  </ons-tabbar>
-
-</ons-page>
+<div class="page" data-name="foods-meals-recipes">
+  <div class="toolbar tabbar toolbar-bottom">
+    <div class="toolbar-inner">
+      <a href="./" class="tab-link" data-route-tab-id="tab-1">Foods</a>
+      <a href="tab-2/" class="tab-link" data-route-tab-id="tab-2">Recipes</a>
+      <a href="tab-3/" class="tab-link" data-route-tab-id="tab-3">Meals</a>
+    </div>
+  </div>
+  <div class="tabs-animated-wrap">
+    <div class="tabs tabs-routable">
+      <div class="tab page-content" id="tab-1"></div>
+      <div class="tab page-content" id="tab-2"></div>
+      <div class="tab page-content" id="tab-3"></div>
+    </div>
+  </div>
+</div>

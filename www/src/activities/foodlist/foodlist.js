@@ -568,11 +568,14 @@ var foodlist = {
 };
 
 //Page initialization
-document.addEventListener("init", function(event){
-  if (event.target.matches('ons-page#foodlist')) {
+document.addEventListener("page:init", function(event){
+  if (event.target.matches(".page[data-name='foodlist']")) {
+
+    foodlist.initialize();
+
 
     //Call constructor
-    foodlist.initialize()
+    /*foodlist.initialize()
     .then(foodlist.populate);
 
     //Search/filter form
@@ -625,5 +628,5 @@ document.addEventListener("init", function(event){
       foodsMealsRecipes.sortingOptions("foodlist")
       .then(foodlist.sortList());
     });
- }
+ }*/
 });
