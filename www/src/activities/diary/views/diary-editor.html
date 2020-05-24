@@ -29,7 +29,7 @@
 			</div>
 			<div class="title" data-localize="diary.title">Edit Item</div>
 			<div class="right">
-				<a href="#" id="submit" onclick="diary.editor.update();" class="link icon-only">
+				<a href="#" id="submit" class="link icon-only">
 					<i class="icon fas fa-check"></i>
 				</a>
 			</div>
@@ -73,7 +73,7 @@
 								<div class="item-inner">
 									<div class="item-title item-label">Serving Size</div>
 									<div class="item-input-wrap">
-										<input type="number" min="0" id="portion" name="portion" required validate>
+										<input type="number" min="0.1" step="0.01" id="portion" name="portion" required validate>
 									</div>
 								</div>
 							</div>
@@ -94,7 +94,7 @@
 					<div class="item-inner">
 						<div class="item-title item-label">Number of servings</div>
 						<div class="item-input-wrap">
-							<input type="number" id="quantity" name="quantity" required validate>
+							<input type="number" min="0.5" step="0.01" id="quantity" name="quantity" required validate>
 						</div>
 					</div>
 				</li>

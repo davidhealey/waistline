@@ -9,6 +9,11 @@ diary.editor = {
 
     //Populate the editor
     this.populateEditor(item);
+
+    //Add event handler to submit button
+    document.querySelector('#diary-editor #submit').addEventListener("click", function() {
+      diary.editor.update(item);
+    });
   },
 
   populateEditor: function(item) {
@@ -36,7 +41,9 @@ diary.editor = {
     //Number of servings
     let quantity = document.querySelector('#diary-edit-form #quantity');
     quantity.value = item.quantity;
-    quantity.addEventListener("change", function() {diary.editor.changeServing(item, "quantity", this.value);});
+    quantity.addEventListener("change", function() {
+      diary.editor.changeServing(item, "quantity", this.value);
+    });
 
     //Serving size
     //Unit
@@ -44,7 +51,9 @@ diary.editor = {
 
     //Portion
     let portion = document.querySelector('#diary-editor #portion');
-    portion.addEventListener("change", function() {diary.editor.changeServing(item, "portion", this.value);});
+    portion.addEventListener("change", function() {
+      diary.editor.changeServing(item, "portion", this.value);
+    });
 
     if (item.portion != undefined)
       portion.value = parseFloat(item.portion);
@@ -65,7 +74,7 @@ diary.editor = {
 
         n = inputs[i].id;
 
-        inputs[i].value = item.nutrition[n];
+        inputs[i].value = Math.round(item.nutrition[n] * quantity.value * 100) / 100;
       }
     }
 
@@ -105,34 +114,54 @@ diary.editor = {
       let input = document.createElement("input");
       input.id = n;
       input.type = "number";
+      input.step="0.01";
       input.min = "0";
       input.name = n;
-      input.addEventListener("change", function() {diary.editor.changeServing(item, n, this.value);});
+      input.addEventListener("change", function() {
+        diary.editor.changeServing(item, n, this.value);
+      });
 
       inputWrapper.appendChild(input);
     }
   },
 
-  update: function() {
+  update: function(item) {
 
-    let inputs = document.querySelectorAll('#foodlist-editor input');
-    let unit = document.querySelector('#foodlist-editor #unit').value;
+    let data = item;
+    let inputs = document.querySelectorAll('#diary-editor input');
+    let unit = document.querySelector('#diary-editor #unit').value;
 
     //Get values from form and push to DB
-  /*  let unit = "g"; // document.getElementById('unit').innerText;
-    data.category = parseInt(document.getElementById("category").value);
-    data.category_name = mealNames[data.category];
-    data.quantity = parseFloat(document.getElementById("quantity").value);
+    const nutriments = waistline.nutriments;
+    const mealNames = settings.get("diary", "meal-names");
 
-    if (data.portion != undefined && data.portion.indexOf("NaN") == -1)
-      data.portion = document.getElementById("portion").value + unit;
+    if (f7.input.validateInputs("#diary-edit-form") == true) {
 
-    data.dateTime = new Date(data.dateTime); //dateTime must be a Date object
+      //Category
+      data.category = parseInt(document.getElementById("category").value);
+      data.category_name = mealNames[data.category];
 
-    //Update the DB and return to diary
-    dbHandler.put(data, "diary").onsuccess = function() {
-      f7.views.main.router.navigate("/diary/");
-    };*/
+      //Quantity
+      let quantity = parseInt(document.getElementById("quantity").value);
+
+      for (let i = 0; i < inputs.length; i++) {
+        let input = inputs[i];
+        let name = input.getAttribute("name");
+        let value = input.value;
+
+        if (nutriments.indexOf(name) != -1) //Nutriments
+          data.nutrition[name] = parseFloat(value) / quantity;
+        else {
+          if (name == "unit") continue;
+          if (name == "portion" && value != "NaN") value = value + unit;
+          data[name] = value;
+        }
+      }
+      //Update the DB and return to diary
+      dbHandler.put(data, "diary").onsuccess = function() {
+        f7.views.main.router.navigate("/diary/");
+      };
+    }
   },
 
   changeServing: function(item, field, newValue) {
@@ -152,11 +181,9 @@ diary.editor = {
       let multiplier = 1;
       if (field == "quantity") {
         multiplier = quantity * (portion / parseInt(item.portion));
-      }
-      else if (field == "portion") {
+      } else if (field == "portion") {
         multiplier = quantity * (newValue / oldValue);
-      }
-      else {
+      } else {
         multiplier = newValue / oldValue;
         pInput.value = Math.round(parseFloat(item.portion) * multiplier * 100) / 100;
       }
