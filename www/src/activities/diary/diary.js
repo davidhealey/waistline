@@ -248,7 +248,7 @@ var diary = {
         li.className = "item-content entry disable-long-tap ripple";
         li.setAttribute("data", JSON.stringify(entry));
         li.addEventListener("taphold", function(e) {diary.deleteItem(li);});
-        li.addEventListener("click", function(e) {diary.gotoItemEditor(li);});
+        li.addEventListener("click", function(e) {f7.views.main.router.navigate("/diary/edit/", {"context":{"itemId": entry.id}});});
 
         ul.appendChild(li);
 
@@ -394,19 +394,6 @@ var diary = {
         count++;
       }
     }
-  },
-
-  gotoItemEditor: function(item) {
-
-    let data = JSON.parse(item.getAttribute("data"));
-
-    f7.views.main.router.navigate("/diary/edit/");
-
-    document.addEventListener("page:init", function(event) {
-      if (event.target.matches(".page[data-name='diary-edit-item']")) {
-        diary.editItem.init(data);
-      }
-    });
   },
 
   //Get diary entries for current date and render

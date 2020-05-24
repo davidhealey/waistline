@@ -17,7 +17,7 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<div class="page" data-name="foodlist-editor" id="foodlist-editor">
+<div class="page" data-name="diary-editor" id="diary-editor">
 
 	<div class="navbar">
 		<div class="navbar-bg"></div>
@@ -27,9 +27,9 @@
 					<i class="icon fas fa-arrow-left"></i>
 				</a>
 			</div>
-			<div class="title" id="title" data-localize="add-food">Add Food</div>
+			<div class="title" data-localize="diary.title">Edit Item</div>
 			<div class="right">
-				<a href="#" id="submit" onclick="foodlist.editor.processForm();" class="link icon-only">
+				<a href="#" id="submit" onclick="diary.editor.update();" class="link icon-only">
 					<i class="icon fas fa-check"></i>
 				</a>
 			</div>
@@ -38,21 +38,13 @@
 
 	<div class="page-content">
 
-		<form class="list" id="food-edit-form">
+		<form class="list" id="diary-edit-form">
 			<ul>
-				<li class="item-content item-input" id="barcode-container" style="display:none;">
-					<div class="item-inner">
-						<div class="item-title item-label">Barcode</div>
-						<div class="item-input-wrap">
-							<input type="text" id="barcode" name="barcode" readonly>
-						</div>
-					</div>
-				</li>
 				<li class="item-content item-input">
 					<div class="item-inner">
 						<div class="item-title item-label">Name</div>
 						<div class="item-input-wrap">
-							<input type="text" id="name" name="name" required validate>
+							<input type="text" id="name" name="name" disabled>
 						</div>
 					</div>
 				</li>
@@ -60,7 +52,17 @@
 					<div class="item-inner">
 						<div class="item-title item-label">Brand</div>
 						<div class="item-input-wrap">
-							<input type="text" id="brand" name="brand">
+							<input type="text" id="brand" name="brand" disabled>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="item-content item-input">
+						<div class="item-inner">
+							<div class="item-title item-label">Category</div>
+							<div class="item-input-wrap">
+								<select id="category" name="category"></select>
+							</div>
 						</div>
 					</div>
 				</li>
@@ -121,11 +123,6 @@
 			</ul>
 		</form>
 
-	</div>
 
-	<!-- Floating Action Button -->
-	<div class="fab fab-right-bottom" id="add-food">
-		<a href="./foodlist-editor/"><i class="icon fas fa-camera"></i></a>
 	</div>
-
 </div>

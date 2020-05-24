@@ -95,8 +95,7 @@ foodlist.editor = {
       }
 
       //Populate nutrition inputs
-      if (item.nutrition)
-      {
+      if (item.nutrition) {
         const nutriments = waistline.nutriments;
 
         let inputs = document.querySelectorAll("form input");

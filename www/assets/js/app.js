@@ -166,7 +166,7 @@ var f7 = new Framework7({
         {
           name: "Item Editor",
           path: "/edit/",
-          url: "/www/src/activities/diary/views/edit-item.html",
+          url: "/www/src/activities/diary/views/diary-editor.html",
           options: {
             transition: "f7-parallax"
           }
@@ -244,7 +244,7 @@ f7.on("init", function(event){
   //Database setup
   dbHandler.initializeDb();
 
-  f7.views.main.router.navigate("/foods-meals-recipes/");
+  f7.views.main.router.navigate("/diary/");
 });
 
 //Prevent chrome displaying context menu on long click
