@@ -100,7 +100,7 @@ ons.ready(function() {
 
 //App setup
 var waistline = {
-  
+
   mode: "development",
   tests:{}, //Object to hold test functions to be run by TinyTest
   strings: {}, //Localization strings
@@ -128,7 +128,7 @@ var waistline = {
     "vitamin-b9":"µg",
     "vitamin-b12":"µg"
   },
-  
+
 };
 
 //Framework7 Setup
@@ -180,8 +180,8 @@ var f7 = new Framework7({
       tabs: [
         {
           path: '/',
-          id: 'tab-1',
-          url: '/www/src/activities/foodlist/views/foodlist.html'
+          id: 'foodlist',
+          url: '/www/src/activities/foodlist/views/foodlist.html',
         },
         {
           path: '/tab-2/',
@@ -194,11 +194,22 @@ var f7 = new Framework7({
           url: '/www/src/activities/meals/views/meals.html'
         }
       ],
+      routes: [
+        {
+          name: "Editor",
+          path: "/foodlist-editor/",
+          url: "/www/src/activities/foodlist/views/foodlist-editor.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        }
+      ]
     },
     {
       name: "Recipes",
       path: "/recipes/",
       url: "/www/src/activities/recipes/views/recipes.html"
+
     },
     {
       name: "Meals",
@@ -229,12 +240,12 @@ document.addEventListener("page:init", function(event){
 });
 
 f7.on("init", function(event){
-  
+
   //Database setup
   dbHandler.initializeDb();
 
-  f7.views.main.router.navigate("/foods-meals-recipes/"); 
+  f7.views.main.router.navigate("/foods-meals-recipes/");
 });
 
 //Prevent chrome displaying context menu on long click
-window.addEventListener("contextmenu", function(e) { e.preventDefault();})
+window.addEventListener("contextmenu", function(e) { e.preventDefault();});

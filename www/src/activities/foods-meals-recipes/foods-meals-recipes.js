@@ -17,6 +17,8 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*jshint -W083, -W082*/
+
 var foodsMealsRecipes = {
 
   getFromDB: function(store, sort) {
@@ -65,20 +67,34 @@ var foodsMealsRecipes = {
   },
 
   returnItems: function(items) {
-    if (nav.pages.length == 1) {//No previous page - default to diary
+
+    const context = f7.views.main.router.currentRoute.context;
+
+    if (context == undefined || context.origin == undefined) { //No previous route, default to diary
+
+      //Add meal names to object to be displayed in action sheet
+      let meals = JSON.parse(window.localStorage.getItem("meal-names"));
+
+      let buttons = [{"text":"What meal is this?", "label":true}];
+      for (let i = 0; i < meals.length; i++) {
+        buttons.push({"text": meals[i], "onClick": function() {actionSheetCallback(i);}});
+      }
+
       //Ask the user to select the meal category
-      ons.openActionSheet({
-        title: 'What meal is this?',
-        cancelable: true,
-        buttons: JSON.parse(window.localStorage.getItem("meal-names"))
-      })
-      .then(function(input){
-        if (input != -1)
-          nav.resetToPage("src/activities/diary/views/diary.html", {"data":{"items":items, "category":input}}); //Switch to diary page and pass data
+      let ac = f7.actions.create({
+        "buttons": buttons
       });
+
+      //Open action sheet
+      ac.open();
+
+      //Respond to user choice
+      function actionSheetCallback(input) {
+       f7.views.main.router.navigate("/diary/", {"context":{"items":items, "category":input}});
+      }
     }
-    else {
-      nav.popPage({"data":{"items":items}}); //Go back to previous page and pass data along
+    else if (context.origin != undefined) {
+      f7.views.main.router.navigate(context.origin, {"context":{"items":items}, "clearPreviousHistory":true});
     }
   },
 
@@ -129,18 +145,22 @@ var foodsMealsRecipes = {
 
   formatItemText: function(text, maxLength) {
 
-    let t = unescape(text);
+    if (text) {
+      let t = unescape(text);
 
-    if (text.length > maxLength)
-      t = t.substring(0, maxLength-2) + "..";
+      if (text.length > maxLength)
+        t = t.substring(0, maxLength-2) + "..";
 
-    //Format to title case
-    return t.replace(/\w\S*/g, function(txt){
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
+      //Format to title case
+      return t.replace(/\w\S*/g, function(txt){
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    }
+    return "";
   },
 };
 
-document.addEventListener("init", function(event){
-  if (event.target.matches('ons-page#foods-meals-recipes')) {}
+document.addEventListener("page:init", function(event){
+  if (event.target.matches(".page[data-name='foods-meals-recipes']")) {
+  }
 });

@@ -1,5 +1,5 @@
 /*
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -17,11 +17,46 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*jshint -W083 */
+
 var foodlist = {
 
   initialize: function() {
+//console.log(f7.views.main.router);
 
-    return new Promise(function(resolve, reject) {
+    const history = f7.views.main.router.history;
+
+  /*  if (history[history.length-2] != "/foods-meals-recipes/")
+      console.log("DIARY");
+    else {
+      console.log("NOT DIARY");
+    }*/
+
+    this.tab = document.getElementById("foodlist-tab");
+    this.list = [];
+    this.filterCopy = []; //A backup copy of the list is always maintained for filtering
+    this.setupInfiniteList();
+
+
+    //Attach event handler to submit button
+    let submitButton = document.getElementById("submit");
+    submitButton.addEventListener("click", function(event) {
+      foodlist.submitButtonAction();
+    });
+
+    //Attach event handler to fab button
+    let fab = document.getElementById("add-item");
+    fab.addEventListener("click", function(event) {
+      f7.views.main.router.navigate("./foodlist-editor/");
+    });
+
+    //Add food button event listener
+    /*document.getElementById("add-food").addEventListener("click", function(){
+      foodEditor.open();
+    });*/
+
+
+    /*return new Promise(function(resolve, reject) {
       foodlist.page = document.querySelector('ons-page#foodlist');
       foodlist.list = [];
       foodlist.filterCopy = []; //A backup copy of the list is always maintained for filtering
@@ -44,7 +79,7 @@ var foodlist = {
           // This can enhance calculations and allow better scrolling.
         },*/
 
-        destroyItem: function(index, e) {
+        /*destroyItem: function(index, e) {
           if (foodlist.list[index] == undefined) return true; //If list is empty just return
           //Remove item event listeners
           e.element.querySelector("ons-checkbox").removeEventListener('change', foodlist.checkboxChange);
@@ -61,7 +96,147 @@ var foodlist = {
         menuButton.style.display = "none";
       }
       resolve();
+    });*/
+  },
+
+  setupInfiniteList: function() {
+
+    let infinite = document.querySelector('#foodlist');
+    f7.infiniteScroll.create(infinite);
+
+    //get spinner and hide by default
+    spinner = document.getElementById("spinner");
+    spinner.style.display = "none";
+
+    // Loading flag
+    let allowInfinite = true;
+
+    // Max items to load
+    let maxItems = 200;
+
+    // Append items per load
+    let itemsPerLoad = 20;
+
+    // Attach 'infinite' event handler
+    infinite.addEventListener("infinite", function() {
+
+      // Last loaded index
+      let lastItemIndex = document.querySelectorAll("#foodlist-container li").length;
+
+      if (lastItemIndex < foodlist.list.length) {
+
+        // Exit, if loading in progress
+        if (!allowInfinite) return;
+
+        allowInfinite = false; // Set loading flag
+        spinner.style.display = "none";
+
+        // Emulate 1s loading
+        setTimeout(function () {
+
+          allowInfinite = true; // Reset loading flag
+
+          // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+          if (lastItemIndex >= maxItems || lastItemIndex >= foodlist.list.length-1) {
+            spinner.style.display = "none";
+            return;
+          }
+          else
+            spinner.style.display = "block";
+
+          // Generate new items HTML and append to list
+          let ul = document.querySelector("#foodlist-container ul");
+
+          for (let i = lastItemIndex + 1; i <= lastItemIndex + itemsPerLoad; i++) {
+            if (i >= foodlist.list.length) break; //Exit after all items in list
+
+            //Get item html and append to list
+            let li = foodlist.getListItemHTML(i);
+            ul.appendChild(li);
+          }
+        }, 500);
+      }
     });
+  },
+
+  populateListFromDB: function() {
+
+    return new Promise(function(resolve, reject) {
+      let sort = settings.get("foodlist", "sort");
+
+      foodsMealsRecipes.getFromDB("foodList", sort)
+      .then(function(list) {
+        foodlist.list = list;
+        foodlist.filterCopy = list;
+        resolve();
+      });
+    });
+  },
+
+  renderList: function() {
+
+    //Add up to first 20 items to list
+    let ul = document.querySelector("#foodlist-container ul");
+    ul.innerHTML = "";
+
+    let max;
+    foodlist.list.length > 20 ? max = 20 : max = foodlist.list.length; // jshint ignore:line
+
+    for (let i = 0; i < max; i++) {
+      let li = foodlist.getListItemHTML(i);
+      ul.appendChild(li);
+    }
+
+  },
+
+  getListItemHTML: function(index) {
+    let item = this.list[index];
+
+    if (item) {
+      let li = document.createElement("li");
+      li.data = JSON.stringify(item);
+
+      let inner = document.createElement("div");
+      inner.className = "item-inner";
+
+      li.appendChild(inner);
+
+      let title = document.createElement("div");
+      title.className = "item-title disable-long-tap ripple";
+      title.innerText = foodsMealsRecipes.formatItemText(item.name, 30);
+      title.style.width = "100%";
+      title.addEventListener("click", function(event) {f7.views.main.router.navigate("./foodlist-editor/", {"context":{"itemId":item.id}});});
+      title.addEventListener("taphold", function() {foodlist.deleteItem(item.id);});
+
+      inner.appendChild(title);
+
+      let after = document.createElement("div");
+      after.className = "item-after";
+
+      inner.appendChild(after);
+
+      let label = document.createElement("label");
+      label.className = "item-checkbox item-content";
+
+      after.appendChild(label);
+
+      let checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.name = "food-item-checkbox";
+      checkbox.itemId = item.id;
+      checkbox.addEventListener("change", function(e) {foodlist.checkboxChange();});
+
+      label.appendChild(checkbox);
+
+      let icon = document.createElement("i");
+      icon.className = "icon icon-checkbox";
+      icon.style.margin = "0";
+
+      label.appendChild(icon);
+
+      return li;
+    }
+    return false;
   },
 
   getImages: function(code, field) {
@@ -91,50 +266,58 @@ var foodlist = {
   },
 
   search: function(term) {
-    //First check that there is an internet connection
-    if (navigator.connection.type == "none") {
-      ons.notification.alert(app.strings["no-internet"]);
-      return false;
-    }
-
-    let list = [];
-    let promises = [];
-
-    //Show circular progress indicator
-    document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
-
-    //Search OFF database
-    promises[0] = foodlist.searchOFF(term)
-    .then(function(items){
-      list = list.concat(items);
-    });
-
-    //Search USDA if enabled
-    if (settings.get("foodlist", "usda-search")) {
-      promises[1] = foodlist.searchUSDA(term)
-      .then(function(items) {
-        list = list.concat(items);
-      });
-    }
-
-    //Wait for all promises to resolve
-    Promise.all(promises).then(function(values) {
-      document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "none"; //Hide progress indicator
-      if (list.length == 0) {
-        ons.notification.alert("No results found.");
+    return new Promise(function(resolve, reject) {
+      //First check that there is an internet connection
+      if (navigator.connection.type == "none") {
+        ons.notification.alert(app.strings["no-internet"]);
         return false;
       }
-      else {
-        foodlist.list = list;
-        foodlist.sortList();
+
+      let list = [];
+      let promises = [];
+
+      //Show circular progress indicator
+      spinner = document.getElementById("spinner");
+      spinner.style.display = "block";
+
+      //Search OFF database
+      promises[0] = foodlist.searchOFF(term)
+      .then(function(items){
+        list = list.concat(items);
+      });
+
+      //Search USDA if enabled
+      if (settings.get("foodlist", "usda-search")) {
+        promises[1] = foodlist.searchUSDA(term)
+        .then(function(items) {
+          list = list.concat(items);
+        });
       }
+
+      //Wait for all promises to resolve
+      Promise.all(promises).then(function(values) {
+        spinner.style.display = "none"; //Hide progress indicator
+        if (list.length == 0) {
+          let t = waistline.strings["no-results"] || "No results found";
+          let toast = f7.toast.create({
+            text: t,
+            position: 'center',
+            closeTimeout: 2000,
+          });
+          toast.open();
+          resolve(false);
+        }
+        else {
+          resolve(list);
+        }
+      });
     });
   },
 
   searchOFF : function(term) {
     return new Promise(function(resolve, reject) {
       //Build search string
-      let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
+      let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&sort_by=last_modified_t&action=process&json=1";
 
       //Get country name
       let country = settings.get("foodlist", "country") || undefined;
@@ -360,7 +543,7 @@ var foodlist = {
 
   parseOFFProduct: function(product) {
 
-    const nutriments = app.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
+    const nutriments = waistline.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
     let item = {"nutrition":{}};
 
     item.name = escape(product.product_name);
@@ -410,72 +593,26 @@ var foodlist = {
       return item;
   },
 
-  renderListItem: function(index) {
-    let item = this.list[index];
-
-    let li = document.createElement("ons-list-item");
-    if (item == undefined) return li; //If item is undefined just return an empty li
-    if (item.id) li.id = "food-item" + item.id;
-    li.addEventListener("hold", foodlist.deleteItem);
-
-    //Name and info
-    let gd = document.createElement("ons-gesture-detector");
-    gd.appendChild(li);
-
-    let center = document.createElement("div");
-    center.className = "center";
-    center.addEventListener("tap", function(){ foodEditor.open(item); });
-    li.appendChild(center);
-
-    let name = document.createElement("ons-row");
-    name.innerText = foodsMealsRecipes.formatItemText(item.name, 30);
-    center.appendChild(name);
-
-    let calories = 0;
-    if (item.nutrition != undefined) calories = item.nutrition.calories || 0;
-
-    let info = document.createElement("ons-row");
-    if (item.brand && item.brand != "") info.innerHTML = foodsMealsRecipes.formatItemText(item.brand, 20).italics() + ", ";
-    info.innerHTML += item.portion + ", " + parseInt(calories) + "kcal";
-    center.appendChild(info);
-
-    //Checkbox
-    let right = document.createElement("div");
-    right.className = "right";
-    li.appendChild(right);
-
-    let checkbox = document.createElement("ons-checkbox");
-    checkbox.setAttribute("name", "food-item-checkbox");
-    checkbox.setAttribute("data", JSON.stringify(item)); //Add list item as checkbox parent's data attribute
-    checkbox.addEventListener('change', this.checkboxChange); //Attach event
-    right.appendChild(checkbox);
-
-    return li;
-  },
-
   //Checkbox change event callback function
   checkboxChange: function() {
 
-    let btnScan = foodlist.page.querySelector('#scan');
-    let btnSort = foodlist.page.querySelector('#sort');
-    let btnCheck = foodlist.page.querySelector('#submit');
-    let checkedboxes = foodlist.page.querySelectorAll('input[name=food-item-checkbox]:checked'); //All checked boxes
+    let scan = document.getElementById("scan");
+    let submit = document.getElementById("submit");
+    let checkedboxes = document.querySelectorAll("input[type=checkbox]:checked"); //All checked boxes
 
     if (checkedboxes.length == 0) {
-      btnScan.style.display = "initial";
-      btnSort.style.display = "initial";
-      btnCheck.style.display = "none";
+      scan.style.display = "block";
+      submit.style.display = "none";
     }
     else {
-      btnScan.style.display = "none";
-      btnSort.style.display = "none";
-      btnCheck.style.display = "block";
+      scan.style.display = "none";
+      submit.style.display = "block";
     }
   },
 
   submitButtonAction: function() {
 
-    const checked = this.page.querySelectorAll('input[name=food-item-checkbox]:checked'); //Get all checked items
+    const checked = document.querySelectorAll('input[type=checkbox]:checked'); //Get all checked items
 
     if (checked.length > 0) { //Sanity test
       //Get data from checked items
@@ -487,7 +624,7 @@ var foodlist = {
       let store = transaction.objectStore("foodList");
 
       for (let i = 0; i < checked.length; i++) {
-        items[i] = JSON.parse(checked[i].offsetParent.getAttribute("data")); //Add food items' data to array
+        items[i] = JSON.parse(checked[i].closest("li").data); //Add food items' data to array
 
         //If the item doesn't have an ID it must be from a search result
         //Check if item is already in table, if not add it and retrieve ID. Otherwise get existing ID.
@@ -497,7 +634,6 @@ var foodlist = {
 
           if (items[i].barcode) { //If the item has a barcode then it's a result from OFF or USDA (ndb#)
             //Check the database, see if the item already exists - search by barcode
-            /*jshint loopfunc: true */
             store.index("barcode").get(items[i].barcode).onsuccess = function(e) {
               if (e.target.result)
                 items[i] = e.target.result;
@@ -512,7 +648,7 @@ var foodlist = {
       }
 
       if (searchResult == true) { //Items were from search result
-        transaction.oncomplete = function(){
+        transaction.oncomplete = function() {
           console.log("Transaction complete");
           foodsMealsRecipes.returnItems(items);
         };
@@ -523,55 +659,97 @@ var foodlist = {
     }
   },
 
-  deleteItem: function() {
+  deleteItem: function(id) {
 
-    let id = this.id;
+    let title = waistline.strings["confirm-delete-title"] || "Delete";
+    let msg = waistline.strings["confirm-delete"] || "Are you sure?";
+    let dialog = f7.dialog.confirm(msg, title, callbackOk);
 
-    ons.notification.confirm("Delete this item?")
-    .then(function(input) {
+    function callbackOk()
+    {
+      let request = dbHandler.deleteItem(id, "foodList");
 
-      if (input == 1) { //Delete was confirmed
-        let request = dbHandler.deleteItem(parseInt(id.replace("food-item", "")), "foodList");
-
-        //If the request was successful remove the list item
-        request.onsuccess = function(e) {
-          let child = document.querySelector('#foodlist #' + id);
-          let parent = child.parentElement;
-          parent.removeChild(child);
-        };
-      }
-    });
-  },
-
-  populate: function() {
-    let sort = settings.get("foodlist", "sort");
-
-    foodsMealsRecipes.getFromDB("foodList", sort)
-    .then(function(list){
-      foodlist.list = list;
-      foodlist.filterCopy = list;
-      foodlist.infiniteList.refresh();
-    });
+      //If the request was successful rerender the list
+      request.onsuccess = function(e) {
+        foodlist.populateListFromDB()
+        .then (function(){
+          foodlist.renderList();
+        });
+      };
+    }
   },
 
   //Sorts the foodlist.list array by the currently selected sort option
   sortList: function() {
 
     if (settings.get("foodlist", "sort") == "alpha")
-      foodlist.list.sort(app.dynamicSort("name"));
+      foodlist.list.sort(foodlist.dynamicSort("name"));
     else
-      foodlist.list.sort(app.dynamicSort("dateTime", "date"));
+      foodlist.list.sort(foodlist.dynamicSort("dateTime", "date"));
 
     foodlist.filterCopy = foodlist.list;
-    foodlist.infiniteList.refresh();
   },
+
+  // Function to sort ascending an array of objects by some specific key.
+  dynamicSort: function(property, type) {
+
+    if (type == "date")
+      return function (a,b) {return new Date(b[property]).getTime() - new Date(a[property]).getTime();};
+    else
+      return function (a,b) {return a[property].localeCompare(b[property]);};
+  },
+
+  setupSearchbar: function()
+  {
+    // create searchbar
+    const searchbar = f7.searchbar.create({
+      el: '.searchbar',
+      customSearch: true,
+      on: {
+        search(sb, query, previousQuery) {
+          const searchInput = document.getElementById("search");
+          if (searchInput.value != "") {
+              foodlist.list = foodsMealsRecipes.setFilter(searchInput.value, foodlist.filterCopy);
+              foodlist.renderList();
+          }
+          else {
+            foodlist.populateListFromDB()
+            .then (function(){
+              foodlist.renderList();
+            });
+          }
+        },
+      },
+    });
+
+    document.getElementById("food-search").addEventListener("submit", function(q){
+      const searchInput = document.getElementById("search");
+      if (searchInput.value != "") {
+          foodlist.search(searchInput.value)
+          .then(function(list){
+            if (list != false) {
+              foodlist.list = list;
+              foodlist.sortList();
+              foodlist.renderList();
+            }
+          });
+      }
+    });
+  }
 };
 
 //Page initialization
-document.addEventListener("page:init", function(event){
-  if (event.target.matches(".page[data-name='foodlist']")) {
+document.addEventListener("tab:init", function(event){
+  if (event.target.id == "foodlist") {
 
+    foodlist.setupSearchbar();
     foodlist.initialize();
+    foodlist.populateListFromDB()
+    .then (function(){
+      foodlist.renderList();
+    });
+  }
+});
 
 
     //Call constructor
@@ -629,4 +807,4 @@ document.addEventListener("page:init", function(event){
       .then(foodlist.sortList());
     });
  }*/
-});
+//});

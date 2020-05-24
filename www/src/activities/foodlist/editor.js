@@ -1,5 +1,5 @@
 /*
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -17,60 +17,119 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var foodEditor = {
+foodlist.editor = {
 
-  open: function(food, uploader) {
+  init: function(item, uploader) {
 
-    foodEditor.uploader = uploader; //Make uploader status class wide
-    foodEditor.foodImages = [];
+    this.uploader = uploader; //Make uploader status class wide
+    this.foodImages = [];
+    this.renderEditorInputs();
 
-    nav.pushPage("src/activities/foodlist/views/food-editor.html", {"data":food})
-    .then(function() {
-      foodEditor.populateEditor(food);
+    if (item)
+      this.populateEditor(item);
 
-      //If editor is being used for upload setup extra stuff
-      if (uploader == true)
-        foodEditor.setupUploadFields(food);
-      else {
-        document.querySelector('ons-page#food-editor #submit').addEventListener("tap", function(){ foodEditor.processEditor(food);});
-        if (food) document.querySelector('ons-page#food-editor #portion').addEventListener("change", function(){ foodEditor.changePortion(food);});
-      }
-    });
+    //If editor is being used for upload setup extra stuff
+    if (uploader == true)
+      foodEditor.setupUploadFields(food);
+    else {
+      //document.querySelector('ons-page#food-editor #submit').addEventListener("tap", function(){ foodEditor.processEditor(food);});
+      //if (food) document.querySelector('ons-page#food-editor #portion').addEventListener("change", function(){ foodEditor.changePortion(food);});
+    }
   },
 
-  populateEditor: function(data) {
+  renderEditorInputs: function() {
+
+    //Nutrition
+    let units = waistline.nutrimentUnits;
+    let ul = document.getElementById("nutrition");
+    ul.innerHTML = ""; //Clear out old data
+
+    for (let i in waistline.nutriments) {
+
+      let n = waistline.nutriments[i];
+
+      let li = document.createElement("li");
+      li.className = "item-content item-input";
+
+      ul.appendChild(li);
+
+      let innerDiv = document.createElement("div");
+      innerDiv.className = "item-inner";
+
+      li.appendChild(innerDiv);
+
+      let titleDiv = document.createElement("div");
+      titleDiv.className = "item-input item-label";
+      let text = waistline.strings[n] || n; //Localize
+      titleDiv.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " (" + (units[n] || "g") + ")";
+
+      innerDiv.appendChild(titleDiv);
+
+      let inputWrapper = document.createElement("div");
+      inputWrapper.className = "item-input-wrap";
+
+      innerDiv.appendChild(inputWrapper);
+
+      let input = document.createElement("input");
+      input.id = n;
+      input.type = "number";
+      input.min = "0";
+      input.name = n;
+
+      inputWrapper.appendChild(input);
+    }
+  },
+
+  populateEditor: function(item) {
 
     //Existing item info
-    if (data) {
+    if (item) {
 
       //If there is only 1 key then it's just a barcode from a scan. If there is more than one then display the other stuff
-      if (Object.keys(data).length > 1) {
-        document.querySelector("#food-editor #title").innerText = foodsMealsRecipes.formatItemText(data.name, 30);
-        document.querySelector('#food-editor #name').value = foodsMealsRecipes.formatItemText(data.name, 200);
-        document.querySelector('#food-editor #brand').value = foodsMealsRecipes.formatItemText(data.brand, 200);
-        document.querySelector('#food-editor #portion').value = parseFloat(data.portion);
-        document.querySelector('#food-editor #unit').value = data.portion.replace(/[^a-z]/gi, '');
+      if (Object.keys(item).length > 1) {
+        document.querySelector("#foodlist-editor #title").innerText = "Edit Food";
+        document.querySelector('#foodlist-editor #name').value = foodsMealsRecipes.formatItemText(item.name, 200);
+        document.querySelector('#foodlist-editor #brand').value = foodsMealsRecipes.formatItemText(item.brand, 200);
+        document.querySelector('#foodlist-editor #portion').value = parseFloat(item.portion);
+        document.querySelector('#foodlist-editor #unit').value = item.portion.replace(/[^a-z]/gi, '');
+      }
+
+      //Populate nutrition inputs
+      if (item.nutrition)
+      {
+        const nutriments = waistline.nutriments;
+
+        let inputs = document.querySelectorAll("form input");
+
+        for (let i = 0; i < inputs.length; i++) {
+
+          if (nutriments.indexOf(inputs[i].id) == -1) continue; //Skip non-nutriment inputs
+
+          n = inputs[i].id;
+
+          inputs[i].value = item.nutrition[n];
+        }
       }
 
       //Display barcode if present
-      if (data.barcode) {
-        document.querySelector('#food-editor #barcode-container').style.display = "block";
-        document.querySelector('#food-editor #barcode').innerText = data.barcode;
+      if (item.barcode) {
+        document.querySelector('#barcode-container').style.display = "block";
+        document.querySelector('#barcode').value = item.barcode;
 
-        //If data doesn't contain image url download images - internet connection will be checked by getImages function
-        if (data.barcode.indexOf("usda") != -1 && (!data.image_url || data.image_url == "" || data.image_url == null)) {
-          foodlist.getImages(data.barcode, "image_front_url")
+        //If item doesn't contain image url download images - internet connection will be checked by getImages function
+        if (item.barcode.indexOf("usda") != -1 && (!item.image_url || item.image_url == "" || item.image_url == null)) {
+          foodlist.getImages(item.barcode, "image_front_url")
           .then(function(image_url) {
-            //If an image was found add its URL to the data object
+            //If an image was found add its URL to the item object
             if (image_url != false) {
-              data.image_url = image_url; //Update data object
-              if (data.image_url)
-                renderImages(data);
+              item.image_url = image_url; //Update item object
+              if (item.image_url)
+                renderImages(item);
             }
           });
         }
-        else if (data.barcode.indexOf("usda") != -1 && data.image_url) {
-          renderImages(data);
+        else if (item.barcode.indexOf("usda") != -1 && item.image_url) {
+          renderImages(item);
         }
       }
     }
@@ -90,60 +149,6 @@ var foodEditor = {
           c.appendChild(img);
         }
       }
-    }
-
-    //Render nutrition
-    const nutriments = app.nutriments;
-    const nutrition = document.querySelector("ons-page#food-editor #nutrition");
-    for (let i = 0; i < nutriments.length; i++) {
-
-      let nutriment = nutriments[i];
-
-      let row = document.createElement("ons-row");
-      nutrition.appendChild(row);
-
-      //Nutriment name and unit
-      let nutrimentUnits = app.nutrimentUnits;
-      let col = document.createElement("ons-col");
-      col.setAttribute("vertical-align", "center");
-      col.setAttribute("width", "70%");
-      row.appendChild(col);
-
-      let text = app.strings[nutriment] || nutriment; //Localize
-      let tnode = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-      col.appendChild(tnode);
-
-      //Nutriment input box
-      col = document.createElement("ons-col");
-      col.setAttribute("width", "15%");
-      row.appendChild(col);
-
-      let input = document.createElement("ons-input");
-      input.setAttribute("name", nutriment);
-      input.setAttribute("placeholder", 0);
-      input.setAttribute("type", "number");
-
-      if (nutriment == "calories") {
-        input.setAttribute("pattern", "pattern='[0-9]*'");
-        input.setAttribute("inputmode", "numeric");
-        input.setAttribute("required", "true");
-      }
-      else {
-        input.setAttribute("inputmode", "decimal");
-        input.setAttribute("step", "any");
-      }
-
-      if (data && data.nutrition && data.nutrition[nutriment])
-        input.value = Number(parseFloat(data.nutrition[nutriment]).toFixed(4));
-
-      col.appendChild(input);
-
-      //Unit
-      let nutrimentUnit = nutrimentUnits[nutriment] || "g";
-      col = document.createElement("ons-col");
-      col.className = "nutriment-unit";
-      col.innerText = nutrimentUnit;
-      row.appendChild(col);
     }
   },
 
@@ -165,9 +170,9 @@ var foodEditor = {
     }
   },
 
-  processEditor: function(data) {
+  processForm: function(data) {
 
-    const nutriments = app.nutriments;
+    const nutriments = waistline.nutriments;
 
     //Make sure there is data object set up correctly
     data = data || {};
@@ -177,11 +182,10 @@ var foodEditor = {
     var now = new Date();
     data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-    let inputs = document.querySelectorAll('#food-editor input');
-    let unit = document.querySelector('#food-editor #unit').value;
+    let inputs = document.querySelectorAll('#foodlist-editor input');
+    let unit = document.querySelector('#foodlist-editor #unit').value;
 
-    let validation = app.validateInputs(inputs);
-    if (validation == true) {
+    if (f7.input.validateInputs("#food-edit-form") == true) {
 
       for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];
@@ -201,7 +205,7 @@ var foodEditor = {
       }
 
       //Warn user if they input a really high calorie amount
-      if (data.nutrition.calories > 5000) {
+      /*if (data.nutrition.calories > 5000) {
         ons.notification.confirm({
             message:"That's a lot of calories are you sure it's correct? This is kcal so you might want to divide it by 1000",
             buttonLabels:["Yes it's correct", "No I'd like to change it"]
@@ -213,24 +217,15 @@ var foodEditor = {
             finalise(data); //Jump to finalise sub-function
         });
       }
-      else {
+      else {*/
         finalise(data); //Jump to finalise sub-function
-      }
-    }
-    else {
-      //Display validation messages
-      let message = "Please add values to the following fields: <br><ul>";
-      for (let i = 0; i < validation.length; i++) {
-        message += "<li>" + validation[i].charAt(0).toUpperCase() + validation[i].slice(1) + "</li>";
-      }
-      message += "<ul>";
-      ons.notification.alert(message, {"messageHTML":true});
+      //}
     }
 
     function finalise(data) {
 
-      if (foodEditor.uploader == true) {
-        if (foodEditor.foodImages.length == 0) { //No images have been added for upload :(
+      /*if (foodlist.editor.uploader) {
+        if (foodlist.editor.foodImages.length == 0) { //No images have been added for upload :(
           ons.notification.confirm({
               message:"You haven't added any product images. Adding images helps keep the Open Food Facts database accurate. Would you like to cancel the upload and add images?",
               buttonLabels:["No", "Yes!"]
@@ -245,19 +240,19 @@ var foodEditor = {
         else
           postAndAddToDB(data);
       }
-      else {
-        foodEditor.addToDB(data);
-      }
+      else {*/
+        foodlist.editor.addToDB(data);
+      //}
     }
 
     function postAndAddToDB(data) {
       let modal = document.querySelector('#food-editor ons-modal');
       modal.show();
-      foodEditor.uploadToOFF(data)
+      foodlist.editor.uploadToOFF(data)
       .then(function(data) {
         alert("upload complete");
         modal.hide();
-        foodEditor.addToDB(data);
+        foodlist.editor.addToDB(data);
       })
       .catch(function(e) {
         console.log(e);
@@ -269,7 +264,7 @@ var foodEditor = {
 
   addToDB: function(data) {
     dbHandler.put(data, "foodList").onsuccess = function() {
-      nav.resetToPage('src/activities/foodlist/views/foodlist.html');
+      f7.views.main.router.navigate("/foods-meals-recipes/");
     };
   },
 
@@ -280,11 +275,11 @@ var foodEditor = {
 
     const btnCamera = document.querySelector('#food-editor #camera');
     btnCamera.style.display = "block";
-    btnCamera.addEventListener("tap", foodEditor.takePicture);
+    btnCamera.addEventListener("tap", foodlist.editor.takePicture);
 
     const btnUpload = document.querySelector('#food-editor #upload');
     btnUpload.style.display = "block";
-    btnUpload.addEventListener("tap", function(event) {foodEditor.processEditor(data);});
+    btnUpload.addEventListener("tap", function(event) {foodlist.editor.processEditor(data);});
   },
 
   takePicture: function() {
@@ -302,9 +297,9 @@ var foodEditor = {
         let imageTypes = ["front", "ingredients", "nutrition"];
 
         //Make sure there is only one image per imagefield
-        for (let i = 0; i < foodEditor.foodImages.length; i++) {
-          if (foodEditor.foodImages[i].imagefield == imageTypes[input]) {
-            foodEditor.foodImages.splice(i, 1); //Remove item from images array
+        for (let i = 0; i < foodlist.editor.foodImages.length; i++) {
+          if (foodlist.editor.foodImages[i].imagefield == imageTypes[input]) {
+            foodlist.editor.foodImages.splice(i, 1); //Remove item from images array
             //Remove image from carousel
             let img = document.querySelector("#food-editor #images #"+imageTypes[input] + " img");
             img.removeEventListener("hold", deleteImage); //Remove img event listener
@@ -315,7 +310,7 @@ var foodEditor = {
         }
 
         let imageData = {"imagefield":imageTypes[input], "path":image_uri, "uploadType":"imgupload_"+imageTypes[input]};
-        foodEditor.foodImages.push(imageData); //Push to class wide array
+        foodlist.editor.foodImages.push(imageData); //Push to class wide array
 
         //Show images container
         imageCarousel.closest("ons-card").style.display = "block";
@@ -346,9 +341,9 @@ var foodEditor = {
       ons.notification.confirm("Delete this item?")
       .then(function(input) {
         if (input == 1) { //Delete was confirmed
-          foodEditor.foodImages.splice(ci.id, 1); //Remove item from images array
+          foodlist.editor.foodImages.splice(ci.id, 1); //Remove item from images array
           //If there are no images left hide the image container
-          if (foodEditor.foodImages.length == 0) {
+          if (foodlist.editor.foodImages.length == 0) {
             document.querySelector('ons-page#food-editor #images').style.display = "none";
           }
           this.removeEventListener("hold", deleteImage); //Remove the event handler
@@ -416,8 +411,8 @@ var foodEditor = {
 
         if (this.response && this.response.status == 1) { //Everything went well
           //Upload images, if any
-          if (foodEditor.foodImages.length > 0) {
-            foodEditor.uploadImagesToOFF(data.barcode, foodEditor.foodImages)
+          if (foodlist.editor.foodImages.length > 0) {
+            foodlist.editor.uploadImagesToOFF(data.barcode, foodlist.editor.foodImages)
             .then(function() {
               resolve(data);
             });
@@ -590,3 +585,29 @@ var foodEditor = {
     }
   }
 };
+
+//Page initialization
+document.addEventListener("page:init", function(event){
+  if (event.target.matches(".page[data-name='foodlist-editor']")) {
+
+    //If item ID was passed, get item from DB
+    if (f7.views.main.router.currentRoute.context)
+    {
+      let id = f7.views.main.router.currentRoute.context.itemId;
+
+      if (id) {
+
+        let request = dbHandler.getItem(id, "foodList");
+
+        request.onsuccess = function(e) {
+          var item = e.target.result;
+          foodlist.editor.init(item);
+        };
+      }
+      else
+        foodlist.editor.init();
+    }
+    else
+      foodlist.editor.init();
+  }
+});

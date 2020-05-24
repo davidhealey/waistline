@@ -1,0 +1,201 @@
+<!--
+  Copyright 2018, 2019, 2020 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!--<ons-page id="food-editor">
+
+  <link rel="stylesheet" href="src/activities/foodlist/views/foodlist.css">
+
+  <ons-toolbar modifier="material">
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center" id="title" data-localize="add-food">Add Food</div>
+    <div class="right">
+      <ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button>
+      <ons-toolbar-button id="upload"><ons-icon icon="upload"></ons-icon></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <div id="item-data">
+
+    <ons-card id="images">
+      <ons-carousel auto-scroll="true" swipeable="true" auto-refresh="true"></ons-carousel>
+    </ons-card>
+
+    <ons-card>
+      <div id="barcode-container">
+        <ons-row>
+          <ons-col vertical-align="center" width="45%">Code</ons-col>
+          <ons-col id="barcode"></ons-col>
+        </ons-row>
+      </div>
+
+      <ons-row>
+        <ons-col vertical-align="center" width="45%">Name</ons-col>
+        <ons-col>
+          <ons-input type="text" id="name" name="name" required="true" value="test product"></ons-input>
+        </ons-col>
+      </ons-row>
+
+      <ons-row>
+        <ons-col vertical-align="center" width="45%">Brand</ons-col>
+        <ons-col>
+          <ons-input type="text" id="brand" name="brand" value="test brand"></ons-input>
+        </ons-col>
+      </ons-row>
+
+      <ons-row>
+        <ons-col vertical-align="center" width="45%" data-localize="food.edit-item.portion-size">Portion Size</ons-col>
+        <ons-col class="align-right">
+          <ons-input id="portion" name="portion" type="number" min="1" inputmode="decimal" step="any" required="true" float value="100"></ons-input>
+        </ons-col>
+        <ons-col></ons-col>
+        <ons-col>
+          <ons-input type="text" id="unit" name="unit" pattern="[A-Za-z]*" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true" placeholder="Unit" float value="g"></ons-input>
+        </ons-col>
+      </ons-row>
+    </ons-card>
+
+    <ons-card id="nutrition"></ons-card>
+
+    <div id="upload-fields">
+      <input type="hidden" name="user_id" id="user_id" value="waistline-app"></input>
+      <input type="hidden" name="password" id="password" value="waistline"></input>
+    </div>
+  </div>
+
+  <ons-fab id="camera" position="bottom right" tappable>
+    <ons-icon icon="camera"></ons-icon>
+  </ons-fab>
+
+  <ons-modal>
+    <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+    <p>Uploading to Open Food Facts...</p>
+  </ons-modal>
+</ons-page>-->
+
+<div class="page" data-name="foodlist-editor" id="foodlist-editor">
+
+	<div class="navbar">
+		<div class="navbar-bg"></div>
+		<div class="navbar-inner">
+			<div class="left">
+				<a class="link back">
+					<i class="icon fas fa-arrow-left"></i>
+				</a>
+			</div>
+			<div class="title" id="title" data-localize="add-food">Add Food</div>
+			<div class="right">
+				<a href="#" id="submit" onclick="foodlist.editor.processForm();" class="link icon-only">
+					<i class="icon fas fa-check"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-content">
+
+		<form class="list" id="food-edit-form">
+			<ul>
+				<li class="item-content item-input" id="barcode-container" style="display:none;">
+					<div class="item-inner">
+						<div class="item-title item-label">Barcode</div>
+						<div class="item-input-wrap">
+							<input type="text" id="barcode" name="barcode" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="item-content item-input">
+					<div class="item-inner">
+						<div class="item-title item-label">Name</div>
+						<div class="item-input-wrap">
+							<input type="text" id="name" name="name" required validate>
+						</div>
+					</div>
+				</li>
+				<li class="item-content item-input">
+					<div class="item-inner">
+						<div class="item-title item-label">Brand</div>
+						<div class="item-input-wrap">
+							<input type="text" id="brand" name="brand">
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="item-inner item-row">
+						<div class="item-cell">
+							<div class="item-content item-input">
+								<div class="item-inner">
+									<div class="item-title item-label">Serving Size</div>
+									<div class="item-input-wrap">
+										<input type="number" min="0" id="portion" name="portion" required validate>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item-cell">
+							<div class="item-content item-input">
+								<div class="item-inner">
+									<div class="item-title item-label">Unit</div>
+									<div class="item-input-wrap">
+										<input type="text" id="unit" name="unit" required validate>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="item-content item-input">
+					<div class="item-inner">
+						<div class="item-title item-label">Number of servings</div>
+						<div class="item-input-wrap">
+							<input type="number" id="quantity" name="quantity" required validate>
+						</div>
+					</div>
+				</li>
+
+				<li class="accordion-item accordion-item-opened">
+					<a href="" class="item-link item-content">
+						<div class="item-inner">
+							<div class="item-title">Nutrition</div>
+						</div>
+					</a>
+					<div class="accordion-item-content inline-labels">
+						<ul id="nutrition">
+							<li>
+								<div class="item-content item-input">
+									<div class="item-inner">
+										<div class="item-title item-label">Calories</div>
+										<div class="item-input-wrap">
+											<input type="number" id="calories" name="calories" required validate>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</form>
+
+	</div>
+
+	<!-- Floating Action Button -->
+	<div class="fab fab-right-bottom" id="add-food">
+		<a href="./foodlist-editor/"><i class="icon fas fa-camera"></i></a>
+	</div>
+
+</div>
