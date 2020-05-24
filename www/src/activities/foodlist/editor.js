@@ -17,7 +17,11 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*jshint -W030 */
+
 foodlist.editor = {
+
+  link: false, //Whether input fields are linked together and changing one will change another
 
   init: function(item, uploader) {
 
@@ -27,6 +31,13 @@ foodlist.editor = {
 
     if (item)
       this.populateEditor(item);
+
+    //Attach event handler to link/unlink buttons
+    document.getElementById("link-unlink").addEventListener("click", function(){
+      foodlist.editor.link = 1-foodlist.editor.link;
+      let icon = this.querySelector("i");
+      foodlist.editor.link == 0 ? icon.className = "icon fas fa-unlink" : icon.className = "icon fas fa-link";
+    });
 
     //If editor is being used for upload setup extra stuff
     if (uploader == true)

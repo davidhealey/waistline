@@ -244,7 +244,7 @@ f7.on("init", function(event){
   //Database setup
   dbHandler.initializeDb();
 
-  f7.views.main.router.navigate("/diary/");
+  f7.views.main.router.navigate("/foods-meals-recipes/");
 });
 
 //Prevent chrome displaying context menu on long click
