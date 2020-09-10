@@ -105,7 +105,7 @@ foodlist.editor = {
         document.querySelector('#foodlist-editor #brand').value = foodsMealsRecipes.formatItemText(item.brand, 200);
         document.querySelector('#foodlist-editor #portion').value = parseFloat(item.portion);
         document.querySelector('#foodlist-editor #unit').value = item.portion.replace(/[^a-z]/gi, '');
-        document.querySelector('#foodlist-editor #quantity').value = parseFloat(item.quantity);
+        document.querySelector('#foodlist-editor #quantity').value = parseFloat(item.quantity) || 1;
       }
 
       //Populate nutrition inputs
