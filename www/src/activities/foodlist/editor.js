@@ -84,6 +84,7 @@ foodlist.editor = {
       let input = document.createElement("input");
       input.id = n;
       input.type = "number";
+      input.step="any";
       input.min = "0";
       input.name = n;
 
@@ -99,10 +100,12 @@ foodlist.editor = {
       //If there is only 1 key then it's just a barcode from a scan. If there is more than one then display the other stuff
       if (Object.keys(item).length > 1) {
         document.querySelector("#foodlist-editor #title").innerText = "Edit Food";
+        document.querySelector('#foodlist-editor #id').value = item.id; //Hidden field
         document.querySelector('#foodlist-editor #name').value = foodsMealsRecipes.formatItemText(item.name, 200);
         document.querySelector('#foodlist-editor #brand').value = foodsMealsRecipes.formatItemText(item.brand, 200);
         document.querySelector('#foodlist-editor #portion').value = parseFloat(item.portion);
         document.querySelector('#foodlist-editor #unit').value = item.portion.replace(/[^a-z]/gi, '');
+        document.querySelector('#foodlist-editor #quantity').value = parseFloat(item.quantity);
       }
 
       //Populate nutrition inputs
@@ -180,13 +183,12 @@ foodlist.editor = {
     }
   },
 
-  processForm: function(data) {
+  processForm: function() {
 
     const nutriments = waistline.nutriments;
 
     //Make sure there is data object set up correctly
-    data = data || {};
-    data.nutrition = data.nutrition || {};
+    data = {"nutrition":{}};
 
     //Add date time
     var now = new Date();
@@ -603,17 +605,10 @@ document.addEventListener("page:init", function(event){
     //If item ID was passed, get item from DB
     if (f7.views.main.router.currentRoute.context)
     {
-      let id = f7.views.main.router.currentRoute.context.itemId;
+      let item = f7.views.main.router.currentRoute.context.item;
 
-      if (id) {
-
-        let request = dbHandler.getItem(id, "foodList");
-
-        request.onsuccess = function(e) {
-          var item = e.target.result;
-          foodlist.editor.init(item);
-        };
-      }
+      if (item)
+          foodlist.editor.init(JSON.parse(item));
       else
         foodlist.editor.init();
     }
