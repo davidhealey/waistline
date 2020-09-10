@@ -205,8 +205,15 @@ var foodlist = {
       title.className = "item-title disable-long-tap ripple";
       title.innerText = foodsMealsRecipes.formatItemText(item.name, 30);
       title.style.width = "100%";
-      title.addEventListener("click", function(event) {f7.views.main.router.navigate("./foodlist-editor/", {"context":{"itemId":item.id}});});
-      title.addEventListener("taphold", function() {foodlist.deleteItem(item.id);});
+
+      //Edit trigger
+      title.addEventListener("click", function(event) {
+        f7.views.main.router.navigate("./foodlist-editor/", {"context":{"itemId":item.id, "item":JSON.stringify(item)}});
+      });
+
+      //Delete trigger
+      if (item.id != undefined)
+        title.addEventListener("taphold", function() {foodlist.deleteItem(item.id);});
 
       inner.appendChild(title);
 
