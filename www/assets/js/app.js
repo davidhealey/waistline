@@ -244,6 +244,10 @@ f7.on("init", function(event){
   //Database setup
   dbHandler.initializeDb();
 
+  //Initialize module settings on first run
+  diary.initializeSettings();
+  goals.initializeSettings();
+
   f7.views.main.router.navigate("/foods-meals-recipes/");
 });
 

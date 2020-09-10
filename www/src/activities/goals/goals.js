@@ -27,7 +27,7 @@ var goals = {
 
   //Returns the goals that have been set for the given day (0-6)
   getGoalsByDay: function(day) {
-    let data = JSON.parse(window.localStorage.getItem("goals"));
+    let data = settings.getField("goals");
     let result = {};
 
     for (let g in data) {
@@ -41,19 +41,19 @@ var goals = {
   },
 
   shouldShowInDiary: function(type) {
-    let data = JSON.parse(window.localStorage.getItem("goals"));
+    let data = settings.getField("goals");
     if (data && data[type]) return data[type].diaryDisplay;
     return false;
   },
 
   isGoalWeekly: function(type) {
-    let data = JSON.parse(window.localStorage.getItem("goals"));
+    let data = settings.getField("goals");
     if (data && data[type]) return data[type].mode == "weekly";
     return false;
   },
 
   getWeeklyGoal: function(type) {
-    let data = JSON.parse(window.localStorage.getItem("goals"));
+    let data = settings.getField("goals");
     if (data && data[type]) return data[type].weekly;
     return 0;
   },
@@ -105,8 +105,15 @@ var goals = {
     data.weight = {"target":75, "weekly":0.25, "gain":false}; //Default weight goals
 
     //Save data in local storage
-    window.localStorage.setItem("goals", JSON.stringify(data));
+    settings.putField("goals", JSON.stringify(data));
   },
+
+  //First run initialization
+  initializeSettings: function() {
+    if (settings.get("goals", "weight") == undefined)
+      settings.put("goals", "weight", 50);
+  }
+
 };
 
 //Page initialization

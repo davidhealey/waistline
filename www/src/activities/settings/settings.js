@@ -19,7 +19,7 @@
 
 var settings = {
 
-  putSetting: function(field, setting, value) {
+  put: function(field, setting, value) {
     let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
     settings[field] = settings[field] || {};
     settings[field][setting] = value;
@@ -32,6 +32,21 @@ var settings = {
       return settings[field][setting];
     }
     return undefined;
+  },
+
+  getField: function(field) {
+    let settings = JSON.parse(window.localStorage.getItem("settings"));
+    if (settings && settings[field]) {
+      return settings[field];
+    }
+    return undefined;
+  },
+
+  putField: function(field, value) {
+    let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
+    settings[field] = settings[field] || {};
+    settings[field] = value;
+    window.localStorage.setItem("settings", JSON.stringify(settings));
   },
 
   //Save value of drop down menu

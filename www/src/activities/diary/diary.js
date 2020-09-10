@@ -517,6 +517,12 @@ var diary = {
       };
     });
   },
+
+  initializeSettings: function() {
+    //Meal names
+    if (JSON.parse(window.localStorage.getItem("meal-names") == undefined))
+      settings.put("diary", "meal-names", ["Breakfast", "Lunch", "Dinner", "Snacks"]);
+  }
 };
 
 //Page initialization
@@ -547,53 +553,5 @@ document.addEventListener("page:init", function(event){
         diary.loadDiary();
       }
     });
-
-
-
-    //Page show event
-    /*diary.page.addEventListener("show", function(e){
-      //If items have been passed to the page, add them to the diary
-      if (this.data && this.data.items) {
-        if (this.data.category != undefined)
-          diary.currentCategory = this.data.category; //Update current category if passed with data
-
-        let that = this;
-        diary.pushItemsToDB(this.data.items)
-        .then(function(){
-          diary.loadDiary() //Refresh the display
-          .then(function() {
-            diary.updateLog();
-            delete that.data.items; //Unset data
-          });
-        });
-      }
-      else {
-        diary.loadDiary();
-      }
-    });
-
-    //Previous & Next date buttons
-    /*const btnDate = document.getElementsByClassName("adjacent-date");
-    Array.from(btnDate).forEach(function(element) {
-      element.addEventListener('tap', function(event){
-        if (this == btnDate[0]) diary.date.setUTCHours(diary.date.getUTCHours()-24); //Previous day
-        if (this == btnDate[1]) diary.date.setUTCHours(diary.date.getUTCHours()+24); //Next day
-        document.querySelector('#diary #log-weight').setAttribute("dateTime", diary.date);
-        diary.loadDiary();
-      });
-    });
-
-    //Date picker
-    const datePicker = document.querySelector('#diary-date #date-picker');
-    datePicker.addEventListener("change", function(event){
-      diary.date = new Date(this.value);
-      diary.loadDiary();
-    });
-
-    //Fab button
-    const fab = diary.page.querySelector('ons-fab');
-    fab.addEventListener("tap", function(event){
-      nav.resetToPage("src/activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
-    });*/
  }
 });
