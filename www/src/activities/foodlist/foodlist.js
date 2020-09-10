@@ -49,54 +49,6 @@ var foodlist = {
     fab.addEventListener("click", function(event) {
       f7.views.main.router.navigate("./foodlist-editor/");
     });
-
-    //Add food button event listener
-    /*document.getElementById("add-food").addEventListener("click", function(){
-      foodEditor.open();
-    });*/
-
-
-    /*return new Promise(function(resolve, reject) {
-      foodlist.page = document.querySelector('ons-page#foodlist');
-      foodlist.list = [];
-      foodlist.filterCopy = []; //A backup copy of the list is always maintained for filtering
-
-      //Setup lazy list
-      foodlist.infiniteList = foodlist.page.querySelector('#food-list');
-
-      //Setup lazy list delegate callbacks
-      foodlist.infiniteList.delegate = {
-        createItemContent: function(index, template) {
-            return foodlist.renderListItem(index);
-        },
-
-        countItems: function() {
-          return foodlist.list.length;
-        },
-
-        /*calculateItemHeight: function(index) {
-          // Optional: return the height of the item at position `index`.
-          // This can enhance calculations and allow better scrolling.
-        },*/
-
-        /*destroyItem: function(index, e) {
-          if (foodlist.list[index] == undefined) return true; //If list is empty just return
-          //Remove item event listeners
-          e.element.querySelector("ons-checkbox").removeEventListener('change', foodlist.checkboxChange);
-          e.element.removeEventListener("hold", foodlist.deleteItem);
-        }
-      };
-
-      //Show/Hide back button
-      let menuButton = document.querySelector("ons-page#foodlist #menu-button");
-      let backButton = document.querySelector("ons-page#foodlist #back-button");
-      backButton.style.display = "none"; //Hide back button by default
-      if (nav.pages.length > 1) {
-        backButton.style.display = "block";
-        menuButton.style.display = "none";
-      }
-      resolve();
-    });*/
   },
 
   setupInfiniteList: function() {
@@ -208,7 +160,7 @@ var foodlist = {
 
       //Edit trigger
       title.addEventListener("click", function(event) {
-        f7.views.main.router.navigate("./foodlist-editor/", {"context":{"itemId":item.id, "item":JSON.stringify(item)}});
+        f7.views.main.router.navigate("./foodlist-editor/", {"context":{"item":JSON.stringify(item)}});
       });
 
       //Delete trigger
@@ -231,7 +183,11 @@ var foodlist = {
       checkbox.type = "checkbox";
       checkbox.name = "food-item-checkbox";
       checkbox.itemId = item.id;
-      checkbox.addEventListener("change", function(e) {foodlist.checkboxChange();});
+
+      //Checkbox action
+      checkbox.addEventListener("change", function(e) {
+        foodlist.checkboxChange();
+      });
 
       label.appendChild(checkbox);
 
