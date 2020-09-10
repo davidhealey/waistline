@@ -73,7 +73,7 @@ var foodsMealsRecipes = {
     if (context == undefined || context.origin == undefined) { //No previous route, default to diary
 
       //Add meal names to object to be displayed in action sheet
-      let meals = JSON.parse(window.localStorage.getItem("meal-names"));
+      let meals = settings.get("diary", "meal-names");
 
       let buttons = [{"text":"What meal is this?", "label":true}];
       for (let i = 0; i < meals.length; i++) {
