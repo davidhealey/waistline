@@ -70,13 +70,13 @@
   },
   "food-list": {
     "title": "Продукты",
-    "search": "Поиск еды",
-    "name-of-food": "Название еды",
+    "search": "Поиск продукта",
+    "name-of-food": "Название продукта",
     "no-results": "Нет подходящих результатов",
     "scan-failed": "Ошибка сканирования",
     "edit-item": {
-      "title1": "Добавить еду",
-      "title2": "Редактировать еду",
+      "title1": "Добавить продукт",
+      "title2": "Изменить продукт",
       "placeholders": {
         "name": "Название*",
         "brand": "Производитель(Брэнд)*",
@@ -170,24 +170,24 @@
     "basics": {
       "title": "Основы",
       "p1": "Вашему организму необходимо определенное количество калорий для поддержания текущего веса. Мы назовем это вашим уровнем обслуживания. Вы можете увеличить свой уровень обслуживания, делая много упражнений или уменьшить его, делая меньше.",
-      "p2": "The easiest method (that is also pretty accurate) to calculate your maintenance level is to use a TDEE calculator. You can find plenty of these online.",
-      "p3": "To lose weight you should eat at least 100 calories per day less than your maintenance level, to gain weight you should eat at least 100 calories per day more than your maintenance level.",
-      "p4": "The less you eat per day the more weight you will lose. If you plan to lose weight with a great calorie deficit consult your doctor and plan what you eat so you get all the nutrition your body needs. Have regular check ups with your doctor so you can react fast if anything goes wrong."
+      "p2": "Самый простой метод (который также довольно точен) для расчета уровня обслуживания - использовать калькулятор TDEE. Вы можете найти много таких в Интернете.",
+      "p3": "Чтобы похудеть, вы должны съедать как минимум на 100 калорий в день меньше вашего поддерживаемого уровня, чтобы набрать вес, вы должны съедать как минимум на 100 калорий в день больше, чем ваш поддерживаемый уровень.",
+      "p4": "Чем меньше вы едите в день, тем больше веса вы потеряете. Если вы планируете похудеть с большим дефицитом калорий, проконсультируйтесь с вашим врачом и спланируйте, что вы будете есть, чтобы получить все питательные вещества, необходимые вашему организму. Регулярно консультируйтесь с врачом, чтобы вы могли быстро отреагировать, если что-то пойдет не так."
     },
     "statistics": {
-      "title": "Statistics",
-      "p1": "On the statistics screen you can see a chart showing the nutritiments you have consumed and variations in your weight during the selected time period. This screen will be mostly empty the first time you run the app.",
-      "p2": "You can select the time frame to display, such as 1 week, from the drop down menu above the chart.",
-      "p3": "You can choose what data to show in the chart by tapping on the items in the chart's legend.",
-      "p4": "Below the chart is a day by day list of your weight changes and the calories you've recorded. Only dates that you have recorded calories in your diary for will be displayed here. Tapping on an item in this list will allow you to edit the weight recorded for that date.",
-      "p5": "At the top of the screen is a display of the nutriments you have consumed, along with your goal and the amount remaining. You can swipe left and right on this display to scroll through the different nutriments."
+      "title": "Статистика",
+      "p1": "На экране статистики вы можете увидеть график с указанием потребляемых питательных веществ и вариаций веса за выбранный промежуток времени. Этот экран будет очищен при первом запуске приложения.",
+      "p2": "Вы можете выбрать время для отображения, например 1 неделю, из выпадающего меню над графиком.",
+      "p3": "Вы можете выбрать, какие данные показывать на графике, нажав на элементы в легенде диаграммы.",
+      "p4": "Под графиком находится дневной список ваших изменений веса и калорий, которые вы записали. Здесь отображаются только даты, для которых вы записали калории в дневнике. Нажатие на пункт в этом списке позволит вам редактировать вес, записанный на эту дату.",
+      "p5": "В верхней части экрана отображается количество потребленных вами питательных веществ, а также ваша цель и оставшееся количество. Вы можете проводить пальцем влево и вправо по этому дисплею, чтобы просматривать различные питательные вещества."
     },
     "diary": {
-      "title": "Diary",
-      "p1": "The diary is where you will keep a log of the food you eat. Tap on a heading such as Breakfast to add food to that category.",
-      "p2": "This will take you to the food list where you can select one or more food items to add to the diary.",
-      "p3": "The calories for each food will be added to the total for the currently selected date and displayed at the bottom of the screen.",
-      "p4": "The buttons either side of the displayed date can be used to move to the previous or next day and you can tap on the date itself to select a specific date.",
+      "title": "Дневник",
+      "p1": "Дневник - это то место, где вы будете вести журнал съеденной еды. Нажмите на заголовок, например «Завтрак», чтобы добавить еду в эту категорию.",
+      "p2": "Это приведет вас к списку продуктов, где вы можете выбрать один или несколько продуктов для добавления в дневник.",
+      "p3": "Калории для каждого продукта будут добавлены к общему количеству на выбранную в данный момент дату и отображены в нижней части экрана.",
+      "p4": "Кнопки по обе стороны от отображаемой даты можно использовать для перехода к предыдущему или следующему дню, и вы можете нажать на саму дату, чтобы выбрать конкретную дату.",
       "p5": "Tapping on a food item in your diary will allow you to adjust the number of servings and change the category for that item. These changes only apply to the item in your diary and do not affect the food list.",
       "p6": "Tap and hold on an item in your diary to remove it.",
       "p7": "You can record your weight by tapping on the scales icon on the top toolbar.",
