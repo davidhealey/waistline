@@ -112,33 +112,33 @@
     }
   },
   "meals": {
-    "title": "Meals",
-    "filter": "Search Meals",
+    "title": "Блюда",
+    "filter": "Поиск блюд",
     "edit-meal": {
-      "title1": "Add Meal",
-      "title2": "Edit Meal",
+      "title1": "Добавить блюдо",
+      "title2": "Изменить блюдо",
       "placeholders": {
-        "name": "Meal Name",
-        "notes": "Notes..."
+        "name": "Название блюда",
+        "notes": "Примечания..."
       }
     }
   },
   "recipes": {
-    "title": "Recipes",
-    "filter": "Search Recipes",
+    "title": "Рецепты",
+    "filter": "Поиск рецептов",
     "edit-recipe": {
-      "title1": "Add Recipe",
-      "title2": "Edit Recipe",
+      "title1": "Добавить рецепт",
+      "title2": "Изменить рецепт",
       "placeholders": {
-        "name": "Recipe Name",
-        "notes": "Notes..."
+        "name": "Название рецепта",
+        "notes": "Примечания..."
       }
     }
   },
   "settings": {
-    "title": "Settings",
-    "show-images1": "Show product images",
-    "show-images2": "Images will be displayed when connected to the internet. They will not be stored on your device.",
+    "title": "Настройки",
+    "show-images1": "Показывать изображение продукта",
+    "show-images2": "Изображения будут отображаться при подключении к Интернету. Они не будут сохранены на вашем устройстве.",
     "disable-animations1": "Disable animations",
     "disable-animations2": "Disabling animations may improve performance on some devices (requires app restart).",
     "import": "Импорт данных",
