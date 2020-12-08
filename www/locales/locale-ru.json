@@ -139,37 +139,37 @@
     "title": "Настройки",
     "show-images1": "Показывать изображение продукта",
     "show-images2": "Изображения будут отображаться при подключении к Интернету. Они не будут сохранены на вашем устройстве.",
-    "disable-animations1": "Disable animations",
-    "disable-animations2": "Disabling animations may improve performance on some devices (requires app restart).",
+    "disable-animations1": "Отключить анимации",
+    "disable-animations2": "Отключение анимаций может повысить производительность на некоторых устройствах (требует перезапуска приложения).",
     "import": "Импорт данных",
     "export": "Экспорт данных",
     "diary": {
       "title": "Настройка дневника",
-      "instructions1": "Use the boxes below to customise the meal names used in the food diary.",
-      "instructions2": "Any boxes left empty will be ignored.",
-      "meal": "Meal"
+      "instructions1": "Используйте поля ниже, чтобы изменить названия блюд в дневнике еды.",
+      "instructions2": "Все поля оставшиеся пустыми будут проигнорированы.",
+      "meal": "Блюдо"
     },
     "foods": {
-      "brand-position": "Product name before brand",
-      "sort": "Sort foods alphabetically",
-      "country": "Country",
-      "sodium": "Use sodium instead of salt"
+      "brand-position": "Название продукта перед брендом",
+      "sort": "Сортировать еду по алфавиту",
+      "country": "Страна",
+      "sodium": "Использовать натрий вместо соли"
     }
   },
   "dialogs": {
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "yes": "Yes",
-    "no": "No",
-    "confirm-delete": "Are you sure you want to delete this item?",
-    "delete-title": "Delete Entry",
-    "required-fields": "Please complete all required fields."
+    "delete": "Удалить",
+    "cancel": "Отмена",
+    "yes": "Да",
+    "no": "Нет",
+    "confirm-delete": "Вы уверены, что хотите удалить этот элемент?",
+    "delete-title": "Удалить запись",
+    "required-fields": "Пожалуйста, заполните все необходимые поля."
   },
   "user-guide": {
-    "title": "User Guide",
+    "title": "Руководство",
     "basics": {
-      "title": "Basics",
-      "p1": "Your body needs a certain amount of calories to maintain your current weight. We'll call this your maintenance level. You can increase your maintenance level by doing lots of exercise or you can decrease it by doing less.",
+      "title": "Основы",
+      "p1": "Вашему организму необходимо определенное количество калорий для поддержания текущего веса. Мы назовем это вашим уровнем обслуживания. Вы можете увеличить свой уровень обслуживания, делая много упражнений или уменьшить его, делая меньше.",
       "p2": "The easiest method (that is also pretty accurate) to calculate your maintenance level is to use a TDEE calculator. You can find plenty of these online.",
       "p3": "To lose weight you should eat at least 100 calories per day less than your maintenance level, to gain weight you should eat at least 100 calories per day more than your maintenance level.",
       "p4": "The less you eat per day the more weight you will lose. If you plan to lose weight with a great calorie deficit consult your doctor and plan what you eat so you get all the nutrition your body needs. Have regular check ups with your doctor so you can react fast if anything goes wrong."
