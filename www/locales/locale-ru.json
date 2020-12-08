@@ -254,12 +254,12 @@
     },
     "licenses": {
       "title": "Лицензии",
-      "p1": "Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-      "p2": "The source code for Waistline can be found at github.com/davidhealey."
+      "p1": "Waistline был собран с использованием фреймворка Cordova и OnsenUI, которые доступны по лицензии Apache. Также включены jQuery, jQuery localize и ChartJS, которые находятся под лицензией MIT. HTML, CSS и JavaScript, составляющие основную часть приложения, находятся под лицензией GPLv3.",
+      "p2": "Исходный код Waistline можно найти на github.com/davidhealey."
     }
   },
   "about": {
-    "title": "About",
-    "p1": "Waistline was created by David Healey with suggestions and contributions from fellow git-hubbers."
+    "title": "О приложении",
+    "p1": "Waistline был создан Дэвидом Хили с предложениями и вкладами других людей на GitHub."
   }
 }
