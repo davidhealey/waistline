@@ -23,8 +23,8 @@
   "statistics": {
     "title": "Статистика",
     "goal": "Цель",
-    "used": "Used",
-    "remaining": "Remaining",
+    "used": "Получено",
+    "remaining": "Осталось",
     "week": "1 неделя",
     "month": "1 месяц",
     "3month": "3 месяца",
@@ -34,10 +34,10 @@
   "goals": {
     "title": "Цели",
     "nutrition": {
-      "same-goal": "Same Goal Each Day"
+      "same-goal": "Одна и та же цель каждый день"
     },
     "weight": {
-      "title": "Weight Goals",
+      "title": "Целевой вес",
       "target": "Целевой вес (кг)",
       "weekly": "Недельная цель (кг)",
       "is-min": "Я хочу набрать вес"
@@ -51,7 +51,7 @@
     "current-weight": "Текущий вес",
     "quick-add": {
       "title": "Быстрое добавление",
-      "body": "Number of calories"
+      "body": "Количество калорий"
     },
     "edit-item": {
       "title": "Изменить запись",
@@ -70,18 +70,18 @@
   },
   "food-list": {
     "title": "Продукты",
-    "search": "Search Food",
-    "name-of-food": "Name of Food",
-    "no-results": "No matching results",
-    "scan-failed": "Scan Failed",
+    "search": "Поиск еды",
+    "name-of-food": "Название еды",
+    "no-results": "Нет подходящих результатов",
+    "scan-failed": "Ошибка сканирования",
     "edit-item": {
-      "title1": "Add Food",
-      "title2": "Edit Food",
+      "title1": "Добавить еду",
+      "title2": "Редактировать еду",
       "placeholders": {
         "name": "Название*",
         "brand": "Производитель(Брэнд)*",
-        "portion": "Portion*",
-        "calories": "Calories*",
+        "portion": "Порция*",
+        "calories": "Калории*",
         "protein": "Белки (г)",
         "carbs": "Углеводы (г)",
         "fat": "Жиры (г)",
@@ -93,14 +93,14 @@
     },
     "upload-item": {
       "title": "Загрузить на Open Food Facts",
-      "success": "Product successfully added to Open Food Facts",
+      "success": "Продукт успешно добавлен в Open Food Facts",
       "fail": "К сожалению, загрузка не удалась. Пожалуйста, попробуйте еще раз или свяжитесь с разработчиком.",
       "placeholders": {
         "barcode": "Штрих-код*",
         "name": "Имя*",
         "brand": "Производитель(Брэнд)*",
         "portion": "Размер порции*",
-        "calories": "Calories per serving*",
+        "calories": "Калорий на порцию*",
         "protein": "Белки (г)",
         "carbs": "Углеводов на порцию (г)",
         "fat": "Жиры (г)",
