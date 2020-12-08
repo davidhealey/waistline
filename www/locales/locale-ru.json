@@ -145,13 +145,13 @@
     "export": "Экспорт данных",
     "diary": {
       "title": "Настройка дневника",
-      "instructions1": "Используйте поля ниже, чтобы изменить названия блюд в дневнике еды.",
+      "instructions1": "Используйте поля ниже, чтобы изменить названия блюд в дневнике.",
       "instructions2": "Все поля оставшиеся пустыми будут проигнорированы.",
       "meal": "Блюдо"
     },
     "foods": {
       "brand-position": "Название продукта перед брендом",
-      "sort": "Сортировать еду по алфавиту",
+      "sort": "Сортировать продукты по алфавиту",
       "country": "Страна",
       "sodium": "Использовать натрий вместо соли"
     }
@@ -188,29 +188,29 @@
       "p2": "Это приведет вас к списку продуктов, где вы можете выбрать один или несколько продуктов для добавления в дневник.",
       "p3": "Калории для каждого продукта будут добавлены к общему количеству на выбранную в данный момент дату и отображены в нижней части экрана.",
       "p4": "Кнопки по обе стороны от отображаемой даты можно использовать для перехода к предыдущему или следующему дню, и вы можете нажать на саму дату, чтобы выбрать конкретную дату.",
-      "p5": "Tapping on a food item in your diary will allow you to adjust the number of servings and change the category for that item. These changes only apply to the item in your diary and do not affect the food list.",
-      "p6": "Tap and hold on an item in your diary to remove it.",
-      "p7": "You can record your weight by tapping on the scales icon on the top toolbar.",
-      "p8": "If you would just like to record some calories without the hassle of adding a product to your food list then you can do that too. Just tap and hold on one of the categories and enter the amount of calories in the box that appears. You can also enter a negative number here if you'd like to log calories burned."
+      "p5": "Нажав на продукт в своем дневнике, вы сможете настроить количество порций и изменить категорию для этого элемента. Эти изменения применяются только к элементу в вашем дневнике и не влияют на список продуктов.",
+      "p6": "Нажмите и удерживайте элемент в вашем дневнике, чтобы удалить его.",
+      "p7": "Вы можете записать свой вес, нажав на значок весов на верхней панели инструментов.",
+      "p8": "Если вы просто хотите записать немного калорий, не добавляя продукт в свой список продуктов, вы тоже можете это сделать. Просто нажмите и удерживайте одну из категорий и введите количество калорий в появившемся поле. Вы также можете ввести здесь отрицательное число, если хотите зарегистрировать сожженные калории."
     },
     "food-list": {
-      "title": "Food List",
-      "p1": "This screen contains a list of all the foods you have added to your local database. This list will be empty the first time you run the app.",
-      "p2": "You can use the search box to filter the list of food items to find the one you'd like. If you have an internet connection you can also use the search box to find products in the Open Food Facts database.",
-      "p3": "The list of items is automatically sorted by how recently you added them to your diary, so the foods you add most often will appear near the top of the list.",
-      "p4": "Tapping on an item in the list will select it. Once you've selected at least one item a tick will appear on the top toolbar, tapping this will add the selected items to your diary.",
-      "p5": "You can edit or delete a food item by tapping and holding on it and selecting an option from the popup that appears."
+      "title": "Список продуктов",
+      "p1": "Этот экран содержит список всех продуктов, которые вы добавили в свою локальную базу данных. Этот список будет пустым при первом запуске приложения.",
+      "p2": "Вы можете использовать поле поиска, чтобы отфильтровать список продуктов и найти то, что вам нужно. Если у вас есть подключение к Интернету, вы также можете использовать окно поиска, чтобы найти продукты в базе данных Open Food Facts.",
+      "p3": "Список элементов автоматически сортируется по тому, как давно вы добавляли их в свой дневник, поэтому продукты, которые вы добавляете чаще всего, будут отображаться в верхней части списка.",
+      "p4": "При нажатии на элемент в списке он выбирается. После того, как вы выбрали хотя бы один элемент, на верхней панели инструментов появится галочка, нажатие на нее добавит выбранные элементы в ваш дневник.",
+      "p5": "Вы можете отредактировать или удалить продукт, нажав и удерживая его, и выбрав вариант во всплывающем окне."
     },
     "adding-a-food": {
-      "title": "Adding a Food",
-      "p1": "There are three ways to add a new food to your food list. You can click the floating plus button on the food list screen, search the Open Food Facts database for products using the food list search bar, or scan the barcode of a product by tapping the barcode icon on the top toolbar of the food list screen.",
-      "p2": "Whichever method you choose will eventually take you to the food edit screen. Here you can manually enter the name of the food, the portion size (e.g. 1 biscuit, 100g, 3 cups, etc.), and the nutriments contained in that portion.",
-      "p3": "The data returned by the barcode scanner may not always be accurate for the product or serving size you have so check the information it adds to the form and adjust it as necessary before saving.",
-      "p4": "If no data is available for a scanned product you will be given the option of adding it to the Open Food Facts database.",
-      "p5": "Once you're happy with the data in the form you can tap the tick button on the top toolbar to add the item to your food list."
+      "title": "Добавление продукта",
+      "p1": "Есть три способа добавить новый продукт в свой список продуктов. Вы можете нажать плавающую кнопку с плюсом на экране списка продуктов, выполнить поиск продуктов в базе данных Open Food Facts с помощью строки поиска списка продуктов или отсканировать штрих-код продукта, нажав значок штрих-кода на верхней панели инструментов экрана списка продуктов.",
+      "p2": "Какой бы метод вы ни выбрали, в конечном итоге вы попадете на экран редактирования продукта. Здесь вы можете вручную ввести название продукта, размер порции (например, 1 печенье, 100 г, 3 чашки и т. д.) И питательные вещества, содержащиеся в этой порции.",
+      "p3": "Данные, возвращаемые сканером штрих-кода, могут не всегда быть точными для продукта или размера порции, который у вас есть, поэтому проверьте информацию, которую он добавляет в форму, и при необходимости измените её перед сохранением.",
+      "p4": "Если по отсканированному продукту нет данных, вам будет предложено добавить его в базу данных Open Food Facts.",
+      "p5": "Как только вы будете довольны данными в форме, вы можете нажать кнопку с галочкой на верхней панели инструментов, чтобы добавить элемент в свой список продуктов."
     },
     "uploading-a-product": {
-      "title": "Uploading a product",
+      "title": "Загрузка продукта",
       "p1": "When you scan a barcode for a product that is not currently in the Open Food Facts database you will be asked if you would like to add it which you can do from within Waistline.",
       "p2": "You'll be taken to a screen where you can enter the name and brand of the product and some basic nutritional information. You'll also be able to upload upto three pictures.",
       "p3": "Click on the camera icon to take a photo. You can crop the image once you've taken it so that you're only uploading relevant information.",
