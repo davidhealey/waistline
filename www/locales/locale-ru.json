@@ -145,7 +145,7 @@
     "export": "Экспорт данных",
     "diary": {
       "title": "Настройка дневника",
-      "instructions1": "Используйте поля ниже, чтобы изменить названия блюд в дневнике.",
+      "instructions1": "Используйте поля ниже, чтобы изменить названия блюд в дневнике питания.",
       "instructions2": "Все поля оставшиеся пустыми будут проигнорированы.",
       "meal": "Блюдо"
     },
@@ -231,29 +231,29 @@
       "title": "Цели",
       "p1": "На этом экране вы можете установить различные цели, которых хотите достичь.",
       "p2": "Вы можете установить цель по весу и указать, хотите ли вы похудеть или набрать вес.",
-      "p3": "And you can set a range of nutritional goals with a different goal for every day of the week."
+      "p3": "Вы также можете установить разные цели в отношении питания на каждый день недели."
     },
     "settings": {
-      "title": "Settings",
-      "p1": "There are various settings on this screen that can be used to customise the app. Most of these are self explanatory.",
-      "p2": "The diary settings allow you to customise the names of the categories used in the food diary. You can have up to 7 categories. Any categories that don't have a name won't be used."
+      "title": "Настройки",
+      "p1": "На этом экране есть различные параметры, которые можно использовать для настройки приложения. Большинство из них говорят сами за себя.",
+      "p2": "Настройки дневника позволяют настроить названия категорий, используемых в дневнике питания. У вас может быть до 7 категорий. Категории, у которых нет названия, использоваться не будут."
     },
     "export": {
-      "title": "Export",
-      "p1": "All of the data you enter is kept locally on your device. The only time any information is sent from this app to the internet is when you scan a barcode, search for a product, or upload a new product.",
-      "p2": "This is great because it means you are in charge of your data and no-one can access it remotely. The only downside is your data won't be backed up to the cloud (someone else's computer) so when you move on to a new device your data won't automatically be available.",
-      "p3": "This is where the export button is useful. Tapping this button will export your data (diary, food list, and weight log) to a simple text file. This file is called waistline_export.json. You will find this file on your device in a location similar to 'Android/data/com.waist.line/files/'.",
-      "p4": "This is a private folder that can't be accessed by other apps so it's nice and secure but a little bit inconvenient to find.",
-      "p5": "Once you have this file you can install Waistline on your new device and move the exported file to the same location on the new device. Then you can import the data back into Waistline."
+      "title": "Экспорт",
+      "p1": "Все вводимые вами данные хранятся локально на вашем устройстве. Единственный раз, когда какая-либо информация отправляется из этого приложения в Интернет, это когда вы сканируете штрих-код, ищете продукт или загружаете новый продукт.",
+      "p2": "Это здорово, потому что это означает, что вы отвечаете за свои данные, и никто не может получить к ним удалённый доступ. Единственным недостатком является то, что ваши данные не будут скопированы в облако (на чужой компьютер), поэтому, когда вы переходите на новое устройство, ваши данные не будут автоматически доступны.",
+      "p3": "Вот здесь и пригодится кнопка экспорта. При нажатии этой кнопки ваши данные (дневник, список продуктов и журнал веса) экспортируются в простой текстовый файл. Этот файл называется waistline_export.json. Вы найдете этот файл на вашем устройстве в месте, похожем на 'Android/data/com.waist.line/files/'.",
+      "p4": "Это приватная папка, к которой другие приложения не могут получить доступ, поэтому это хорошо и безопасно, но её немного неудобно найти.",
+      "p5": "Получив этот файл, вы можете установить Waistline на своем новом устройстве и переместить экспортированный файл в то же место на новом устройстве. Затем вы можете импортировать данные обратно в Waistline."
     },
     "import": {
-      "title": "Import",
-      "p1": "Warning!!!! Importing data will overwrite all of your existing data. The only time you'll need to do this is when moving to a new device or restoring data you have backed up.",
-      "p2": "To import data put the waistline_export.json file in the correct location on your device (see Export). Then tap the import button.",
-      "p3": "Waistline version 2 is not backwards compatible with version 1, you can try to import data from version 1 but it will produce some strange results."
+      "title": "Импорт",
+      "p1": "Предупреждение!!!! Импорт данных перезапишет все ваши существующие данные. Это нужно делать только при переходе на новое устройство или восстановлении данных, резервная копия которых у вас есть.",
+      "p2": "Для импорта данных поместите файл waistline_export.json в правильное место на вашем устройстве (см. Экспорт). Затем нажмите кнопку импорта.",
+      "p3": "Waistline версии 2 не имеет обратной совместимости с версией 1, вы можете попробовать импортировать данные из версии 1, но это даст некоторые странные результаты."
     },
     "licenses": {
-      "title": "Licenses",
+      "title": "Лицензии",
       "p1": "Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
       "p2": "The source code for Waistline can be found at github.com/davidhealey."
     }
