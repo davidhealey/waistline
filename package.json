@@ -1,0 +1,44 @@
+{
+  "name": "com.waist.line",
+  "version": "2.4.2",
+  "displayName": "Waistline",
+  "cordova": {
+    "platforms": [
+      "browser",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-camera": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-indexeddb-async": {},
+      "cordova-plugin-splashscreen": {},
+      "phonegap-plugin-barcodescanner": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-browsersync-gen2": {}
+    }
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "cordova": "^9.0.0",
+    "cordova-android": "^7.1.4",
+    "cordova-browser": "~5.0.4",
+    "cordova-plugin-browsersync-gen2": "^1.1.7",
+    "cordova-plugin-camera": "~4.0.3",
+    "cordova-plugin-file": "^6.0.1",
+    "cordova-plugin-indexeddb-async": "~0.0.1",
+    "cordova-plugin-network-information": "~2.0.1",
+    "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "csp-parse": "0.0.2",
+    "elementtree": "^0.1.7",
+    "framework7": "^5.7.14",
+    "glob": "^5.0.15",
+    "npm": "^6.14.8",
+    "phonegap-plugin-barcodescanner": "^8.0.0",
+    "plist": "^3.0.1",
+    "q": "^1.5.1"
+  }
+}
