@@ -231,12 +231,23 @@ var f7 = new Framework7({
 
 var mainView = f7.views.create(".view-main");
 
-document.addEventListener("page:init", function(event){
+document.addEventListener("page:init", function(event) {
+
+  let page = event.detail;
 
   //Close panel when switching pages
   var panelLeft = f7.panel.get('.panel-left');
   if (panelLeft)
     panelLeft.close(true);
+    
+  //Add back arrow to left section of navbar when there is something to go back to  
+  if (page.from != "current") {
+    let left = document.getElementById("left");
+    if (left) {
+      let html = '<a class="link back"><i class="icon icon-back"></i><span class="if-not-md">Back</span></a>';
+      left.innerHTML = html;
+    }
+  }
 });
 
 f7.on("init", function(event){
