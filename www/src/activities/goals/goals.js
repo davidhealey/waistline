@@ -30,11 +30,12 @@ var goals = {
     let data = settings.getField("goals");
     let result = {};
 
-    for (let g in data) {
+    /*for (let g of data) {
+      console.log(g);
       if (g == "weight") continue; //Weight handled separately
       result[g] = result[g] || 0;
       result[g] = data[g][day];
-    }
+    }*/
 
     result.weight = data.weight;
     return result;
@@ -84,25 +85,28 @@ var goals = {
 
   setDefaultGoals : function() //Set stored goals to default
   {
-    var types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "sodium", "salt"];
-    var values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2200, 2.4]; //Womens RDAs
-    var data = {};
-
-    for (let i = 0; i < types.length; i++) //Each type
-    {
-      data[types[i]] = data[types[i]] || {};
-
-      if (types[i] == "weight") continue; //Weight is handled separately
-
-      data[types[i]].multi = true;
-      data[types[i]].diaryDisplay = true;
-
-      for (let j = 0; j < 7; j++) { //Each day of the week (0-6)
-        data[types[i]][j] = values[i];
+    let types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "sodium", "salt"];
+    let values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2200, 2.4]; //Womens RDAs
+    let data = [];
+    
+    //Nutriment goals
+    types.forEach(function(item, index) {
+      
+      if (item != "weight") {
+        //Each day of week
+        let targets = [];
+        for (let i = 0; i < 7; i++) {
+          targets[i] = values[index];
+        }
+        
+        let entry = {"name":item, "targets":targets, "multi":true, "diaryDisplay":true};
+        data.push(entry);
       }
-    }
-
-    data.weight = {"target":75, "weekly":0.25, "gain":false}; //Default weight goals
+    });
+  
+    //Weight
+    let weight = {"name":"weight", "target":75, "weekly":0.25, "gain":false};
+    data.push(weight);
 
     //Save data in local storage
     settings.putField("goals", JSON.stringify(data));
