@@ -109,8 +109,7 @@ var diary = {
       var data = {"entries":{}, "nutrition":{}, "nutritionTotals":{}};
 
       //Diary entries and nutrition
-      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(from, to, false, true)).onsuccess = function(e)
-      {
+      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(from, to, false, true)).onsuccess = function(e) {
         let cursor = e.target.result;
 
         if (cursor) {
@@ -203,11 +202,35 @@ var diary = {
       let left = document.createElement("div");
       left.className = "col-10 add-button";
       left.setAttribute("category", i);
-      left.innerHTML = "<button class='button button-md add-button disable-long-tap'><i class='fas fa-plus'></i></button>";
+      
+      let button = document.createElement("button");
+      button.className = "button button-md add-button disable-long-tap";
+      
+      left.appendChild(button);
+            
+      a = document.createElement("a");
+      a.href = "/foods-meals-recipes/";
+      a.setAttribute("data-last-page", "diary");
+      
+      button.appendChild(a);
+      
+      let icon = document.createElement("i");
+      icon.className = "fas fa-plus";
+      
+      a.appendChild(icon);
+      
+      
+      
+      
+      /*left.innerHTML = "<button class='button button-md add-button disable-long-tap'><i class='fas fa-plus'></i></button>";
+      
+      
+      
+      
       left.addEventListener("click", function(e) {
         diary.currentCategory = this.getAttribute("category");
         f7.views.main.router.navigate("/foods-meals-recipes/", {"context":{"origin":"/diary/"}});
-      });
+      });*/
       left.addEventListener("taphold", function(e) {diary.quickAdd(this.getAttribute("category"));});
 
       row.appendChild(left);

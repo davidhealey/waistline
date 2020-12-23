@@ -160,7 +160,12 @@ var foodsMealsRecipes = {
   },
 };
 
-document.addEventListener("page:init", function(event){
+document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='foods-meals-recipes']")) {
+    utils.addBackButton("");
+    if (event.detail && event.detail.from != "current") {
+      let navLeft = document.querySelector("#foods-meals-recipes .left");
+      utils.addBackButton(navLeft);
+    }
   }
 });

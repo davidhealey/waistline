@@ -2,12 +2,7 @@ deliverables/
 images/master/
 node_modules/
 plugins/
-package.json
 package-lock.json
 platforms/
-platforms/browser/
-platforms/android/.gradle/
-platforms/android/build/
-platforms/android/app/build/
-platforms/android/CordovaLib/build
+platforms
 .jshintrc
