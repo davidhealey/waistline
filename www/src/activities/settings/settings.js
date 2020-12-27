@@ -37,7 +37,7 @@ var settings = {
   getField: function(field) {
     let settings = JSON.parse(window.localStorage.getItem("settings"));
     if (settings && settings[field]) {
-      return settings[field];
+      return JSON.parse(settings[field]);
     }
     return undefined;
   },

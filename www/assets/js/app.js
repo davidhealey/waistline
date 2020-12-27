@@ -99,36 +99,35 @@ ons.ready(function() {
 */
 
 //App setup
-var waistline = {
+const waistline = {
 
   mode: "development",
-  tests:{}, //Object to hold test functions to be run by TinyTest
+  tests: {}, //Object to hold test functions to be run by TinyTest
   strings: {}, //Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
-  nutriments: ["calories", "proteins", "carbohydrates","fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium","vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
+  nutriments: ["calories", "proteins", "carbohydrates", "fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
   nutrimentUnits: {
-    "calories":"kcal",
-    "cholesterol":"mg",
-    "sodium":"mg",
-    "potassium":"mg",
-    "calcium":"mg",
-    "iron":"mg",
-    "magnesium":"mg",
-    "zinc":"mg",
-    "caffeine":"g",
-    "alcohol":"%",
-    "vitamin-a":"µg",
-    "vitamin-d":"µg",
-    "vitamin-e":"mg",
-    "vitamin-k":"µg",
-    "vitamin-c":"mg",
-    "vitamin-b1":"mg",
-    "vitamin-b2":"mg",
-    "vitamin-b6":"g",
-    "vitamin-b9":"µg",
-    "vitamin-b12":"µg"
+    "calories": "kcal",
+    "cholesterol": "mg",
+    "sodium": "mg",
+    "potassium": "mg",
+    "calcium": "mg",
+    "iron": "mg",
+    "magnesium": "mg",
+    "zinc": "mg",
+    "caffeine": "g",
+    "alcohol": "%",
+    "vitamin-a": "µg",
+    "vitamin-d": "µg",
+    "vitamin-e": "mg",
+    "vitamin-k": "µg",
+    "vitamin-c": "mg",
+    "vitamin-b1": "mg",
+    "vitamin-b2": "mg",
+    "vitamin-b6": "g",
+    "vitamin-b9": "µg",
+    "vitamin-b12": "µg"
   },
-
 };
 
 //Framework7 Setup
@@ -140,11 +139,11 @@ var f7 = new Framework7({
   // App id
   id: "com.waist.line",
   version: "2.5",
-    // Enable swipe panel
+  // Enable swipe panel
   panel: {
     swipe: "left",
   },
-    calendar: {
+  calendar: {
     url: 'calendar/',
     dateFormat: 'dd.mm.yyyy',
   },
@@ -152,8 +151,7 @@ var f7 = new Framework7({
     tapHold: true //enable tap hold events
   },
   // Add default routes
-  routes: [
-    {
+  routes: [{
       name: "Statistics",
       path: "/statistics/",
       url: "/www/src/activities/statistics/views/statistics.html"
@@ -162,23 +160,20 @@ var f7 = new Framework7({
       name: "Diary",
       path: "/diary/",
       url: "/www/src/activities/diary/views/diary.html",
-      routes: [
-        {
-          name: "Item Editor",
-          path: "/edit/",
-          url: "/www/src/activities/diary/views/diary-editor.html",
-          options: {
-            transition: "f7-parallax"
-          }
+      routes: [{
+        name: "Item Editor",
+        path: "/edit/",
+        url: "/www/src/activities/diary/views/diary-editor.html",
+        options: {
+          transition: "f7-parallax"
         }
-      ]
+      }]
     },
     {
       name: "Foods, Meals, Recipes",
       path: "/foods-meals-recipes/",
       url: "/www/src/activities/foods-meals-recipes/views/foods-meals-recipes.html",
-      tabs: [
-        {
+      tabs: [{
           path: '/',
           id: 'foodlist',
           url: '/www/src/activities/foodlist/views/foodlist.html',
@@ -194,16 +189,14 @@ var f7 = new Framework7({
           url: '/www/src/activities/meals/views/meals.html'
         }
       ],
-      routes: [
-        {
-          name: "Editor",
-          path: "/foodlist-editor/",
-          url: "/www/src/activities/foodlist/views/foodlist-editor.html",
-          options: {
-            transition: "f7-parallax"
-          }
+      routes: [{
+        name: "Editor",
+        path: "/foodlist-editor/",
+        url: "/www/src/activities/foodlist/views/foodlist-editor.html",
+        options: {
+          transition: "f7-parallax"
         }
-      ]
+      }]
     },
     {
       name: "Recipes",
@@ -239,7 +232,7 @@ document.addEventListener("page:init", function(event) {
   var panelLeft = f7.panel.get('.panel-left');
   if (panelLeft)
     panelLeft.close(true);
-    
+
   //Add back arrow to left section of navbar when there is something to go back to  
   if (page.from != "current") {
     let left = document.getElementById("left");
@@ -250,7 +243,7 @@ document.addEventListener("page:init", function(event) {
   }
 });
 
-f7.on("init", function(event){
+f7.on("init", function(event) {
 
   //Database setup
   dbHandler.initializeDb();
@@ -263,4 +256,6 @@ f7.on("init", function(event){
 });
 
 //Prevent chrome displaying context menu on long click
-window.addEventListener("contextmenu", function(e) { e.preventDefault();});
+window.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});

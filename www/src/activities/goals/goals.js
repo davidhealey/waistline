@@ -28,16 +28,17 @@ var goals = {
   //Returns the goals that have been set for the given day (0-6)
   getGoalsByDay: function(day) {
     let data = settings.getField("goals");
-    let result = {};
 
-    /*for (let g of data) {
-      console.log(g);
-      if (g == "weight") continue; //Weight handled separately
-      result[g] = result[g] || 0;
-      result[g] = data[g][day];
-    }*/
+    let result = data.map(x => {
+      if (x.name == "weight") return x;
+      return {
+        "name": x.name,
+        "target": x.targets[day],
+        "mutli": x.multi,
+        "diaryDisplay": x.diaryDisplay
+      };
+    });
 
-    result.weight = data.weight;
     return result;
   },
 
@@ -83,29 +84,39 @@ var goals = {
     }
   },
 
-  setDefaultGoals : function() //Set stored goals to default
+  setDefaultGoals: function() //Set stored goals to default
   {
     let types = ["weight", "calories", "protein", "carbs", "fat", "saturated-fat", "sugar", "fiber", "sodium", "salt"];
     let values = [0, 2000, 45, 230, 70, 20, 90, 24, 6, 2200, 2.4]; //Womens RDAs
     let data = [];
-    
+
     //Nutriment goals
     types.forEach(function(item, index) {
-      
+
       if (item != "weight") {
         //Each day of week
         let targets = [];
         for (let i = 0; i < 7; i++) {
           targets[i] = values[index];
         }
-        
-        let entry = {"name":item, "targets":targets, "multi":true, "diaryDisplay":true};
+
+        let entry = {
+          "name": item,
+          "targets": targets,
+          "multi": true,
+          "diaryDisplay": true
+        };
         data.push(entry);
       }
     });
-  
+
     //Weight
-    let weight = {"name":"weight", "target":75, "weekly":0.25, "gain":false};
+    let weight = {
+      "name": "weight",
+      "target": 75,
+      "weekly": 0.25,
+      "gain": false
+    };
     data.push(weight);
 
     //Save data in local storage
@@ -121,8 +132,10 @@ var goals = {
 };
 
 //Page initialization
-document.addEventListener("init", function(event){
+document.addEventListener("init", function(event) {
   if (event.target.matches('ons-page#goals')) {
     goals.populateList();
   }
 });
+
+waistline.Goals = goals;

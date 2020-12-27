@@ -22,15 +22,15 @@
 var foodlist = {
 
   initialize: function() {
-//console.log(f7.views.main.router);
+    //console.log(f7.views.main.router);
 
     const history = f7.views.main.router.history;
 
-  /*  if (history[history.length-2] != "/foods-meals-recipes/")
-      console.log("DIARY");
-    else {
-      console.log("NOT DIARY");
-    }*/
+    /*  if (history[history.length-2] != "/foods-meals-recipes/")
+        console.log("DIARY");
+      else {
+        console.log("NOT DIARY");
+      }*/
 
     this.tab = document.getElementById("foodlist-tab");
     this.list = [];
@@ -84,16 +84,15 @@ var foodlist = {
         spinner.style.display = "none";
 
         // Emulate 1s loading
-        setTimeout(function () {
+        setTimeout(function() {
 
           allowInfinite = true; // Reset loading flag
 
           // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
-          if (lastItemIndex >= maxItems || lastItemIndex >= foodlist.list.length-1) {
+          if (lastItemIndex >= maxItems || lastItemIndex >= foodlist.list.length - 1) {
             spinner.style.display = "none";
             return;
-          }
-          else
+          } else
             spinner.style.display = "block";
 
           // Generate new items HTML and append to list
@@ -117,11 +116,11 @@ var foodlist = {
       let sort = settings.get("foodlist", "sort");
 
       foodsMealsRecipes.getFromDB("foodList", sort)
-      .then(function(list) {
-        foodlist.list = list;
-        foodlist.filterCopy = list;
-        resolve();
-      });
+        .then(function(list) {
+          foodlist.list = list;
+          foodlist.filterCopy = list;
+          resolve();
+        });
     });
   },
 
@@ -160,12 +159,18 @@ var foodlist = {
 
       //Edit trigger
       title.addEventListener("click", function(event) {
-        f7.views.main.router.navigate("./foodlist-editor/", {"context":{"item":JSON.stringify(item)}});
+        f7.views.main.router.navigate("./foodlist-editor/", {
+          "context": {
+            "item": JSON.stringify(item)
+          }
+        });
       });
 
       //Delete trigger
       if (item.id != undefined)
-        title.addEventListener("taphold", function() {foodlist.deleteItem(item.id);});
+        title.addEventListener("taphold", function() {
+          foodlist.deleteItem(item.id);
+        });
 
       inner.appendChild(title);
 
@@ -204,18 +209,20 @@ var foodlist = {
 
   getImages: function(code, field) {
     return new Promise(function(resolve, reject) {
-      if (navigator.connection.type == "none" && app.mode != "development") {return reject(false);}
+      if (navigator.connection.type == "none" && app.mode != "development") {
+        return reject(false);
+      }
 
       let endPoint;
       if (app.mode == "development")
-        endPoint = "https://off:off@world.openfoodfacts.net/api/v0/product/"+code+".json?fields=" + field; //Testing server
+        endPoint = "https://off:off@world.openfoodfacts.net/api/v0/product/" + code + ".json?fields=" + field; //Testing server
       else
-        endPoint = "https://world.openfoodfacts.org/api/v0/product/"+code+".json?fields=images" + field; //Real server
+        endPoint = "https://world.openfoodfacts.org/api/v0/product/" + code + ".json?fields=images" + field; //Real server
 
       let request = new XMLHttpRequest();
       request.open("GET", endPoint, true);
       request.send();
-      request.onreadystatechange = function(){
+      request.onreadystatechange = function() {
 
         if (request.readyState == 4 && request.status == 200) {
           let result = JSON.parse(request.responseText);
@@ -245,16 +252,16 @@ var foodlist = {
 
       //Search OFF database
       promises[0] = foodlist.searchOFF(term)
-      .then(function(items){
-        list = list.concat(items);
-      });
+        .then(function(items) {
+          list = list.concat(items);
+        });
 
       //Search USDA if enabled
       if (settings.get("foodlist", "usda-search")) {
         promises[1] = foodlist.searchUSDA(term)
-        .then(function(items) {
-          list = list.concat(items);
-        });
+          .then(function(items) {
+            list = list.concat(items);
+          });
       }
 
       //Wait for all promises to resolve
@@ -269,18 +276,17 @@ var foodlist = {
           });
           toast.open();
           resolve(false);
-        }
-        else {
+        } else {
           resolve(list);
         }
       });
     });
   },
 
-  searchOFF : function(term) {
+  searchOFF: function(term) {
     return new Promise(function(resolve, reject) {
       //Build search string
-      let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms="+term+"&search_simple=1&page_size=100&sort_by=last_modified_t&action=process&json=1";
+      let query = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + term + "&search_simple=1&page_size=100&sort_by=last_modified_t&action=process&json=1";
 
       //Get country name
       let country = settings.get("foodlist", "country") || undefined;
@@ -349,12 +355,10 @@ var foodlist = {
             Promise.all(promises).then(function(values) {
               return resolve(list);
             });
-          }
-          else {
+          } else {
             return resolve(list);
           }
-        }
-        else if (request.status == 400) {
+        } else if (request.status == 400) {
           return resolve(list);
         }
       };
@@ -374,7 +378,7 @@ var foodlist = {
     return new Promise(function(resolve, reject) {
 
       //Build query
-      let query = "https://api.nal.usda.gov/ndb/reports/?format=json&ndbno=" + product.ndbno +"&api_key=" + api_key;
+      let query = "https://api.nal.usda.gov/ndb/reports/?format=json&ndbno=" + product.ndbno + "&api_key=" + api_key;
 
       //Create request
       let request = new XMLHttpRequest();
@@ -389,57 +393,58 @@ var foodlist = {
 
           if (food && food.name != "") {
             const nutriments = app.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
-            let item = {"nutrition":{}};
+            let item = {
+              "nutrition": {}
+            };
 
             let now = new Date();
             item.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-              item.name = escape(food.name);
-              item.barcode = "usda_" + food.ndbno; //Use ndb number as barcode
-              item.brand = food.manu || "";
-              item.portion = "100" + food.ru;
+            item.name = escape(food.name);
+            item.barcode = "usda_" + food.ndbno; //Use ndb number as barcode
+            item.brand = food.manu || "";
+            item.portion = "100" + food.ru;
 
-              //Nutrition
-              for (let i = 0; i < food.nutrients.length; i++) {
-                let n = food.nutrients[i]; //Nutrient
-                let nName = n.name; //Nutrient name, as lowercase
+            //Nutrition
+            for (let i = 0; i < food.nutrients.length; i++) {
+              let n = food.nutrients[i]; //Nutrient
+              let nName = n.name; //Nutrient name, as lowercase
 
-                switch (nName) {
-                  case "Energy":
-                    item.nutrition.calories = n.value;
-                    break;
-                  case "Total lipid (fat)":
-                    item.nutrition.fat = n.value;
-                    break;
-                  case "Fatty acids, total saturated":
-                    item.nutrition["saturated-fat"] = n.value;
-                    break;
-                  case "Fatty acids, total trans":
-                    item.nutrition["trans-fat"] = n.value;
-                    break;
-                  default:
-                    //Remove commas and anything after from nutrient name
-                    if (nName.indexOf(",") != -1) nName = nName.substring(0, nName.indexOf(","));
-                    nName.replace(" ", "-"); //We use "-" instead of spaces in off nutriment names
-                    nName = nName.toLowerCase(); //Make it lowercase
+              switch (nName) {
+                case "Energy":
+                  item.nutrition.calories = n.value;
+                  break;
+                case "Total lipid (fat)":
+                  item.nutrition.fat = n.value;
+                  break;
+                case "Fatty acids, total saturated":
+                  item.nutrition["saturated-fat"] = n.value;
+                  break;
+                case "Fatty acids, total trans":
+                  item.nutrition["trans-fat"] = n.value;
+                  break;
+                default:
+                  //Remove commas and anything after from nutrient name
+                  if (nName.indexOf(",") != -1) nName = nName.substring(0, nName.indexOf(","));
+                  nName.replace(" ", "-"); //We use "-" instead of spaces in off nutriment names
+                  nName = nName.toLowerCase(); //Make it lowercase
 
-                    if (nutriments.indexOf(nName) != -1) {
-                      item.nutrition[nName] = n.value;
-                    }
-                }
+                  if (nutriments.indexOf(nName) != -1) {
+                    item.nutrition[nName] = n.value;
+                  }
               }
-              return resolve(item);
+            }
+            return resolve(item);
           }
           return resolve(undefined);
-        }
-        else if (request.status == 400) {
+        } else if (request.status == 400) {
           return resolve(undefined);
         }
       };
     });
   },
 
-  scan : function() {
+  scan: function() {
 
     return new Promise(function(resolve, reject) {
 
@@ -457,8 +462,7 @@ var foodlist = {
             console.log("Result found in local DB");
             item = e.target.result;
             return resolve(item); //Return the version from the database
-          }
-          else { //Not in foodlist already so search OFF
+          } else { //Not in foodlist already so search OFF
             //First check that there is an internet connection
             if (navigator.connection.type == "none") {
               ons.notification.alert(app.strings["no-internet"] || "No Internet");
@@ -468,7 +472,7 @@ var foodlist = {
             //Show progress indicator
             document.querySelector('ons-page#foodlist ons-progress-circular').style.display = "inline-block";
 
-            request.open("GET", "https://world.openfoodfacts.org/api/v0/product/"+code+".json", true);
+            request.open("GET", "https://world.openfoodfacts.org/api/v0/product/" + code + ".json", true);
             request.send();
             request.onreadystatechange = function() {
 
@@ -482,17 +486,18 @@ var foodlist = {
                 if (result.status == 0) { //Product not found
 
                   //Ask the user if they would like to add the product to the open food facts database
-                  ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {"title":"Product not found", "cancelable":true})
-                  .then(function(input) {
-                    if (input == 1) {
-                      item.barcode = code;
-                      return resolve(item);
-                    }
-                    else
-                      return reject(new Error("Product not found"));
-                  });
-                }
-                else { //Product found
+                  ons.notification.confirm("Would you like to add this product to the Open Food Facts database?", {
+                      "title": "Product not found",
+                      "cancelable": true
+                    })
+                    .then(function(input) {
+                      if (input == 1) {
+                        item.barcode = code;
+                        return resolve(item);
+                      } else
+                        return reject(new Error("Product not found"));
+                    });
+                } else { //Product found
                   item = foodlist.parseOFFProduct(result.product); //Return the item
                   return resolve(item);
                 }
@@ -507,7 +512,9 @@ var foodlist = {
   parseOFFProduct: function(product) {
 
     const nutriments = waistline.nutriments; //Get array of nutriment names (which correspond to OFF nutriment names)
-    let item = {"nutrition":{}};
+    let item = {
+      "nutrition": {}
+    };
 
     item.name = escape(product.product_name);
     item.image_url = escape(product.image_url);
@@ -528,13 +535,11 @@ var foodlist = {
       item.portion = product.serving_size.replace(" ", "");
       item.nutrition.calories = parseInt(product.nutriments.energy_serving / 4.15);
       perTag = "_serving";
-    }
-    else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g) {
+    } else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g) {
       item.portion = "100g";
       item.nutrition.calories = parseInt(product.nutriments.energy_100g / 4.15);
       perTag = "_100g";
-    }
-    else if (product.quantity) { //If all else fails
+    } else if (product.quantity) { //If all else fails
       item.portion = product.quantity;
       item.nutrition.calories = product.nutriments.energy_value;
     }
@@ -566,8 +571,7 @@ var foodlist = {
     if (checkedboxes.length == 0) {
       scan.style.display = "block";
       submit.style.display = "none";
-    }
-    else {
+    } else {
       scan.style.display = "none";
       submit.style.display = "block";
     }
@@ -601,11 +605,14 @@ var foodlist = {
               if (e.target.result)
                 items[i] = e.target.result;
               else
-                store.put(items[i]).onsuccess = function(e){items[i].id = e.target.result;};
+                store.put(items[i]).onsuccess = function(e) {
+                  items[i].id = e.target.result;
+                };
             };
-          }
-          else { //No barcode, result must be from a different API. Can't check for this in the DB so just insert and leave duplicates up to the user
-            store.put(items[i]).onsuccess = function(e){items[i].id = e.target.result;};
+          } else { //No barcode, result must be from a different API. Can't check for this in the DB so just insert and leave duplicates up to the user
+            store.put(items[i]).onsuccess = function(e) {
+              items[i].id = e.target.result;
+            };
           }
         }
       }
@@ -615,8 +622,7 @@ var foodlist = {
           console.log("Transaction complete");
           foodsMealsRecipes.returnItems(items);
         };
-      }
-      else {
+      } else {
         foodsMealsRecipes.returnItems(items);
       }
     }
@@ -628,16 +634,15 @@ var foodlist = {
     let msg = waistline.strings["confirm-delete"] || "Are you sure?";
     let dialog = f7.dialog.confirm(msg, title, callbackOk);
 
-    function callbackOk()
-    {
+    function callbackOk() {
       let request = dbHandler.deleteItem(id, "foodList");
 
       //If the request was successful rerender the list
       request.onsuccess = function(e) {
         foodlist.populateListFromDB()
-        .then (function(){
-          foodlist.renderList();
-        });
+          .then(function() {
+            foodlist.renderList();
+          });
       };
     }
   },
@@ -657,13 +662,16 @@ var foodlist = {
   dynamicSort: function(property, type) {
 
     if (type == "date")
-      return function (a,b) {return new Date(b[property]).getTime() - new Date(a[property]).getTime();};
+      return function(a, b) {
+        return new Date(b[property]).getTime() - new Date(a[property]).getTime();
+      };
     else
-      return function (a,b) {return a[property].localeCompare(b[property]);};
+      return function(a, b) {
+        return a[property].localeCompare(b[property]);
+      };
   },
 
-  setupSearchbar: function()
-  {
+  setupSearchbar: function() {
     // create searchbar
     const searchbar = f7.searchbar.create({
       el: '.searchbar',
@@ -672,24 +680,23 @@ var foodlist = {
         search(sb, query, previousQuery) {
           const searchInput = document.getElementById("search");
           if (searchInput.value != "") {
-              foodlist.list = foodsMealsRecipes.setFilter(searchInput.value, foodlist.filterCopy);
-              foodlist.renderList();
-          }
-          else {
+            foodlist.list = foodsMealsRecipes.setFilter(searchInput.value, foodlist.filterCopy);
+            foodlist.renderList();
+          } else {
             foodlist.populateListFromDB()
-            .then (function(){
-              foodlist.renderList();
-            });
+              .then(function() {
+                foodlist.renderList();
+              });
           }
         },
       },
     });
 
-    document.getElementById("food-search").addEventListener("submit", function(q){
+    document.getElementById("food-search").addEventListener("submit", function(q) {
       const searchInput = document.getElementById("search");
       if (searchInput.value != "") {
-          foodlist.search(searchInput.value)
-          .then(function(list){
+        foodlist.search(searchInput.value)
+          .then(function(list) {
             if (list != false) {
               foodlist.list = list;
               foodlist.sortList();
@@ -702,21 +709,20 @@ var foodlist = {
 };
 
 //Page initialization
-document.addEventListener("tab:init", function(event){
+document.addEventListener("tab:init", function(event) {
   if (event.target.id == "foodlist") {
-
     foodlist.setupSearchbar();
     foodlist.initialize();
     foodlist.populateListFromDB()
-    .then (function(){
-      foodlist.renderList();
-    });
+      .then(function() {
+        foodlist.renderList();
+      });
   }
 });
 
 
-    //Call constructor
-    /*foodlist.initialize()
+//Call constructor
+/*foodlist.initialize()
     .then(foodlist.populate);
 
     //Search/filter form

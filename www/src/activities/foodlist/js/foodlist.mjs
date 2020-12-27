@@ -1,5 +1,5 @@
 /*
-  Copyright 2018, 2019, 2020 David Healey
+  Copyright 2020 David Healey
 
   This file is part of Waistline.
 
@@ -17,11 +17,8 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Date picker */
-.page[data-name="diary"] #date-picker-container {margin-top: 1em;}
-.page[data-name="diary"] #date-picker-container input {text-align: center;}
+document.addEventListener("page:init", async function(event) {
+  if (event.target.matches(".page[data-name='foodlist']")) {
 
-/* Nutrition/Goals display */
-.page[data-name="diary"] #diary-nutrition {margin-top: 1em; margin-bottom: 1em;}
-.page[data-name="diary"] #diary-nutrition .col {text-align: center;}
-.page[data-name="diary"] #diary-nutrition .nutrition-total-title {font-weight: bold;}
+  }
+});

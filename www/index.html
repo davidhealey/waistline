@@ -34,6 +34,7 @@
 
   <!--CSS-->
   <link rel="stylesheet" href="assets/css/global-styles.css">
+  <link rel="stylesheet" type="text/css" href="src/activities/diary/views/diary.css">
 
   <title>Waistline</title>
 </head>
@@ -97,15 +98,15 @@
 
   <script type="text/javascript" src="cordova.js"></script>
   <script src="/node_modules/framework7/js/framework7.bundle.min.js"></script>
-  <script src="assets/js/utils.js"></script>
-  <script src="assets/js/db-handler.js"></script>
+  <script src="assets/js/db-handler.js" defer></script>
   <script src="src/activities/settings/settings.js"></script>
   <script src="src/activities/log/log.js"></script>
-  <script src="src/activities/goals/goals.js"></script>
+  <script src="src/activities/goals/goals.js" defer></script>
   <script src="src/activities/goals/goal-editor.js"></script>
   <script src="src/activities/diary/js/diary.js"></script>
-  <script src="src/activities/diary/js/editor.js"></script>
+  <script type="module" src="src/activities/diary/js/diary.mjs"></script>
   <script src="src/activities/foods-meals-recipes/foods-meals-recipes.js"></script>
+  <script type="module" src="src/activities/foodlist/js/foodlist.mjs"></script>
   <script src="src/activities/foodlist/foodlist.js"></script>
   <script src="src/activities/foodlist/editor.js"></script>
   <script src="src/activities/meals/meals.js"></script>

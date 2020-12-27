@@ -1,20 +1,15 @@
+export const tidyText = function(text, maxLength) {
 
+  if (text) {
+    let t = unescape(text);
 
-var utils = {
+    if (text.length > maxLength)
+      t = t.substring(0, maxLength - 2) + "..";
 
-
-
-
-  addBackButton: function(div) {
-    
-    
-    
-  /*  
-    let page = f7.views.main.router.view;
-    console.log(page);*/
-
-    
-    
-
+    //Format to title case
+    return t.replace(/\w\S*/g, function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   }
+  return "";
 };
