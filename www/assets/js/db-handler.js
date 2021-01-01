@@ -224,8 +224,7 @@ var dbHandler = {
     let request = DB.transaction(storeName, "readwrite").objectStore(storeName).put(data, key);
 
     request.onerror = function(err) {
-      console.log("Transaction Error!");
-      throw (err);
+      dbHandler.errorHandler(err);
     };
 
     return request;
@@ -523,4 +522,8 @@ var dbHandler = {
         });
     }
   },
+
+  errorHandler: function(err) {
+    console.log(err.target.error);
+  }
 };
