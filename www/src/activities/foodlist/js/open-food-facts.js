@@ -87,11 +87,11 @@ function parseProduct(product) {
   let perTag = "";
   if (product.serving_size && (product.nutrition_data_per == "serving" || product.nutriments.energy_serving)) {
     result.portion = product.serving_size.replace(" ", "");
-    result.nutrition.calories = parseInt(product.nutriments.energy_serving / 4.15);
+    result.nutrition.calories = parseInt(product.nutriments.energy_serving / 4.1868);
     perTag = "_serving";
   } else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g) {
     result.portion = "100g";
-    result.nutrition.calories = parseInt(product.nutriments.energy_100g / 4.15);
+    result.nutrition.calories = parseInt(product.nutriments.energy_100g / 4.1868);
     perTag = "_100g";
   } else if (product.quantity) { //If all else fails
     result.portion = product.quantity;
@@ -100,14 +100,18 @@ function parseProduct(product) {
 
   //Each nutriment 
   nutriments.forEach((x, i) => {
-    if (x != "calories") {
+    if (x != "calories" && x != "kilojoules") {
       result.nutrition[x] = product.nutriments[x + perTag];
     }
   });
 
-  //Kilojules to kcalories
-  if (product.nutriments.energy_unit == "kJ")
-    result.nutrition.calories = parseInt(result.nutrition.calories / 4.15);
+  //Kilojules to kcal
+  if (product.nutriments.energy_unit == "kJ") {
+    result.nutrition.kilojoules = result.nutrition.calories;
+    result.nutrition.calories = parseInt(result.nutrition.kilojoules / 4.1868);
+  } else {
+    result.nutrition.kilojoules = result.nutrition.calories * 4.1868;
+  }
 
   if (result.name == "" || result.nutrition.calories == undefined || result.nutrition.calories == 0 || result.portion == undefined)
     return undefined;

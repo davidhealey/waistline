@@ -205,14 +205,14 @@ waistline.Diary = {
   deleteItem: function(item) {
     let title = waistline.strings["confirm-delete-title"] || "Delete";
     let msg = waistline.strings["confirm-delete"] || "Are you sure?";
+
     let dialog = f7.dialog.confirm(msg, title, () => {
 
-      //Remove from the db
       let request = dbHandler.deleteItem(item.id, "diary");
 
       //If the request was successful remove the list item
       request.onsuccess = function(e) {
-        waistline.Diary.render();
+        f7.views.main.router.refreshPage();
         //updateLog();
       };
     });
