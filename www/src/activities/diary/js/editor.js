@@ -1,5 +1,5 @@
 /*
-  Copyright 2020 David Healey
+  Copyright 2021 David Healey
 
   This file is part of Waistline.
 
@@ -23,13 +23,13 @@ let item = {}; //The item being edited
 const components = {};
 
 function getComponents() {
-  components.submit = document.querySelector('#diary-editor #submit');
-  components.name = document.querySelector('#diary-editor #name');
-  components.brand = document.querySelector('#diary-editor #brand');
-  components.category = document.getElementById("category");
-  components.unit = document.querySelector('#diary-editor #unit');
-  components.portion = document.querySelector('#diary-editor #portion');
-  components.quantity = document.querySelector('#diary-editor #quantity');
+  components.submit = document.querySelector(".page[data-name='diary-editor'] #submit");
+  components.name = document.querySelector(".page[data-name='diary-editor'] #name");
+  components.brand = document.querySelector(".page[data-name='diary-editor'] #brand");
+  components.category = document.querySelector(".page[data-name='diary-editor'] #category");
+  components.unit = document.querySelector(".page[data-name='diary-editor'] #unit");
+  components.portion = document.querySelector(".page[data-name='diary-editor'] #portion");
+  components.quantity = document.querySelector(".page[data-name='diary-editor'] #quantity");
 }
 
 function bindUIActions() {
@@ -50,13 +50,15 @@ function bindUIActions() {
   });
 }
 
-function init(data) {
-  console.log(data);
-  item = data;
-  getComponents();
-  bindUIActions();
-  renderNutritionFields();
-  populateFields();
+function init(context) {
+  if (context && context.item) {
+    item = context.item;
+    getComponents();
+    bindUIActions();
+    renderNutritionFields();
+    populateCategoryField();
+    populateFields();
+  }
 }
 
 /* Nutrition fields are dynamically created for the nutriments of the item */
@@ -101,13 +103,9 @@ function renderNutritionFields() {
   }
 }
 
-function populateFields() {
-  components.name.value = Utils.tidyText(item.name, 200);
-  components.brand.value = Utils.tidyText(item.brand, 200);
-  components.unit.value = item.portion.replace(/[^a-z]/gi, '');
-
+function populateCategoryField() {
   //Category 
-  const mealNames = settings.get("diary", "meal-names");
+  const mealNames = waistline.Settings.get("diary", "meal-names");
   components.category.innerHTML = "";
 
   mealNames.forEach((x, i) => {
@@ -119,6 +117,12 @@ function populateFields() {
       components.category.append(option);
     }
   });
+}
+
+function populateFields() {
+  components.name.value = Utils.tidyText(item.name, 200);
+  components.brand.value = Utils.tidyText(item.brand, 200);
+  components.unit.value = item.portion.replace(/[^a-z]/gi, '');
 
   //Portion (serving size)
   if (item.portion != undefined)
@@ -173,7 +177,7 @@ function update() {
   //Get values from form and push to DB
   let inputs = document.querySelectorAll('#diary-editor input');
   const nutriments = waistline.nutriments;
-  const mealNames = settings.get("diary", "meal-names");
+  const mealNames = waistline.Settings.get("diary", "meal-names");
   let unit = components.unit.value;
 
   if (f7.input.validateInputs("#diary-edit-form") == true) {
@@ -208,8 +212,7 @@ function update() {
 
 document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='diary-editor']")) {
-    let data = f7.views.main.router.currentRoute.context.item;
-    if (data)
-      init(data);
+    let context = f7.views.main.router.currentRoute.context;
+    init(context);
   }
 });

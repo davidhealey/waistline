@@ -82,20 +82,19 @@ const renderFooter = function(ul, id, nutrition) {
   //Add button 
   let left = document.createElement("div");
   left.className = "col-10 add-button";
-  left.setAttribute("category", id);
   row.appendChild(left);
 
-  let button = document.createElement("button");
-  button.className = "button button-md add-button disable-long-tap";
+  let a = document.createElement("a");
   left.addEventListener("click", function(e) {
     waistline.Diary.gotoFoodlist(id);
   });
 
-  left.appendChild(button);
+  left.appendChild(a);
 
   let icon = document.createElement("i");
-  icon.className = "fas fa-plus";
-  button.appendChild(icon);
+  icon.className = "icon material-icons";
+  icon.innerHTML = "add";
+  a.appendChild(icon);
 
   //Calorie count 
   let right = document.createElement("div");

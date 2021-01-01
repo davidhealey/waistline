@@ -27,19 +27,21 @@ var goals = {
 
   //Returns the goals that have been set for the given day (0-6)
   getGoalsByDay: function(day) {
-    let data = settings.getField("goals");
+    let data = waistline.Settings.getField("goals");
 
-    let result = data.map(x => {
-      if (x.name == "weight") return x;
-      return {
-        "name": x.name,
-        "target": x.targets[day],
-        "mutli": x.multi,
-        "diaryDisplay": x.diaryDisplay
-      };
-    });
-
-    return result;
+    if (data) {
+      let result = data.map(x => {
+        if (x.name == "weight") return x;
+        return {
+          "name": x.name,
+          "target": x.targets[day],
+          "mutli": x.multi,
+          "diaryDisplay": x.diaryDisplay
+        };
+      });
+      return result;
+    }
+    return [];
   },
 
   shouldShowInDiary: function(type) {
@@ -125,8 +127,8 @@ var goals = {
 
   //First run initialization
   initializeSettings: function() {
-    if (settings.get("goals", "weight") == undefined)
-      settings.put("goals", "weight", 50);
+    //  if (settings.get("goals", "weight") == undefined)
+    //    settings.put("goals", "weight", 50);
   }
 
 };

@@ -19,7 +19,7 @@
 
 /*jshint -W030 */
 
-foodlist.editor = {
+blahfoodlist.editor = {
 
   link: false, //Whether input fields are linked together and changing one will change another
 
@@ -33,8 +33,8 @@ foodlist.editor = {
       this.populateEditor(item);
 
     //Attach event handler to link/unlink buttons
-    document.getElementById("link-unlink").addEventListener("click", function(){
-      foodlist.editor.link = 1-foodlist.editor.link;
+    document.getElementById("link-unlink").addEventListener("click", function() {
+      foodlist.editor.link = 1 - foodlist.editor.link;
       let icon = this.querySelector("i");
       foodlist.editor.link == 0 ? icon.className = "icon fas fa-unlink" : icon.className = "icon fas fa-link";
     });
@@ -84,7 +84,7 @@ foodlist.editor = {
       let input = document.createElement("input");
       input.id = n;
       input.type = "number";
-      input.step="any";
+      input.step = "any";
       input.min = "0";
       input.name = n;
 
@@ -132,16 +132,15 @@ foodlist.editor = {
         //If item doesn't contain image url download images - internet connection will be checked by getImages function
         if (item.barcode.indexOf("usda") != -1 && (!item.image_url || item.image_url == "" || item.image_url == null)) {
           foodlist.getImages(item.barcode, "image_front_url")
-          .then(function(image_url) {
-            //If an image was found add its URL to the item object
-            if (image_url != false) {
-              item.image_url = image_url; //Update item object
-              if (item.image_url)
-                renderImages(item);
-            }
-          });
-        }
-        else if (item.barcode.indexOf("usda") != -1 && item.image_url) {
+            .then(function(image_url) {
+              //If an image was found add its URL to the item object
+              if (image_url != false) {
+                item.image_url = image_url; //Update item object
+                if (item.image_url)
+                  renderImages(item);
+              }
+            });
+        } else if (item.barcode.indexOf("usda") != -1 && item.image_url) {
           renderImages(item);
         }
       }
@@ -188,7 +187,9 @@ foodlist.editor = {
     const nutriments = waistline.nutriments;
 
     //Make sure there is data object set up correctly
-    data = {"nutrition":{}};
+    data = {
+      "nutrition": {}
+    };
 
     //Add date time
     var now = new Date();
@@ -208,8 +209,7 @@ foodlist.editor = {
 
         if (nutriments.indexOf(name) != -1) //Nutriments
           data.nutrition[name] = parseFloat(v);
-        else
-        {
+        else {
           if (name == "unit") continue;
           if (name == "portion") v = v + unit;
           data[name] = v;
@@ -230,7 +230,7 @@ foodlist.editor = {
         });
       }
       else {*/
-        finalise(data); //Jump to finalise sub-function
+      finalise(data); //Jump to finalise sub-function
       //}
     }
 
@@ -253,7 +253,7 @@ foodlist.editor = {
           postAndAddToDB(data);
       }
       else {*/
-        foodlist.editor.addToDB(data);
+      foodlist.editor.addToDB(data);
       //}
     }
 
@@ -261,16 +261,18 @@ foodlist.editor = {
       let modal = document.querySelector('#food-editor ons-modal');
       modal.show();
       foodlist.editor.uploadToOFF(data)
-      .then(function(data) {
-        alert("upload complete");
-        modal.hide();
-        foodlist.editor.addToDB(data);
-      })
-      .catch(function(e) {
-        console.log(e);
-        modal.hide();
-        ons.notification.alert("Check Open Food Facts Username and Password", {title:"Upload Error"});
-      });
+        .then(function(data) {
+          alert("upload complete");
+          modal.hide();
+          foodlist.editor.addToDB(data);
+        })
+        .catch(function(e) {
+          console.log(e);
+          modal.hide();
+          ons.notification.alert("Check Open Food Facts Username and Password", {
+            title: "Upload Error"
+          });
+        });
     }
   },
 
@@ -291,86 +293,95 @@ foodlist.editor = {
 
     const btnUpload = document.querySelector('#food-editor #upload');
     btnUpload.style.display = "block";
-    btnUpload.addEventListener("tap", function(event) {foodlist.editor.processEditor(data);});
+    btnUpload.addEventListener("tap", function(event) {
+      foodlist.editor.processEditor(data);
+    });
   },
 
   takePicture: function() {
     let imageCarousel = document.querySelector('ons-page#food-editor #images ons-carousel');
-    let options = {"allowEdit":true, "saveToPhotoAlbum":false};
+    let options = {
+      "allowEdit": true,
+      "saveToPhotoAlbum": false
+    };
     //let image_uri = cordova.file.applicationDirectory + "/assets/test.jpg";
 
     navigator.camera.getPicture(function(image_uri) {
-      //Ask the user to select the type of image
-      ons.openActionSheet({
-        title: 'What is this image of?',
-        buttons: ['Front Image', 'Ingredients', 'Nutrition']
-      })
-      .then(function(input) {
-        let imageTypes = ["front", "ingredients", "nutrition"];
+        //Ask the user to select the type of image
+        ons.openActionSheet({
+            title: 'What is this image of?',
+            buttons: ['Front Image', 'Ingredients', 'Nutrition']
+          })
+          .then(function(input) {
+            let imageTypes = ["front", "ingredients", "nutrition"];
 
-        //Make sure there is only one image per imagefield
-        for (let i = 0; i < foodlist.editor.foodImages.length; i++) {
-          if (foodlist.editor.foodImages[i].imagefield == imageTypes[input]) {
-            foodlist.editor.foodImages.splice(i, 1); //Remove item from images array
-            //Remove image from carousel
-            let img = document.querySelector("#food-editor #images #"+imageTypes[input] + " img");
-            img.removeEventListener("hold", deleteImage); //Remove img event listener
-            let child = img.closest("ons-carousel-item");
-            let parent = child.parentElement;
-            parent.removeChild(child);
-          }
-        }
+            //Make sure there is only one image per imagefield
+            for (let i = 0; i < foodlist.editor.foodImages.length; i++) {
+              if (foodlist.editor.foodImages[i].imagefield == imageTypes[input]) {
+                foodlist.editor.foodImages.splice(i, 1); //Remove item from images array
+                //Remove image from carousel
+                let img = document.querySelector("#food-editor #images #" + imageTypes[input] + " img");
+                img.removeEventListener("hold", deleteImage); //Remove img event listener
+                let child = img.closest("ons-carousel-item");
+                let parent = child.parentElement;
+                parent.removeChild(child);
+              }
+            }
 
-        let imageData = {"imagefield":imageTypes[input], "path":image_uri, "uploadType":"imgupload_"+imageTypes[input]};
-        foodlist.editor.foodImages.push(imageData); //Push to class wide array
+            let imageData = {
+              "imagefield": imageTypes[input],
+              "path": image_uri,
+              "uploadType": "imgupload_" + imageTypes[input]
+            };
+            foodlist.editor.foodImages.push(imageData); //Push to class wide array
 
-        //Show images container
-        imageCarousel.closest("ons-card").style.display = "block";
+            //Show images container
+            imageCarousel.closest("ons-card").style.display = "block";
 
-        //Create carousel item with image and append to imageCarousel
-        let ci = document.createElement("ons-carousel-item");
-        ci.id = imageTypes[input];
-        imageCarousel.appendChild(ci);
+            //Create carousel item with image and append to imageCarousel
+            let ci = document.createElement("ons-carousel-item");
+            ci.id = imageTypes[input];
+            imageCarousel.appendChild(ci);
 
-        let img = document.createElement("img");
-        img.setAttribute("src", image_uri);
-        img.addEventListener("hold", deleteImage);
+            let img = document.createElement("img");
+            img.setAttribute("src", image_uri);
+            img.addEventListener("hold", deleteImage);
 
-        let gd = document.createElement("ons-gesture-detector");
-        gd.appendChild(img);
+            let gd = document.createElement("ons-gesture-detector");
+            gd.appendChild(img);
 
-        ci.appendChild(gd);
-      });
-    },
-    function() {
-      console.log("Camera problem");
-    }, options);
+            ci.appendChild(gd);
+          });
+      },
+      function() {
+        console.log("Camera problem");
+      }, options);
 
     function deleteImage() {
       let ci = this.closest("ons-carousel-item");
       let img = this;
 
       ons.notification.confirm("Delete this item?")
-      .then(function(input) {
-        if (input == 1) { //Delete was confirmed
-          foodlist.editor.foodImages.splice(ci.id, 1); //Remove item from images array
-          //If there are no images left hide the image container
-          if (foodlist.editor.foodImages.length == 0) {
-            document.querySelector('ons-page#food-editor #images').style.display = "none";
-          }
-          this.removeEventListener("hold", deleteImage); //Remove the event handler
+        .then(function(input) {
+          if (input == 1) { //Delete was confirmed
+            foodlist.editor.foodImages.splice(ci.id, 1); //Remove item from images array
+            //If there are no images left hide the image container
+            if (foodlist.editor.foodImages.length == 0) {
+              document.querySelector('ons-page#food-editor #images').style.display = "none";
+            }
+            this.removeEventListener("hold", deleteImage); //Remove the event handler
 
-          //Remove the carousel item
-          let parent = ci.parentElement;
-          parent.removeChild(ci);
-        }
-      });
+            //Remove the carousel item
+            let parent = ci.parentElement;
+            parent.removeChild(ci);
+          }
+        });
     }
   },
 
   uploadToOFF: function(data) {
 
-    return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject) {
 
       let units = app.nutrimentUnits;
 
@@ -390,7 +401,7 @@ foodlist.editor = {
       s += "&product_name=" + escape(data.name);
       s += "&brands=" + escape(data.brand);
       s += "&product_quantity=" + escape(data.portion);
-      s += "&nutrition_data_per=serving&serving_size="+escape(data.portion);
+      s += "&nutrition_data_per=serving&serving_size=" + escape(data.portion);
       s += "&nutriment_energy_unit=kcal";
 
       for (let n in data.nutrition) {
@@ -425,14 +436,12 @@ foodlist.editor = {
           //Upload images, if any
           if (foodlist.editor.foodImages.length > 0) {
             foodlist.editor.uploadImagesToOFF(data.barcode, foodlist.editor.foodImages)
-            .then(function() {
-              resolve(data);
-            });
-          }
-          else
+              .then(function() {
+                resolve(data);
+              });
+          } else
             resolve(data);
-        }
-        else
+        } else
           reject(new Error(this));
       };
 
@@ -447,51 +456,53 @@ foodlist.editor = {
   uploadImagesToOFF: function(code, images) {
     return new Promise(function(resolve, reject) {
 
-      let username = settings.get("integrations", "off-username") || "waistline-app";
-      let password = settings.get("integrations", "off-password") || "waistline";
-      let promises = [];
+        let username = settings.get("integrations", "off-username") || "waistline-app";
+        let password = settings.get("integrations", "off-password") || "waistline";
+        let promises = [];
 
-      //Upload images
-      for (let i = 0; i < images.length; i++) {
-        promises.push(uploadImage(code, images[i])); //Use sub-function (uploadImage)
-      }
+        //Upload images
+        for (let i = 0; i < images.length; i++) {
+          promises.push(uploadImage(code, images[i])); //Use sub-function (uploadImage)
+        }
 
-      //When all promises have completed
-      Promise.all(promises).then(function(values) {
-        console.log(values);
-        resolve();
+        //When all promises have completed
+        Promise.all(promises).then(function(values) {
+          console.log(values);
+          resolve();
+        });
+      })
+      .catch(function(err) {
+        console.error('Augh, there was an error!', err.statusText);
+        reject(err.statusText);
       });
-    })
-    .catch(function(err) {
-      console.error('Augh, there was an error!', err.statusText);
-      reject(err.statusText);
-    });
 
     //This function won't work in the browser, must be tested on device
     function uploadImage(code, image) {
 
       return new Promise(function(resolve, reject) {
 
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
+          window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
-        function fsSuccess(fs) {
-          console.log('file system open: ' + fs.name);
-          window.resolveLocalFileSystemURL(image.path, getFileSuccess, getFileFail);
-        }
+          function fsSuccess(fs) {
+            console.log('file system open: ' + fs.name);
+            window.resolveLocalFileSystemURL(image.path, getFileSuccess, getFileFail);
+          }
 
-        function getFileSuccess(fileEntry) {
-          console.log("Got the file: " + image.imagefield);
-          fileEntry.file(readFile, fileEntryFail);
-        }
+          function getFileSuccess(fileEntry) {
+            console.log("Got the file: " + image.imagefield);
+            fileEntry.file(readFile, fileEntryFail);
+          }
 
-        function readFile(file) {
+          function readFile(file) {
 
-          console.log("Reading file");
+            console.log("Reading file");
 
-          let reader = new FileReader();
-          reader.onloadend = function() {
+            let reader = new FileReader();
+            reader.onloadend = function() {
               // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
-              let blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+              let blob = new Blob([new Uint8Array(this.result)], {
+                type: "image/png"
+              });
 
               let formdata = new FormData();
               formdata.append(image.uploadType, blob);
@@ -500,46 +511,59 @@ foodlist.editor = {
               formdata.append("user_id", username);
               formdata.append("password", password);
               postImage(formdata); //Send image to OFF
-          };
+            };
 
-          // Read the file as an ArrayBuffer
-          reader.readAsArrayBuffer(file);
-        }
+            // Read the file as an ArrayBuffer
+            reader.readAsArrayBuffer(file);
+          }
 
-        function postImage(formdata) {
+          function postImage(formdata) {
 
-          console.log("Upload start");
+            console.log("Upload start");
 
-          var request = new XMLHttpRequest();
+            var request = new XMLHttpRequest();
 
-          if (app.mode == "development")
-            request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
-          else
-            request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
+            if (app.mode == "development")
+              request.open("POST", "https://off:off@world.openfoodfacts.net/cgi/product_image_upload.pl", true); //Testing server
+            else
+              request.open("POST", "https://world.openfoodfacts.org/cgi/product_image_upload.pl", true); //Live server
 
-          request.setRequestHeader("Content-Type", "multipart/form-data");
-          request.withCredentials = true;
+            request.setRequestHeader("Content-Type", "multipart/form-data");
+            request.withCredentials = true;
 
-          request.onload = function (e) {
-            console.log("Image uploaded: " + image.imagefield);
-            resolve(request.response);
-          };
+            request.onload = function(e) {
+              console.log("Image uploaded: " + image.imagefield);
+              resolve(request.response);
+            };
 
-          request.onerror = function(e) {reject(e);};
+            request.onerror = function(e) {
+              reject(e);
+            };
 
-          request.send(formdata);
-        }
+            request.send(formdata);
+          }
 
-        function fsFail(err) {console.error('error getting persistent fs! ' + err); reject();}
-        function getFileFail(err) {console.error('error getting file! ' + err); reject();}
-        function fileEntryFail(err) {console.error('error getting fileentry file!' + err); reject();}
-      })
-      .catch(function(err) {
-        console.error('Augh, there was an error!', err.statusText);
-        reject();
-      });
+          function fsFail(err) {
+            console.error('error getting persistent fs! ' + err);
+            reject();
+          }
 
-        /*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+          function getFileFail(err) {
+            console.error('error getting file! ' + err);
+            reject();
+          }
+
+          function fileEntryFail(err) {
+            console.error('error getting fileentry file!' + err);
+            reject();
+          }
+        })
+        .catch(function(err) {
+          console.error('Augh, there was an error!', err.statusText);
+          reject();
+        });
+
+      /*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
            console.log('file system open: ' + fs.name);
 
@@ -599,20 +623,18 @@ foodlist.editor = {
 };
 
 //Page initialization
-document.addEventListener("page:init", function(event){
+document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='foodlist-editor']")) {
 
     //If item ID was passed, get item from DB
-    if (f7.views.main.router.currentRoute.context)
-    {
+    if (f7.views.main.router.currentRoute.context) {
       let item = f7.views.main.router.currentRoute.context.item;
 
       if (item)
-          foodlist.editor.init(JSON.parse(item));
+        foodlist.editor.init(JSON.parse(item));
       else
         foodlist.editor.init();
-    }
-    else
+    } else
       foodlist.editor.init();
   }
 });

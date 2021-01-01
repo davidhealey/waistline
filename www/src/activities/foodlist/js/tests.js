@@ -1,5 +1,5 @@
-<!--
-  Copyright 2018, 2019 David Healey
+/*
+  Copyright 2021 David Healey
 
   This file is part of Waistline.
 
@@ -15,17 +15,14 @@
 
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
--->
-<ons-page id="import-export-settings">
-  <ons-toolbar modifier="material">
-    <div class="left"><ons-back-button>Back</ons-back-button></div>
-    <div class="center" data-localize="settings.import-export.title">Import & Export</div>
-    <div class="right"></div>
-  </ons-toolbar>
+*/
 
-  <ons-list>
-      <ons-list-item data-localize="settings.import-export.import" tappable modifier="chevron">Import Data From File</ons-list-item>
-      <ons-list-item data-localize="settings.import-export.export" tappable modifier="chevron">Export Data To File</ons-list-item>
-  </ons-list>
+async function searchByBarcode() {
+  let code = "29056422";
+  let result = await waistline.Foodlist.searchByBarcode(code);
+  console.log(result);
+}
 
-</ons-page>
+export function run() {
+  //searchByBarcode();
+}

@@ -159,15 +159,7 @@ var f7 = new Framework7({
     {
       name: "Diary",
       path: "/diary/",
-      url: "/www/src/activities/diary/views/diary.html",
-      routes: [{
-        name: "Item Editor",
-        path: "/edit/",
-        url: "/www/src/activities/diary/views/diary-editor.html",
-        options: {
-          transition: "f7-parallax"
-        }
-      }]
+      url: "/www/src/activities/diary/views/diary.html"
     },
     {
       name: "Foods, Meals, Recipes",
@@ -191,8 +183,8 @@ var f7 = new Framework7({
       ],
       routes: [{
         name: "Editor",
-        path: "/foodlist-editor/",
-        url: "/www/src/activities/foodlist/views/foodlist-editor.html",
+        path: "/food-editor/",
+        url: "/www/src/activities/foods-meals-recipes/views/food-editor.html",
         options: {
           transition: "f7-parallax"
         }
@@ -208,6 +200,61 @@ var f7 = new Framework7({
       name: "Meals",
       path: "/meals/",
       url: "/www/src/activities/meals/views/meals.html"
+    },
+    {
+      name: "Settings",
+      path: "/settings/",
+      url: "/www/src/activities/settings/views/settings.html",
+      routes: [{
+          path: "theme/",
+          url: "/www/src/activities/settings/views/theme.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        },
+        {
+          path: "diary/",
+          url: "/www/src/activities/settings/views/diary.html",
+          options: {
+            transition: "f7-parallax"
+          },
+          routes: [{
+            path: "meal-names/",
+            url: "/www/src/activities/settings/views/diary-meal-names.html",
+            options: {
+              transition: "f7-parallax"
+            },
+          }]
+        },
+        {
+          path: "foods/",
+          url: "/www/src/activities/settings/views/foods.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        },
+        {
+          path: "nutrition/",
+          url: "/www/src/activities/settings/views/nutrition.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        },
+        {
+          path: "integration/",
+          url: "/www/src/activities/settings/views/integration.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        },
+        {
+          path: "import-export/",
+          url: "/www/src/activities/settings/views/import-export.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        }
+      ]
     },
     {
       name: "Goals",
@@ -232,15 +279,6 @@ document.addEventListener("page:init", function(event) {
   var panelLeft = f7.panel.get('.panel-left');
   if (panelLeft)
     panelLeft.close(true);
-
-  //Add back arrow to left section of navbar when there is something to go back to  
-  if (page.from != "current") {
-    let left = document.getElementById("left");
-    if (left) {
-      let html = '<a class="link back"><i class="icon icon-back"></i><span class="if-not-md">Back</span></a>';
-      left.innerHTML = html;
-    }
-  }
 });
 
 f7.on("init", function(event) {
@@ -249,7 +287,7 @@ f7.on("init", function(event) {
   dbHandler.initializeDb();
 
   //Initialize module settings on first run
-  diary.initializeSettings();
+  //diary.initializeSettings();
   goals.initializeSettings();
 
   f7.views.main.router.navigate("/foods-meals-recipes/");

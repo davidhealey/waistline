@@ -1,5 +1,5 @@
 /*
-  Copyright 2020 David Healey
+  Copyright 2020, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -18,26 +18,46 @@
 */
 
 import * as Group from "./group.js";
-import * as Editor from "./editor.js";
+import * as Editor from "/www/src/activities/foods-meals-recipes/js/food-editor.js";
 
 var s;
 waistline.Diary = {
 
   settings: {
     ready: false,
-    groups: [],
-    calendar: undefined,
-    el: {},
+    calendar: undefined
   },
 
-  init: function() {
+  init: async function(context) {
     s = this.settings; //Assign settings object
-    if (s.ready) return;
+
+    //If items have been passed, add them to the db
+    if (context) {
+      if (context.items || context.item) {
+        this.resetDate();
+        if (context.items)
+          await this.addItems(context.items, context.category);
+        else
+          await this.updateItem(context.item);
+
+        s.ready = false; //Trigger fresh render
+      }
+    }
 
     s.calendar = this.createCalendar(); //Setup calendar
-    this.createMealGroups(); //Create meal groups
+    this.bindCalendarControls();
 
-    s.ready = true;
+    if (!s.ready) {
+      s.groups = this.createMealGroups(); //Create meal groups
+      this.render();
+      s.ready = true;
+    }
+  },
+
+  setReadyState: function(state) {
+    if (state) {
+      s.ready = state;
+    }
   },
 
   createCalendar: function() {
@@ -47,18 +67,35 @@ waistline.Diary = {
       inputEl: "#diary-date",
       openIn: "customModal",
       on: {
-        init: (c) => {
-          let now = new Date();
-          let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-          c.setValue([today]);
+        init: function(c) {
+          if (s.date)
+            c.setValue([s.date]);
+          else {
+            let now = new Date();
+            let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            c.setValue([today]);
+            s.date = c.getValue();
+          }
         },
-        change: (c) => {
-          waistline.Diary.render();
+        change: function(c) {
+          s.date = c.getValue();
+          if (s.ready)
+            waistline.Diary.render();
           c.close();
         }
       }
     });
 
+    return result;
+  },
+
+  resetDate: function() {
+    let now = new Date();
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    s.date = today;
+  },
+
+  bindCalendarControls: function() {
     //Bind actions for previous/next buttons
     const buttons = document.getElementsByClassName("change-date");
     Array.from(buttons).forEach((x, i) => {
@@ -68,18 +105,17 @@ waistline.Diary = {
         s.calendar.setValue([date]);
       });
     });
-
-    return result;
   },
 
   render: async function() {
+
     await this.populateGroups(); //Gets items from db
 
     let container = document.getElementById("diary-day");
     container.innerHTML = "";
 
     //Render each group
-    s.groups.forEach((x, i) => {
+    s.groups.forEach((x) => {
       x.render(container);
     });
 
@@ -87,22 +123,25 @@ waistline.Diary = {
   },
 
   createMealGroups: function() {
-    const mealNames = settings.get("diary", "meal-names");
-    s.groups = [];
+    const mealNames = waistline.Settings.get("diary", "meal-names");
+    let groups = [];
 
     mealNames.forEach((x, i) => {
-      let g = Group.create(x, i);
-      s.groups.push(g);
+      if (x != "") {
+        let g = Group.create(x, i);
+        groups.push(g);
+      }
     });
+
+    return groups;
   },
 
   populateGroups: function() {
     return new Promise(function(resolve, reject) {
 
-      if (s.calendar != undefined) {
-        let date = s.calendar.getValue();
+      if (s.date != undefined) {
 
-        let from = new Date(date);
+        let from = new Date(s.date);
         let to = new Date(from);
         to.setUTCHours(to.getUTCHours() + 24);
 
@@ -123,13 +162,44 @@ waistline.Diary = {
           }
         };
       }
-    }).catch((err) => {
-      reject(new Error(err));
+    }).catch(err => {
+      throw (err);
     });
   },
 
-  addItems: function() {
+  addItems: function(items, category) {
+    return new Promise(function(resolve, reject) {
 
+      let data = items;
+      const mealNames = waistline.Settings.get("diary", "meal-names");
+
+      data.forEach((x, i) => {
+        x.dateTime = s.date;
+        x.category = category;
+
+        //If there is no foodId then ID must be the ID from the foodlist so use that
+        if (x.foodId == undefined && x.id) {
+          x.foodId = x.id;
+          delete x.id; //Item will be assigned an ID when added to DB
+        }
+      });
+
+      dbHandler.bulkInsert(data, "diary").then(resolve());
+
+    }).catch(err => {
+      throw (err);
+    });
+  },
+
+  updateItem: function(item) {
+    return new Promise(function(resolve, reject) {
+      console.log(item);
+      dbHandler.put(item, "diary").onsuccess = function() {
+        resolve();
+      };
+    }).catch(err => {
+      throw (err);
+    });
   },
 
   deleteItem: function(item) {
@@ -151,16 +221,17 @@ waistline.Diary = {
   gotoFoodlist: function(category) {
     f7.views.main.router.navigate("/foods-meals-recipes/", {
       "context": {
-        "origin": "/diary/",
-        "category": category
+        origin: "/diary/",
+        category: category
       }
     });
   },
 
   gotoEditor: function(item) {
-    f7.views.main.router.navigate("/diary/edit/", {
+    f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
       "context": {
-        "item": item
+        item: item,
+        origin: "/diary/"
       }
     });
   },
@@ -252,9 +323,9 @@ waistline.Diary = {
   }
 };
 
-document.addEventListener("page:init", async function(event) {
+document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
-    waistline.Diary.init();
-    waistline.Diary.render();
+    let context = f7.views.main.router.currentRoute.context;
+    waistline.Diary.init(context);
   }
 });

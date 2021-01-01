@@ -13,3 +13,9 @@ export const tidyText = function(text, maxLength) {
   }
   return "";
 };
+
+export const deleteChildNodes = function(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+};

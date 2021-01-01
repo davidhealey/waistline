@@ -1,0 +1,130 @@
+<!--
+  Copyright 2018, 2019, 2020 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="food-editor">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back">
+          <i class="icon icon-back"></i>
+        </a>
+      </div>
+      <div class="title" id="title" data-localize="edit-item">Edit Item</div>
+      <div class="right">
+        <a href="#" class="link icon-only"><i id="link" class="icon material-icons">link</i></a>
+        <a href="#" id="submit" class="link icon-only"><i class="icon material-icons">done</i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <form class="list" id="food-edit-form">
+      <ul>
+        <li class="item-content item-input" id="barcode-container" style="display:none;">
+          <div class="item-inner">
+            <div class="item-title item-label">Barcode</div>
+            <div class="item-input-wrap">
+              <input type="text" id="barcode" name="barcode" readonly>
+            </div>
+          </div>
+        </li>
+        <li class="item-content item-input">
+          <div class="item-inner">
+            <div class="item-title item-label">Name</div>
+            <div class="item-input-wrap">
+              <input type="text" id="name" name="name" required validate>
+            </div>
+          </div>
+        </li>
+        <li class="item-content item-input">
+          <div class="item-inner">
+            <div class="item-title item-label">Brand</div>
+            <div class="item-input-wrap">
+              <input type="text" id="brand" name="brand">
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-inner item-row">
+            <div class="item-cell">
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Serving Size</div>
+                  <div class="item-input-wrap">
+                    <input type="number" min="0" id="portion" name="portion" required validate>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item-cell">
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Unit</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="unit" name="unit" required validate>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="item-content item-input">
+          <div class="item-inner">
+            <div class="item-title item-label">Number of servings</div>
+            <div class="item-input-wrap">
+              <input type="number" id="quantity" name="quantity" required validate>
+            </div>
+          </div>
+        </li>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-link item-content">
+            <div class="item-inner">
+              <div class="item-title">Nutrition</div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
+            <ul id="nutrition">
+              <li>
+                <div class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Calories</div>
+                    <div class="item-input-wrap">
+                      <input type="number" id="calories" name="calories" required validate>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </form>
+
+  </div>
+
+  <!-- Floating Action Button -->
+  <div class="fab fab-right-bottom">
+    <a href=""><i class="icon material-icons">add_a_photo</i></a>
+  </div>
+
+</div>

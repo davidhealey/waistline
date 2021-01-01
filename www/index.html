@@ -29,6 +29,9 @@
   <!--Fontawsome-->
   <link rel="stylesheet" type="text/css" href="assets/fontawesome/css/all.min.css">
 
+  <!--Material icons-->
+  <link rel="stylesheet" href="/node_modules/material-icons/iconfont/material-icons.css">
+
   <!--Framework7-->
   <link rel="stylesheet" href="/node_modules/framework7/css/framework7.bundle.min.css">
 
@@ -77,7 +80,7 @@
           </li>
 
           <li class="no-chevron">
-            <a href="#" class="item-link item-content" data-reload-current="true">
+            <a href="/settings/" class="item-link item-content" data-reload-current="true">
               <div class="item-media"><i class="icon fas fa-cog"></i></div>
               <div class="item-inner" data-localize="settings.title">Settings</div>
             </a>
@@ -99,22 +102,19 @@
   <script type="text/javascript" src="cordova.js"></script>
   <script src="/node_modules/framework7/js/framework7.bundle.min.js"></script>
   <script src="assets/js/db-handler.js" defer></script>
-  <script src="src/activities/settings/settings.js"></script>
+  <script type="module" src="src/activities/settings/js/settings.mjs"></script>
   <script src="src/activities/log/log.js"></script>
   <script src="src/activities/goals/goals.js" defer></script>
   <script src="src/activities/goals/goal-editor.js"></script>
-  <script src="src/activities/diary/js/diary.js"></script>
   <script type="module" src="src/activities/diary/js/diary.mjs"></script>
-  <script src="src/activities/foods-meals-recipes/foods-meals-recipes.js"></script>
+  <script type="module" src="src/activities/foods-meals-recipes/foods-meals-recipes.mjs"></script>
   <script type="module" src="src/activities/foodlist/js/foodlist.mjs"></script>
-  <script src="src/activities/foodlist/foodlist.js"></script>
-  <script src="src/activities/foodlist/editor.js"></script>
   <script src="src/activities/meals/meals.js"></script>
   <script src="src/activities/meals/meal-editor.js"></script>
   <script src="src/activities/recipes/recipes.js"></script>
   <script src="src/activities/recipes/recipe-editor.js"></script>
   <script src="assets/js/app.js"></script>
-  
+
   <!--Testing--
       <script>
         if(waistline.mode != 'release')

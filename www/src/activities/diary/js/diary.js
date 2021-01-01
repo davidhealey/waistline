@@ -469,10 +469,6 @@ const diary = {
           delete items[i].id;
         }
 
-        //Temp
-        items[i].category = 0;
-        items[i].category_name = "breakfast";
-
         if (items[i].category == undefined) {
           delete items[i];
           console.log("Category is undefined");

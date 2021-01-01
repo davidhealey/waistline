@@ -19,7 +19,41 @@
 
 /*jshint -W083, -W082*/
 
-var foodsMealsRecipes = {
+var s;
+waistline.FoodsMealsRecipes = {
+
+  settings: {
+    el: {}
+  },
+
+  init: function(context) {
+
+    s = this.settings; //Assign settings object
+    this.getComponents();
+
+    if (context) {
+      s.category = context.category; //Category of calling page (i.e diary category)
+      s.origin = context.origin; //Page that called up the foodlist
+      if (context.origin) this.showBackButton();
+    } else {
+      s.category = undefined;
+      s.origin = undefined;
+    }
+
+    if (!s.ready) {
+      s.ready = true;
+    }
+  },
+
+  getComponents: function() {
+    s.el.menu = document.querySelector(".page[data-name='foods-meals-recipes'] #menu");
+    s.el.back = document.querySelector(".page[data-name='foods-meals-recipes'] #back");
+  },
+
+  showBackButton: function() {
+    s.el.menu.style.display = "none";
+    s.el.back.style.display = "block";
+  },
 
   getFromDB: function(store, sort) {
     return new Promise(function(resolve, reject) {
@@ -64,54 +98,79 @@ var foodsMealsRecipes = {
     return list; //Replace master copy with filtered list
   },
 
-  returnItems: function(items) {
+  filterList: function(term, list) {
 
-    const context = f7.views.main.router.currentRoute.context;
+    let result = list;
 
-    if (context == undefined || context.origin == undefined) { //No previous route, default to diary
+    if (term != "") {
+      let exp = new RegExp(term, "i");
 
-      //Add meal names to object to be displayed in action sheet
-      let meals = settings.get("diary", "meal-names");
-
-      let buttons = [{
-        "text": "What meal is this?",
-        "label": true
-      }];
-      for (let i = 0; i < meals.length; i++) {
-        buttons.push({
-          "text": meals[i],
-          "onClick": function() {
-            actionSheetCallback(i);
-          }
-        });
-      }
-
-      //Ask the user to select the meal category
-      let ac = f7.actions.create({
-        "buttons": buttons
-      });
-
-      //Open action sheet
-      ac.open();
-
-      //Respond to user choice
-      function actionSheetCallback(input) {
-        f7.views.main.router.navigate("/diary/", {
-          "context": {
-            "items": items,
-            "category": input
-          }
-        });
-      }
-    } else if (context.origin != undefined) {
-      f7.views.main.router.navigate(context.origin, {
-        "context": {
-          "items": items
-        },
-        "clearPreviousHistory": true
+      //Filter by name and brand
+      result = result.filter(function(el) {
+        if (el.name && el.brand)
+          return el.name.match(exp) || el.brand.match(exp);
+        else if (el.name)
+          return el.name.match(exp);
+        else
+          return false;
       });
     }
+    return result;
   },
+
+  returnItems: function(items) {
+
+    let origin = s.origin;
+
+    if (origin == undefined) {
+
+      //Default to diary
+      origin = "/diary/";
+
+      //Setup action sheet to ask user for category
+      const mealNames = waistline.Settings.get("diary", "meal-names");
+      let options = [{
+        text: "What meal is this?",
+        label: true
+      }];
+
+      mealNames.forEach((x, i) => {
+        if (x != "") {
+          let choice = {
+            text: x,
+            onClick: function() {
+              waistline.FoodsMealsRecipes.passItemsToRoute(items, i, origin, false);
+            }
+          };
+          options.push(choice);
+        }
+      });
+
+      //Create and show the action sheet
+      let ac = f7.actions.create({
+        "buttons": options
+      });
+
+      ac.open();
+    } else {
+      this.passItemsToRoute(items, s.category, origin, true);
+    }
+  },
+
+  passItemsToRoute: function(items, category, route, clearHistory) {
+    f7.views.main.router.navigate(route, {
+      context: {
+        items: items,
+        category: category
+      },
+      clearPreviousHistory: clearHistory
+    });
+  }
+};
+
+//----OLD----
+
+var foodsMealsRecipes = {
 
   sortingOptions: function(caller) {
 
@@ -181,6 +240,7 @@ var foodsMealsRecipes = {
 
 document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='foods-meals-recipes']")) {
-    if (event.detail && event.detail.from != "current") {}
+    let context = f7.views.main.router.currentRoute.context;
+    waistline.FoodsMealsRecipes.init(context);
   }
 });

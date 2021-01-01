@@ -22,12 +22,15 @@
   <div class="navbar">
     <div class="navbar-bg"></div>
     <div class="navbar-inner">
-  	  <div class="left" id="left"><a href="#" class="link icon-only panel-toggle" data-panel=".panel-left"><i class="icon fas fa-bars"></i></a></div>
-  	  <div class="title" data-localize="foodlist.title">Foods</div>
-  	  <div class="right">
-  		  <a href="#" class="link icon-only" id="scan"><i class="icon fas fa-barcode"></i></a>
-  		  <a href="#" class="link icon-only" id="submit" style="display:none;"><i class="icon fas fa-check"></i></a>
-  	  </div>
+      <div class="left" id="left">
+        <a href="#" id="back" class="link back" style="display:none;"><i class="icon icon-back"></i></a>
+        <a href="#" id="menu" class="link icon-only panel-toggle" data-panel=".panel-left"><i class="icon material-icons">menu</i></a>
+      </div>
+      <div class="title" data-localize="foodlist.title">Foods</div>
+      <div class="right">
+        <a href="#" class="link icon-only" id="scan"><i class="icon fas fa-barcode"></i></a>
+        <a href="#" class="link icon-only" id="submit" style="display:none;"><i class="icon material-icons">done</i></a>
+      </div>
     </div>
   </div>
 
@@ -46,10 +49,10 @@
       <div class="tab page-content" id="tab-3"></div>
     </div>
   </div>
-  
+
   <!-- Floating Action Button -->
   <div class="fab fab-right-bottom" id="add-item">
-	<a href="#"><i class="icon fas fa-plus"></i></a>
+    <a href="#"><i class="icon material-icons">add</i></a>
   </div>
-  
+
 </div>
