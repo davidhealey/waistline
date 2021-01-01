@@ -96,11 +96,17 @@ const renderFooter = function(ul, id, nutrition) {
   icon.innerHTML = "add";
   a.appendChild(icon);
 
-  //Calorie count 
+  //Energy 
+  let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+
   let right = document.createElement("div");
-  right.className = "col-25 calorie-count";
+  right.className = "col-25 energy";
   let value = parseInt(nutrition.calories) || 0;
-  right.innerHTML = value + " Cal";
+
+  if (energyUnit == "kJ")
+    value = Math.round(value * 4.1868);
+
+  right.innerHTML = value + " " + energyUnit;
   row.appendChild(right);
 };
 
@@ -160,14 +166,22 @@ const renderItems = function(el) {
       row.appendChild(brand);
     }
 
-    //Calorie count 
+    //Energy
+    let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+
     row = document.createElement("div");
     row.className = "item-row";
     content.appendChild(row);
 
     let info = document.createElement("div");
     info.className = "item-cell diary-entry-info";
-    info.innerText = parseInt(item.nutrition.calories);
+
+    let value = parseInt(item.nutrition.calories);
+
+    if (energyUnit == "kJ")
+      value = Math.round(value * 4.1868);
+
+    info.innerText = value + " " + energyUnit;
     row.appendChild(info);
 
     el.appendChild(div);

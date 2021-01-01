@@ -113,6 +113,9 @@ function renderNutritionFields(item, all) {
   const nutriments = waistline.nutriments;
   const units = waistline.nutrimentUnits;
 
+  if (item && item.nutrition.kilojoules == undefined)
+    item.nutrition.kilojoules = Math.round(item.nutrition.calories * 4.1868);
+
   let ul = document.getElementById("nutrition");
   ul.innerHTML = ""; //Clear old form 
 
