@@ -62,6 +62,7 @@ waistline.Foodlist = {
 
   getComponents: function() {
     s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
+    s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
     s.el.search = document.querySelector(".page[data-name='foods-meals-recipes'] #search");
     s.el.searchForm = document.querySelector(".page[data-name='foods-meals-recipes'] #food-search");
@@ -139,6 +140,7 @@ waistline.Foodlist = {
     let input = document.createElement("input");
     input.type = "checkbox";
     input.name = "food-item-checkbox";
+    input.data = JSON.stringify(item);
     label.appendChild(input);
 
     let icon = document.createElement("i");
@@ -258,14 +260,16 @@ waistline.Foodlist = {
   },
 
   checkboxChanged: function() {
-    let checkedboxes = document.querySelectorAll("input[type=checkbox]:checked"); //All checked boxes
+    let inputs = document.querySelectorAll("input[type=checkbox]:checked"); //All checked boxes
 
-    if (!checkedboxes.length) {
+    if (!inputs.length) {
       s.el.scan.style.display = "block";
       s.el.submit.style.display = "none";
+      s.el.title.innerHTML = "Foods";
     } else {
       s.el.scan.style.display = "none";
       s.el.submit.style.display = "block";
+      s.el.title.innerHTML = inputs.length + " Foods Selected";
     }
   },
 

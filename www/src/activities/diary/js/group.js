@@ -176,12 +176,12 @@ const renderItems = function(el) {
     let info = document.createElement("div");
     info.className = "item-cell diary-entry-info";
 
-    let value = parseInt(item.nutrition.calories);
+    let energy = parseInt(item.nutrition.calories);
 
     if (energyUnit == "kJ")
-      value = Math.round(value * 4.1868);
+      energy = Math.round(energy * 4.1868);
 
-    info.innerText = value + " " + energyUnit;
+    info.innerText = energy + " " + energyUnit;
     row.appendChild(info);
 
     el.appendChild(div);
