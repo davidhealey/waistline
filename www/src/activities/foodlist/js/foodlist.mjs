@@ -36,7 +36,10 @@ waistline.Foodlist = {
 
     if (context) {
       if (context.item) {
-        await this.updateItem(context.item);
+        if (context.item.id)
+          await this.updateItem(context.item);
+        else
+          await this.addItem(context.item);
       }
     }
 
@@ -49,10 +52,10 @@ waistline.Foodlist = {
       s.ready = true;
     }
 
-    if (s.list.length == 0) {
-      s.list = await this.getListFromDB();
-      s.filterList = s.list;
-    }
+    //if (s.list.length == 0) {
+    s.list = await this.getListFromDB();
+    s.filterList = s.list;
+    //}
 
     this.renderList(true);
   },
@@ -77,7 +80,8 @@ waistline.Foodlist = {
 
     //Fab button 
     s.el.fab.addEventListener("click", (e) => {
-      f7.views.main.router.navigate("./foodlist-editor/");
+      //f7.views.main.router.navigate("./foodlist-editor/");
+      this.gotoEditor();
     });
 
     //Infinite list 
@@ -127,12 +131,12 @@ waistline.Foodlist = {
     if (item) {
       let li = document.createElement("li");
 
-      let innerDiv = document.createElement("div");
-      innerDiv.className = "item-inner";
-      li.appendChild(innerDiv);
+      let content = document.createElement("div");
+      content.className = "item-inner";
+      li.appendChild(content);
 
       let title = document.createElement("div");
-      title.className = "item-title ripple";
+      title.className = "item-title";
       title.innerText = Utils.tidyText(item.name, 30);
       title.style.width = "100%";
 
@@ -148,11 +152,11 @@ waistline.Foodlist = {
         });
       }
 
-      innerDiv.appendChild(title);
+      content.appendChild(title);
 
       let after = document.createElement("div");
       after.className = "item-after";
-      innerDiv.appendChild(after);
+      content.appendChild(after);
 
       let label = document.createElement("label");
       label.className = "item-checkbox item-content";
@@ -211,7 +215,20 @@ waistline.Foodlist = {
   },
 
   deleteItem: function(item) {
-    return new Promise(function(resolve, reject) {}).catch(err => {
+    return new Promise(function(resolve, reject) {
+
+      let title = waistline.strings["confirm-delete-title"] || "Delete";
+      let msg = waistline.strings["confirm-delete"] || "Are you sure?";
+
+      let dialog = f7.dialog.confirm(msg, title, () => {
+
+        let request = dbHandler.deleteItem(item.id, "foodList");
+
+        request.onsuccess = function(e) {
+          f7.views.main.router.refreshPage();
+        };
+      });
+    }).catch(err => {
       throw (err);
     });
   },
@@ -235,7 +252,7 @@ waistline.Foodlist = {
       customSearch: true,
       on: {
         search(sb, query, previousQuery) {
-          s.list = foodsMealsRecipes.filterList(query, s.filterList);
+          s.list = waistline.FoodsMealsRecipes.filterList(query, s.filterList);
           waistline.Foodlist.renderList(true);
         },
         async disable(searchbar, previousQuery) {
