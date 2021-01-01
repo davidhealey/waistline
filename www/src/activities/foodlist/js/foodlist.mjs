@@ -128,60 +128,84 @@ waistline.Foodlist = {
 
   renderItem: function(item, el) {
 
-    if (item) {
-      let li = document.createElement("li");
+    let li = document.createElement("li");
+    el.appendChild(li);
 
-      let content = document.createElement("div");
-      content.className = "item-inner";
-      li.appendChild(content);
+    let label = document.createElement("label");
+    label.className = "item-checkbox item-content";
+    li.appendChild(label);
 
-      let title = document.createElement("div");
-      title.className = "item-title";
-      title.innerText = Utils.tidyText(item.name, 30);
-      title.style.width = "100%";
+    //Checkbox
+    let input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "food-item-checkbox";
+    label.appendChild(input);
 
-      //Open item editor event 
-      title.addEventListener("click", (e) => {
-        this.gotoEditor(item);
+    let icon = document.createElement("i");
+    icon.className = "icon icon-checkbox";
+    label.appendChild(icon);
+
+    input.addEventListener("change", (e) => {
+      this.checkboxChanged();
+    });
+
+    //Inner container
+    let inner = document.createElement("div");
+    inner.className = "item-inner";
+    label.appendChild(inner);
+
+    inner.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.gotoEditor(item);
+    });
+
+    if (item.id != undefined) {
+      inner.addEventListener("taphold", (e) => {
+        e.preventDefault();
+        this.deleteItem(item);
       });
-
-      //Delete item event
-      if (item.id != undefined) {
-        title.addEventListener("taphold", (e) => {
-          this.deleteItem(item);
-        });
-      }
-
-      content.appendChild(title);
-
-      let after = document.createElement("div");
-      after.className = "item-after";
-      content.appendChild(after);
-
-      let label = document.createElement("label");
-      label.className = "item-checkbox item-content";
-      after.appendChild(label);
-
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.name = "food-item-checkbox";
-      checkbox.itemId = item.id;
-      checkbox.data = JSON.stringify(item);
-
-      //Checkbox action 
-      checkbox.addEventListener("change", (e) => {
-        waistline.Foodlist.checkboxChanged();
-      });
-
-      label.appendChild(checkbox);
-
-      let icon = document.createElement("i");
-      icon.className = "icon icon-checkbox";
-      icon.style.margin = "0";
-      label.appendChild(icon);
-
-      s.el.list.appendChild(li);
     }
+
+    //Item proper
+    let row = document.createElement("div");
+    row.className = "item-title-row";
+    inner.appendChild(row);
+
+    //Title
+    let title = document.createElement("div");
+    title.className = "item-title";
+    title.innerHTML = Utils.tidyText(item.name, 25);
+    row.appendChild(title);
+
+    //Energy
+    let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+    let energy = parseInt(item.nutrition.calories);
+
+    if (energyUnit == "kJ")
+      energy = Math.round(energy * 4.1868);
+
+    let after = document.createElement("div");
+    after.className = "item-after";
+    after.innerHTML = energy + " " + energyUnit;
+    row.appendChild(after);
+
+    //Brand 
+    if (item.brand && item.brand != "") {
+      let subtitle = document.createElement("div");
+      subtitle.className = "item-subtitle";
+      subtitle.innerHTML = Utils.tidyText(item.brand, 35).italics();
+      inner.appendChild(subtitle);
+    }
+
+    //Item details 
+    let details = document.createElement("div");
+    details.className = "item-text";
+
+    //Portion
+    let text = item.portion;
+
+    details.innerHTML = text;
+    inner.appendChild(details);
   },
 
   getListFromDB: function() {
