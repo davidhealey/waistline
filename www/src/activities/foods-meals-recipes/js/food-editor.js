@@ -29,9 +29,10 @@ const s = {
 
 function init(context) {
   if (context) {
-    if (context.item)
+    if (context.item) {
       s.item = context.item;
-    else
+      s.linked = true;
+    } else
       s.linked = false; //Unlinked by default for adding new items
 
     s.origin = context.origin;

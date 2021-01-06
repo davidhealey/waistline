@@ -1,5 +1,5 @@
 /*
-  Copyright 2020 David Healey
+  Copyright 2020, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -44,11 +44,11 @@ waistline.Foodlist = {
     }
 
     this.getComponents();
-    this.bindUIActions();
-    this.createFilterBar();
+    this.createSearchBar();
 
     if (!s.ready) {
       f7.infiniteScroll.create(s.el.infinite); //Setup infinite list
+      this.bindUIActions();
       s.ready = true;
     }
 
@@ -68,7 +68,7 @@ waistline.Foodlist = {
     s.el.searchForm = document.querySelector(".page[data-name='foods-meals-recipes'] #food-search");
     s.el.fab = document.querySelector(".page[data-name='foods-meals-recipes'] #add-item");
     s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist"); //Infinite list container
-    s.el.list = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist ul"); //Infinite list container
+    s.el.list = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist ul"); //Infinite list
     s.el.spinner = document.querySelector(".page[data-name='foods-meals-recipes'] #spinner");
   },
 
@@ -110,7 +110,6 @@ waistline.Foodlist = {
   },
 
   renderList: async function(clear) {
-
     if (clear) Utils.deleteChildNodes(s.el.list);
 
     //List settings 
@@ -273,9 +272,8 @@ waistline.Foodlist = {
     }
   },
 
-  createFilterBar: function() {
-
-    const filterBar = f7.searchbar.create({
+  createSearchBar: function() {
+    const searchBar = f7.searchbar.create({
       el: ".searchbar",
       customSearch: true,
       on: {

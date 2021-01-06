@@ -17,11 +17,11 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<div class="block" id="foodlist">
+<div class="block">
 
-  <!-- static seachbar -->
+  <!-- static searchbar -->
   <div class="searchbar-backdrop"></div>
-  <form class="searchbar" id="food-search" @submit="onSubmit">
+  <form class="searchbar" id="food-search">
     <div class="searchbar-inner">
       <div class="searchbar-input-wrap">
         <input type="search" id="search" placeholder="Search">
@@ -32,8 +32,8 @@
     </div>
   </form>
 
-  <div class="list media-list" id="foodlist-container">
-    <ul>
+  <div class="list media-list">
+    <ul id="thingy">
     </ul>
   </div>
   <div class="preloader infinite-scroll-preloader" id="spinner" style="display:none;"></div>
