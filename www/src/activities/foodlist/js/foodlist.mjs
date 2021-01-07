@@ -28,11 +28,13 @@ waistline.Foodlist = {
   settings: {
     list: [], //Main list of foods
     filterList: [], //Copy of the list for filtering
+    selection: [], //Items that have been checked, even if list has been changed
     el: {} //UI elements
   },
 
   init: async function(context) {
     s = this.settings; //Assign settings object
+    s.selection = []; //Clear out selection when page is reloaded
 
     if (context) {
       if (context.item) {
@@ -45,17 +47,15 @@ waistline.Foodlist = {
 
     this.getComponents();
     this.createSearchBar();
+    this.bindUIActions();
 
     if (!s.ready) {
       f7.infiniteScroll.create(s.el.infinite); //Setup infinite list
-      this.bindUIActions();
       s.ready = true;
     }
 
-    //if (s.list.length == 0) {
     s.list = await this.getListFromDB();
     s.filterList = s.list;
-    //}
 
     this.renderList(true);
   },
@@ -140,6 +140,7 @@ waistline.Foodlist = {
     input.type = "checkbox";
     input.name = "food-item-checkbox";
     input.data = JSON.stringify(item);
+    input.checked = s.selection.includes(JSON.stringify(item));
     label.appendChild(input);
 
     let icon = document.createElement("i");
@@ -147,7 +148,7 @@ waistline.Foodlist = {
     label.appendChild(icon);
 
     input.addEventListener("change", (e) => {
-      this.checkboxChanged();
+      this.checkboxChanged(input.checked, item);
     });
 
     //Inner container
@@ -250,6 +251,7 @@ waistline.Foodlist = {
         let request = dbHandler.deleteItem(item.id, "foodList");
 
         request.onsuccess = function(e) {
+          s.list = [];
           f7.views.main.router.refreshPage();
         };
       });
@@ -258,23 +260,23 @@ waistline.Foodlist = {
     });
   },
 
-  checkboxChanged: function() {
-    let inputs = document.querySelectorAll("input[type=checkbox]:checked"); //All checked boxes
+  checkboxChanged: function(state, item) {
 
-    if (!inputs.length) {
-      s.el.scan.style.display = "block";
-      s.el.submit.style.display = "none";
-      s.el.title.innerHTML = "Foods";
+    if (state === true) {
+      s.selection.push(JSON.stringify(item));
     } else {
-      s.el.scan.style.display = "none";
-      s.el.submit.style.display = "block";
-      s.el.title.innerHTML = inputs.length + " Foods Selected";
+      let itemIndex = s.selection.indexOf(JSON.stringify(item));
+      if (itemIndex != -1)
+        s.selection.splice(itemIndex, 1);
     }
+
+    this.updateSelectionCount();
   },
 
   createSearchBar: function() {
     const searchBar = f7.searchbar.create({
       el: ".searchbar",
+      backdrop: false,
       customSearch: true,
       on: {
         search(sb, query, previousQuery) {
@@ -282,12 +284,39 @@ waistline.Foodlist = {
           waistline.Foodlist.renderList(true);
         },
         async disable(searchbar, previousQuery) {
+          waistline.Foodlist.unselectCheckedItems();
           s.list = await waistline.Foodlist.getListFromDB();
           s.filterList = s.list;
           waistline.Foodlist.renderList(true);
         }
       }
     });
+  },
+
+  unselectCheckedItems: function() {
+
+    //Remove any selected search items from the selection array
+    const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
+
+    checked.forEach((x, i) => {
+      let itemIndex = s.selection.indexOf(x.data);
+      if (itemIndex != -1)
+        s.selection.splice(itemIndex, 1);
+    });
+
+    this.updateSelectionCount();
+  },
+
+  updateSelectionCount: function() {
+    if (!s.selection.length) {
+      s.el.scan.style.display = "block";
+      s.el.submit.style.display = "none";
+      s.el.title.innerHTML = "Foods";
+    } else {
+      s.el.scan.style.display = "none";
+      s.el.submit.style.display = "block";
+      s.el.title.innerHTML = s.selection.length + " Foods Selected";
+    }
   },
 
   gotoEditor: function(item) {
@@ -311,16 +340,13 @@ waistline.Foodlist = {
   },
 
   submitButtonAction: function() {
-
-    const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked')); //Get all checked items
-
-    if (checked.length > 0) { //Safety check
+    if (s.selection.length > 0) { //Safety check
 
       let items = [];
 
-      checked.forEach(async (x) => {
+      s.selection.forEach(async (x) => {
 
-        let item = JSON.parse(x.data);
+        let item = JSON.parse(x);
 
         if (item.id == undefined) { //No ID, must be a search result 
 

@@ -279,7 +279,8 @@ function returnItem(item) {
     f7.views.main.router.navigate(s.origin, {
       "context": {
         item: data
-      }
+      },
+      reloadCurrent: true
     });
   }
 }

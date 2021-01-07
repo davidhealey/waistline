@@ -148,7 +148,7 @@ waistline.FoodsMealsRecipes = {
 
       //Create and show the action sheet
       let ac = f7.actions.create({
-        "buttons": options
+        buttons: options
       });
 
       ac.open();
