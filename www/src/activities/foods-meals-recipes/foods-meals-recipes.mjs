@@ -163,7 +163,8 @@ waistline.FoodsMealsRecipes = {
         items: items,
         category: category
       },
-      reloadCurrent: true
+      reloadCurrent: true,
+      clearPreviousHistory: clearHistory
     });
   }
 };

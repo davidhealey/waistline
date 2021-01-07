@@ -168,7 +168,7 @@ waistline.Diary = {
   },
 
   addItems: function(items, category) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
 
       let data = items;
       const mealNames = waistline.Settings.get("diary", "meal-names");
@@ -184,8 +184,8 @@ waistline.Diary = {
         }
       });
 
-      dbHandler.bulkInsert(data, "diary").then(resolve());
-
+      await dbHandler.bulkInsert(data, "diary");
+      resolve();
     }).catch(err => {
       throw (err);
     });
