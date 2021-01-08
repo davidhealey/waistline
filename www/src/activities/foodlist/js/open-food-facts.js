@@ -21,7 +21,7 @@ export function search(query) {
   return new Promise(function(resolve, reject) {
 
     //Build search string
-    let searchString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + query + "&search_simple=1&page_size=100&sort_by=last_modified_t&action=process&json=1";
+    let searchString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
 
     //Get country name
     let country = waistline.Settings.get("foodlist", "country") || undefined;

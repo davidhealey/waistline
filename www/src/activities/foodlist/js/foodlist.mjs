@@ -20,6 +20,7 @@
 import * as Tests from "./tests.js";
 import * as Utils from "/www/assets/js/utils.js";
 import * as Off from "./open-food-facts.js";
+import * as USDA from "./usda.js";
 import * as Editor from "/www/src/activities/foods-meals-recipes/js/food-editor.js";
 
 var s;
@@ -99,8 +100,12 @@ waistline.Foodlist = {
   search: async function(query) {
     if (query != "") {
       s.el.spinner.style.display = "block";
-      let result = await Off.search(query);
+      let offList = await Off.search(query);
+      let usdaList = await USDA.search(query);
+      let result = offList.concat(usdaList);
       s.el.spinner.style.display = "none";
+
+      console.log(result);
 
       s.list = result;
       s.filterList = s.list;
@@ -115,7 +120,7 @@ waistline.Foodlist = {
     //List settings 
     let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
-    let lastIndex = document.querySelectorAll("#foodlist-container li").length;
+    let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist li").length;
 
     if (lastIndex <= s.list.length) {
       //Render next set of items to list
