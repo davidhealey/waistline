@@ -103,13 +103,12 @@ waistline.Foodlist = {
       let offList = await Off.search(query);
       let usdaList = await USDA.search(query);
       let result = offList.concat(usdaList);
-      s.el.spinner.style.display = "none";
-
-      console.log(result);
 
       s.list = result;
       s.filterList = s.list;
     }
+
+    s.el.spinner.style.display = "none";
 
     this.renderList(true);
   },
@@ -133,86 +132,88 @@ waistline.Foodlist = {
 
   renderItem: function(item, el) {
 
-    let li = document.createElement("li");
-    el.appendChild(li);
+    if (item !== undefined) {
+      let li = document.createElement("li");
+      el.appendChild(li);
 
-    let label = document.createElement("label");
-    label.className = "item-checkbox item-content";
-    li.appendChild(label);
+      let label = document.createElement("label");
+      label.className = "item-checkbox item-content";
+      li.appendChild(label);
 
-    //Checkbox
-    let input = document.createElement("input");
-    input.type = "checkbox";
-    input.name = "food-item-checkbox";
-    input.data = JSON.stringify(item);
-    input.checked = s.selection.includes(JSON.stringify(item));
-    label.appendChild(input);
+      //Checkbox
+      let input = document.createElement("input");
+      input.type = "checkbox";
+      input.name = "food-item-checkbox";
+      input.data = JSON.stringify(item);
+      input.checked = s.selection.includes(JSON.stringify(item));
+      label.appendChild(input);
 
-    let icon = document.createElement("i");
-    icon.className = "icon icon-checkbox";
-    label.appendChild(icon);
+      let icon = document.createElement("i");
+      icon.className = "icon icon-checkbox";
+      label.appendChild(icon);
 
-    input.addEventListener("change", (e) => {
-      this.checkboxChanged(input.checked, item);
-    });
-
-    //Inner container
-    let inner = document.createElement("div");
-    inner.className = "item-inner";
-    label.appendChild(inner);
-
-    inner.addEventListener("click", (e) => {
-      e.preventDefault();
-      this.gotoEditor(item);
-    });
-
-    if (item.id != undefined) {
-      inner.addEventListener("taphold", (e) => {
-        e.preventDefault();
-        this.deleteItem(item);
+      input.addEventListener("change", (e) => {
+        this.checkboxChanged(input.checked, item);
       });
+
+      //Inner container
+      let inner = document.createElement("div");
+      inner.className = "item-inner";
+      label.appendChild(inner);
+
+      inner.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.gotoEditor(item);
+      });
+
+      if (item.id != undefined) {
+        inner.addEventListener("taphold", (e) => {
+          e.preventDefault();
+          this.deleteItem(item);
+        });
+      }
+
+      //Item proper
+      let row = document.createElement("div");
+      row.className = "item-title-row";
+      inner.appendChild(row);
+
+      //Title
+      let title = document.createElement("div");
+      title.className = "item-title";
+      title.innerHTML = Utils.tidyText(item.name, 25);
+      row.appendChild(title);
+
+      //Energy
+      let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+      let energy = parseInt(item.nutrition.calories);
+
+      if (energyUnit == "kJ")
+        energy = Math.round(energy * 4.1868);
+
+      let after = document.createElement("div");
+      after.className = "item-after";
+      after.innerHTML = energy + " " + energyUnit;
+      row.appendChild(after);
+
+      //Brand 
+      if (item.brand && item.brand != "") {
+        let subtitle = document.createElement("div");
+        subtitle.className = "item-subtitle";
+        subtitle.innerHTML = Utils.tidyText(item.brand, 35).italics();
+        inner.appendChild(subtitle);
+      }
+
+      //Item details 
+      let details = document.createElement("div");
+      details.className = "item-text";
+
+      //Portion
+      let text = item.portion;
+
+      details.innerHTML = text;
+      inner.appendChild(details);
     }
-
-    //Item proper
-    let row = document.createElement("div");
-    row.className = "item-title-row";
-    inner.appendChild(row);
-
-    //Title
-    let title = document.createElement("div");
-    title.className = "item-title";
-    title.innerHTML = Utils.tidyText(item.name, 25);
-    row.appendChild(title);
-
-    //Energy
-    let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
-    let energy = parseInt(item.nutrition.calories);
-
-    if (energyUnit == "kJ")
-      energy = Math.round(energy * 4.1868);
-
-    let after = document.createElement("div");
-    after.className = "item-after";
-    after.innerHTML = energy + " " + energyUnit;
-    row.appendChild(after);
-
-    //Brand 
-    if (item.brand && item.brand != "") {
-      let subtitle = document.createElement("div");
-      subtitle.className = "item-subtitle";
-      subtitle.innerHTML = Utils.tidyText(item.brand, 35).italics();
-      inner.appendChild(subtitle);
-    }
-
-    //Item details 
-    let details = document.createElement("div");
-    details.className = "item-text";
-
-    //Portion
-    let text = item.portion;
-
-    details.innerHTML = text;
-    inner.appendChild(details);
   },
 
   getListFromDB: function() {
@@ -285,8 +286,12 @@ waistline.Foodlist = {
       customSearch: true,
       on: {
         search(sb, query, previousQuery) {
-          s.list = waistline.FoodsMealsRecipes.filterList(query, s.filterList);
-          waistline.Foodlist.renderList(true);
+          if (query != "") {
+            s.list = waistline.FoodsMealsRecipes.filterList(query, s.filterList);
+            waistline.Foodlist.renderList(true);
+          } else {
+            f7.searchbar.disable(this);
+          }
         },
         async disable(searchbar, previousQuery) {
           waistline.Foodlist.unselectCheckedItems();

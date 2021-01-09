@@ -18,46 +18,34 @@
 */
 
 export function search(query) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(async function(resolve, reject) {
 
     //Build search string
-    let searchString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
+    let url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
 
     //Get country name
     let country = waistline.Settings.get("foodlist", "country") || undefined;
 
     if (country && country != "All")
-      searchString += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+      url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
 
-    //Create request
-    let request = new XMLHttpRequest();
-    request.open("GET", searchString, true);
-    request.send();
+    let response = await fetch(url);
 
-    request.onreadystatechange = function() {
-      if (request.readyState == 4 && request.status == 200) {
+    if (response) {
+      let data = await response.json();
 
-        let result = JSON.parse(request.responseText);
-        let list = [];
+      resolve(data.products.map((x) => {
+        return parseItem(x);
+      }));
+    }
 
-        //Parse each product
-        if (result && result.products && result.products.length != 0) {
-          let products = result.products;
-          products.forEach((x) => {
-            let item = parseProduct(x);
-            if (item)
-              list.push(item);
-          });
-        }
-        resolve(list);
-      }
-    };
+    reject();
   }).catch(err => {
     throw (err);
   });
 }
 
-function parseProduct(product) {
+function parseItem(item) {
 
   const nutriments = waistline.nutriments; //Array of OFF nutriment names
   let result = {
@@ -67,46 +55,46 @@ function parseProduct(product) {
   let now = new Date();
   result.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-  //Search for all keys containing 'product_name' to include local product names
-  for (let k in product) {
+  //Search for all keys containing 'item_name' to include local item names
+  for (let k in item) {
     if (k.includes("product_name")) {
-      result.name = escape(product[k]);
+      result.name = escape(item[k]);
       break;
     }
   }
 
-  result.image_url = escape(product.image_url);
-  result.barcode = product.code;
+  result.image_url = escape(item.image_url);
+  result.barcode = item.code;
 
   //Get first brand if there is more than one
-  let brands = product.brands || "";
+  let brands = item.brands || "";
   let n = brands.indexOf(",");
   result.brand = escape(brands.substring(0, n != -1 ? n : brands.length));
 
   //Nutrition
   let perTag = "";
-  if (product.serving_size && (product.nutrition_data_per == "serving" || product.nutriments.energy_serving)) {
-    result.portion = product.serving_size.replace(" ", "");
-    result.nutrition.calories = parseInt(product.nutriments.energy_serving / 4.1868);
+  if (item.serving_size && (item.nutrition_data_per == "serving" || item.nutriments.energy_serving)) {
+    result.portion = item.serving_size.replace(" ", "");
+    result.nutrition.calories = parseInt(item.nutriments.energy_serving / 4.1868);
     perTag = "_serving";
-  } else if (product.nutrition_data_per == "100g" && product.nutriments.energy_100g) {
+  } else if (item.nutrition_data_per == "100g" && item.nutriments.energy_100g) {
     result.portion = "100g";
-    result.nutrition.calories = parseInt(product.nutriments.energy_100g / 4.1868);
+    result.nutrition.calories = parseInt(item.nutriments.energy_100g / 4.1868);
     perTag = "_100g";
-  } else if (product.quantity) { //If all else fails
-    result.portion = product.quantity;
-    result.nutrition.calories = product.nutriments.energy_value;
+  } else if (item.quantity) { //If all else fails
+    result.portion = item.quantity;
+    result.nutrition.calories = item.nutriments.energy_value;
   }
 
   //Each nutriment 
   nutriments.forEach((x, i) => {
     if (x != "calories" && x != "kilojoules") {
-      result.nutrition[x] = product.nutriments[x + perTag];
+      result.nutrition[x] = item.nutriments[x + perTag];
     }
   });
 
   //Kilojules to kcal
-  if (product.nutriments.energy_unit == "kJ") {
+  if (item.nutriments.energy_unit == "kJ") {
     result.nutrition.kilojoules = result.nutrition.calories;
     result.nutrition.calories = parseInt(result.nutrition.kilojoules / 4.1868);
   } else {

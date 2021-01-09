@@ -18,36 +18,21 @@
 */
 
 export function search(query) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(async function(resolve, reject) {
+
     let apiKey = "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ"; //USDA Gov API key
     let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + apiKey + "&query=" + encodeURI(query) + "&sort=r&max=50";
 
-    const options = {
-      method: 'get',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
+    let response = await fetch(url);
 
-    cordova.plugin.http.sendRequest(url, options, function(response) {
-      // prints 200
-      console.log(response.status);
-      let result = JSON.parse(response.data);
-      let list = [];
+    if (response) {
+      let data = await response.json();
 
-      result.foods.forEach((x) => {
-        let item = parseItem(x);
-        if (item)
-          list.push(item);
-      });
-      resolve(list);
-    }, function(response) {
-      // prints 403
-      console.log(response.status);
-
-      //prints Permission denied
-      console.log(response.error);
-    });
+      resolve(data.foods.map((x) => {
+        return parseItem(x);
+      }));
+    }
+    reject();
   }).catch(err => {
     throw (err);
   });

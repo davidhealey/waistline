@@ -107,12 +107,13 @@ waistline.FoodsMealsRecipes = {
 
       //Filter by name and brand
       result = result.filter(function(el) {
-        if (el.name && el.brand)
-          return el.name.match(exp) || el.brand.match(exp);
-        else if (el.name)
-          return el.name.match(exp);
-        else
-          return false;
+        if (el) {
+          if (el.name && el.brand)
+            return el.name.match(exp) || el.brand.match(exp);
+          else if (el.name)
+            return el.name.match(exp);
+        }
+        return false;
       });
     }
     return result;
