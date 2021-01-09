@@ -110,3 +110,7 @@ function parseItem(item) {
 function upload() {
 
 }
+
+function testCredentials(username, password) {
+
+}

@@ -39,9 +39,8 @@
           </a>
         </li>
 
-
         <li>
-          <a href="#" class="item-link item-content">
+          <a href="#" class="item-link item-content login-screen-open" data-login-screen=".usda-login">
             <div class="item-inner" data-localize="settings.integration.usda-api">USDA Settings</div>
           </a>
         </li>
@@ -64,7 +63,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label">Username</div>
                     <div class="item-input-wrap">
-                      <input type="text" name="username" field="open-food-facts" placeholder="Your username">
+                      <input type="text" name="off-username" field="integration" placeholder="Your username">
                     </div>
                   </div>
                 </li>
@@ -72,7 +71,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label">Password</div>
                     <div class="item-input-wrap">
-                      <input type="password" name="password" field="open-food-facts" placeholder="Your password">
+                      <input type="password" name="off-password" field="integration" placeholder="Your password">
                     </div>
                   </div>
                 </li>
@@ -80,10 +79,45 @@
             </div>
             <div class="list">
               <ul>
-                <li><a class="list-button" href="#">Sign In</a></li>
+                <li><a class="list-button" id="off-login" href="#">Sign In</a></li>
               </ul>
               <div class="block-footer">
                 <p>This is entirely optional. You do not need an OFF account to use Waistline.</p>
+                <p><a class="link login-screen-close" href="#">Exit</a></p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USDA API Key Screen -->
+  <div class="login-screen usda-login">
+    <div class="view">
+      <div class="page">
+        <div class="page-content login-screen-content">
+          <div class="login-screen-title">USDA</div>
+          <form>
+            <div class="list">
+              <ul>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">USDA API Key</div>
+                    <div class="item-input-wrap">
+                      <input type="password" name="usda-api-key" field="integration" placeholder="Your API Key">
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="list">
+              <ul>
+                <li><a class="list-button" id="usda-save" href="#">Save</a></li>
+              </ul>
+              <div class="block-footer">
+                <p>You need to enter your personal API Key to search for foods in the USDA database.</p>
+                <p>You can request a free API Key by clicking <a href="https://fdc.nal.usda.gov/api-key-signup.html">here</a>.</p>
                 <p><a class="link login-screen-close" href="#">Exit</a></p>
               </div>
             </div>
