@@ -20,7 +20,13 @@
 export function search(query) {
   return new Promise(async function(resolve, reject) {
 
-    let apiKey = "TZG6aFDSBJlTFBhKVpsUXy9lLoeHYknISWmRvJXJ"; //USDA Gov API key
+    let apiKey;
+
+    if (waistline.mode == "development")
+      apiKey = "DEMO_KEY";
+    else
+      apiKey = "DEMO_KEY";
+
     let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + apiKey + "&query=" + encodeURI(query) + "&sort=r&max=50";
 
     let response = await fetch(url);
@@ -89,6 +95,21 @@ function parseItem(item) {
   return result;
 }
 
-function testApiKey(key) {
+export function testApiKey(key) {
+  return new Promise(async function(resolve, reject) {
 
+    let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + key + "&query=cheese";
+
+    let response = await fetch(url);
+
+    if (response) {
+      let data = await response.json();
+      if (data.error && data.error.code == "API_KEY_INVALID")
+        resolve(false);
+    }
+
+    resolve(true);
+  }).catch(err => {
+    throw (err);
+  });
 }

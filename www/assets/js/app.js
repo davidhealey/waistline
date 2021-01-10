@@ -102,6 +102,7 @@ ons.ready(function() {
 const waistline = {
 
   mode: "development",
+  version: "2.4.5",
   tests: {}, //Object to hold test functions to be run by TinyTest
   strings: {}, //Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
@@ -291,7 +292,7 @@ f7.on("init", function(event) {
   //diary.initializeSettings();
   goals.initializeSettings();
 
-  f7.views.main.router.navigate("/foods-meals-recipes/");
+  f7.views.main.router.navigate("/settings/integration/");
 });
 
 //Prevent chrome displaying context menu on long click

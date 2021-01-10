@@ -17,6 +17,10 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import * as Utils from "/www/assets/js/utils.js";
+import * as OFF from "/www/src/activities/foodlist/js/open-food-facts.js";
+import * as USDA from "/www/src/activities/foodlist/js/usda.js";
+
 var s;
 waistline.Settings = {
 
@@ -101,8 +105,8 @@ waistline.Settings = {
 
   bindUIActions: function() {
 
-    //Input fields (including selects)
-    const inputs = Array.from(document.querySelectorAll("input, select"));
+    // Input fields (including selects)
+    const inputs = Array.from(document.querySelectorAll("input:not(.manual-bind), select"));
 
     inputs.forEach((x, i) => {
       x.addEventListener("change", (e) => {
@@ -118,7 +122,7 @@ waistline.Settings = {
           return result;
         }, []);
 
-        //Input is not part of an array so just get first element
+        // Input is not part of an array so just get first element
         if (value.length == 1) value = value[0];
 
         let field = x.getAttribute("field");
@@ -128,15 +132,62 @@ waistline.Settings = {
         this.resetModuleReadyStates(); //Reset modules for changes to take effect
       });
     });
+
+    // Open food facts credentials login button
+    let offLogin = document.getElementById("off-login");
+    if (offLogin) {
+      offLogin.addEventListener("click", function(e) {
+        let username = document.querySelector(".off-login #off-username").value;
+        let password = document.querySelector(".off-login #off-password").value;
+        waistline.Settings.saveOFFCredentials(username, password);
+      });
+    }
+
+    // USDA API Key save link
+    let usdaSave = document.getElementById("usda-save");
+    if (usdaSave) {
+      usdaSave.addEventListener("click", function(e) {
+        let key = document.querySelector(".usda-login #usda-key").value;
+        waistline.Settings.saveUSDAKey(key);
+      });
+    }
   },
 
   resetModuleReadyStates: function() {
     waistline.Diary.setReadyState(false);
-  }
+  },
 
+  saveOFFCredentials: async function(username, password) {
+    let screen = document.querySelector(".off-login");
+    if (Utils.isInternetConnected()) {
+      if ((username == "" && password == "") || await OFF.testCredentials(username, password)) {
+        this.put("integration", "off-username", username);
+        this.put("integration", "off-password", password);
+        f7.loginScreen.close(screen);
+      } else {
+        Utils.notification("Invalid Credentials", "error");
+      }
+    } else {
+      f7.loginScreen.close(screen);
+    }
+  },
+
+  saveUSDAKey: async function(key) {
+    let screen = document.querySelector(".usda-login");
+    if (Utils.isInternetConnected()) {
+      if (key == "" || await USDA.testApiKey(key)) {
+        this.put("integration", "usda-key", key);
+        f7.loginScreen.close(screen);
+      } else {
+        Utils.notification("API Key Invalid", "error");
+      }
+    } else {
+      f7.loginScreen.close(screen);
+    }
+  },
 };
 
-document.addEventListener("page:init", function(e) {
+document.addEventListener("page:init", async function(e) {
   const pageName = e.target.attributes["data-name"].value;
 
   //Settings and all settings subpages

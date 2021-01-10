@@ -21,7 +21,9 @@ export function search(query) {
   return new Promise(async function(resolve, reject) {
 
     //Build search string
-    let url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
+    let url;
+
+    url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
 
     //Get country name
     let country = waistline.Settings.get("foodlist", "country") || undefined;
@@ -29,14 +31,23 @@ export function search(query) {
     if (country && country != "All")
       url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
 
-    let response = await fetch(url);
+    let response = await fetch(url, {
+      headers: {
+        "User-Agent": "Waistline - Android - Version " + waistline.version + " - https://github.com/davidhealey/waistline"
+      }
+    });
 
     if (response) {
       let data = await response.json();
 
-      resolve(data.products.map((x) => {
-        return parseItem(x);
-      }));
+      let result = [];
+      data.products.forEach((x) => {
+        let item = parseItem(x);
+        if (item)
+          result.push(item);
+      });
+
+      resolve(result);
     }
 
     reject();
@@ -111,6 +122,26 @@ function upload() {
 
 }
 
-function testCredentials(username, password) {
+export function testCredentials(username, password) {
+  return new Promise(async function(resolve, reject) {
 
+    let url = "https://world.openfoodfacts.org/cgi/session.pl?user_id=" + username + "&password=" + password;
+
+    let response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "User-Agent": "Waistline - Android - Version " + waistline.version + " - https://github.com/davidhealey/waistline",
+      },
+    });
+
+    if (response) {
+      let html = await response.text();
+      if (html == null || html.includes("Incorrect user name or password.") || html.includes("See you soon!")) {
+        resolve(false);
+      }
+    }
+    resolve(true);
+  }).catch(err => {
+    throw (err);
+  });
 }

@@ -35,13 +35,13 @@
 
         <li>
           <a href="#" class="item-link item-content login-screen-open" data-login-screen=".off-login">
-            <div class="item-inner" data-localize="settings.integration.off-account">Link Open Food Facts Account</div>
+            <div class="item-inner" data-localize="settings.integration.off-account">Open Food Facts Account</div>
           </a>
         </li>
 
         <li>
           <a href="#" class="item-link item-content login-screen-open" data-login-screen=".usda-login">
-            <div class="item-inner" data-localize="settings.integration.usda-api">USDA Settings</div>
+            <div class="item-inner" data-localize="settings.integration.usda-api">USDA API</div>
           </a>
         </li>
 
@@ -63,7 +63,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label">Username</div>
                     <div class="item-input-wrap">
-                      <input type="text" name="off-username" field="integration" placeholder="Your username">
+                      <input class="manual-bind" id="off-username" type="text" name="off-username" field="integration" placeholder="Your username">
                     </div>
                   </div>
                 </li>
@@ -71,7 +71,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label">Password</div>
                     <div class="item-input-wrap">
-                      <input type="password" name="off-password" field="integration" placeholder="Your password">
+                      <input class="manual-bind" id="off-password" type="password" name="off-password" field="integration" placeholder="Your password">
                     </div>
                   </div>
                 </li>
@@ -105,7 +105,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label">USDA API Key</div>
                     <div class="item-input-wrap">
-                      <input type="password" name="usda-api-key" field="integration" placeholder="Your API Key">
+                      <input class="manual-bind" id="usda-key" type="password" name="usda-key" field="integration" placeholder="Your API Key">
                     </div>
                   </div>
                 </li>
