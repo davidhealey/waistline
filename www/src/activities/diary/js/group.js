@@ -65,8 +65,18 @@ const render = function(container) {
 
   li.appendChild(content);
 
+  let innerList = document.createElement("div");
+  innerList.className = "list media-list";
+  content.appendChild(innerList);
+
+  let innerUl = document.createElement("ul");
+  innerList.appendChild(innerUl);
+
+  this.items.forEach((x) => {
+    renderItem(x, innerUl, self);
+  });
+
   renderFooter(ul, this.id, this.nutrition);
-  this.renderItems(content);
 };
 
 const renderFooter = function(ul, id, nutrition) {
@@ -110,82 +120,63 @@ const renderFooter = function(ul, id, nutrition) {
   row.appendChild(right);
 };
 
-const renderItems = function(el) {
+const renderItem = function(item, el, group) {
 
-  let self = this;
+  let li = document.createElement("li");
+  li.setAttribute("data", JSON.stringify(item));
+  el.appendChild(li);
 
-  this.items.forEach((item, i) => {
+  let a = document.createElement("a");
+  a.className = "item-link item-content";
+  a.href = "#";
 
-    let div = document.createElement("div");
-    div.className = "list";
-
-    let ul = document.createElement("ul");
-    div.appendChild(ul);
-
-    let li = document.createElement("li");
-    li.className = "item-content entry disable-long-tap ripple";
-    li.id = item.id;
-    if (item.foodId) li.setAttribute("foodId", item.foodId);
-    if (item.recipeId) li.setAttribute("recipeId", item.recipeId);
-    li.setAttribute("data", JSON.stringify(item));
-
-    li.addEventListener("taphold", function(e) {
-      self.removeItem(item);
-    });
-
-    li.addEventListener("click", function(e) {
-      waistline.Diary.gotoEditor(item);
-    });
-
-    ul.appendChild(li);
-
-    let content = document.createElement("div");
-    content.className = "item-inner item-cell";
-    li.appendChild(content);
-
-    //Name
-    let row = document.createElement("div");
-    row.className = "item-row";
-    content.appendChild(row);
-
-    let name = document.createElement("div");
-    name.className = "item-cell diary-entry-name";
-    name.innerHTML = Utils.tidyText(item.name, 30);
-    row.appendChild(name);
-
-    //Brand
-    if (item.brand && item.brand != "") {
-
-      row = document.createElement("div");
-      row.className = "item-row";
-      content.appendChild(row);
-
-      let brand = document.createElement("div");
-      brand.className = "item-cell diary-entry-brand";
-      brand.innerHTML = Utils.tidyText(item.brand, 20).italics();
-      row.appendChild(brand);
-    }
-
-    //Energy
-    let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
-
-    row = document.createElement("div");
-    row.className = "item-row";
-    content.appendChild(row);
-
-    let info = document.createElement("div");
-    info.className = "item-cell diary-entry-info";
-
-    let energy = parseInt(item.nutrition.calories);
-
-    if (energyUnit == "kJ")
-      energy = Math.round(energy * 4.1868);
-
-    info.innerText = energy + " " + energyUnit;
-    row.appendChild(info);
-
-    el.appendChild(div);
+  a.addEventListener("taphold", function(e) {
+    group.removeItem(item);
   });
+
+  a.addEventListener("click", function(e) {
+    waistline.Diary.gotoEditor(item);
+  });
+
+  li.appendChild(a);
+
+  let itemInner = document.createElement("div");
+  itemInner.className = "item-inner";
+  a.appendChild(itemInner);
+
+  let itemTitleRow = document.createElement("div");
+  itemTitleRow.className = "item-title-row";
+  itemInner.appendChild(itemTitleRow);
+
+  // Name
+  let itemTitle = document.createElement("div");
+  itemTitle.className = "item-title";
+  itemTitle.innerHTML = Utils.tidyText(item.name, 30);
+  itemTitleRow.appendChild(itemTitle);
+
+  // Energy
+  let itemAfter = document.createElement("div");
+  itemAfter.className = "item-after";
+
+  let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+  let energy = parseInt(item.nutrition.calories);
+
+  if (energyUnit == "kJ")
+    energy = Math.round(energy * 4.1868);
+
+  itemAfter.innerHTML = energy + " " + energyUnit;
+  itemTitleRow.appendChild(itemAfter);
+
+  // Brand
+  let itemSubtitle = document.createElement("div");
+  itemSubtitle.className = "item-subtitle";
+  itemSubtitle.innerHTML = Utils.tidyText(item.brand, 30).italics();
+  itemInner.appendChild(itemSubtitle);
+
+  let itemText = document.createElement("div");
+  itemText.className = "item-text";
+  itemText.innerHTML = "";
+  itemInner.appendChild(itemText);
 };
 
 const addItem = function(item) {
@@ -216,7 +207,6 @@ export const create = function(name, id) {
     items: [],
     nutrition: {},
     render: render,
-    renderItems: renderItems,
     addItem: addItem,
     removeItem: removeItem,
     reset: reset,
