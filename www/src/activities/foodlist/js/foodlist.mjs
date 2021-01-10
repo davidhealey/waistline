@@ -65,12 +65,11 @@ waistline.Foodlist = {
     s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
     s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
-    s.el.search = document.querySelector(".page[data-name='foods-meals-recipes'] #search");
-    s.el.searchForm = document.querySelector(".page[data-name='foods-meals-recipes'] #food-search");
-    s.el.fab = document.querySelector(".page[data-name='foods-meals-recipes'] #add-item");
+    s.el.search = document.querySelector("#foods-tab #food-search");
+    s.el.searchForm = document.querySelector("#foods-tab #food-search-form");
     s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist"); //Infinite list container
     s.el.list = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist ul"); //Infinite list
-    s.el.spinner = document.querySelector(".page[data-name='foods-meals-recipes'] #spinner");
+    s.el.spinner = document.querySelector("#foods-tab #spinner");
   },
 
   bindUIActions: function() {
@@ -78,12 +77,6 @@ waistline.Foodlist = {
     //Submit button 
     s.el.submit.addEventListener("click", (e) => {
       this.submitButtonAction();
-    });
-
-    //Fab button 
-    s.el.fab.addEventListener("click", (e) => {
-      //f7.views.main.router.navigate("./foodlist-editor/");
-      this.gotoEditor();
     });
 
     //Infinite list 
@@ -104,8 +97,12 @@ waistline.Foodlist = {
       let usdaList = await USDA.search(query);
       let result = offList.concat(usdaList);
 
-      s.list = result;
-      s.filterList = s.list;
+      if (result.length > 0) {
+        s.list = result;
+        s.filterList = s.list;
+      } else {
+        Utils.notification("No results found.", "info");
+      }
     }
 
     s.el.spinner.style.display = "none";
@@ -308,6 +305,7 @@ waistline.Foodlist = {
           s.list = await waistline.Foodlist.getListFromDB();
           s.filterList = s.list;
           waistline.Foodlist.renderList(true);
+          s.el.spinner.style.display = "none";
         }
       }
     });

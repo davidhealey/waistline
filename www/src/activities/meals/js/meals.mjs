@@ -21,7 +21,7 @@ import * as Utils from "/www/assets/js/utils.js";
 
 
 var s;
-waistline.Foodlist = {
+waistline.Meals = {
 
   settings: {
     list: [], //Main list of foods
@@ -50,14 +50,13 @@ waistline.Foodlist = {
   },
 
   getComponents: function() {
-    s.el.submit = document.querySelector("#meals-tab #submit");
-    s.el.title = document.querySelector("#meals-tab #title");
-    s.el.scan = document.querySelector("#meals-tab #scan");
-    s.el.search = document.querySelector("#meals-tab #search");
-    s.el.searchForm = document.querySelector("#meals-tab #meal-search");
-    s.el.fab = document.querySelector("#meals-tab #add-item");
-    s.el.infinite = document.querySelector("#meals-tab .list"); //Infinite list container
-    s.el.list = document.querySelector("#meals-tab ul"); //Infinite list
+    s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
+    s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
+    s.el.search = document.querySelector("#meals-tab #meal-search");
+    s.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
+    s.el.fab = document.querySelector("#add-meal");
+    s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
+    s.el.list = document.querySelector(".page[data-name='foods-meals-recipes'] #meals ul"); //Infinite list
     s.el.spinner = document.querySelector("#meals-tab #spinner");
   },
 
@@ -159,11 +158,11 @@ waistline.Foodlist = {
     if (!s.selection.length) {
       s.el.scan.style.display = "block";
       s.el.submit.style.display = "none";
-      s.el.title.innerHTML = "Foods";
+      s.el.title.innerHTML = "Meals";
     } else {
       s.el.scan.style.display = "none";
       s.el.submit.style.display = "block";
-      s.el.title.innerHTML = s.selection.length + " Foods Selected";
+      s.el.title.innerHTML = s.selection.length + " Selected";
     }
   },
 
@@ -172,6 +171,6 @@ waistline.Foodlist = {
 document.addEventListener("tab:init", function(e) {
   if (e.target.id == "meals") {
     let context = f7.views.main.router.currentRoute.context;
-    waistline.Foodlist.init(context);
+    waistline.Meals.init(context);
   }
 });

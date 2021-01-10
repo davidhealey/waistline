@@ -23,6 +23,7 @@ var s;
 waistline.FoodsMealsRecipes = {
 
   settings: {
+    tab: undefined,
     el: {}
   },
 
@@ -30,6 +31,7 @@ waistline.FoodsMealsRecipes = {
 
     s = this.settings; //Assign settings object
     this.getComponents();
+    this.bindUIActions();
 
     if (context) {
       s.category = context.category; //Category of calling page (i.e diary category)
@@ -48,6 +50,25 @@ waistline.FoodsMealsRecipes = {
   getComponents: function() {
     s.el.menu = document.querySelector(".page[data-name='foods-meals-recipes'] #menu");
     s.el.back = document.querySelector(".page[data-name='foods-meals-recipes'] #back");
+    s.el.fab = document.querySelector(".page[data-name='foods-meals-recipes'] #add-item");
+  },
+
+  bindUIActions: function() {
+
+    // Fab button 
+    s.el.fab.addEventListener("click", function(e) {
+
+      switch (s.tab) {
+        case "foodlist":
+          waistline.Foodlist.gotoEditor();
+          break;
+
+        case "meals":
+          waistline.Meals.gotoEditor();
+          break;
+      }
+
+    });
   },
 
   showBackButton: function() {
@@ -240,9 +261,13 @@ var foodsMealsRecipes = {
   },
 };
 
-document.addEventListener("page:init", function(event) {
-  if (event.target.matches(".page[data-name='foods-meals-recipes']")) {
+document.addEventListener("page:init", function(e) {
+  if (e.target.matches(".page[data-name='foods-meals-recipes']")) {
     let context = f7.views.main.router.currentRoute.context;
     waistline.FoodsMealsRecipes.init(context);
   }
+});
+
+document.addEventListener("tab:init", function(e) {
+  waistline.FoodsMealsRecipes.settings.tab = e.target.id;
 });
