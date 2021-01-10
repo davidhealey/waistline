@@ -238,11 +238,21 @@ waistline.Foodlist = {
 
   updateItem: function(item) {
     return new Promise(function(resolve, reject) {
+      let now = new Date();
+
+      item.dateTime = now;
+
       dbHandler.put(item, "foodList").onsuccess = function() {
         resolve();
       };
     }).catch(err => {
       throw (err);
+    });
+  },
+
+  updateItems: function(items) {
+    items.forEach((x) => {
+      this.updateItem(x);
     });
   },
 
@@ -374,6 +384,7 @@ waistline.Foodlist = {
           }
         }
         items.push(item);
+        this.updateItems(items);
       });
       waistline.FoodsMealsRecipes.returnItems(items);
     }
