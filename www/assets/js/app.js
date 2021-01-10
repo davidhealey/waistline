@@ -178,8 +178,8 @@ var f7 = new Framework7({
           url: '/www/src/activities/recipes/views/recipes.html'
         },
         {
-          path: '/tab-3/',
-          id: 'tab-3',
+          path: '/meals/',
+          id: 'meals',
           url: '/www/src/activities/meals/views/meals.html'
         }
       ],
@@ -292,7 +292,7 @@ f7.on("init", function(event) {
   //diary.initializeSettings();
   goals.initializeSettings();
 
-  f7.views.main.router.navigate("/settings/integration/");
+  f7.views.main.router.navigate("/foods-meals-recipes/meals/");
 });
 
 //Prevent chrome displaying context menu on long click

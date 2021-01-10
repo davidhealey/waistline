@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -16,35 +16,25 @@
   You should have received a copy of the GNU General Public License
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ons-page id="meals">
 
-  <link rel="stylesheet" href="src/activities/meals/views/meals.css">
+<div class="block" id="meals-tab">
 
-  <ons-toolbar modifier="material">
-    <div class="left">
-      <ons-toolbar-button id="menu-button" tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button>
-      <ons-back-button id="back-button">Back</ons-back-button>
+  <!-- static searchbar -->
+  <form class="searchbar" id="meal-search">
+    <div class="searchbar-inner">
+      <div class="searchbar-input-wrap">
+        <input type="search" id="search" placeholder="Search">
+        <i class="searchbar-icon"></i>
+      </div>
+      <span class="searchbar-disable-button">Cancel</span>
     </div>
-    <div class="center" data-localize="meals.title">Meals</div>
-    <div class="right">
-      <ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button>
-    </div>
-  </ons-toolbar>
 
-  <div id="filter-container">
-    <form>
-      <ons-search-input id="filter" placeholder="Search Meals"></ons-search-input>
-    </form>
+  </form>
+
+  <div class="list media-list">
+    <ul>
+    </ul>
   </div>
+  <div class="preloader infinite-scroll-preloader" id="spinner" style="display:none;"></div>
 
-  <div id=list-container">
-    <ons-list>
-      <ons-lazy-repeat id="infinite-list">
-      </ons-lazy-repeat>
-    </ons-list>
-  </div>
-
-  <ons-fab position="bottom right">
-    <ons-icon icon="md-plus"></ons-icon>
-  </ons-fab>
-</ons-page>
+</div>

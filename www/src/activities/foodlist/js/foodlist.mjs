@@ -384,8 +384,8 @@ waistline.Foodlist = {
           }
         }
         items.push(item);
-        this.updateItems(items);
       });
+      this.updateItems(items);
       waistline.FoodsMealsRecipes.returnItems(items);
     }
   }
