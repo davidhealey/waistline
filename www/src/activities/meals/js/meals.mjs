@@ -17,6 +17,7 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import * as Group from "/www/src/activities/diary/js/group.js";
 import * as Utils from "/www/assets/js/utils.js";
 
 
@@ -46,6 +47,8 @@ waistline.Meals = {
     s.list = await this.getListFromDB();
     s.filterList = s.list;
 
+    s.groups = this.createMealGroups();
+
     this.renderList(true);
   },
 
@@ -56,7 +59,7 @@ waistline.Meals = {
     s.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
     s.el.fab = document.querySelector("#add-meal");
     s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
-    s.el.list = document.querySelector(".page[data-name='foods-meals-recipes'] #meals ul"); //Infinite list
+    s.el.list = document.querySelector("#meal-list-container"); //Infinite list
     s.el.spinner = document.querySelector("#meals-tab #spinner");
   },
 
@@ -68,20 +71,96 @@ waistline.Meals = {
     });
   },
 
-  renderList: function() {
+  createMealGroups: function() {
+    let groups = [];
 
+    s.list.forEach((x, i) => {
+      if (x != "") {
+        let g = Group.create(x.name, i);
+        g.addItems(x.items);
+        groups.push(g);
+      }
+    });
+    return groups;
   },
 
-  renderItem: function() {
+  renderList: async function(clear) {
 
+    if (clear) Utils.deleteChildNodes(s.el.list);
+
+    //List settings 
+    let maxItems = 200; //Max items to load
+    let itemsPerLoad = 20; //Number of items to append at a time
+    let lastIndex = document.querySelectorAll("#meal-list-container div").length;
+
+    if (lastIndex <= s.list.length) {
+      //Render next set of items to list
+      for (let i = lastIndex; i <= lastIndex + itemsPerLoad; i++) {
+        if (i >= s.groups.length) break; //Exit after all items in list
+        if (s.groups[i].items.length > 0)
+          s.groups[i].render(s.el.list);
+      }
+    }
   },
 
   getListFromDB: function() {
+    return new Promise(async function(resolve, reject) {
+      let sort = waistline.Settings.get("foodlist", "sort");
+      let list = await waistline.FoodsMealsRecipes.getFromDB("meals", sort) || [];
 
+      // Get yesterday's meal if there is a diary category
+      let category = waistline.FoodsMealsRecipes.getCategory();
+      let yesterdaysMeal = false;
+
+      if (category !== false) {
+        yesterdaysMeal = await waistline.Meals.getYesterdaysMeal(category);
+
+        // Add meal to top of list
+        if (yesterdaysMeal)
+          list.unshift(yesterdaysMeal);
+      }
+
+      resolve(list);
+    }).catch(err => {
+      throw (err);
+    });
   },
 
   getYesterdaysMeal: function(category) {
+    return new Promise(async function(resolve, reject) {
 
+      if (category !== false) {
+
+        // Get yesterdays dateTime
+        let now = new Date();
+        let yesterday = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+        yesterday.setUTCHours(yesterday.getUTCHours() - 24);
+
+        const mealNames = waistline.Settings.get("diary", "meal-names");
+
+        let result = {
+          items: [],
+          nutrition: {},
+          name: "Yesterday's " + mealNames[category]
+        };
+
+        let diaryEntry = await waistline.Diary.getItemsFromDB(yesterday, category);
+
+        if (diaryEntry) {
+          diaryEntry.forEach((x) => {
+            let item = x;
+            item.id = x.foodId;
+            delete item.foodId;
+            delete item.category;
+            result.items.push(item);
+          });
+        }
+        resolve(result);
+      }
+      resolve(false);
+    }).catch(err => {
+      throw (err);
+    });
   },
 
   addMeal: function(name) {

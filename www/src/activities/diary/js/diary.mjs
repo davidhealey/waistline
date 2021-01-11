@@ -167,6 +167,22 @@ waistline.Diary = {
     });
   },
 
+  getItemsFromDB: function(dateTime, category) {
+    return new Promise(function(resolve, reject) {
+      let result = [];
+
+      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.only(dateTime)).onsuccess = function(e) { //Filter by date
+        var cursor = e.target.result;
+        if (cursor) {
+          if (cursor.value.category == category) //Filter by category
+            result.push(cursor.value);
+          cursor.continue();
+        } else
+          resolve(result);
+      };
+    });
+  },
+
   addItems: function(items, category) {
     return new Promise(async function(resolve, reject) {
 

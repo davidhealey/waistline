@@ -56,7 +56,9 @@ var meals = {
     center.className = "center";
     li.appendChild(center);
     //Only meals with an id are editable. Not yesterday's breakfast for example
-    if (meal.id) center.addEventListener("tap", function(){ mealEditor.open(meal);});
+    if (meal.id) center.addEventListener("tap", function() {
+      mealEditor.open(meal);
+    });
 
     let name = document.createElement("ons-row");
     name.innerText = unescape(meal.name);
@@ -95,19 +97,19 @@ var meals = {
   deleteMeal: function() {
     let id = this.id;
     ons.notification.confirm("Delete this item?")
-    .then(function(input) {
+      .then(function(input) {
 
-      if (input == 1) { //Delete was confirmed
-        let request = dbHandler.deleteItem(parseInt(id.replace("meal", "")), "meals");
+        if (input == 1) { //Delete was confirmed
+          let request = dbHandler.deleteItem(parseInt(id.replace("meal", "")), "meals");
 
-        //If the request was successful remove the list item
-        request.onsuccess = function(e) {
-          let child = document.querySelector('#meals #' + id);
-          let parent = child.parentElement;
-          parent.removeChild(child);
-        };
-      }
-    });
+          //If the request was successful remove the list item
+          request.onsuccess = function(e) {
+            let child = document.querySelector('#meals #' + id);
+            let parent = child.parentElement;
+            parent.removeChild(child);
+          };
+        }
+      });
   },
 
   submitButtonAction: function() {
@@ -134,43 +136,55 @@ var meals = {
       //Get yesterday's dateTime
       let now = new Date();
       let yesterday = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-      yesterday.setUTCHours(yesterday.getUTCHours()-24);
+      yesterday.setUTCHours(yesterday.getUTCHours() - 24);
 
       //Get category from diary
       let category = diary.getCategory();
 
       //Setup new meal object
-      let meal = {dateTime:yesterday, foods:[], nutrition:{}, name:escape("Yesterday's " + mealNames[category])};
+      let meal = {
+        dateTime: yesterday,
+        foods: [],
+        nutrition: {},
+        name: escape("Yesterday's " + mealNames[category])
+      };
 
       if (category) {
         diary.getEntries(yesterday, category)
-        .then(function(entries) {
+          .then(function(entries) {
 
-          if (entries) {
-            for (let i = 0; i < entries.length; i++) {
-              let entry = entries[i]; //Make a copy of the entry that will be modified to become a food items
-              let food = {id: entry.foodId, name: entry.name, brand: entry.brand, portion: entry.portion, nutrition: entry.nutrition, image_url: entry.image_url, barcode: entry.barcode};
-              meal.foods.push(food);
+            if (entries) {
+              for (let i = 0; i < entries.length; i++) {
+                let entry = entries[i]; //Make a copy of the entry that will be modified to become a food items
+                let food = {
+                  id: entry.foodId,
+                  name: entry.name,
+                  brand: entry.brand,
+                  portion: entry.portion,
+                  nutrition: entry.nutrition,
+                  image_url: entry.image_url,
+                  barcode: entry.barcode
+                };
+                meal.foods.push(food);
 
-              //Get total nutrition for meal
-              for (let n in entry.nutrition) {
-                meal.nutrition[n] = meal.nutrition[n] || 0;
-                meal.nutrition[n] += parseFloat(entry.nutrition[n]);
+                //Get total nutrition for meal
+                for (let n in entry.nutrition) {
+                  meal.nutrition[n] = meal.nutrition[n] || 0;
+                  meal.nutrition[n] += parseFloat(entry.nutrition[n]);
+                }
               }
+              return resolve(meal);
             }
-            return resolve(meal);
-          }
-          resolve(null);
-        });
-      }
-      else
-      resolve(null);
+            resolve(null);
+          });
+      } else
+        resolve(null);
     });
   }
 };
 
 //Page initialization
-document.addEventListener("init", function(event){
+document.addEventListener("init", function(event) {
   if (event.target.matches('ons-page#meals')) {
 
     //Initialize module
@@ -178,48 +192,48 @@ document.addEventListener("init", function(event){
 
     //Populate initial list from DB
     foodsMealsRecipes.getFromDB("meals", window.localStorage.getItem("sort-foods"))
-    .then(function(list){
-      meals.getYesterdaysMeal()
-      .then(function(meal){
-        if (meal != null) list.unshift(meal);
-        meals.list = list;
-        meals.listCopy = list;
+      .then(function(list) {
+        meals.getYesterdaysMeal()
+          .then(function(meal) {
+            if (meal != null) list.unshift(meal);
+            meals.list = list;
+            meals.listCopy = list;
 
 
-      //Setup lazy list delegate callbacks
-      meals.infiniteList.delegate = {
-        createItemContent: function(index, template) {
-            return meals.renderListItem(index);
-        },
+            //Setup lazy list delegate callbacks
+            meals.infiniteList.delegate = {
+              createItemContent: function(index, template) {
+                return meals.renderListItem(index);
+              },
 
-        countItems: function() {
-          return meals.list.length;
-        },
+              countItems: function() {
+                return meals.list.length;
+              },
 
-        /*calculateItemHeight: function(index) {
-          // Optional: return the height of the item at position `index`.
-          // This can enhance calculations and allow better scrolling.
-        },*/
+              /*calculateItemHeight: function(index) {
+                // Optional: return the height of the item at position `index`.
+                // This can enhance calculations and allow better scrolling.
+              },*/
 
-        destroyItem: function(index, e) {
-          if (meals.list[index] == undefined) return true; //If list is empty just return
-          //Remove item event listeners
-          e.element.querySelector("ons-checkbox").removeEventListener('change', meals.checkboxChange);
-          e.element.removeEventListener("hold", meals.deleteMeal);
-        }
-      };
+              destroyItem: function(index, e) {
+                if (meals.list[index] == undefined) return true; //If list is empty just return
+                //Remove item event listeners
+                e.element.querySelector("ons-checkbox").removeEventListener('change', meals.checkboxChange);
+                e.element.removeEventListener("hold", meals.deleteMeal);
+              }
+            };
+          });
       });
-    });
 
     //Submit button
     const submit = meals.page.querySelector('#submit');
-    submit.addEventListener("tap", function(event){
+    submit.addEventListener("tap", function(event) {
       meals.submitButtonAction();
     });
 
     //List filter
     const filter = document.querySelector('ons-page#meals #filter');
-    filter.addEventListener("input", function(event){
+    filter.addEventListener("input", function(event) {
       let value = event.target.value;
       meals.list = foodsMealsRecipes.setFilter(value, meals.listCopy);
       meals.infiniteList.refresh();

@@ -189,6 +189,12 @@ const addItem = function(item) {
   }
 };
 
+const addItems = function(items) {
+  items.forEach((x) => {
+    this.addItem(x);
+  });
+};
+
 const removeItem = function(item) {
   this.nutrition = {}; //Reset nutrition object
   waistline.Diary.deleteItem(item);
@@ -208,6 +214,7 @@ export const create = function(name, id) {
     nutrition: {},
     render: render,
     addItem: addItem,
+    addItems: addItems,
     removeItem: removeItem,
     reset: reset,
   };

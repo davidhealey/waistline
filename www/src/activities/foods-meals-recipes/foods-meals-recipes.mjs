@@ -71,6 +71,13 @@ waistline.FoodsMealsRecipes = {
     });
   },
 
+  getCategory: function() {
+    if (s.category !== undefined)
+      return s.category;
+
+    return false;
+  },
+
   showBackButton: function() {
     s.el.menu.style.display = "none";
     s.el.back.style.display = "block";
