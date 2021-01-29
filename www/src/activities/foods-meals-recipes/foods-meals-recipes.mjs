@@ -301,24 +301,6 @@ waistline.FoodsMealsRecipes = {
     };
 
     f7.views.main.router.back();
-
-    /*if (s.meal) { //Meals/recipes handled differently using custom context data obejct
-      f7.data.context = {
-        items: items,
-        meal: s.meal
-      };
-      f7.views.main.router.back();
-    } else {
-      f7.views.main.router.navigate(route, {
-        context: {
-          items: items,
-          date: s.date,
-          category: s.category
-        },
-        reloadCurrent: true,
-        clearPreviousHistory: clearHistory,
-      });
-    }*/
   },
 
   renderItem: function(item, el, checkboxes, clickCallback, tapholdCallback) {

@@ -343,6 +343,7 @@ waistline.Foodlist = {
       "context": {
         item: item,
         origin: "/foods-meals-recipes/",
+        lastPage: "foodlist",
         allNutriments: true
       }
     });

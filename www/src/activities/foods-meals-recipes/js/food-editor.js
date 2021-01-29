@@ -24,11 +24,16 @@ const s = {
   origin: undefined,
   allNutriments: false,
   linked: true,
-  el: {}
+  el: {},
+  lastPage: ""
 };
 
 function init(context) {
+
   if (context) {
+
+    s.lastPage = context.lastPage;
+
     if (context.item) {
       s.item = context.item;
       s.linked = true;
@@ -40,7 +45,6 @@ function init(context) {
   }
 
   getComponents();
-  setCategoryVisible();
   bindUIActions();
   updateTitle();
   renderNutritionFields(s.item, s.allNutriments);
@@ -49,10 +53,14 @@ function init(context) {
     populateFields(s.item);
 
   setLinkButtonIcon();
+  setCategoryVisible();
   setFabVisibility(s.item == undefined);
 
   if (s.item && s.item.category !== undefined)
     populateCategoryField(s.item);
+
+  if (s.lastPage != "foodlist")
+    disableFields();
 }
 
 function getComponents() {
@@ -89,10 +97,19 @@ function bindUIActions() {
 }
 
 function setLinkButtonIcon() {
-  if (s.linked)
-    s.el.link.innerHTML = "link";
-  else
-    s.el.link.innerHTML = "link_off";
+
+  // Hide link button when not editing from foodlist page
+  if (s.lastPage != "foodlist") {
+    s.el.link.style.display = "none";
+    s.linked = true;
+  } else {
+    s.el.link.style.display = "block";
+
+    if (s.linked)
+      s.el.link.innerHTML = "link";
+    else
+      s.el.link.innerHTML = "link_off";
+  }
 }
 
 function setFabVisibility(showControl) {
@@ -107,6 +124,16 @@ function setCategoryVisible(item) {
     s.el.categoryContainer.style.display = "block";
   else
     s.el.categoryContainer.style.display = "none";
+}
+
+function disableFields() {
+  s.el.name.disabled = true;
+  s.el.brand.disabled = true;
+  s.el.unit.disabled = true;
+
+  s.el.name.style.color = "grey";
+  s.el.brand.style.color = "grey";
+  s.el.unit.style.color = "grey";
 }
 
 function updateTitle() {
