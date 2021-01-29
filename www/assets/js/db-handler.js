@@ -21,10 +21,10 @@ var dbHandler = {
   DB: {},
 
   initializeDb: function() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 28;
+      var databaseVersion = 29;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -40,30 +40,11 @@ var dbHandler = {
       };
 
       //Only called when version number changed (or new database created)
-      openRequest.onupgradeneeded = function(e) {
+      openRequest.onupgradeneeded = async function(e) {
         DB = e.target.result;
-        var store;
+        let store;
 
-        var upgradeTransaction = e.target.transaction;
-
-        //Log store
-        if (!DB.objectStoreNames.contains("log")) {
-          store = DB.createObjectStore("log", {
-            keyPath: 'dateTime'
-          });
-        } else {
-          store = upgradeTransaction.objectStore('log');
-        }
-
-        if (!store.indexNames.contains("goals")) store.createIndex('goals', 'goals', {
-          unique: false
-        });
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
-          unique: false
-        }); //Nutrition consumtion
-        if (!store.indexNames.contains("weight")) store.createIndex('weight', 'weight', {
-          unique: false
-        }); //Current weight
+        let upgradeTransaction = e.target.transaction;
 
         //Food list store
         if (!DB.objectStoreNames.contains("foodList")) {
@@ -75,29 +56,43 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('foodList');
         }
 
+        // Date object, the last time this item was referenced (edited or added to the diary)
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
-        }); //Date object, the last time this item was referenced (edited or added to the diary)
-        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
-          unique: false
         });
-        if (!store.indexNames.contains("brand")) store.createIndex('brand', 'brand', {
-          unique: false
-        });
-        if (!store.indexNames.contains("image_url")) store.createIndex('image_url', 'image_url', {
-          unique: false
-        });
-        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {
-          unique: false
-        }); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
-          unique: false
-        }); //All of the nutrition per portion
+
         if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {
           unique: true
         });
 
-        //Diary Store - a kind of mini food list, independent of the main food list
+        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
+          unique: false
+        });
+
+        if (!store.indexNames.contains("brand")) store.createIndex('brand', 'brand', {
+          unique: false
+        });
+
+        if (!store.indexNames.contains("image_url")) store.createIndex('image_url', 'image_url', {
+          unique: false
+        });
+
+        // Portion - including unit
+        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {
+          unique: false
+        });
+
+        // Nutrition - per portion
+        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
+          unique: false
+        });
+
+        // Deleted foods are marked as archived
+        if (!store.indexNames.contains("archived")) store.createIndex('archived', 'archived', {
+          unique: false
+        });
+
+        //Diary Store - one entry per day
         if (!DB.objectStoreNames.contains("diary")) {
           store = DB.createObjectStore('diary', {
             keyPath: 'id',
@@ -107,36 +102,25 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('diary');
         }
 
+        // Date object
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
-        }); //Date object
-        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
+        });
+
+        // Stats - weight, etc.
+        if (!store.indexNames.contains("stats")) store.createIndex('stats', 'stats', {
           unique: false
         });
-        if (!store.indexNames.contains("brand")) store.createIndex('brand', 'brand', {
+
+        // Food items array
+        if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {
           unique: false
         });
-        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {
+
+        // Recipe items array
+        if (!store.indexNames.contains("recipes")) store.createIndex('recipes', 'recipes', {
           unique: false
         });
-        if (!store.indexNames.contains("quantity")) store.createIndex('quantity', 'quantity', {
-          unique: false
-        }); //The number of portions
-        if (!store.indexNames.contains("category")) store.createIndex('category', 'category', {
-          unique: false
-        }); //Index of the category
-        if (!store.indexNames.contains("category_name")) store.createIndex('category_name', 'category_name', {
-          unique: false
-        }); //user assigned name of the category
-        if (!store.indexNames.contains("foodId")) store.createIndex('foodId', 'foodId', {
-          unique: false
-        }); //ID of food in food object store - might be useful for some stuff
-        if (!store.indexNames.contains("recipeId")) store.createIndex('recipeId', 'recipeId', {
-          unique: false
-        }); //ID of recipe in recipe object store - might be useful for some stuff
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
-          unique: false
-        }); //All of the nutrition per portion
 
         //Meals store
         if (!DB.objectStoreNames.contains("meals")) {
@@ -148,20 +132,27 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('meals');
         }
 
+        // Datetime
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
+
+        // Name
         if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
           unique: false
-        }); //Meal name
+        });
+
+        // Foods
         if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {
           unique: false
-        }); //Food or recipe items
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
-          unique: false
-        }); //Total nutritional values for the whole meal
+        });
 
-        //Recipes store
+        // Recipes
+        if (!store.indexNames.contains("recipes")) store.createIndex('recipes', 'recipes', {
+          unique: false
+        });
+
+        // Recipes store
         if (!DB.objectStoreNames.contains("recipes")) {
           store = DB.createObjectStore("recipes", {
             keyPath: 'id',
@@ -174,50 +165,130 @@ var dbHandler = {
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
+
         if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
           unique: false
-        }); //Recipe name
+        });
+
+        // Portion - including unit
         if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {
           unique: false
-        }); //Serving size - e.g. 100g, 1 slice, 1 pie, etc.
+        });
+
+        // Foods
         if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {
           unique: false
-        }); //Food items - record is separate from foods table
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
-          unique: false
-        }); //Total nutritional values for the whole recipe
+        });
+
+        // Useful to add notes to recipes
         if (!store.indexNames.contains("notes")) store.createIndex('notes', 'notes', {
           unique: false
-        }); //Useful to add notes to recipes
+        });
 
-        dbHandler.upgradeData(e.oldVersion, upgradeTransaction);
+        await dbHandler.upgradeData(e.oldVersion, upgradeTransaction);
 
         console.log("DB Created/Updated");
+        resolve();
       };
     });
   },
 
   upgradeData: function(oldVersion, transaction) {
-    // version is 0 on a fresh DB
-    if (!oldVersion)
-      return;
+    return new Promise(function(resolve, reject) {
 
-    if (oldVersion < 25) {
-      console.log("Converting diary entries from local time to UTC");
-      var diary = transaction.objectStore('diary');
+      if (!oldVersion)
+        resolve();
 
-      diary.openCursor().onsuccess = function(event) {
-        var cursor = event.target.result;
-        if (cursor) {
-          var value = cursor.value;
-          var date = value.dateTime;
-          date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
-          value.dateTime = date;
-          cursor.update(value);
-          cursor.continue();
-        }
-      };
-    }
+      if (oldVersion < 29) {
+        console.log("Upgrading database");
+
+        // Get weight by date
+        let log = transaction.objectStore('log');
+        let weights = {};
+
+        log.openCursor().onsuccess = function(event) {
+          let cursor = event.target.result;
+          if (cursor) {
+            let value = cursor.value;
+            let date = value.dateTime;
+            let index = date.toDateString();
+
+            weights[index] = value;
+            cursor.continue();
+          }
+        };
+
+        // Convert old diary entries to new schema
+        let diary = transaction.objectStore('diary');
+        let entries = {};
+
+        diary.openCursor().onsuccess = function(event) {
+          let cursor = event.target.result;
+
+          if (cursor) {
+            let value = cursor.value;
+            let date = value.dateTime;
+
+            // Convert dates for those on versions < 25
+            date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
+
+            let index = date.toDateString();
+
+            // Create array for each date
+            entries[index] = entries[index] || {
+              dateTime: date,
+              stats: {},
+              foods: [],
+              recipes: []
+            };
+
+            // Add weight 
+            let weight = weights[index];
+
+            if (weight !== undefined) {
+              entires[index].stats.weight = {
+                value: weight,
+                unit: "kg"
+              };
+            }
+
+            // Food/recipe item
+            let item = {
+              category: value.category,
+              portion: value.portion,
+              quantity: value.quantity || 1
+            };
+
+            if (value.foodId) {
+              item.id = value.foodId;
+              entries[index].foods.push(item);
+            } else if (value.recipeId) {
+              item.id = value.recipeId;
+              entries[index].recipes.push(item);
+            }
+
+            cursor.delete();
+            cursor.continue();
+          } else {
+
+            // Insert new diary entries 
+            let request;
+            for (let e in entries) {
+              request = diary.put(entries[e]);
+            }
+
+            request.onerror = function(e) {
+              dbHandler.errorHandler();
+            };
+
+            request.onsuccess = () => {
+              console.log("Database Update Complete");
+              resolve();
+            };
+          }
+        };
+      }
+    });
   },
 
   put: function(data, storeName, key) {

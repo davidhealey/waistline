@@ -110,7 +110,13 @@ const waistline = {
   nutrimentUnits: {
     "calories": "kcal",
     "kilojoules": "kJ",
+    "proteins": "g",
+    "carbohydrates": "g",
+    "fat": "g",
+    "saturated-fat": "g",
     "cholesterol": "mg",
+    "sugars": "g",
+    "salt": "g",
     "sodium": "mg",
     "potassium": "mg",
     "calcium": "mg",
@@ -133,7 +139,7 @@ const waistline = {
 };
 
 //Framework7 Setup
-var f7 = new Framework7({
+const f7 = new Framework7({
   // App root element
   root: "#app",
   // App Name
@@ -144,6 +150,7 @@ var f7 = new Framework7({
   // Enable swipe panel
   panel: {
     swipe: "left",
+    swipeActiveArea: 25,
   },
   calendar: {
     url: 'calendar/',
@@ -184,24 +191,22 @@ var f7 = new Framework7({
         }
       ],
       routes: [{
-        name: "Editor",
-        path: "/food-editor/",
-        url: "/www/src/activities/foods-meals-recipes/views/food-editor.html",
-        options: {
-          transition: "f7-parallax"
+          name: "Food Editor",
+          path: "/food-editor/",
+          url: "/www/src/activities/foods-meals-recipes/views/food-editor.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        },
+        {
+          name: "Meal Editor",
+          path: "/meal-editor/",
+          url: "/www/src/activities/meals/views/meal-editor.html",
+          options: {
+            transition: "f7-parallax"
+          }
         }
-      }]
-    },
-    {
-      name: "Recipes",
-      path: "/recipes/",
-      url: "/www/src/activities/recipes/views/recipes.html"
-
-    },
-    {
-      name: "Meals",
-      path: "/meals/",
-      url: "/www/src/activities/meals/views/meals.html"
+      ]
     },
     {
       name: "Settings",
@@ -268,7 +273,9 @@ var f7 = new Framework7({
       path: "/about/",
       url: "about.html"
     },
-  ]
+  ],
+
+  tests: {}
 });
 
 var mainView = f7.views.create(".view-main");
@@ -283,16 +290,16 @@ document.addEventListener("page:init", function(event) {
     panelLeft.close(true);
 });
 
-f7.on("init", function(event) {
+f7.on("init", async function(event) {
 
   //Database setup
-  dbHandler.initializeDb();
+  await dbHandler.initializeDb();
 
   //Initialize module settings on first run
   //diary.initializeSettings();
   goals.initializeSettings();
 
-  f7.views.main.router.navigate("/foods-meals-recipes/meals/");
+  f7.views.main.router.navigate("/diary/");
 });
 
 //Prevent chrome displaying context menu on long click

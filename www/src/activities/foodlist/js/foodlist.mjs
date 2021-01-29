@@ -65,6 +65,7 @@ waistline.Foodlist = {
     s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
     s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
+    s.el.scan.style.display = "block";
     s.el.search = document.querySelector("#foods-tab #food-search");
     s.el.searchForm = document.querySelector("#foods-tab #food-search-form");
     s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist"); //Infinite list container

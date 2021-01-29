@@ -17,9 +17,11 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import * as Group from "/www/src/activities/diary/js/group.js";
 import * as Utils from "/www/assets/js/utils.js";
-
+import * as Editor from "/www/src/activities/meals/js/meal-editor.mjs";
+import {
+  renderItem
+} from "/www/src/activities/foods-meals-recipes/foods-meals-recipes.mjs";
 
 var s;
 waistline.Meals = {
@@ -47,41 +49,31 @@ waistline.Meals = {
     s.list = await this.getListFromDB();
     s.filterList = s.list;
 
-    s.groups = this.createMealGroups();
-
     this.renderList(true);
   },
 
   getComponents: function() {
     s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
+    s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
+    s.el.scan.style.display = "none";
     s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     s.el.search = document.querySelector("#meals-tab #meal-search");
     s.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
     s.el.fab = document.querySelector("#add-meal");
     s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
-    s.el.list = document.querySelector("#meal-list-container"); //Infinite list
+    s.el.list = document.querySelector("#meal-list-container ul"); //Infinite list
     s.el.spinner = document.querySelector("#meals-tab #spinner");
   },
 
   bindUIActions: function() {
 
     //Infinite list 
-    s.el.infinite.addEventListener("infinite", (e) => {
-      this.renderList();
-    });
-  },
-
-  createMealGroups: function() {
-    let groups = [];
-
-    s.list.forEach((x, i) => {
-      if (x != "") {
-        let g = Group.create(x.name, i);
-        g.addItems(x.items);
-        groups.push(g);
-      }
-    });
-    return groups;
+    if (!s.el.infinite.hasInfiniteEvent) {
+      s.el.infinite.addEventListener("infinite", (e) => {
+        this.renderList();
+      });
+      s.el.infinite.hasInfiniteEvent = true;
+    }
   },
 
   renderList: async function(clear) {
@@ -96,9 +88,11 @@ waistline.Meals = {
     if (lastIndex <= s.list.length) {
       //Render next set of items to list
       for (let i = lastIndex; i <= lastIndex + itemsPerLoad; i++) {
-        if (i >= s.groups.length) break; //Exit after all items in list
-        if (s.groups[i].items.length > 0)
-          s.groups[i].render(s.el.list);
+        let meal = s.list[i];
+        if (meal == undefined) continue;
+
+        meal.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.foods);
+        renderItem(meal, s.el.list, true, waistline.Meals.gotoEditor);
       }
     }
   },
@@ -163,36 +157,18 @@ waistline.Meals = {
     });
   },
 
-  addMeal: function(name) {
-
-  },
-
-  updateMeal: function(meal) {
-
-  },
-
   deleteMeal: function(id) {
 
   },
 
-  addItem: function(item) {
+  gotoEditor: function(meal) {
+    f7.data.context = {
+      meal: meal,
+      origin: "/foods-meals-recipes/",
+      allNutriments: true
+    };
 
-  },
-
-  deleteItem: function(item) {
-
-  },
-
-  editQuantity: function(item, field, value) {
-
-  },
-
-  changeName: function(meal, name) {
-
-  },
-
-  gotoEditor: function(item) {
-
+    f7.views.main.router.navigate("./meal-editor/");
   },
 
   createSearchBar: function() {

@@ -17,6 +17,7 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import * as Utils from "/www/assets/js/utils.js";
 import * as Group from "./group.js";
 import * as Editor from "/www/src/activities/foods-meals-recipes/js/food-editor.js";
 
@@ -25,16 +26,21 @@ waistline.Diary = {
 
   settings: {
     ready: false,
-    calendar: undefined
+    calendar: undefined,
+    el: {}
   },
 
   init: async function(context) {
     s = this.settings; //Assign settings object
 
+    this.getComponents();
+    this.bindUIActions();
+
     //If items have been passed, add them to the db
     if (context) {
+
       if (context.items || context.item) {
-        this.resetDate();
+
         if (context.items)
           await this.addItems(context.items, context.category);
         else
@@ -52,6 +58,22 @@ waistline.Diary = {
       this.render();
       s.ready = true;
     }
+  },
+
+  getComponents: function() {
+    s.el.logWeight = document.querySelector(".page[data-name='diary'] #log-weight");
+  },
+
+  bindUIActions: function() {
+
+    // logWeight
+    if (!s.el.logWeight.hasClickEvent) {
+      s.el.logWeight.addEventListener("click", (e) => {
+        waistline.Diary.logWeight();
+      });
+      s.el.logWeight.hasClickEvent = true;
+    }
+
   },
 
   setReadyState: function(state) {
@@ -89,37 +111,57 @@ waistline.Diary = {
     return result;
   },
 
+  bindCalendarControls: function() {
+    //Bind actions for previous/next buttons
+    const buttons = document.getElementsByClassName("change-date");
+    Array.from(buttons).forEach((x, i) => {
+
+      if (!x.hasClickEvent) {
+        x.addEventListener("click", (e) => {
+          let date = new Date(s.calendar.getValue());
+          i == 0 ? date.setDate(date.getDate() - 1) : date.setDate(date.getDate() + 1);
+          s.calendar.setValue([date]);
+        });
+        x.hasClickEvent = true;
+      }
+    });
+  },
+
   resetDate: function() {
     let now = new Date();
     let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     s.date = today;
   },
 
-  bindCalendarControls: function() {
-    //Bind actions for previous/next buttons
-    const buttons = document.getElementsByClassName("change-date");
-    Array.from(buttons).forEach((x, i) => {
-      x.addEventListener("click", (e) => {
-        let date = new Date(s.calendar.getValue());
-        i == 0 ? date.setDate(date.getDate() - 1) : date.setDate(date.getDate() + 1);
-        s.calendar.setValue([date]);
-      });
-    });
-  },
-
   render: async function() {
 
-    await this.populateGroups(); //Gets items from db
+    let entry = await this.getEntryFromDB(); // Get diary entry from DB
+    let totalNutrition;
 
+    //Clear groups
+    for (let i = 0; i < s.groups.length; i++)
+      s.groups[i].reset();
+
+    // Populate groups and get overal nutrition
+    if (entry) {
+      await this.populateGroups(entry);
+      totalNutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(entry.foods);
+    }
+
+    // Render category groups
     let container = document.getElementById("diary-day");
     container.innerHTML = "";
 
-    //Render each group
     s.groups.forEach((x) => {
       x.render(container);
     });
 
-    this.renderStatus();
+    // Render nutrition swiper card
+    let swiper = f7.swiper.get('#diary-nutrition .swiper-container');
+    let swiperWrapper = document.querySelector('#diary-nutrition .swiper-wrapper');
+    swiperWrapper.innerHTML = "";
+
+    await waistline.FoodsMealsRecipes.renderNutritionCard(totalNutrition, new Date(s.date), swiper);
   },
 
   createMealGroups: function() {
@@ -136,29 +178,23 @@ waistline.Diary = {
     return groups;
   },
 
-  populateGroups: function() {
+  getEntryFromDB: function() {
     return new Promise(function(resolve, reject) {
-
-      if (s.date != undefined) {
+      if (s.date !== undefined) {
 
         let from = new Date(s.date);
         let to = new Date(from);
         to.setUTCHours(to.getUTCHours() + 24);
 
-        //Clear groups' items and nutrition
-        for (let i = 0; i < s.groups.length; i++)
-          s.groups[i].reset();
+        let result;
 
         dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(from, to, false, true)).onsuccess = function(e) {
           let cursor = e.target.result;
-
           if (cursor) {
-            let item = cursor.value;
-
-            s.groups[item.category].addItem(item);
+            result = cursor.value;
             cursor.continue();
           } else {
-            resolve();
+            resolve(result);
           }
         };
       }
@@ -167,52 +203,74 @@ waistline.Diary = {
     });
   },
 
-  getItemsFromDB: function(dateTime, category) {
-    return new Promise(function(resolve, reject) {
-      let result = [];
-
-      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.only(dateTime)).onsuccess = function(e) { //Filter by date
-        var cursor = e.target.result;
-        if (cursor) {
-          if (cursor.value.category == category) //Filter by category
-            result.push(cursor.value);
-          cursor.continue();
-        } else
-          resolve(result);
-      };
-    });
-  },
-
-  addItems: function(items, category) {
+  populateGroups: function(entry) {
     return new Promise(async function(resolve, reject) {
 
-      let data = items;
-      const mealNames = waistline.Settings.get("diary", "meal-names");
+      // Get details and nutritional data for each food
+      for (let i = 0; i < entry.foods.length; i++) {
+        let x = entry.foods[i];
+        let details = await waistline.FoodsMealsRecipes.getFood(x.id);
 
-      data.forEach((x, i) => {
-        x.dateTime = s.date;
-        x.category = category;
+        x.name = details.name;
+        x.brand = details.brand;
+        x.recipe = details.recipe || false;
+        x.nutrition = await waistline.FoodsMealsRecipes.getNutrition(x);
+        x.index = i;
 
-        //If there is no foodId then ID must be the ID from the foodlist so use that
-        if (x.foodId == undefined && x.id) {
-          x.foodId = x.id;
-          delete x.id; //Item will be assigned an ID when added to DB
-        }
-      });
+        s.groups[x.category].addItem(x);
+      }
 
-      await dbHandler.bulkInsert(data, "diary");
       resolve();
     }).catch(err => {
       throw (err);
     });
   },
 
-  updateItem: function(item) {
-    return new Promise(function(resolve, reject) {
-      console.log(item);
-      dbHandler.put(item, "diary").onsuccess = function() {
+  addItems: function(items, category) {
+    return new Promise(async function(resolve, reject) {
+
+      // Get current entry or create a new one
+      let entry = await waistline.Diary.getEntryFromDB() || waistline.Diary.getNewEntry();
+
+      items.forEach((x) => {
+        let item = {
+          id: x.id,
+          portion: x.portion,
+          quantity: x.quantity || 1,
+          category: category
+        };
+        entry.foods.push(item);
+      });
+
+      await dbHandler.put(entry, "diary");
+
+      resolve();
+    }).catch(err => {
+      throw (err);
+    });
+  },
+
+  updateItem: function(data) {
+    return new Promise(async function(resolve, reject) {
+
+      let entry = await waistline.Diary.getEntryFromDB();
+
+      if (entry) {
+        let item = {
+          id: data.id,
+          category: data.category,
+          portion: data.portion,
+          quantity: data.quantity || 1,
+        };
+
+        entry.foods.splice(data.index, 1, item);
+
+        dbHandler.put(entry, "diary").onsuccess = function() {
+          resolve();
+        };
+      } else {
         resolve();
-      };
+      }
     }).catch(err => {
       throw (err);
     });
@@ -220,34 +278,59 @@ waistline.Diary = {
 
   deleteItem: function(item) {
     let title = waistline.strings["confirm-delete-title"] || "Delete";
-    let msg = waistline.strings["confirm-delete"] || "Are you sure?";
+    let text = waistline.strings["confirm-delete"] || "Are you sure?";
 
-    let dialog = f7.dialog.confirm(msg, title, () => {
+    let dialog = f7.dialog.confirm(text, title, async () => {
 
-      let request = dbHandler.deleteItem(item.id, "diary");
+      let entry = await waistline.Diary.getEntryFromDB();
 
-      //If the request was successful remove the list item
-      request.onsuccess = function(e) {
+      if (entry !== undefined)
+        entry.foods.splice(item.index, 1);
+
+      dbHandler.put(entry, "diary").onsuccess = function(e) {
         f7.views.main.router.refreshPage();
-        //updateLog();
       };
     });
+  },
+
+  logWeight: function() {
+    let title = waistline.strings["record-weight"] || "Record Weight";
+    let text = waistline.strings["weight"] || "Weight";
+    let lastWeight = window.localStorage.getItem("weight") || 0;
+
+    let dialog = f7.dialog.prompt(text, title, this.setWeight, null, lastWeight);
+  },
+
+  setWeight: async function(value) {
+
+    let entry = await waistline.Diary.getEntryFromDB() || waistline.Diary.getNewEntry();
+
+    entry.stats.weight = {
+      value: value,
+      unit: "kg"
+    };
+
+    dbHandler.put(entry, "diary").onsuccess = function(e) {
+      window.localStorage.setItem("weight", value);
+      Utils.toast("Saved");
+    };
+  },
+
+  getNewEntry: function() {
+    let entry = {
+      dateTime: new Date(s.date),
+      foods: [],
+      stats: {},
+    };
+    return entry;
   },
 
   gotoFoodlist: function(category) {
     f7.views.main.router.navigate("/foods-meals-recipes/", {
       "context": {
         origin: "/diary/",
-        category: category
-      }
-    });
-  },
-
-  gotoEditor: function(item) {
-    f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
-      "context": {
-        item: item,
-        origin: "/diary/"
+        category: category,
+        date: new Date(s.calendar.getValue())
       }
     });
   },
@@ -263,85 +346,22 @@ waistline.Diary = {
     });
     return result;
   },
-
-  /* Displays nutrition status across top of dairy */
-  renderStatus: function() {
-    if (s.calendar != undefined) {
-      let date = new Date(s.calendar.getValue());
-
-      let totals = this.getNutritionTotals();
-      let goals = waistline.Goals.getGoalsByDate(date);
-
-      let rows = [];
-      let swiper = f7.swiper.get('#diary-nutrition .swiper-container');
-      let swiperWrapper = document.querySelector('#diary-nutrition .swiper-wrapper');
-      swiperWrapper.innerHTML = "";
-
-      goals.forEach((x, i) => {
-        if (x.diaryDisplay && x.name !== "weight") {
-
-          //Show 3 nutriments at a time
-          if (i % 3 == 0) {
-
-            let slide = document.createElement("div");
-            slide.className = "swiper-slide";
-            swiper.appendSlide(slide);
-
-            rows[0] = document.createElement("div");
-            rows[0].className = "row nutrition-total-values";
-            slide.appendChild(rows[0]);
-
-            rows[1] = document.createElement("div");
-            rows[1].className = "row nutrition-total-title";
-            slide.appendChild(rows[1]);
-
-            //Get daily value for weekly goal
-            if (x.weekly)
-              x.target = goals.getWeeklyGoal(x.name) / 7;
-          }
-
-          let values = document.createElement("div");
-          values.className = "col";
-          values.id = x.name + "-value";
-
-          //Value/goal text
-          let span = document.createElement("span");
-          let t = document.createTextNode("");
-
-          if (totals[x.name] != undefined) {
-            if (x.name != "calories")
-              t.nodeValue = parseFloat(totals[x.name].toFixed(2)) + "/" + parseFloat(x.target.toFixed(2));
-            else
-              t.nodeValue = parseInt(totals[x.name]) + "/" + parseInt(x.target);
-          } else
-            t.nodeValue = "0/" + parseFloat(x.target.toFixed(2));
-
-          span.appendChild(t);
-
-          //Colour value text
-          totals[x.name] > x.target ? span.style.color = "red" : span.style.color = "green";
-
-          values.appendChild(span);
-          rows[0].appendChild(values);
-
-          //Title
-          let title = document.createElement("div");
-          title.className = "col";
-          title.id = x.name + "-title";
-
-          let text = waistline.strings[x.name] || x.name; //Localize name
-          t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-          title.appendChild(t);
-          rows[1].appendChild(title);
-        }
-      });
-    }
-  }
 };
 
 document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
-    let context = f7.views.main.router.currentRoute.context;
+    //let context = f7.views.main.router.currentRoute.context;
+    let context = f7.data.context;
+    f7.data.context = undefined;
+    waistline.Diary.init(context);
+  }
+});
+
+document.addEventListener("page:reinit", function(event) {
+  if (event.target.matches(".page[data-name='diary']")) {
+    //let context = f7.views.main.router.currentRoute.context;
+    let context = f7.data.context;
+    f7.data.context = undefined;
     waistline.Diary.init(context);
   }
 });

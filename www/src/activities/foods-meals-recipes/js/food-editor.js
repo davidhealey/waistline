@@ -40,6 +40,7 @@ function init(context) {
   }
 
   getComponents();
+  setCategoryVisible();
   bindUIActions();
   updateTitle();
   renderNutritionFields(s.item, s.allNutriments);
@@ -50,7 +51,7 @@ function init(context) {
   setLinkButtonIcon();
   setFabVisibility(s.item == undefined);
 
-  if (s.el.category)
+  if (s.item && s.item.category !== undefined)
     populateCategoryField(s.item);
 }
 
@@ -60,6 +61,7 @@ function getComponents() {
   s.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
   s.el.name = document.querySelector(".page[data-name='food-editor'] #name");
   s.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
+  s.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
   s.el.category = document.querySelector(".page[data-name='food-editor'] #category");
   s.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
   s.el.portion = document.querySelector(".page[data-name='food-editor'] #portion");
@@ -84,10 +86,6 @@ function bindUIActions() {
     s.linked = 1 - s.linked;
     setLinkButtonIcon();
   });
-
-  s.el.link.addEventListener("click", (e) => {
-
-  });
 }
 
 function setLinkButtonIcon() {
@@ -102,6 +100,13 @@ function setFabVisibility(showControl) {
     s.el.fab.style.display = "block";
   else
     s.el.fab.style.display = "none";
+}
+
+function setCategoryVisible(item) {
+  if (s.item && s.item.category !== undefined)
+    s.el.categoryContainer.style.display = "block";
+  else
+    s.el.categoryContainer.style.display = "none";
 }
 
 function updateTitle() {
@@ -235,53 +240,50 @@ function changeServing(item, field, newValue) {
 
 function returnItem(item) {
 
-  let data = item || {
-    "nutrition": {}
-  };
-
-  //Get values from form and return to origin
-  const nutriments = waistline.nutriments;
-  const inputs = document.querySelectorAll("#food-edit-form input");
-  const unit = s.el.unit.value;
-
   if (f7.input.validateInputs("#food-edit-form") == true) {
+
+    let data = item || {};
 
     let now = new Date();
     let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     data.dateTime = today;
 
-    //Category
-    if (s.el.category) {
-      const mealNames = waistline.Settings.get("diary", "meal-names");
-      data.category = parseInt(s.el.category.value);
-      data.category_name = mealNames[data.category];
-    }
+    if (item) {
+      data.portion = s.el.portion.value + s.el.unit.value;
+      data.quantity = s.el.quantity.value;
 
-    inputs.forEach((x, i) => {
+      if (item.category !== undefined)
+        item.category = s.el.category.value;
+    } else {
+      //Get values from form and return to origin
+      const nutriments = waistline.nutriments;
+      const inputs = document.querySelectorAll("#food-edit-form input");
+      const unit = s.el.unit.value;
 
-      let id = x.id;
-      let value = x.value;
+      inputs.forEach((x, i) => {
 
-      if (value) {
-        if (nutriments.indexOf(id) != -1) //Nutriments
-          data.nutrition[id] = parseFloat(value);
-        else {
-          if (id != "unit") {
-            if (id == "portion" && value != "NaN") {
-              value = value + unit;
+        let id = x.id;
+        let value = x.value;
+
+        if (value) {
+          if (nutriments.indexOf(id) != -1) //Nutriments
+            data.nutrition[id] = parseFloat(value);
+          else {
+            if (id != "unit") {
+              if (id == "portion" && value != "NaN") {
+                value = value + unit;
+              }
+              data[id] = value;
             }
-            data[id] = value;
           }
         }
-      }
-    });
+      });
+    }
 
-    f7.views.main.router.navigate(s.origin, {
-      "context": {
-        item: data
-      },
-      reloadCurrent: true
-    });
+    f7.data.context = {
+      item: data
+    };
+    f7.views.main.router.back();
   }
 }
 

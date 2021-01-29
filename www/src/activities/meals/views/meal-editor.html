@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, 2019 David Healey
+  Copyright 2018, 2019, 2020, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -17,40 +17,62 @@
   along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<ons-page id="meal-editor">
+<div class="page" data-name="meal-editor">
 
-  <link rel="stylesheet" href="src/activities/meals/views/meals.css">
-  
-  <ons-toolbar modifier="material">
-    <div class="left"><ons-back-button>Back</ons-back-button></div>
-    <div class="center" id="title" data-localize="meal.title">New Meal</div>
-    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
-  </ons-toolbar>
-
-  <div id="item-data">
-    <ons-card>
-      <ons-row>
-        <ons-col vertical-align="center" width="45%">Name</ons-col>
-        <ons-col>
-          <ons-input type="text" id="name" name="name" required="true"></ons-input>
-        </ons-col>
-      </ons-row>
-    </ons-card>
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back">
+          <i class="icon icon-back"></i>
+        </a>
+      </div>
+      <div class="title" id="title" data-localize="meal.title">Edit Meal</div>
+      <div class="right">
+        <a href="#" id="submit" class="link icon-only"><i class="icon material-icons">done</i></a>
+      </div>
+    </div>
   </div>
 
-  <ons-list id="foods" modifier="inset"></ons-list>
+  <div class="page-content">
 
-  <ons-list modifier="inset">
-    <ons-list-item expandable>
-      <span>Nutritional Info</span>
-      <div class="expandable-content">
-        <ons-list id="nutrition"></ons-list>
+    <div class="card no-border no-shadow">
+      <div class="card-content">
+        <div class="row nutrition-card" id="meal-nutrition">
+          <div class="col-100">
+            <div class="swiper-container swiper-init" id="meal-nutrition-swiper">
+              <div class="swiper-wrapper" id="meal-nutrition-swiper-wrapper"></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </ons-list-item>
-  </ons-list>
+    </div>
 
-  <ons-fab position="bottom right">
-    <ons-icon icon="fa-utensils"></ons-icon>
-  </ons-fab>
+    <div class="card no-border no-shadow">
+      <div class="card-content">
+        <div class="list">
+          <ul>
+            <li class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Name</div>
+                <div class="item-input-wrap">
+                  <input type="text" id="name" name="name" required validate placeholder="Meal Name">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="list media-list">
+          <ul id="meal-food-list">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-</ons-page>
+  <!-- Floating Action Button -->
+  <div class="fab fab-right-bottom" id="add-food">
+    <a href="#"><i class="icon material-icons">&#xe561</i></a>
+  </div>
+
+</div>

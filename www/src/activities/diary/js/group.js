@@ -73,7 +73,7 @@ const render = function(container) {
   innerList.appendChild(innerUl);
 
   this.items.forEach((x) => {
-    renderItem(x, innerUl, self);
+    waistline.FoodsMealsRecipes.renderItem(x, innerUl, false, undefined, self.removeItem);
   });
 
   renderFooter(ul, this.id, this.nutrition);
@@ -120,65 +120,6 @@ const renderFooter = function(ul, id, nutrition) {
   row.appendChild(right);
 };
 
-const renderItem = function(item, el, group) {
-
-  let li = document.createElement("li");
-  li.setAttribute("data", JSON.stringify(item));
-  el.appendChild(li);
-
-  let a = document.createElement("a");
-  a.className = "item-link item-content";
-  a.href = "#";
-
-  a.addEventListener("taphold", function(e) {
-    group.removeItem(item);
-  });
-
-  a.addEventListener("click", function(e) {
-    waistline.Diary.gotoEditor(item);
-  });
-
-  li.appendChild(a);
-
-  let itemInner = document.createElement("div");
-  itemInner.className = "item-inner";
-  a.appendChild(itemInner);
-
-  let itemTitleRow = document.createElement("div");
-  itemTitleRow.className = "item-title-row";
-  itemInner.appendChild(itemTitleRow);
-
-  // Name
-  let itemTitle = document.createElement("div");
-  itemTitle.className = "item-title";
-  itemTitle.innerHTML = Utils.tidyText(item.name, 30);
-  itemTitleRow.appendChild(itemTitle);
-
-  // Energy
-  let itemAfter = document.createElement("div");
-  itemAfter.className = "item-after";
-
-  let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
-  let energy = parseInt(item.nutrition.calories);
-
-  if (energyUnit == "kJ")
-    energy = Math.round(energy * 4.1868);
-
-  itemAfter.innerHTML = energy + " " + energyUnit;
-  itemTitleRow.appendChild(itemAfter);
-
-  // Brand
-  let itemSubtitle = document.createElement("div");
-  itemSubtitle.className = "item-subtitle";
-  itemSubtitle.innerHTML = Utils.tidyText(item.brand, 30).italics();
-  itemInner.appendChild(itemSubtitle);
-
-  let itemText = document.createElement("div");
-  itemText.className = "item-text";
-  itemText.innerHTML = "";
-  itemInner.appendChild(itemText);
-};
-
 const addItem = function(item) {
   this.items.push(item);
 
@@ -196,7 +137,6 @@ const addItems = function(items) {
 };
 
 const removeItem = function(item) {
-  this.nutrition = {}; //Reset nutrition object
   waistline.Diary.deleteItem(item);
 };
 

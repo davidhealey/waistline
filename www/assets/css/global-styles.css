@@ -1,2 +1,6 @@
 .align-right {text-align: right;}
 .disable-long-tap {-moz-user-select: none; -webkit-user-select: none; user-select: none;}
+
+.nutrition-card {margin-top: 1em; margin-bottom: 1em;}
+.nutrition-card .col {text-align: center;}
+.nutrition-card .nutrition-total-title {font-weight: bold;}

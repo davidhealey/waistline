@@ -31,16 +31,26 @@ export const isInternetConnected = function() {
   return true;
 };
 
-export const notification = function(msg, icon) {
+export const notification = function(text, icon) {
   // Create notification with click to close
   let notification = f7.notification.create({
     icon: '<i class="icon material-icons">' + icon + '</i>',
     title: 'Waistline',
     titleRightText: '',
     subtitle: '',
-    text: msg,
+    text: text,
     closeButton: true,
   });
 
   notification.open();
+};
+
+export const toast = function(text, position, timeout) {
+  let toast = f7.toast.create({
+    text: text,
+    position: position || 'center',
+    closeTimeout: timeout || 1000,
+  });
+
+  toast.open();
 };
