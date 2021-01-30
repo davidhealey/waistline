@@ -92,7 +92,7 @@ waistline.Meals = {
         if (meal == undefined) continue;
 
         meal.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.foods);
-        renderItem(meal, s.el.list, true, waistline.Meals.gotoEditor);
+        renderItem(meal, s.el.list, true, waistline.Meals.gotoEditor, waistline.Meals.deleteMeal);
       }
     }
   },
@@ -157,8 +157,17 @@ waistline.Meals = {
     });
   },
 
-  deleteMeal: function(id) {
+  deleteMeal: function(item) {
+    let title = waistline.strings["confirm-delete-title"] || "Delete";
+    let text = waistline.strings["confirm-delete"] || "Are you sure?";
 
+    let dialog = f7.dialog.confirm(text, title, async () => {
+      let request = dbHandler.deleteItem(item.id, "meals");
+
+      request.onsuccess = function(e) {
+        f7.views.main.router.refreshPage();
+      };
+    });
   },
 
   gotoEditor: function(meal) {
