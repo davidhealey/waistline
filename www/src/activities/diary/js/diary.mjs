@@ -36,6 +36,9 @@ waistline.Diary = {
     this.getComponents();
     this.bindUIActions();
 
+    s.calendar = this.createCalendar(); //Setup calendar
+    this.bindCalendarControls();
+
     //If items have been passed, add them to the db
     if (context) {
 
@@ -49,9 +52,6 @@ waistline.Diary = {
         s.ready = false; //Trigger fresh render
       }
     }
-
-    s.calendar = this.createCalendar(); //Setup calendar
-    this.bindCalendarControls();
 
     if (!s.ready) {
       s.groups = this.createMealGroups(); //Create meal groups
@@ -332,7 +332,6 @@ waistline.Diary = {
 
 document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
-    //let context = f7.views.main.router.currentRoute.context;
     let context = f7.data.context;
     f7.data.context = undefined;
     waistline.Diary.init(context);
@@ -341,7 +340,6 @@ document.addEventListener("page:init", function(event) {
 
 document.addEventListener("page:reinit", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
-    //let context = f7.views.main.router.currentRoute.context;
     let context = f7.data.context;
     f7.data.context = undefined;
     waistline.Diary.init(context);

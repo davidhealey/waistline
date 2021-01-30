@@ -23,13 +23,17 @@ import * as Off from "./open-food-facts.js";
 import * as USDA from "./usda.js";
 import * as Editor from "/www/src/activities/foods-meals-recipes/js/food-editor.js";
 
+import {
+  renderItem
+} from "/www/src/activities/foods-meals-recipes/foods-meals-recipes.mjs";
+
 var s;
 waistline.Foodlist = {
 
   settings: {
     list: [], //Main list of foods
     filterList: [], //Copy of the list for filtering
-    selection: [], //Items that have been checked, even if list has been changed
+    //selection: [], //Items that have been checked, even if list has been changed
     el: {} //UI elements
   },
 
@@ -123,94 +127,8 @@ waistline.Foodlist = {
       //Render next set of items to list
       for (let i = lastIndex; i <= lastIndex + itemsPerLoad; i++) {
         if (i >= s.list.length) break; //Exit after all items in list
-        waistline.Foodlist.renderItem(s.list[i], s.el.list);
+        renderItem(s.list[i], s.el.list, true);
       }
-    }
-  },
-
-  renderItem: function(item, el) {
-
-    if (item !== undefined) {
-      let li = document.createElement("li");
-      el.appendChild(li);
-
-      let label = document.createElement("label");
-      label.className = "item-checkbox item-content";
-      li.appendChild(label);
-
-      //Checkbox
-      let input = document.createElement("input");
-      input.type = "checkbox";
-      input.name = "food-item-checkbox";
-      input.data = JSON.stringify(item);
-      input.checked = s.selection.includes(JSON.stringify(item));
-      label.appendChild(input);
-
-      let icon = document.createElement("i");
-      icon.className = "icon icon-checkbox";
-      label.appendChild(icon);
-
-      input.addEventListener("change", (e) => {
-        this.checkboxChanged(input.checked, item);
-      });
-
-      //Inner container
-      let inner = document.createElement("div");
-      inner.className = "item-inner";
-      label.appendChild(inner);
-
-      inner.addEventListener("click", (e) => {
-        e.preventDefault();
-        this.gotoEditor(item);
-      });
-
-      if (item.id != undefined) {
-        inner.addEventListener("taphold", (e) => {
-          e.preventDefault();
-          this.deleteItem(item);
-        });
-      }
-
-      //Item proper
-      let row = document.createElement("div");
-      row.className = "item-title-row";
-      inner.appendChild(row);
-
-      //Title
-      let title = document.createElement("div");
-      title.className = "item-title";
-      title.innerHTML = Utils.tidyText(item.name, 25);
-      row.appendChild(title);
-
-      //Energy
-      let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
-      let energy = parseInt(item.nutrition.calories);
-
-      if (energyUnit == "kJ")
-        energy = Math.round(energy * 4.1868);
-
-      let after = document.createElement("div");
-      after.className = "item-after";
-      after.innerHTML = energy + " " + energyUnit;
-      row.appendChild(after);
-
-      //Brand 
-      if (item.brand && item.brand != "") {
-        let subtitle = document.createElement("div");
-        subtitle.className = "item-subtitle";
-        subtitle.innerHTML = Utils.tidyText(item.brand, 35).italics();
-        inner.appendChild(subtitle);
-      }
-
-      //Item details 
-      let details = document.createElement("div");
-      details.className = "item-text";
-
-      //Portion
-      let text = item.portion;
-
-      details.innerHTML = text;
-      inner.appendChild(details);
     }
   },
 
@@ -274,19 +192,6 @@ waistline.Foodlist = {
     });
   },
 
-  checkboxChanged: function(state, item) {
-
-    if (state === true) {
-      s.selection.push(JSON.stringify(item));
-    } else {
-      let itemIndex = s.selection.indexOf(JSON.stringify(item));
-      if (itemIndex != -1)
-        s.selection.splice(itemIndex, 1);
-    }
-
-    this.updateSelectionCount();
-  },
-
   createSearchBar: function() {
     const searchBar = f7.searchbar.create({
       el: ".searchbar",
@@ -302,7 +207,7 @@ waistline.Foodlist = {
           }
         },
         async disable(searchbar, previousQuery) {
-          waistline.Foodlist.unselectCheckedItems();
+          waistline.FoodsMealsRecipes.clearSearchSelection();
           s.list = await waistline.Foodlist.getListFromDB();
           s.filterList = s.list;
           waistline.Foodlist.renderList(true);
@@ -310,32 +215,6 @@ waistline.Foodlist = {
         }
       }
     });
-  },
-
-  unselectCheckedItems: function() {
-
-    //Remove any selected search items from the selection array
-    const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
-
-    checked.forEach((x, i) => {
-      let itemIndex = s.selection.indexOf(x.data);
-      if (itemIndex != -1)
-        s.selection.splice(itemIndex, 1);
-    });
-
-    this.updateSelectionCount();
-  },
-
-  updateSelectionCount: function() {
-    if (!s.selection.length) {
-      s.el.scan.style.display = "block";
-      s.el.submit.style.display = "none";
-      s.el.title.innerHTML = "Foods";
-    } else {
-      s.el.scan.style.display = "none";
-      s.el.submit.style.display = "block";
-      s.el.title.innerHTML = s.selection.length + " Foods Selected";
-    }
   },
 
   gotoEditor: function(item) {
@@ -360,11 +239,14 @@ waistline.Foodlist = {
   },
 
   submitButtonAction: function() {
-    if (s.selection.length > 0) { //Safety check
+
+    let selection = waistline.FoodsMealsRecipes.getSelection();
+
+    if (selection.length > 0) { //Safety check
 
       let items = [];
 
-      s.selection.forEach(async (x) => {
+      selection.forEach(async (x) => {
 
         let item = JSON.parse(x);
 
@@ -390,7 +272,6 @@ waistline.Foodlist = {
     }
   }
 };
-
 
 document.addEventListener("tab:init", function(e) {
   if (e.target.id == "foodlist") {

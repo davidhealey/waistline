@@ -126,30 +126,30 @@ waistline.Meals = {
       if (category !== false) {
 
         // Get yesterdays dateTime
-        let now = new Date();
-        let yesterday = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-        yesterday.setUTCHours(yesterday.getUTCHours() - 24);
+        /*  let now = new Date();
+          let yesterday = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+          yesterday.setUTCHours(yesterday.getUTCHours() - 24);
 
-        const mealNames = waistline.Settings.get("diary", "meal-names");
+          const mealNames = waistline.Settings.get("diary", "meal-names");
 
-        let result = {
-          items: [],
-          nutrition: {},
-          name: "Yesterday's " + mealNames[category]
-        };
+          let result = {
+            items: [],
+            nutrition: {},
+            name: "Yesterday's " + mealNames[category]
+          };
 
-        let diaryEntry = await waistline.Diary.getItemsFromDB(yesterday, category);
+          let diaryEntry = await waistline.Diary.getItemsFromDB(yesterday, category);
 
-        if (diaryEntry) {
-          diaryEntry.forEach((x) => {
-            let item = x;
-            item.id = x.foodId;
-            delete item.foodId;
-            delete item.category;
-            result.items.push(item);
-          });
-        }
-        resolve(result);
+          if (diaryEntry) {
+            diaryEntry.forEach((x) => {
+              let item = x;
+              item.id = x.foodId;
+              delete item.foodId;
+              delete item.category;
+              result.items.push(item);
+            });
+          }
+          resolve(result);*/
       }
       resolve(false);
     }).catch(err => {

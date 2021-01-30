@@ -69,9 +69,17 @@ waistline.FoodsMealsRecipes = {
     }
   },
 
+  tabInit: function() {
+    s.el.title.innerHTML = s.tabTitle;
+    s.el.submit.style.display = "none";
+  },
+
   getComponents: function() {
     s.el.menu = document.querySelector(".page[data-name='foods-meals-recipes'] #menu");
     s.el.back = document.querySelector(".page[data-name='foods-meals-recipes'] #back");
+    s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
+    s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
+    s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     s.el.fab = document.querySelector(".page[data-name='foods-meals-recipes'] #add-item");
     s.el.mealTabButton = document.querySelector(".page[data-name='foods-meals-recipes'] #meals-tab-button");
     s.el.recipeTabButton = document.querySelector(".page[data-name='foods-meals-recipes'] #recipe-tab-button");
@@ -292,10 +300,11 @@ waistline.FoodsMealsRecipes = {
 
     let origin = s.origin;
 
-    if (origin == undefined) {
+    f7.data.context = {
+      items: items,
+    };
 
-      //Default to diary
-      origin = "/diary/";
+    if (origin == undefined) {
 
       //Setup action sheet to ask user for category
       const mealNames = waistline.Settings.get("diary", "meal-names");
@@ -309,7 +318,11 @@ waistline.FoodsMealsRecipes = {
           let choice = {
             text: x,
             onClick: function() {
-              waistline.FoodsMealsRecipes.passItemsToRoute(items, i, origin, false);
+              f7.data.context.category = i;
+              f7.views.main.router.navigate("/diary/", {
+                reloadCurrent: true,
+                clearPreviousHistory: true
+              });
             }
           };
           options.push(choice);
@@ -323,22 +336,18 @@ waistline.FoodsMealsRecipes = {
 
       ac.open();
     } else {
-      this.passItemsToRoute(items, origin, true);
+
+      if (s.meal)
+        f7.data.context.meal = s.meal;
+
+      if (s.category !== undefined)
+        f7.data.context.category = s.category;
+
+      f7.views.main.router.back();
     }
   },
 
-  passItemsToRoute: function(items, route, clearHistory) {
-
-    f7.data.context = {
-      items: items,
-      meal: s.meal,
-      category: s.category
-    };
-
-    f7.views.main.router.back();
-  },
-
-  renderItem: function(item, el, checkboxes, clickCallback, tapholdCallback) {
+  renderItem: function(item, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback) {
 
     if (item !== undefined) {
       let li = document.createElement("li");
@@ -357,6 +366,15 @@ waistline.FoodsMealsRecipes = {
         input.data = JSON.stringify(item);
         input.checked = s.selection.includes(JSON.stringify(item));
         label.appendChild(input);
+
+
+        input.addEventListener("change", (e) => {
+          if (checkboxCallback !== undefined)
+            checkboxCallback(input.checked, item);
+          else
+            waistline.FoodsMealsRecipes.checkboxChanged(input.checked, item);
+        });
+
 
         let icon = document.createElement("i");
         icon.className = "icon icon-checkbox";
@@ -511,6 +529,49 @@ waistline.FoodsMealsRecipes = {
     });
   },
 
+  checkboxChanged: function(state, item) {
+
+    if (state === true) {
+      s.selection.push(JSON.stringify(item));
+    } else {
+      let itemIndex = s.selection.indexOf(JSON.stringify(item));
+      if (itemIndex != -1)
+        s.selection.splice(itemIndex, 1);
+    }
+
+    this.updateSelectionCount();
+  },
+
+  updateSelectionCount: function() {
+    if (!s.selection.length) {
+      s.el.scan.style.display = "block";
+      s.el.submit.style.display = "none";
+      s.el.title.innerHTML = "Foods";
+    } else {
+      s.el.scan.style.display = "none";
+      s.el.submit.style.display = "block";
+      s.el.title.innerHTML = s.selection.length + " Selected";
+    }
+  },
+
+  clearSearchSelection: function() {
+
+    //Remove any selected search items from the selection array
+    const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
+
+    checked.forEach((x, i) => {
+      let itemIndex = s.selection.indexOf(x.data);
+      if (itemIndex != -1)
+        s.selection.splice(itemIndex, 1);
+    });
+
+    this.updateSelectionCount();
+  },
+
+  getSelection: function() {
+    return s.selection;
+  },
+
   gotoEditor: function(item) {
     f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
       context: {
@@ -604,4 +665,7 @@ document.addEventListener("page:init", function(e) {
 
 document.addEventListener("tab:init", function(e) {
   waistline.FoodsMealsRecipes.settings.tab = e.target.id;
+  waistline.FoodsMealsRecipes.settings.tabTitle = e.target.title;
+  waistline.FoodsMealsRecipes.settings.selection = [];
+  waistline.FoodsMealsRecipes.tabInit();
 });
