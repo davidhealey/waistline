@@ -207,18 +207,12 @@ waistline.Diary = {
     return new Promise(async function(resolve, reject) {
 
       // Get details and nutritional data for each food
-      for (let i = 0; i < entry.foods.length; i++) {
-        let x = entry.foods[i];
-        let details = await waistline.FoodsMealsRecipes.getFood(x.id);
-
-        x.name = details.name;
-        x.brand = details.brand;
-        x.recipe = details.recipe || false;
-        x.nutrition = await waistline.FoodsMealsRecipes.getNutrition(x);
-        x.index = i;
-
-        s.groups[x.category].addItem(x);
-      }
+      entry.foods.forEach(async (x, i) => {
+        let item = await waistline.FoodsMealsRecipes.getItem(x.id, x.portion, x.quantity);
+        item.category = x.category;
+        item.index = i; // Index in array, not stored in DB
+        s.groups[x.category].addItem(item);
+      });
 
       resolve();
     }).catch(err => {
@@ -333,18 +327,6 @@ waistline.Diary = {
         date: new Date(s.calendar.getValue())
       }
     });
-  },
-
-  /* Sum the nutrition values for all groups */
-  getNutritionTotals: function() {
-    let result = {};
-    s.groups.forEach((x, i) => {
-      for (let k in x.nutrition) {
-        result[k] = result[k] || 0;
-        result[k] += x.nutrition[k];
-      }
-    });
-    return result;
   },
 };
 

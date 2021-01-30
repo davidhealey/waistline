@@ -130,6 +130,7 @@ waistline.FoodsMealsRecipes = {
     });
   },
 
+  /* CAN PROBABLY DELETE*/
   getFood: function(id) {
     return new Promise(function(resolve, reject) {
       let request = dbHandler.getItem(id, "foodList");
@@ -174,6 +175,7 @@ waistline.FoodsMealsRecipes = {
       };
     });
   },
+  /* -----------------------------------------*/
 
   getTotalNutrition: function(items) {
     return new Promise(async function(resolve, reject) {
@@ -251,6 +253,39 @@ waistline.FoodsMealsRecipes = {
       });
     }
     return result;
+  },
+
+  getItem: function(id, portion, quantity) {
+    return new Promise(function(resolve, reject) {
+
+      let request = dbHandler.getItem(id, "foodList");
+
+      request.onsuccess = function(e) {
+        let x = e.target.result;
+
+        let result = {
+          id: id,
+          name: x.name,
+          portion: portion,
+          quantity: quantity || 1,
+          nutrition: {}
+        };
+
+        // Get nutriments for given portion/quantity
+        let foodPortion = parseFloat(x.portion);
+        let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
+
+        for (let n in x.nutrition) {
+          result.nutrition[n] = Math.round(x.nutrition[n] * multiplier * 100) / 100;
+        }
+
+        resolve(result);
+      };
+
+      request.onerror = function(e) {
+        reject(e);
+      };
+    });
   },
 
   returnItems: function(items) {
@@ -344,7 +379,7 @@ waistline.FoodsMealsRecipes = {
       if (tapholdCallback !== undefined) {
         inner.addEventListener("taphold", function(e) {
           e.preventDefault();
-          tapholdCallback(item);
+          tapholdCallback(item, li);
         });
       }
 
@@ -360,16 +395,19 @@ waistline.FoodsMealsRecipes = {
       row.appendChild(title);
 
       //Energy
-      let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
       let energy = parseInt(item.nutrition.calories);
 
-      if (energyUnit == "kJ")
-        energy = Math.round(energy * 4.1868);
+      if (energy !== undefined && !isNaN(energy)) {
+        let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
 
-      let after = document.createElement("div");
-      after.className = "item-after";
-      after.innerHTML = energy + " " + energyUnit;
-      row.appendChild(after);
+        if (energyUnit == "kJ")
+          energy = Math.round(energy * 4.1868);
+
+        let after = document.createElement("div");
+        after.className = "item-after";
+        after.innerHTML = energy + " " + energyUnit;
+        row.appendChild(after);
+      }
 
       //Brand 
       if (item.brand && item.brand != "") {

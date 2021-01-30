@@ -27,7 +27,7 @@ let meal;
 
 const components = {};
 
-function init(context) {
+async function init(context) {
 
   getComponents();
 
@@ -46,7 +46,8 @@ function init(context) {
       replaceListItem(context.item);
     }
 
-    renderMeal();
+    renderNutrition();
+    await renderMeal();
   }
 
   bindUIActions();
@@ -55,7 +56,7 @@ function init(context) {
 function getComponents() {
   components.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
   components.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
-  components.foodList = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
+  components.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
   components.fab = document.querySelector(".page[data-name='meal-editor'] #add-food");
   components.nutrition = document.querySelector(".page[data-name='meal-editor'] #meal-nutrition");
   components.swiperWrapper = document.querySelector(".page[data-name='meal-editor'] .swiper-wrapper");
@@ -91,31 +92,32 @@ function bindUIActions() {
     });
     components.nameInput.hasClickEvent = true;
   }
-
-  // Food items 
-  const items = Array.from(document.querySelectorAll(".page[data-name='meal-editor'] li"));
-
-  items.forEach((x, i) => {
-    if (!x.hastapHoldEvent) {
-      x.addEventListener("taphold", (e) => {
-        removeItem(x);
-      });
-      x.hastapHoldEvent = true;
-    }
-  });
 }
 
 function addItems(items) {
-  meal.foods = meal.foods.concat(items);
+
+  let foods = meal.foods;
+
+  items.forEach((x) => {
+    let food = {
+      id: x.id,
+      portion: x.portion,
+      quantity: 1
+    };
+    foods.push(food);
+  });
+  meal.foods = foods;
 }
 
-function removeItem(x) {
+function removeItem(item, li) {
   let title = waistline.strings["confirm-delete-title"] || "Delete";
-  let msg = waistline.strings["confirm-delete"] || "Are you sure?";
-  let dialog = f7.dialog.confirm(msg, title, callbackOk);
+  let text = waistline.strings["confirm-delete"] || "Are you sure?";
+  let dialog = f7.dialog.confirm(text, title, callbackOk);
 
   function callbackOk() {
-    x.parentNode.removeChild(x);
+    meal.foods.splice(item.index, 1);
+    li.parentNode.removeChild(li);
+    renderNutrition();
   }
 }
 
@@ -132,33 +134,33 @@ function saveMeal() {
 }
 
 function replaceListItem(item) {
-
-  for (let i = 0; i < meal.foods.length; i++) {
-    if (meal.foods[i] == undefined) continue;
-
-    if (meal.foods[i].id == item.id)
-      meal.foods.splice(i, 1, item);
-  }
+  meal.foods.splice(item.index, 1, item);
 }
 
-async function renderMeal() {
-
+async function renderNutrition() {
   let now = new Date();
   let nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.foods);
 
   let swiper = f7.swiper.get("#meal-nutrition-swiper");
   components.swiperWrapper.innerHTML = "";
   waistline.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
-
-  components.nameInput.value = meal.name || "";
-  renderFoodList();
 }
 
-function renderFoodList() {
-  components.foodList.innerHTML = "";
+function renderMeal() {
+  return new Promise(async function(resolve, reject) {
 
-  meal.foods.forEach((x) => {
-    renderItem(x, components.foodList, false);
+    components.nameInput.value = meal.name || "";
+
+    // Render the food list 
+    components.foodlist.innerHTML = "";
+
+    meal.foods.forEach(async (x, i) => {
+      let item = await waistline.FoodsMealsRecipes.getItem(x.id, x.portion, x.quantity);
+      item.index = i;
+      renderItem(item, components.foodlist, false, undefined, removeItem);
+    });
+
+    resolve();
   });
 }
 
