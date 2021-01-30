@@ -99,6 +99,10 @@ const renderFooter = function(ul, id, nutrition) {
     waistline.Diary.gotoFoodlist(id);
   });
 
+  left.addEventListener("taphold", function(e) {
+    waistline.Diary.quickAdd(id);
+  });
+
   left.appendChild(a);
 
   let icon = document.createElement("i");

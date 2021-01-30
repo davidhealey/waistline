@@ -203,12 +203,25 @@ waistline.Diary = {
     });
   },
 
+  getNewEntry: function() {
+    let entry = {
+      dateTime: new Date(s.date),
+      foods: [],
+      stats: {},
+    };
+    return entry;
+  },
+
   populateGroups: function(entry) {
     return new Promise(async function(resolve, reject) {
 
       // Get details and nutritional data for each food
       entry.foods.forEach(async (x, i) => {
-        let item = await waistline.FoodsMealsRecipes.getItem(x.id, x.portion, x.quantity);
+        let item = x;
+
+        if (x.id !== undefined)
+          item = await waistline.FoodsMealsRecipes.getItem(x.id, x.portion, x.quantity);
+
         item.category = x.category;
         item.index = i; // Index in array, not stored in DB
         s.groups[x.category].addItem(item);
@@ -287,6 +300,40 @@ waistline.Diary = {
     });
   },
 
+  quickAdd: function(category) {
+    let title = waistline.strings["quick-add"] || "Quick Add";
+    let text = waistline.strings["calories"] || "Calories";
+
+    let dialog = f7.dialog.prompt(text, title, async function(value) {
+      let entry = await waistline.Diary.getEntryFromDB() || waistline.Diary.getNewEntry();
+
+      let energy = parseInt(value);
+
+      if (!isNaN(energy)) {
+
+        let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+
+        if (energyUnit == "kJ")
+          energy = Math.round(energy / 4.1868); // Convert kJ to kcal
+
+        let food = {
+          name: "Quick Add",
+          type: "quick-add",
+          category: category,
+          nutrition: {
+            calories: energy
+          }
+        };
+
+        entry.foods.push(food);
+
+        dbHandler.put(entry, "diary").onsuccess = function(e) {
+          f7.views.main.router.refreshPage();
+        };
+      }
+    });
+  },
+
   logWeight: function() {
     let title = waistline.strings["record-weight"] || "Record Weight";
     let text = waistline.strings["weight"] || "Weight";
@@ -308,15 +355,6 @@ waistline.Diary = {
       window.localStorage.setItem("weight", value);
       Utils.toast("Saved");
     };
-  },
-
-  getNewEntry: function() {
-    let entry = {
-      dateTime: new Date(s.date),
-      foods: [],
-      stats: {},
-    };
-    return entry;
   },
 
   gotoFoodlist: function(category) {

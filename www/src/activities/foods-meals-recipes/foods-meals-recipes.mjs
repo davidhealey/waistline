@@ -573,11 +573,13 @@ waistline.FoodsMealsRecipes = {
   },
 
   gotoEditor: function(item) {
-    f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
-      context: {
-        item
-      }
-    });
+    if (item.id !== undefined) {
+      f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
+        context: {
+          item
+        }
+      });
+    }
   }
 };
 
