@@ -33,7 +33,6 @@ waistline.Foodlist = {
   settings: {
     list: [], //Main list of foods
     filterList: [], //Copy of the list for filtering
-    //selection: [], //Items that have been checked, even if list has been changed
     el: {} //UI elements
   },
 
@@ -66,7 +65,6 @@ waistline.Foodlist = {
   },
 
   getComponents: function() {
-    s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
     s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
     s.el.scan.style.display = "block";
@@ -78,11 +76,6 @@ waistline.Foodlist = {
   },
 
   bindUIActions: function() {
-
-    //Submit button 
-    s.el.submit.addEventListener("click", (e) => {
-      this.submitButtonAction();
-    });
 
     //Infinite list 
     s.el.infinite.addEventListener("infinite", (e) => {
@@ -238,38 +231,33 @@ waistline.Foodlist = {
     });
   },
 
-  submitButtonAction: function() {
+  submitButtonAction: function(selection) {
 
-    let selection = waistline.FoodsMealsRecipes.getSelection();
+    let items = [];
 
-    if (selection.length > 0) { //Safety check
+    selection.forEach(async (x) => {
 
-      let items = [];
+      let item = JSON.parse(x);
 
-      selection.forEach(async (x) => {
+      if (item.id == undefined) { //No ID, must be a search result 
 
-        let item = JSON.parse(x);
+        if (item.barcode) { //If item has barcode it must be from online service
+          //Check to see if item is already in DB 
+          let data = await waistline.Foodlist.searchByBarcode(item.barcode);
 
-        if (item.id == undefined) { //No ID, must be a search result 
-
-          if (item.barcode) { //If item has barcode it must be from online service
-            //Check to see if item is already in DB 
-            let data = await waistline.Foodlist.searchByBarcode(item.barcode);
-
-            //If item is in DB use retrieved data, otherwise add item to DB and get new ID
-            if (data)
-              item = data;
-            else
-              item.id = await waistline.Foodlist.addItem(item);
-          } else { //No barcode, must be from a different API, insert into DB and leave duplicates for user to deal with
+          //If item is in DB use retrieved data, otherwise add item to DB and get new ID
+          if (data)
+            item = data;
+          else
             item.id = await waistline.Foodlist.addItem(item);
-          }
+        } else { //No barcode, must be from a different API, insert into DB and leave duplicates for user to deal with
+          item.id = await waistline.Foodlist.addItem(item);
         }
-        items.push(item);
-      });
-      this.updateItems(items);
-      waistline.FoodsMealsRecipes.returnItems(items);
-    }
+      }
+      items.push(item);
+    });
+    this.updateItems(items);
+    waistline.FoodsMealsRecipes.returnItems(items);
   }
 };
 

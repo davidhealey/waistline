@@ -145,7 +145,7 @@ waistline.Diary = {
     // Populate groups and get overal nutrition
     if (entry) {
       await this.populateGroups(entry);
-      totalNutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(entry.foods);
+      totalNutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(entry.items);
     }
 
     // Render category groups
@@ -206,7 +206,7 @@ waistline.Diary = {
   getNewEntry: function() {
     let entry = {
       dateTime: new Date(s.date),
-      foods: [],
+      items: [],
       stats: {},
     };
     return entry;
@@ -216,17 +216,17 @@ waistline.Diary = {
     return new Promise(async function(resolve, reject) {
 
       // Get details and nutritional data for each food
-      entry.foods.forEach(async (x, i) => {
+      entry.items.forEach(async (x, i) => {
         let item = x;
 
         if (x.id !== undefined)
           item = await waistline.FoodsMealsRecipes.getItem(x.id, x.portion, x.quantity);
 
+        item.type = x.type;
         item.category = x.category;
         item.index = i; // Index in array, not stored in DB
         s.groups[x.category].addItem(item);
       });
-
       resolve();
     }).catch(err => {
       throw (err);
@@ -242,11 +242,12 @@ waistline.Diary = {
       items.forEach((x) => {
         let item = {
           id: x.id,
+          type: "food",
           portion: x.portion,
           quantity: x.quantity || 1,
           category: category
         };
-        entry.foods.push(item);
+        entry.items.push(item);
       });
 
       await dbHandler.put(entry, "diary");
@@ -270,7 +271,7 @@ waistline.Diary = {
           quantity: data.quantity || 1,
         };
 
-        entry.foods.splice(data.index, 1, item);
+        entry.items.splice(data.index, 1, item);
 
         dbHandler.put(entry, "diary").onsuccess = function() {
           resolve();
@@ -292,7 +293,7 @@ waistline.Diary = {
       let entry = await waistline.Diary.getEntryFromDB();
 
       if (entry !== undefined)
-        entry.foods.splice(item.index, 1);
+        entry.items.splice(item.index, 1);
 
       dbHandler.put(entry, "diary").onsuccess = function(e) {
         f7.views.main.router.refreshPage();
@@ -325,7 +326,7 @@ waistline.Diary = {
           }
         };
 
-        entry.foods.push(food);
+        entry.items.push(food);
 
         dbHandler.put(entry, "diary").onsuccess = function(e) {
           f7.views.main.router.refreshPage();

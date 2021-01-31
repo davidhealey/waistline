@@ -170,6 +170,19 @@ waistline.Meals = {
     });
   },
 
+  submitButtonAction: function(selection) {
+    let result = [];
+
+    selection.forEach((x) => {
+      let item = JSON.parse(x);
+      item.foods.forEach((f) => {
+        result.push(f);
+      });
+    });
+
+    waistline.FoodsMealsRecipes.returnItems(result);
+  },
+
   gotoEditor: function(meal) {
     f7.data.context = {
       meal: meal,

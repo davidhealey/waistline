@@ -87,9 +87,23 @@ waistline.FoodsMealsRecipes = {
 
   bindUIActions: function() {
 
+    // Submit button 
+    s.el.submit.addEventListener("click", (e) => {
+      if (s.selection.length > 0) {
+        switch (s.tab) {
+          case "foodlist":
+            waistline.Foodlist.submitButtonAction(s.selection);
+            break;
+
+          case "meals":
+            waistline.Meals.submitButtonAction(s.selection);
+            break;
+        }
+      }
+    });
+
     // Fab button 
     s.el.fab.addEventListener("click", function(e) {
-
       switch (s.tab) {
         case "foodlist":
           waistline.Foodlist.gotoEditor();
@@ -99,7 +113,6 @@ waistline.FoodsMealsRecipes = {
           waistline.Meals.gotoEditor();
           break;
       }
-
     });
   },
 
@@ -544,9 +557,11 @@ waistline.FoodsMealsRecipes = {
 
   updateSelectionCount: function() {
     if (!s.selection.length) {
-      s.el.scan.style.display = "block";
+      if (s.tab == "foodlist")
+        s.el.scan.style.display = "block";
+
       s.el.submit.style.display = "none";
-      s.el.title.innerHTML = "Foods";
+      s.el.title.innerHTML = s.tabTitle;
     } else {
       s.el.scan.style.display = "none";
       s.el.submit.style.display = "block";
@@ -573,7 +588,8 @@ waistline.FoodsMealsRecipes = {
   },
 
   gotoEditor: function(item) {
-    if (item.id !== undefined) {
+
+    if (item.id !== undefined && item.type == "food") {
       f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
         context: {
           item
