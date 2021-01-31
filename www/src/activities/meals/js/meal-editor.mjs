@@ -94,19 +94,20 @@ function bindUIActions() {
   }
 }
 
-function addItems(items) {
+function addItems(data) {
 
-  let foods = meal.foods;
+  let result = meal.items;
 
-  items.forEach((x) => {
-    let food = {
+  data.forEach((x) => {
+    let item = {
       id: x.id,
       portion: x.portion,
-      quantity: 1
+      quantity: 1,
+      type: "food"
     };
-    foods.push(food);
+    result.push(item);
   });
-  meal.foods = foods;
+  meal.items = result;
 }
 
 function removeItem(item, li) {
@@ -115,7 +116,7 @@ function removeItem(item, li) {
   let dialog = f7.dialog.confirm(text, title, callbackOk);
 
   function callbackOk() {
-    meal.foods.splice(item.index, 1);
+    meal.items.splice(item.index, 1);
     li.parentNode.removeChild(li);
     renderNutrition();
   }
@@ -134,12 +135,12 @@ function saveMeal() {
 }
 
 function replaceListItem(item) {
-  meal.foods.splice(item.index, 1, item);
+  meal.items.splice(item.index, 1, item);
 }
 
 async function renderNutrition() {
   let now = new Date();
-  let nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.foods);
+  let nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.items);
 
   let swiper = f7.swiper.get("#meal-nutrition-swiper");
   components.swiperWrapper.innerHTML = "";
@@ -154,7 +155,7 @@ function renderMeal() {
     // Render the food list 
     components.foodlist.innerHTML = "";
 
-    meal.foods.forEach(async (x, i) => {
+    meal.items.forEach(async (x, i) => {
       let item = await waistline.FoodsMealsRecipes.getItem(x.id, x.portion, x.quantity);
       item.index = i;
       renderItem(item, components.foodlist, false, undefined, removeItem);
@@ -171,7 +172,7 @@ document.addEventListener("page:init", function(event) {
 
     // Clear old meal
     meal = {
-      foods: []
+      items: []
     };
 
     init(context);

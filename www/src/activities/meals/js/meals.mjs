@@ -241,8 +241,7 @@ waistline.Meals = {
       s.el.submit.style.display = "block";
       s.el.title.innerHTML = s.selection.length + " Selected";
     }
-  },
-
+  }
 };
 
 document.addEventListener("tab:init", function(e) {
