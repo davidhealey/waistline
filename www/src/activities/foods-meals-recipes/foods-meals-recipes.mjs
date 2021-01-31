@@ -87,20 +87,8 @@ waistline.FoodsMealsRecipes = {
 
   bindUIActions: function() {
 
-    // Submit button 
-    s.el.submit.addEventListener("click", (e) => {
-      if (s.selection.length > 0) {
-        switch (s.tab) {
-          case "foodlist":
-            waistline.Foodlist.submitButtonAction(s.selection);
-            break;
-
-          case "meals":
-            waistline.Meals.submitButtonAction(s.selection);
-            break;
-        }
-      }
-    });
+    // Submit button - event handler is separate function to avoid duplicates
+    s.el.submit.addEventListener("click", this.submitButtonClickEventHandler);
 
     // Fab button 
     s.el.fab.addEventListener("click", function(e) {
@@ -114,6 +102,20 @@ waistline.FoodsMealsRecipes = {
           break;
       }
     });
+  },
+
+  submitButtonClickEventHandler: function(e) {
+    if (s.selection.length > 0) {
+      switch (s.tab) {
+        case "foodlist":
+          waistline.Foodlist.submitButtonAction(s.selection);
+          break;
+
+        case "meals":
+          waistline.Meals.submitButtonAction(s.selection);
+          break;
+      }
+    }
   },
 
   getCategory: function() {
@@ -330,7 +332,7 @@ waistline.FoodsMealsRecipes = {
         if (x != "") {
           let choice = {
             text: x,
-            onClick: function() {
+            onClick: function(action, e) {
               f7.data.context.category = i;
               f7.views.main.router.navigate("/diary/", {
                 reloadCurrent: true,
