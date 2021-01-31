@@ -109,12 +109,13 @@ waistline.Foodlist = {
   },
 
   renderList: async function(clear) {
+
     if (clear) Utils.deleteChildNodes(s.el.list);
 
     //List settings 
-    let maxItems = 200; //Max items to load
+    let maxItems = 300; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
-    let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist li").length;
+    let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
 
     if (lastIndex <= s.list.length) {
       //Render next set of items to list
@@ -191,21 +192,19 @@ waistline.Foodlist = {
       backdrop: false,
       customSearch: true,
       on: {
-        search(sb, query, previousQuery) {
+        async search(sb, query, previousQuery) {
           if (query != "") {
             s.list = waistline.FoodsMealsRecipes.filterList(query, s.filterList);
             waistline.Foodlist.renderList(true);
           } else {
+            waistline.FoodsMealsRecipes.clearSearchSelection();
+            s.list = await waistline.Foodlist.getListFromDB();
+            s.filterList = s.list;
+            s.el.spinner.style.display = "none";
             f7.searchbar.disable(this);
           }
-        },
-        async disable(searchbar, previousQuery) {
-          waistline.FoodsMealsRecipes.clearSearchSelection();
-          s.list = await waistline.Foodlist.getListFromDB();
-          s.filterList = s.list;
           waistline.Foodlist.renderList(true);
-          s.el.spinner.style.display = "none";
-        }
+        },
       }
     });
   },

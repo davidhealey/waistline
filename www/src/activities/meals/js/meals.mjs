@@ -83,14 +83,14 @@ waistline.Meals = {
     //List settings 
     let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
-    let lastIndex = document.querySelectorAll("#meal-list-container div").length;
+    let lastIndex = document.querySelectorAll("#meal-list-container li").length;
 
     if (lastIndex <= s.list.length) {
       //Render next set of items to list
-      for (let i = lastIndex; i <= lastIndex + itemsPerLoad; i++) {
-        let meal = s.list[i];
-        if (meal == undefined) continue;
+      for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
+        if (i >= s.list.length) break; //Exit after all items in list
 
+        let meal = s.list[i];
         meal.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.items);
         renderItem(meal, s.el.list, true, waistline.Meals.gotoEditor, waistline.Meals.deleteMeal);
       }
@@ -198,19 +198,16 @@ waistline.Meals = {
       backdrop: false,
       customSearch: true,
       on: {
-        search(sb, query, previousQuery) {
+        async search(sb, query, previousQuery) {
           if (query != "") {
             s.list = waistline.FoodsMealsRecipes.filterList(query, s.filterList);
-            waistline.Meals.renderList(true);
           } else {
+            s.list = await waistline.Meals.getListFromDB();
+            s.filterList = s.list;
             f7.searchbar.disable(this);
           }
-        },
-        async disable(searchbar, previousQuery) {
-          s.list = await waistline.Meals.getListFromDB();
-          s.filterList = s.list;
           waistline.Meals.renderList(true);
-        }
+        },
       }
     });
   },
