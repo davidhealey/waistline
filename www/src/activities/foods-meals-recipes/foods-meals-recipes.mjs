@@ -203,15 +203,16 @@ waistline.FoodsMealsRecipes = {
   getTotalNutrition: function(items) {
     return new Promise(async function(resolve, reject) {
       let ids = [];
-      let result = {};
-      let quickAddCalories = 0;
+      let result = {
+        calories: 0
+      };
 
       // Get item ids and quick-add items
       items.forEach((x) => {
         if (x.id !== undefined)
           ids.push(x.id);
         if (x.type == "quick-add")
-          quickAddCalories += x.nutrition.calories;
+          result.calories += x.nutrition.calories;
       });
 
       if (ids.length > 0) {
@@ -234,9 +235,6 @@ waistline.FoodsMealsRecipes = {
           }
         });
       }
-
-      result.calories += quickAddCalories;
-
       resolve(result);
 
     });
@@ -510,6 +508,7 @@ waistline.FoodsMealsRecipes = {
         let t = document.createTextNode("");
 
         if (nutrition && nutrition[x] !== undefined) {
+
           if (x !== "calories" && x !== "kilojoules")
             t.nodeValue = parseFloat(nutrition[x].toFixed(2));
           else {
