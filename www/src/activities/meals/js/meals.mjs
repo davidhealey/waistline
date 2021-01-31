@@ -194,7 +194,7 @@ waistline.Meals = {
 
   createSearchBar: function() {
     const searchBar = f7.searchbar.create({
-      el: ".searchbar",
+      el: s.el.searchForm,
       backdrop: false,
       customSearch: true,
       on: {
@@ -207,7 +207,6 @@ waistline.Meals = {
           }
         },
         async disable(searchbar, previousQuery) {
-          waistline.Meals.unselectCheckedItems();
           s.list = await waistline.Meals.getListFromDB();
           s.filterList = s.list;
           waistline.Meals.renderList(true);
@@ -215,32 +214,6 @@ waistline.Meals = {
       }
     });
   },
-
-  unselectCheckedItems: function() {
-
-    //Remove any selected search items from the selection array
-    const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
-
-    checked.forEach((x, i) => {
-      let itemIndex = s.selection.indexOf(x.data);
-      if (itemIndex != -1)
-        s.selection.splice(itemIndex, 1);
-    });
-
-    this.updateSelectionCount();
-  },
-
-  updateSelectionCount: function() {
-    if (!s.selection.length) {
-      s.el.scan.style.display = "block";
-      s.el.submit.style.display = "none";
-      s.el.title.innerHTML = "Meals";
-    } else {
-      s.el.scan.style.display = "none";
-      s.el.submit.style.display = "block";
-      s.el.title.innerHTML = s.selection.length + " Selected";
-    }
-  }
 };
 
 document.addEventListener("tab:init", function(e) {

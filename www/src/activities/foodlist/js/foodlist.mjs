@@ -187,7 +187,7 @@ waistline.Foodlist = {
 
   createSearchBar: function() {
     const searchBar = f7.searchbar.create({
-      el: ".searchbar",
+      el: s.el.searchForm,
       backdrop: false,
       customSearch: true,
       on: {
