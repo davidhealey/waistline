@@ -179,24 +179,10 @@ waistline.Diary = {
   },
 
   getEntryFromDB: function() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       if (s.date !== undefined) {
-
-        let from = new Date(s.date);
-        let to = new Date(from);
-        to.setUTCHours(to.getUTCHours() + 24);
-
-        let result;
-
-        dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(from, to, false, true)).onsuccess = function(e) {
-          let cursor = e.target.result;
-          if (cursor) {
-            result = cursor.value;
-            cursor.continue();
-          } else {
-            resolve(result);
-          }
-        };
+        let entry = await dbHandler.get("diary", "dateTime", new Date(s.date));
+        resolve(entry);
       }
     }).catch(err => {
       throw (err);
@@ -240,13 +226,17 @@ waistline.Diary = {
       let entry = await waistline.Diary.getEntryFromDB() || waistline.Diary.getNewEntry();
 
       items.forEach((x) => {
-        let item = {
-          id: x.id,
-          type: "food",
-          portion: x.portion,
-          quantity: x.quantity || 1,
-          category: category
-        };
+        let item = {};
+
+        item.category = category;
+        item.type = x.type || "food";
+
+        if (x.id) item.id = x.id;
+        if (x.name) item.name = x.name;
+        if (x.portion !== undefined) item.portion = x.portion;
+        if (x.quantity !== undefined) item.quantity = x.quantity || 1;
+        if (x.nutrition) item.nutrition = x.nutrition;
+
         entry.items.push(item);
       });
 
@@ -266,9 +256,10 @@ waistline.Diary = {
       if (entry) {
         let item = {
           id: data.id,
-          category: data.category,
+          category: parseInt(data.category),
           portion: data.portion,
-          quantity: data.quantity || 1,
+          quantity: parseFloat(data.quantity) || 1,
+          type: data.type
         };
 
         entry.items.splice(data.index, 1, item);

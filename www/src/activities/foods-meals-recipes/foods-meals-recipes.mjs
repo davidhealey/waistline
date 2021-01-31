@@ -204,12 +204,14 @@ waistline.FoodsMealsRecipes = {
     return new Promise(async function(resolve, reject) {
       let ids = [];
       let result = {};
+      let quickAddCalories = 0;
 
+      // Get item ids and quick-add items
       items.forEach((x) => {
-        if (x !== undefined) {
-          if (x.id !== undefined)
-            ids.push(x.id);
-        }
+        if (x.id !== undefined)
+          ids.push(x.id);
+        if (x.type == "quick-add")
+          quickAddCalories += x.nutrition.calories;
       });
 
       if (ids.length > 0) {
@@ -232,6 +234,9 @@ waistline.FoodsMealsRecipes = {
           }
         });
       }
+
+      result.calories += quickAddCalories;
+
       resolve(result);
 
     });
@@ -364,7 +369,7 @@ waistline.FoodsMealsRecipes = {
 
   renderItem: function(item, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback) {
 
-    if (item !== undefined) {
+    if (item !== undefined && item.nutrition !== undefined) {
       let li = document.createElement("li");
       li.data = JSON.stringify(item);
       el.appendChild(li);
@@ -382,14 +387,12 @@ waistline.FoodsMealsRecipes = {
         input.checked = s.selection.includes(JSON.stringify(item));
         label.appendChild(input);
 
-
         input.addEventListener("change", (e) => {
           if (checkboxCallback !== undefined)
             checkboxCallback(input.checked, item);
           else
             waistline.FoodsMealsRecipes.checkboxChanged(input.checked, item);
         });
-
 
         let icon = document.createElement("i");
         icon.className = "icon icon-checkbox";
@@ -401,13 +404,15 @@ waistline.FoodsMealsRecipes = {
       inner.className = "item-inner food-item-inner";
       label.appendChild(inner);
 
-      inner.addEventListener("click", function(e) {
-        e.preventDefault();
-        if (clickCallback !== undefined)
-          clickCallback(item);
-        else
-          waistline.FoodsMealsRecipes.gotoEditor(item);
-      });
+      if (item.id !== undefined) {
+        inner.addEventListener("click", function(e) {
+          e.preventDefault();
+          if (clickCallback !== undefined)
+            clickCallback(item);
+          else
+            waistline.FoodsMealsRecipes.gotoEditor(item);
+        });
+      }
 
       if (tapholdCallback !== undefined) {
         inner.addEventListener("taphold", function(e) {
@@ -590,7 +595,6 @@ waistline.FoodsMealsRecipes = {
   },
 
   gotoEditor: function(item) {
-
     if (item.id !== undefined && item.type == "food") {
       f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
         context: {

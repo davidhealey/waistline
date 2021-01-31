@@ -91,7 +91,7 @@ waistline.Meals = {
         let meal = s.list[i];
         if (meal == undefined) continue;
 
-        meal.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.foods);
+        meal.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.items);
         renderItem(meal, s.el.list, true, waistline.Meals.gotoEditor, waistline.Meals.deleteMeal);
       }
     }
@@ -122,34 +122,33 @@ waistline.Meals = {
 
   getYesterdaysMeal: function(category) {
     return new Promise(async function(resolve, reject) {
-
-      if (category !== false) {
+      if (category !== false && category !== undefined) {
 
         // Get yesterdays dateTime
-        /*  let now = new Date();
-          let yesterday = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-          yesterday.setUTCHours(yesterday.getUTCHours() - 24);
+        let now = new Date();
+        let yesterday = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+        yesterday.setUTCHours(yesterday.getUTCHours() - 24);
 
-          const mealNames = waistline.Settings.get("diary", "meal-names");
+        const mealNames = waistline.Settings.get("diary", "meal-names");
 
-          let result = {
-            items: [],
-            nutrition: {},
-            name: "Yesterday's " + mealNames[category]
-          };
+        let result = {
+          name: "Yesterday's " + mealNames[category],
+          items: []
+        };
 
-          let diaryEntry = await waistline.Diary.getItemsFromDB(yesterday, category);
+        let entry = await dbHandler.get("diary", "dateTime", yesterday);
 
-          if (diaryEntry) {
-            diaryEntry.forEach((x) => {
-              let item = x;
-              item.id = x.foodId;
-              delete item.foodId;
-              delete item.category;
-              result.items.push(item);
-            });
-          }
-          resolve(result);*/
+        if (entry !== undefined) {
+          entry.items.forEach((x) => {
+            if (x.category == category) {
+              result.items.push(x);
+            }
+          });
+
+          if (result.items.length > 0)
+            resolve(result);
+        }
+        resolve();
       }
       resolve(false);
     }).catch(err => {
@@ -174,8 +173,8 @@ waistline.Meals = {
     let result = [];
 
     selection.forEach((x) => {
-      let item = JSON.parse(x);
-      item.foods.forEach((f) => {
+      let meal = JSON.parse(x);
+      meal.items.forEach((f) => {
         result.push(f);
       });
     });
