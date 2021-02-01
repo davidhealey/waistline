@@ -206,7 +206,7 @@ waistline.Diary = {
         let item = x;
 
         if (x.id !== undefined)
-          item = await waistline.FoodsMealsRecipes.getItem(x.id, x.portion, x.quantity);
+          item = await waistline.FoodsMealsRecipes.getItem(x.id, x.type, x.portion, x.quantity);
 
         item.type = x.type;
         item.category = x.category;

@@ -50,13 +50,18 @@ waistline.FoodsMealsRecipes = {
             break;
 
           case "./meal-editor/":
-            s.el.mealTabButton.style.display = "none";
-            s.meal = context.meal;
+            s.el.fab.style.display = "none";
+            s.el.scan.style.display = "none";
             break;
 
-          case "/recipe-editor/":
-            s.el.recipeTabButton.style.display = "none";
+          case "./recipe-editor/":
+            s.el.fab.style.display = "none";
+            s.el.scan.style.display = "none";
             break;
+
+          default:
+            s.el.fab.style.display = "block";
+            s.el.scan.style.display = "block";
         }
       }
     } else {
@@ -100,6 +105,10 @@ waistline.FoodsMealsRecipes = {
         case "meals":
           waistline.Meals.gotoEditor();
           break;
+
+        case "recipes":
+          waistline.Recipes.gotoEditor();
+          break;
       }
     });
   },
@@ -113,6 +122,10 @@ waistline.FoodsMealsRecipes = {
 
         case "meals":
           waistline.Meals.submitButtonAction(s.selection);
+          break;
+
+        case "recipes":
+          waistline.Recipes.submitButtonAction(s.selection);
           break;
       }
     }
@@ -281,10 +294,15 @@ waistline.FoodsMealsRecipes = {
     return result;
   },
 
-  getItem: function(id, portion, quantity) {
+  getItem: function(id, type, portion, quantity) {
     return new Promise(function(resolve, reject) {
 
-      let request = dbHandler.getItem(id, "foodList");
+      let store;
+
+      if (type == "food") store = "foodList";
+      if (type == "recipe") store = "recipes";
+
+      let request = dbHandler.getItem(id, store);
 
       request.onsuccess = function(e) {
         let x = e.target.result;
@@ -292,6 +310,7 @@ waistline.FoodsMealsRecipes = {
         let result = {
           id: id,
           name: x.name,
+          type: type,
           portion: portion,
           quantity: quantity || 1,
           nutrition: {}
@@ -354,9 +373,6 @@ waistline.FoodsMealsRecipes = {
 
       ac.open();
     } else {
-
-      if (s.meal)
-        f7.data.context.meal = s.meal;
 
       if (s.category !== undefined)
         f7.data.context.category = s.category;
@@ -460,6 +476,9 @@ waistline.FoodsMealsRecipes = {
       //Portion
       if (item.portion !== undefined) {
         let text = item.portion;
+
+        if (item.unit !== undefined) // If unit is separate from portion
+          text += item.unit;
 
         if (item.quantity !== undefined && item.quantity > 1)
           text += " x" + item.quantity;

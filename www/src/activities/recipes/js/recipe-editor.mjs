@@ -23,7 +23,7 @@ import {
 } from "/www/src/activities/foods-meals-recipes/foods-meals-recipes.mjs";
 
 // The item being edited
-let meal;
+let recipe;
 
 const components = {};
 
@@ -33,33 +33,34 @@ async function init(context) {
 
   if (context) {
 
-    // From meal list or food list
-    if (context.meal) {
-      meal = context.meal;
-      populateInputs(meal);
+    // From recipe list
+    if (context.recipe) {
+      recipe = context.recipe;
+      populateInputs(recipe);
     }
 
+    // From food list
     if (context.items)
       addItems(context.items);
 
-    // Returned from meal editor
+    // From recipe editor
     if (context.item)
       replaceListItem(context.item);
 
     renderNutrition();
-    await renderMeal();
+    await renderRecipe();
   }
 
   bindUIActions();
 }
 
 function getComponents() {
-  components.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
-  components.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
-  components.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
-  components.fab = document.querySelector(".page[data-name='meal-editor'] #add-food");
-  components.nutrition = document.querySelector(".page[data-name='meal-editor'] #meal-nutrition");
-  components.swiperWrapper = document.querySelector(".page[data-name='meal-editor'] .swiper-wrapper");
+  components.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
+  components.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
+  components.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
+  components.fab = document.querySelector(".page[data-name='recipe-editor'] #add-food");
+  components.nutrition = document.querySelector(".page[data-name='recipe-editor'] #recipe-nutrition");
+  components.swiperWrapper = document.querySelector(".page[data-name='recipe-editor'] .swiper-wrapper");
 }
 
 function bindUIActions() {
@@ -67,7 +68,7 @@ function bindUIActions() {
   // Submit
   if (!components.submit.hasClickEvent) {
     components.submit.addEventListener("click", (e) => {
-      saveMeal();
+      saveRecipe();
     });
     components.submit.hasClickEvent = true;
   }
@@ -77,8 +78,8 @@ function bindUIActions() {
     components.fab.addEventListener("click", (e) => {
       f7.views.main.router.navigate("/foods-meals-recipes/", {
         context: {
-          origin: "./meal-editor/",
-          meal: meal
+          origin: "./recipe-editor/",
+          recipe: recipe
         },
       });
     });
@@ -86,18 +87,18 @@ function bindUIActions() {
   }
 }
 
-function populateInputs(meal) {
-  let inputs = document.querySelectorAll(".page[data-name='meal-editor'] input");
+function populateInputs(recipe) {
+  let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input, .page[data-name='recipe-editor'] textarea");
 
   inputs.forEach((x) => {
-    if (meal[x.name] !== undefined)
-      x.value = meal[x.name];
+    if (recipe[x.name] !== undefined)
+      x.value = recipe[x.name];
   });
 }
 
 function addItems(data) {
 
-  let result = meal.items;
+  let result = recipe.items;
 
   data.forEach((x) => {
     let item = {
@@ -108,7 +109,7 @@ function addItems(data) {
     };
     result.push(item);
   });
-  meal.items = result;
+  recipe.items = result;
 }
 
 function removeItem(item, li) {
@@ -117,49 +118,49 @@ function removeItem(item, li) {
   let dialog = f7.dialog.confirm(text, title, callbackOk);
 
   function callbackOk() {
-    meal.items.splice(item.index, 1);
+    recipe.items.splice(item.index, 1);
     li.parentNode.removeChild(li);
     renderNutrition();
   }
 }
 
-function saveMeal() {
+function saveRecipe() {
 
-  let inputs = document.querySelectorAll(".page[data-name='meal-editor'] input");
+  let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input, .page[data-name='recipe-editor'] textarea");
 
   inputs.forEach((x) => {
     if (x.value !== undefined && x.value != "")
-      meal[x.name] = x.value;
+      recipe[x.name] = x.value;
   });
 
   let now = new Date();
-  meal.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  recipe.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-  dbHandler.put(meal, "meals").onsuccess = () => {
-    f7.views.main.router.navigate("/foods-meals-recipes/meals/");
+  dbHandler.put(recipe, "recipes").onsuccess = () => {
+    f7.views.main.router.navigate("/foods-meals-recipes/recipes/");
   };
 }
 
 function replaceListItem(item) {
-  meal.items.splice(item.index, 1, item);
+  recipe.items.splice(item.index, 1, item);
 }
 
 async function renderNutrition() {
   let now = new Date();
-  let nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.items);
+  let nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(recipe.items);
 
-  let swiper = f7.swiper.get("#meal-nutrition-swiper");
+  let swiper = f7.swiper.get("#recipe-nutrition-swiper");
   components.swiperWrapper.innerHTML = "";
   waistline.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
 }
 
-function renderMeal() {
+function renderRecipe() {
   return new Promise(async function(resolve, reject) {
 
     // Render the food list 
     components.foodlist.innerHTML = "";
 
-    meal.items.forEach(async (x, i) => {
+    recipe.items.forEach(async (x, i) => {
       let item = await waistline.FoodsMealsRecipes.getItem(x.id, "food", x.portion, x.quantity);
       item.index = i;
       renderItem(item, components.foodlist, false, undefined, removeItem);
@@ -170,12 +171,11 @@ function renderMeal() {
 }
 
 document.addEventListener("page:init", function(event) {
-  if (event.detail.name == "meal-editor") {
+  if (event.detail.name == "recipe-editor") {
     let context = f7.data.context;
     f7.data.context = undefined;
-
-    // Clear old meal
-    meal = {
+    // Clear old recipe
+    recipe = {
       items: []
     };
 
@@ -184,9 +184,10 @@ document.addEventListener("page:init", function(event) {
 });
 
 document.addEventListener("page:reinit", function(event) {
-  if (event.detail.name == "meal-editor") {
+  if (event.detail.name == "recipe-editor") {
     let context = f7.data.context;
     f7.data.context = undefined;
+
     init(context);
   }
 });
