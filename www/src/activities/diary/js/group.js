@@ -19,7 +19,7 @@
 
 import * as Utils from "/www/assets/js/utils.js";
 
-const render = function(container) {
+const render = async function(container) {
 
   let self = this;
 
@@ -76,7 +76,9 @@ const render = function(container) {
     waistline.FoodsMealsRecipes.renderItem(x, innerUl, false, undefined, self.removeItem);
   });
 
-  renderFooter(ul, this.id, this.nutrition);
+  let nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(this.items);
+
+  renderFooter(ul, this.id, nutrition);
 };
 
 const renderFooter = function(ul, id, nutrition) {
@@ -126,12 +128,6 @@ const renderFooter = function(ul, id, nutrition) {
 
 const addItem = function(item) {
   this.items.push(item);
-
-  //Sum item nutrition for group
-  for (let k in item.nutrition) {
-    this.nutrition[k] = this.nutrition[k] || 0;
-    this.nutrition[k] += item.nutrition[k];
-  }
 };
 
 const addItems = function(items) {
@@ -155,7 +151,6 @@ export const create = function(name, id) {
     id: id,
     collapsed: false,
     items: [],
-    nutrition: {},
     render: render,
     addItem: addItem,
     addItems: addItems,

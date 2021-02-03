@@ -200,20 +200,13 @@ waistline.Diary = {
 
   populateGroups: function(entry) {
     return new Promise(async function(resolve, reject) {
-
-      // Get details and nutritional data for each food
       entry.items.forEach(async (x, i) => {
-        let item = x;
-
-        if (x.id !== undefined)
-          item = await waistline.FoodsMealsRecipes.getItem(x.id, x.type, x.portion, x.quantity);
-
-        item.type = x.type;
-        item.category = x.category;
-        item.index = i; // Index in array, not stored in DB
-        s.groups[x.category].addItem(item);
+        x.index = i; // Index in array, not stored in DB
+        s.groups[x.category].addItem(x);
       });
+
       resolve();
+
     }).catch(err => {
       throw (err);
     });
@@ -226,17 +219,9 @@ waistline.Diary = {
       let entry = await waistline.Diary.getEntryFromDB() || waistline.Diary.getNewEntry();
 
       items.forEach((x) => {
-        let item = {};
-
+        let item = x;
         item.category = category;
-        item.type = x.type || "food";
-
-        if (x.id) item.id = x.id;
-        if (x.name) item.name = x.name;
-        if (x.portion !== undefined) item.portion = x.portion;
-        if (x.quantity !== undefined) item.quantity = x.quantity || 1;
-        if (x.nutrition) item.nutrition = x.nutrition;
-
+        item.quantity = x.quantity || 1;
         entry.items.push(item);
       });
 
@@ -248,21 +233,14 @@ waistline.Diary = {
     });
   },
 
-  updateItem: function(data) {
+  updateItem: function(item) {
     return new Promise(async function(resolve, reject) {
 
       let entry = await waistline.Diary.getEntryFromDB();
 
       if (entry) {
-        let item = {
-          id: data.id,
-          category: parseInt(data.category),
-          portion: data.portion,
-          quantity: parseFloat(data.quantity) || 1,
-          type: data.type
-        };
-
-        entry.items.splice(data.index, 1, item);
+        entry.items.splice(item.index, 1, item);
+        delete item.index; // Array index is not stored in the db
 
         dbHandler.put(entry, "diary").onsuccess = function() {
           resolve();
@@ -312,9 +290,7 @@ waistline.Diary = {
           name: "Quick Add",
           type: "quick-add",
           category: category,
-          nutrition: {
-            calories: energy
-          }
+          portion: energy // Energy value is used as portion
         };
 
         entry.items.push(food);

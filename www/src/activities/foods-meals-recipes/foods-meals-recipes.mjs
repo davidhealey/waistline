@@ -167,7 +167,7 @@ waistline.FoodsMealsRecipes = {
   },
 
   /* CAN PROBABLY DELETE*/
-  getFood: function(id) {
+  /*getFood: function(id) {
     return new Promise(function(resolve, reject) {
       let request = dbHandler.getItem(id, "foodList");
 
@@ -185,7 +185,7 @@ waistline.FoodsMealsRecipes = {
         resolve(e.target.result);
       };
     });
-  },
+  },*/
 
   getNutrition: function(item, type) {
     return new Promise(function(resolve, reject) {
@@ -305,23 +305,14 @@ waistline.FoodsMealsRecipes = {
       let request = dbHandler.getItem(id, store);
 
       request.onsuccess = function(e) {
-        let x = e.target.result;
-
-        let result = {
-          id: id,
-          name: x.name,
-          type: type,
-          portion: portion,
-          quantity: quantity || 1,
-          nutrition: {}
-        };
+        let result = e.target.result;
 
         // Get nutriments for given portion/quantity
-        let foodPortion = parseFloat(x.portion);
-        let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
+        let foodPortion = result.portion;
+        let multiplier = (portion / foodPortion) * (quantity || 1);
 
-        for (let n in x.nutrition) {
-          result.nutrition[n] = Math.round(x.nutrition[n] * multiplier * 100) / 100;
+        for (let n in result.nutrition) {
+          result.nutrition[n] = Math.round(result.nutrition[n] * multiplier * 100) / 100;
         }
 
         resolve(result);
@@ -381,9 +372,19 @@ waistline.FoodsMealsRecipes = {
     }
   },
 
-  renderItem: function(item, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback) {
+  renderItem: async function(data, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback) {
 
-    if (item !== undefined && item.nutrition !== undefined) {
+    if (data !== undefined) {
+
+      let item;
+
+      if (data.name == undefined && data.nutrition == undefined) {
+        item = await waistline.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
+        item = Utils.concatObjects(item, data);
+      } else {
+        item = data;
+      }
+
       let li = document.createElement("li");
       li.data = JSON.stringify(item);
       el.appendChild(li);
@@ -614,9 +615,15 @@ waistline.FoodsMealsRecipes = {
 
   gotoEditor: function(item) {
     if (item.id !== undefined && item.type == "food") {
+
+      let origin;
+      if (s !== undefined && s.tab !== undefined)
+        origin = s.tab;
+
       f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
         context: {
-          item
+          item: item,
+          origin: origin
         }
       });
     }
@@ -676,23 +683,7 @@ var foodsMealsRecipes = {
           }
         });
     });
-  },
-
-  formatItemText: function(text, maxLength) {
-
-    if (text) {
-      let t = unescape(text);
-
-      if (text.length > maxLength)
-        t = t.substring(0, maxLength - 2) + "..";
-
-      //Format to title case
-      return t.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
-    }
-    return "";
-  },
+  }
 };
 
 document.addEventListener("page:init", function(e) {
@@ -702,6 +693,25 @@ document.addEventListener("page:init", function(e) {
 
     if (waistline.mode == "development")
       runTests();
+  }
+});
+
+document.addEventListener("page:reinit", function(e) {
+  if (e.target.matches(".page[data-name='foods-meals-recipes']")) {
+    let context = f7.data.context;
+    f7.data.context = undefined;
+
+    if (context !== undefined && context.item !== undefined) {
+      if (waistline.FoodsMealsRecipes.settings.tab == "foodlist") {
+        waistline.Foodlist.init(context);
+      }
+    }
+  }
+});
+
+document.addEventListener("page:beforeremove", function(e) {
+  if (e.target.matches(".page[data-name='foods-meals-recipes']")) {
+    waistline.FoodsMealsRecipes.settings.tab = undefined;
   }
 });
 
