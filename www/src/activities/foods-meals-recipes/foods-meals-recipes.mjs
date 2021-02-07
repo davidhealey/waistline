@@ -451,9 +451,9 @@ waistline.FoodsMealsRecipes = {
         //Portion
         let text = "";
         if (item.name != "Quick Add" && item.portion !== undefined) {
-          let text = item.portion;
+          text = parseFloat(item.portion);
 
-          if (item.unit !== undefined) // If unit is separate from portion
+          if (item.unit !== undefined)
             text += item.unit;
 
           if (item.quantity !== undefined && item.quantity > 1)
