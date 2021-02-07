@@ -23,7 +23,11 @@ export function search(query) {
     //Build search string
     let url;
 
-    url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
+    // If query is a number, assume it's a barcode
+    if (isNaN(query) == true)
+      url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
+    else
+      url = "https://world.openfoodfacts.org/api/v0/product/" + query + ".json";
 
     //Get country name
     let country = waistline.Settings.get("foodlist", "country") || undefined;
@@ -39,13 +43,22 @@ export function search(query) {
 
     if (response) {
       let data = await response.json();
-
       let result = [];
-      data.products.forEach((x) => {
-        let item = parseItem(x);
-        if (item)
-          result.push(item);
-      });
+
+      // Multiple results
+      if (data.products !== undefined) {
+        data.products.forEach((x) => {
+          let item = parseItem(x);
+          if (item)
+            result.push(item);
+        });
+      }
+
+      // Single result (presumably from a barcode)
+      if (data.product) {
+        let item = parseItem(data.product);
+        result.push(item);
+      }
 
       resolve(result);
     }

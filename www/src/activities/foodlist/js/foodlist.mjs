@@ -62,13 +62,18 @@ waistline.Foodlist = {
     s.list = await this.getListFromDB();
     s.filterList = s.list;
 
+    // Set scan button visibility
+    if (waistline.Settings.get("integration", "off") == true)
+      s.el.scan.style.display = "block";
+    else
+      s.el.scan.style.display = "none";
+
     this.renderList(true);
   },
 
   getComponents: function() {
     s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
-    s.el.scan.style.display = "block";
     s.el.search = document.querySelector("#foods-tab #food-search");
     s.el.searchForm = document.querySelector("#foods-tab #food-search-form");
     s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist"); //Infinite list container
@@ -92,15 +97,30 @@ waistline.Foodlist = {
   search: async function(query) {
     if (query != "") {
       s.el.spinner.style.display = "block";
-      let offList = await Off.search(query);
-      let usdaList = await USDA.search(query);
-      let result = offList.concat(usdaList);
+      let offList = [];
+      let usdaList = [];
 
-      if (result.length > 0) {
-        s.list = result;
-        s.filterList = s.list;
+      let offEnabled = waistline.Settings.get("integration", "off");
+      let usdaEnabled = waistline.Settings.get("integration", "usda") && (waistline.Settings.get("integration", "usda-key") != "");
+
+      if (offEnabled == true || usdaEnabled == true) {
+
+        if (offEnabled)
+          offList = await Off.search(query);
+
+        if (usdaEnabled)
+          usdaList = await USDA.search(query);
+
+        let result = offList.concat(usdaList);
+
+        if (result.length > 0) {
+          s.list = result;
+          s.filterList = s.list;
+        } else {
+          Utils.toast("No results");
+        }
       } else {
-        Utils.notification("No results found.", "info");
+        Utils.toast("No search providers are enabled", 2000);
       }
     }
 
@@ -327,6 +347,38 @@ waistline.Foodlist = {
       };
       dbHandler.put(item, "foodList");
     }
+  },
+
+  scan: function() {
+    return new Promise(function(resolve, reject) {
+      cordova.plugins.barcodeScanner.scan(async (data) => {
+
+        let code = data.text;
+
+        // Check if the item is already in the foodlist
+        let item = await dbHandler.get("foodList", "barcode", code);
+
+        if (item !== undefined)
+          resolve(item);
+
+        // Not already in foodlist so search OFF 
+        if (navigator.connection.type == "none") {
+          Utils.notify(waistline.strings["no-internet"] || "No internet connection");
+          resolve();
+        }
+
+        // Display loading image
+        s.el.spinner.style.display = "block";
+        let result = await Off.search(code);
+
+        // Return result from OFF
+        if (result != undefined)
+          resolve(result);
+
+        // No result found so ask if user would like to add it 
+        console.log("Not found");
+      });
+    });
   }
 };
 

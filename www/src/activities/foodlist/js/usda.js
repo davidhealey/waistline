@@ -25,7 +25,7 @@ export function search(query) {
     if (waistline.mode == "development")
       apiKey = "DEMO_KEY";
     else
-      apiKey = "DEMO_KEY";
+      apiKey = waistline.Settings.get("integration", "usda-key");
 
     let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + apiKey + "&query=" + encodeURI(query) + "&sort=r&max=50";
 
@@ -58,7 +58,8 @@ function parseItem(item) {
   result.name = item.description;
   result.brand = item.brandOwner;
   result.barcode = "fdcId_" + item.fdcId; // Use fdcId as barcode
-  result.portion = "100g";
+  result.portion = "100";
+  result.unit = "g";
 
   //Energy 
   for (let n of item.foodNutrients) {
