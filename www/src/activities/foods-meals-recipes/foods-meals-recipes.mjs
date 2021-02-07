@@ -453,8 +453,14 @@ waistline.FoodsMealsRecipes = {
         if (item.name != "Quick Add" && item.portion !== undefined) {
           text = parseFloat(item.portion);
 
-          if (item.unit !== undefined)
-            text += item.unit;
+          if (item.unit !== undefined) {
+            let units = waistline.standardUnits;
+            if (units.includes(item.unit))
+              text += item.unit;
+            else
+              text += " " + item.unit;
+          }
+
 
           if (item.quantity !== undefined && item.quantity > 1)
             text += " x" + item.quantity;
