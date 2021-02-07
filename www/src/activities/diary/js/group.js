@@ -72,8 +72,10 @@ const render = async function(container) {
   let innerUl = document.createElement("ul");
   innerList.appendChild(innerUl);
 
+  // Render items
+  let timestamps = waistline.Settings.get("diary", "timestamps");
   this.items.forEach((x) => {
-    waistline.FoodsMealsRecipes.renderItem(x, innerUl, false, undefined, self.removeItem);
+    waistline.FoodsMealsRecipes.renderItem(x, innerUl, false, undefined, self.removeItem, undefined, timestamps);
   });
 
   let nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(this.items);

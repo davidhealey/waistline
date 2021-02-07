@@ -47,7 +47,7 @@ async function init(context) {
       replaceListItem(context.item);
 
     renderNutrition();
-    await renderMeal();
+    await renderItems();
   }
 
   bindUIActions();
@@ -67,7 +67,7 @@ function bindUIActions() {
   // Submit
   if (!components.submit.hasClickEvent) {
     components.submit.addEventListener("click", (e) => {
-      saveMeal();
+      save();
     });
     components.submit.hasClickEvent = true;
   }
@@ -75,11 +75,13 @@ function bindUIActions() {
   // Fab
   if (!components.fab.hasClickEvent) {
     components.fab.addEventListener("click", (e) => {
+      f7.data.context = {
+        origin: "./meal-editor/",
+        meal: meal
+      };
+
       f7.views.main.router.navigate("/foods-meals-recipes/", {
-        context: {
-          origin: "./meal-editor/",
-          meal: meal
-        },
+        context: f7.data.context
       });
     });
     components.fab.hasClickEvent = true;
@@ -104,7 +106,7 @@ function addItems(data) {
       id: x.id,
       portion: x.portion,
       quantity: 1,
-      type: "food"
+      type: x.type
     };
     result.push(item);
   });
@@ -123,19 +125,32 @@ function removeItem(item, li) {
   }
 }
 
-function saveMeal() {
+function save() {
+
+  let data = {};
+
+  if (meal.id !== undefined) data.id = meal.id;
+  if (meal.items !== undefined) data.items = meal.items;
+
+  let now = new Date();
+  data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
   let inputs = document.querySelectorAll(".page[data-name='meal-editor'] input");
 
   inputs.forEach((x) => {
     if (x.value !== undefined && x.value != "")
-      meal[x.name] = x.value;
+      data[x.name] = x.value;
   });
 
-  let now = new Date();
-  meal.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  // Array index should not be saved with items
+  if (data.items !== undefined) {
+    data.items.forEach((x) => {
+      if (x.index !== undefined)
+        delete x.index;
+    });
+  }
 
-  dbHandler.put(meal, "meals").onsuccess = () => {
+  dbHandler.put(data, "meals").onsuccess = () => {
     f7.views.main.router.navigate("/foods-meals-recipes/meals/");
   };
 }
@@ -153,16 +168,14 @@ async function renderNutrition() {
   waistline.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
 }
 
-function renderMeal() {
+function renderItems() {
   return new Promise(async function(resolve, reject) {
 
-    // Render the food list 
     components.foodlist.innerHTML = "";
 
     meal.items.forEach(async (x, i) => {
-      let item = await waistline.FoodsMealsRecipes.getItem(x.id, "food", x.portion, x.quantity);
-      item.index = i;
-      renderItem(item, components.foodlist, false, undefined, removeItem);
+      x.index = i;
+      renderItem(x, components.foodlist, false, undefined, removeItem);
     });
 
     resolve();

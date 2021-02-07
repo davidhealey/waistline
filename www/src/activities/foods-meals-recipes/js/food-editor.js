@@ -167,12 +167,17 @@ function renderNutritionFields(item) {
       input.step = "0.01";
       input.min = "0";
       input.name = k;
-      if (item)
+
+      if (item) {
         input.value = Math.round(item.nutrition[k] * 100) / 100 || 0;
-      else
+        input.oldValue = input.value;
+      } else {
         input.value = 0;
+      }
 
       input.addEventListener("change", function() {
+        if (this.oldValue == 0) this.oldValue = this.value;
+        if (this.value == 0) this.oldValue = 0;
         changeServing(item, k, this.value);
       });
       inputWrapper.appendChild(input);
@@ -202,36 +207,39 @@ function populateFields(item) {
   s.el.unit.value = item.unit;
 
   //Portion (serving size)
-  if (item.portion != undefined)
+  if (item.portion != +undefined) {
     s.el.portion.value = parseFloat(item.portion);
-  else {
+    s.el.portion.oldValue = parseFloat(item.portion);
+  } else {
     s.el.portion.setAttribute("placeholder", "N/A");
     s.el.portion.disabled = true;
   }
 
   //Quantity (number of servings)
   s.el.quantity.value = item.quantity || 1;
+  s.el.quantity.oldValue = s.el.quantity.value;
 }
 
 function changeServing(item, field, newValue) {
 
   if (s.linked) {
+
+    let multiplier;
     let oldValue;
-    if (item.nutrition[field] != undefined)
-      oldValue = item.nutrition[field];
-    else if (item[field] != undefined)
+
+    if (field == "portion" || field == "quantity")
       oldValue = item[field];
+    else
+      oldValue = document.querySelector("#food-edit-form #" + field).oldValue;
 
     if (oldValue > 0 && newValue > 0) {
-      let multiplier;
+      let newQuantity = s.el.quantity.value;
 
       if (field == "portion" || field == "quantity") {
-        let portion = item.portion; //Remove unit
         let newPortion = s.el.portion.value;
-        let newQuantity = s.el.quantity.value;
-        multiplier = (newPortion / portion) * (newQuantity / (item.quantity || 1));
+        multiplier = (newPortion / item.portion) * (newQuantity / (item.quantity || 1));
       } else {
-        multiplier = newValue / oldValue;
+        multiplier = (newValue / oldValue) / (newQuantity / (item.quantity || 1));
         s.el.portion.value = Math.round(item.portion * multiplier * 100) / 100;
       }
 
@@ -241,7 +249,7 @@ function changeServing(item, field, newValue) {
         if (k != field) {
           let input = document.querySelector("#food-edit-form #" + k);
           if (input) {
-            input.value = Math.round(item.nutrition[k] * multiplier * 100) / 100 || 0;
+            input.value = Math.round(input.oldValue * multiplier * 100) / 100 || 0;
           }
         }
       }

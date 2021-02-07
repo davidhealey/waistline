@@ -124,7 +124,9 @@ waistline.Foodlist = {
         if (i >= s.list.length) break; //Exit after all items in list
         let item = s.list[i];
         item.type = "food";
-        renderItem(item, s.el.list, true);
+
+        if (!item.archived)
+          renderItem(item, s.el.list, true, undefined, this.removeItem);
       }
     }
   },
@@ -181,20 +183,16 @@ waistline.Foodlist = {
     await dbHandler.bulkInsert(items, "foodList");
   },
 
-  deleteItem: function(item) {
+  removeItem: function(item) {
     return new Promise(function(resolve, reject) {
 
       let title = waistline.strings["confirm-delete-title"] || "Delete";
       let msg = waistline.strings["confirm-delete"] || "Are you sure?";
 
-      let dialog = f7.dialog.confirm(msg, title, () => {
-
-        let request = dbHandler.deleteItem(item.id, "foodList");
-
-        request.onsuccess = function(e) {
-          s.list = [];
-          f7.views.main.router.refreshPage();
-        };
+      let dialog = f7.dialog.confirm(msg, title, async () => {
+        await waistline.FoodsMealsRecipes.removeItem(item.id, "food");
+        s.list = [];
+        f7.views.main.router.refreshPage();
       });
     }).catch(err => {
       throw (err);
@@ -234,45 +232,61 @@ waistline.Foodlist = {
     });
   },
 
-  submitButtonAction: function(selection) {
+  submitButtonAction: async function(selection) {
+    let data = await this.getItemsFromSelection(selection);
+    this.updateDateTimes(data.ids);
+    waistline.FoodsMealsRecipes.returnItems(data.items);
+  },
 
-    let items = [];
-    let itemIds = [];
+  getItemsFromSelection: function(selection) {
+    return new Promise(async function(resolve, reject) {
 
-    selection.forEach(async (x) => {
-
-      let data = JSON.parse(x);
-
-      if (data.id == undefined) { //No ID, must be a search result 
-
-        if (data.barcode) { //If item has barcode it must be from online service
-
-          //Check to see if item is already in DB 
-          let dbData = await waistline.Foodlist.searchByBarcode(data.barcode);
-
-          //If item is in DB use retrieved data, otherwise add item to DB and get new ID
-          if (dbData)
-            data = dbData;
-        }
-
-        // Doesn't have barcode or could not be found with barcode search
-        if (data.id == undefined)
-          data.id = await waistline.Foodlist.addItem(data);
-      }
-
-      let item = {
-        id: data.id,
-        portion: data.portion,
-        unit: data.unit,
-        type: data.type,
+      let result = {
+        items: [],
+        ids: []
       };
 
-      items.push(item);
-      itemIds.push(item.id);
-    });
+      for (let i = 0; i < selection.length; i++) {
 
-    this.updateDateTimes(itemIds);
-    waistline.FoodsMealsRecipes.returnItems(items);
+        let data = JSON.parse(selection[i]);
+
+        if (data.id == undefined) { //No ID, must be a search result 
+
+          if (data.barcode) { //If item has barcode it must be from online service
+
+            //Check to see if item is already in DB 
+            let dbData = await waistline.Foodlist.searchByBarcode(data.barcode);
+
+            //If item is in DB use retrieved data, otherwise add item to DB and get new ID
+            if (dbData) {
+              data = dbData;
+
+              // Unarchive the food if it has been archived
+              if (data.archived == true) {
+                data.archived = false;
+                await waistline.Foodlist.updateItem(data);
+              }
+            }
+          }
+
+          // Doesn't have barcode or could not be found with barcode search
+          if (data.id == undefined)
+            data.id = await waistline.Foodlist.addItem(data);
+        }
+
+        let item = {
+          id: data.id,
+          portion: data.portion,
+          unit: data.unit,
+          type: data.type,
+        };
+
+        result.items.push(item);
+        result.ids.push(item.id);
+      }
+
+      resolve(result);
+    });
   },
 
   gotoEditor: function(item) {
@@ -283,6 +297,37 @@ waistline.Foodlist = {
       }
     });
   },
+
+  getQuickAddItem: function() {
+    return new Promise(async function(resolve, reject) {
+      let item = await dbHandler.get("foodList", "barcode", "quick-add");
+
+      let result = {
+        id: item.id,
+        portion: item.portion,
+        type: "food"
+      };
+
+      resolve(result);
+    });
+  },
+
+  createQuickAddItem: async function() {
+    let item = await dbHandler.get("foodList", "barcode", "quick-add");
+
+    if (item == undefined) {
+      item = {
+        name: "Quick Add",
+        barcode: "quick-add",
+        "portion": 1,
+        nutrition: {
+          "calories": 1
+        },
+        archived: true
+      };
+      dbHandler.put(item, "foodList");
+    }
+  }
 };
 
 document.addEventListener("tab:init", function(e) {

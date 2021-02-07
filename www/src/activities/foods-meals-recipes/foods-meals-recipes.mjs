@@ -28,12 +28,14 @@ waistline.FoodsMealsRecipes = {
   settings: {
     tab: undefined,
     el: {},
-    selection: []
+    selection: [],
+    disableEdit: false
   },
 
   init: function(context) {
 
     s = this.settings; //Assign settings object
+    s.disableEdit = false;
     this.getComponents();
     this.bindUIActions();
 
@@ -50,11 +52,13 @@ waistline.FoodsMealsRecipes = {
             break;
 
           case "./meal-editor/":
+            s.disableEdit = true;
             s.el.fab.style.display = "none";
             s.el.scan.style.display = "none";
             break;
 
           case "./recipe-editor/":
+            s.disableEdit = true;
             s.el.fab.style.display = "none";
             s.el.scan.style.display = "none";
             break;
@@ -166,80 +170,43 @@ waistline.FoodsMealsRecipes = {
     });
   },
 
-  /* CAN PROBABLY DELETE*/
-  /*getFood: function(id) {
-    return new Promise(function(resolve, reject) {
-      let request = dbHandler.getItem(id, "foodList");
-
-      request.onsuccess = function(e) {
-        resolve(e.target.result);
-      };
-    });
-  },
-
-  getRecipe: function(id) {
-    return new Promise(function(resolve, reject) {
-      let request = dbHandler.getItem(id, "recipe");
-
-      request.onsuccess = function(e) {
-        resolve(e.target.result);
-      };
-    });
-  },*/
-
-  getNutrition: function(item, type) {
-    return new Promise(function(resolve, reject) {
-      let request;
-
-      if (item.recipe || type == "recipe")
-        request = dbHandler.getItem(item.id, "recipe");
-      else
-        request = dbHandler.getItem(item.id, "foodList");
-
-      request.onsuccess = function(e) {
-        let x = e.target.result;
-        let result = {};
-        let foodPortion = parseFloat(x.portion);
-        let itemPortion = parseFloat(item.portion);
-        let itemQuantity = parseFloat(item.quantity) || 1;
-        let multiplier = (itemPortion / foodPortion) * itemQuantity;
-
-        for (let n in x.nutrition) {
-          result[n] = Math.round(x.nutrition[n] * multiplier * 100) / 100;
-        }
-        resolve(result);
-      };
-    });
-  },
-  /* -----------------------------------------*/
-
   getTotalNutrition: function(items) {
     return new Promise(async function(resolve, reject) {
-      let ids = [];
+      let ids = {};
       let result = {
         calories: 0
       };
 
       // Get item ids and quick-add items
       items.forEach((x) => {
-        if (x.id !== undefined)
-          ids.push(x.id);
-        if (x.type == "quick-add")
-          result.calories += x.nutrition.calories;
+        let type = x.type || "food";
+        if (x.id !== undefined) {
+          ids[type] = ids[type] || [];
+          ids[type].push(x.id);
+        }
       });
 
-      if (ids.length > 0) {
-        let foods = await dbHandler.getByMultipleKeys(ids, "foodList");
+      let foods = [];
+      if (ids.food !== undefined && ids.food.length > 0)
+        foods = await dbHandler.getByMultipleKeys(ids.food, "foodList");
+
+      let recipes = [];
+      if (ids.recipe !== undefined && ids.recipe.length > 0)
+        recipes = await dbHandler.getByMultipleKeys(ids.recipe, "recipes");
+
+      let data = foods.concat(recipes);
+
+      if (data.length > 0) {
 
         //Sum item nutrition
-        foods.forEach((x, i) => {
+        data.forEach((x, i) => {
 
           if (x !== undefined) {
 
-            let foodPortion = parseFloat(x.portion);
+            let dataPortion = parseFloat(x.portion);
             let itemPortion = parseFloat(items[i].portion);
             let itemQuantity = parseFloat(items[i].quantity) || 1;
-            let multiplier = (itemPortion / foodPortion) * itemQuantity;
+            let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
             for (let n in x.nutrition) {
               result[n] = result[n] || 0;
@@ -249,7 +216,6 @@ waistline.FoodsMealsRecipes = {
         });
       }
       resolve(result);
-
     });
   },
 
@@ -307,15 +273,19 @@ waistline.FoodsMealsRecipes = {
       request.onsuccess = function(e) {
         let result = e.target.result;
 
-        // Get nutriments for given portion/quantity
-        let foodPortion = result.portion;
-        let multiplier = (portion / foodPortion) * (quantity || 1);
+        if (result !== undefined) {
+          // Get nutriments for given portion/quantity
+          let foodPortion = parseFloat(result.portion);
+          let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
 
-        for (let n in result.nutrition) {
-          result.nutrition[n] = Math.round(result.nutrition[n] * multiplier * 100) / 100;
+          for (let n in result.nutrition) {
+            result.nutrition[n] = Math.round(result.nutrition[n] * multiplier * 100) / 100;
+          }
+
+          resolve(result);
+        } else {
+          resolve();
         }
-
-        resolve(result);
       };
 
       request.onerror = function(e) {
@@ -372,7 +342,7 @@ waistline.FoodsMealsRecipes = {
     }
   },
 
-  renderItem: async function(data, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback) {
+  renderItem: async function(data, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback, timestamp) {
 
     if (data !== undefined) {
 
@@ -380,109 +350,121 @@ waistline.FoodsMealsRecipes = {
 
       if (data.name == undefined && data.nutrition == undefined) {
         item = await waistline.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
-        item = Utils.concatObjects(item, data);
+        if (item !== undefined)
+          item = Utils.concatObjects(item, data);
       } else {
         item = data;
       }
 
-      let li = document.createElement("li");
-      li.data = JSON.stringify(item);
-      el.appendChild(li);
+      if (item !== undefined) {
 
-      let label = document.createElement("label");
-      label.className = "item-checkbox item-content";
-      li.appendChild(label);
+        let li = document.createElement("li");
+        li.data = JSON.stringify(item);
+        el.appendChild(li);
 
-      //Checkbox
-      if (checkboxes) {
-        let input = document.createElement("input");
-        input.type = "checkbox";
-        input.name = "food-item-checkbox";
-        input.data = JSON.stringify(item);
-        input.checked = s.selection.includes(JSON.stringify(item));
-        label.appendChild(input);
+        let label = document.createElement("label");
+        label.className = "item-checkbox item-content";
+        li.appendChild(label);
 
-        input.addEventListener("change", (e) => {
-          if (checkboxCallback !== undefined)
-            checkboxCallback(input.checked, item);
-          else
-            waistline.FoodsMealsRecipes.checkboxChanged(input.checked, item);
-        });
+        //Checkbox
+        if (checkboxes) {
+          let input = document.createElement("input");
+          input.type = "checkbox";
+          input.name = "food-item-checkbox";
+          input.data = JSON.stringify(item);
+          input.checked = s.selection.includes(JSON.stringify(item));
+          label.appendChild(input);
 
-        let icon = document.createElement("i");
-        icon.className = "icon icon-checkbox";
-        label.appendChild(icon);
-      }
+          input.addEventListener("change", (e) => {
+            if (checkboxCallback !== undefined)
+              checkboxCallback(input.checked, item);
+            else
+              waistline.FoodsMealsRecipes.checkboxChanged(input.checked, item);
+          });
 
-      //Inner container
-      let inner = document.createElement("div");
-      inner.className = "item-inner food-item-inner";
-      label.appendChild(inner);
+          let icon = document.createElement("i");
+          icon.className = "icon icon-checkbox";
+          label.appendChild(icon);
+        }
 
-      if (item.id !== undefined) {
-        inner.addEventListener("click", function(e) {
-          e.preventDefault();
-          if (clickCallback !== undefined)
-            clickCallback(item);
-          else
-            waistline.FoodsMealsRecipes.gotoEditor(item);
-        });
-      }
+        //Inner container
+        let inner = document.createElement("div");
+        inner.className = "item-inner food-item-inner";
+        label.appendChild(inner);
 
-      if (tapholdCallback !== undefined) {
-        inner.addEventListener("taphold", function(e) {
-          e.preventDefault();
-          tapholdCallback(item, li);
-        });
-      }
+        if (waistline.FoodsMealsRecipes.settings.disableEdit == false && item.id !== undefined && item.name !== "Quick Add") {
 
-      //Item proper
-      let row = document.createElement("div");
-      row.className = "item-title-row";
-      inner.appendChild(row);
+          inner.addEventListener("click", function(e) {
+            e.preventDefault();
+            if (clickCallback !== undefined)
+              clickCallback(item);
+            else
+              waistline.FoodsMealsRecipes.gotoEditor(item);
+          });
+        }
 
-      //Title
-      let title = document.createElement("div");
-      title.className = "item-title";
-      title.innerHTML = Utils.tidyText(item.name, 25);
-      row.appendChild(title);
+        if (tapholdCallback !== undefined) {
+          inner.addEventListener("taphold", function(e) {
+            e.preventDefault();
+            tapholdCallback(item, li);
+          });
+        }
 
-      //Energy
-      let energy = parseInt(item.nutrition.calories);
+        //Item proper
+        let row = document.createElement("div");
+        row.className = "item-title-row";
+        inner.appendChild(row);
 
-      if (energy !== undefined && !isNaN(energy)) {
-        let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+        //Title
+        let title = document.createElement("div");
+        title.className = "item-title";
+        title.innerHTML = Utils.tidyText(item.name, 25);
+        row.appendChild(title);
 
-        if (energyUnit == "kJ")
-          energy = Math.round(energy * 4.1868);
+        //Energy
+        let energy = parseInt(item.nutrition.calories);
 
-        let after = document.createElement("div");
-        after.className = "item-after";
-        after.innerHTML = energy + " " + energyUnit;
-        row.appendChild(after);
-      }
+        if (energy !== undefined && !isNaN(energy)) {
+          let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
 
-      //Brand 
-      if (item.brand && item.brand != "") {
-        let subtitle = document.createElement("div");
-        subtitle.className = "item-subtitle";
-        subtitle.innerHTML = Utils.tidyText(item.brand, 35).italics();
-        inner.appendChild(subtitle);
-      }
+          if (energyUnit == "kJ")
+            energy = Math.round(energy * 4.1868);
 
-      //Item details 
-      let details = document.createElement("div");
-      details.className = "item-text";
+          let after = document.createElement("div");
+          after.className = "item-after";
+          after.innerHTML = energy + " " + energyUnit;
+          row.appendChild(after);
+        }
 
-      //Portion
-      if (item.portion !== undefined) {
-        let text = item.portion;
+        //Brand 
+        if (item.brand && item.brand != "") {
+          let subtitle = document.createElement("div");
+          subtitle.className = "item-subtitle";
+          subtitle.innerHTML = Utils.tidyText(item.brand, 35).italics();
+          inner.appendChild(subtitle);
+        }
 
-        if (item.unit !== undefined) // If unit is separate from portion
-          text += item.unit;
+        //Item details 
+        let details = document.createElement("div");
+        details.className = "item-text";
 
-        if (item.quantity !== undefined && item.quantity > 1)
-          text += " x" + item.quantity;
+        //Portion
+        let text = "";
+        if (item.name != "Quick Add" && item.portion !== undefined) {
+          let text = item.portion;
+
+          if (item.unit !== undefined) // If unit is separate from portion
+            text += item.unit;
+
+          if (item.quantity !== undefined && item.quantity > 1)
+            text += " x" + item.quantity;
+        }
+
+        if (timestamp == true && item.dateTime !== undefined) {
+          let dateTime = new Date(item.dateTime);
+          if (text != "") text += "<br>";
+          text += dateTime.toLocaleTimeString();
+        }
 
         details.innerHTML = text;
         inner.appendChild(details);
@@ -614,7 +596,7 @@ waistline.FoodsMealsRecipes = {
   },
 
   gotoEditor: function(item) {
-    if (item.id !== undefined && item.type == "food") {
+    if (item.id !== undefined) {
 
       let origin;
       if (s !== undefined && s.tab !== undefined)
@@ -627,7 +609,37 @@ waistline.FoodsMealsRecipes = {
         }
       });
     }
-  }
+  },
+
+  removeItem: function(id, type) {
+    let store = this.getStoreForItemType(type);
+
+    return new Promise(async function(resolve, reject) {
+      let data = await dbHandler.getByKey(id, store);
+
+      if (data) {
+        data.archived = true;
+
+        let request = dbHandler.put(data, store);
+
+        request.onsuccess = function(e) {
+          resolve();
+        };
+      } else {
+        resolve();
+      }
+    });
+  },
+
+  getStoreForItemType: function(type) {
+    switch (type) {
+      case "food":
+        return "foodList";
+      case "recipe":
+        return "recipes";
+      default:
+    }
+  },
 };
 
 export const renderItem = waistline.FoodsMealsRecipes.renderItem;

@@ -180,8 +180,8 @@ const f7 = new Framework7({
           url: '/www/src/activities/foodlist/views/foodlist.html',
         },
         {
-          path: '/tab-2/',
-          id: 'tab-2',
+          path: '/recipes/',
+          id: 'recipes',
           url: '/www/src/activities/recipes/views/recipes.html'
         },
         {
@@ -202,6 +202,14 @@ const f7 = new Framework7({
           name: "Meal Editor",
           path: "/meal-editor/",
           url: "/www/src/activities/meals/views/meal-editor.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        },
+        {
+          name: "Recipe Editor",
+          path: "/recipe-editor/",
+          url: "/www/src/activities/recipes/views/recipe-editor.html",
           options: {
             transition: "f7-parallax"
           }

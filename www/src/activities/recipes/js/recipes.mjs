@@ -37,6 +37,13 @@ waistline.Recipes = {
     s = this.settings; //Assign settings object
     s.selection = []; //Clear out selection when page is reloaded
 
+    if (context !== undefined) {
+      if (context.recipe)
+        s.recipe = context.recipe;
+    } else {
+      s.recipe = undefined;
+    }
+
     this.getComponents();
     this.createSearchBar();
     this.bindUIActions();
@@ -77,7 +84,6 @@ waistline.Recipes = {
   },
 
   renderList: async function(clear) {
-
     if (clear) Utils.deleteChildNodes(s.el.list);
 
     //List settings 
@@ -90,9 +96,15 @@ waistline.Recipes = {
       for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
         if (i >= s.list.length) break; //Exit after all items in list
 
-        let recipe = s.list[i];
-        recipe.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(recipe.items);
-        renderItem(recipe, s.el.list, true, waistline.Recipes.gotoEditor, waistline.Recipes.deleteMeal);
+        let item = s.list[i];
+
+        // Don't show item that is being edited, otherwise endless loop will ensue
+        if (s.recipe !== undefined && s.recipe.id == item.id) continue;
+
+        if (item.archived !== true) {
+          item.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(item.items);
+          renderItem(item, s.el.list, true, waistline.Recipes.gotoEditor, waistline.Recipes.removeItem);
+        }
       }
     }
   },
@@ -107,16 +119,13 @@ waistline.Recipes = {
     });
   },
 
-  deleteRecipe: function(item) {
+  removeItem: function(item) {
     let title = waistline.strings["confirm-delete-title"] || "Delete";
     let text = waistline.strings["confirm-delete"] || "Are you sure?";
 
     let dialog = f7.dialog.confirm(text, title, async () => {
-      let request = dbHandler.deleteItem(item.id, "recipe");
-
-      request.onsuccess = function(e) {
-        f7.views.main.router.refreshPage();
-      };
+      await waistline.FoodsMealsRecipes.removeItem(item.id, "recipe");
+      f7.views.main.router.refreshPage();
     });
   },
 
@@ -148,7 +157,6 @@ waistline.Recipes = {
       origin: "/foods-meals-recipes/",
       allNutriments: true
     };
-
     f7.views.main.router.navigate("./recipe-editor/");
   },
 
@@ -175,7 +183,8 @@ waistline.Recipes = {
 
 document.addEventListener("tab:init", function(e) {
   if (e.target.id == "recipes") {
-    let context = f7.views.main.router.currentRoute.context;
+    let context = f7.data.context;
+    f7.data.context = undefined;
     waistline.Recipes.init(context);
   }
 });

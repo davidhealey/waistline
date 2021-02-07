@@ -54,3 +54,13 @@ export const toast = function(text, position, timeout) {
 
   toast.open();
 };
+
+export const concatObjects = function(...sources) {
+  const target = {};
+  sources.forEach(el => {
+    Object.keys(el).forEach(key => {
+      target[key] = el[key];
+    });
+  });
+  return target;
+};

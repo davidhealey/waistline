@@ -48,7 +48,7 @@ async function init(context) {
       replaceListItem(context.item);
 
     renderNutrition();
-    await renderRecipe();
+    await renderItems();
   }
 
   bindUIActions();
@@ -68,7 +68,7 @@ function bindUIActions() {
   // Submit
   if (!components.submit.hasClickEvent) {
     components.submit.addEventListener("click", (e) => {
-      saveRecipe();
+      save();
     });
     components.submit.hasClickEvent = true;
   }
@@ -76,11 +76,13 @@ function bindUIActions() {
   // Fab
   if (!components.fab.hasClickEvent) {
     components.fab.addEventListener("click", (e) => {
+      f7.data.context = {
+        origin: "./recipe-editor/",
+        recipe: recipe
+      };
+
       f7.views.main.router.navigate("/foods-meals-recipes/", {
-        context: {
-          origin: "./recipe-editor/",
-          recipe: recipe
-        },
+        context: f7.data.context
       });
     });
     components.fab.hasClickEvent = true;
@@ -105,7 +107,7 @@ function addItems(data) {
       id: x.id,
       portion: x.portion,
       quantity: 1,
-      type: "food"
+      type: x.type
     };
     result.push(item);
   });
@@ -124,19 +126,35 @@ function removeItem(item, li) {
   }
 }
 
-function saveRecipe() {
+async function save() {
 
-  let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input, .page[data-name='recipe-editor'] textarea");
+  let data = {};
+
+  if (recipe.id !== undefined) data.id = recipe.id;
+  if (recipe.items !== undefined) data.items = recipe.items;
+
+  let now = new Date();
+  data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
+  let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input");
 
   inputs.forEach((x) => {
     if (x.value !== undefined && x.value != "")
-      recipe[x.name] = x.value;
+      data[x.name] = x.value;
   });
 
-  let now = new Date();
-  recipe.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  // Array index should not be saved with items
+  if (data.items !== undefined) {
+    data.items.forEach((x) => {
+      if (x.index !== undefined)
+        delete x.index;
+    });
+  }
 
-  dbHandler.put(recipe, "recipes").onsuccess = () => {
+  if (recipe.items.length > 0)
+    data.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(recipe.items);
+
+  dbHandler.put(data, "recipes").onsuccess = () => {
     f7.views.main.router.navigate("/foods-meals-recipes/recipes/");
   };
 }
@@ -154,16 +172,15 @@ async function renderNutrition() {
   waistline.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
 }
 
-function renderRecipe() {
+function renderItems() {
   return new Promise(async function(resolve, reject) {
 
     // Render the food list 
     components.foodlist.innerHTML = "";
 
     recipe.items.forEach(async (x, i) => {
-      let item = await waistline.FoodsMealsRecipes.getItem(x.id, "food", x.portion, x.quantity);
-      item.index = i;
-      renderItem(item, components.foodlist, false, undefined, removeItem);
+      x.index = i;
+      renderItem(x, components.foodlist, false, undefined, removeItem);
     });
 
     resolve();
@@ -187,7 +204,6 @@ document.addEventListener("page:reinit", function(event) {
   if (event.detail.name == "recipe-editor") {
     let context = f7.data.context;
     f7.data.context = undefined;
-
     init(context);
   }
 });

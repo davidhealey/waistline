@@ -37,6 +37,13 @@ waistline.Meals = {
     s = this.settings; //Assign settings object
     s.selection = []; //Clear out selection when page is reloaded
 
+    if (context !== undefined) {
+      if (context.meal)
+        s.meal = context.meal;
+    } else {
+      s.meal = undefined;
+    }
+
     this.getComponents();
     this.createSearchBar();
     this.bindUIActions();
@@ -90,9 +97,13 @@ waistline.Meals = {
       for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
         if (i >= s.list.length) break; //Exit after all items in list
 
-        let meal = s.list[i];
-        meal.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(meal.items);
-        renderItem(meal, s.el.list, true, waistline.Meals.gotoEditor, waistline.Meals.deleteMeal);
+        let item = s.list[i];
+
+        // Don't show item that is being edited, otherwise endless loop will ensue
+        if (s.meal !== undefined && s.meal.id == item.id) continue;
+
+        item.nutrition = await waistline.FoodsMealsRecipes.getTotalNutrition(item.items);
+        renderItem(item, s.el.list, true, waistline.Meals.gotoEditor, waistline.Meals.deleteMeal);
       }
     }
   },
@@ -215,7 +226,8 @@ waistline.Meals = {
 
 document.addEventListener("tab:init", function(e) {
   if (e.target.id == "meals") {
-    let context = f7.views.main.router.currentRoute.context;
+    let context = f7.data.context;
+    f7.data.context = undefined;
     waistline.Meals.init(context);
   }
 });

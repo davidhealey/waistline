@@ -220,6 +220,7 @@ waistline.Diary = {
 
       items.forEach((x) => {
         let item = x;
+        item.dateTime = new Date();
         item.category = category;
         item.quantity = x.quantity || 1;
         entry.items.push(item);
@@ -277,27 +278,22 @@ waistline.Diary = {
     let dialog = f7.dialog.prompt(text, title, async function(value) {
       let entry = await waistline.Diary.getEntryFromDB() || waistline.Diary.getNewEntry();
 
-      let energy = parseInt(value);
+      let quantity = value;
 
-      if (!isNaN(energy)) {
+      if (!isNaN(quantity)) {
+        let item = await waistline.Foodlist.getQuickAddItem(); // Get food item
 
-        let energyUnit = waistline.Settings.get("nutrition", "energy-unit");
+        if (item !== undefined) {
+          item.dateTime = new Date();
+          item.category = category;
+          item.quantity = parseInt(quantity);
 
-        if (energyUnit == "kJ")
-          energy = Math.round(energy / 4.1868); // Convert kJ to kcal
+          entry.items.push(item);
 
-        let food = {
-          name: "Quick Add",
-          type: "quick-add",
-          category: category,
-          portion: energy // Energy value is used as portion
-        };
-
-        entry.items.push(food);
-
-        dbHandler.put(entry, "diary").onsuccess = function(e) {
-          f7.views.main.router.refreshPage();
-        };
+          dbHandler.put(entry, "diary").onsuccess = function(e) {
+            f7.views.main.router.refreshPage();
+          };
+        }
       }
     });
   },

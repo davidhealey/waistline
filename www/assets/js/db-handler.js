@@ -24,7 +24,7 @@ var dbHandler = {
     return new Promise(async function(resolve, reject) {
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 29;
+      var databaseVersion = 30;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -112,13 +112,8 @@ var dbHandler = {
           unique: false
         });
 
-        // Food items array
-        if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {
-          unique: false
-        });
-
-        // Recipe items array
-        if (!store.indexNames.contains("recipes")) store.createIndex('recipes', 'recipes', {
+        // Items array -- foods, recipes, quick-add, etc.
+        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
           unique: false
         });
 
@@ -142,13 +137,8 @@ var dbHandler = {
           unique: false
         });
 
-        // Foods
-        if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {
-          unique: false
-        });
-
-        // Recipes
-        if (!store.indexNames.contains("recipes")) store.createIndex('recipes', 'recipes', {
+        // Items
+        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
           unique: false
         });
 
@@ -199,7 +189,7 @@ var dbHandler = {
       if (!oldVersion)
         resolve();
 
-      if (oldVersion < 29) {
+      if (oldVersion < 30) {
         console.log("Upgrading database");
 
         // Get weight by date
@@ -238,8 +228,7 @@ var dbHandler = {
             entries[index] = entries[index] || {
               dateTime: date,
               stats: {},
-              foods: [],
-              recipes: []
+              items: [],
             };
 
             // Add weight 
@@ -261,10 +250,12 @@ var dbHandler = {
 
             if (value.foodId) {
               item.id = value.foodId;
-              entries[index].foods.push(item);
+              item.type = "food",
+                entries[index].items.push(item);
             } else if (value.recipeId) {
               item.id = value.recipeId;
-              entries[index].recipes.push(item);
+              item.type = "recipe",
+                entries[index].items.push(item);
             }
 
             cursor.delete();
@@ -304,7 +295,7 @@ var dbHandler = {
   bulkInsert: function(data, storeName) {
     return new Promise(function(resolve, reject) {
 
-      var request;
+      let request;
       let transaction = DB.transaction(storeName, "readwrite");
       let store = transaction.objectStore(storeName);
 
@@ -317,7 +308,6 @@ var dbHandler = {
         request.onerror = errorHandler;
       }
 
-      request.onerror = errorHandler;
       request.onsuccess = resolve(); //Only listen for last success callback
     });
   },
@@ -386,6 +376,34 @@ var dbHandler = {
     });
   },
 
+  get: function(storeName, index, key) {
+    return new Promise(function(resolve, reject) {
+      let objectStore = DB.transaction(storeName).objectStore(storeName).index(index);
+
+      let request = objectStore.get(key);
+
+      request.onsuccess = function() {
+        resolve(request.result);
+      };
+
+      request.onerror = function(e) {
+        dbHandler.errorHandler(e);
+        reject(e);
+      };
+    });
+  },
+
+  getByKey: function(key, storeName) {
+    return new Promise(function(resolve, reject) {
+      let request = DB.transaction(storeName).objectStore(storeName).get(key);
+
+      request.onsuccess = function() {
+        resolve(request.result);
+      };
+    });
+  },
+
+  // Deprecated - use getByKey
   getItem: function(key, storeName) {
     return DB.transaction(storeName).objectStore(storeName).get(key);
   },
