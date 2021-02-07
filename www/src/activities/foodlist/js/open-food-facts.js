@@ -85,15 +85,17 @@ function parseItem(item) {
   //Nutrition
   let perTag = "";
   if (item.serving_size && (item.nutrition_data_per == "serving" || item.nutriments.energy_serving)) {
-    result.portion = item.serving_size.replace(" ", "");
+    result.portion = parseInt(item.serving_size);
+    result.unit = item.serving_size.replace(/[^a-z]/g, "");
     result.nutrition.calories = parseInt(item.nutriments.energy_serving / 4.1868);
     perTag = "_serving";
   } else if (item.nutrition_data_per == "100g" && item.nutriments.energy_100g) {
-    result.portion = "100g";
+    result.portion = "100";
+    result.unit = "g";
     result.nutrition.calories = parseInt(item.nutriments.energy_100g / 4.1868);
     perTag = "_100g";
   } else if (item.quantity) { //If all else fails
-    result.portion = item.quantity;
+    result.portion = parseInt(item.quantity);
     result.nutrition.calories = item.nutriments.energy_value;
   }
 
