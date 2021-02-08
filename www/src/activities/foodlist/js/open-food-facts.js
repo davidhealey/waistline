@@ -55,15 +55,13 @@ export function search(query) {
       }
 
       // Single result (presumably from a barcode)
-      if (data.product) {
+      if (data.product !== undefined) {
         let item = parseItem(data.product);
         result.push(item);
       }
 
       resolve(result);
     }
-
-    reject();
   }).catch(err => {
     throw (err);
   });
@@ -81,7 +79,7 @@ function parseItem(item) {
 
   //Search for all keys containing 'item_name' to include local item names
   for (let k in item) {
-    if (k.includes("product_name")) {
+    if (k.includes("product_name") && item[k].length > 1) {
       result.name = escape(item[k]);
       break;
     }
@@ -113,11 +111,12 @@ function parseItem(item) {
   }
 
   //Each nutriment 
-  nutriments.forEach((x, i) => {
+  for (let i = 0; i < nutriments.length; i++) {
+    let x = nutriments[i];
     if (x != "calories" && x != "kilojoules") {
       result.nutrition[x] = item.nutriments[x + perTag];
     }
-  });
+  }
 
   //Kilojules to kcal
   if (item.nutriments.energy_unit == "kJ") {
@@ -127,14 +126,14 @@ function parseItem(item) {
     result.nutrition.kilojoules = result.nutrition.calories * 4.1868;
   }
 
-  if (result.name == "" || result.nutrition.calories == undefined || result.nutrition.calories == 0 || result.portion == undefined)
-    return undefined;
-  else
-    return result;
+  if (result.name == "" || result.nutrition.calories == undefined || result.portion === undefined)
+    result = undefined;
+
+  return result;
 }
 
-function upload() {
-
+export function upload() {
+  console.log("UPLOADING");
 }
 
 export function testCredentials(username, password) {

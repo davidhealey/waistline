@@ -30,6 +30,7 @@
       <div class="title" id="title" data-localize="edit-item">Edit Item</div>
       <div class="right">
         <a href="#" class="link icon-only"><i id="link" class="icon material-icons">link</i></a>
+        <a href="#" id="upload" class="link icon-only"><i class="icon material-icons">&#xe2c6</i></a>
         <a href="#" id="submit" class="link icon-only"><i class="icon material-icons">done</i></a>
       </div>
     </div>
@@ -39,7 +40,7 @@
 
     <form class="list" id="food-edit-form">
       <ul>
-        <li class="item-content item-input" id="barcode-container" style="display:none;">
+        <li class="item-content item-input upload-field" id="barcode-container" style="display:none;">
           <div class="item-inner">
             <div class="item-title item-label">Barcode</div>
             <div class="item-input-wrap">
@@ -63,6 +64,7 @@
             </div>
           </div>
         </li>
+
         <li id="category-container">
           <div class="item-content item-input">
             <div class="item-inner">
@@ -91,6 +93,46 @@
                   <div class="item-title item-label">Unit</div>
                   <div class="item-input-wrap">
                     <input type="text" id="unit" name="unit" required validate>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="item-divider upload-field">Images</li>
+
+        <li class="item-content item-input upload-field">
+          <div class="item-inner">
+            <div class="swiper-container swiper-init" id="images" data-swiper='{"pagination":{"el":".swiper-pagination", "type":"bullets"}}' style="width:100%;">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" id="image0" style="display:none"></div>
+                <div class="swiper-slide" id="image1" style="display:none"></div>
+                <div class="swiper-slide" id="image2" style="display:none"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="upload-field">
+          <div class="item-inner item-row">
+            <div class="item-cell">
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nutrition Serving Size</div>
+                  <div class="item-input-wrap">
+                    <input type="number" min="0" step="any" id="nutrition-serving" name="nutrition-serving" required validate value="100">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item-cell">
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nutrition Unit</div>
+                  <div class="item-input-wrap">
+                    <select id="nutritionUnit" name="nutrition-unit"></select>
                   </div>
                 </div>
               </div>

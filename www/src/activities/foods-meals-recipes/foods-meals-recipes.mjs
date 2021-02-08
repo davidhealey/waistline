@@ -65,7 +65,6 @@ waistline.FoodsMealsRecipes = {
 
           default:
             s.el.fab.style.display = "block";
-            s.el.scan.style.display = "block";
         }
       }
     } else {
@@ -602,19 +601,19 @@ waistline.FoodsMealsRecipes = {
   },
 
   gotoEditor: function(item) {
-    if (item.id !== undefined) {
+    //if (item.id !== undefined) {
 
-      let origin;
-      if (s !== undefined && s.tab !== undefined)
-        origin = s.tab;
+    let origin;
+    if (s !== undefined && s.tab !== undefined)
+      origin = s.tab;
 
-      f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
-        context: {
-          item: item,
-          origin: origin
-        }
-      });
-    }
+    f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
+      context: {
+        item: item,
+        origin: origin
+      }
+    });
+    //  }
   },
 
   removeItem: function(id, type) {

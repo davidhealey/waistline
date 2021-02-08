@@ -92,6 +92,16 @@ waistline.Foodlist = {
     s.el.searchForm.addEventListener("submit", (e) => {
       this.search(s.el.search.value);
     });
+
+    if (!s.el.scan.hasClickEvent) {
+      s.el.scan.addEventListener("click", async (e) => {
+        let item = await this.scan();
+        if (item !== undefined) {
+          waistline.FoodsMealsRecipes.gotoEditor(item);
+        }
+      });
+      s.el.scan.hasClickEvent = true;
+    }
   },
 
   search: async function(query) {
@@ -355,30 +365,53 @@ waistline.Foodlist = {
 
         let code = data.text;
 
-        // Check if the item is already in the foodlist
-        let item = await dbHandler.get("foodList", "barcode", code);
+        if (code !== undefined) {
+          // Check if the item is already in the foodlist
+          let item = await dbHandler.get("foodList", "barcode", code);
 
-        if (item !== undefined)
+          if (item === undefined) {
+
+            // Not already in foodlist so search OFF 
+            if (navigator.connection.type == "none") {
+              Utils.notify(waistline.strings["no-internet"] || "No internet connection");
+              reject();
+            }
+
+            // Display loading image
+            s.el.spinner.style.display = "block";
+            let result = await Off.search(code);
+
+            // Return result from OFF
+            if (result[0] !== undefined) {
+              item = result[0];
+            } else {
+              waistline.Foodlist.gotoUploadEditor(code);
+            }
+          }
           resolve(item);
-
-        // Not already in foodlist so search OFF 
-        if (navigator.connection.type == "none") {
-          Utils.notify(waistline.strings["no-internet"] || "No internet connection");
-          resolve();
+        } else {
+          reject();
         }
-
-        // Display loading image
-        s.el.spinner.style.display = "block";
-        let result = await Off.search(code);
-
-        // Return result from OFF
-        if (result != undefined)
-          resolve(result);
-
-        // No result found so ask if user would like to add it 
-        console.log("Not found");
       });
     });
+  },
+
+  gotoUploadEditor: function(code) {
+    let title = waistline.strings["product-not-found"] || "Product not found";
+    let text = waistline.strings["add-to-off"] || "Would you like to add this product to the Open Food Facts database?";
+
+    let callbackOk = function() {
+      f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
+        context: {
+          origin: "foodlist",
+          scan: true,
+          item: undefined,
+          barcode: code
+        }
+      });
+    };
+
+    let dialog = f7.dialog.confirm(text, title, callbackOk);
   }
 };
 

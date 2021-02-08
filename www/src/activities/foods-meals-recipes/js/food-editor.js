@@ -18,29 +18,33 @@
 */
 
 import * as Utils from "/www/assets/js/utils.js";
+import * as Off from "/www/src/activities/foodlist/js/open-food-facts.js";
 
 const s = {
   item: undefined,
   origin: undefined,
-  allNutriments: false,
   linked: true,
   el: {},
-  lastPage: ""
+  images: []
 };
 
 function init(context) {
 
+  s.item = undefined;
+  s.scan = false;
+
   if (context) {
 
-    if (context.item) {
+    if (context.item !== undefined) {
       s.item = context.item;
       s.linked = true;
     } else
       s.linked = false; //Unlinked by default for adding new items
 
     s.origin = context.origin;
+    s.scan = context.scan;
   }
-
+  s.scan = true;
   getComponents();
   bindUIActions();
   updateTitle();
@@ -53,16 +57,21 @@ function init(context) {
 
   if (s.item && s.item.category !== undefined)
     populateCategoryField(s.item);
+
+  populateNutritionUnitOptions();
+  setUploadFieldVisibility();
 }
 
 function getComponents() {
   s.el.title = document.querySelector(".page[data-name='food-editor'] #title");
   s.el.link = document.querySelector(".page[data-name='food-editor'] #link");
+  s.el.upload = document.querySelector(".page[data-name='food-editor'] #upload");
   s.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
   s.el.name = document.querySelector(".page[data-name='food-editor'] #name");
   s.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
   s.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
   s.el.category = document.querySelector(".page[data-name='food-editor'] #category");
+  s.el.nutritionUnit = document.querySelector(".page[data-name='food-editor'] #nutritionUnit");
   s.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
   s.el.portion = document.querySelector(".page[data-name='food-editor'] #portion");
   s.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
@@ -87,6 +96,20 @@ function bindUIActions() {
     s.linked = 1 - s.linked;
     setLinkButtonIcon();
   });
+
+  if (!s.el.fab.hasClickEvent) {
+    s.el.fab.addEventListener("click", (e) => {
+      takePicture();
+    });
+    s.el.fab.hasClickEvent = true;
+  }
+
+  if (!s.el.upload.hasClickEvent) {
+    s.el.upload.addEventListener("click", (e) => {
+      Off.upload();
+    });
+    s.el.upload.hasClickEvent = true;
+  }
 }
 
 function setComponentVisibility(origin) {
@@ -115,6 +138,27 @@ function setComponentVisibility(origin) {
     s.el.categoryContainer.style.display = "block";
   else
     s.el.categoryContainer.style.display = "none";
+
+  if (s.scan == true) {
+    s.el.fab.style.display = "block";
+    s.el.upload.style.display = "block";
+    s.el.submit.style.display = "none";
+  } else {
+    s.el.fab.style.display = "none";
+    s.el.upload.style.display = "none";
+    s.el.submit.style.display = "block";
+  }
+}
+
+function setUploadFieldVisibility() {
+  let fields = Array.from(document.getElementsByClassName("upload-field"));
+
+  fields.forEach((x) => {
+    if (s.scan == true)
+      x.style.display = "block";
+    else
+      x.style.display = "none";
+  });
 }
 
 function setLinkButtonIcon() {
@@ -128,13 +172,28 @@ function updateTitle() {
   if (!s.item) s.el.title.innerHTML = waistline.strings["add-new-item"] || "Add New Item";
 }
 
+function populateNutritionUnitOptions() {
+  let units = waistline.standardUnits;
+  s.el.nutritionUnit.innerHTML = "";
+
+  units.forEach((x, i) => {
+    if (x != "" && x != undefined) {
+      let option = document.createElement("option");
+      option.value = i;
+      option.text = x;
+      if (x == "g") option.setAttribute("selected", "");
+      s.el.nutritionUnit.append(option);
+    }
+  });
+}
+
 /* Nutrition fields are dynamically created for the nutriments of the item */
 function renderNutritionFields(item) {
 
   const nutriments = waistline.nutriments;
   const units = waistline.nutrimentUnits;
 
-  if (item && item.nutrition.kilojoules == undefined)
+  if (item !== undefined && item.nutrition.kilojoules == undefined)
     item.nutrition.kilojoules = Math.round(item.nutrition.calories * 4.1868);
 
   let ul = document.getElementById("nutrition");
@@ -142,7 +201,7 @@ function renderNutritionFields(item) {
 
   for (let k of nutriments) {
 
-    if (s.origin == "foodlist" || (item && item.nutrition[k])) { // All nutriments or only items nutriments
+    if (s.origin == "foodlist" || (item !== undefined && item.nutrition[k])) { // All nutriments or only items nutriments
       let li = document.createElement("li");
       li.className = "item-content item-input";
       ul.appendChild(li);
@@ -186,7 +245,6 @@ function renderNutritionFields(item) {
 }
 
 function populateCategoryField(item) {
-  //Category 
   const mealNames = waistline.Settings.get("diary", "meal-names");
   s.el.category.innerHTML = "";
 
@@ -257,6 +315,83 @@ function changeServing(item, field, newValue) {
   }
 }
 
+function takePicture() {
+
+  let options = {
+    "allowEdit": true,
+    "saveToPhotoAlbum": false
+  };
+
+  navigator.camera.getPicture(function(image_uri) {
+      let ac = f7.actions.create({
+        buttons: [{
+            text: "What is this image of?",
+            label: true
+          }, {
+            text: 'Front',
+            onClick: function() {
+              addImageToSwiper(image_uri, 0);
+            }
+          },
+          {
+            text: 'Ingredients',
+            onClick: function() {
+              addImageToSwiper(image_uri2, 1);
+            }
+          },
+          {
+            text: 'Nutrition',
+            onClick: function() {
+              addImageToSwiper(image_uri3, 2);
+            }
+          },
+        ]
+      });
+
+      ac.open();
+    },
+    function() {
+      Utils.toast("There was a problem accessing your camera.", 2000);
+    }, options);
+}
+
+function addImageToSwiper(image_uri, type) {
+
+  let swiper = f7.swiper.get("#food-edit-form .swiper-container");
+  let slide = document.getElementById("image" + type);
+
+  if (!slide.hasTapholdEvent) {
+    slide.addEventListener("taphold", (e) => {
+      removeImageFromSwiper(slide);
+    });
+    slide.hasTapholdEvent = true;
+  }
+
+  slide.innerHTML = ""; // Remove old image 
+
+  // Add new image
+  let img = document.createElement("img");
+  img.src = image_uri;
+  img.style["width"] = "100%";
+
+  slide.appendChild(img);
+  slide.style.display = "block";
+  swiper.update();
+}
+
+function removeImageFromSwiper(slide) {
+  let swiper = f7.swiper.get("#food-edit-form .swiper-container");
+  let title = waistline.strings["confirm-delete-title"] || "Delete";
+  let text = waistline.strings["confirm-delete"] || "Are you sure?";
+
+  let dialog = f7.dialog.confirm(text, title, () => {
+    //slide.remove();
+    slide.innerHTML = "";
+    slide.style.display = "none";
+    swiper.update();
+  });
+}
+
 function returnItem(data, origin) {
 
   if (f7.input.validateInputs("#food-edit-form") == true) {
@@ -265,8 +400,9 @@ function returnItem(data, origin) {
     item.portion = s.el.portion.value;
 
     if (data !== undefined) {
-      item.id = data.id;
-      item.type = data.type;
+      if (data.id !== undefined) item.id = data.id;
+
+      item.type = data.type || "food";
 
       if (data.index !== undefined)
         item.index = data.index;
@@ -286,6 +422,8 @@ function returnItem(data, origin) {
 
       const nutriments = waistline.nutriments;
       const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity)");
+
+      if (data.barcode !== undefined) item.barcode = data.barcode;
 
       const unit = s.el.unit.value;
 
