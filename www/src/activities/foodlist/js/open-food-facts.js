@@ -132,8 +132,42 @@ function parseItem(item) {
   return result;
 }
 
-export function upload() {
-  console.log("UPLOADING");
+export function upload(data) {
+  console.log(data);
+
+  // Gather additional data
+  let username = waistline.Settings.get("integrations", "off-username") || "waistline-app";
+  let password = waistline.Settings.get("integrations", "off-password") || "waistline";
+
+  if (app.mode == "development") {
+    username = "";
+    password = "";
+  }
+
+  let lang = /*app.getLocale() || */ "en";
+
+  // Organise data for upload 
+  let s = "user_id=" + username + "&password=" + password;
+
+  s += "&lang=" + lang;
+  s += "&code=" + data.barcode;
+  s += "&product_name=" + escape(data.name);
+  if (data.brand !== undefined) s += "&brands=" + escape(data.brand);
+  s += "&product_quantity=" + escape(data.portion);
+  s += data.nutrition_per + "&serving_size=" + escape(data.portion) + data.unit;
+  s += "&nutriment_energy_unit=kcal"; //MAKE SURE THIS IS CORRECT!!!!
+  if (data.ingredients !== undefined) s += "&ingredients_text=" + escape(data.ingredients);
+  if (data.traces !== undefined) s += "&traces_text=" + escape(data.traces);
+
+  console.log(s);
+
+  //Make request to OFF
+  let endPoint;
+  if (app.mode == "development")
+    endPoint = "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
+  else
+    endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; //Real server
+
 }
 
 export function testCredentials(username, password) {

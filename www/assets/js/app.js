@@ -307,7 +307,7 @@ f7.on("init", async function(event) {
   //diary.initializeSettings();
   goals.initializeSettings();
 
-  f7.views.main.router.navigate("/diary/");
+  f7.views.main.router.navigate("/foods-meals-recipes/");
 });
 
 //Prevent chrome displaying context menu on long click

@@ -25,7 +25,7 @@ const s = {
   origin: undefined,
   linked: true,
   el: {},
-  images: []
+  images: [undefined, undefined, undefined]
 };
 
 function init(context) {
@@ -45,11 +45,13 @@ function init(context) {
     s.scan = context.scan;
   }
   s.scan = true;
+
   getComponents();
   bindUIActions();
   updateTitle();
   renderNutritionFields(s.item);
   setComponentVisibility(s.origin);
+  setUploadFieldVisibility();
   setLinkButtonIcon();
 
   if (s.item)
@@ -58,8 +60,7 @@ function init(context) {
   if (s.item && s.item.category !== undefined)
     populateCategoryField(s.item);
 
-  populateNutritionUnitOptions();
-  setUploadFieldVisibility();
+  populateUnitOptions();
 }
 
 function getComponents() {
@@ -71,12 +72,12 @@ function getComponents() {
   s.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
   s.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
   s.el.category = document.querySelector(".page[data-name='food-editor'] #category");
-  s.el.nutritionUnit = document.querySelector(".page[data-name='food-editor'] #nutritionUnit");
-  s.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
   s.el.portion = document.querySelector(".page[data-name='food-editor'] #portion");
+  s.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
   s.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
   s.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
-  s.el.fab = document.querySelector(".page[data-name='food-editor'] #add-photo");
+  s.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
+  s.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
 }
 
 function bindUIActions() {
@@ -97,19 +98,27 @@ function bindUIActions() {
     setLinkButtonIcon();
   });
 
-  if (!s.el.fab.hasClickEvent) {
-    s.el.fab.addEventListener("click", (e) => {
-      takePicture();
-    });
-    s.el.fab.hasClickEvent = true;
-  }
-
   if (!s.el.upload.hasClickEvent) {
     s.el.upload.addEventListener("click", (e) => {
-      Off.upload();
+      let data = gatherFormData(s.item, s.origin);
+
+      if (data !== undefined) {
+        data.images = s.images;
+        Off.upload(data);
+      }
     });
     s.el.upload.hasClickEvent = true;
   }
+
+  // add-photo buttons
+  s.el.addPhoto.forEach((x, i) => {
+    if (!x.hasClickeEvent) {
+      x.addEventListener("click", (e) => {
+        takePicture(i);
+      });
+      x.hasClickEvent = true;
+    }
+  });
 }
 
 function setComponentVisibility(origin) {
@@ -129,22 +138,15 @@ function setComponentVisibility(origin) {
     s.el.quantityContainer.style.display = "none";
   }
 
-  if (s.item == undefined)
-    s.el.fab.style.display = "block";
-  else
-    s.el.fab.style.display = "none";
-
   if (s.item && s.item.category !== undefined)
     s.el.categoryContainer.style.display = "block";
   else
     s.el.categoryContainer.style.display = "none";
 
   if (s.scan == true) {
-    s.el.fab.style.display = "block";
     s.el.upload.style.display = "block";
     s.el.submit.style.display = "none";
   } else {
-    s.el.fab.style.display = "none";
     s.el.upload.style.display = "none";
     s.el.submit.style.display = "block";
   }
@@ -159,6 +161,11 @@ function setUploadFieldVisibility() {
     else
       x.style.display = "none";
   });
+
+  if (s.scan == true) {
+    s.linked = false;
+    s.el.link.style.display = "none";
+  }
 }
 
 function setLinkButtonIcon() {
@@ -172,9 +179,9 @@ function updateTitle() {
   if (!s.item) s.el.title.innerHTML = waistline.strings["add-new-item"] || "Add New Item";
 }
 
-function populateNutritionUnitOptions() {
+function populateUnitOptions() {
   let units = waistline.standardUnits;
-  s.el.nutritionUnit.innerHTML = "";
+  s.el.unit.innerHTML = "";
 
   units.forEach((x, i) => {
     if (x != "" && x != undefined) {
@@ -182,7 +189,7 @@ function populateNutritionUnitOptions() {
       option.value = i;
       option.text = x;
       if (x == "g") option.setAttribute("selected", "");
-      s.el.nutritionUnit.append(option);
+      s.el.unit.append(option);
     }
   });
 }
@@ -211,7 +218,7 @@ function renderNutritionFields(item) {
       li.appendChild(innerDiv);
 
       let titleDiv = document.createElement("div");
-      titleDiv.className = "item-input item-label";
+      titleDiv.className = "item-title item-label";
       let text = waistline.strings[k] || k; //Localize
       titleDiv.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " (" + (units[k] || "g") + ")";
       innerDiv.appendChild(titleDiv);
@@ -222,6 +229,7 @@ function renderNutritionFields(item) {
 
       let input = document.createElement("input");
       input.id = k;
+      input.className = "align-right";
       input.type = "number";
       input.step = "0.01";
       input.min = "0";
@@ -315,7 +323,7 @@ function changeServing(item, field, newValue) {
   }
 }
 
-function takePicture() {
+function takePicture(index) {
 
   let options = {
     "allowEdit": true,
@@ -323,77 +331,40 @@ function takePicture() {
   };
 
   navigator.camera.getPicture(function(image_uri) {
-      let ac = f7.actions.create({
-        buttons: [{
-            text: "What is this image of?",
-            label: true
-          }, {
-            text: 'Front',
-            onClick: function() {
-              addImageToSwiper(image_uri, 0);
-            }
-          },
-          {
-            text: 'Ingredients',
-            onClick: function() {
-              addImageToSwiper(image_uri2, 1);
-            }
-          },
-          {
-            text: 'Nutrition',
-            onClick: function() {
-              addImageToSwiper(image_uri3, 2);
-            }
-          },
-        ]
+
+      // Add new image
+      let img = document.createElement("img");
+      img.src = image_uri;
+      img.style["width"] = "50%";
+
+      img.addEventListener("taphold", function(e) {
+        removePicture(index);
       });
 
-      ac.open();
+      s.el.photoHolder[index].innerHTML = "";
+      s.el.photoHolder[index].appendChild(img);
+      s.el.addPhoto[index].style.display = "none";
+      s.images[index] = image_uri;
+      console.log(s.images);
+
     },
     function() {
       Utils.toast("There was a problem accessing your camera.", 2000);
     }, options);
 }
 
-function addImageToSwiper(image_uri, type) {
-
-  let swiper = f7.swiper.get("#food-edit-form .swiper-container");
-  let slide = document.getElementById("image" + type);
-
-  if (!slide.hasTapholdEvent) {
-    slide.addEventListener("taphold", (e) => {
-      removeImageFromSwiper(slide);
-    });
-    slide.hasTapholdEvent = true;
-  }
-
-  slide.innerHTML = ""; // Remove old image 
-
-  // Add new image
-  let img = document.createElement("img");
-  img.src = image_uri;
-  img.style["width"] = "100%";
-
-  slide.appendChild(img);
-  slide.style.display = "block";
-  swiper.update();
-}
-
-function removeImageFromSwiper(slide) {
-  let swiper = f7.swiper.get("#food-edit-form .swiper-container");
+function removePicture(index) {
   let title = waistline.strings["confirm-delete-title"] || "Delete";
   let text = waistline.strings["confirm-delete"] || "Are you sure?";
 
   let dialog = f7.dialog.confirm(text, title, () => {
-    //slide.remove();
-    slide.innerHTML = "";
-    slide.style.display = "none";
-    swiper.update();
+    s.el.photoHolder[index].innerHTML = "";
+    s.el.addPhoto[index].style.display = "block";
+    s.images[index] = undefined;
   });
 }
 
-function returnItem(data, origin) {
-
+function gatherFormData(data, origin) {
   if (f7.input.validateInputs("#food-edit-form") == true) {
 
     let item = {};
@@ -421,36 +392,47 @@ function returnItem(data, origin) {
       item.dateTime = today;
 
       const nutriments = waistline.nutriments;
-      const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity)");
+      const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
 
-      if (data.barcode !== undefined) item.barcode = data.barcode;
+      if (data !== undefined && data.barcode !== undefined)
+        item.barcode = data.barcode;
 
       const unit = s.el.unit.value;
 
-      if (unit !== undefined && unit != "")
-        item.unit = unit;
+      if (unit !== undefined && unit != "") {
+        let units = waistline.standardUnits;
+        item.unit = units[unit];
+      }
 
       item.nutrition = {};
 
       inputs.forEach((x, i) => {
-
         let id = x.id;
         let value = x.value;
 
         if (value) {
-          if (nutriments.indexOf(id) != -1) //Nutriments
+          if (nutriments.indexOf(id) != -1) { //Nutriments
             item.nutrition[id] = parseFloat(value);
-          else
+          } else if (x.type == "radio") {
+            if (item[x.name] == undefined && x.checked)
+              item[x.name] = value;
+          } else {
             item[id] = value;
+          }
         }
       });
     }
-
-    f7.data.context = {
-      item: item
-    };
-    f7.views.main.router.back();
+    return item;
   }
+}
+
+function returnItem(data, origin) {
+  let item = gatherFormData(data, origin);
+
+  f7.data.context = {
+    item: item
+  };
+  f7.views.main.router.back();
 }
 
 document.addEventListener("page:init", function(event) {

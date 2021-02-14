@@ -45,7 +45,7 @@ export const notification = function(text, icon) {
   notification.open();
 };
 
-export const toast = function(text, position, timeout) {
+export const toast = function(text, timeout, position) {
   let toast = f7.toast.create({
     text: text,
     position: position || 'center',
