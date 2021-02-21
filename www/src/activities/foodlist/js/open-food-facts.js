@@ -132,42 +132,151 @@ function parseItem(item) {
   return result;
 }
 
-export function upload(data) {
-  console.log(data);
+export async function upload(data) {
+
+  let s = getUploadString(data);
+
+  // Make request to OFF
+  let endPoint;
+  if (waistline.mode == "development")
+    endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
+  else
+    endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
+
+  let headers = {};
+  if (waistline.mode == "development")
+    headers.Authorization = "Basic " + btoa("off:off");
+
+  let response = await fetch(endPoint + s, {
+    credentials: 'include',
+    headers: headers
+  });
+
+  if (response) {
+    let result = await response.json();
+    if (result.status == 1 && data.images !== undefined) {
+      await uploadImages(data.images, data.barcode);
+    }
+  }
+}
+
+function getUploadString(data) {
+  let string = "";
 
   // Gather additional data
   let username = waistline.Settings.get("integrations", "off-username") || "waistline-app";
   let password = waistline.Settings.get("integrations", "off-password") || "waistline";
 
-  if (app.mode == "development") {
-    username = "";
-    password = "";
-  }
-
   let lang = /*app.getLocale() || */ "en";
 
   // Organise data for upload 
-  let s = "user_id=" + username + "&password=" + password;
+  string += "code=" + data.barcode;
+  string += "&user_id=" + username;
+  string += "&password=" + password;
+  string += "&lang=" + lang;
+  string += "&product_name=" + escape(data.name);
+  if (data.brand !== undefined) string += "&brands=" + escape(data.brand);
+  string += data.nutrition_per;
+  string += "&serving_size=" + escape(data.portion) + data.unit;
+  if (data.ingredients !== undefined) string += "&ingredients_text=" + escape(data.ingredients);
+  if (data.traces !== undefined) string += "&traces_text=" + escape(data.traces);
 
-  s += "&lang=" + lang;
-  s += "&code=" + data.barcode;
-  s += "&product_name=" + escape(data.name);
-  if (data.brand !== undefined) s += "&brands=" + escape(data.brand);
-  s += "&product_quantity=" + escape(data.portion);
-  s += data.nutrition_per + "&serving_size=" + escape(data.portion) + data.unit;
-  s += "&nutriment_energy_unit=kcal"; //MAKE SURE THIS IS CORRECT!!!!
-  if (data.ingredients !== undefined) s += "&ingredients_text=" + escape(data.ingredients);
-  if (data.traces !== undefined) s += "&traces_text=" + escape(data.traces);
+  // Nutrition
+  if (data.nutrition.kilojoules !== 0) {
+    string += "&nutriment_energy_unit=kj";
+    string += "&nutriment_energy=" + data.nutrition.kilojoules;
+  } else {
+    string += "&nutriment_energy_unit=kcal";
+    string += "&nutriment_energy=" + data.nutrition.calories;
+  }
 
-  console.log(s);
+  for (let n in data.nutrition) {
+    if (data.nutrition[n] == 0 || n == "kilojoules" || n == "calories") continue;
+    string += "&nutriment_" + n + "=" + data.nutrition[n];
+  }
 
-  //Make request to OFF
+  return string;
+}
+
+export function uploadImages(imageURIs, barcode) {
+  return new Promise(function(resolve, reject) {
+    let username = waistline.Settings.get("integrations", "off-username") || "waistline-app";
+    let password = waistline.Settings.get("integrations", "off-password") || "waistline";
+    let promises = [];
+
+    imageURIs.forEach(async (x, i) => {
+      let data = await getImageData(x, i);
+      data.append("code", barcode);
+      data.append("user_id", username);
+      data.append("password", password);
+      //promises.push(postImage(data));
+      console.log(data);
+    });
+
+    Promise.all(promises).then((values) => {
+      console.log(values);
+      resolve();
+    });
+  });
+}
+
+function getImageData(uri, index) {
+  return new Promise(function(resolve, reject) {
+      window.resolveLocalFileSystemURL(uri, (fileEntry) => {
+        fileEntry.file((file) => {
+          console.log("Reading file");
+
+          const imagefields = ["front", "ingredients", "nutrition"];
+          let reader = new FileReader();
+
+          reader.onloadend = function() {
+            // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+            let blob = new Blob([new Uint8Array(this.result)], {
+              type: "image/png"
+            });
+
+            let data = new FormData();
+            data.append("imgupload_" + imagefields[index], blob);
+            data.append("imagefield", imagefields[index]);
+            resolve(data);
+          };
+
+          reader.readAsArrayBuffer(file);
+
+        }, (err) => {
+          console.error("Error getting file entry", err);
+        });
+      }, (err) => {
+        console.error("Error getting file", err);
+      });
+    })
+    .catch(function(err) {
+      console.error('Error!', err.statusText);
+      reject();
+    });
+}
+
+function postImage(data) {
   let endPoint;
-  if (app.mode == "development")
-    endPoint = "https://off:off@world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
+  if (waistline.mode == "development")
+    endPoint = "https://world.openfoodfacts.net/cgi/product_image_upload.pl"; //Testing server
   else
-    endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; //Real server
+    endPoint = "https://world.openfoodfacts.org/cgi/product_image_upload.pl"; // Real server
 
+  let headers = {};
+  if (waistline.mode == "development")
+    headers.Authorization = "Basic " + btoa("off:off");
+
+  headers["Content-Type"] = "multipart/form-data";
+
+  let response = fetch(endPoint, {
+    method: 'POST',
+    credentials: 'include',
+    headers: headers,
+    body: data
+  });
+
+  return response;
 }
 
 export function testCredentials(username, password) {

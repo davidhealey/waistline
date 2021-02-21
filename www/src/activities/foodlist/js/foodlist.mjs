@@ -419,5 +419,6 @@ document.addEventListener("tab:init", function(e) {
   if (e.target.id == "foodlist") {
     let context = f7.views.main.router.currentRoute.context;
     waistline.Foodlist.init(context);
+    Tests.run();
   }
 });

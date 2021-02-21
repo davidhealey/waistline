@@ -103,8 +103,12 @@ function bindUIActions() {
       let data = gatherFormData(s.item, s.origin);
 
       if (data !== undefined) {
-        data.images = s.images;
-        Off.upload(data);
+        if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
+          data.images = s.images;
+          Off.upload(data);
+        } else {
+          Utils.toast("Please provide the number of calories for this food.", 2500);
+        }
       }
     });
     s.el.upload.hasClickEvent = true;
@@ -330,7 +334,7 @@ function takePicture(index) {
     "saveToPhotoAlbum": false
   };
 
-  navigator.camera.getPicture(function(image_uri) {
+  navigator.camera.getPicture((image_uri) => {
 
       // Add new image
       let img = document.createElement("img");
@@ -346,10 +350,10 @@ function takePicture(index) {
       s.el.addPhoto[index].style.display = "none";
       s.images[index] = image_uri;
       console.log(s.images);
-
     },
-    function() {
+    (err) => {
       Utils.toast("There was a problem accessing your camera.", 2000);
+      console.error(err);
     }, options);
 }
 
