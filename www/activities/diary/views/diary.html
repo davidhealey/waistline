@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018 David Healey
+  Copyright 2018, 2019, 2020 David Healey
 
   This file is part of Waistline.
 
@@ -14,36 +14,55 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ons-page id="diary-page">
-  <ons-toolbar modifier="material">
-    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
-    <div class="center" data-localize="diary.title">Diary</div>
-    <div class="right"><ons-toolbar-button id="record-weight"><ons-icon icon="fa-balance-scale"></ons-icon></ons-toolbar-button></div>
-  </ons-toolbar>
 
-  <ons-card id="date-selector" style="text-align:center;">
-    <ons-row>
-      <ons-col><ons-button style="background-color:white; box-shadow:none; color:#000000" tappable id="previousDate"><ons-icon icon="chevron-left"></ons-icon></ons-button></ons-col>
-      <ons-col><ons-input style="text-align:center; margin-top:0.3em;" id="date" type="date"></ons-input></ons-col>
-      <ons-col><ons-button style="background-color:white; box-shadow:none; color:#000000" tappable id="nextDate"><ons-icon icon="chevron-right"></ons-icon></ons-button></ons-col>
-    </ons-row>
-  </ons-card>
+<div class="page" data-name="diary">
 
-  <div id="diary-lists"></div> <!--Populated dynamically-->
+	<div class="navbar">
+		<div class="navbar-bg"></div>
+		<div class="navbar-inner">
+			<div class="left">
+				<a href="#" class="link icon-only panel-toggle" data-panel=".panel-left">
+					<i class="icon material-icons">menu</i>
+				</a>
+			</div>
+			<div class="title" data-localize="diary.title">Diary</div>
+			<div class="right">
+				<a href="#" class="link icon-only" id="log-weight">
+					<i class="icon fas fa-balance-scale-left"></i>
+				</a>
+			</div>
+		</div>
+	</div>
 
-  <ons-bottom-toolbar id="stat-bar" static>
-    <div class="progressBar" style="max-width:100%; height:.1em; margin-bottom: 0.2em;"></div>
-    <ons-row style="margin-bottom:0; margin-top:0;">
-      <ons-col style='text-align:center;' data-localize="statistics.goal"><b>Goal</b></ons-col>
-      <ons-col style='text-align:center;' data-localize="statistics.used"><b>Used</b></ons-col>
-      <ons-col style='text-align:center;' data-localize="statistics.remaining"><b>Remaining</b></ons-col>
-    </ons-row>
-    <ons-row>
-      <ons-col id="goal" style='text-align:center;'></ons-col>
-      <ons-col id="used" style='text-align:center;'></ons-col>
-      <ons-col id="remaining" style='text-align:center;'></ons-col>
-    </ons-row>
-  </ons-bottom-toolbar>
-</ons-page>
+	<div class="page-content">
+		<div class="card no-border no-shadow" id="header">
+			<div class="card-content">
+				<div class="row" id="date-picker-container">
+					<div class="col-25">
+						<button class="button change-date">
+							<i class="icon fas fa-chevron-left"></i>
+						</button>
+					</div>
+					<div class="col-50">
+						<input type="text" placeholder="Select date" readonly="readonly" id="diary-date" />
+					</div>
+					<div class="col-25">
+						<button class="button change-date">
+							<i class="icon fas fa-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+				<div class="row" id="diary-nutrition">
+					<div class="col-100">
+						<div class="swiper-container swiper-init">
+							<div class="swiper-wrapper"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="diary-day"></div>
+	</div>
+</div>

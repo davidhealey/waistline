@@ -1,5 +1,5 @@
 /*
-  Copyright 2018 David Healey
+  Copyright 2020, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -14,423 +14,169 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
-var recipes = {
 
-  list:[],
+app.Recipes = {
 
-  fillList : function()
-  {
-    var items = $("#recipes #recipe-list ons-list-item"); //Get all list items
+  settings: {
+    list: [], //Main list of foods
+    filterList: [], //Copy of the list for filtering
+    selection: [], //Items that have been checked, even if list has been changed
+    el: {} //UI elements
+  },
 
-    for (var i = 0; i < items.length; i++)
-    {
-        var itemData = JSON.parse($(items[i]).attr("data"));
-        recipes.list.push(itemData);
+  init: async function(context) {
+    this.settings.selection = []; //Clear out selection when page is reloaded
+
+    if (context !== undefined) {
+      if (context.recipe)
+        this.settings.recipe = context.recipe;
+    } else {
+      this.settings.recipe = undefined;
     }
+
+    this.getComponents();
+    this.createSearchBar();
+    this.bindUIActions();
+
+    if (!this.settings.ready) {
+      app.f7.infiniteScroll.create(this.settings.el.infinite); //Setup infinite list
+      this.settings.ready = true;
+    }
+
+    this.settings.list = await this.getListFromDB();
+    this.settings.filterList = this.settings.list;
+
+    this.renderList(true);
   },
 
-  filterList : function(term)
-  {
-    return list = recipes.list.filter(function (el) {
-      if (el.name) return (el.name.match(new RegExp(term, "i"))); //Allow partial match and case insensitive
-    });
+  getComponents: function() {
+    this.settings.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
+    this.settings.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
+    this.settings.el.scan.style.display = "none";
+    this.settings.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
+    this.settings.el.search = document.querySelector("#recipes-tab #recipe-search");
+    this.settings.el.searchForm = document.querySelector("#recipes-tab #recipe-search-form");
+    this.settings.el.fab = document.querySelector("#add-recipe");
+    this.settings.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #recipes"); //Infinite list container
+    this.settings.el.list = document.querySelector("#recipe-list-container ul"); //Infinite list
+    this.settings.el.spinner = document.querySelector("#recipes-tab #spinner");
   },
 
-  //Takes an array of foodIds and returns the food items from the database
-  getFoods : function(foodIds)
-  {
-    return new Promise(function(resolve, reject){
+  bindUIActions: function() {
 
-      dbHandler.getByMultipleKeys(foodIds, "foodList")
-      .then(function(results)
-      {
-        resolve(results);
+    //Infinite list 
+    if (!this.settings.el.infinite.hasInfiniteEvent) {
+      this.settings.el.infinite.addEventListener("infinite", (e) => {
+        this.renderList();
       });
-    });
-  },
-
-  //Takes data of a food item and adds it to the recipe's list
-  renderFoodItem : function(data)
-  {
-    //Add a space at the begining of unit, unless it is usually displayed without a leading space
-    unit = data.portion.replace(/[0-9]/g, '');
-    if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
-
-    var html = "";
-    html += "<ons-list-item tappable modifier='longdivider' id='"+data.id+"' data='"+JSON.stringify(data)+"'>";
-    if (app.storage.getItem("brand-position") == "false")
-    {
-      html += "<ons-row>" + unescape(data.brand) + "</ons-row>";
-      html += "<ons-row style='color:#636363;'><i>" + unescape(data.name) + ": " + parseFloat(data.portion) + unit + ", " + data.nutrition.calories + "kcal</i></ons-row>";
-    }
-    else
-    {
-      html += "<ons-row>" + unescape(data.name) + " - " + parseFloat(data.portion) + unit + "</ons-row>";
-      html += "<ons-row style='color:#636363;'><i>";
-      if (data.brand) html += unescape(data.brand) + ": ";
-      html += parseFloat(data.portion) + unit + ", " + data.nutrition.calories + "kcal</i></ons-row>";
-    }
-    html += "</ons-list-item>";
-
-    return html;
-  },
-
-  fillEditForm : function(data)
-  {
-    return new Promise(function(resolve, reject){
-      $("#edit-recipe #recipe-data #id").val(data.id); //Hidden field
-      $("#edit-recipe #recipe-data #name").val(unescape(data.name));
-      $("#edit-recipe #recipe-data #quantity").val(parseFloat(data.portion));
-      $("#edit-recipe #recipe-data #unit").val(data.portion.replace(/[0-9]/g, ''));
-      $("#edit-recipe #recipe-data #notes").val(unescape(data.notes));
-
-      var foods = data.foods;
-      for (var i = 0; i < foods.length; i++)
-      {
-        //Display food items
-        $("#edit-recipe ons-list#foods").append(recipes.renderFoodItem(foods[i]));
-        recipes.renderTotalNutrition(recipes.getTotalNutrition());
-      }
-    });
-  },
-
-  //Grabs the onsen list of food items and saves them to the recipes database store
-  update : function()
-  {
-    return new Promise(function(resolve, reject){
-      var dateTime = new Date()
-
-      var id = parseInt($("#edit-recipe #recipe-data #id").val()); //Hidden field
-      var nutrition = JSON.parse($("#edit-recipe #recipe-data #nutrition").val()); //Hidden field
-      var name = escape($("#edit-recipe #recipe-data #name").val());
-      var quantity = $("#edit-recipe #recipe-data #quantity").val();
-      var unit = $("#edit-recipe #recipe-data #unit").val().trim();
-      var notes = escape($("#edit-recipe #recipe-data #notes").val());
-      var foods = [];
-
-      var listItems = $("#edit-recipe #foods ons-list-item"); //Get food items list
-
-      for (var i = 0; i < listItems.length; i++)
-      {
-        var foodData = JSON.parse($(listItems[i]).attr("data")); //Get food data from list item
-
-        var foodItem = {  //Item to be inserted into foods array
-          "id":foodData.id,
-          "name":foodData.name,
-          "brand":foodData.brand,
-          "portion":foodData.portion,
-          "nutrition":foodData.nutrition,
-        };
-        foods.push(foodItem);
-      }
-
-      var data = {"dateTime":dateTime, "name":name, "foods":foods, "portion":quantity+unit,"notes":notes, "nutrition":nutrition};
-      if (isNaN(id) == false) {data.id = id} //If there is an ID add it to the data object
-
-      dbHandler.insert(data, "recipes").onsuccess = function(){resolve();} //Insert/update the record
-    });
-  },
-
-  //Validates the edit recipe page
-  validateEditForm : function()
-  {
-    if ($("#edit-recipe #foods ons-list-item").length > 0 &&
-    $("#edit-recipe #recipe-data #name").val() != "" &&
-    $("#edit-recipe #recipe-data #quantity").val() > 0 &&
-    $("#edit-recipe #recipe-data #unit").val() != "")
-    {
-      $("#edit-recipe #submit").show();
-    }
-    else
-    {
-      $("#edit-recipe #submit").hide(0);
+      this.settings.el.infinite.hasInfiniteEvent = true;
     }
   },
 
-  fillListFromDB : function()
-  {
-    return new Promise(function(resolve, reject){
-      dbHandler.getAllItems("recipes")
-      .then(function(items){
-        recipes.list = items;
-        resolve();
-      });
-    });
-  },
+  renderList: async function(clear) {
+    if (clear) app.Utils.deleteChildNodes(this.settings.el.list);
 
-  //Gets all recipes from the database and displays them as an onsen list
-  renderRecipesList : function(list)
-  {
-    var html = "";
+    //List settings 
+    let maxItems = 200; //Max items to load
+    let itemsPerLoad = 20; //Number of items to append at a time
+    let lastIndex = document.querySelectorAll("#recipe-list-container li").length;
 
-    for (var i = 0; i < list.length; i++)
-    {
-      //Add a space at the begining of unit, unless it is usually displayed without a leading space
-      unit = list[i].portion.replace(/[0-9]/g, ''); //Remove any whitespace
-      if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
+    if (lastIndex <= this.settings.list.length) {
+      //Render next set of items to list
+      for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
+        if (i >= this.settings.list.length) break; //Exit after all items in list
 
-      html += "<ons-list-item tappable modifier='longdivider' id='"+list[i].id+"' data='"+JSON.stringify(list[i])+"'>";
-      html += "<label class='right'>";
-      html += "<ons-checkbox name='recipe-checkbox' input-id='recipe"+i+"' data='"+JSON.stringify(list[i])+"'></ons-checkbox>";
-      html += "</label>";
-      html += "<label for='recipe"+i+"' class='center'>";
-      html += "<ons-row>" + unescape(list[i].name) + "</ons-row>";
-      html += "<ons-row style='color:#636363;'><i>" + parseFloat(list[i].portion) + unit + ", " + list[i].nutrition.calories.toFixed(0) + " " + app.strings["calories"] + "</i></ons-row>";
-      html += "</label>";
-      html += "</ons-list-item>";
-    }
+        let item = this.settings.list[i];
 
-    $("#recipes ons-list#recipe-list").html(html);
-  },
+        // Don't show item that is being edited, otherwise endless loop will ensue
+        if (this.settings.recipe !== undefined && this.settings.recipe.id == item.id) continue;
 
-  changePortion : function(listItem, newPortion)
-  {
-    var data = JSON.parse($(listItem).attr("data"));
-    var unit = data.portion.replace(/[^a-z]/gi, '');
-    var nutrition = {};
-
-    //Calculate nutritional data for new portion
-    for (n in data.nutrition)
-    {
-      nutrition[n] = nutrition[n] || 0;
-      nutrition[n] = (data.nutrition[n] / parseFloat(data.portion)) * parseFloat(newPortion);
-    }
-
-    data.portion = newPortion + unit;
-    data.nutrition = nutrition; //Replace object with new one
-
-    var html = recipes.renderFoodItem(data); //Regenerate the html for this list item
-    $(listItem).replaceWith(html); //Replace list item with updated html
-  },
-
-  //Totals up the nutritional value of all of the items in the edit list
-  getTotalNutrition : function()
-  {
-    var listItems = $("#edit-recipe #foods ons-list-item"); //Get all list items
-    var nutrition = {};
-
-    for (var i = 0; i < listItems.length; i++)
-    {
-      var data = JSON.parse($(listItems[i]).attr("data"));
-
-      for (n in data.nutrition)
-      {
-        nutrition[n] = nutrition[n] || 0;
-        n != "sodium" ? nutrition[n] += data.nutrition[n] : nutrition[n] += data.nutrition[n] / 1000;
-      }
-    }
-
-    $("#edit-recipe #recipe-data #nutrition").val(JSON.stringify(nutrition)); //Store nutritional data in hidden form field
-    return nutrition;
-  },
-
-  //Renders the passed nutrition object to the screen
-  renderTotalNutrition : function(nutrition)
-  {
-    for (n in nutrition)
-    {
-      switch (n)
-      {
-        case "calories": $("#edit-recipe #"+n).html(nutrition[n].toFixed(0) + "kcal"); break;
-        case "sodium": $("#edit-recipe #"+n).html(nutrition[n].toFixed(4) + "mg"); break;
-        default: $("#edit-recipe #"+n).html(nutrition[n].toFixed(1) + "g");
-      }
-    }
-  },
-
-  localize : function()
-  {
-    $("#recipes #filter").attr("placeholder", app.strings["recipes"]["filter"]);
-    $("#edit-recipe #recipe-data #name").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["name"]);
-    $("#edit-recipe #recipe-data #notes").attr("placeholder", app.strings["recipes"]["edit-recipe"]["placeholders"]["notes"]);
-  }
-}
-
-//Show recipes page
-$(document).on("show", "ons-page#recipes", function(){
-
-  //Hide the menu button or back button depending on where the page is in the navigator stack
-  nav.pages.length > 1 ? $("#recipes #menu-button").hide(0) : $("#recipes ons-back-button").hide(0); //Hide button based on context
-
-  //Hide submit button
-  $("#recipes #submit").hide(0);
-
-  recipes.localize();
-
-  recipes.fillListFromDB()
-  .then(function(){recipes.renderRecipesList(recipes.list)});
-});
-
-//@Todo Double tap on recipe item
-$(document).on("dblclick", "#recipes #recipe-list ons-list-item", function(){
-  var control = this;
-  var data = JSON.parse($(this).attr("data"));
-});
-
-//Delete/Edit recipe
-$(document).on("hold", "#recipes #recipe-list ons-list-item", function(){
-
-  var control = this; //The control that triggered the callback
-  var data = JSON.parse($(this).attr("data"));
-
-  //Ask the user to select the type of image
-  ons.openActionSheet({
-    cancelable: true,
-    buttons: ['Edit', 'Delete']
-  })
-  .then(function(input){
-    if (input == 0) //Edit
-    {
-      nav.pushPage("activities/recipes/views/edit-recipe.html", {"data":data});
-    }
-    else if (input == 1) //Delete
-    {
-      //Show confirmation dialog
-      ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
-      .then(function(input) {
-        if (input == 1) {//Delete was confirmed
-          $(control).remove(); //Remove the list item
-          recipes.fillList(); //Update recipes list
-          var request = dbHandler.deleteItem(parseInt(control.id), "recipes");
+        if (item.archived !== true) {
+          item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
+          app.FoodsMealsRecipes.renderItem(item, this.settings.el.list, true, app.Recipes.gotoEditor, app.Recipes.removeItem);
         }
-      });
-    }
-  });
-});
-
-//Checkbox selection
-$(document).on("change", "#recipes #recipe-list ons-checkbox", function(e){
-  var checked = $("#recipes #recipe-list input[name=recipe-checkbox]:checked"); //Get all checked items
-  checked.length > 0 ? $("#recipes #submit").show() : $("#recipes #submit").hide(0);
-});
-
-//Add recipes to diary
-$(document).on("tap", "#recipes #submit", function(){
-
-  var recipes = $("#recipes #recipe-list input[name=recipe-checkbox]:checked"); //Get selected recipe checkboxes
-
-  if (recipes.length > 0)
-  {
-    for (var i = 0; i < recipes.length; i++) //Each recipe
-    {
-      var data = JSON.parse(recipes[i].offsetParent.attributes.data.value); //Recipe data
-
-      var item = {
-        "name":data.name,
-        "recipeId":data.id,
-        "nutrition":data.nutrition,
-        "portion":data.portion,
-        "quantity":1
-      };
-
-      diary.addEntry(item);
-    }
-    nav.resetToPage("activities/diary/views/diary.html"); //Switch to diary page
-  }
-
-});
-
-//Initialise recipe edit page
-$(document).on("init", "ons-page#edit-recipe", function(){
-  $("#edit-recipe ons-list#foods").append(""); //Clear list
-});
-
-//Show edit recipe form
-$(document).on("show", "#edit-recipe", function(){
-
-  recipes.localize();
-  recipes.validateEditForm();
-
-  //Default title
-  $("#edit-recipe #title").html(app.strings["recipes"]["edit-recipe"]["title1"]);
-
-  //Hide salt/sodium depending on user preference
-  app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-recipe #salt").hide(0) : $("#edit-recipe #sodium").hide(0);
-  app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-recipe #salt_heading").hide(0) : $("#edit-recipe #sodium_heading").hide(0);
-
-  if (this.data.foodIds) //Food ids passed from food list
-  {
-    recipes.getFoods(this.data.foodIds)
-    .then(function(foods)
-    {
-      for (var i = 0; i < foods.length; i++)
-      {
-        //Display food items
-        $("#edit-recipe ons-list#foods").append(recipes.renderFoodItem(foods[i]));
-        recipes.renderTotalNutrition(recipes.getTotalNutrition());
       }
-      recipes.validateEditForm();
-    });
-  }
-  else if (this.data.id) //Recipe data for existing recipe
-  {
-    $("#edit-recipe #title").html(app.strings["recipes"]["edit-recipe"]["title2"]);
-    recipes.fillEditForm(this.data) //Populate edit screen with data
-    .then(() => recipes.validateEditForm());
-  }
-
-  this.data = {};
-});
-
-//Delete food from recipe
-$(document).on("hold", "#edit-recipe #foods ons-list-item", function(){
-
-  var control = this; //The control that triggered the callback
-
-  //Show confirmation dialog
-  ons.notification.confirm(app.strings["dialogs"]["confirm-delete"])
-  .then(function(input) {
-    if (input == 1) {//Delete was confirmed
-      $(control).remove(); //Remove the list item
-      recipes.renderTotalNutrition(recipes.getTotalNutrition());
-      recipes.validateEditForm();
     }
-  });
-});
+  },
 
-//Tap on food item
-$(document).on("click", "#edit-recipe #foods ons-list-item", function(e){
-
-  var control = this;
-  var data = JSON.parse($(this).attr("data"));
-  var portion = parseFloat(data.portion);
-  var unit = data.portion.replace(/[^a-z]/gi, '');
-
-  //Show prompt
-  ons.notification.prompt("Quantity (" + unit + ")", {"title":"Quantity", "inputType":"number", "defaultValue":portion, "cancelable":true})
-  .then(function(input)
-  {
-    if (!isNaN(parseFloat(input)))
-    {
-      recipes.changePortion(control, input, unit)
-      recipes.renderTotalNutrition(recipes.getTotalNutrition());
-    }
-  });
-});
-
-//Submit edit form
-$(document).on("tap", "#edit-recipe #submit", function(){
-  recipes.update()
-  .then(() => nav.popPage());
-});
-
-//List filter
-$(document).on("keyup", "#recipes #filter", function(e){
-
-  $("#recipes #submit").hide(0);
-
-  if (this.value == "") //Search box cleared, reset the list
-  {
-    recipes.fillListFromDB()
-    .then(function(){
-      recipes.renderRecipesList(recipes.list);
+  getListFromDB: function() {
+    return new Promise(async function(resolve, reject) {
+      let sort = app.Settings.get("foodlist", "sort");
+      let list = await app.FoodsMealsRecipes.getFromDB("recipes", sort) || [];
+      resolve(list);
+    }).catch(err => {
+      throw (err);
     });
-  }
-  else { //Filter the list
-    var filteredList = recipes.filterList(this.value);
-    recipes.renderRecipesList(filteredList);
-  }
+  },
 
+  removeItem: function(item) {
+    let title = app.strings["confirm-delete-title"] || "Delete";
+    let text = app.strings["confirm-delete"] || "Are you sure?";
+
+    let dialog = app.f7.dialog.confirm(text, title, async () => {
+      await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
+      app.f7.views.main.router.refreshPage();
+    });
+  },
+
+  submitButtonAction: function(selection) {
+    let result = [];
+
+    selection.forEach((x) => {
+      let recipe = JSON.parse(x);
+      result.push(app.Recipes.flattenRecipe(recipe));
+    });
+
+    app.FoodsMealsRecipes.returnItems(result);
+  },
+
+  flattenRecipe: function(recipe) {
+
+    let item = {
+      id: recipe.id,
+      portion: recipe.portion,
+      type: "recipe"
+    };
+
+    return item;
+  },
+
+  gotoEditor: function(recipe) {
+    app.f7.data.context = {
+      recipe: recipe,
+      origin: "/foods-meals-recipes/",
+      allNutriments: true
+    };
+    app.f7.views.main.router.navigate("./recipe-editor/");
+  },
+
+  createSearchBar: function() {
+    const searchBar = app.f7.searchbar.create({
+      el: this.settings.el.searchForm,
+      backdrop: false,
+      customSearch: true,
+      on: {
+        async search(sb, query, previousQuery) {
+          if (query != "") {
+            this.settings.list = app.FoodsMealsRecipethis.settings.filterList(query, this.settings.filterList);
+          } else {
+            this.settings.list = await app.Recipes.getListFromDB();
+            this.settings.filterList = this.settings.list;
+            app.f7.searchbar.disable(this);
+          }
+          app.Recipes.renderList(true);
+        },
+      }
+    });
+  },
+};
+
+document.addEventListener("tab:init", function(e) {
+  if (e.target.id == "recipes") {
+    let context = app.f7.data.context;
+    app.f7.data.context = undefined;
+    app.Recipes.init(context);
+  }
 });

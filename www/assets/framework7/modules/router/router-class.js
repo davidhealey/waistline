@@ -277,12 +277,12 @@ class Router extends Framework7Class {
         if ($oldNavbarEl) {
           $oldNavbarEl.removeClass('router-navbar-transition-to-large router-navbar-transition-from-large');
         }
-        if ($newNavbarEl.hasClass('sliding')) {
+        if ($newNavbarEl.hasClass('sliding') || $newNavbarEl.children('.navbar-inner.sliding').length) {
           $newNavbarEl.find('.title, .left, .right, .left .icon, .subnavbar').transform('');
         } else {
           $newNavbarEl.find('.sliding').transform('');
         }
-        if ($oldNavbarEl.hasClass('sliding')) {
+        if ($oldNavbarEl.hasClass('sliding') || $oldNavbarEl.children('.navbar-inner.sliding').length) {
           $oldNavbarEl.find('.title, .left, .right, .left .icon, .subnavbar').transform('');
         } else {
           $oldNavbarEl.find('.sliding').transform('');
@@ -482,14 +482,21 @@ class Router extends Framework7Class {
     if (typeof parameters === 'string') {
       return parameters;
     }
-    const { name, params, query } = parameters;
-    if (!name) {
-      throw new Error('Framework7: name parameter is required');
+    const { name, path, params, query } = parameters;
+    if (!name && !path) {
+      throw new Error('Framework7: "name" or "path" parameter is required');
     }
     const router = this;
-    const route = router.findRouteByKey('name', name);
+    const route = name
+      ? router.findRouteByKey('name', name)
+      : router.findRouteByKey('path', path);
+
     if (!route) {
-      throw new Error(`Framework7: route with name "${name}" not found`);
+      if (name) {
+        throw new Error(`Framework7: route with name "${name}" not found`);
+      } else {
+        throw new Error(`Framework7: route with path "${path}" not found`);
+      }
     }
     const url = router.constructRouteUrl(route, { params, query });
     if (!url) {

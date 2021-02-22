@@ -37,7 +37,7 @@ export namespace View {
     url?: string
     /**	If enabled then all previous pages in navigation chain will not be removed from DOM when you navigate deeper and deeper. It could be useful, for example, if you have some Form from 5 steps (5 pages) and when you are on last 5th page you need access to form that was on 1st page. */
     stackPages?: boolean
-    /**	CSS Selector of another view or object with initialized View instance. By defaul all links in initialized (only) view will load pages in this view. This tell links to load pages in other view. */
+    /**	CSS Selector of another view or object with initialized View instance. By default all links in initialized (only) view will load pages in this view. This tell links to load pages in other view. */
     linksView?: CSSSelector | View
     /**	You may enable this parameter to allow loading of new pages that have same url as currently "active" page in View. */
     allowDuplicateUrls?: boolean
@@ -53,6 +53,8 @@ export namespace View {
     reloadDetail?: boolean
     /** Minimum app width to enable Master Detail view for master routes (routes with master: true parameter) */
     masterDetailBreakpoint?: number
+    /** Enables resizable Master Detail */
+    masterDetailResizable?: boolean
     /**	When enabled it will restore page scroll top when you get back to this page */
     restoreScrollTopOnBack?: boolean
     /**	Delay (in ms) after new page will be loaded and inserted to DOM and before it will be transitioned. Can be increased a bit to improve performance. Will have effect only under iOS theme */
@@ -148,10 +150,14 @@ export namespace View {
   interface Events extends Router.Events{
     /** Event will be fired on View init */
     init: (view: View) => void
+    /** Event will be triggered right when resizable Master Detail resized */
+    resize: (view : View, masterWidth: number) => void
   }
   interface DomEvents extends Router.DomEvents {
     /** Event will be fired on View init */
     'view:init': () => void
+    /** Event will be triggered right when resizable Master Detail resized */
+    'view:resize': () => void
   }
   interface AppMethods extends Router.AppEvents{
     view: {
@@ -173,6 +179,8 @@ export namespace View {
   interface AppEvents extends Router.Events{
     /** Event will be fired on View init */
     viewInit: (view: View) => void
+    /** Event will be triggered right when resizable Master Detail resized */
+    viewResize: (view : View, masterWidth: number) => void
   }
 }
 

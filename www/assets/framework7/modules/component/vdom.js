@@ -155,7 +155,6 @@ function getEventHandler(handlerString, context, { stop, prevent, once } = {}) {
   let fired = false;
   let methodName;
   let method;
-  let customArgs = [];
   let needMethodBind = true;
 
   if (handlerString.indexOf('(') < 0) {
@@ -190,11 +189,11 @@ function getEventHandler(handlerString, context, { stop, prevent, once } = {}) {
 
   function handler(...args) {
     const e = args[0];
+    let customArgs = [];
     if (once && fired) return;
     if (stop) e.stopPropagation();
     if (prevent) e.preventDefault();
     fired = true;
-
     if (handlerString.indexOf('(') < 0) {
       customArgs = args;
     } else {
@@ -245,6 +244,10 @@ function getData(el, context, app, initial, isRoot, tagName) {
       if (!data.props) data.props = {};
       if (attrName === 'readonly') {
         attrName = 'readOnly';
+      }
+      if (tagName === 'option' && attrName === 'value') {
+        if (!data.attrs) data.attrs = {};
+        data.attrs.value = attrValue;
       }
       if (booleanProps.indexOf(attrName) >= 0) {
         // eslint-disable-next-line
@@ -363,6 +366,7 @@ function elementToVNode(el, context, app, initial, isRoot) {
   if (tagName === 'slot') {
     return getSlots(el, context, app, initial);
   }
+
   return h(
     tagName,
     getData(el, context, app, initial, isRoot, tagName),

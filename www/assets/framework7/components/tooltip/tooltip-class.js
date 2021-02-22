@@ -15,6 +15,9 @@ class Tooltip extends Framework7Class {
     tooltip.useModulesParams(defaults);
 
     tooltip.params = Utils.extend(defaults, params);
+    if (typeof params.offset === 'undefined' && Support.touch && tooltip.params.trigger === 'hover') {
+      tooltip.params.offset = 10;
+    }
 
     const { targetEl } = tooltip.params;
     if (!targetEl) return tooltip;
@@ -149,6 +152,11 @@ class Tooltip extends Framework7Class {
     if ($targetEl && $targetEl.length > 0) {
       targetWidth = $targetEl.outerWidth();
       targetHeight = $targetEl.outerHeight();
+      if (typeof targetWidth === 'undefined' && typeof targetHeight === 'undefined') {
+        const clientRect = $targetEl[0].getBoundingClientRect();
+        targetWidth = clientRect.width;
+        targetHeight = clientRect.height;
+      }
 
       const targetOffset = $targetEl.offset();
       targetOffsetLeft = targetOffset.left - app.left;

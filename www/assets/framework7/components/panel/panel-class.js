@@ -1,8 +1,8 @@
 import $ from 'dom7';
 import Utils from '../../utils/utils';
 import Framework7Class from '../../utils/class';
-import SwipePanel from './swipe-panel';
-import ResizablePanel from './resizable-panel';
+import swipePanel from './swipe-panel';
+import resizablePanel from './resizable-panel';
 
 class Panel extends Framework7Class {
   constructor(app, params = {}) {
@@ -16,6 +16,8 @@ class Panel extends Framework7Class {
     const panel = this;
 
     panel.params = extendedParams;
+    panel.$containerEl = panel.params.containerEl ? $(panel.params.containerEl).eq(0) : app.root;
+    panel.containerEl = panel.$containerEl[0];
 
     let $el;
     if (panel.params.el) {
@@ -38,10 +40,10 @@ class Panel extends Framework7Class {
     if (panel.params.backdrop && panel.params.backdropEl) {
       $backdropEl = $(panel.params.backdropEl);
     } else if (panel.params.backdrop) {
-      $backdropEl = app.root.children('.panel-backdrop');
+      $backdropEl = panel.$containerEl.children('.panel-backdrop');
       if ($backdropEl.length === 0) {
         $backdropEl = $('<div class="panel-backdrop"></div>');
-        app.root.prepend($backdropEl);
+        panel.$containerEl.prepend($backdropEl);
       }
     }
 
@@ -68,12 +70,11 @@ class Panel extends Framework7Class {
 
   getViewEl() {
     const panel = this;
-    const app = panel.app;
     let viewEl;
-    if (app.root.children('.views').length > 0) {
-      viewEl = app.root.children('.views')[0];
+    if (panel.$containerEl.children('.views').length > 0) {
+      viewEl = panel.$containerEl.children('.views')[0];
     } else {
-      viewEl = app.root.children('.view')[0];
+      viewEl = panel.$containerEl.children('.view')[0];
     }
     return viewEl;
   }
@@ -208,7 +209,7 @@ class Panel extends Framework7Class {
       panel.resizable = true;
       panel.$el.addClass('panel-resizable');
     } else {
-      ResizablePanel(panel);
+      resizablePanel(panel);
     }
     return panel;
   }
@@ -225,7 +226,7 @@ class Panel extends Framework7Class {
     if (panel.swipeInitialized) {
       panel.swipeable = true;
     } else {
-      SwipePanel(panel);
+      swipePanel(panel);
     }
     return panel;
   }
@@ -287,6 +288,13 @@ class Panel extends Framework7Class {
     app.panel.allowOpen = true;
     $('html').removeClass('with-panel-closing');
     panel.$el.removeClass('panel-out');
+    if (panel.$backdropEl) {
+      const otherPanel = app.panel.get('.panel-in');
+      const shouldHideBackdrop = !otherPanel || (otherPanel && !otherPanel.$backdropEl);
+      if (shouldHideBackdrop) {
+        panel.$backdropEl.removeClass('panel-backdrop-in');
+      }
+    }
     panel.$el.trigger('panel:closed');
     panel.emit('local::closed panelClosed', panel);
   }
@@ -305,31 +313,31 @@ class Panel extends Framework7Class {
 
   insertToRoot() {
     const panel = this;
-    const { $el, app, $backdropEl } = panel;
+    const { $el, $backdropEl, $containerEl } = panel;
     const $panelParentEl = $el.parent();
     const wasInDom = $el.parents(document).length > 0;
 
-    if (!$panelParentEl.is(app.root) || $el.prevAll('.views, .view').length) {
-      const $insertBeforeEl = app.root.children('.panel, .views, .view').eq(0);
-      const $insertAfterEl = app.root.children('.panel-backdrop').eq(0);
+    if (!$panelParentEl.is($containerEl) || $el.prevAll('.views, .view').length) {
+      const $insertBeforeEl = $containerEl.children('.panel, .views, .view').eq(0);
+      const $insertAfterEl = $containerEl.children('.panel-backdrop').eq(0);
 
       if ($insertBeforeEl.length) {
         $el.insertBefore($insertBeforeEl);
       } else if ($insertAfterEl) {
         $el.insertBefore($insertAfterEl);
       } else {
-        app.root.prepend($el);
+        $containerEl.prepend($el);
       }
 
       if ($backdropEl
         && $backdropEl.length
         && (
           (
-            !$backdropEl.parent().is(app.root)
+            !$backdropEl.parent().is($containerEl)
             && $backdropEl.nextAll('.panel').length === 0
           )
           || (
-            $backdropEl.parent().is(app.root)
+            $backdropEl.parent().is($containerEl)
             && $backdropEl.nextAll('.panel').length === 0
           )
         )
@@ -373,7 +381,10 @@ class Panel extends Framework7Class {
     $el[animate ? 'removeClass' : 'addClass']('not-animated');
     $el.addClass('panel-in');
 
-    $backdropEl[animate ? 'removeClass' : 'addClass']('not-animated');
+    if ($backdropEl) {
+      $backdropEl.addClass('panel-backdrop-in');
+      $backdropEl[animate ? 'removeClass' : 'addClass']('not-animated');
+    }
 
     if (panel.effect === 'cover') {
       /* eslint no-underscore-dangle: ["error", { "allow": ["_clientLeft"] }] */
@@ -422,7 +433,9 @@ class Panel extends Framework7Class {
     if (!opened || $el.hasClass('panel-in-breakpoint') || !$el.hasClass('panel-in')) return panel;
 
     $el[animate ? 'removeClass' : 'addClass']('not-animated');
-    $backdropEl[animate ? 'removeClass' : 'addClass']('not-animated');
+    if ($backdropEl) {
+      $backdropEl[animate ? 'removeClass' : 'addClass']('not-animated');
+    }
 
     const transitionEndTarget = effect === 'reveal' ? $el.nextAll('.view, .views').eq(0) : $el;
 

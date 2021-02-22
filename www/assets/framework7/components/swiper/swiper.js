@@ -53,13 +53,21 @@ function initSwiper(swiperEl) {
   function updateSwiper() {
     swiper.update();
   }
+  const $tabEl = $swiperEl.parents('.tab').filter((tabElIndex, tabEl) => {
+    return $(tabEl).parent('.tabs').parent('.tabs-animated-wrap, .tabs-swipeable-wrap').length === 0;
+  }).eq(0);
   $swiperEl.parents('.popup, .login-screen, .sheet-modal, .popover').on('modal:open', updateSwiper);
   $swiperEl.parents('.panel').on('panel:open', updateSwiper);
-  $swiperEl.parents('.tab').on('tab:show', updateSwiper);
+  if ($tabEl && $tabEl.length) {
+    $tabEl.on('tab:show', updateSwiper);
+  }
+
   swiper.on('beforeDestroy', () => {
     $swiperEl.parents('.popup, .login-screen, .sheet-modal, .popover').off('modal:open', updateSwiper);
     $swiperEl.parents('.panel').off('panel:open', updateSwiper);
-    $swiperEl.parents('.tab').off('tab:show', updateSwiper);
+    if ($tabEl && $tabEl.length) {
+      $tabEl.off('tab:show', updateSwiper);
+    }
   });
   if (isTabs) {
     swiper.on('slideChange', () => {

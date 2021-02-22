@@ -1,18 +1,48 @@
 {
-  "name": "framework7",
-  "version": "5.6.0",
+  "_from": "framework7@^5.7.14",
+  "_id": "framework7@5.7.14",
+  "_inBundle": false,
+  "_integrity": "sha512-NGUXYDkYmxxJV65UdSr77yOWO2XJA1WVTG8E+QU98vc9gCqjudFPxhdaJmQzwcz7BOjHT5s0AH6lTyIT5oN8RA==",
+  "_location": "/framework7",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "framework7@^5.7.14",
+    "name": "framework7",
+    "escapedName": "framework7",
+    "rawSpec": "^5.7.14",
+    "saveSpec": null,
+    "fetchSpec": "^5.7.14"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/framework7/-/framework7-5.7.14.tgz",
+  "_shasum": "ee7b9f6e75cc34f05999b572071ec9c63597ee71",
+  "_spec": "framework7@^5.7.14",
+  "_where": "/media/dave/Internal Storage/Projects/Cordova/waistline",
+  "author": {
+    "name": "Vladimir Kharlampidi"
+  },
+  "bugs": {
+    "url": "https://github.com/framework7io/framework7/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "dom7": "^2.1.5",
+    "path-to-regexp": "^6.1.0",
+    "ssr-window": "^2.0.0",
+    "template7": "^1.4.2"
+  },
+  "deprecated": false,
   "description": "Full featured mobile HTML framework for building iOS & Android apps",
-  "main": "js/framework7.js",
-  "typings": "js/framework7.d.ts",
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/vladimirkharlampidi"
+  },
+  "homepage": "https://framework7.io/",
   "jsnext:main": "framework7.esm.js",
-  "module": "framework7.esm.js",
-  "scripts": {
-    "postinstall": "echo \"\u001b[35m\u001b[1mLove Framework7? Support project by donating or pledging on patreon:\u001b[22m\u001b[39m\n > \u001b[32mhttps://patreon.com/vladimirkharlampidi\u001b[0m\n\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/framework7io/framework7.git"
-  },
   "keywords": [
     "mobile",
     "framework",
@@ -33,20 +63,17 @@
     "google",
     "googleplay"
   ],
-  "author": "Vladimir Kharlampidi",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/framework7io/framework7/issues"
+  "main": "js/framework7.js",
+  "module": "framework7.esm.js",
+  "name": "framework7",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/framework7io/framework7.git"
   },
-  "homepage": "https://framework7.io/",
-  "funding": {
-    "type": "patreon",
-    "url": "https://www.patreon.com/vladimirkharlampidi"
+  "scripts": {
+    "postinstall": "echo \"\u001b[35m\u001b[1mLove Framework7? Support project by donating or pledging on patreon:\u001b[22m\u001b[39m\n > \u001b[32mhttps://patreon.com/vladimirkharlampidi\u001b[0m\n\""
   },
-  "dependencies": {
-    "dom7": "^2.1.3",
-    "path-to-regexp": "^6.1.0",
-    "ssr-window": "^1.0.1",
-    "template7": "^1.4.2"
-  }
+  "typings": "js/framework7.d.ts",
+  "version": "5.7.14"
 }

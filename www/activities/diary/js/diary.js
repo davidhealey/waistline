@@ -1,5 +1,5 @@
 /*
-  Copyright 2018 David Healey
+  Copyright 2020, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -14,404 +14,322 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var diary = {
+app.Diary = {
 
-  category:"0", //Category index
-  date: app.getDateAtMidnight(),
-  consumption:{}, //Nutrition consumed for current diary date
+  ready: false,
+  calendar: undefined,
+  el: {},
+  groups: [],
 
-  getCategory : function()
-  {
-    return diary.category;
-  },
+  init: async function(context) {
 
-  setCategory : function(index)
-  {
-    diary.category = index;
-  },
+    this.getComponents();
+    this.bindUIActions();
 
-  //Returns the diary entry for the specified date and category
-  getMeal : function(dateTime, category)
-  {
-    return new Promise(function(resolve, reject){
+    app.Diary.calendar = this.createCalendar(); //Setup calendar
+    this.bindCalendarControls();
 
-      var results = [];
+    //If items have been passed, add them to the db
+    if (context) {
 
-      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.only(dateTime)).onsuccess = function(e) //Filter by date
-      {
-        var cursor = e.target.result;
-        if (cursor) {
-          if (cursor.value.category == category) results.push(cursor.value); //Filter by category
-          cursor.continue();
-        }
+      if (context.items || context.item) {
+
+        if (context.items)
+          await this.addItems(context.items, context.category);
         else
-        {
-          resolve(results);
+          await this.updateItem(context.item);
+
+        app.Diary.ready = false; //Trigger fresh render
+      }
+    }
+
+    if (!app.Diary.ready) {
+      app.Diary.groups = this.createMealGroups(); //Create meal groups
+      this.render();
+      app.Diary.ready = true;
+    }
+  },
+
+  getComponents: function() {
+    app.Diary.el.logWeight = document.querySelector(".page[data-name='diary'] #log-weight");
+  },
+
+  bindUIActions: function() {
+    if (!app.Diary.el.logWeight.hasClickEvent) {
+      app.Diary.el.logWeight.addEventListener("click", (e) => {
+        app.Diary.logWeight();
+      });
+      app.Diary.el.logWeight.hasClickEvent = true;
+    }
+  },
+
+  setReadyState: function(state) {
+    if (state) {
+      app.Diary.ready = state;
+    }
+  },
+
+  createCalendar: function() {
+    let result = app.f7.calendar.create({
+      inputEl: "#diary-date",
+      openIn: "customModal",
+      on: {
+        init: function(c) {
+          if (app.Diary.date)
+            c.setValue([app.Diary.date]);
+          else {
+            let now = new Date();
+            let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            c.setValue([today]);
+            app.Diary.date = c.getValue();
+          }
+        },
+        change: function(c) {
+          app.Diary.date = c.getValue();
+          if (app.Diary.ready)
+            app.Diary.render();
+          c.close();
         }
+      }
+    });
+
+    return result;
+  },
+
+  bindCalendarControls: function() {
+    //Bind actions for previous/next buttons
+    const buttons = document.getElementsByClassName("change-date");
+    Array.from(buttons).forEach((x, i) => {
+
+      if (!x.hasClickEvent) {
+        x.addEventListener("click", (e) => {
+          let date = new Date(app.Diary.calendar.getValue());
+          i == 0 ? date.setDate(date.getDate() - 1) : date.setDate(date.getDate() + 1);
+          app.Diary.calendar.setValue([date]);
+        });
+        x.hasClickEvent = true;
       }
     });
   },
 
-  populate : function()
-  {
-    return new Promise(function(resolve, reject){
-      diary.consumption = {}; //Reset object
+  resetDate: function() {
+    let now = new Date();
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    app.Diary.date = today;
+  },
 
-      //Get selected date at midnight
-      var fromDate = diary.date;
+  render: async function() {
 
-      //Get end of day
-      var toDate = new Date(fromDate);
-      toDate.setUTCHours(toDate.getUTCHours()+24);
+    let entry = await this.getEntryFromDB(); // Get diary entry from DB
+    let totalNutrition;
 
-      var lists = []; //Each diary item is part of a categorised list
-      var calorieCount = []; //Calorie count for each category
+    //Clear groups
+    for (let i = 0; i < app.Diary.groups.length; i++)
+      app.Diary.groups[i].reset();
 
-      //Add user defined categories (meal-names) as list headings
-      var categories = JSON.parse(app.storage.getItem("meal-names"));
-      for (var i = 0; i < categories.length; i++)
-      {
-        if (categories[i].trim() == "") continue; //Skip unset meal names
-        lists[i] = "<ons-list-title id='category"+i+"' category-idx='"+i+"'>"+categories[i]+"<span></span></ons-list-title>";
-        calorieCount[i] = 0;
+    // Populate groups and get overal nutrition
+    if (entry) {
+      await this.populateGroups(entry);
+      totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items);
+    }
+
+    // Render category groups
+    let container = document.getElementById("diary-day");
+    container.innerHTML = "";
+
+    app.Diary.groups.forEach((x) => {
+      x.render(container);
+    });
+
+    // Render nutrition swiper card
+    let swiper = app.f7.swiper.get('#diary-nutrition .swiper-container');
+    let swiperWrapper = document.querySelector('#diary-nutrition .swiper-wrapper');
+    swiperWrapper.innerHTML = "";
+
+    await app.FoodsMealsRecipes.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
+  },
+
+  createMealGroups: function() {
+    const mealNames = app.Settings.get("diary", "meal-names");
+    let groups = [];
+
+    if (mealNames !== undefined) {
+      mealNames.forEach((x, i) => {
+        if (x != "") {
+          let g = app.Group.create(x, i);
+          groups.push(g);
+        }
+      });
+    }
+
+    return groups;
+  },
+
+  getEntryFromDB: function() {
+    return new Promise(async function(resolve, reject) {
+      if (app.Diary.date !== undefined) {
+        let entry = await dbHandler.get("diary", "dateTime", new Date(app.Diary.date));
+        resolve(entry);
       }
-
-      var html = "";
-
-      dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e)
-      {
-        var cursor = e.target.result;
-
-        if (cursor)
-        {
-          var value = cursor.value;
-          var calories = value.nutrition.calories;
-
-          //Calorie count for each category
-          calorieCount[value.category] = calorieCount[value.category] || 0;
-          calorieCount[value.category] += calories * value.quantity;
-
-          //If a user changes the names of their lists then existing diary items won't have a meal category, this line solves that
-          lists[value.category] = lists[value.category] || "<ons-list-title id='category"+value.category+"' category-idx='"+value.category+"'>"+value.category_name+"<span></span></ons-list-title>";
-
-          //Add a space at the begining of unit, unless it is usually displayed without a leading space
-          unit = value.portion.replace(/[0-9]/g, '');
-          if (app.standardUnits.indexOf(unit) == -1) unit = " " + unit; //Add space if unit is not standard
-
-          //Build HTML
-          html = ""; //Reset variable
-          html += "<ons-list-item class='diaryItem' data='"+JSON.stringify(value)+"' id='"+value.id+"' category='"+value.category+"' tapfpable>";
-          if (app.storage.getItem("brand-position") == "false")
-          {
-            if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
-            html += "<ons-row><i>"+unescape(value.name) + " - ";
-            if (!isNaN (value.portion)) html += parseFloat(value.portion);
-            html += unit +"</i></ons-row>";
-          }
-          else
-          {
-            html += "<ons-row><i>"+unescape(value.name) + " - ";
-            if (!isNaN (value.portion)) html += parseFloat(value.portion);
-            html += unit +"</i></ons-row>";
-            if (value.brand) html += "<ons-row>"+unescape(value.brand)+"</ons-row>";
-          }
-          html += "<ons-row style='color:#636363;'>";
-          html += value.quantity + " ";
-          value.quantity == 1 ? html += app.strings["diary"]["serving"] : html += app.strings["diary"]["servings"];
-          html += ", " + Math.round(value.quantity * calories) + " " + app.strings['calories'] + "</p>";
-          html += "</ons-row>";
-
-          html += "</ons-list-item>";
-
-          lists[value.category] += html;
-
-          //Add up total consumption
-          for (k in value.nutrition)
-          {
-            diary.consumption[k] = diary.consumption[k] || 0; //Use existing object or create new one for each item
-            diary.consumption[k] += value.nutrition[k] * value.quantity;
-          }
-
-          cursor.continue();
-        }
-        else
-        {
-          $("#diary-page #diary-lists").html(""); //Clear old lists
-
-          //One list per meal
-          for (var i = 0; i < lists.length; i++)
-          {
-            if (lists[i] == undefined) continue; //Skip unused lists - occurs if user skips a meal type in the diary settings
-            html = "";
-            html += "<ons-list modifier='inset'>";
-            html += lists[i];
-            html += "</ons-list>";
-            $("#diary-page #diary-lists").append(html); //Add HTML to DOM
-          }
-
-          //Display calorie count for each category - including historic categories that are no longer set
-          for (var i = 0; i < calorieCount.length; i++)
-          {
-            $("#diary-page #diary-lists #category"+i+" span").html(" - " + Math.round(calorieCount[i]));
-          }
-
-          log.update(diary.date, "nutrition", diary.consumption)
-          .then(result => log.getData(diary.date))
-          .then(result => diary.renderStats(result))
-          .catch();
-        }
-      };
+    }).catch(err => {
+      throw (err);
     });
   },
 
-  updateDisplayedDate()
-  {
-    var dd = diary.date.getUTCDate();
-    var mm = diary.date.getUTCMonth()+1; //January is 0
-    var yyyy = diary.date.getUTCFullYear();
-
-    //Add leading 0s
-    if (dd < 10) dd = "0"+dd;
-    if (mm < 10) mm = "0"+mm;
-
-    $("#diary-page #date").val(yyyy + "-" + mm + "-" + dd);
+  getNewEntry: function() {
+    let entry = {
+      dateTime: new Date(app.Diary.date),
+      items: [],
+      stats: {},
+    };
+    return entry;
   },
 
-  fillEditForm : function(data)
-  {
-    $("#edit-diary-item #id").val(data.id); //Add to hidden field
-    $("#edit-diary-item #data").attr("data", JSON.stringify(data)); //Add data to form for access by other functions
-    $("#edit-diary-item #name i").html(unescape(data.name) + " - " + unescape(data.portion));
-    if (data.brand) $("#edit-diary-item #brand").html(unescape(data.brand));
-    //$("#edit-diary-item #portion").val(parseFloat(data.portion));
-    //$("#edit-diary-item #unit").val(data.portion.replace(/[^a-z]/gi, ''));
-    $("#edit-diary-item #quantity").val(data.quantity);
+  populateGroups: function(entry) {
+    return new Promise(async function(resolve, reject) {
+      entry.items.forEach(async (x, i) => {
+        x.index = i; // Index in array, not stored in DB
+        app.Diary.groups[x.category].addItem(x);
+      });
 
-    for (n in data.nutrition)
-    {
-      if (n == "sodium")
-        $("#edit-diary-item #"+n).val(parseFloat(data.nutrition[n] * data.quantity) / 1000); //Sodium is displayed as mg
-      else
-        $("#edit-diary-item #"+n).val(parseFloat(data.nutrition[n] * data.quantity));
-    }
+      resolve();
 
-    //Hide salt/sodium depending on user preference
-    app.storage.getItem("salt_to_sodium") == "true" ? $("#edit-diary-item #salt").hide(0) : $("#edit-diary-item #sodium").hide(0);
-
-    $("#edit-diary-item #category-idx").val(data.category).change();
+    }).catch(err => {
+      throw (err);
+    });
   },
 
-  //Localises the placeholders of the form input boxes
-  localizeEditForm:function()
-  {
-    var inputs = $("#edit-diary-item ons-input");
-    var placeholder = "";
-    for (var i = 0; i < inputs.length; i++)
-    {
-      placeholder = app.strings["diary"]["edit-item"]["placeholders"][$(inputs[i]).attr("id")];
-      $(inputs[i]).attr("placeholder", placeholder);
-    }
+  addItems: function(items, category) {
+    return new Promise(async function(resolve, reject) {
+      // Get current entry or create a new one
+      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+
+      items.forEach((x) => {
+        let item = x;
+        item.dateTime = new Date();
+        item.category = category;
+        item.quantity = x.quantity || 1;
+        entry.items.push(item);
+      });
+
+      await dbHandler.put(entry, "diary");
+
+      resolve();
+    }).catch(err => {
+      throw (err);
+    });
   },
 
-  addEntry : function(data)
-  {
-    return new Promise(function(resolve, reject){
+  updateItem: function(item) {
+    return new Promise(async function(resolve, reject) {
+      let entry = await app.Diary.getEntryFromDB();
 
-      var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
-      var foodId = data.id;
-      var recipeId = data.recipeId;
+      if (entry) {
+        entry.items.splice(item.index, 1, item);
+        delete item.index; // Array index is not stored in the db
 
-      var entryData = {
-        "dateTime":diary.date,
-        "name":data.name,
-        "brand":data.brand,
-        "portion":data.portion,
-        "quantity":1,
-        "nutrition":data.nutrition,
-        "category":diary.category,
-        "category_name":categories[diary.category],
-        "foodId":foodId,
-        "recipeId":recipeId
-      };
-
-      var request = dbHandler.insert(entryData, "diary"); //Add item to diary
-
-      request.onsuccess = function(e)
-      {
-        if (foodId)
-        {
-          //Update food item's dateTime (to show when food was last referenced)
-          var foodData = {"id":foodId, "dateTime":new Date()};
-          dbHandler.update(foodData, "foodList", foodId);
+        dbHandler.put(entry, "diary").onsuccess = function() {
           resolve();
-        }
-        else {
-          resolve();
-        }
+        };
+      } else {
+        resolve();
       }
+    }).catch(err => {
+      throw (err);
     });
   },
 
-  deleteEntry : function(id)
-  {
-    return new Promise(function(resolve, reject){
-      //Remove the item from the diary table and get the request handler
-      var request = dbHandler.deleteItem(parseInt(id), "diary");
+  deleteItem: function(item) {
+    let title = app.strings["confirm-delete-title"] || "Delete";
+    let text = app.strings["confirm-delete"] || "Are you sure?";
 
-      //If the request was successful repopulate the list
-      request.onsuccess = function(e) {
-        resolve(id);
+    let dialog = app.f7.dialog.confirm(text, title, async () => {
+
+      let entry = await app.Diary.getEntryFromDB();
+
+      if (entry !== undefined)
+        entry.items.splice(item.index, 1);
+
+      dbHandler.put(entry, "diary").onsuccess = function(e) {
+        app.f7.views.main.router.refreshPage();
       };
     });
   },
 
-  updateEntry : function()
-  {
-    var id = parseInt($("#edit-diary-item #id").val()); //Get item id from hidden field
-    var quantity = parseFloat($("#edit-diary-item #quantity").val());
-    var categoryidx = $("#edit-diary-item #category-idx").val();
-    var categories = JSON.parse(app.storage.getItem("meal-names")); //User defined meal names are used as category names
-    var calories = $("#edit-diary-item #calories").val();
+  quickAdd: function(category) {
+    let title = app.strings["quick-add"] || "Quick Add";
+    let text = app.strings["calories"] || "Calories";
 
-    var getRequest = dbHandler.getItem(id, "diary"); //Pull record from DB
+    let dialog = app.f7.dialog.prompt(text, title, async function(value) {
+      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-    getRequest.onsuccess = function(e) //Once we get the db result
-    {
-      var item = e.target.result; //Get the item from the request
+      let quantity = value;
 
-      //Update the values in the item
-      item.quantity = quantity;
-      item.category = categoryidx;
-      item.category_name = categories[categoryidx];
+      if (!isNaN(quantity)) {
+        let item = await app.Foodlist.getQuickAddItem(); // Get food item
 
-      var putRequest = dbHandler.insert(item, "diary"); //Update the item in the db
+        if (item !== undefined) {
+          item.dateTime = new Date();
+          item.category = category;
+          item.quantity = parseInt(quantity);
 
-      putRequest.onsuccess = function(e)
-      {
-        nav.popPage();
+          entry.items.push(item);
+
+          dbHandler.put(entry, "diary").onsuccess = function(e) {
+            app.f7.views.main.router.refreshPage();
+          };
+        }
       }
-    }
+    });
   },
 
-  renderStats : function(data)
-  {
-    var colour = "";
-
-    data.nutrition.calories < data.goals.calories ? colour = "green" : colour = "red";
-    if (data.goals.weight && data.goals.weight.gain == true) //Flip colours if user wants to gain weight
-    {
-      data.nutrition["calories"] > data.goals["calories"] ? colour = "green" : colour = "red";
-    }
-    $("#diary-page #stat-bar #remaining").css("color", colour); //Set text colour for remaining
-    $("#diary-page .progressBar").css("background-color", colour);
-
-    var percentage = Math.min(100, data.nutrition.calories * 100 / data.goals.calories);
-    $("#diary-page .progressBar").css("width", percentage+"%");
-
-    $("#diary-page #stat-bar #goal").html(data.goals.calories);
-    $("#diary-page #stat-bar #used").html(Math.round(data.nutrition.calories));
-    $("#diary-page #stat-bar #remaining").html(Math.round(data.remaining.calories));
+  logWeight: function() {
+    let title = app.strings["record-weight"] || "Record Weight";
+    let text = app.strings["weight"] || "Weight";
+    let lastWeight = window.localStorage.getItem("weight") || 0;
+    let dialog = app.f7.dialog.prompt(text, title, this.setWeight, null, lastWeight);
   },
-}
 
-//Diary page display
-$(document).on("show", "#diary-page", function(e){
-  diary.updateDisplayedDate();
-  diary.populate();
-});
+  setWeight: async function(value) {
+    let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-//Deleting an item
-$(document).on("hold", "#diary-page ons-list-item", function(e) {
+    entry.stats.weight = {
+      value: value,
+      unit: "kg"
+    };
 
-  var data = JSON.parse($(this).attr("data"));
+    dbHandler.put(entry, "diary").onsuccess = function(e) {
+      window.localStorage.setItem("weight", value);
+      app.Utils.toast("Saved");
+    };
+  },
 
-  //Show confirmation dialog
-  ons.notification.confirm("Delete this item?")
-  .then(function(input) {
-    if (input == 1) {//Delete was confirmed
-      diary.deleteEntry(data.id)
-      .then(diary.populate());
-    }
-  });
-});
+  gotoFoodlist: function(category) {
+    app.f7.views.main.router.navigate("/foods-meals-recipes/", {
+      "context": {
+        origin: "/diary/",
+        category: category,
+        date: new Date(app.Diary.calendar.getValue())
+      }
+    });
+  },
+};
 
-//Item tap action
-$(document).on("tap", "#diary-page ons-list-item", function(e) {
-  var data = JSON.parse($(this).attr("data"));
-  nav.pushPage("activities/diary/views/edit-item.html", {"data":data})
-  .then(function() {diary.fillEditForm(data)});
-});
-
-//Header tap action
-$(document).on("tap", "#diary-page ons-list-title", function(e) {
-  diary.category = $(this).attr("category-idx"); //Assign category from header ID
-  nav.pushPage("activities/foods-meals-recipes/views/foods-meals-recipes.html"); //Go to the food list page
-});
-
-//Header hold
-$(document).on("hold", "#diary-page ons-list-title", function(e){
-
-  diary.category = $(this).attr("category-idx"); //Assign category from header ID
-
-  //Show prompt
-  ons.notification.prompt(app.strings["diary"]["quick-add"]["body"], {"title":app.strings["diary"]["quick-add"]["title"], "inputType":"number", "defaultValue":"", "cancelable":true})
-  .then(function(input)
-  {
-    if (!isNaN(parseFloat(input)))
-    {
-      var data = {"name":"Calories", "portion":"Quick Add", "nutrition":{"calories":input}}
-      diary.addEntry(data)
-      .then(diary.populate());
-    }
-  });
-});
-
-$(document).on("init", "#edit-diary-item", function(e){
-  //Create and populate category selections
-  var categories = JSON.parse(app.storage.getItem("meal-names"));
-  var html = "<ons-select name='category-idx' id='category-idx' data-native-menu='false'>";
-  for (var i = 0; i < categories.length; i++)
-  {
-    if (categories[i] == "") continue;
-    html += "<option value='"+i+"'>"+categories[i]+"</option>";
-  }
-  html += "</ons-select>";
-
-  $("#edit-diary-item form").append(html);
-
-  diary.localizeEditForm();
-});
-
-//Update displayed values as quantity is changed
-$(document).on("keyup change", "#edit-diary-item #quantity", function(e){
-  var data = JSON.parse($("#edit-diary-item #data").attr("data"));
-  for (n in data.nutrition)
-  {
-    $("#edit-diary-item #"+n).val(Math.round(data.nutrition[n] * this.value));
+document.addEventListener("page:init", function(event) {
+  if (event.target.matches(".page[data-name='diary']")) {
+    let context = app.f7.data.context;
+    app.f7.data.context = undefined;
+    app.Diary.init(context);
   }
 });
 
-//Change date
-$(document).on("change", "#diary-page #date", function(e){
-  diary.date = new Date($("#diary-page #date").val()); //Set diary object date
-  diary.populate();
-});
-
-$(document).on("tap", "#diary-page #previousDate", function(e){
-  diary.date.setUTCDate(diary.date.getUTCDate()-1);
-  diary.updateDisplayedDate();
-  diary.populate();
-});
-
-$(document).on("tap", "#diary-page #nextDate", function(e){
-  diary.date.setUTCDate(diary.date.getUTCDate()+1);
-  diary.updateDisplayedDate();
-  diary.populate();
-});
-
-$(document).on("tap", "#diary-page #record-weight", function(e){
-  log.promptToSetWeight(diary.date);
+document.addEventListener("page:reinit", function(event) {
+  if (event.target.matches(".page[data-name='diary']")) {
+    let context = app.f7.data.context;
+    app.f7.data.context = undefined;
+    app.Diary.init(context);
+  }
 });

@@ -47,6 +47,8 @@ export namespace Panel {
     collapsedBreakpoint?: number
     /** Enables ability to open/close panel with swipe (default false) */
     swipe?: boolean
+    /** Fallback option for potentially better performance on old/slow devices. If you enable it, then swipe panel will not follow your finger during touch move, it will be automatically opened/closed on swipe left/right. (default false) */
+    swipeNoFollow?: boolean
     /** This parameter allows to close (but not open) panel with swipes. (default false) */
     swipeOnlyClose?: boolean
     /** Width (in px) of invisible edge from the screen that triggers swipe panel. (default 0) */
@@ -55,6 +57,8 @@ export namespace Panel {
     swipeThreshold?: number
     /** Enable/disable ability to close panel by clicking outside of panel (on panel's backdrop). (default true) */
     closeByBackdropClick? : boolean
+    /** Element to mount panel to. (default app.root) */
+    containerEl?: HTMLElement | CSSSelector
   }
 
   interface Panel extends Framework7EventsClass<Events>{
@@ -76,6 +80,10 @@ export namespace Panel {
     $backdropEl: Dom7Instance
     /** Popup parameters */
     params : Parameters
+    /** Element to mount panel to. (default app.root) */
+    containerEl: HTMLElement | CSSSelector
+    /** Dom7 instance with with element to mount panel to. (default app.root) */
+    $containerEl: HTMLElement | CSSSelector
 
     /** Open panel. */
     open(animate : boolean) : void

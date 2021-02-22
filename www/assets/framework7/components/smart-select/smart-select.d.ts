@@ -57,6 +57,8 @@ export namespace SmartSelect {
     searchbarDisableText?: string
     /** Enables searchbar disable button. By default, disabled for Aurora theme */
     searchbarDisableButton?: boolean
+    /** Value of "spellcheck" attribute on searchbar input (default false) */
+    searchbarSpellcheck?: boolean
     /** Appends block with content that displayed when there are no Searchbar results (default false) */
     appendSearchbarNotFound?: boolean | string | HTMLElement
     /** If enabled then smart select will be automatically closed after user selectes any option (default false) */
@@ -77,6 +79,15 @@ export namespace SmartSelect {
     url?: string
     /** Additional CSS class name to be set on Smart Select container (Page, Popup, Popover or Sheet) */
     cssClass?: string
+
+    /** Select option icon to be set on all options. If it just a string then will create an icon with this class. If it is in the format of `f7:icon_name` then it will create a F7-Icons icon. If it is in the format of `md:icon_name` then it will create a Material Icons icon. */
+    optionIcon?: string
+    /** Same as `optionIcon` but will apply only when iOS theme is active */
+    optionIconIos?: string
+    /** Same as `optionIcon` but will apply only when MD theme is active */
+    optionIconMd?: string
+    /** Same as `optionIcon` but will apply only when Aurora theme is active */
+    optionIconAurora?: string
 
     /** Function to render smart select page, must return full page HTML string */
     renderPage?: (items: any[]) => string,

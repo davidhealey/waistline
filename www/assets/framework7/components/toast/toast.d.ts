@@ -19,12 +19,14 @@ export namespace Toast {
   interface Parameters {
     /** Toast element. Can be useful if you already have Toast element in your HTML and want to create new instance using this element. */
     el?: HTMLElement | CSSSelector
-    /** Toast icon HTML layout, e.g. <i class="f7-icons">home</i> or image <img src="path/to/icon.png"> */
+    /** Toast icon HTML layout, e.g. <i class="f7-icons">house</i> or image <img src="path/to/icon.png"> */
     icon?: string
     /** Toast inner text */
     text?: string
     /** Toast position. Can be bottom, center or top (default bottom) */
     position?: 'top' | 'center' | 'bottom'
+    /** Toast horizontal alignment on wide screen. Has effects only on top and bottom toasts. (default left) */
+    horizontalPosition?: 'left' | 'center' | 'right'
     /** Adds toast close button (default false) */
     closeButton?: boolean
     /** One of the default color themes */

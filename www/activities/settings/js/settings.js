@@ -1,5 +1,5 @@
 /*
-  Copyright 2018, 2019 David Healey
+  Copyright 2020, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -14,178 +14,180 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var settings = {
+var s;
+app.Settings = {
 
-  saveSelect : function(controlId, value)
-  {
-    app.storage.setItem(controlId, value);
-  },
+  settings: {},
 
-  loadSelects : function(pageId)
-  {
-    var selects = $("#" + pageId + " ons-select");
-
-    for (var i = 0; i < selects.length; i++)
-    {
-      selects[i].value = app.storage.getItem(selects[i].id);
+  init: function() {
+    s = this.settings; //Assign settings object
+    if (!s.ready) {
+      s.ready = true;
     }
+    app.Settings.bindUIActions();
+    app.Settings.restoreInputValues();
   },
 
-  saveSwitches : function(control)
-  {
-    app.storage.setItem(control.id, control.checked);
+  put: function(field, setting, value) {
+    let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
+    settings[field] = settings[field] || {};
+    settings[field][setting] = value;
+    window.localStorage.setItem("settings", JSON.stringify(settings));
   },
 
-  loadSwitches : function(pageId)
-  {
-    var switches = $("#" + pageId + " ons-switch");
-
-    for (var i = 0; i < switches.length; i++)
-    {
-      switches[i].checked = (app.storage.getItem(switches[i].id) === "true");
+  get: function(field, setting) {
+    let settings = JSON.parse(window.localStorage.getItem("settings"));
+    if (settings && settings[field] && settings[field][setting] !== undefined) {
+      return settings[field][setting];
     }
+    return undefined;
   },
 
-  saveOffSettings : function(form)
-  {
-    //Get form data
-    var data = {};
-    $.each($(form).serializeArray(), function(i, field) {
-        data[field.name] = field.value;
-    });
-    app.storage.setItem("off_credentials", JSON.stringify(data));
-  },
-
-  loadOffSettings : function()
-  {
-    var data = app.storage.getItem("off_credentials");
-
-    if (data)
-    {
-      data = JSON.parse(data);
-      $("#off-settings-form #user_id").val(data.user_id);
-      $("#off-settings-form #password").val(data.password);
+  getField: function(field) {
+    let settings = JSON.parse(window.localStorage.getItem("settings"));
+    if (settings && settings[field] !== undefined) {
+      return JSON.parse(settings[field]);
     }
+    return undefined;
   },
 
-  saveDiarySettings : function(form)
-  {
-    //Get form data
-    var data = [];
-    $.each($(form).serializeArray(), function(i, field) {
-        data.push(field.value.trim());
-    });
-    app.storage.setItem("meal-names", JSON.stringify(data));
+  putField: function(field) {
+    let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
+    settings[field] = settings[field] || {};
+    settings[field] = value;
+    window.localStorage.setItem("settings", JSON.stringify(settings));
   },
 
-  loadDiarySettings : function()
-  {
-    var mealNames = JSON.parse(app.storage.getItem("meal-names"));
+  restoreInputValues: function() {
+    const inputs = Array.from(document.querySelectorAll("input, select"));
 
-    if (mealNames)
-    {
-      var inputs = $("#diary-settings ons-input");
+    inputs.forEach((x, i) => {
 
-      for (var i = 0; i < mealNames.length; i++)
-      {
-        inputs[i].value = mealNames[i];
+      let field = x.getAttribute("field");
+      let setting = x.getAttribute("name");
+
+      if (field && setting) {
+        let value = this.get(field, setting); //Get value from storage
+
+        if (value) {
+
+          if (Array.isArray(value)) { //Deal with array values
+            value.forEach((y, j) => { //Each value
+              for (let k = 0; k < inputs.length; k++) { //Each input
+                let z = inputs[k];
+                if (z.name == x.name) { //If the input matches the name of the original input
+                  if (z.type == "checkbox")
+                    z.checked = y;
+                  else
+                    z.value = y;
+                  inputs.splice(k, 1); //Remove input from array because we've done this one
+                  break; //Exit inner loop
+                }
+              }
+            });
+          } else {
+            if (x.type == "checkbox")
+              x.checked = value;
+            else
+              x.value = value;
+          }
+        }
       }
+    });
+  },
+
+  bindUIActions: function() {
+
+    // Input fields (including selects)
+    const inputs = Array.from(document.querySelectorAll("input:not(.manual-bind), select"));
+
+    inputs.forEach((x, i) => {
+      x.addEventListener("change", (e) => {
+
+        //If input has same name as other inputs group them into an array
+        let value = inputs.reduce((result, y) => {
+          if (y.name == x.name) {
+            if (y.type == "checkbox")
+              result.push(y.checked);
+            else
+              result.push(y.value);
+          }
+          return result;
+        }, []);
+
+        // Input is not part of an array so just get first element
+        if (value.length == 1) value = value[0];
+
+        let field = x.getAttribute("field");
+        let setting = x.getAttribute("name");
+
+        this.put(field, setting, value);
+        this.resetModuleReadyStates(); //Reset modules for changes to take effect
+      });
+    });
+
+    // Open food facts credentials login button
+    let offLogin = document.getElementById("off-login");
+    if (offLogin) {
+      offLogin.addEventListener("click", function(e) {
+        let username = document.querySelector(".off-login #off-username").value;
+        let password = document.querySelector(".off-login #off-password").value;
+        app.Settings.saveOFFCredentials(username, password);
+      });
+    }
+
+    // USDA API Key save link
+    let usdaSave = document.getElementById("usda-save");
+    if (usdaSave) {
+      usdaSave.addEventListener("click", function(e) {
+        let key = document.querySelector(".usda-login #usda-key").value;
+        app.Settings.saveUSDAKey(key);
+      });
     }
   },
 
-  loadThemeSettings : function()
-  {
-    var options = $("#settings-page #theme option");
-    $(options[app.storage.getItem("theme")]).attr("selected", "selected");
+  resetModuleReadyStates: function() {
+    app.Diary.setReadyState(false);
   },
 
-  loadHomescreenSettings : function()
-  {
-    var options = $("#settings-page #homescreen option");
-
-    for (i = 0; i < options.length; i++)
-    {
-      if (options[i].value == app.storage.getItem("homescreen"))
-      $(options[i]).attr("selected", "selected");
+  saveOFFCredentials: async function(username, password) {
+    let screen = document.querySelector(".off-login");
+    if (app.Utils.isInternetConnected()) {
+      if ((username == "" && password == "") || await app.OpenFoodFactstestCredentials(username, password)) {
+        this.put("integration", "off-username", username);
+        this.put("integration", "off-password", password);
+        app.loginScreen.close(screen);
+      } else {
+        app.Utils.notification("Invalid Credentials", "error");
+      }
+    } else {
+      app.loginScreen.close(screen);
     }
   },
 
-  //Localises the placeholders of the forms input boxes
-  localizeDiarySettingsForm : function()
-  {
-    var inputs = $("#diary-settings ons-input");
-    var placeholder = "";
-
-    for (var i = 0; i < inputs.length; i++)
-    {
-      placeholder = app.strings["settings"]["diary"]["meal"];
-      $(inputs[i]).attr("placeholder", placeholder + " " + (i+1));
+  saveUSDAKey: async function(key) {
+    let screen = document.querySelector(".usda-login");
+    if (app.Utils.isInternetConnected()) {
+      if (key == "" || await app.USDAtestApiKey(key)) {
+        this.put("integration", "usda-key", key);
+        app.loginScreen.close(screen);
+      } else {
+        app.Utils.notification("API Key Invalid", "error");
+      }
+    } else {
+      app.loginScreen.close(screen);
     }
   },
-}
+};
 
-//Main settings screen
-$(document).on("show", "#settings-page", function(e){
-  settings.loadSwitches("settings-page");
-  settings.loadThemeSettings();
-  settings.loadHomescreenSettings();
-});
+document.addEventListener("page:init", async function(e) {
+  const pageName = e.target.attributes["data-name"].value;
 
-//Food list settings
-$(document).on("show", "#food-list-settings", function(e){
-  settings.loadSwitches("food-list-settings");
-  settings.loadSelects("food-list-settings");
-});
-
-//Diary settings
-$(document).on("show", "#diary-settings", function(e){
-  settings.localizeDiarySettingsForm();
-  settings.loadDiarySettings();
-});
-
-//Form submission via checkmark button
-$(document).on("tap", "#diary-settings #submit, #off-settings", function(e){
-  $("form").submit();
-  nav.popPage();
-});
-
-//Open food facts account
-$(document).on("show", "#off-settings", function(e){
-  settings.loadOffSettings();
-});
-
-//Theme
-$(document).on("change", "#settings-page #theme", function(e){
-  app.storage.setItem("theme", this.value);
-  app.setTheme(this.value);
-});
-
-//Homescreen
-$(document).on("change", "#settings-page #homescreen", function(e){
-  app.storage.setItem("homescreen", this.value);
-  app.setTheme(this.value);
-});
-
-//Import/Export
-$(document).on("tap", "#settings-page #import", function(e){
-  ons.notification.confirm("Are you sure you want to import? Doing so will overwrite your existing data.", {"title":"Confirm Import"})
-  .then(function(input) {
-    if (input == 1)
-    {
-      dbHandler.readFromFile();
-    }
-  });
-});
-
-$(document).on("tap", "#settings-page #export", function(e){
-  ons.notification.confirm("This action will overwrite any previously exported data. Do you want to continue?", {"title":"Confirm Export"})
-  .then(function(input) {
-    if (input == 1)
-    {
-      dbHandler.exportToFile();
-    }
-  });
+  //Settings and all settings subpages
+  if (pageName.indexOf("settings") != -1) {
+    app.Settings.init();
+  }
 });

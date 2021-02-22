@@ -1,0 +1,78 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="meal-editor">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back">
+          <i class="icon icon-back"></i>
+        </a>
+      </div>
+      <div class="title" id="title" data-localize="meal.title">Edit Meal</div>
+      <div class="right">
+        <a href="#" id="submit" class="link icon-only"><i class="icon material-icons">done</i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <div class="card no-border no-shadow">
+      <div class="card-content">
+        <div class="row nutrition-card" id="meal-nutrition">
+          <div class="col-100">
+            <div class="swiper-container swiper-init" id="meal-nutrition-swiper">
+              <div class="swiper-wrapper" id="meal-nutrition-swiper-wrapper"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card no-border no-shadow">
+      <div class="card-content">
+        <div class="list">
+          <ul>
+            <li class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Name</div>
+                <div class="item-input-wrap">
+                  <input type="text" id="name" name="name" required validate placeholder="Meal Name">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="list media-list">
+          <ul id="meal-food-list">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <div class="fab fab-right-bottom" id="add-food">
+    <a href="#"><i class="icon material-icons">&#xe561</i></a>
+  </div>
+
+</div>
