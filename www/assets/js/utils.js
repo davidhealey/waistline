@@ -65,5 +65,14 @@ app.Utils = {
       });
     });
     return target;
+  },
+
+  togglePreloader: function(state, text) {
+    if (state) {
+      app.preloader = app.f7.dialog.preloader(text);
+    } else if (app.preloader !== undefined) {
+      app.preloader.close();
+      app.preloader = undefined;
+    }
   }
 };

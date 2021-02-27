@@ -133,32 +133,35 @@ app.OpenFoodFacts = {
     return result;
   },
 
-  upload: async function(data) {
+  upload: function(data) {
+    return new Promise(async function(resolve, reject) {
+      resolve();
+      let s = app.OpenFoodFacts.getUploadString(data);
 
-    let s = app.OpenFoodFacts.getUploadString(data);
+      // Make request to OFF
+      let endPoint;
+      if (app.mode == "development")
+        endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
+      else
+        endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
 
-    // Make request to OFF
-    let endPoint;
-    if (app.mode == "development")
-      endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
-    else
-      endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
+      let headers = {};
+      if (app.mode == "development")
+        headers.Authorization = "Basic " + btoa("off:off");
 
-    let headers = {};
-    if (app.mode == "development")
-      headers.Authorization = "Basic " + btoa("off:off");
+      let response = await fetch(endPoint + s, {
+        credentials: 'include',
+        headers: headers
+      });
 
-    let response = await fetch(endPoint + s, {
-      credentials: 'include',
-      headers: headers
-    });
-
-    if (response) {
-      let result = await response.json();
-      if (result.status == 1 && data.images !== undefined) {
-        await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
+      if (response) {
+        let result = await response.json();
+        if (result.status == 1 && data.images !== undefined) {
+          await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
+        }
       }
-    }
+      resolve();
+    });
   },
 
   getUploadString: function(data) {
@@ -218,8 +221,6 @@ app.OpenFoodFacts = {
         console.log(values);
         resolve();
       });
-
-      console.log("COMPLETE");
     });
   },
 

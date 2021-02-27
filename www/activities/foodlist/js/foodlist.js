@@ -224,7 +224,7 @@ app.Foodlist = {
       on: {
         async search(sb, query, previousQuery) {
           if (query != "") {
-            app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, s.filterList);
+            app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, app.Foodlist.filterList);
             app.Foodlist.renderList(true);
           } else {
             app.FoodsMealsRecipes.clearSearchSelection();

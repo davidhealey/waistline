@@ -97,14 +97,16 @@ app.FoodEditor = {
     });
 
     if (!app.FoodEditor.el.upload.hasClickEvent) {
-      app.FoodEditor.el.upload.addEventListener("click", (e) => {
+      app.FoodEditor.el.upload.addEventListener("click", async (e) => {
         let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
 
         if (data !== undefined) {
           if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
             data.images = app.FoodEditor.images;
-            data.barcode = "00481514444623426";
-            app.OpenFoodFacts.upload(data);
+            app.Utils.togglePreloader(true, "Uploading");
+            await app.OpenFoodFacts.upload(data);
+            app.Utils.togglePreloader(false);
+            app.f7.views.main.router.navigate("/foods-meals-recipes/");
           } else {
             app.Utils.toast("Please provide the number of calories for this food.", 2500);
           }
