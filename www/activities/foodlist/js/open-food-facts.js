@@ -135,7 +135,6 @@ app.OpenFoodFacts = {
 
   upload: function(data) {
     return new Promise(async function(resolve, reject) {
-      resolve();
       let s = app.OpenFoodFacts.getUploadString(data);
 
       // Make request to OFF
@@ -156,7 +155,7 @@ app.OpenFoodFacts = {
 
       if (response) {
         let result = await response.json();
-        if (result.status == 1 && data.images !== undefined) {
+        if (result.status == 1 && data.images[0] !== undefined) {
           await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
         }
       }
@@ -183,7 +182,7 @@ app.OpenFoodFacts = {
     string += data.nutrition_per;
     string += "&serving_size=" + escape(data.portion) + data.unit;
     if (data.ingredients !== undefined) string += "&ingredients_text=" + escape(data.ingredients);
-    if (data.traces !== undefined) string += "&traces_text=" + escape(data.traces);
+    if (data.traces !== undefined) string += "&traces=" + escape(data.traces);
 
     // Nutrition
     if (data.nutrition.kilojoules !== 0) {

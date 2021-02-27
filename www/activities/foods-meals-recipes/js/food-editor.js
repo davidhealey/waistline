@@ -101,6 +101,7 @@ app.FoodEditor = {
         let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
 
         if (data !== undefined) {
+          data.barcode = "00481514444623426";
           if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
             data.images = app.FoodEditor.images;
             app.Utils.togglePreloader(true, "Uploading");
