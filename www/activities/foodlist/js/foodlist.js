@@ -92,6 +92,11 @@ app.Foodlist = {
   },
 
   search: async function(query) {
+    if (navigator.connection.type == "none") {
+      app.Utils.toast(app.strings["no-internet"] || "No internet connection");
+      return false;
+    }
+
     if (query != "") {
 
       app.Utils.togglePreloader(true, "Searching");
@@ -357,7 +362,7 @@ app.Foodlist = {
 
             // Not already in foodlist so search OFF 
             if (navigator.connection.type == "none") {
-              app.Utils.notify(app.strings["no-internet"] || "No internet connection");
+              app.Utils.toast(app.strings["no-internet"] || "No internet connection");
               reject();
             }
 
