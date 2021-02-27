@@ -38,7 +38,7 @@ app.FoodsMealsRecipes = {
         this.showBackButton();
         this.origin = context.origin; //Page that called up the foodlist
 
-        switch (s.origin) {
+        switch (app.FoodsMealsRecipes.origin) {
           case "/diary/":
             this.date = context.date; //Date from diary
             break;
@@ -133,8 +133,8 @@ app.FoodsMealsRecipes = {
   },
 
   showBackButton: function() {
-    app.FoodsMealsRecipeapp.FoodsMealsRecipes.el.menu.style.display = "none";
-    app.FoodsMealsRecipeapp.FoodsMealsRecipes.el.back.style.display = "block";
+    app.FoodsMealsRecipes.el.menu.style.display = "none";
+    app.FoodsMealsRecipes.el.back.style.display = "block";
   },
 
   getFromDB: function(store, sort) {

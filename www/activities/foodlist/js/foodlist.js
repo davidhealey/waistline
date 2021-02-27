@@ -94,7 +94,6 @@ app.Foodlist = {
   search: async function(query) {
     if (navigator.connection.type !== "none") {
       if (query != "") {
-
         app.Utils.togglePreloader(true, "Searching");
 
         let offList = [];
