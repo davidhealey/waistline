@@ -106,7 +106,7 @@ app.FoodEditor = {
             app.Utils.togglePreloader(true, "Uploading");
             await app.OpenFoodFacts.upload(data);
             app.Utils.togglePreloader(false);
-            app.f7.views.main.router.navigate("/foods-meals-recipes/");
+            app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
           } else {
             app.Utils.toast("Please provide the number of calories for this food.", 2500);
           }
@@ -238,13 +238,14 @@ app.FoodEditor = {
         input.type = "number";
         input.step = "0.01";
         input.min = "0";
+        input.placeholder = "0";
         input.name = k;
 
         if (item) {
-          input.value = Math.round(item.nutrition[k] * 100) / 100 || 0;
+          input.value = Math.round(item.nutrition[k] * 100) / 100 || "";
           input.oldValue = input.value;
         } else {
-          input.value = 0;
+          input.value = "";
         }
 
         input.addEventListener("change", function() {

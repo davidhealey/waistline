@@ -630,7 +630,7 @@ document.addEventListener("page:reinit", function(e) {
     app.f7.data.context = undefined;
 
     if (context !== undefined && context.item !== undefined) {
-      if (s.tab == "foodlist") {
+      if (app.FoodsMealsRecipes.tab == "foodlist") {
         app.Foodlist.init(context);
       }
     }
