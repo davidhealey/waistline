@@ -170,13 +170,10 @@ app.OpenFoodFacts = {
     let username = app.Settings.get("integrations", "off-username") || "waistline-app";
     let password = app.Settings.get("integrations", "off-password") || "waistline";
 
-    let lang = /*app.getLocale() || */ "en";
-
     // Organise data for upload 
     string += "code=" + data.barcode;
     string += "&user_id=" + username;
     string += "&password=" + password;
-    string += "&lang=" + lang;
     string += "&product_name=" + escape(data.name);
     if (data.brand !== undefined) string += "&brands=" + escape(data.brand);
     string += data.nutrition_per;

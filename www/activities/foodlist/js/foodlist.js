@@ -66,7 +66,6 @@ app.Foodlist = {
     app.Foodlist.el.searchForm = document.querySelector("#foods-tab #food-search-form");
     app.Foodlist.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist"); //Infinite list container
     app.Foodlist.el.list = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist ul"); //Infinite list
-    app.Foodlist.el.spinner = document.querySelector("#foods-tab #spinner");
   },
 
   bindUIActions: function() {
@@ -94,7 +93,9 @@ app.Foodlist = {
 
   search: async function(query) {
     if (query != "") {
-      app.Foodlist.el.spinner.style.display = "block";
+
+      app.Utils.togglePreloader(true, "Searching");
+
       let offList = [];
       let usdaList = [];
 
@@ -122,7 +123,7 @@ app.Foodlist = {
       }
     }
 
-    app.Foodlist.el.spinner.style.display = "none";
+    app.Utils.togglePreloader(false);
 
     this.renderList(true);
   },
@@ -230,7 +231,6 @@ app.Foodlist = {
             app.FoodsMealsRecipes.clearSearchSelection();
             app.Foodlist.list = await app.Foodlist.getListFromDB();
             app.Foodlist.filterList = app.Foodlist.list;
-            app.Foodlist.el.spinner.style.display = "none";
             app.f7.searchbar.disable(this);
           }
           app.Foodlist.renderList(true);
@@ -362,8 +362,9 @@ app.Foodlist = {
             }
 
             // Display loading image
-            app.Foodlist.el.spinner.style.display = "block";
+            app.Utils.togglePreloader(true, "Searching");
             let result = await app.OpenFoodFactssearch(code);
+            app.Utils.togglePreloader(false);
 
             // Return result from OFF
             if (result[0] !== undefined) {
