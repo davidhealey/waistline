@@ -221,3 +221,11 @@ app.f7.on("init", async function(event) {
 window.addEventListener("contextmenu", function(e) {
   e.preventDefault();
 });
+
+// Android back button 
+document.addEventListener("backbutton", (event) => {
+  if (app.f7.views.main.history.length === 1)
+    navigator.app.exitApp();
+  else
+    app.f7.views.main.router.back();
+});
