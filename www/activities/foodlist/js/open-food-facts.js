@@ -184,15 +184,21 @@ app.OpenFoodFacts = {
     if (data.ingredients !== undefined) string += "&ingredients_text=" + escape(data.ingredients);
     if (data.traces !== undefined) string += "&traces=" + escape(data.traces);
 
-    // Nutrition
+    // Energy
     if (data.nutrition.kilojoules !== 0) {
+      data.nutrition.calories = Math.round(data.nutrition.kilojoules / 4.1868 * 100) / 100;
       string += "&nutriment_energy_unit=kj";
       string += "&nutriment_energy=" + data.nutrition.kilojoules;
     } else {
+      data.nutrition.kilojoules = Math.round(data.nutrition.calories * 4.1868 * 100) / 100;
       string += "&nutriment_energy_unit=kcal";
       string += "&nutriment_energy=" + data.nutrition.calories;
     }
 
+    string += "&energy-kcal=" + data.nutrition.calories;
+    string += "&energy-kj=" + data.nutrition.kilojoules;
+
+    // Nutrition
     for (let n in data.nutrition) {
       if (data.nutrition[n] == 0 || n == "kilojoules" || n == "calories") continue;
       string += "&nutriment_" + n + "=" + data.nutrition[n];
