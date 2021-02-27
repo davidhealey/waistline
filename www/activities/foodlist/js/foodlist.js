@@ -92,45 +92,44 @@ app.Foodlist = {
   },
 
   search: async function(query) {
-    if (navigator.connection.type == "none") {
-      app.Utils.toast(app.strings["no-internet"] || "No internet connection");
-      return false;
-    }
+    if (navigator.connection.type !== "none") {
+      if (query != "") {
 
-    if (query != "") {
+        app.Utils.togglePreloader(true, "Searching");
 
-      app.Utils.togglePreloader(true, "Searching");
+        let offList = [];
+        let usdaList = [];
 
-      let offList = [];
-      let usdaList = [];
+        let offEnabled = app.Settings.get("integration", "off");
+        let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
 
-      let offEnabled = app.Settings.get("integration", "off");
-      let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
+        if (offEnabled == true || usdaEnabled == true) {
 
-      if (offEnabled == true || usdaEnabled == true) {
+          if (offEnabled)
+            offList = await app.OpenFoodFacts.search(query);
 
-        if (offEnabled)
-          offList = await app.OpenFoodFacts.search(query);
+          if (usdaEnabled)
+            usdaList = await app.USDA.search(query);
 
-        if (usdaEnabled)
-          usdaList = await app.USDA.search(query);
+          let result = offList.concat(usdaList);
 
-        let result = offList.concat(usdaList);
-
-        if (result.length > 0) {
-          app.Foodlist.list = result;
-          app.Foodlist.filterList = app.Foodlist.list;
+          if (result.length > 0) {
+            app.Foodlist.list = result;
+            app.Foodlist.filterList = app.Foodlist.list;
+          } else {
+            app.Utils.toast("No results");
+          }
         } else {
-          app.Utils.toast("No results");
+          app.Utils.toast("No search providers are enabled", 2000);
         }
-      } else {
-        app.Utils.toast("No search providers are enabled", 2000);
       }
+
+      app.Utils.togglePreloader(false);
+
+      this.renderList(true);
+    } else {
+      app.Utils.toast(app.strings["no-internet"] || "No internet connection");
     }
-
-    app.Utils.togglePreloader(false);
-
-    this.renderList(true);
   },
 
   renderList: async function(clear) {
