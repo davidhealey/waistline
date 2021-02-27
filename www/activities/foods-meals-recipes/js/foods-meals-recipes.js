@@ -544,7 +544,7 @@ app.FoodsMealsRecipes = {
         app.FoodsMealsRecipes.el.scan.style.display = "block";
 
       app.FoodsMealsRecipes.el.submit.style.display = "none";
-      app.FoodsMealsRecipes.el.title.innerHTML = s.tabTitle;
+      app.FoodsMealsRecipes.el.title.innerHTML = app.FoodsMealsRecipes.tabTitle;
     } else {
       app.FoodsMealsRecipes.el.scan.style.display = "none";
       app.FoodsMealsRecipes.el.submit.style.display = "block";
