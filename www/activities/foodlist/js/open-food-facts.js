@@ -200,24 +200,26 @@ app.OpenFoodFacts = {
   },
 
   uploadImages: function(imageURIs, barcode) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       let username = app.Settings.get("integrations", "off-username") || "waistline-app";
       let password = app.Settings.get("integrations", "off-password") || "waistline";
       let promises = [];
 
-      imageURIs.forEach(async (x, i) => {
+      for (let i = 0; i < imageURIs.length; i++) {
+        let x = imageURIs[i];
         let data = await app.OpenFoodFacts.getImageData(x, i);
         data.append("code", barcode);
         data.append("user_id", username);
         data.append("password", password);
-        //promises.push(app.OpenFoodFacts.postImage(data));
-        console.log(data);
-      });
+        promises.push(app.OpenFoodFacts.postImage(data));
+      }
 
-      Promise.all(promises).then((values) => {
+      await Promise.all(promises).then((values) => {
         console.log(values);
         resolve();
       });
+
+      console.log("COMPLETE");
     });
   },
 

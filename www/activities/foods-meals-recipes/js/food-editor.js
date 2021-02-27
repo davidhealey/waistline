@@ -17,108 +17,107 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var s;
 app.FoodEditor = {
 
-  settings: {
-    item: undefined,
-    origin: undefined,
-    linked: true,
-    el: {},
-    images: [undefined, undefined, undefined]
-  },
+  item: undefined,
+  scan: false,
+  origin: undefined,
+  linked: true,
+  el: {},
+  images: [undefined, undefined, undefined],
 
   init: function(context) {
-    s = this.settings; //Assign settings object
-    s.item = undefined;
-    s.scan = false;
+
+    app.FoodEditor.item = undefined;
+    app.FoodEditor.scan = false;
 
     if (context) {
 
       if (context.item !== undefined) {
-        s.item = context.item;
-        s.linked = true;
+        app.FoodEditor.item = context.item;
+        app.FoodEditor.linked = true;
       } else
-        s.linked = false; //Unlinked by default for adding new items
+        app.FoodEditor.linked = false; //Unlinked by default for adding new items
 
-      s.origin = context.origin;
-      s.scan = context.scan;
+      app.FoodEditor.origin = context.origin;
+      app.FoodEditor.scan = context.scan;
     }
-    s.scan = true;
+    app.FoodEditor.scan = true;
 
     this.getComponents();
     this.bindUIActions();
     this.updateTitle();
-    this.renderNutritionFields(s.item);
-    this.setComponentVisibility(s.origin);
+    this.renderNutritionFields(app.FoodEditor.item);
+    this.setComponentVisibility(app.FoodEditor.origin);
     this.setUploadFieldVisibility();
     this.setLinkButtonIcon();
 
-    if (s.item)
-      this.populateFields(s.item);
+    if (app.FoodEditor.item)
+      this.populateFields(app.FoodEditor.item);
 
-    if (s.item && s.item.category !== undefined)
-      this.populateCategoryField(s.item);
+    if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
+      this.populateCategoryField(app.FoodEditor.item);
 
     this.populateUnitOptions();
   },
 
   getComponents: function() {
-    s.el.title = document.querySelector(".page[data-name='food-editor'] #title");
-    s.el.link = document.querySelector(".page[data-name='food-editor'] #link");
-    s.el.upload = document.querySelector(".page[data-name='food-editor'] #upload");
-    s.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
-    s.el.name = document.querySelector(".page[data-name='food-editor'] #name");
-    s.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
-    s.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
-    s.el.category = document.querySelector(".page[data-name='food-editor'] #category");
-    s.el.portion = document.querySelector(".page[data-name='food-editor'] #portion");
-    s.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
-    s.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
-    s.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
-    s.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
-    s.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
+    app.FoodEditor.el.title = document.querySelector(".page[data-name='food-editor'] #title");
+    app.FoodEditor.el.link = document.querySelector(".page[data-name='food-editor'] #link");
+    app.FoodEditor.el.upload = document.querySelector(".page[data-name='food-editor'] #upload");
+    app.FoodEditor.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
+    app.FoodEditor.el.name = document.querySelector(".page[data-name='food-editor'] #name");
+    app.FoodEditor.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
+    app.FoodEditor.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
+    app.FoodEditor.el.category = document.querySelector(".page[data-name='food-editor'] #category");
+    app.FoodEditor.el.portion = document.querySelector(".page[data-name='food-editor'] #portion");
+    app.FoodEditor.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
+    app.FoodEditor.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
+    app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
+    app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
+    app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
   },
 
   bindUIActions: function() {
-    s.el.submit.addEventListener("click", (e) => {
-      returnItem(s.item, s.origin);
+    app.FoodEditor.el.submit.addEventListener("click", (e) => {
+      app.FoodEditor.returnItem(app.FoodEditor.item, app.FoodEditor.origin);
     });
 
-    s.el.portion.addEventListener("change", (e) => {
-      changeServing(s.item, "portion", e.target.value);
+    app.FoodEditor.el.portion.addEventListener("change", (e) => {
+      app.FoodEditor.changeServing(app.FoodEditor.item, "portion", e.target.value);
     });
 
-    s.el.quantity.addEventListener("change", (e) => {
-      changeServing(s.item, "quantity", e.target.value);
+    app.FoodEditor.el.quantity.addEventListener("change", (e) => {
+      app.FoodEditor.changeServing(app.FoodEditor.item, "quantity", e.target.value);
     });
 
-    s.el.link.addEventListener("click", (e) => {
-      s.linked = 1 - s.linked;
-      setLinkButtonIcon();
+    app.FoodEditor.el.link.addEventListener("click", (e) => {
+      app.FoodEditor.linked = 1 - app.FoodEditor.linked;
+      app.FoodEditor.setLinkButtonIcon();
     });
 
-    if (!s.el.upload.hasClickEvent) {
-      s.el.upload.addEventListener("click", (e) => {
-        let data = gatherFormData(s.item, s.origin);
+    if (!app.FoodEditor.el.upload.hasClickEvent) {
+      app.FoodEditor.el.upload.addEventListener("click", (e) => {
+        let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
 
         if (data !== undefined) {
           if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
-            data.images = s.images;
-            app.OpenFoodFactsupload(data);
+            data.images = app.FoodEditor.images;
+            data.barcode = "00481514444623426";
+            app.OpenFoodFacts.upload(data);
           } else {
             app.Utils.toast("Please provide the number of calories for this food.", 2500);
           }
         }
       });
-      s.el.upload.hasClickEvent = true;
+      app.FoodEditor.el.upload.hasClickEvent = true;
     }
 
     // add-photo buttons
-    s.el.addPhoto.forEach((x, i) => {
+    app.FoodEditor.el.addPhoto.forEach((x, i) => {
       if (!x.hasClickeEvent) {
         x.addEventListener("click", (e) => {
-          takePicture(i);
+          app.FoodEditor.takePicture(i);
         });
         x.hasClickEvent = true;
       }
@@ -127,32 +126,32 @@ app.FoodEditor = {
 
   setComponentVisibility: function(origin) {
     if (origin !== "foodlist") {
-      s.el.name.disabled = true;
-      s.el.brand.disabled = true;
-      s.el.unit.disabled = true;
-      s.el.link.style.display = "none";
-      s.linked = true;
-      s.el.quantityContainer.style.display = "block";
+      app.FoodEditor.el.name.disabled = true;
+      app.FoodEditor.el.brand.disabled = true;
+      app.FoodEditor.el.unit.disabled = true;
+      app.FoodEditor.el.link.style.display = "none";
+      app.FoodEditor.linked = true;
+      app.FoodEditor.el.quantityContainer.style.display = "block";
 
-      s.el.name.style.color = "grey";
-      s.el.brand.style.color = "grey";
-      s.el.unit.style.color = "grey";
+      app.FoodEditor.el.name.style.color = "grey";
+      app.FoodEditor.el.brand.style.color = "grey";
+      app.FoodEditor.el.unit.style.color = "grey";
     } else {
-      s.el.link.style.display = "block";
-      s.el.quantityContainer.style.display = "none";
+      app.FoodEditor.el.link.style.display = "block";
+      app.FoodEditor.el.quantityContainer.style.display = "none";
     }
 
-    if (s.item && s.item.category !== undefined)
-      s.el.categoryContainer.style.display = "block";
+    if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
+      app.FoodEditor.el.categoryContainer.style.display = "block";
     else
-      s.el.categoryContainer.style.display = "none";
+      app.FoodEditor.el.categoryContainer.style.display = "none";
 
-    if (s.scan == true) {
-      s.el.upload.style.display = "block";
-      s.el.submit.style.display = "none";
+    if (app.FoodEditor.scan == true) {
+      app.FoodEditor.el.upload.style.display = "block";
+      app.FoodEditor.el.submit.style.display = "none";
     } else {
-      s.el.upload.style.display = "none";
-      s.el.submit.style.display = "block";
+      app.FoodEditor.el.upload.style.display = "none";
+      app.FoodEditor.el.submit.style.display = "block";
     }
   },
 
@@ -160,32 +159,32 @@ app.FoodEditor = {
     let fields = Array.from(document.getElementsByClassName("upload-field"));
 
     fields.forEach((x) => {
-      if (s.scan == true)
+      if (app.FoodEditor.scan == true)
         x.style.display = "block";
       else
         x.style.display = "none";
     });
 
-    if (s.scan == true) {
-      s.linked = false;
-      s.el.link.style.display = "none";
+    if (app.FoodEditor.scan == true) {
+      app.FoodEditor.linked = false;
+      app.FoodEditor.el.link.style.display = "none";
     }
   },
 
   setLinkButtonIcon: function() {
-    if (s.linked)
-      s.el.link.innerHTML = "link";
+    if (app.FoodEditor.linked)
+      app.FoodEditor.el.link.innerHTML = "link";
     else
-      s.el.link.innerHTML = "link_off";
+      app.FoodEditor.el.link.innerHTML = "link_off";
   },
 
   updateTitle: function() {
-    if (!s.item) s.el.title.innerHTML = app.strings["add-new-item"] || "Add New Item";
+    if (!app.FoodEditor.item) app.FoodEditor.el.title.innerHTML = app.strings["add-new-item"] || "Add New Item";
   },
 
   populateUnitOptions: function() {
     let units = app.standardUnits;
-    s.el.unit.innerHTML = "";
+    app.FoodEditor.el.unit.innerHTML = "";
 
     units.forEach((x, i) => {
       if (x != "" && x != undefined) {
@@ -193,7 +192,7 @@ app.FoodEditor = {
         option.value = i;
         option.text = x;
         if (x == "g") option.setAttribute("selected", "");
-        s.el.unit.append(option);
+        app.FoodEditor.el.unit.append(option);
       }
     });
   },
@@ -212,7 +211,7 @@ app.FoodEditor = {
 
     for (let k of nutriments) {
 
-      if (s.origin == "foodlist" || (item !== undefined && item.nutrition[k])) { // All nutriments or only items nutriments
+      if (app.FoodEditor.origin == "foodlist" || (item !== undefined && item.nutrition[k])) { // All nutriments or only items nutriments
         let li = document.createElement("li");
         li.className = "item-content item-input";
         ul.appendChild(li);
@@ -249,7 +248,7 @@ app.FoodEditor = {
         input.addEventListener("change", function() {
           if (this.oldValue == 0) this.oldValue = this.value;
           if (this.value == 0) this.oldValue = 0;
-          changeServing(item, k, this.value);
+          app.FoodEditor.changeServing(item, k, this.value);
         });
         inputWrapper.appendChild(input);
       }
@@ -258,7 +257,7 @@ app.FoodEditor = {
 
   populateCategoryField: function(item) {
     const mealNames = app.Settings.get("diary", "meal-names");
-    s.el.category.innerHTML = "";
+    app.FoodEditor.el.category.innerHTML = "";
 
     mealNames.forEach((x, i) => {
       if (x != "" && x != undefined) {
@@ -266,33 +265,33 @@ app.FoodEditor = {
         option.value = i;
         option.text = x;
         if (i == item.category) option.setAttribute("selected", "");
-        s.el.category.append(option);
+        app.FoodEditor.el.category.append(option);
       }
     });
   },
 
   populateFields: function(item) {
-    s.el.name.value = app.Utils.tidyText(item.name, 200);
-    s.el.brand.value = app.Utils.tidyText(item.brand, 200);
-    s.el.unit.value = item.unit;
+    app.FoodEditor.el.name.value = app.Utils.tidyText(item.name, 200);
+    app.FoodEditor.el.brand.value = app.Utils.tidyText(item.brand, 200);
+    app.FoodEditor.el.unit.value = item.unit;
 
     //Portion (serving size)
     if (item.portion != +undefined) {
-      s.el.portion.value = parseFloat(item.portion);
-      s.el.portion.oldValue = parseFloat(item.portion);
+      app.FoodEditor.el.portion.value = parseFloat(item.portion);
+      app.FoodEditor.el.portion.oldValue = parseFloat(item.portion);
     } else {
-      s.el.portion.setAttribute("placeholder", "N/A");
-      s.el.portion.disabled = true;
+      app.FoodEditor.el.portion.setAttribute("placeholder", "N/A");
+      app.FoodEditor.el.portion.disabled = true;
     }
 
     //Quantity (number of servings)
-    s.el.quantity.value = item.quantity || 1;
-    s.el.quantity.oldValue = s.el.quantity.value;
+    app.FoodEditor.el.quantity.value = item.quantity || 1;
+    app.FoodEditor.el.quantity.oldValue = app.FoodEditor.el.quantity.value;
   },
 
   changeServing: function(item, field, newValue) {
 
-    if (s.linked) {
+    if (app.FoodEditor.linked) {
 
       let multiplier;
       let oldValue;
@@ -303,14 +302,14 @@ app.FoodEditor = {
         oldValue = document.querySelector("#food-edit-form #" + field).oldValue;
 
       if (oldValue > 0 && newValue > 0) {
-        let newQuantity = s.el.quantity.value;
+        let newQuantity = app.FoodEditor.el.quantity.value;
 
         if (field == "portion" || field == "quantity") {
-          let newPortion = s.el.portion.value;
+          let newPortion = app.FoodEditor.el.portion.value;
           multiplier = (newPortion / item.portion) * (newQuantity / (item.quantity || 1));
         } else {
           multiplier = (newValue / oldValue) / (newQuantity / (item.quantity || 1));
-          s.el.portion.value = Math.round(item.portion * multiplier * 100) / 100;
+          app.FoodEditor.el.portion.value = Math.round(item.portion * multiplier * 100) / 100;
         }
 
         //Nutrition 
@@ -345,11 +344,11 @@ app.FoodEditor = {
           removePicture(index);
         });
 
-        s.el.photoHolder[index].innerHTML = "";
-        s.el.photoHolder[index].appendChild(img);
-        s.el.addPhoto[index].style.display = "none";
-        s.images[index] = image_uri;
-        console.log(s.images);
+        app.FoodEditor.el.photoHolder[index].innerHTML = "";
+        app.FoodEditor.el.photoHolder[index].appendChild(img);
+        app.FoodEditor.el.addPhoto[index].style.display = "none";
+        app.FoodEditor.images[index] = image_uri;
+        console.log(app.FoodEditor.images);
       },
       (err) => {
         app.Utils.toast("There was a problem accessing your camera.", 2000);
@@ -362,17 +361,17 @@ app.FoodEditor = {
     let text = app.strings["confirm-delete"] || "Are you sure?";
 
     let dialog = app.f7.dialog.confirm(text, title, () => {
-      s.el.photoHolder[index].innerHTML = "";
-      s.el.addPhoto[index].style.display = "block";
-      s.images[index] = undefined;
+      app.FoodEditor.el.photoHolder[index].innerHTML = "";
+      app.FoodEditor.el.addPhoto[index].style.display = "block";
+      app.FoodEditor.images[index] = undefined;
     });
   },
 
   gatherFormData: function(data, origin) {
-    if (app.input.validateInputs("#food-edit-form") == true) {
+    if (app.f7.input.validateInputs("#food-edit-form") == true) {
 
       let item = {};
-      item.portion = s.el.portion.value;
+      item.portion = app.FoodEditor.el.portion.value;
 
       if (data !== undefined) {
         if (data.id !== undefined) item.id = data.id;
@@ -383,10 +382,10 @@ app.FoodEditor = {
           item.index = data.index;
 
         if (data.quantity !== undefined)
-          item.quantity = s.el.quantity.value;
+          item.quantity = app.FoodEditor.el.quantity.value;
 
         if (data.category !== undefined)
-          item.category = s.el.category.value;
+          item.category = app.FoodEditor.el.category.value;
       }
 
       if (origin == "foodlist") {
@@ -401,7 +400,7 @@ app.FoodEditor = {
         if (data !== undefined && data.barcode !== undefined)
           item.barcode = data.barcode;
 
-        const unit = s.el.unit.value;
+        const unit = app.FoodEditor.el.unit.value;
 
         if (unit !== undefined && unit != "") {
           let units = app.standardUnits;
@@ -431,7 +430,7 @@ app.FoodEditor = {
   },
 
   returnItem: function(data, origin) {
-    let item = gatherFormData(data, origin);
+    let item = app.FoodEditor.gatherFormData(data, origin);
 
     app.f7.data.context = {
       item: item
