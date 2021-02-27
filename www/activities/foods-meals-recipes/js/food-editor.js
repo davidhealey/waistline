@@ -102,14 +102,19 @@ app.FoodEditor = {
 
         if (data !== undefined) {
           data.barcode = "00481514444623426";
-          if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
-            data.images = app.FoodEditor.images;
-            app.Utils.togglePreloader(true, "Uploading");
-            await app.OpenFoodFacts.upload(data);
-            app.Utils.togglePreloader(false);
-            app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
+
+          if (app.FoodEditor.images.indexOf(undefined) == -1) {
+            if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
+              data.images = app.FoodEditor.images;
+              app.Utils.togglePreloader(true, "Uploading");
+              await app.OpenFoodFacts.upload(data);
+              app.Utils.togglePreloader(false);
+              app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
+            } else {
+              app.Utils.toast("Please provide the number of calories for this food.", 2500);
+            }
           } else {
-            app.Utils.toast("Please provide the number of calories for this food.", 2500);
+            app.Utils.toast("Please add all 3 images.", 2500);
           }
         }
       });

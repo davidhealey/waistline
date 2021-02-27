@@ -155,7 +155,7 @@ app.OpenFoodFacts = {
 
       if (response) {
         let result = await response.json();
-        if (result.status == 1 && data.images[0] !== undefined) {
+        if (result.status == 1 && data.images.indexOf(undefined) == -1) {
           await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
         }
       }
@@ -209,15 +209,16 @@ app.OpenFoodFacts = {
 
       for (let i = 0; i < imageURIs.length; i++) {
         let x = imageURIs[i];
-        let data = await app.OpenFoodFacts.getImageData(x, i);
-        data.append("code", barcode);
-        data.append("user_id", username);
-        data.append("password", password);
-        promises.push(app.OpenFoodFacts.postImage(data));
+        if (x !== undefined) {
+          let data = await app.OpenFoodFacts.getImageData(x, i);
+          data.append("code", barcode);
+          data.append("user_id", username);
+          data.append("password", password);
+          promises.push(app.OpenFoodFacts.postImage(data));
+        }
       }
 
       await Promise.all(promises).then((values) => {
-        console.log(values);
         resolve();
       });
     });
