@@ -136,7 +136,7 @@ app.Foodlist = {
 
     if (clear) app.Utils.deleteChildNodes(app.Foodlist.el.list);
 
-    //List settings 
+    //List settings
     let maxItems = 300; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
@@ -152,6 +152,7 @@ app.Foodlist = {
           app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem);
       }
     }
+    app.Utils.togglePreloader(false);
   },
 
   getListFromDB: function() {
@@ -367,7 +368,7 @@ app.Foodlist = {
 
             // Display loading image
             app.Utils.togglePreloader(true, "Searching");
-            let result = await app.OpenFoodFactssearch(code);
+            let result = await app.OpenFoodFacts.search(code);
             app.Utils.togglePreloader(false);
 
             // Return result from OFF
