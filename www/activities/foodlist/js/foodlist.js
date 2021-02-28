@@ -77,7 +77,11 @@ app.Foodlist = {
 
     //Search form 
     app.Foodlist.el.searchForm.addEventListener("submit", (e) => {
-      this.search(app.Foodlist.el.search.value);
+      app.Utils.hideKeyboard();
+      if (navigator.connection.type !== "none")
+        this.search(app.Foodlist.el.search.value);
+      else
+        app.Utils.toast(app.strings["no-internet"] || "No internet connection");
     });
 
     if (!app.Foodlist.el.scan.hasClickEvent) {
@@ -92,43 +96,41 @@ app.Foodlist = {
   },
 
   search: async function(query) {
-    if (navigator.connection.type !== "none") {
-      if (query != "") {
-        app.Utils.togglePreloader(true, "Searching");
 
-        let offList = [];
-        let usdaList = [];
+    if (query != "") {
 
-        let offEnabled = app.Settings.get("integration", "off");
-        let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
+      app.Utils.togglePreloader(true, "Searching");
 
-        if (offEnabled == true || usdaEnabled == true) {
+      let offList = [];
+      let usdaList = [];
 
-          if (offEnabled)
-            offList = await app.OpenFoodFacts.search(query);
+      let offEnabled = app.Settings.get("integration", "off");
+      let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
 
-          if (usdaEnabled)
-            usdaList = await app.USDA.search(query);
+      if (offEnabled == true || usdaEnabled == true) {
 
-          let result = offList.concat(usdaList);
+        if (offEnabled)
+          offList = await app.OpenFoodFacts.search(query);
 
-          if (result.length > 0) {
-            app.Foodlist.list = result;
-            app.Foodlist.filterList = app.Foodlist.list;
-          } else {
-            app.Utils.toast("No results");
-          }
+        if (usdaEnabled)
+          usdaList = await app.USDA.search(query);
+
+        let result = offList.concat(usdaList);
+
+        if (result.length > 0) {
+          app.Foodlist.list = result;
+          app.Foodlist.filterList = app.Foodlist.list;
         } else {
-          app.Utils.toast("No search providers are enabled", 2000);
+          app.Utils.toast("No results");
         }
+      } else {
+        app.Utils.toast("No search providers are enabled", 2000);
       }
-
-      app.Utils.togglePreloader(false);
-
-      this.renderList(true);
-    } else {
-      app.Utils.toast(app.strings["no-internet"] || "No internet connection");
     }
+
+    app.Utils.togglePreloader(false);
+
+    this.renderList(true);
   },
 
   renderList: async function(clear) {

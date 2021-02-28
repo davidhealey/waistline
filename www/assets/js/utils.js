@@ -51,7 +51,7 @@ app.Utils = {
     let toast = app.f7.toast.create({
       text: text,
       position: position || 'center',
-      closeTimeout: timeout || 1000,
+      closeTimeout: timeout || 2000,
     });
 
     toast.open();
@@ -73,6 +73,14 @@ app.Utils = {
     } else if (app.preloader !== undefined) {
       app.preloader.close();
       app.preloader = undefined;
+    }
+  },
+
+  hideKeyboard: function() {
+    document.activeElement.blur();
+    let inputs = document.querySelectorAll('input');
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].blur();
     }
   }
 };
