@@ -73,6 +73,8 @@ app.FoodEditor = {
     app.FoodEditor.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
     app.FoodEditor.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
     app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
+    app.FoodEditor.el.ingredients_text = document.querySelector(".page[data-name='food-editor'] #ingredients_text");
+    app.FoodEditor.el.traces = document.querySelector(".page[data-name='food-editor'] #traces");
     app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
     app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
   },
@@ -134,6 +136,8 @@ app.FoodEditor = {
       app.FoodEditor.el.name.disabled = true;
       app.FoodEditor.el.brand.disabled = true;
       app.FoodEditor.el.unit.disabled = true;
+      app.FoodEditor.el.ingredients_text.disabled = true;
+      app.FoodEditor.el.traces.disabled = true;
       app.FoodEditor.el.link.style.display = "none";
       app.FoodEditor.linked = true;
       app.FoodEditor.el.quantityContainer.style.display = "block";
@@ -141,6 +145,8 @@ app.FoodEditor = {
       app.FoodEditor.el.name.style.color = "grey";
       app.FoodEditor.el.brand.style.color = "grey";
       app.FoodEditor.el.unit.style.color = "grey";
+      app.FoodEditor.el.ingredients_text.style.color = "grey";
+      app.FoodEditor.el.traces.style.color = "grey";
     } else {
       app.FoodEditor.el.link.style.display = "block";
       app.FoodEditor.el.quantityContainer.style.display = "none";
@@ -280,6 +286,8 @@ app.FoodEditor = {
     app.FoodEditor.el.name.value = app.Utils.tidyText(item.name, 200);
     app.FoodEditor.el.brand.value = app.Utils.tidyText(item.brand, 200);
     app.FoodEditor.el.unit.value = item.unit;
+    app.FoodEditor.el.ingredients_text.value = item.ingredients_text || "";
+    app.FoodEditor.el.traces.value = item.traces || "";
 
     //Portion (serving size)
     if (item.portion != +undefined) {

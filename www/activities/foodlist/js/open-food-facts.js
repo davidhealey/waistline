@@ -127,6 +127,10 @@ app.OpenFoodFacts = {
       result.nutrition.kilojoules = result.nutrition.calories * 4.1868;
     }
 
+    // Ingredients 
+    result.ingredients_text = item.ingredients_text;
+    result.traces = item.traces;
+
     if (result.name == "" || result.nutrition.calories == undefined || result.portion === undefined)
       result = undefined;
 

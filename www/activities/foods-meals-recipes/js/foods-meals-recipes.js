@@ -361,8 +361,7 @@ app.FoodsMealsRecipes = {
         inner.className = "item-inner food-item-inner";
         label.appendChild(inner);
 
-        if (app.FoodsMealsRecipes.disableEdit == false && item.id !== undefined && item.name !== "Quick Add") {
-
+        if (app.FoodsMealsRecipes.disableEdit == false && item.name !== "Quick Add") {
           inner.addEventListener("click", function(e) {
             e.preventDefault();
             if (clickCallback !== undefined)
@@ -372,7 +371,7 @@ app.FoodsMealsRecipes = {
           });
         }
 
-        if (tapholdCallback !== undefined) {
+        if (tapholdCallback !== undefined && item.id !== undefined) {
           inner.addEventListener("taphold", function(e) {
             e.preventDefault();
             tapholdCallback(item, li);
@@ -429,7 +428,6 @@ app.FoodsMealsRecipes = {
             else
               text += " " + item.unit;
           }
-
 
           if (item.quantity !== undefined && item.quantity > 1)
             text += " x" + item.quantity;
@@ -558,7 +556,7 @@ app.FoodsMealsRecipes = {
     const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
 
     checked.forEach((x, i) => {
-      let itemIndex = s.selection.indexOf(x.data);
+      let itemIndex = app.FoodsMealsRecipes.selection.indexOf(x.data);
       if (itemIndex != -1)
         app.FoodsMealsRecipes.selection.splice(itemIndex, 1);
     });
@@ -572,7 +570,6 @@ app.FoodsMealsRecipes = {
 
   gotoEditor: function(item) {
     //if (item.id !== undefined) {
-
     let origin;
     if (app.FoodsMealsRecipes.tab !== undefined)
       origin = app.FoodsMealsRecipes.tab;

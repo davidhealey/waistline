@@ -98,7 +98,6 @@ app.Foodlist = {
   search: async function(query) {
 
     if (query != "") {
-
       app.Utils.togglePreloader(true, "Searching");
 
       let offList = [];
