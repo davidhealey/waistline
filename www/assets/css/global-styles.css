@@ -9,4 +9,6 @@
 select.align-right {direction: rtl;}
 option {direction: ltr;}
 
-.item-title {width:65% !important;}
+#foodlist-container .item-title {width:65% !important;}
+#quantity-container .item-title {width:65% !important;}
+#nutrition .item-title {width:65% !important;}

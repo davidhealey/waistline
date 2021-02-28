@@ -42,7 +42,6 @@ app.FoodEditor = {
       app.FoodEditor.origin = context.origin;
       app.FoodEditor.scan = context.scan;
     }
-    app.FoodEditor.scan = true;
 
     this.getComponents();
     this.bindUIActions();
@@ -101,8 +100,6 @@ app.FoodEditor = {
         let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
 
         if (data !== undefined) {
-          data.barcode = "00481514444623426";
-
           if (app.FoodEditor.images.indexOf(undefined) == -1) {
             if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
               data.images = app.FoodEditor.images;
