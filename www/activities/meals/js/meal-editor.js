@@ -190,7 +190,7 @@ document.addEventListener("page:init", function(event) {
       items: []
     };
 
-    init(context);
+    app.Meals.init(context);
   }
 });
 
@@ -198,6 +198,6 @@ document.addEventListener("page:reinit", function(event) {
   if (event.detail.name == "meal-editor") {
     let context = app.f7.data.context;
     app.f7.data.context = undefined;
-    init(context);
+    app.Meals.init(context);
   }
 });

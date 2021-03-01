@@ -390,18 +390,20 @@ app.FoodsMealsRecipes = {
         row.appendChild(title);
 
         //Energy
-        let energy = parseInt(item.nutrition.calories);
+        if (item.nutrition !== undefined) {
+          let energy = parseInt(item.nutrition.calories);
 
-        if (energy !== undefined && !isNaN(energy)) {
-          let energyUnit = app.Settings.get("nutrition", "energy-unit");
+          if (energy !== undefined && !isNaN(energy)) {
+            let energyUnit = app.Settings.get("nutrition", "energy-unit");
 
-          if (energyUnit == "kJ")
-            energy = Math.round(energy * 4.1868);
+            if (energyUnit == "kJ")
+              energy = Math.round(energy * 4.1868);
 
-          let after = document.createElement("div");
-          after.className = "item-after";
-          after.innerHTML = energy + " " + energyUnit;
-          row.appendChild(after);
+            let after = document.createElement("div");
+            after.className = "item-after";
+            after.innerHTML = energy + " " + energyUnit;
+            row.appendChild(after);
+          }
         }
 
         //Brand 

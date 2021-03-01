@@ -195,7 +195,7 @@ document.addEventListener("page:init", function(event) {
       items: []
     };
 
-    init(context);
+    app.Recipes.init(context);
   }
 });
 
@@ -203,6 +203,6 @@ document.addEventListener("page:reinit", function(event) {
   if (event.detail.name == "recipe-editor") {
     let context = app.f7.data.context;
     app.f7.data.context = undefined;
-    init(context);
+    app.Recipes.init(context);
   }
 });

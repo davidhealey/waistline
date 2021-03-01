@@ -196,7 +196,6 @@ app.Diary = {
       });
 
       resolve();
-
     }).catch(err => {
       throw (err);
     });
