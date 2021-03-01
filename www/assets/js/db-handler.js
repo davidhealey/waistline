@@ -160,124 +160,287 @@ var dbHandler = {
           unique: false
         });
 
-        // Portion - including unit
-        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {
+        // Items
+        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
           unique: false
         });
 
-        // Foods
-        if (!store.indexNames.contains("foods")) store.createIndex('foods', 'foods', {
-          unique: false
-        });
+        await dbHandler.upgradeDatabase(e.oldVersion, upgradeTransaction);
 
-        // Useful to add notes to recipes
-        if (!store.indexNames.contains("notes")) store.createIndex('notes', 'notes', {
-          unique: false
-        });
-
-        await dbHandler.upgradeData(e.oldVersion, upgradeTransaction);
-
-        console.log("DB Created/Updated");
-        resolve();
+        upgradeTransaction.oncomplete = () => {
+          console.log("DB Created/Updated");
+          resolve();
+        };
       };
     });
   },
 
-  upgradeData: function(oldVersion, transaction) {
-    return new Promise(function(resolve, reject) {
+  upgradeDatabase: function(oldVersion, transaction) {
+    return new Promise(async function(resolve, reject) {
 
       if (!oldVersion)
         resolve();
 
       if (oldVersion < 30) {
+
         console.log("Upgrading database");
 
+        let promises = [];
+        let store;
+
         // Get weight by date
-        let log = transaction.objectStore('log');
         let weights = {};
 
-        log.openCursor().onsuccess = function(event) {
-          let cursor = event.target.result;
-          if (cursor) {
-            let value = cursor.value;
-            let date = value.dateTime;
-            let index = date.toDateString();
+        await new Promise(function(resolve, reject) {
+          try {
+            store = transaction.objectStore('log');
 
-            weights[index] = value;
-            cursor.continue();
+            store.openCursor().onsuccess = function(event) {
+              let cursor = event.target.result;
+              if (cursor) {
+                let value = cursor.value;
+                let dateTime = value.dateTime.toDateString();
+
+                weights[dateTime] = value;
+                cursor.continue();
+              } else {
+                resolve();
+              }
+            };
+          } catch (e) {
+            console.log("No Log store present (safe to ignore this)", e);
+            resolve();
           }
-        };
+        });
 
         // Convert old diary entries to new schema
-        let diary = transaction.objectStore('diary');
-        let entries = {};
+        await new Promise(function(resolve, reject) {
+          store = transaction.objectStore('diary');
+          let entries = {};
 
-        diary.openCursor().onsuccess = function(event) {
-          let cursor = event.target.result;
+          store.openCursor().onsuccess = function(event) {
 
-          if (cursor) {
-            let value = cursor.value;
-            let date = value.dateTime;
+            let cursor = event.target.result;
 
-            // Convert dates for those on versions < 25
-            date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
+            if (cursor) {
+              let value = cursor.value;
+              let date = value.dateTime;
 
-            let index = date.toDateString();
+              // Convert dates for those on versions < 25
+              date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
 
-            // Create array for each date
-            entries[index] = entries[index] || {
-              dateTime: date,
-              stats: {},
-              items: [],
-            };
+              // Create object for each date
+              let index = date.toDateString();
 
-            // Add weight 
-            let weight = weights[index];
-
-            if (weight !== undefined) {
-              entires[index].stats.weight = {
-                value: weight,
-                unit: "kg"
+              entries[index] = entries[index] || {
+                dateTime: date,
+                stats: {},
+                items: [],
               };
-            }
 
-            // Food/recipe item
-            let item = {
-              category: value.category,
-              portion: value.portion,
-              quantity: value.quantity || 1
-            };
+              // Add weight 
+              let weight = weights[index];
 
-            if (value.foodId) {
-              item.id = value.foodId;
-              item.type = "food",
-                entries[index].items.push(item);
-            } else if (value.recipeId) {
-              item.id = value.recipeId;
-              item.type = "recipe",
-                entries[index].items.push(item);
-            }
+              if (weight !== undefined) {
+                entries[index].stats.weight = weight;
+              }
 
-            cursor.delete();
-            cursor.continue();
-          } else {
+              // Foods/recipes
+              let item = {
+                category: value.category,
+                portion: parseInt(value.portion),
+                unit: value.portion.replace(/[^a-z]/g, ""),
+                quantity: value.quantity || "1"
+              };
 
-            // Insert new diary entries 
-            let request;
-            for (let e in entries) {
-              request = diary.put(entries[e]);
-            }
+              if (value.foodId !== undefined) {
+                item.id = value.foodId;
+                item.type = "food";
+              } else if (value.recipeId !== undefined) {
+                item.id = value.recipeId;
+                item.type = "recipe";
+              }
 
-            request.onerror = function(e) {
-              dbHandler.errorHandler();
-            };
+              entries[index].items.push(item);
 
-            request.onsuccess = () => {
-              console.log("Database Update Complete");
+              cursor.delete();
+              cursor.continue();
+            } else {
+
+              for (let e in entries) {
+                promises.push(new Promise(function(resolve, reject) {
+                  store.put(entries[e]).onsuccess = () => {
+                    resolve("Diary upgraded");
+                  };
+                }));
+              }
               resolve();
-            };
-          }
-        };
+            }
+          };
+        });
+
+        // Convert old foodlist entries to new schema
+        await new Promise(function(resolve, reject) {
+          store = transaction.objectStore('foodList');
+          let foods = [];
+
+          store.openCursor().onsuccess = function(event) {
+
+            let cursor = event.target.result;
+
+            if (cursor) {
+              let item = cursor.value;
+
+              if (item.portion !== undefined) {
+                item.portion = parseInt(cursor.value.portion);
+
+                if (typeof item.unit == "string")
+                  item.unit = cursor.value.portion.replace(/[^a-z]/g, "");
+              }
+
+              item.type = "food";
+              item.image_urls = [];
+
+              if (cursor.value.image_url !== undefined && cursor.value.image_url !== "")
+                item.image_urls.push(cursor.value.image_url);
+
+              delete item.image_url;
+
+              foods.push(item);
+
+              cursor.delete();
+              cursor.continue();
+            } else {
+
+              for (let f in foods) {
+                promises.push(new Promise(function(resolve, reject) {
+                  store.put(foods[f]).onsuccess = () => {
+                    resolve("Foodlist upgraded");
+                  };
+                }));
+              }
+              resolve();
+            }
+          };
+        });
+
+        // Convert old meal entries to new schema
+        await new Promise(function(resolve, reject) {
+          store = transaction.objectStore('meals');
+          let meals = [];
+
+          store.openCursor().onsuccess = function(event) {
+            let cursor = event.target.result;
+
+            if (cursor) {
+              let value = cursor.value;
+
+              let meal = {
+                id: value.id,
+                dateTime: value.dateTime,
+                name: value.name,
+                type: "food",
+                items: []
+              };
+
+              if (value.foods !== undefined) {
+                for (let f in value.foods) {
+                  let item = {
+                    id: f.id,
+                    quantity: "1"
+                  };
+
+                  if (f.portion !== undefined) {
+                    item.portion == parseInt(f.portion);
+                    if (typeof f.portion == "string")
+                      item.unit = f.portion.replace(/[^a-z]/g, "");
+                  }
+
+                  meal.items.push(item);
+                }
+              }
+
+              meals.push(meal);
+
+              cursor.delete();
+              cursor.continue();
+            } else {
+
+              for (let m in meals) {
+                promises.push(new Promise(function(resolve, reject) {
+                  store.put(meals[m]).onsuccess = () => {
+                    resolve("Meals upgraded");
+                  };
+                }));
+              }
+              resolve();
+            }
+          };
+        });
+
+        // Convert old recipe entries to new schema
+        await new Promise(function(resolve, reject) {
+          store = transaction.objectStore('recipes');
+          let recipes = [];
+
+          store.openCursor().onsuccess = function(event) {
+            let cursor = event.target.result;
+
+            if (cursor) {
+              let value = cursor.value;
+
+              let recipe = {
+                id: value.id,
+                dateTime: value.dateTime,
+                name: value.name,
+                portion: parseInt(value.portion),
+                quantity: "1",
+                notes: value.notes,
+                type: "food",
+                items: []
+              };
+
+              if (typeof value.portion == "string")
+                recipe.unit = value.portion.replace(/[^a-z]/g, "");
+
+              if (value.foods !== undefined) {
+                for (let f in value.foods) {
+                  let item = {
+                    id: f.id
+                  };
+
+                  if (f.portion !== undefined) {
+                    item.portion == parseInt(f.portion);
+                    if (typeof f.portion == "string")
+                      item.unit = f.portion.replace(/[^a-z]/g, "");
+                  }
+
+                  recipe.items.push(item);
+                }
+              }
+
+              recipes.push(recipe);
+
+              cursor.delete();
+              cursor.continue();
+            } else {
+
+              for (let r in recipes) {
+                promises.push(new Promise(function(resolve, reject) {
+                  store.put(recipes[r]).onsuccess = () => {
+                    resolve("Recipes upgraded");
+                  };
+                }));
+              }
+            }
+            resolve();
+          };
+        });
+
+        await Promise.all(promises).then((values) => {
+          console.log(values);
+          resolve();
+        });
       }
     });
   },
@@ -524,7 +687,7 @@ var dbHandler = {
 
                 if (Object.keys(importObject).length == 0) //added all object stores
                 {
-                  dbHandler.upgradeData(version, t);
+                  dbHandler.upgradeDatabase(version, t);
                 }
               }
             };
