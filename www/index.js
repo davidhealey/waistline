@@ -214,7 +214,7 @@ app.f7.on("init", async function(event) {
 
   //Database setup
   await dbHandler.initializeDb();
-  app.f7.views.main.router.navigate("/foods-meals-recipes/");
+  app.f7.views.main.router.navigate("/settings/import-export/");
 });
 
 //Prevent chrome displaying context menu on long click

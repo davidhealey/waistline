@@ -14,8 +14,10 @@
     <allow-intent href="*" />
     <allow-navigation href="*" />
     <platform name="android">
-        <preference name="android-minSdkVersion" value="25" />
-        <preference name="android-targetSdkVersion" value="25" />
+        <preference name="android-minSdkVersion" value="23" />
+        <preference name="android-targetSdkVersion" value="23" />
+        <uses-permission name="android.permission.READ_EXTERNAL_STORAGE" />
+        <uses-permission name="android.permission.WRITE_EXTERNAL_STORAGE" />
         <allow-intent href="market:*" />
         <icon density="mdpi" src="res/android/mdpi.png" />
         <icon density="hdpi" src="res/android/hdpi.png" />

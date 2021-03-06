@@ -147,6 +147,21 @@ app.Settings = {
         app.Settings.saveUSDAKey(key);
       });
     }
+
+    // Import/Export 
+    let exportDb = document.getElementById("export-db");
+    if (exportDb) {
+      exportDb.addEventListener("click", function(e) {
+        app.Settings.exportDatabase();
+      });
+    }
+
+    let importDb = document.getElementById("import-db");
+    if (importDb) {
+      importDb.addEventListener("click", function(e) {
+        app.Settings.importDatabase();
+      });
+    }
   },
 
   resetModuleReadyStates: function() {
@@ -181,6 +196,29 @@ app.Settings = {
       app.loginScreen.close(screen);
     }
   },
+
+  exportDatabase: async function() {
+    let data = await dbHandler.exportToJSON();
+    let filename = "waistline_export.json";
+    let path = await app.Utils.writeFile(data, filename);
+
+    if (path !== undefined) {
+      app.Utils.notify("Database Exported: " + path);
+    } else {
+      app.Utils.toast("Export Failed");
+    }
+  },
+
+  importDatabase: function() {
+    let title = app.strings["confirm-import-title"] || "Import";
+    let msg = app.strings["confirm-import"] || "Are you sure? This will overwrite your current database.";
+
+    let dialog = app.f7.dialog.confirm(msg, title, async () => {
+      let filename = "waistline_export.json";
+      let json = await app.Utils.readFile(filename);
+      await dbHandler.importFromJSON(json);
+    });
+  }
 };
 
 document.addEventListener("page:init", async function(e) {

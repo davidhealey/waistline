@@ -1,5 +1,5 @@
 /*
-  Copyright 2018 David Healey
+  Copyright 2018, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -607,172 +607,117 @@ var dbHandler = {
     });
   },
 
-  exportToFile: function() {
-    if (DB.objectStoreNames.length > 0) {
-      var exportObject = {};
-      var t = DB.transaction(DB.objectStoreNames, "readonly"); //Get transaction
-      var storeNames = dbHandler.getArrayFromObject(DB.objectStoreNames);
+  exportToJSON: function() {
+    return new Promise(function(resolve, reject) {
+      if (DB.objectStoreNames.length > 0) {
+        let result = {};
+        let t = DB.transaction(DB.objectStoreNames, "readonly");
+        let storeNames = Array.from(DB.objectStoreNames);
 
-      //Get data for each store
-      storeNames.forEach(function(storeName) {
-        var objects = [];
+        if (storeNames.length > 0) {
 
-        t.objectStore(storeName).openCursor().onsuccess = function(event) {
-          var cursor = event.target.result;
-          if (cursor) {
-            objects.push(cursor.value);
-            cursor.continue();
-          } else {
-            exportObject[storeName] = objects; //Each store's objects in a separate element
-
-            //Append object store to file once all objects have been gathered
-            if (Object.keys(exportObject).length == storeNames.length) {
-              // this needs to be here because of the key count logic
-              exportObject._version = DB.version;
-              dbHandler.writeToFile(JSON.stringify(exportObject));
-            }
+          // Remove log storeName if it's present
+          if (storeNames.includes("log")) {
+            let index = storeNames.indexOf("log");
+            storeNames.splice(index, 1);
           }
-        };
-      });
-    }
-  },
 
-  importFromJson: function(jsonString) {
-    var t = DB.transaction(DB.objectStoreNames, "readwrite"); //Get transaction
+          // Get values from each store 
+          storeNames.forEach(function(x) {
+            let data = [];
 
-    t.onerror = function(e) {
-      console.log("Error importing database. " + e.target.error.message);
-      alert("Something went wrong, are you sure the file exists?");
-    };
+            t.objectStore(x).openCursor().onsuccess = function(event) {
+              let cursor = event.target.result;
+              if (cursor) {
+                data.push(cursor.value);
+                cursor.continue();
+              } else {
+                result[x] = data;
 
-    t.oncomplete = function(e) {
-      console.log("Database import success");
-      alert("Database Import Complete");
-    };
-
-    var storeNames = dbHandler.getArrayFromObject(DB.objectStoreNames);
-    var importObject = JSON.parse(jsonString); //Parse recieved JSON string
-
-    var version = importObject._version;
-    // this key needs to be deleted for the key counting logic
-    delete importObject._version;
-    // _version was added in 25, so we just assume it's 24
-    if (version === undefined)
-      version = 24;
-
-    //Go through each object store and add the imported data
-    storeNames.forEach(function(storeName) {
-      //If there is no data to import for this object
-      if (importObject[storeName].length == 0) {
-        delete importObject[storeName];
-      } else {
-        t.objectStore(storeName).clear().onsuccess = function() //Clear object store
-        {
-          var count = 0;
-
-          importObject[storeName].forEach(function(toAdd) {
-            //Make sure dateTime entries are imported as date objects rather than strings
-            if (toAdd.dateTime) {
-              toAdd.dateTime = new Date(toAdd.dateTime);
-            }
-
-            var request = t.objectStore(storeName).add(toAdd);
-
-            request.onsuccess = function(e) {
-              count++;
-
-              if (count == importObject[storeName].length) //added all objects for this store
-              {
-                delete importObject[storeName];
-
-                if (Object.keys(importObject).length == 0) //added all object stores
-                {
-                  dbHandler.upgradeDatabase(version, t);
+                if (storeNames.length === Object.keys(result).length) {
+                  result.version = DB.version;
+                  resolve(JSON.stringify(result));
                 }
               }
             };
           });
-        };
+        } else {
+          reject();
+        }
+      } else {
+        reject();
       }
     });
   },
 
-  writeToFile: function(jsonString) {
-    //Export the json to a file
-    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir)
-      //window.requestFileSystem(PERSISTENT, 1024*1024, function(dir) //For browser testing
-      {
-        console.log("got main dir", dir);
+  importFromJSON: function(jsonString) {
+    return new Promise(function(resolve, reject) {
 
-        //Create the file
-        dir.getFile("waistline_export.json", {
-            create: true
-          }, function(file)
-          //dir.root.getFile("waistline_export.json", {create:true}, function(file)  //For browser testing
-          {
-            console.log("got the file", file.isFile.toString());
+      let t = DB.transaction(DB.objectStoreNames, "readwrite");
 
-            //Write to the file - overwrite existing content
-            file.createWriter(function(fileWriter) {
-              var blob = new Blob([jsonString], {
-                type: 'text/plain'
-              });
-              fileWriter.write(blob);
+      t.onerror = (e) => {
+        console.log("Error importing data.", e.target.error.message);
+        reject(e);
+      };
 
-              fileWriter.onwriteend = function() {
-                console.log("Successful file write.");
-                alert("Database Export Complete");
+      t.oncomplete = (e) => {
+        console.log("Database import successful");
+        resolve(e);
+      };
+
+      let storeNames = Array.from(DB.objectStoreNames);
+      let data = JSON.parse(jsonString);
+      let version = data.version; // Get version from json data 
+
+      // If no version is found then JSON must be from older version export
+      if (version === undefined) {
+        if (data._version !== undefined)
+          version = 27;
+        else
+          version = 24;
+      }
+
+      delete data.version; // Remove version key from import data 
+      delete data._version; // Remove old version key 
+
+      // Go through each object store and add the imported data
+      storeNames.forEach((x) => {
+        if (data[x] !== undefined && data[x].length > 0) {
+
+          // Clear the object store to remove old data
+          t.objectStore(x).clear().onsuccess = () => {
+
+            let count = 0;
+
+            data[x].forEach((d) => {
+
+              // Convert dateTime entries to Date objects
+              if (d.dateTime !== undefined)
+                d.dateTime = new Date(d.dateTime);
+
+              let request = t.objectStore(x).add(d);
+
+              request.onsuccess = async (e) => {
+                count++;
+
+                // Added all object for this store
+                if (count === data[x].length)
+                  delete data[x];
+
+                // Added all objects
+                if (Object.keys(data).length == 0) {
+                  await dbHandler.upgradeDatabase(version, t);
+                }
               };
 
-              fileWriter.onerror = function(e) {
-                console.log("Failed file write: " + e.toString());
-                alert("Something went wrong, you deserve a more detailed error message but I don't have one for you!");
+              request.onerror = (e) => {
+                dbHandler.errorHandler(e);
               };
             });
-          });
+          };
+        }
       });
-  },
-
-  readFromFile: function() {
-    var jsonString;
-
-    console.log("Called read from file");
-
-    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, success, fail);
-    //window.requestFileSystem(PERSISTENT, 1024*1024, success, fail); //For browser testing
-
-    function fail(e) {
-      console.log("FileSystem Error", e);
-      alert("Something went wrong, are you sure the file exists?");
-      return false;
-    }
-
-    function success(dir) {
-      console.log("Got file system");
-
-      dir.getFile('waistline_export.json', {}, function(file)
-        //dir.root.getFile('waistline_export.json', {}, function(file) //For browser testing
-        {
-          console.log("Got the file", file.isFile.toString());
-
-          file.file(function(file) {
-            var reader = new FileReader();
-
-            reader.readAsText(file);
-
-            reader.onloadend = function(e) {
-              jsonString = this.result;
-              console.log("Successful file read: ", this.result);
-              dbHandler.importFromJson(jsonString);
-            };
-
-            reader.onerror = function(e) {
-              console.log("Read Error:", e);
-              alert("Something went wrong, are you sure the file exists?");
-            };
-          });
-        });
-    }
+    });
   },
 
   errorHandler: function(err) {

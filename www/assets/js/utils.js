@@ -33,7 +33,7 @@ app.Utils = {
     return true;
   },
 
-  notification: function(text, icon) {
+  notify: function(text, icon) {
     // Create notification with click to close
     let notification = app.f7.notification.create({
       icon: '<i class="icon material-icons">' + icon + '</i>',
@@ -82,5 +82,88 @@ app.Utils = {
     for (let i = 0; i < inputs.length; i++) {
       inputs[i].blur();
     }
+  },
+
+  writeFile: function(data, filename) {
+    return new Promise(function(resolve, reject) {
+      if (app.mode !== "development") {
+
+        console.log("Writing data to file");
+
+        let base = cordova.file.externalRootDirectory;
+        let path = "Waistline/Database Backups/" + filename;
+
+        window.resolveLocalFileSystemURL(base, (dir) => {
+          dir.getFile(path, {
+            create: true
+          }, (file) => {
+            console.log(file);
+            // Write to the file, overwriting existing content 
+            file.createWriter((fileWriter) => {
+              let blob = new Blob([data], {
+                type: "text/plain"
+              });
+
+              fileWriter.write(blob);
+
+              fileWriter.onwriteend = () => {
+                console.log("Successul file write.");
+                resolve(file.fullPath);
+              };
+
+              fileWriter.onerror = (e) => {
+                console.log("Failed to write file", e.toString());
+                reject();
+              };
+            });
+          });
+        });
+      } else {
+        console.log("Write to file doesn't work in browser");
+      }
+    });
+  },
+
+  readFile(filename) {
+    return new Promise(function(resolve, reject) {
+      if (app.mode !== "development") {
+
+        console.log("Reading file");
+
+        let base = cordova.file.externalRootDirectory;
+        let path = "Waistline/Database Backups/" + filename;
+
+        window.resolveLocalFileSystemURL(base, (dir) => {
+          dir.getFile(path, {}, (file) => {
+
+            file.file((file) => {
+              let fileReader = new FileReader();
+
+              fileReader.readAsText(file);
+
+              fileReader.onloadend = (e) => {
+                console.log("Successful file read", e);
+                resolve(e.target.result);
+              };
+
+              fileReader.onerror = (e) => {
+                console.log("File read error", e);
+                reject({});
+              };
+            });
+          }, (e) => {
+            console.log("FileSystem Error", e);
+
+            switch (e.code) {
+              case 1:
+                alert("File not found: /" + path);
+                break;
+            }
+          });
+        });
+      } else {
+        console.log("Read file doesn't work in browser");
+      }
+    });
   }
 };
