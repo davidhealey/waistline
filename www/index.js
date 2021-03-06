@@ -214,6 +214,14 @@ app.f7.on("init", async function(event) {
 
   //Database setup
   await dbHandler.initializeDb();
+
+  // Backup database 
+  if (app.mode !== "development") {
+    let data = await dbHandler.exportToJSON();
+    let filename = "waistline_auto_backup.json";
+    let path = await app.Utils.writeFile(data, filename);
+  }
+
   app.f7.views.main.router.navigate("/settings/import-export/");
 });
 

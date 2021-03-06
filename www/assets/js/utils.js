@@ -97,7 +97,7 @@ app.Utils = {
           dir.getFile(path, {
             create: true
           }, (file) => {
-            console.log(file);
+
             // Write to the file, overwriting existing content 
             file.createWriter((fileWriter) => {
               let blob = new Blob([data], {
