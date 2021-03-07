@@ -48,26 +48,29 @@
       </div>
     </div>
 
-    <div class="card no-border no-shadow">
-      <div class="card-content">
-        <div class="list">
-          <ul>
-            <li class="item-content item-input">
-              <div class="item-inner">
-                <div class="item-title item-label">Name</div>
-                <div class="item-input-wrap">
-                  <input type="text" id="name" name="name" required validate placeholder="Meal Name">
+    <form class="list" id="meal-edit-form">
+      <div class="card no-border no-shadow">
+        <div class="card-content">
+          <div class="list">
+            <ul>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Name</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="name" name="name" required validate placeholder="Meal Name">
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="list media-list">
-          <ul id="meal-food-list">
-          </ul>
+              </li>
+              <li class="item-divider">Foods & Recipes</li>
+            </ul>
+          </div>
+          <div class="list media-list">
+            <ul id="meal-food-list">
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 
   <!-- Floating Action Button -->

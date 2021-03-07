@@ -62,7 +62,7 @@ app.RecipeEditor = {
     // Submit
     if (!app.RecipeEditor.el.submit.hasClickEvent) {
       app.RecipeEditor.el.submit.addEventListener("click", (e) => {
-        save();
+        app.RecipeEditor.save();
       });
       app.RecipeEditor.el.submit.hasClickEvent = true;
     }
@@ -93,7 +93,6 @@ app.RecipeEditor = {
   },
 
   addItems: function(data) {
-
     let result = app.RecipeEditor.recipe.items;
 
     data.forEach((x) => {
@@ -121,36 +120,38 @@ app.RecipeEditor = {
   },
 
   save: async function() {
+    if (app.f7.input.validateInputs("#recipe-edit-form") == true) {
 
-    let data = {};
+      let data = {};
 
-    if (app.RecipeEditor.recipe.id !== undefined) data.id = app.RecipeEditor.recipe.id;
-    if (app.RecipeEditor.recipe.items !== undefined) data.items = app.RecipeEditor.recipe.items;
+      if (app.RecipeEditor.recipe.id !== undefined) data.id = app.RecipeEditor.recipe.id;
+      if (app.RecipeEditor.recipe.items !== undefined) data.items = app.RecipeEditor.recipe.items;
 
-    let now = new Date();
-    data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      let now = new Date();
+      data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-    let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input");
+      let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input");
 
-    inputs.forEach((x) => {
-      if (x.value !== undefined && x.value != "")
-        data[x.name] = x.value;
-    });
-
-    // Array index should not be saved with items
-    if (data.items !== undefined) {
-      data.items.forEach((x) => {
-        if (x.index !== undefined)
-          delete x.index;
+      inputs.forEach((x) => {
+        if (x.value !== undefined && x.value != "")
+          data[x.name] = x.value;
       });
+
+      // Array index should not be saved with items
+      if (data.items !== undefined) {
+        data.items.forEach((x) => {
+          if (x.index !== undefined)
+            delete x.index;
+        });
+      }
+
+      if (app.RecipeEditor.recipe.items.length > 0)
+        data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
+
+      dbHandler.put(data, "recipes").onsuccess = () => {
+        app.f7.views.main.router.navigate("/foods-meals-recipes/recipes/");
+      };
     }
-
-    if (app.RecipeEditor.recipe.items.length > 0)
-      data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
-
-    dbHandler.put(data, "recipes").onsuccess = () => {
-      app.f7.views.main.router.navigate("/foods-meals-recipes/recipes/");
-    };
   },
 
   replaceListItem: function(item) {
@@ -168,8 +169,8 @@ app.RecipeEditor = {
 
   renderItems: function() {
     return new Promise(async function(resolve, reject) {
-      // Render the food list 
       app.RecipeEditor.el.foodlist.innerHTML = "";
+      app.FoodsMealsRecipes.disableEdit = false;
 
       app.RecipeEditor.recipe.items.forEach(async (x, i) => {
         x.index = i;

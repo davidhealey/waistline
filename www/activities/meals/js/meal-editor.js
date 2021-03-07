@@ -59,7 +59,7 @@ app.MealEditor = {
     // Submit
     if (!app.MealEditor.el.submit.hasClickEvent) {
       app.MealEditor.el.submit.addEventListener("click", (e) => {
-        save();
+        app.MealEditor.save();
       });
       app.MealEditor.el.submit.hasClickEvent = true;
     }
@@ -117,33 +117,34 @@ app.MealEditor = {
   },
 
   save: function() {
+    if (app.f7.input.validateInputs("#meal-edit-form") == true) {
+      let data = {};
 
-    let data = {};
+      if (app.MealEditor.meal.id !== undefined) data.id = app.MealEditor.meal.id;
+      if (app.MealEditor.meal.items !== undefined) data.items = app.MealEditor.meal.items;
 
-    if (app.MealEditor.meal.id !== undefined) data.id = app.MealEditor.meal.id;
-    if (app.MealEditor.meal.items !== undefined) data.items = app.MealEditor.meal.items;
+      let now = new Date();
+      data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-    let now = new Date();
-    data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      let inputs = document.querySelectorAll(".page[data-name='meal-editor'] input");
 
-    let inputs = document.querySelectorAll(".page[data-name='meal-editor'] input");
-
-    inputs.forEach((x) => {
-      if (x.value !== undefined && x.value != "")
-        data[x.name] = x.value;
-    });
-
-    // Array index should not be saved with items
-    if (data.items !== undefined) {
-      data.items.forEach((x) => {
-        if (x.index !== undefined)
-          delete x.index;
+      inputs.forEach((x) => {
+        if (x.value !== undefined && x.value != "")
+          data[x.name] = x.value;
       });
-    }
 
-    dbHandler.put(data, "meals").onsuccess = () => {
-      app.f7.views.main.router.navigate("/foods-meals-recipes/meals/");
-    };
+      // Array index should not be saved with items
+      if (data.items !== undefined) {
+        data.items.forEach((x) => {
+          if (x.index !== undefined)
+            delete x.index;
+        });
+      }
+
+      dbHandler.put(data, "meals").onsuccess = () => {
+        app.f7.views.main.router.navigate("/foods-meals-recipes/meals/");
+      };
+    }
   },
 
   replaceListItem: function(item) {
@@ -161,8 +162,8 @@ app.MealEditor = {
 
   renderItems: function() {
     return new Promise(async function(resolve, reject) {
-
       app.MealEditor.el.foodlist.innerHTML = "";
+      app.FoodsMealsRecipes.disableEdit = false;
 
       app.MealEditor.meal.items.forEach(async (x, i) => {
         x.index = i;
