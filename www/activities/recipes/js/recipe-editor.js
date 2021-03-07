@@ -17,73 +17,69 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var s;
 app.RecipeEditor = {
 
-  settings: {
-    recipe: {},
-    el: {}
-  },
+  recipe: {},
+  el: {},
 
   init: async function(context) {
-    s = this.settings; //Assign settings object
-    app.Recipes.getComponents();
+    app.RecipeEditor.getComponents();
 
     if (context) {
 
       // From recipe list
       if (context.recipe) {
-        s.recipe = context.recipe;
-        app.Recipes.populateInputs(recipe);
+        app.RecipeEditor.recipe = context.recipe;
+        app.RecipeEditor.populateInputs(context.recipe);
       }
 
       // From food list
       if (context.items)
-        app.Recipes.addItems(context.items);
+        app.RecipeEditor.addItems(context.items);
 
       // From recipe editor
       if (context.item)
-        app.Recipes.replaceListItem(context.item);
+        app.RecipeEditor.replaceListItem(context.item);
 
-      app.Recipes.renderNutrition();
-      await app.Recipes.renderItems();
+      app.RecipeEditor.renderNutrition();
+      await app.RecipeEditor.renderItems();
     }
 
-    app.Recipes.bindUIActions();
+    app.RecipeEditor.bindUIActions();
   },
 
   getComponents: function() {
-    s.el.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
-    s.el.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
-    s.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
-    s.el.fab = document.querySelector(".page[data-name='recipe-editor'] #add-food");
-    s.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #recipe-nutrition");
-    s.el.swiperWrapper = document.querySelector(".page[data-name='recipe-editor'] .swiper-wrapper");
+    app.RecipeEditor.el.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
+    app.RecipeEditor.el.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
+    app.RecipeEditor.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
+    app.RecipeEditor.el.fab = document.querySelector(".page[data-name='recipe-editor'] #add-food");
+    app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #recipe-nutrition");
+    app.RecipeEditor.el.swiperWrapper = document.querySelector(".page[data-name='recipe-editor'] .swiper-wrapper");
   },
 
   bindUIActions: function() {
 
     // Submit
-    if (!s.el.submit.hasClickEvent) {
-      s.el.submit.addEventListener("click", (e) => {
+    if (!app.RecipeEditor.el.submit.hasClickEvent) {
+      app.RecipeEditor.el.submit.addEventListener("click", (e) => {
         save();
       });
-      s.el.submit.hasClickEvent = true;
+      app.RecipeEditor.el.submit.hasClickEvent = true;
     }
 
     // Fab
-    if (!s.el.fab.hasClickEvent) {
-      s.el.fab.addEventListener("click", (e) => {
+    if (!app.RecipeEditor.el.fab.hasClickEvent) {
+      app.RecipeEditor.el.fab.addEventListener("click", (e) => {
         app.f7.data.context = {
           origin: "./recipe-editor/",
-          recipe: recipe
+          recipe: app.RecipeEditor.recipe
         };
 
         app.f7.views.main.router.navigate("/foods-meals-recipes/", {
           context: app.f7.data.context
         });
       });
-      s.el.fab.hasClickEvent = true;
+      app.RecipeEditor.el.fab.hasClickEvent = true;
     }
   },
 
@@ -92,13 +88,13 @@ app.RecipeEditor = {
 
     inputs.forEach((x) => {
       if (recipe[x.name] !== undefined)
-        x.value = recipe[x.name];
+        x.value = unescape(recipe[x.name]);
     });
   },
 
   addItems: function(data) {
 
-    let result = s.recipe.items;
+    let result = app.RecipeEditor.recipe.items;
 
     data.forEach((x) => {
       let item = {
@@ -109,7 +105,7 @@ app.RecipeEditor = {
       };
       result.push(item);
     });
-    s.recipe.items = result;
+    app.RecipeEditor.recipe.items = result;
   },
 
   removeItem: function(item, li) {
@@ -118,7 +114,7 @@ app.RecipeEditor = {
     let dialog = app.f7.dialog.confirm(text, title, callbackOk);
 
     function callbackOk() {
-      s.recipe.items.splice(item.index, 1);
+      app.RecipeEditor.recipe.items.splice(item.index, 1);
       li.parentNode.removeChild(li);
       renderNutrition();
     }
@@ -128,8 +124,8 @@ app.RecipeEditor = {
 
     let data = {};
 
-    if (s.recipe.id !== undefined) data.id = s.recipe.id;
-    if (s.recipe.items !== undefined) data.items = s.recipe.items;
+    if (app.RecipeEditor.recipe.id !== undefined) data.id = app.RecipeEditor.recipe.id;
+    if (app.RecipeEditor.recipe.items !== undefined) data.items = app.RecipeEditor.recipe.items;
 
     let now = new Date();
     data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
@@ -149,8 +145,8 @@ app.RecipeEditor = {
       });
     }
 
-    if (s.recipe.items.length > 0)
-      data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(s.recipe.items);
+    if (app.RecipeEditor.recipe.items.length > 0)
+      data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
 
     dbHandler.put(data, "recipes").onsuccess = () => {
       app.f7.views.main.router.navigate("/foods-meals-recipes/recipes/");
@@ -158,27 +154,26 @@ app.RecipeEditor = {
   },
 
   replaceListItem: function(item) {
-    s.recipe.items.splice(item.index, 1, item);
+    app.RecipeEditor.recipe.items.splice(item.index, 1, item);
   },
 
   renderNutrition: async function() {
     let now = new Date();
-    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(s.recipe.items);
+    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
 
-    let swiper = app.swiper.get("#recipe-nutrition-swiper");
-    s.el.swiperWrapper.innerHTML = "";
+    let swiper = app.f7.swiper.get("#recipe-nutrition-swiper");
+    app.RecipeEditor.el.swiperWrapper.innerHTML = "";
     app.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
   },
 
   renderItems: function() {
     return new Promise(async function(resolve, reject) {
-
       // Render the food list 
-      s.el.foodlist.innerHTML = "";
+      app.RecipeEditor.el.foodlist.innerHTML = "";
 
-      s.recipe.items.forEach(async (x, i) => {
+      app.RecipeEditor.recipe.items.forEach(async (x, i) => {
         x.index = i;
-        app.FoodsMealsRecipes.renderItem(x, s.el.foodlist, false, undefined, removeItem);
+        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, undefined, app.RecipeEditor.removeItem);
       });
 
       resolve();
@@ -190,12 +185,13 @@ document.addEventListener("page:init", function(event) {
   if (event.detail.name == "recipe-editor") {
     let context = app.f7.data.context;
     app.f7.data.context = undefined;
+
     // Clear old recipe
-    recipe = {
+    app.RecipeEditor.recipe = {
       items: []
     };
 
-    app.Recipes.init(context);
+    app.RecipeEditor.init(context);
   }
 });
 
@@ -203,6 +199,6 @@ document.addEventListener("page:reinit", function(event) {
   if (event.detail.name == "recipe-editor") {
     let context = app.f7.data.context;
     app.f7.data.context = undefined;
-    app.Recipes.init(context);
+    app.RecipeEditor.init(context);
   }
 });

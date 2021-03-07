@@ -17,23 +17,18 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var s;
 app.MealEditor = {
-  settings: {
-    meal: {},
-    el: {}
-  },
+  meal: {},
+  el: {},
 
   init: async function(context) {
-    s = this.settings; //Assign settings object
     app.MealEditor.getComponents();
 
     if (context) {
-
       // From meal list or food list
       if (context.meal) {
-        s.meal = context.meal;
-        app.MealEditor.populateInputs(meal);
+        app.MealEditor.meal = context.meal;
+        app.MealEditor.populateInputs(context.meal);
       }
 
       if (context.items)
@@ -51,37 +46,37 @@ app.MealEditor = {
   },
 
   getComponents: function() {
-    s.el.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
-    s.el.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
-    s.el.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
-    s.el.fab = document.querySelector(".page[data-name='meal-editor'] #add-food");
-    s.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #meal-nutrition");
-    s.el.swiperWrapper = document.querySelector(".page[data-name='meal-editor'] .swiper-wrapper");
+    app.MealEditor.el.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
+    app.MealEditor.el.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
+    app.MealEditor.el.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
+    app.MealEditor.el.fab = document.querySelector(".page[data-name='meal-editor'] #add-food");
+    app.MealEditor.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #meal-nutrition");
+    app.MealEditor.el.swiperWrapper = document.querySelector(".page[data-name='meal-editor'] .swiper-wrapper");
   },
 
   bindUIActions: function() {
 
     // Submit
-    if (!s.el.submit.hasClickEvent) {
-      s.el.submit.addEventListener("click", (e) => {
+    if (!app.MealEditor.el.submit.hasClickEvent) {
+      app.MealEditor.el.submit.addEventListener("click", (e) => {
         save();
       });
-      s.el.submit.hasClickEvent = true;
+      app.MealEditor.el.submit.hasClickEvent = true;
     }
 
     // Fab
-    if (!s.el.fab.hasClickEvent) {
-      s.el.fab.addEventListener("click", (e) => {
+    if (!app.MealEditor.el.fab.hasClickEvent) {
+      app.MealEditor.el.fab.addEventListener("click", (e) => {
         app.f7.data.context = {
           origin: "./meal-editor/",
-          meal: s.meal
+          meal: app.MealEditor.meal
         };
 
         app.f7.views.main.router.navigate("/foods-meals-recipes/", {
           context: app.f7.data.context
         });
       });
-      s.el.fab.hasClickEvent = true;
+      app.MealEditor.el.fab.hasClickEvent = true;
     }
   },
 
@@ -90,13 +85,12 @@ app.MealEditor = {
 
     inputs.forEach((x) => {
       if (meal[x.name] !== undefined)
-        x.value = meal[x.name];
+        x.value = unescape(meal[x.name]);
     });
   },
 
   addItems: function(data) {
-
-    let result = s.meal.items;
+    let result = app.MealEditor.meal.items;
 
     data.forEach((x) => {
       let item = {
@@ -107,7 +101,7 @@ app.MealEditor = {
       };
       result.push(item);
     });
-    s.meal.items = result;
+    app.MealEditor.meal.items = result;
   },
 
   removeItem: function(item, li) {
@@ -116,7 +110,7 @@ app.MealEditor = {
     let dialog = app.f7.dialog.confirm(text, title, callbackOk);
 
     function callbackOk() {
-      s.meal.items.splice(item.index, 1);
+      app.MealEditor.meal.items.splice(item.index, 1);
       li.parentNode.removeChild(li);
       renderNutrition();
     }
@@ -126,8 +120,8 @@ app.MealEditor = {
 
     let data = {};
 
-    if (s.meal.id !== undefined) data.id = s.meal.id;
-    if (s.meal.items !== undefined) data.items = s.meal.items;
+    if (app.MealEditor.meal.id !== undefined) data.id = app.MealEditor.meal.id;
+    if (app.MealEditor.meal.items !== undefined) data.items = app.MealEditor.meal.items;
 
     let now = new Date();
     data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
@@ -153,26 +147,26 @@ app.MealEditor = {
   },
 
   replaceListItem: function(item) {
-    s.meal.items.splice(item.index, 1, item);
+    app.MealEditor.meal.items.splice(item.index, 1, item);
   },
 
   renderNutrition: async function() {
     let now = new Date();
-    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(s.meal.items);
+    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.MealEditor.meal.items);
 
-    let swiper = app.swiper.get("#meal-nutrition-swiper");
-    s.el.swiperWrapper.innerHTML = "";
+    let swiper = app.f7.swiper.get("#meal-nutrition-swiper");
+    app.MealEditor.el.swiperWrapper.innerHTML = "";
     app.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
   },
 
   renderItems: function() {
     return new Promise(async function(resolve, reject) {
 
-      s.el.foodlist.innerHTML = "";
+      app.MealEditor.el.foodlist.innerHTML = "";
 
-      s.meal.items.forEach(async (x, i) => {
+      app.MealEditor.meal.items.forEach(async (x, i) => {
         x.index = i;
-        app.FoodsMealsRecipes.renderItem(x, s.el.foodlist, false, undefined, removeItem);
+        app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, undefined, app.MealEditor.removeItem);
       });
 
       resolve();
@@ -186,11 +180,11 @@ document.addEventListener("page:init", function(event) {
     app.f7.data.context = undefined;
 
     // Clear old meal
-    s.meal = {
+    app.MealEditor.meal = {
       items: []
     };
 
-    app.Meals.init(context);
+    app.MealEditor.init(context);
   }
 });
 
@@ -198,6 +192,6 @@ document.addEventListener("page:reinit", function(event) {
   if (event.detail.name == "meal-editor") {
     let context = app.f7.data.context;
     app.f7.data.context = undefined;
-    app.Meals.init(context);
+    app.MealEditor.init(context);
   }
 });

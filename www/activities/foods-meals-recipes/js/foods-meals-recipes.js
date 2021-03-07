@@ -358,7 +358,7 @@ app.FoodsMealsRecipes = {
 
         //Inner container
         let inner = document.createElement("div");
-        inner.className = "item-inner food-item-inner";
+        inner.className = "item-inner food-item-inner noselect";
         label.appendChild(inner);
 
         if (app.FoodsMealsRecipes.disableEdit == false && item.name !== "Quick Add") {

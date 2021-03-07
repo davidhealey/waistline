@@ -17,87 +17,83 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var s;
 app.Meals = {
 
-  settings: {
-    list: [], //Main list of foods
-    filterList: [], //Copy of the list for filtering
-    selection: [], //Items that have been checked, even if list has been changed
-    el: {} //UI elements
-  },
+  list: [], //Main list of foods
+  filterList: [], //Copy of the list for filtering
+  selection: [], //Items that have been checked, even if list has been changed
+  el: {}, //UI elements
 
   init: async function(context) {
-    s = this.settings; //Assign settings object
-    s.selection = []; //Clear out selection when page is reloaded
+    app.Meals.selection = []; //Clear out selection when page is reloaded
 
     if (context !== undefined) {
       if (context.meal)
-        s.meal = context.meal;
+        app.Meals.meal = context.meal;
     } else {
-      s.meal = undefined;
+      app.Meals.meal = undefined;
     }
 
-    this.getComponents();
-    this.createSearchBar();
-    this.bindUIActions();
+    app.Meals.getComponents();
+    app.Meals.createSearchBar();
+    app.Meals.bindUIActions();
 
-    if (!s.ready) {
-      app.f7.infiniteScroll.create(s.el.infinite); //Setup infinite list
-      s.ready = true;
+    if (!app.Meals.ready) {
+      app.f7.infiniteScroll.create(app.Meals.el.infinite); //Setup infinite list
+      app.Meals.ready = true;
     }
 
-    s.list = await this.getListFromDB();
-    s.filterList = s.list;
+    app.Meals.list = await app.Meals.getListFromDB();
+    app.Meals.filterList = app.Meals.list;
 
-    this.renderList(true);
+    app.Meals.renderList(true);
   },
 
   getComponents: function() {
-    s.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
-    s.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
-    s.el.scan.style.display = "none";
-    s.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
-    s.el.search = document.querySelector("#meals-tab #meal-search");
-    s.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
-    s.el.fab = document.querySelector("#add-meal");
-    s.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
-    s.el.list = document.querySelector("#meal-list-container ul"); //Infinite list
-    s.el.spinner = document.querySelector("#meals-tab #spinner");
+    app.Meals.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
+    app.Meals.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
+    app.Meals.el.scan.style.display = "none";
+    app.Meals.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
+    app.Meals.el.search = document.querySelector("#meals-tab #meal-search");
+    app.Meals.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
+    app.Meals.el.fab = document.querySelector("#add-meal");
+    app.Meals.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
+    app.Meals.el.list = document.querySelector("#meal-list-container ul"); //Infinite list
+    app.Meals.el.spinner = document.querySelector("#meals-tab #spinner");
   },
 
   bindUIActions: function() {
 
     //Infinite list 
-    if (!s.el.infinite.hasInfiniteEvent) {
-      s.el.infinite.addEventListener("infinite", (e) => {
+    if (!app.Meals.el.infinite.hasInfiniteEvent) {
+      app.Meals.el.infinite.addEventListener("infinite", (e) => {
         this.renderList();
       });
-      s.el.infinite.hasInfiniteEvent = true;
+      app.Meals.el.infinite.hasInfiniteEvent = true;
     }
   },
 
   renderList: async function(clear) {
 
-    if (clear) app.Utils.deleteChildNodes(s.el.list);
+    if (clear) app.Utils.deleteChildNodes(app.Meals.el.list);
 
     //List settings 
     let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll("#meal-list-container li").length;
 
-    if (lastIndex <= s.list.length) {
+    if (lastIndex <= app.Meals.list.length) {
       //Render next set of items to list
       for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
-        if (i >= s.list.length) break; //Exit after all items in list
+        if (i >= app.Meals.list.length) break; //Exit after all items in list
 
-        let item = s.list[i];
+        let item = app.Meals.list[i];
 
         // Don't show item that is being edited, otherwise endless loop will ensue
-        if (s.meal !== undefined && s.meal.id == item.id) continue;
+        if (app.Meals.meal !== undefined && app.Meals.meal.id == item.id) continue;
 
         item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-        app.FoodsMealsRecipes.renderItem(item, s.el.list, true, app.Meals.gotoEditor, app.Meals.deleteMeal);
+        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, app.Meals.gotoEditor, app.Meals.deleteMeal);
       }
     }
   },
@@ -199,16 +195,16 @@ app.Meals = {
 
   createSearchBar: function() {
     const searchBar = app.f7.searchbar.create({
-      el: s.el.searchForm,
+      el: app.Meals.el.searchForm,
       backdrop: false,
       customSearch: true,
       on: {
         async search(sb, query, previousQuery) {
           if (query != "") {
-            s.list = app.FoodsMealsRecipes.filterList(query, s.filterList);
+            app.Meals.list = app.FoodsMealsRecipeapp.Meals.filterList(query, app.Meals.filterList);
           } else {
-            s.list = await app.Meals.getListFromDB();
-            s.filterList = s.list;
+            app.Meals.list = await app.Meals.getListFromDB();
+            app.Meals.filterList = app.Meals.list;
             app.f7.searchbar.disable(this);
           }
           app.Meals.renderList(true);

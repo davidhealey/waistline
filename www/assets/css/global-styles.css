@@ -1,6 +1,6 @@
 .align-left {text-align: left;}
 .align-right {text-align: right;}
-.disable-long-tap {-moz-user-select: none; -webkit-user-select: none; user-select: none;}
+.noselect {-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 
 .nutrition-card {margin-top: 1em; margin-bottom: 1em;}
 .nutrition-card .col {text-align: center;}

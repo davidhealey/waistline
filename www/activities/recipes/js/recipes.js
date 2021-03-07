@@ -19,83 +19,80 @@
 
 app.Recipes = {
 
-  settings: {
-    list: [], //Main list of foods
-    filterList: [], //Copy of the list for filtering
-    selection: [], //Items that have been checked, even if list has been changed
-    el: {} //UI elements
-  },
+  list: [], //Main list of foods
+  filterList: [], //Copy of the list for filtering
+  selection: [], //Items that have been checked, even if list has been changed
+  el: {}, //UI elements
 
   init: async function(context) {
-    this.settings.selection = []; //Clear out selection when page is reloaded
+    app.Recipes.selection = []; //Clear out selection when page is reloaded
 
     if (context !== undefined) {
       if (context.recipe)
-        this.settings.recipe = context.recipe;
+        app.Recipes.recipe = context.recipe;
     } else {
-      this.settings.recipe = undefined;
+      app.Recipes.recipe = undefined;
     }
 
-    this.getComponents();
-    this.createSearchBar();
-    this.bindUIActions();
+    app.Recipes.getComponents();
+    app.Recipes.createSearchBar();
+    app.Recipes.bindUIActions();
 
-    if (!this.settings.ready) {
-      app.f7.infiniteScroll.create(this.settings.el.infinite); //Setup infinite list
-      this.settings.ready = true;
+    if (!app.Recipes.ready) {
+      app.f7.infiniteScroll.create(app.Recipes.el.infinite); //Setup infinite list
+      app.Recipes.ready = true;
     }
 
-    this.settings.list = await this.getListFromDB();
-    this.settings.filterList = this.settings.list;
+    app.Recipes.list = await app.Recipes.getListFromDB();
+    app.Recipes.filterList = app.Recipes.list;
 
-    this.renderList(true);
+    app.Recipes.renderList(true);
   },
 
   getComponents: function() {
-    this.settings.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
-    this.settings.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
-    this.settings.el.scan.style.display = "none";
-    this.settings.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
-    this.settings.el.search = document.querySelector("#recipes-tab #recipe-search");
-    this.settings.el.searchForm = document.querySelector("#recipes-tab #recipe-search-form");
-    this.settings.el.fab = document.querySelector("#add-recipe");
-    this.settings.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #recipes"); //Infinite list container
-    this.settings.el.list = document.querySelector("#recipe-list-container ul"); //Infinite list
-    this.settings.el.spinner = document.querySelector("#recipes-tab #spinner");
+    app.Recipes.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
+    app.Recipes.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
+    app.Recipes.el.scan.style.display = "none";
+    app.Recipes.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
+    app.Recipes.el.search = document.querySelector("#recipes-tab #recipe-search");
+    app.Recipes.el.searchForm = document.querySelector("#recipes-tab #recipe-search-form");
+    app.Recipes.el.fab = document.querySelector("#add-recipe");
+    app.Recipes.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #recipes"); //Infinite list container
+    app.Recipes.el.list = document.querySelector("#recipe-list-container ul"); //Infinite list
+    app.Recipes.el.spinner = document.querySelector("#recipes-tab #spinner");
   },
 
   bindUIActions: function() {
 
     //Infinite list 
-    if (!this.settings.el.infinite.hasInfiniteEvent) {
-      this.settings.el.infinite.addEventListener("infinite", (e) => {
-        this.renderList();
+    if (!app.Recipes.el.infinite.hasInfiniteEvent) {
+      app.Recipes.el.infinite.addEventListener("infinite", (e) => {
+        app.Recipes.renderList();
       });
-      this.settings.el.infinite.hasInfiniteEvent = true;
+      app.Recipes.el.infinite.hasInfiniteEvent = true;
     }
   },
 
   renderList: async function(clear) {
-    if (clear) app.Utils.deleteChildNodes(this.settings.el.list);
+    if (clear) app.Utils.deleteChildNodes(app.Recipes.el.list);
 
     //List settings 
     let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll("#recipe-list-container li").length;
 
-    if (lastIndex <= this.settings.list.length) {
+    if (lastIndex <= app.Recipes.list.length) {
       //Render next set of items to list
       for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
-        if (i >= this.settings.list.length) break; //Exit after all items in list
+        if (i >= app.Recipes.list.length) break; //Exit after all items in list
 
-        let item = this.settings.list[i];
-
+        let item = app.Recipes.list[i];
         // Don't show item that is being edited, otherwise endless loop will ensue
-        if (this.settings.recipe !== undefined && this.settings.recipe.id == item.id) continue;
+        if (app.Recipes.recipe !== undefined && app.Recipes.recipe.id == item.id) continue;
 
         if (item.archived !== true) {
           item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-          app.FoodsMealsRecipes.renderItem(item, this.settings.el.list, true, app.Recipes.gotoEditor, app.Recipes.removeItem);
+          app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, app.Recipes.gotoEditor, app.Recipes.removeItem);
         }
       }
     }
@@ -133,7 +130,6 @@ app.Recipes = {
   },
 
   flattenRecipe: function(recipe) {
-
     let item = {
       id: recipe.id,
       portion: recipe.portion,
@@ -154,16 +150,16 @@ app.Recipes = {
 
   createSearchBar: function() {
     const searchBar = app.f7.searchbar.create({
-      el: this.settings.el.searchForm,
+      el: app.Recipes.el.searchForm,
       backdrop: false,
       customSearch: true,
       on: {
         async search(sb, query, previousQuery) {
           if (query != "") {
-            this.settings.list = app.FoodsMealsRecipethis.settings.filterList(query, this.settings.filterList);
+            app.Recipes.list = app.FoodsMealsRecipeapp.Recipes.filterList(query, app.Recipes.filterList);
           } else {
-            this.settings.list = await app.Recipes.getListFromDB();
-            this.settings.filterList = this.settings.list;
+            app.Recipes.list = await app.Recipes.getListFromDB();
+            app.Recipes.filterList = app.Recipes.list;
             app.f7.searchbar.disable(this);
           }
           app.Recipes.renderList(true);
