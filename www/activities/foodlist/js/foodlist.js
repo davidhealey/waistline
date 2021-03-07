@@ -51,7 +51,7 @@ app.Foodlist = {
     app.Foodlist.filterList = app.Foodlist.list;
 
     // Set scan button visibility
-    if (app.Settings.get("integration", "off") == true)
+    if (navigator.connection.type !== navigator.connection.NONE)
       app.Foodlist.el.scan.style.display = "block";
     else
       app.Foodlist.el.scan.style.display = "none";
@@ -103,7 +103,7 @@ app.Foodlist = {
       let offList = [];
       let usdaList = [];
 
-      let offEnabled = app.Settings.get("integration", "off");
+      let offEnabled = app.Settings.get("integration", "off") || true;
       let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
 
       if (offEnabled == true || usdaEnabled == true) {
