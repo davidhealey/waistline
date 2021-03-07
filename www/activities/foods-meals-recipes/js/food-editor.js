@@ -51,8 +51,10 @@ app.FoodEditor = {
     this.setUploadFieldVisibility();
     this.setLinkButtonIcon();
 
-    if (app.FoodEditor.item)
+    if (app.FoodEditor.item) {
       this.populateFields(app.FoodEditor.item);
+      this.populateImage(app.FoodEditor.item);
+    }
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
       this.populateCategoryField(app.FoodEditor.item);
@@ -76,6 +78,7 @@ app.FoodEditor = {
     app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
     app.FoodEditor.el.ingredients_text = document.querySelector(".page[data-name='food-editor'] #ingredients_text");
     app.FoodEditor.el.traces = document.querySelector(".page[data-name='food-editor'] #traces");
+    app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
     app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
     app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
   },
@@ -289,7 +292,7 @@ app.FoodEditor = {
       app.FoodEditor.el.barcode.value = item.barcode;
     }
 
-    //Portion (serving size)
+    // Portion (serving size)
     if (item.portion != +undefined) {
       app.FoodEditor.el.portion.value = parseFloat(item.portion);
       app.FoodEditor.el.portion.oldValue = parseFloat(item.portion);
@@ -298,9 +301,32 @@ app.FoodEditor = {
       app.FoodEditor.el.portion.disabled = true;
     }
 
-    //Quantity (number of servings)
+    // Quantity (number of servings)
     app.FoodEditor.el.quantity.value = item.quantity || 1;
     app.FoodEditor.el.quantity.oldValue = app.FoodEditor.el.quantity.value;
+
+  },
+
+  populateImage: function(item) {
+    if (app.Settings.get("foodlist", "show-images")) {
+
+      let wifiOnly = app.Settings.get("foodlist", "wifi-images");
+
+      if (app.mode == "development") wifiOnly = false;
+
+      if (navigator.connection.type !== navigator.connection.NONE) {
+        if ((wifiOnly && navigator.connection.type == navigator.connection.WIFI) || !wifiOnly) {
+          if (item.image_url !== undefined) {
+            let img = document.createElement("img");
+            img.src = unescape(item.image_url);
+            img.style["width"] = "50%";
+
+            app.FoodEditor.el.mainPhoto.style.display = "block";
+            app.FoodEditor.el.mainPhoto.appendChild(img);
+          }
+        }
+      }
+    }
   },
 
   changeServing: function(item, field, newValue) {

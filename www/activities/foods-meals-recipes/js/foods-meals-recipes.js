@@ -354,6 +354,14 @@ app.FoodsMealsRecipes = {
           let icon = document.createElement("i");
           icon.className = "icon icon-checkbox";
           label.appendChild(icon);
+        } else {
+          // Image 
+          if (item.image_url !== undefined) {
+            let img = app.FoodsMealsRecipes.getItemImage(item.image_url);
+
+            if (img !== undefined)
+              label.appendChild(img);
+          }
         }
 
         //Inner container
@@ -445,6 +453,27 @@ app.FoodsMealsRecipes = {
         inner.appendChild(details);
       }
     }
+  },
+
+  getItemImage: function(url) {
+    if (app.Settings.get("diary", "show-thumbnails")) {
+
+      let wifiOnly = app.Settings.get("diary", "wifi-images");
+
+      if (app.mode == "development") wifiOnly = false;
+
+      if (navigator.connection.type !== navigator.connection.NONE) {
+        if ((wifiOnly && navigator.connection.type == navigator.connection.WIFI) || !wifiOnly) {
+          let img = document.createElement("img");
+          img.src = unescape(url);
+          img.style.width = "20%";
+          img.style["padding-right"] = "1em";
+
+          return img;
+        }
+      }
+    }
+    return undefined;
   },
 
   renderNutritionCard: function(nutrition, date, swiper) {
