@@ -30,8 +30,8 @@
         <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
     </platform>
     <preference name="loadUrlTimeoutValue" value="900000" />
-    <preference name="SplashScreenDelay" value="1" />
-    <preference name="FadeSplashScreenDuration" value="0" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="FadeSplashScreenDuration" value="500" />
     <plugin name="cordova-plugin-camera" spec="~4.0.3" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
