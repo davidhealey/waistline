@@ -51,7 +51,7 @@ app.Foodlist = {
     app.Foodlist.filterList = app.Foodlist.list;
 
     // Set scan button visibility
-    if (navigator.connection.type !== navigator.connection.NONE)
+    if (navigator.connection.type !== "none")
       app.Foodlist.el.scan.style.display = "block";
     else
       app.Foodlist.el.scan.style.display = "none";
@@ -87,6 +87,7 @@ app.Foodlist = {
     if (!app.Foodlist.el.scan.hasClickEvent) {
       app.Foodlist.el.scan.addEventListener("click", async (e) => {
         let item = await this.scan();
+
         if (item !== undefined) {
           app.FoodsMealsRecipes.gotoEditor(item);
         }
@@ -350,19 +351,17 @@ app.Foodlist = {
   scan: function() {
     return new Promise(function(resolve, reject) {
       cordova.plugins.barcodeScanner.scan(async (data) => {
-
         let code = data.text;
 
-        if (code !== undefined) {
+        if (code !== undefined && !data.cancelled) {
           // Check if the item is already in the foodlist
           let item = await dbHandler.get("foodList", "barcode", code);
 
           if (item === undefined) {
-
             // Not already in foodlist so search OFF 
             if (navigator.connection.type == "none") {
               app.Utils.toast(app.strings["no-internet"] || "No internet connection");
-              reject();
+              resolve(undefined);
             }
 
             // Display loading image
@@ -379,7 +378,7 @@ app.Foodlist = {
           }
           resolve(item);
         } else {
-          reject();
+          resolve(undefined);
         }
       });
     });

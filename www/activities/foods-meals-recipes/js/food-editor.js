@@ -42,7 +42,7 @@ app.FoodEditor = {
       app.FoodEditor.origin = context.origin;
       app.FoodEditor.scan = context.scan;
     }
-
+    app.FoodEditor.scan = true;
     this.getComponents();
     this.bindUIActions();
     this.updateTitle();
@@ -103,21 +103,29 @@ app.FoodEditor = {
 
     if (!app.FoodEditor.el.upload.hasClickEvent) {
       app.FoodEditor.el.upload.addEventListener("click", async (e) => {
-        let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
+        if (app.Utils.isInternetConnected()) {
+          let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
 
-        if (data !== undefined) {
-          if (app.FoodEditor.images.indexOf(undefined) == -1) {
-            if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
-              data.images = app.FoodEditor.images;
-              app.Utils.togglePreloader(true, "Uploading");
-              await app.OpenFoodFacts.upload(data);
-              app.Utils.togglePreloader(false);
-              app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
+          if (data !== undefined) {
+            if (app.FoodEditor.images[0] == undefined) {
+              if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
+                data.images = app.FoodEditor.images;
+                app.Utils.togglePreloader(true, "Uploading");
+                let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
+                  app.Utils.toast("Upload Failed");
+                });
+                app.Utils.togglePreloader(false);
+
+                if (imgUrl !== undefined)
+                  app.FoodEditor.item.image_url = imgUrl;
+
+                app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
+              } else {
+                app.Utils.toast("Please provide the number of calories for this food.", 2500);
+              }
             } else {
-              app.Utils.toast("Please provide the number of calories for this food.", 2500);
+              app.Utils.toast("Please add a main image.", 2500);
             }
-          } else {
-            app.Utils.toast("Please add all 3 images.", 2500);
           }
         }
       });
@@ -314,8 +322,8 @@ app.FoodEditor = {
 
       if (app.mode == "development") wifiOnly = false;
 
-      if (navigator.connection.type !== navigator.connection.NONE) {
-        if ((wifiOnly && navigator.connection.type == navigator.connection.WIFI) || !wifiOnly) {
+      if (navigator.connection.type !== "none") {
+        if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
           if (item.image_url !== undefined) {
             let img = document.createElement("img");
             img.src = unescape(item.image_url);
@@ -388,7 +396,6 @@ app.FoodEditor = {
         app.FoodEditor.el.photoHolder[index].appendChild(img);
         app.FoodEditor.el.addPhoto[index].style.display = "none";
         app.FoodEditor.images[index] = image_uri;
-        console.log(app.FoodEditor.images);
       },
       (err) => {
         app.Utils.toast("There was a problem accessing your camera.", 2000);

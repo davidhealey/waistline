@@ -20,48 +20,51 @@
 app.OpenFoodFacts = {
   search: function(query) {
     return new Promise(async function(resolve, reject) {
+      if (navigator.connection.type !== "none") {
+        //Build search string
+        let url;
 
-      //Build search string
-      let url;
+        // If query is a number, assume it's a barcode
+        if (isNaN(query) == true)
+          url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
+        else
+          url = "https://world.openfoodfacts.org/api/v0/product/" + query + ".json";
 
-      // If query is a number, assume it's a barcode
-      if (isNaN(query) == true)
-        url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
-      else
-        url = "https://world.openfoodfacts.org/api/v0/product/" + query + ".json";
+        //Get country name
+        let country = app.Settings.get("foodlist", "country") || undefined;
 
-      //Get country name
-      let country = app.Settings.get("foodlist", "country") || undefined;
+        if (country && country != "All")
+          url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
 
-      if (country && country != "All")
-        url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+        let response = await fetch(url, {
+          headers: {
+            "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
+          }
+        });
 
-      let response = await fetch(url, {
-        headers: {
-          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
+        if (response) {
+          let data = await response.json();
+          let result = [];
+
+          // Multiple results
+          if (data.products !== undefined) {
+            data.products.forEach((x) => {
+              let item = app.OpenFoodFacts.parseItem(x);
+              if (item)
+                result.push(item);
+            });
+          }
+
+          // Single result (presumably from a barcode)
+          if (data.product !== undefined) {
+            let item = app.OpenFoodFacts.parseItem(data.product);
+            result.push(item);
+          }
+
+          resolve(result);
         }
-      });
-
-      if (response) {
-        let data = await response.json();
-        let result = [];
-
-        // Multiple results
-        if (data.products !== undefined) {
-          data.products.forEach((x) => {
-            let item = app.OpenFoodFacts.parseItem(x);
-            if (item)
-              result.push(item);
-          });
-        }
-
-        // Single result (presumably from a barcode)
-        if (data.product !== undefined) {
-          let item = app.OpenFoodFacts.parseItem(data.product);
-          result.push(item);
-        }
-
-        resolve(result);
+      } else {
+        resolve(undefined);
       }
     }).catch(err => {
       throw (err);
@@ -149,20 +152,32 @@ app.OpenFoodFacts = {
         endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
 
       let headers = {};
+
       if (app.mode == "development")
         headers.Authorization = "Basic " + btoa("off:off");
 
       let response = await fetch(endPoint + s, {
-        credentials: 'include',
-        headers: headers
-      });
+          credentials: 'include',
+          headers: headers
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          reject();
+        });
 
       if (response) {
         let result = await response.json();
-        if (result.status == 1 && data.images.indexOf(undefined) == -1) {
+        if (result.status == 1) {
           await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
+
+          // Get image URL from OFF
+          let result = await app.OpenFoodFacts.search(data.barcode);
+
+          if (result !== undefined && result[0].image_url !== undefined)
+            resolve(result[0].image_url);
         }
       }
+
       resolve();
     });
   },
@@ -226,6 +241,7 @@ app.OpenFoodFacts = {
       }
 
       await Promise.all(promises).then((values) => {
+        console.log(values);
         resolve();
       });
     });
@@ -285,6 +301,9 @@ app.OpenFoodFacts = {
       credentials: 'include',
       headers: headers,
       body: data
+    }).catch((error) => {
+      console.error('Error:', error);
+      reject();
     });
 
     return response;

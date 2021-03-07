@@ -463,8 +463,8 @@ app.FoodsMealsRecipes = {
 
       if (app.mode == "development") wifiOnly = false;
 
-      if (navigator.connection.type !== navigator.connection.NONE) {
-        if ((wifiOnly && navigator.connection.type == navigator.connection.WIFI) || !wifiOnly) {
+      if (navigator.connection.type !== "none") {
+        if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
           let img = document.createElement("img");
           img.src = unescape(url);
           img.style.width = "20%";

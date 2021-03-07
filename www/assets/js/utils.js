@@ -23,10 +23,9 @@ app.Utils = {
   },
 
   isInternetConnected: function() {
-
-    if (navigator.connection.type == navigator.connection.NONE) {
+    if (navigator.connection.type == "none") {
       let msg = app.strings["no-internet"] || "Internet connection required.";
-      notification(msg, "error");
+      app.Utils.notify(msg, "error");
       return false;
     }
 
