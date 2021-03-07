@@ -299,12 +299,6 @@ var dbHandler = {
               }
 
               item.type = "food";
-              item.image_urls = [];
-
-              if (cursor.value.image_url !== undefined && cursor.value.image_url !== "")
-                item.image_urls.push(cursor.value.image_url);
-
-              delete item.image_url;
 
               foods.push(item);
 
