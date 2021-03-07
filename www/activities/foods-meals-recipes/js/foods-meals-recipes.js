@@ -428,7 +428,8 @@ app.FoodsMealsRecipes = {
 
         //Portion
         let text = "";
-        if (item.name != "Quick Add" && item.portion !== undefined) {
+
+        if (item.name != "Quick Add" && item.portion !== undefined && !isNaN(item.portion)) {
           text = parseFloat(item.portion);
 
           if (item.unit !== undefined) {

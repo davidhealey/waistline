@@ -63,7 +63,7 @@ const app = {
     // Enable swipe panel
     panel: {
       swipe: "left",
-      swipeActiveArea: 25,
+      swipeActiveArea: 30,
     },
     calendar: {
       url: 'calendar/',
@@ -198,7 +198,18 @@ const app = {
   })
 };
 
-var mainView = app.f7.views.create(".view-main");
+// Create main view
+let animate = true;
+let settings = JSON.parse(window.localStorage.getItem("settings"));
+
+if (settings !== undefined && settings.theme !== undefined && settings.theme.animations !== undefined)
+  animate = settings.theme.animations;
+
+let viewOptions = {
+  animate: animate
+};
+
+const mainView = app.f7.views.create("#main-view", viewOptions);
 
 document.addEventListener("page:init", function(event) {
 
@@ -207,7 +218,7 @@ document.addEventListener("page:init", function(event) {
   //Close panel when switching pages
   var panelLeft = app.f7.panel.get('.panel-left');
   if (panelLeft)
-    panelLeft.close(true);
+    panelLeft.close(animate);
 });
 
 app.f7.on("init", async function(event) {

@@ -468,19 +468,23 @@ app.FoodEditor = {
       }
       return item;
     }
+    return undefined;
   },
 
   returnItem: function(data, origin) {
     let item = app.FoodEditor.gatherFormData(data, origin);
 
-    // Delete unneeded fields
-    if (item.nutrition_per !== undefined)
-      delete item.nutrition_per;
+    if (item !== undefined) {
+      // Delete unneeded fields
+      if (item.nutrition_per !== undefined)
+        delete item.nutrition_per;
 
-    app.f7.data.context = {
-      item: item
-    };
-    app.f7.views.main.router.back();
+      app.f7.data.context = {
+        item: item
+      };
+
+      app.f7.views.main.router.back();
+    }
   }
 };
 

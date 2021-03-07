@@ -162,6 +162,14 @@ app.Settings = {
         app.Settings.importDatabase();
       });
     }
+
+    // Animations 
+    let toggleAnimations = document.getElementById("toggle-animations");
+    if (toggleAnimations) {
+      toggleAnimations.addEventListener("click", function(e) {
+        app.Utils.toast("Restart app to apply changes.");
+      });
+    }
   },
 
   resetModuleReadyStates: function() {
