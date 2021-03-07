@@ -445,6 +445,9 @@ app.FoodEditor = {
         else
           item.unit = app.FoodEditor.el.uploadUnit.value;
 
+        if (data.image_url !== undefined)
+          item.image_url = data.image_url;
+
         item.nutrition = {};
 
         inputs.forEach((x, i) => {
@@ -469,6 +472,10 @@ app.FoodEditor = {
 
   returnItem: function(data, origin) {
     let item = app.FoodEditor.gatherFormData(data, origin);
+
+    // Delete unneeded fields
+    if (item.nutrition_per !== undefined)
+      delete item.nutrition_per;
 
     app.f7.data.context = {
       item: item
