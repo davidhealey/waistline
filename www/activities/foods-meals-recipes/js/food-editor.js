@@ -42,7 +42,7 @@ app.FoodEditor = {
       app.FoodEditor.origin = context.origin;
       app.FoodEditor.scan = context.scan;
     }
-    app.FoodEditor.scan = true;
+
     this.getComponents();
     this.bindUIActions();
     this.updateTitle();
@@ -182,19 +182,25 @@ app.FoodEditor = {
     let fields = Array.from(document.getElementsByClassName("upload-field"));
 
     fields.forEach((x) => {
-      if (app.FoodEditor.scan == true)
+      if (app.FoodEditor.scan == true) {
         x.style.display = "block";
-      else
+      } else {
         x.style.display = "none";
+        x.required = false;
+        x.validate = false;
+      }
     });
 
     fields = Array.from(document.getElementsByClassName("hide-for-upload"));
 
     fields.forEach((x) => {
-      if (app.FoodEditor.scan == true)
+      if (app.FoodEditor.scan == true) {
         x.style.display = "none";
-      else
+        x.required = false;
+        x.validate = false;
+      } else {
         x.style.display = "block";
+      }
     });
 
     if (app.FoodEditor.scan == true) {
@@ -452,17 +458,18 @@ app.FoodEditor = {
         else
           item.unit = app.FoodEditor.el.uploadUnit.value;
 
-        if (data.image_url !== undefined)
+        if (data !== undefined && data.image_url !== undefined)
           item.image_url = data.image_url;
 
         item.nutrition = {};
 
-        inputs.forEach((x, i) => {
+        for (let i = 0; i < inputs.length; i++) {
+          let x = inputs[i];
           let id = x.id;
           let value = x.value;
 
-          if (value) {
-            if (nutriments.indexOf(id) != -1) { //Nutriments
+          if (id !== "" && value) {
+            if (app.nutriments.indexOf(id) !== -1) {
               item.nutrition[id] = parseFloat(value);
             } else if (x.type == "radio") {
               if (item[x.name] == undefined && x.checked)
@@ -471,8 +478,9 @@ app.FoodEditor = {
               item[id] = value;
             }
           }
-        });
+        }
       }
+
       return item;
     }
     return undefined;

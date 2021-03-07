@@ -168,16 +168,24 @@ app.OpenFoodFacts = {
       if (response) {
         let result = await response.json();
         if (result.status == 1) {
-          await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
 
-          // Get image URL from OFF
-          let result = await app.OpenFoodFacts.search(data.barcode);
+          let count = data.images.filter(x => x == undefined).length;
 
-          if (result !== undefined && result[0].image_url !== undefined)
-            resolve(result[0].image_url);
+          if (count < 3) {
+            await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
+
+            // Get image URL from OFF
+            let result = await app.OpenFoodFacts.search(data.barcode);
+
+            if (result !== undefined && result[0].image_url !== undefined)
+              resolve(result[0].image_url);
+            else
+              resolve();
+          } else {
+            resolve();
+          }
         }
       }
-
       resolve();
     });
   },
@@ -201,7 +209,7 @@ app.OpenFoodFacts = {
     if (data.traces !== undefined) string += "&traces=" + escape(data.traces);
 
     // Energy
-    if (data.nutrition.kilojoules !== 0) {
+    if (data.nutrition.kilojoules !== undefined) {
       data.nutrition.calories = Math.round(data.nutrition.kilojoules / 4.1868 * 100) / 100;
       string += "&nutriment_energy_unit=kj";
       string += "&nutriment_energy=" + data.nutrition.kilojoules;
@@ -217,7 +225,11 @@ app.OpenFoodFacts = {
     // Nutrition
     for (let n in data.nutrition) {
       if (data.nutrition[n] == 0 || n == "kilojoules" || n == "calories") continue;
+
       string += "&nutriment_" + n + "=" + data.nutrition[n];
+
+      if (app.nutrimentUnits[n] !== undefined)
+        string += "&nutriment_" + n + "_unit=" + app.nutrimentUnits[n];
     }
 
     return string;
