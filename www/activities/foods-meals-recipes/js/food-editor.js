@@ -56,8 +56,6 @@ app.FoodEditor = {
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
       this.populateCategoryField(app.FoodEditor.item);
-
-    this.populateUnitOptions();
   },
 
   getComponents: function() {
@@ -65,11 +63,14 @@ app.FoodEditor = {
     app.FoodEditor.el.link = document.querySelector(".page[data-name='food-editor'] #link");
     app.FoodEditor.el.upload = document.querySelector(".page[data-name='food-editor'] #upload");
     app.FoodEditor.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
+    app.FoodEditor.el.barcodeContainer = document.querySelector(".page[data-name='food-editor'] #barcode-container");
+    app.FoodEditor.el.barcode = document.querySelector(".page[data-name='food-editor'] #barcode");
     app.FoodEditor.el.name = document.querySelector(".page[data-name='food-editor'] #name");
     app.FoodEditor.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
     app.FoodEditor.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
     app.FoodEditor.el.category = document.querySelector(".page[data-name='food-editor'] #category");
     app.FoodEditor.el.portion = document.querySelector(".page[data-name='food-editor'] #portion");
+    app.FoodEditor.el.uploadUnit = document.querySelector(".page[data-name='food-editor'] #upload-unit");
     app.FoodEditor.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
     app.FoodEditor.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
     app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
@@ -176,6 +177,15 @@ app.FoodEditor = {
         x.style.display = "none";
     });
 
+    fields = Array.from(document.getElementsByClassName("hide-for-upload"));
+
+    fields.forEach((x) => {
+      if (app.FoodEditor.scan == true)
+        x.style.display = "none";
+      else
+        x.style.display = "block";
+    });
+
     if (app.FoodEditor.scan == true) {
       app.FoodEditor.linked = false;
       app.FoodEditor.el.link.style.display = "none";
@@ -191,21 +201,6 @@ app.FoodEditor = {
 
   updateTitle: function() {
     if (!app.FoodEditor.item) app.FoodEditor.el.title.innerHTML = app.strings["add-new-item"] || "Add New Item";
-  },
-
-  populateUnitOptions: function() {
-    let units = app.standardUnits;
-    app.FoodEditor.el.unit.innerHTML = "";
-
-    units.forEach((x, i) => {
-      if (x != "" && x != undefined) {
-        let option = document.createElement("option");
-        option.value = i;
-        option.text = x;
-        if (x == "g") option.setAttribute("selected", "");
-        app.FoodEditor.el.unit.append(option);
-      }
-    });
   },
 
   /* Nutrition fields are dynamically created for the nutriments of the item */
@@ -285,9 +280,14 @@ app.FoodEditor = {
   populateFields: function(item) {
     app.FoodEditor.el.name.value = app.Utils.tidyText(item.name, 200);
     app.FoodEditor.el.brand.value = app.Utils.tidyText(item.brand, 200);
-    app.FoodEditor.el.unit.value = item.unit;
+    app.FoodEditor.el.unit.value = item.unit || "";
     app.FoodEditor.el.ingredients_text.value = item.ingredients_text || "";
     app.FoodEditor.el.traces.value = item.traces || "";
+
+    if (item.barcode !== undefined) {
+      app.FoodEditor.el.barcodeContainer.style.display = "block";
+      app.FoodEditor.el.barcode.value = item.barcode;
+    }
 
     //Portion (serving size)
     if (item.portion != +undefined) {
@@ -414,12 +414,10 @@ app.FoodEditor = {
         if (data !== undefined && data.barcode !== undefined)
           item.barcode = data.barcode;
 
-        const unit = app.FoodEditor.el.unit.value;
-
-        if (unit !== undefined && unit != "") {
-          let units = app.standardUnits;
-          item.unit = units[unit];
-        }
+        if (app.FoodEditor.scan == false)
+          item.unit = app.FoodEditor.el.unit.value;
+        else
+          item.unit = app.FoodEditor.el.uploadUnit.value;
 
         item.nutrition = {};
 

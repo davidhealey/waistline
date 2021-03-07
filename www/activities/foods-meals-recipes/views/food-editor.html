@@ -63,7 +63,7 @@
                 <div class="item-inner">
                   <div class="item-title item-label">Barcode</div>
                   <div class="item-input-wrap">
-                    <input class="align-right" type="text" id="barcode" name="barcode" readonly>
+                    <input class="align-right" type="text" id="barcode" name="barcode" readonly disabled>
                   </div>
                 </div>
               </li>
@@ -104,12 +104,29 @@
                 </div>
               </li>
 
-              <li>
+              <li class="hide-for-upload">
                 <div class="item-content item-input">
                   <div class="item-inner">
                     <div class="item-title item-label">Serving Unit</div>
                     <div class="item-input-wrap">
-                      <select class="align-right" id="unit" name="unit"></select>
+                      <input class="align-right" type="text" pattern="[A-Za-z]" onkeypress="return /[a-z]/i.test(event.key)" id="unit" name="unit" required validate>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="upload-field">
+                <div class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Serving Unit</div>
+                    <div class="item-input-wrap">
+                      <select class="align-right" id="upload-unit" name="upload-unit">
+                        <option value="g">g</option>
+                        <option value="mg">mg</option>
+                        <option value="ug">μg</option>
+                        <option value="l">l</option>
+                        <option value="ml">ml</option>
+                      </select>
                     </div>
                   </div>
                 </div>
