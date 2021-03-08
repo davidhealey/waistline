@@ -137,7 +137,7 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.el.back.style.display = "block";
   },
 
-  getFromDB: function(store, sort) {
+  getFromDB: function(store, sort, includeArchived) {
     return new Promise(function(resolve, reject) {
 
       let list = [];
@@ -151,7 +151,9 @@ app.FoodsMealsRecipes = {
         var cursor = e.target.result;
 
         if (cursor) {
-          list.push(cursor.value);
+          if (!cursor.value.archived || includeArchived == true) {
+            list.push(cursor.value);
+          }
           cursor.continue();
         } else {
           resolve(list);
