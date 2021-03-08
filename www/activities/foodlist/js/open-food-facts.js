@@ -169,20 +169,19 @@ app.OpenFoodFacts = {
         let result = await response.json();
         if (result.status == 1) {
 
-          let count = data.images.filter(x => x == undefined).length;
+          if (data.images !== undefined) {
+            let count = data.images.filter(x => x == undefined).length;
 
-          if (count < 3) {
-            await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
+            if (data.images.length > 0 && count < 3) {
 
-            // Get image URL from OFF
-            let result = await app.OpenFoodFacts.search(data.barcode);
+              await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
 
-            if (result !== undefined && result[0].image_url !== undefined)
-              resolve(result[0].image_url);
-            else
-              resolve();
-          } else {
-            resolve();
+              // Get image URL from OFF
+              let result = await app.OpenFoodFacts.search(data.barcode);
+
+              if (result.length > 0 && result[0].image_url !== undefined)
+                resolve(result[0].image_url);
+            }
           }
         }
       }
@@ -243,7 +242,7 @@ app.OpenFoodFacts = {
 
       for (let i = 0; i < imageURIs.length; i++) {
         let x = imageURIs[i];
-        if (x !== undefined) {
+        if (x != undefined) {
           let data = await app.OpenFoodFacts.getImageData(x, i);
           data.append("code", barcode);
           data.append("user_id", username);

@@ -24,12 +24,13 @@ app.FoodEditor = {
   origin: undefined,
   linked: true,
   el: {},
-  images: [undefined, undefined, undefined],
+  images: [],
 
   init: function(context) {
 
     app.FoodEditor.item = undefined;
     app.FoodEditor.scan = false;
+    app.FoodEditor.images = [];
 
     if (context) {
 
@@ -42,7 +43,7 @@ app.FoodEditor = {
       app.FoodEditor.origin = context.origin;
       app.FoodEditor.scan = context.scan;
     }
-
+    app.FoodEditor.scan = true; // TESTING ONLY
     this.getComponents();
     this.bindUIActions();
     this.updateTitle();
@@ -103,31 +104,8 @@ app.FoodEditor = {
 
     if (!app.FoodEditor.el.upload.hasClickEvent) {
       app.FoodEditor.el.upload.addEventListener("click", async (e) => {
-        if (app.Utils.isInternetConnected()) {
-          let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
-
-          if (data !== undefined) {
-            if (app.FoodEditor.images[0] == undefined) {
-              if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
-                data.images = app.FoodEditor.images;
-                app.Utils.togglePreloader(true, "Uploading");
-                let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
-                  app.Utils.toast("Upload Failed");
-                });
-                app.Utils.togglePreloader(false);
-
-                if (imgUrl !== undefined)
-                  app.FoodEditor.item.image_url = imgUrl;
-
-                app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
-              } else {
-                app.Utils.toast("Please provide the number of calories for this food.", 2500);
-              }
-            } else {
-              app.Utils.toast("Please add a main image.", 2500);
-            }
-          }
-        }
+        await app.FoodEditor.upload();
+        app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
       });
       app.FoodEditor.el.upload.hasClickEvent = true;
     }
@@ -395,7 +373,7 @@ app.FoodEditor = {
         img.style["width"] = "50%";
 
         img.addEventListener("taphold", function(e) {
-          removePicture(index);
+          app.FoodEditor.removePicture(index);
         });
 
         app.FoodEditor.el.photoHolder[index].innerHTML = "";
@@ -500,6 +478,36 @@ app.FoodEditor = {
 
       app.f7.views.main.router.back();
     }
+  },
+
+  upload: function() {
+    return new Promise(async function(resolve, reject) {
+      if (app.Utils.isInternetConnected()) {
+        let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
+
+        if (data !== undefined) {
+          if (app.FoodEditor.images[0] !== undefined) {
+            if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
+              data.images = app.FoodEditor.images;
+              app.Utils.togglePreloader(true, "Uploading");
+              let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
+                app.Utils.toast("Upload Failed");
+              });
+              app.Utils.togglePreloader(false);
+
+              if (imgUrl !== undefined)
+                app.FoodEditor.item.image_url = imgUrl;
+
+              resolve();
+            } else {
+              app.Utils.toast("Please provide the number of calories for this food.", 2500);
+            }
+          } else {
+            app.Utils.toast("Please add a main image.", 2500);
+          }
+        }
+      }
+    });
   }
 };
 
