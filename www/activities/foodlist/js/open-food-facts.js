@@ -232,8 +232,12 @@ app.OpenFoodFacts = {
 
       string += "&nutriment_" + n + "=" + data.nutrition[n];
 
-      if (app.nutrimentUnits[n] !== undefined)
-        string += "&nutriment_" + n + "_unit=" + app.nutrimentUnits[n];
+      if (app.nutrimentUnits[n] !== undefined) {
+        if (n == "alcohol")
+          string += "&nutriment_unit=" + "%25%20vol";
+        else
+          string += "&nutriment_" + n + "_unit=" + app.nutrimentUnits[n];
+      }
     }
 
     return string;
