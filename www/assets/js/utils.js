@@ -69,9 +69,8 @@ app.Utils = {
   togglePreloader: function(state, text) {
     if (state) {
       app.preloader = app.f7.dialog.preloader(text);
-    } else if (app.preloader !== undefined) {
+    } else if (app.preloader !== undefined && !app.preloader.destroyed) {
       app.preloader.close();
-      app.preloader = undefined;
     }
   },
 

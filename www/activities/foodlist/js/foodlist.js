@@ -98,7 +98,7 @@ app.Foodlist = {
 
   search: async function(query) {
     if (query != "") {
-      app.Utils.togglePreloader(true, "Searching");
+      app.f7.preloader.show();
 
       let offList = [];
       let usdaList = [];
@@ -127,7 +127,7 @@ app.Foodlist = {
       }
     }
 
-    app.Utils.togglePreloader(false);
+    app.f7.preloader.hide();
 
     this.renderList(true);
   },
@@ -152,7 +152,8 @@ app.Foodlist = {
           app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem);
       }
     }
-    app.Utils.togglePreloader(false);
+    app.f7.preloader.hide();
+
   },
 
   getListFromDB: function() {
@@ -365,10 +366,9 @@ app.Foodlist = {
             }
 
             // Display loading image
-            app.Utils.togglePreloader(true, "Searching");
+            app.f7.preloader.show();
             let result = await app.OpenFoodFacts.search(code);
-            app.Utils.togglePreloader(false);
-
+            app.f7.preloader.hide();
             // Return result from OFF
             if (result[0] !== undefined) {
               item = result[0];

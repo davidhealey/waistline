@@ -72,7 +72,6 @@ app.OpenFoodFacts = {
   },
 
   parseItem: function(item) {
-    console.log(item);
     const nutriments = app.nutriments; //Array of OFF nutriment names
     let result = {
       "nutrition": {}
@@ -113,8 +112,8 @@ app.OpenFoodFacts = {
       result.portion = parseInt(item.quantity);
       result.unit = item.quantity.replace(/[^a-z]/g, "");
 
-      if (item.nutrition["energy-kcal"])
-        result.nutrition.calories = item.nutrition["energy-kcal"];
+      if (item.nutriments["energy-kcal"])
+        result.nutrition.calories = item.nutriments["energy-kcal"];
       else
         result.nutrition.calories = item.nutriments.energy_value;
     }
