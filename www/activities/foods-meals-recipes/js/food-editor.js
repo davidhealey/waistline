@@ -43,7 +43,7 @@ app.FoodEditor = {
       app.FoodEditor.origin = context.origin;
       app.FoodEditor.scan = context.scan;
     }
-    app.FoodEditor.scan = true; // TESTING ONLY
+
     this.getComponents();
     this.bindUIActions();
     this.updateTitle();

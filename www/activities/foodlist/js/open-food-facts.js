@@ -72,7 +72,7 @@ app.OpenFoodFacts = {
   },
 
   parseItem: function(item) {
-
+    console.log(item);
     const nutriments = app.nutriments; //Array of OFF nutriment names
     let result = {
       "nutrition": {}
@@ -111,7 +111,12 @@ app.OpenFoodFacts = {
       perTag = "_100g";
     } else if (item.quantity) { //If all else fails
       result.portion = parseInt(item.quantity);
-      result.nutrition.calories = item.nutriments.energy_value;
+      result.unit = item.quantity.replace(/[^a-z]/g, "");
+
+      if (item.nutrition["energy-kcal"])
+        result.nutrition.calories = item.nutrition["energy-kcal"];
+      else
+        result.nutrition.calories = item.nutriments.energy_value;
     }
 
     //Each nutriment 
