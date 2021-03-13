@@ -489,11 +489,11 @@ app.FoodEditor = {
           if (app.FoodEditor.images[0] !== undefined) {
             if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
               data.images = app.FoodEditor.images;
-              app.Utils.togglePreloader(true, "Uploading");
+              app.f7.preloader.show();
               let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
                 app.Utils.toast("Upload Failed");
               });
-              app.Utils.togglePreloader(false);
+              app.f7.preloader.hide();
 
               if (imgUrl !== undefined)
                 app.FoodEditor.item.image_url = imgUrl;

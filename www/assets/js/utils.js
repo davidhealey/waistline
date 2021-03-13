@@ -66,14 +66,6 @@ app.Utils = {
     return target;
   },
 
-  togglePreloader: function(state, text) {
-    if (state) {
-      app.preloader = app.f7.dialog.preloader(text);
-    } else if (app.preloader !== undefined && !app.preloader.destroyed) {
-      app.preloader.close();
-    }
-  },
-
   hideKeyboard: function() {
     document.activeElement.blur();
     let inputs = document.querySelectorAll('input');
