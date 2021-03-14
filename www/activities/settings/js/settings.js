@@ -185,7 +185,7 @@ app.Settings = {
   saveOFFCredentials: async function(username, password) {
     let screen = document.querySelector(".off-login");
     if (app.Utils.isInternetConnected()) {
-      if ((username == "" && password == "") || await app.OpenFoodFactstestCredentials(username, password)) {
+      if ((username == "" && password == "") || await app.OpenFoodFacts.testCredentials(username, password)) {
         this.put("integration", "off-username", username);
         this.put("integration", "off-password", password);
         app.loginScreen.close(screen);
