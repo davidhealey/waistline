@@ -28,7 +28,9 @@ app.Settings = {
       s.ready = true;
     }
     app.Settings.bindUIActions();
-    app.Settings.restoreInputValues();
+
+    const inputs = Array.from(document.querySelectorAll("input, select"));
+    app.Settings.restoreInputValues(inputs);
   },
 
   put: function(field, setting, value) {
@@ -49,7 +51,7 @@ app.Settings = {
   getField: function(field) {
     let settings = JSON.parse(window.localStorage.getItem("settings"));
     if (settings && settings[field] !== undefined) {
-      return JSON.parse(settings[field]);
+      return settings[field];
     }
     return undefined;
   },
@@ -61,11 +63,9 @@ app.Settings = {
     window.localStorage.setItem("settings", JSON.stringify(settings));
   },
 
-  restoreInputValues: function() {
-    const inputs = Array.from(document.querySelectorAll("input, select"));
-
-    inputs.forEach((x, i) => {
-
+  restoreInputValues: function(inputs) {
+    for (let i = 0; i < inputs.length; i++) {
+      let x = inputs[i];
       let field = x.getAttribute("field");
       let setting = x.getAttribute("name");
 
@@ -73,18 +73,19 @@ app.Settings = {
         let value = this.get(field, setting); //Get value from storage
 
         if (value) {
-
-          if (Array.isArray(value)) { //Deal with array values
-            value.forEach((y, j) => { //Each value
-              for (let k = 0; k < inputs.length; k++) { //Each input
+          if (Array.isArray(value)) { // Deal with array values            
+            value.forEach((y, j) => {
+              for (let k = 0; k < inputs.length; k++) {
                 let z = inputs[k];
-                if (z.name == x.name) { //If the input matches the name of the original input
+
+                if (z.name == x.name) { // If the input matches the name of the original input
                   if (z.type == "checkbox")
                     z.checked = y;
                   else
                     z.value = y;
-                  inputs.splice(k, 1); //Remove input from array because we've done this one
-                  break; //Exit inner loop
+
+                  inputs.splice(k, 1); // Remove input from array because we've done this one
+                  break; // Exit inner loop
                 }
               }
             });
@@ -96,7 +97,7 @@ app.Settings = {
           }
         }
       }
-    });
+    }
   },
 
   bindUIActions: function() {
@@ -106,26 +107,8 @@ app.Settings = {
 
     inputs.forEach((x, i) => {
       x.addEventListener("change", (e) => {
-
-        //If input has same name as other inputs group them into an array
-        let value = inputs.reduce((result, y) => {
-          if (y.name == x.name) {
-            if (y.type == "checkbox")
-              result.push(y.checked);
-            else
-              result.push(y.value);
-          }
-          return result;
-        }, []);
-
-        // Input is not part of an array so just get first element
-        if (value.length == 1) value = value[0];
-
-        let field = x.getAttribute("field");
-        let setting = x.getAttribute("name");
-
-        this.put(field, setting, value);
-        this.resetModuleReadyStates(); //Reset modules for changes to take effect
+        app.Settings.saveInputs(inputs);
+        app.Settings.resetModuleReadyStates(); //Reset modules for changes to take effect
       });
     });
 
@@ -170,6 +153,29 @@ app.Settings = {
         app.Utils.toast("Restart app to apply changes.");
       });
     }
+  },
+
+  saveInputs: function(inputs) {
+    inputs.forEach((x) => {
+      // If input has same name as other inputs group them into an array
+      let value = inputs.reduce((result, y) => {
+        if (y.name == x.name) {
+          if (y.type == "checkbox")
+            result.push(y.checked);
+          else
+            result.push(y.value);
+        }
+        return result;
+      }, []);
+
+      // Input is not part of an array so just get first element
+      if (value.length == 1) value = value[0];
+
+      let field = x.getAttribute("field");
+      let setting = x.getAttribute("name");
+
+      app.Settings.put(field, setting, value);
+    });
   },
 
   resetModuleReadyStates: function() {

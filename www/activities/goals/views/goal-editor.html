@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, 2019 David Healey
+  Copyright 2021 David Healey
 
   This file is part of Waistline.
 
@@ -17,76 +17,129 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<ons-page id="goal-editor">
+<div class="page" data-name="goal-editor">
 
-  <link rel="stylesheet" href="activities/goals/views/goals.css">
-
-  <ons-toolbar modifier="material">
-    <div class="left"><ons-back-button>Back</ons-back-button></div>
-    <div class="center" id="title">Goals</div>
-    <div class="right"><ons-toolbar-button id="submit"><ons-icon icon="md-check"></ons-icon></ons-toolbar-button></div>
-  </ons-toolbar>
-
-  <div id="nutrition-goals">
-    <ons-list>
-      <ons-list-item tappable>
-        <label class="left">
-          <ons-radio id="daily-mode" name="goal-mode" input-id="daily" checked></ons-radio>
-        </label>
-        <label for="daily" class="center">
-          Use Daily Goal
-        </label>
-      </ons-list-item>
-      <ons-list-item tappable>
-        <label class="left">
-          <ons-radio id="weekly-mode" name="goal-mode" input-id="weekly"></ons-radio>
-        </label>
-        <label for="weekly" class="center">
-          Use Weekly Goal
-        </label>
-      </ons-list-item>
-    </ons-list>
-
-    <div id="daily-goal" class="goal-container">
-      <ons-row><ons-col><ons-input type="number" id="1" class="daily" inputmode="decimal" step="any" placeholder="Monday" float value=0></ons-input></ons-col></ons-row>
-      <ons-row><ons-col><ons-input type="number" id="2" class="daily" inputmode="decimal" step="any" placeholder="Tuesday" float value=0></ons-input></ons-col></ons-row>
-      <ons-row><ons-col><ons-input type="number" id="3" class="daily" inputmode="decimal" step="any" placeholder="Wednesday" float value=0></ons-input></ons-col></ons-row>
-      <ons-row><ons-col><ons-input type="number" id="4" class="daily" inputmode="decimal" step="any" placeholder="Thursday" float value=0></ons-input></ons-col></ons-row>
-      <ons-row><ons-col><ons-input type="number" id="5" class="daily" inputmode="decimal" step="any" placeholder="Friday" float value=0></ons-input></ons-col></ons-row>
-      <ons-row><ons-col><ons-input type="number" id="6" class="daily" inputmode="decimal" step="any" placeholder="Saturday" float value=0></ons-input></ons-col></ons-row>
-      <ons-row><ons-col><ons-input type="number" id="0" class="daily" inputmode="decimal" step="any" placeholder="Sunday" float value=0></ons-input></ons-col></ons-row>
-      <ons-row>
-        <ons-col class="center" width="80%">Use Same Goal Every Day</ons-col>
-        <ons-col class="right"><ons-switch id="multi-goal"></ons-switch></ons-col>
-      </ons-row>
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" id="goal-editor-title" data-localize="goals.editor-title">Edit</div>
+      <div class="right"></div>
     </div>
-
-    <div id="weekly-goal" class="goal-container">
-      <ons-row><ons-col><ons-input type="number" id="weekly" class="weekly" inputmode="decimal" step="any" placeholder="Weekly Goal" float></ons-input></ons-col></ons-row>
-    </div>
-
-    <ons-row id="switch-container">
-      <ons-col class="center" width="80%">Show In Diary?</ons-col>
-      <ons-col class="right"><ons-switch id="diary-display"></ons-switch></ons-col>
-    </ons-row>
   </div>
 
-  <div id="weight-goals" class="goal-container">
-    <ons-row>
+  <div class="page-content">
+    <div class="list">
+      <ul>
 
-      <ons-col width="30%">
-        <ons-input type="number" id="weight" inputmode="decimal" step="any" placeholder="Goal Weight" float value=0></ons-input>
-      </ons-col>
-      
-      <ons-col></ons-col>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="goals.show-in-diary">Show goal in diary</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" id="show-in-diary" field="goals" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
 
-      <ons-col>
-        <ons-select name="weight-unit" id="weight-unit" data-native-menu="false" field="goals">
-          <option value="kg" selected>Kilograms (kg)</option>
-          <option value="lb">Pounds (lb)</option>
-        </ons-select>
-      </ons-col>
-    </ons-row>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="goals.shared-goal">Same goal every day</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" class="manual-bind" id="shared-goal" field="goals" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Sunday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Monday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Tuesday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Wednesday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Thursday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Friday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Saturday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
   </div>
-
-</ons-page>
+</div>

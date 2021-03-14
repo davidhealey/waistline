@@ -149,7 +149,101 @@ app.Diary = {
     let swiperWrapper = document.querySelector('#diary-nutrition .swiper-wrapper');
     swiperWrapper.innerHTML = "";
 
-    await app.FoodsMealsRecipes.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
+    await app.Diary.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
+  },
+
+  renderNutritionCard: function(nutrition, date, swiper) {
+
+    let nutriments = app.nutriments;
+    let nutrimentShortNames = app.nutrimentShortNames;
+    let nutrimentUnits = app.nutrimentUnits;
+
+    let rows = [];
+    let energyUnit = app.Settings.get("nutrition", "energy-unit");
+
+    let count = 0;
+    for (i = 0; i < nutriments.length; i++) {
+
+      let x = nutriments[i];
+
+      if (!app.Goals.showInDiary(x)) continue;
+
+      let goal = app.Goals.get(x, date);
+
+      if (((x == "kilojoules" && energyUnit == "kj") || x != "kilojoules")) {
+
+        // Show n nutriments at a time 
+        if (count % 4 == 0) {
+          let slide = document.createElement("div");
+          slide.className = "swiper-slide";
+          swiper.appendSlide(slide);
+
+          rows[0] = document.createElement("div");
+          rows[0].className = "row nutrition-total-values";
+          slide.appendChild(rows[0]);
+
+          rows[1] = document.createElement("div");
+          rows[1].className = "row nutrition-total-title";
+          slide.appendChild(rows[1]);
+        }
+
+        // Values and goal text
+        let values = document.createElement("div");
+        values.className = "col";
+        values.id = x + "-value";
+
+        let span = document.createElement("span");
+        let t = document.createTextNode("");
+
+        if (nutrition && nutrition[x] !== undefined) {
+
+          if (x !== "calories" && x !== "kilojoules")
+            t.nodeValue = parseFloat(nutrition[x].toFixed(2));
+          else {
+            let energy = parseInt(nutrition[x]);
+
+            if (x == "calories" && energyUnit == "kJ")
+              energy = Math.round(energy * 4.1868);
+
+            t.nodeValue = parseInt(energy);
+          }
+        } else
+          t.nodeValue = "0";
+
+        // Set value text colour
+        if (goal !== undefined && goal !== "") {
+          if (parseFloat(t.nodeValue) > goal)
+            span.style.color = "red";
+          else
+            span.style.color = "green";
+
+          t.nodeValue += " / " + goal + " ";
+        }
+
+        // Unit
+        if (app.Settings.get("diary", "show-nutrition-units")) {
+          let unit = nutrimentUnits[x];
+          if (unit !== undefined)
+            t.nodeValue += unit;
+        }
+
+        span.appendChild(t);
+        values.appendChild(span);
+        rows[0].appendChild(values);
+
+        // Title
+        let title = document.createElement("div");
+        title.className = "col";
+        title.id = x + "-title";
+
+        let text = nutrimentShortNames[i];
+        t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
+        title.appendChild(t);
+        rows[1].appendChild(title);
+
+        count++;
+      }
+    }
   },
 
   createMealGroups: function() {

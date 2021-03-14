@@ -112,7 +112,7 @@ app.FoodEditor = {
 
     // add-photo buttons
     app.FoodEditor.el.addPhoto.forEach((x, i) => {
-      if (!x.hasClickeEvent) {
+      if (!x.hasClickEvent) {
         x.addEventListener("click", (e) => {
           app.FoodEditor.takePicture(i);
         });

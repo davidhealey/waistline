@@ -22,6 +22,7 @@ const app = {
   strings: {}, //Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
   nutriments: ["calories", "kilojoules", "proteins", "carbohydrates", "fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
+  nutrimentShortNames: ["calories", "kilojoules", "proteins", "carbs", "fat", "sat-fat", "mono-fat", "poly-fat", "trans-fat", "omega-3", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium", "vit-a", "vit-d", "vit-e", "vit-k", "vit-c", "vit-b1", "vit-b2", "vit-b6", "vit-b9", "vit-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
   nutrimentUnits: {
     "calories": "kcal",
     "kilojoules": "kJ",
@@ -187,7 +188,15 @@ const app = {
       {
         name: "Goals",
         path: "/goals/",
-        url: "activities/goals/views/goals.html"
+        url: "activities/goals/views/goals.html",
+        routes: [{
+          name: "Goal Editor",
+          path: "/goal-editor/",
+          url: "activities/goals/views/goal-editor.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        }]
       },
       {
         name: "About",
@@ -233,7 +242,7 @@ app.f7.on("init", async function(event) {
     let path = await app.Utils.writeFile(data, filename);
   }
 
-  app.f7.views.main.router.navigate("/foods-meals-recipes/");
+  app.f7.views.main.router.navigate("/goals/");
 });
 
 //Prevent chrome displaying context menu on long click

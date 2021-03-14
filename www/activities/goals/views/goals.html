@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, 2019 David Healey
+  Copyright 2021 David Healey
 
   This file is part of Waistline.
 
@@ -17,13 +17,25 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<ons-page id="goals">
-  <ons-toolbar modifier="material">
-    <div class="left"><ons-toolbar-button tappable onclick="menu.open()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
-    <div class="center" data-localize="goals.title">Goals</div>
-    <div class="right"></div>
-  </ons-toolbar>
+<div class="page" data-name="goals">
 
-  <ons-list id="goals-list"></ons-list>
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a href="#" class="link icon-only panel-toggle" data-panel=".panel-left">
+          <i class="icon material-icons">menu</i>
+        </a>
+      </div>
+      <div class="title" data-localize="goals.title">Goals</div>
+      <div class="right"></div>
+    </div>
+  </div>
 
-</ons-page>
+  <div class="page-content">
+    <div class="list links-list">
+      <ul id="goal-list">
+      </ul>
+    </div>
+  </div>
+</div>
