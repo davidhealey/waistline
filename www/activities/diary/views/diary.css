@@ -17,10 +17,6 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Date picker */
-.page[data-name="diary"] #date-picker-container {margin-top: 1em;}
-.page[data-name="diary"] #date-picker-container input {text-align: center;}
-
 /* Nutrition/Goals display */
 .page[data-name="diary"] #diary-nutrition {margin-top: 1em; margin-bottom: 1em;}
 .page[data-name="diary"] #diary-nutrition .col {text-align: center;}

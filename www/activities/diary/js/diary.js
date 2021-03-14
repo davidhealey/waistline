@@ -55,6 +55,7 @@ app.Diary = {
 
   getComponents: function() {
     app.Diary.el.logWeight = document.querySelector(".page[data-name='diary'] #log-weight");
+    app.Diary.el.date = document.querySelector(".page[data-name='diary'] #diary-date");
   },
 
   bindUIActions: function() {
@@ -86,12 +87,14 @@ app.Diary = {
             c.setValue([today]);
             app.Diary.date = c.getValue();
           }
+          app.Diary.updateDateDisplay();
         },
         change: function(c) {
           app.Diary.date = c.getValue();
           if (app.Diary.ready)
             app.Diary.render();
           c.close();
+          app.Diary.updateDateDisplay();
         }
       }
     });
@@ -103,7 +106,6 @@ app.Diary = {
     //Bind actions for previous/next buttons
     const buttons = document.getElementsByClassName("change-date");
     Array.from(buttons).forEach((x, i) => {
-
       if (!x.hasClickEvent) {
         x.addEventListener("click", (e) => {
           let date = new Date(app.Diary.calendar.getValue());
@@ -113,12 +115,28 @@ app.Diary = {
         x.hasClickEvent = true;
       }
     });
+
+    if (!app.Diary.el.date.hasClickEvent) {
+      app.Diary.el.date.addEventListener("click", (e) => {
+        app.Diary.calendar.open();
+      });
+      app.Diary.el.date.hasClickEvent = true;
+    }
   },
 
   resetDate: function() {
     let now = new Date();
     let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     app.Diary.date = today;
+    app.Diary.updateDateDisplay();
+  },
+
+  updateDateDisplay: function() {
+    let el = app.Diary.el.date;
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let date = new Date(app.Diary.date);
+    let dateString = date.getUTCDate() + " " + months[date.getUTCMonth()] + " " + date.getUTCFullYear();
+    el.innerText = dateString;
   },
 
   render: async function() {
