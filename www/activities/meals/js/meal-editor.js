@@ -49,9 +49,8 @@ app.MealEditor = {
     app.MealEditor.el.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
     app.MealEditor.el.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
     app.MealEditor.el.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
-    app.MealEditor.el.fab = document.querySelector(".page[data-name='meal-editor'] #add-food");
-    app.MealEditor.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #meal-nutrition");
-    app.MealEditor.el.swiperWrapper = document.querySelector(".page[data-name='meal-editor'] .swiper-wrapper");
+    app.MealEditor.el.add = document.querySelector(".page[data-name='meal-editor'] #add-food");
+    app.MealEditor.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #nutrition");
   },
 
   bindUIActions: function() {
@@ -64,9 +63,9 @@ app.MealEditor = {
       app.MealEditor.el.submit.hasClickEvent = true;
     }
 
-    // Fab
-    if (!app.MealEditor.el.fab.hasClickEvent) {
-      app.MealEditor.el.fab.addEventListener("click", (e) => {
+    // Add food button
+    if (!app.MealEditor.el.add.hasClickEvent) {
+      app.MealEditor.el.add.addEventListener("click", (e) => {
         app.f7.data.context = {
           origin: "./meal-editor/",
           meal: app.MealEditor.meal
@@ -76,7 +75,7 @@ app.MealEditor = {
           context: app.f7.data.context
         });
       });
-      app.MealEditor.el.fab.hasClickEvent = true;
+      app.MealEditor.el.add.hasClickEvent = true;
     }
   },
 
@@ -152,12 +151,36 @@ app.MealEditor = {
   },
 
   renderNutrition: async function() {
-    let now = new Date();
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.MealEditor.meal.items);
+    let nutrimentUnits = app.nutrimentUnits;
+    let ul = app.MealEditor.el.nutrition;
 
-    let swiper = app.f7.swiper.get("#meal-nutrition-swiper");
-    app.MealEditor.el.swiperWrapper.innerHTML = "";
-    app.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
+    for (let n in nutrition) {
+      if (nutrition[n] !== 0) {
+
+        let unit = "g";
+        if (nutrimentUnits[n] !== undefined)
+          unit = nutrimentUnits[n];
+
+        let li = document.createElement("li");
+        li.className = "item-content item-input";
+        ul.appendChild(li);
+
+        let innerDiv = document.createElement("div");
+        innerDiv.className = "item-inner";
+        li.appendChild(innerDiv);
+
+        let title = document.createElement("div");
+        title.className = "item-title item-label";
+        title.innerHTML = app.Utils.tidyText(n, 30) + " (" + unit + ")";
+        innerDiv.appendChild(title);
+
+        let after = document.createElement("div");
+        after.className = "item-after";
+        after.innerHTML = nutrition[n];
+        innerDiv.appendChild(after);
+      }
+    }
   },
 
   renderItems: function() {

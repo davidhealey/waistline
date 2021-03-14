@@ -90,7 +90,6 @@ app.Group = {
 
     let row = document.createElement("div");
     row.className = "row item-content";
-
     li.appendChild(row);
 
     //Add button 

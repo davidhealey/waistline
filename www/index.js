@@ -242,7 +242,7 @@ app.f7.on("init", async function(event) {
     let path = await app.Utils.writeFile(data, filename);
   }
 
-  app.f7.views.main.router.navigate("/goals/");
+  app.f7.views.main.router.navigate("/diary/");
 });
 
 //Prevent chrome displaying context menu on long click

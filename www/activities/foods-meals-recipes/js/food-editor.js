@@ -77,6 +77,7 @@ app.FoodEditor = {
     app.FoodEditor.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
     app.FoodEditor.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
     app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
+    app.FoodEditor.el.nutrition = document.querySelector(".page[data-name='food-editor'] #nutrition");
     app.FoodEditor.el.ingredients_text = document.querySelector(".page[data-name='food-editor'] #ingredients_text");
     app.FoodEditor.el.traces = document.querySelector(".page[data-name='food-editor'] #traces");
     app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
@@ -207,7 +208,7 @@ app.FoodEditor = {
     if (item !== undefined && item.nutrition.kilojoules == undefined)
       item.nutrition.kilojoules = Math.round(item.nutrition.calories * 4.1868);
 
-    let ul = document.getElementById("nutrition");
+    let ul = app.FoodEditor.el.nutrition;
     ul.innerHTML = ""; //Clear old form 
 
     for (let k of nutriments) {

@@ -36,78 +36,87 @@
 
   <div class="page-content">
 
-    <div class="card no-border no-shadow">
-      <div class="card-content">
-        <div class="row nutrition-card" id="recipe-nutrition">
-          <div class="col-100">
-            <div class="swiper-container swiper-init" id="recipe-nutrition-swiper">
-              <div class="swiper-wrapper" id="recipe-nutrition-swiper-wrapper"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <form class="list" id="recipe-edit-form">
-      <div class="card no-border no-shadow">
-        <div class="card-content">
-          <div class="list">
+      <ul>
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b>Details</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content">
             <ul>
-              <li class="item-content item-input">
+              <li class="item-content item-input inline-labels">
                 <div class="item-inner">
                   <div class="item-title item-label">Name</div>
                   <div class="item-input-wrap">
-                    <input type="text" id="name" name="name" required validate placeholder="Recipe Name">
+                    <input type="text" class="align-right" id="name" name="name" required validate placeholder="Recipe Name">
                   </div>
                 </div>
               </li>
-              <li>
-                <div class="item-inner item-row">
-                  <div class="item-cell">
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Serving Size</div>
-                        <div class="item-input-wrap">
-                          <input type="number" min="0" step="any" id="portion" name="portion" required validate>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-cell">
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Unit</div>
-                        <div class="item-input-wrap">
-                          <input type="text" id="unit" name="unit" required validate>
-                        </div>
-                      </div>
-                    </div>
+
+              <li class="item-content item-input inline-labels">
+                <div class="item-inner">
+                  <div class="item-title item-label">Serving Size</div>
+                  <div class="item-input-wrap">
+                    <input class="align-right" type="number" min="0" step="any" id="portion" name="portion" required validate>
                   </div>
                 </div>
               </li>
+
+              <li class="item-content item-input inline-labels">
+                <div class="item-inner">
+                  <div class="item-title item-label">Serving Unit</div>
+                  <div class="item-input-wrap">
+                    <input class="align-right" type="text" onkeypress="return /[a-z]/i.test(event.key)" id="unit" name="unit" required validate>
+                  </div>
+                </div>
+              </li>
+
               <li class="item-content item-input">
                 <div class="item-inner">
                   <div class="item-title item-label">Notes</div>
                   <div class="item-input-wrap">
-                    <textarea placeholder="Cooking Instructions" id="notes" name="notes"></textarea>
+                    <textarea id="notes" name="notes" placeholder="Cooking Instructions"></textarea>
                   </div>
                 </div>
               </li>
-              <li class="item-divider">Foods</li>
             </ul>
           </div>
-          <div class="list media-list">
+        </li>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b>Foods</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
             <ul id="recipe-food-list">
             </ul>
+            <ul>
+              <li class="item-content" id="add-food">
+                <div class="item-inner">
+                  <div class="item-title"><a><i class="icon material-icons">add</i></a></div>
+                  <div class="item-after"></div>
+                </div>
+              </li>
+            </ul>
           </div>
-        </div>
-      </div>
+        </li>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b>Nutrition</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
+            <ul id="nutrition">
+            </ul>
+          </div>
+        </li>
+      </ul>
     </form>
   </div>
-
-  <!-- Floating Action Button -->
-  <div class="fab fab-right-bottom" id="add-food">
-    <a href="#"><i class="icon material-icons">add</i></a>
-  </div>
-
 </div>

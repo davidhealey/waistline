@@ -36,46 +36,63 @@
 
   <div class="page-content">
 
-    <div class="card no-border no-shadow">
-      <div class="card-content">
-        <div class="row nutrition-card" id="meal-nutrition">
-          <div class="col-100">
-            <div class="swiper-container swiper-init" id="meal-nutrition-swiper">
-              <div class="swiper-wrapper" id="meal-nutrition-swiper-wrapper"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <form class="list" id="meal-edit-form">
-      <div class="card no-border no-shadow">
-        <div class="card-content">
-          <div class="list">
+      <ul>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b>Details</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
             <ul>
               <li class="item-content item-input">
                 <div class="item-inner">
                   <div class="item-title item-label">Name</div>
                   <div class="item-input-wrap">
-                    <input type="text" id="name" name="name" required validate placeholder="Meal Name">
+                    <input type="text" class="align-right" id="name" name="name" required validate placeholder="Meal Name">
                   </div>
                 </div>
               </li>
-              <li class="item-divider">Foods & Recipes</li>
             </ul>
           </div>
-          <div class="list media-list">
-            <ul id="meal-food-list">
+        </li>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b>Foods & Recipes</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
+            <div class="list media-list">
+              <ul id="meal-food-list">
+              </ul>
+              <ul>
+                <li class="item-content" id="add-food">
+                  <div class="item-inner">
+                    <div class="item-title"><a><i class="icon material-icons">add</i></a></div>
+                    <div class="item-after"></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b>Nutrition</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
+            <ul id="nutrition">
             </ul>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </form>
   </div>
-
-  <!-- Floating Action Button -->
-  <div class="fab fab-right-bottom" id="add-food">
-    <a href="#"><i class="icon material-icons">&#xe561</i></a>
-  </div>
-
 </div>

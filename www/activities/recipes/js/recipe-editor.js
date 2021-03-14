@@ -52,9 +52,8 @@ app.RecipeEditor = {
     app.RecipeEditor.el.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
     app.RecipeEditor.el.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
     app.RecipeEditor.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
-    app.RecipeEditor.el.fab = document.querySelector(".page[data-name='recipe-editor'] #add-food");
-    app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #recipe-nutrition");
-    app.RecipeEditor.el.swiperWrapper = document.querySelector(".page[data-name='recipe-editor'] .swiper-wrapper");
+    app.RecipeEditor.el.add = document.querySelector(".page[data-name='recipe-editor'] #add-food");
+    app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #nutrition");
   },
 
   bindUIActions: function() {
@@ -67,9 +66,9 @@ app.RecipeEditor = {
       app.RecipeEditor.el.submit.hasClickEvent = true;
     }
 
-    // Fab
-    if (!app.RecipeEditor.el.fab.hasClickEvent) {
-      app.RecipeEditor.el.fab.addEventListener("click", (e) => {
+    // Add food button
+    if (!app.RecipeEditor.el.add.hasClickEvent) {
+      app.RecipeEditor.el.add.addEventListener("click", (e) => {
         app.f7.data.context = {
           origin: "./recipe-editor/",
           recipe: app.RecipeEditor.recipe
@@ -79,7 +78,7 @@ app.RecipeEditor = {
           context: app.f7.data.context
         });
       });
-      app.RecipeEditor.el.fab.hasClickEvent = true;
+      app.RecipeEditor.el.add.hasClickEvent = true;
     }
   },
 
@@ -159,12 +158,36 @@ app.RecipeEditor = {
   },
 
   renderNutrition: async function() {
-    let now = new Date();
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
+    let nutrimentUnits = app.nutrimentUnits;
+    let ul = app.RecipeEditor.el.nutrition;
 
-    let swiper = app.f7.swiper.get("#recipe-nutrition-swiper");
-    app.RecipeEditor.el.swiperWrapper.innerHTML = "";
-    app.FoodsMealsRecipes.renderNutritionCard(nutrition, now, swiper);
+    for (let n in nutrition) {
+      if (nutrition[n] !== 0) {
+
+        let unit = "g";
+        if (nutrimentUnits[n] !== undefined)
+          unit = nutrimentUnits[n];
+
+        let li = document.createElement("li");
+        li.className = "item-content item-input";
+        ul.appendChild(li);
+
+        let innerDiv = document.createElement("div");
+        innerDiv.className = "item-inner";
+        li.appendChild(innerDiv);
+
+        let title = document.createElement("div");
+        title.className = "item-title item-label";
+        title.innerHTML = app.Utils.tidyText(n, 30) + " (" + unit + ")";
+        innerDiv.appendChild(title);
+
+        let after = document.createElement("div");
+        after.className = "item-after";
+        after.innerHTML = nutrition[n];
+        innerDiv.appendChild(after);
+      }
+    }
   },
 
   renderItems: function() {

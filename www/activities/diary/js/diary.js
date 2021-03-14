@@ -157,11 +157,22 @@ app.Diary = {
     let nutriments = app.nutriments;
     let nutrimentShortNames = app.nutrimentShortNames;
     let nutrimentUnits = app.nutrimentUnits;
-
-    let rows = [];
     let energyUnit = app.Settings.get("nutrition", "energy-unit");
-
+    let rows = [];
     let count = 0;
+
+    // Optimize column count for screen width
+    let columnsToShow = 4;
+
+    if (window.innerWidth > 500)
+      columnsToShow = 5;
+
+    if (window.innerWidth < 400)
+      columnsToShow--;
+
+    if (app.Settings.get("diary", "show-nutrition-units"))
+      columnsToShow--;
+
     for (i = 0; i < nutriments.length; i++) {
 
       let x = nutriments[i];
@@ -173,7 +184,7 @@ app.Diary = {
       if (((x == "kilojoules" && energyUnit == "kj") || x != "kilojoules")) {
 
         // Show n nutriments at a time 
-        if (count % 4 == 0) {
+        if (count % columnsToShow == 0) {
           let slide = document.createElement("div");
           slide.className = "swiper-slide";
           swiper.appendSlide(slide);
