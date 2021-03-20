@@ -423,6 +423,23 @@ app.Diary = {
     for (let i = 0; i < fields.length; i++) {
       let x = fields[i];
 
+      let unit;
+      x == "weight" ? unit = units.weight : unit = units.length;
+
+      let value = stats[x];
+
+      if (value != undefined) {
+        if (x == "weight") {
+          if (unit == "lb")
+            value = Math.round(stats[x] / 0.45359237 * 100) / 100;
+          else if (unit == "st")
+            value = Math.round(stats[x] / 6.35029318 * 100) / 100;
+        } else {
+          if (unit == "inch")
+            value = Math.round(stats[x] / 2.54 * 100) / 100;
+        }
+      }
+
       let li = document.createElement("li");
       li.className = "item-content item-input";
       ul.appendChild(li);
@@ -430,9 +447,6 @@ app.Diary = {
       let inner = document.createElement("div");
       inner.className = "item-inner";
       li.appendChild(inner);
-
-      let unit;
-      x == "weight" ? unit = units.weight : unit = units.length;
 
       let title = document.createElement("div");
       title.className = "item-title item-label";
@@ -450,8 +464,8 @@ app.Diary = {
       input.type = "number";
       input.step = "any";
       input.min = "0";
-      input.setAttribute("value", stats[x] || "");
-      input.placeholder = stats[x] || 0;
+      input.setAttribute("value", value || "");
+      input.placeholder = value || 0;
       inputWrap.appendChild(input);
     }
 
@@ -484,9 +498,19 @@ app.Diary = {
       let x = inputs[i];
 
       let unit;
-      x.id == "weight" ? unit = units.weight : unit = units.length;
+      let value = x.value;
 
-      stats[x.id] = x.value;
+      if (x.id == "weight") {
+        if (units.weight == "lb")
+          value = Math.round(x.value * 0.45359237 * 100) / 100;
+        else if (units.weight == "st")
+          value = Math.round(x.value * 6.35029318 * 100) / 100;
+      } else {
+        if (units.length == "inch")
+          value = Math.round(x.value * 2.54 * 100) / 100;
+      }
+
+      stats[x.id] = value;
     }
 
     entry.stats = stats;
