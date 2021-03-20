@@ -98,7 +98,6 @@ app.Diary = {
         }
       }
     });
-
     return result;
   },
 

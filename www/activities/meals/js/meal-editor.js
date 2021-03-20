@@ -111,7 +111,7 @@ app.MealEditor = {
     function callbackOk() {
       app.MealEditor.meal.items.splice(item.index, 1);
       li.parentNode.removeChild(li);
-      renderNutrition();
+      app.MealEditor.renderNutrition();
     }
   },
 
@@ -184,14 +184,15 @@ app.MealEditor = {
   },
 
   renderItems: function() {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
       app.MealEditor.el.foodlist.innerHTML = "";
       app.FoodsMealsRecipes.disableEdit = false;
 
-      app.MealEditor.meal.items.forEach(async (x, i) => {
+      for (let i = 0; i < app.MealEditor.meal.items.length; i++) {
+        let x = app.MealEditor.meal.items[i];
         x.index = i;
         app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, undefined, app.MealEditor.removeItem);
-      });
+      }
 
       resolve();
     });

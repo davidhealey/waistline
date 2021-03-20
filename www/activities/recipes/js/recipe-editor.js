@@ -114,7 +114,7 @@ app.RecipeEditor = {
     function callbackOk() {
       app.RecipeEditor.recipe.items.splice(item.index, 1);
       li.parentNode.removeChild(li);
-      renderNutrition();
+      app.RecipeEditor.renderNutrition();
     }
   },
 
