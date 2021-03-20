@@ -54,16 +54,16 @@ app.Diary = {
   },
 
   getComponents: function() {
-    app.Diary.el.logWeight = document.querySelector(".page[data-name='diary'] #log-weight");
+    app.Diary.el.log = document.querySelector(".page[data-name='diary'] #log");
     app.Diary.el.date = document.querySelector(".page[data-name='diary'] #diary-date");
   },
 
   bindUIActions: function() {
-    if (!app.Diary.el.logWeight.hasClickEvent) {
-      app.Diary.el.logWeight.addEventListener("click", (e) => {
-        app.Diary.logWeight();
+    if (!app.Diary.el.log.hasClickEvent) {
+      app.Diary.el.log.addEventListener("click", (e) => {
+        app.Diary.log();
       });
-      app.Diary.el.logWeight.hasClickEvent = true;
+      app.Diary.el.log.hasClickEvent = true;
     }
   },
 
@@ -407,23 +407,92 @@ app.Diary = {
     });
   },
 
-  logWeight: function() {
-    let title = app.strings["record-weight"] || "Record Weight";
-    let text = app.strings["weight"] || "Weight";
-    let lastWeight = window.localStorage.getItem("weight") || 0;
-    let dialog = app.f7.dialog.prompt(text, title, this.setWeight, null, lastWeight);
+  log: function() {
+    let title = app.strings["log-dialog-title"] || "Today's Stats";
+    let stats = JSON.parse(window.localStorage.getItem("stats")) || {};
+    let units = app.Settings.getField("units");
+    let fields = ["weight", "neck", "waist", "hips"];
+
+    // Create dialog inputs
+    let div = document.createElement("div");
+    div.className = "list";
+
+    let ul = document.createElement("ul");
+    div.appendChild(ul);
+
+    for (let i = 0; i < fields.length; i++) {
+      let x = fields[i];
+
+      let li = document.createElement("li");
+      li.className = "item-content item-input";
+      ul.appendChild(li);
+
+      let inner = document.createElement("div");
+      inner.className = "item-inner";
+      li.appendChild(inner);
+
+      let unit;
+      x == "weight" ? unit = units.weight : unit = units.length;
+
+      let title = document.createElement("div");
+      title.className = "item-title item-label";
+      title.innerHTML = app.Utils.tidyText(x) + " (" + unit + ")";
+      inner.appendChild(title);
+
+      let inputWrap = document.createElement("div");
+      inputWrap.className = "item-input-wrap";
+      inner.appendChild(inputWrap);
+
+      let input = document.createElement("input");
+      input.className = "dialog-input";
+      input.id = x;
+      input.name = x;
+      input.type = "number";
+      input.step = "any";
+      input.min = "0";
+      input.setAttribute("value", stats[x] || "");
+      input.placeholder = stats[x] || 0;
+      inputWrap.appendChild(input);
+    }
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: "Ok",
+          keyCodes: [13],
+          onClick: function(dialog, e) {
+            app.Diary.saveStats(dialog, e);
+          }
+        }
+      ]
+    }).open();
   },
 
-  setWeight: async function(value) {
+  saveStats: async function(dialog) {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+    let inputs = Array.from(dialog.el.getElementsByTagName('input'));
+    let units = app.Settings.getField("units");
 
-    entry.stats.weight = {
-      value: value,
-      unit: "kg"
-    };
+    let stats = {};
+
+    for (let i = 0; i < inputs.length; i++) {
+      let x = inputs[i];
+
+      let unit;
+      x.id == "weight" ? unit = units.weight : unit = units.length;
+
+      stats[x.id] = x.value;
+    }
+
+    entry.stats = stats;
+    window.localStorage.setItem("stats", JSON.stringify(stats));
 
     dbHandler.put(entry, "diary").onsuccess = function(e) {
-      window.localStorage.setItem("weight", value);
       app.Utils.toast("Saved");
     };
   },
