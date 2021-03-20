@@ -177,7 +177,7 @@ app.MealEditor = {
 
         let after = document.createElement("div");
         after.className = "item-after";
-        after.innerHTML = nutrition[n];
+        after.innerHTML = Math.round(nutrition[n] * 100) / 100;
         innerDiv.appendChild(after);
       }
     }
