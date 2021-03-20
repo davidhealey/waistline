@@ -174,7 +174,7 @@ app.Diary = {
     let nutriments = app.nutriments;
     let nutrimentShortNames = app.nutrimentShortNames;
     let nutrimentUnits = app.nutrimentUnits;
-    let energyUnit = app.Settings.get("nutrition", "energy-unit");
+    let energyUnit = app.Settings.get("units", "energy");
     let rows = [];
     let count = 0;
 

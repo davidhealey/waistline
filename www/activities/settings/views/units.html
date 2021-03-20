@@ -17,13 +17,13 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<div class="page" data-name="settings-nutrition">
+<div class="page" data-name="settings-units">
 
   <div class="navbar">
     <div class="navbar-bg"></div>
     <div class="navbar-inner">
       <div class="left"><a class="link back"><i class="icon icon-back"></i></a></div>
-      <div class="title" data-localize="settings.nutrition.title">Nutrition</div>
+      <div class="title" data-localize="settings.units.title">Nutrition</div>
       <div class="right"></div>
     </div>
   </div>
@@ -34,11 +34,38 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">Preferred Energy Unit</div>
+              <div class="item-title item-label">Energy</div>
               <div class="item-input-wrap input-dropdown-wrap">
-                <select name="energy-unit" field="nutrition">
+                <select name="energy" field="units">
                   <option value="kcal" selected>Calorie</option>
                   <option value="kJ">Kilojoule</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Weight</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select name="weight" field="units">
+                  <option value="kg" selected>Kilograms</option>
+                  <option value="lb">Pounds</option>
+                  <option value="st">Stones</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Length</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select name="length" field="units">
+                  <option value="cm" selected>Centimeters</option>
+                  <option value="inch">Inches</option>
                 </select>
               </div>
             </div>

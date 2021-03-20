@@ -404,7 +404,7 @@ app.FoodsMealsRecipes = {
           let energy = parseInt(item.nutrition.calories);
 
           if (energy !== undefined && !isNaN(energy)) {
-            let energyUnit = app.Settings.get("nutrition", "energy-unit");
+            let energyUnit = app.Settings.get("units", "energy");
 
             if (energyUnit == "kJ")
               energy = Math.round(energy * 4.1868);

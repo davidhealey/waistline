@@ -33,7 +33,7 @@ app.Goals = {
   populateGoalList: function() {
     let nutriments = app.nutriments;
     let units = app.nutrimentUnits;
-    let energy_unit = app.Settings.get("nutrition", "energy-unit");
+    let energy_unit = app.Settings.get("units", "energy");
 
     for (let i in nutriments) {
       let n = nutriments[i];

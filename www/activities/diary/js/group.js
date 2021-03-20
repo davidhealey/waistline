@@ -114,7 +114,7 @@ app.Group = {
     a.appendChild(icon);
 
     //Energy 
-    let energyUnit = app.Settings.get("nutrition", "energy-unit");
+    let energyUnit = app.Settings.get("units", "energy");
 
     let right = document.createElement("div");
     right.className = "col-25 energy";
