@@ -1,0 +1,9 @@
+{
+  "name": "framework7/swipeout",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/swipeout/swipeout.js",
+  "module": "../../esm/components/swipeout/swipeout.js",
+  "jsnext:main": "../../esm/components/swipeout/swipeout.js",
+  "typings": "../../types/components/swipeout/swipeout.d.ts"
+}

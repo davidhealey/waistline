@@ -19,6 +19,7 @@
 
 const app = {
   mode: "development",
+  data: {}, // App wide object that can be used to store stuff
   strings: {}, //Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
   nutriments: ["calories", "kilojoules", "proteins", "carbohydrates", "fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
@@ -163,8 +164,8 @@ const app = {
             }
           },
           {
-            path: "nutrition/",
-            url: "activities/settings/views/nutrition.html",
+            path: "units/",
+            url: "activities/settings/views/units.html",
             options: {
               transition: "f7-parallax"
             }
@@ -242,7 +243,7 @@ app.f7.on("init", async function(event) {
     let path = await app.Utils.writeFile(data, filename);
   }
 
-  app.f7.views.main.router.navigate("/foods-meals-recipes/meals/");
+  app.f7.views.main.router.navigate("/statistics/");
 });
 
 //Prevent chrome displaying context menu on long click

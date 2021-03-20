@@ -1,0 +1,9 @@
+{
+  "name": "framework7/typography",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/typography/typography.js",
+  "module": "../../esm/components/typography/typography.js",
+  "jsnext:main": "../../esm/components/typography/typography.js",
+  "typings": "../../types/components/typography/typography.d.ts"
+}

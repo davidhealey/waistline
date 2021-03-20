@@ -140,7 +140,7 @@ app.Recipes = {
   },
 
   gotoEditor: function(recipe) {
-    app.f7.data.context = {
+    app.data.context = {
       recipe: recipe,
       origin: "/foods-meals-recipes/",
       allNutriments: true
@@ -171,8 +171,8 @@ app.Recipes = {
 
 document.addEventListener("tab:init", function(e) {
   if (e.target.id == "recipes") {
-    let context = app.f7.data.context;
-    app.f7.data.context = undefined;
+    let context = app.data.context;
+    app.data.context = undefined;
     app.Recipes.init(context);
   }
 });

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/sheet",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/sheet/sheet.js",
+  "module": "../../esm/components/sheet/sheet.js",
+  "jsnext:main": "../../esm/components/sheet/sheet.js",
+  "typings": "../../types/components/sheet/sheet.d.ts"
+}

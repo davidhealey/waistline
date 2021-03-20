@@ -1,0 +1,9 @@
+{
+  "name": "framework7/panel",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/panel/panel.js",
+  "module": "../../esm/components/panel/panel.js",
+  "jsnext:main": "../../esm/components/panel/panel.js",
+  "typings": "../../types/components/panel/panel.d.ts"
+}

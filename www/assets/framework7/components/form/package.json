@@ -1,0 +1,9 @@
+{
+  "name": "framework7/form",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/form/form.js",
+  "module": "../../esm/components/form/form.js",
+  "jsnext:main": "../../esm/components/form/form.js",
+  "typings": "../../types/components/form/form.d.ts"
+}

@@ -269,7 +269,7 @@ app.FoodsMealsRecipes = {
 
     let origin = app.FoodsMealsRecipes.origin;
 
-    app.f7.data.context = {
+    app.data.context = {
       items: items,
     };
 
@@ -287,7 +287,7 @@ app.FoodsMealsRecipes = {
           let choice = {
             text: x,
             onClick: function(action, e) {
-              app.f7.data.context.category = i;
+              app.data.context.category = i;
               app.f7.views.main.router.navigate("/diary/", {
                 reloadCurrent: true,
                 clearPreviousHistory: true
@@ -307,7 +307,7 @@ app.FoodsMealsRecipes = {
     } else {
 
       if (app.FoodsMealsRecipes.category !== undefined)
-        app.f7.data.context.category = app.FoodsMealsRecipes.category;
+        app.data.context.category = app.FoodsMealsRecipes.category;
 
       app.f7.views.main.router.back();
     }
@@ -579,8 +579,8 @@ document.addEventListener("page:init", function(e) {
 
 document.addEventListener("page:reinit", function(e) {
   if (e.target.matches(".page[data-name='foods-meals-recipes']")) {
-    let context = app.f7.data.context;
-    app.f7.data.context = undefined;
+    let context = app.data.context;
+    app.data.context = undefined;
 
     if (context !== undefined && context.item !== undefined) {
       if (app.FoodsMealsRecipes.tab == "foodlist") {

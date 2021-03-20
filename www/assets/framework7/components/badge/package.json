@@ -1,0 +1,9 @@
+{
+  "name": "framework7/badge",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/badge/badge.js",
+  "module": "../../esm/components/badge/badge.js",
+  "jsnext:main": "../../esm/components/badge/badge.js",
+  "typings": "../../types/components/badge/badge.d.ts"
+}

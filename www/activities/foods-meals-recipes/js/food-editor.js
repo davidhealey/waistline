@@ -473,7 +473,7 @@ app.FoodEditor = {
       if (item.nutrition_per !== undefined)
         delete item.nutrition_per;
 
-      app.f7.data.context = {
+      app.data.context = {
         item: item
       };
 

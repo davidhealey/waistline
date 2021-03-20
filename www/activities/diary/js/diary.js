@@ -497,7 +497,6 @@ app.Diary = {
     for (let i = 0; i < inputs.length; i++) {
       let x = inputs[i];
 
-      let unit;
       let value = x.value;
 
       if (x.id == "weight") {
@@ -534,16 +533,16 @@ app.Diary = {
 
 document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
-    let context = app.f7.data.context;
-    app.f7.data.context = undefined;
+    let context = app.data.context;
+    app.data.context = undefined;
     app.Diary.init(context);
   }
 });
 
 document.addEventListener("page:reinit", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
-    let context = app.f7.data.context;
-    app.f7.data.context = undefined;
+    let context = app.data.context;
+    app.data.context = undefined;
     app.Diary.init(context);
   }
 });

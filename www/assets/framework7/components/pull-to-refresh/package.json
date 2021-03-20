@@ -1,0 +1,9 @@
+{
+  "name": "framework7/pull-to-refresh",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/pull-to-refresh/pull-to-refresh.js",
+  "module": "../../esm/components/pull-to-refresh/pull-to-refresh.js",
+  "jsnext:main": "../../esm/components/pull-to-refresh/pull-to-refresh.js",
+  "typings": "../../types/components/pull-to-refresh/pull-to-refresh.d.ts"
+}

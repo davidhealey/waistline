@@ -1,0 +1,9 @@
+{
+  "name": "framework7/history",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/history/history.js",
+  "module": "../../esm/modules/history/history.js",
+  "jsnext:main": "../../esm/modules/history/history.js",
+  "typings": "../../types/modules/history/history.d.ts"
+}

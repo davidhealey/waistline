@@ -1,0 +1,9 @@
+{
+  "name": "framework7/app",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/app/app.js",
+  "module": "../../esm/components/app/app.js",
+  "jsnext:main": "../../esm/components/app/app.js",
+  "typings": "../../types/components/app/app.d.ts"
+}

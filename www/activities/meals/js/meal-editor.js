@@ -66,13 +66,13 @@ app.MealEditor = {
     // Add food button
     if (!app.MealEditor.el.add.hasClickEvent) {
       app.MealEditor.el.add.addEventListener("click", (e) => {
-        app.f7.data.context = {
+        app.data.context = {
           origin: "./meal-editor/",
           meal: app.MealEditor.meal
         };
 
         app.f7.views.main.router.navigate("/foods-meals-recipes/", {
-          context: app.f7.data.context
+          context: app.data.context
         });
       });
       app.MealEditor.el.add.hasClickEvent = true;
@@ -201,8 +201,8 @@ app.MealEditor = {
 
 document.addEventListener("page:init", function(event) {
   if (event.detail.name == "meal-editor") {
-    let context = app.f7.data.context;
-    app.f7.data.context = undefined;
+    let context = app.data.context;
+    app.data.context = undefined;
 
     // Clear old meal
     app.MealEditor.meal = {
@@ -215,8 +215,8 @@ document.addEventListener("page:init", function(event) {
 
 document.addEventListener("page:reinit", function(event) {
   if (event.detail.name == "meal-editor") {
-    let context = app.f7.data.context;
-    app.f7.data.context = undefined;
+    let context = app.data.context;
+    app.data.context = undefined;
     app.MealEditor.init(context);
   }
 });

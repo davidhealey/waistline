@@ -1,0 +1,9 @@
+{
+  "name": "framework7/photo-browser",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/photo-browser/photo-browser.js",
+  "module": "../../esm/components/photo-browser/photo-browser.js",
+  "jsnext:main": "../../esm/components/photo-browser/photo-browser.js",
+  "typings": "../../types/components/photo-browser/photo-browser.d.ts"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/store",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/store/store.js",
+  "module": "../../esm/modules/store/store.js",
+  "jsnext:main": "../../esm/modules/store/store.js",
+  "typings": "../../types/modules/store/store.d.ts"
+}

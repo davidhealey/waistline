@@ -5,14 +5,15 @@ button {
   width: 100%;
 }
 .button {
+  --f7-touch-ripple-color: rgba(var(--f7-theme-color-rgb), 0.25);
   text-decoration: none;
   text-align: center;
-  display: block;
+  display: flex;
   appearance: none;
   background: none;
   margin: 0;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   position: relative;
   overflow: hidden;
   font-family: inherit;
@@ -22,7 +23,8 @@ button {
   vertical-align: middle;
   justify-content: center;
   align-items: center;
-  border: var(--f7-button-border-width, 0px) solid var(--f7-button-border-color, var(--f7-theme-color));
+  border: var(--f7-button-border-width, 0px) solid
+    var(--f7-button-border-color, var(--f7-theme-color));
   font-size: var(--f7-button-font-size);
   color: var(--f7-button-text-color, var(--f7-theme-color));
   height: var(--f7-button-height);
@@ -39,7 +41,9 @@ button {
     background-color: var(--f7-button-pressed-bg-color, rgba(var(--f7-theme-color-rgb), 0.15));
     color: var(--f7-button-pressed-text-color, var(--f7-button-text-color, var(--f7-theme-color)));
   }
-  input[type="submit"]&, input[type="button"]&{
+  input[type='submit']&,
+  input[type='button']&,
+  input[type='reset']& {
     width: 100%;
   }
 
@@ -132,7 +136,8 @@ button {
   border-radius: var(--f7-button-border-radius);
   box-shadow: var(--f7-button-box-shadow);
   box-sizing: border-box;
-  .button, button {
+  .button,
+  button {
     width: 100%;
     flex-shrink: 1;
     min-width: 0;
@@ -187,7 +192,6 @@ button {
   }
 }
 
-
 .segmented-raised,
 .ios .segmented-raised-ios,
 .md .segmented-raised-md,
@@ -234,7 +238,7 @@ button {
 
   .button {
     z-index: 1;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
   }
   .button,
   .button:first-child,
@@ -262,7 +266,12 @@ button {
     --f7-segmented-highlight-active: 0;
     --f7-segmented-highlight-padding: calc(var(--f7-segmented-strong-padding) * 2);
     --f7-segmented-highlight-between: var(--f7-segmented-strong-between-buttons);
-    --f7-segmented-highlight-width: calc((100% - var(--f7-segmented-highlight-padding) - var(--f7-segmented-highlight-between) * (var(--f7-segmented-highlight-num) - 1)) / var(--f7-segmented-highlight-num));
+    --f7-segmented-highlight-width: calc(
+      (
+          100% - var(--f7-segmented-highlight-padding) - var(--f7-segmented-highlight-between) *
+            (var(--f7-segmented-highlight-num) - 1)
+        ) / var(--f7-segmented-highlight-num)
+    );
 
     position: absolute;
     background-color: var(--f7-segmented-strong-button-active-bg-color);
@@ -273,7 +282,12 @@ button {
     height: calc(100% - var(--f7-segmented-strong-padding) * 2);
     width: var(--f7-segmented-highlight-width);
     z-index: 0;
-    transform: translateX(calc(var(--f7-segmented-highlight-active) * 100% + var(--f7-segmented-highlight-active) * var(--f7-segmented-highlight-between)));
+    transform: translateX(
+      calc(
+        var(--f7-segmented-highlight-active) * 100% + var(--f7-segmented-highlight-active) *
+          var(--f7-segmented-highlight-between)
+      )
+    );
     transition: 200ms;
   }
 }
@@ -359,6 +373,46 @@ button {
 .subnavbar .segmented {
   width: 100%;
 }
+
+.button-preloader {
+  position: relative;
+  --f7-preloader-color: var(--f7-button-text-color, var(--f7-theme-color));
+  &:not(.button-large) {
+    --f7-preloader-size: calc(var(--f7-button-height) - 6px);
+  }
+  &.button-fill {
+    --f7-preloader-color: #fff;
+  }
+  & > span:not(.preloader) {
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    transform: scale(1);
+  }
+  & > .preloader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transition: 0.2s;
+    transition-property: opacity;
+    opacity: 0;
+    visibility: hidden;
+    margin-left: calc(-1 * var(--f7-preloader-size) / 2);
+    margin-top: calc(-1 * var(--f7-preloader-size) / 2);
+  }
+
+  &.button-loading > span:not(.preloader) {
+    opacity: 0;
+    transform: scale(0);
+  }
+  &.button-loading > .preloader {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 .if-ios-theme({
   @import url('./button-ios.less');
 });

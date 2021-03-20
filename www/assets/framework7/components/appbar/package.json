@@ -1,0 +1,9 @@
+{
+  "name": "framework7/appbar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/appbar/appbar.js",
+  "module": "../../esm/components/appbar/appbar.js",
+  "jsnext:main": "../../esm/components/appbar/appbar.js",
+  "typings": "../../types/components/appbar/appbar.d.ts"
+}

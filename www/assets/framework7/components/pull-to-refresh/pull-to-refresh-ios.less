@@ -10,7 +10,7 @@
     top: 50%;
     background: no-repeat center;
     z-index: 10;
-    transform: rotate(0deg) translate3d(0,0,0);
+    transform: rotate(0deg) translate3d(0, 0, 0);
     transition-duration: 300ms;
     transition-property: transform, opacity;
     width: 12px;
@@ -29,7 +29,8 @@
     }
   }
   .ptr-content:not(.ptr-refreshing) {
-    .ptr-preloader .preloader {
+    .ptr-preloader .preloader,
+    .ptr-preloader .preloader-inner {
       animation: none;
     }
   }
@@ -49,7 +50,7 @@
   }
   .ptr-pull-up {
     .ptr-arrow {
-      transform: rotate(180deg) translate3d(0,0,0);
+      transform: rotate(180deg) translate3d(0, 0, 0);
     }
   }
   .ptr-no-navbar,
@@ -80,11 +81,11 @@
       }
     }
     .ptr-arrow {
-      transform: rotate(180deg) translate3d(0,0,0);
+      transform: rotate(180deg) translate3d(0, 0, 0);
     }
     &.ptr-pull-up {
       .ptr-arrow {
-        transform: rotate(0deg) translate3d(0,0,0);
+        transform: rotate(0deg) translate3d(0, 0, 0);
       }
     }
   }

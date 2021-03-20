@@ -1,0 +1,9 @@
+{
+  "name": "framework7/tooltip",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/tooltip/tooltip.js",
+  "module": "../../esm/components/tooltip/tooltip.js",
+  "jsnext:main": "../../esm/components/tooltip/tooltip.js",
+  "typings": "../../types/components/tooltip/tooltip.d.ts"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/router",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/router/router.js",
+  "module": "../../esm/modules/router/router.js",
+  "jsnext:main": "../../esm/modules/router/router.js",
+  "typings": "../../types/modules/router/router.d.ts"
+}

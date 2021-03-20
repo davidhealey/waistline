@@ -1,0 +1,9 @@
+{
+  "name": "framework7/stepper",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/stepper/stepper.js",
+  "module": "../../esm/components/stepper/stepper.js",
+  "jsnext:main": "../../esm/components/stepper/stepper.js",
+  "typings": "../../types/components/stepper/stepper.d.ts"
+}

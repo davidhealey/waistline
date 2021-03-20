@@ -1,0 +1,9 @@
+{
+  "name": "framework7/toolbar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/toolbar/toolbar.js",
+  "module": "../../esm/components/toolbar/toolbar.js",
+  "jsnext:main": "../../esm/components/toolbar/toolbar.js",
+  "typings": "../../types/components/toolbar/toolbar.d.ts"
+}

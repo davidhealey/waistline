@@ -1,0 +1,9 @@
+{
+  "name": "framework7/icon",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/icon/icon.js",
+  "module": "../../esm/components/icon/icon.js",
+  "jsnext:main": "../../esm/components/icon/icon.js",
+  "typings": "../../types/components/icon/icon.d.ts"
+}

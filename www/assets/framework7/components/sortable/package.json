@@ -1,0 +1,9 @@
+{
+  "name": "framework7/sortable",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/sortable/sortable.js",
+  "module": "../../esm/components/sortable/sortable.js",
+  "jsnext:main": "../../esm/components/sortable/sortable.js",
+  "typings": "../../types/components/sortable/sortable.d.ts"
+}

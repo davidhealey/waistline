@@ -1,0 +1,9 @@
+{
+  "name": "framework7/dialog",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/dialog/dialog.js",
+  "module": "../../esm/components/dialog/dialog.js",
+  "jsnext:main": "../../esm/components/dialog/dialog.js",
+  "typings": "../../types/components/dialog/dialog.d.ts"
+}

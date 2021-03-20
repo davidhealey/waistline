@@ -1,0 +1,9 @@
+{
+  "name": "framework7/autocomplete",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/autocomplete/autocomplete.js",
+  "module": "../../esm/components/autocomplete/autocomplete.js",
+  "jsnext:main": "../../esm/components/autocomplete/autocomplete.js",
+  "typings": "../../types/components/autocomplete/autocomplete.d.ts"
+}

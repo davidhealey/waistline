@@ -1,0 +1,9 @@
+{
+  "name": "framework7/page",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/page/page.js",
+  "module": "../../esm/components/page/page.js",
+  "jsnext:main": "../../esm/components/page/page.js",
+  "typings": "../../types/components/page/page.d.ts"
+}

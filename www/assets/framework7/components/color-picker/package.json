@@ -1,0 +1,9 @@
+{
+  "name": "framework7/color-picker",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/color-picker/color-picker.js",
+  "module": "../../esm/components/color-picker/color-picker.js",
+  "jsnext:main": "../../esm/components/color-picker/color-picker.js",
+  "typings": "../../types/components/color-picker/color-picker.d.ts"
+}

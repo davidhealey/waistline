@@ -1,0 +1,9 @@
+{
+  "name": "framework7/statusbar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/statusbar/statusbar.js",
+  "module": "../../esm/components/statusbar/statusbar.js",
+  "jsnext:main": "../../esm/components/statusbar/statusbar.js",
+  "typings": "../../types/components/statusbar/statusbar.d.ts"
+}
