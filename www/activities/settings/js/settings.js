@@ -177,11 +177,15 @@ app.Settings = {
 
   changeTheme: function(darkMode, colourTheme) {
     let body = document.getElementsByTagName("body")[0];
+    let panel = document.getElementById("left-panel");
 
-    if (darkMode === true)
+    if (darkMode === true) {
       body.className = colourTheme + " theme-dark";
-    else
+      panel.style["background-color"] = "black";
+    } else {
       body.className = colourTheme;
+      panel.style["background-color"] = "white";
+    }
   },
 
   saveInputs: function(inputs) {
