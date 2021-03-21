@@ -28,7 +28,8 @@
         </a>
       </div>
       <div class="title" data-localize="statistics.title">Statistics</div>
-      <div class="right"></div>
+      <div class="right chart-type" style="display:none;"><a href="#" class="link icon-only" id="bar-type"><i class="icon material-icons">bar_chart</i></a></div>
+      <div class="right chart-type"><a href="#" class="link icon-only" id="line-type"><i class="icon material-icons">show_chart</i></a></div>
     </div>
   </div>
 
@@ -69,7 +70,7 @@
       </ul>
     </div>
 
-    <div id="chart" class="area-chart"></div>
+    <canvas id="chart" width="200" height="200"></canvas>
 
   </div>
 
