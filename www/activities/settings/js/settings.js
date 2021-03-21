@@ -146,13 +146,42 @@ app.Settings = {
       });
     }
 
+    // Dark mode
+    let darkMode = document.querySelector(".page[data-name='settings-theme'] #dark-mode");
+
+    if (darkMode != undefined && !darkMode.hasClickEvent) {
+      darkMode.addEventListener("click", (e) => {
+        app.Settings.changeTheme(e.target.checked, themeSelect.value);
+      });
+      darkMode.hasClickEvent = true;
+    }
+
+    // Theme
+    let themeSelect = document.querySelector(".page[data-name='settings-theme'] #theme");
+
+    if (themeSelect != undefined && !themeSelect.hasChangeEvent) {
+      themeSelect.addEventListener("change", (e) => {
+        app.Settings.changeTheme(darkMode.checked, e.target.value);
+      });
+      themeSelect.hasChangeEvent = true;
+    }
+
     // Animations 
     let toggleAnimations = document.getElementById("toggle-animations");
-    if (toggleAnimations) {
+    if (toggleAnimations != undefined) {
       toggleAnimations.addEventListener("click", function(e) {
         app.Utils.toast("Restart app to apply changes.");
       });
     }
+  },
+
+  changeTheme: function(darkMode, colourTheme) {
+    let body = document.getElementsByTagName("body")[0];
+
+    if (darkMode === true)
+      body.className = colourTheme + " theme-dark";
+    else
+      body.className = colourTheme;
   },
 
   saveInputs: function(inputs) {

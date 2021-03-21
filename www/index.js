@@ -18,7 +18,7 @@
 */
 
 const app = {
-  mode: "release",
+  mode: "development",
   data: {}, // App wide object that can be used to store stuff
   strings: {}, //Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
@@ -243,7 +243,9 @@ app.f7.on("init", async function(event) {
     let path = await app.Utils.writeFile(data, filename);
   }
 
-  app.f7.views.main.router.navigate("/foods-meals-recipes/");
+  app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
+
+  app.f7.views.main.router.navigate("/settings/");
 });
 
 //Prevent chrome displaying context menu on long click

@@ -17,7 +17,7 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<div class="page" data-name="settings">
+<div class="page" data-name="settings-theme">
 
   <div class="navbar">
     <div class="navbar-bg"></div>
@@ -32,13 +32,33 @@
     <div class="list">
       <ul>
         <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.theme.dark">Dark Mode</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" id="dark-mode" field="theme" name="dark-mode" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
           <div class="item-content item-input">
             <div class="item-inner">
               <div class="item-title item-label">Theme</div>
               <div class="item-input-wrap input-dropdown-wrap">
-                <select name="theme" field="theme">
-                  <option value="0" selected>Light</option>
-                  <option value="1">Dark</option>
+                <select id="theme" name="theme" field="theme">
+                  <option value="color-theme-red" selected>Red</option>
+                  <option value="color-theme-blue">Blue</option>
+                  <option value="color-theme-green">Green</option>
+                  <option value="color-theme-pink">Pink</option>
+                  <option value="color-theme-orange">Orange</option>
+                  <option value="color-theme-gray">Gray</option>
+                  <option value="color-theme-yellow">Yellow</option>
+                  <option value="color-theme-purple">Purple</option>
                 </select>
               </div>
             </div>
