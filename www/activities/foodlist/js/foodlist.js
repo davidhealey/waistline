@@ -133,7 +133,6 @@ app.Foodlist = {
   },
 
   renderList: async function(clear) {
-
     if (clear) app.Utils.deleteChildNodes(app.Foodlist.el.list);
 
     //List settings

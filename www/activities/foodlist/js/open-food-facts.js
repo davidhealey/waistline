@@ -31,7 +31,7 @@ app.OpenFoodFacts = {
           url = "https://world.openfoodfacts.org/api/v0/product/" + query + ".json";
 
         //Get country name
-        let country = app.Settings.get("foodlist", "country") || undefined;
+        let country = app.Settings.get("integration", "search-country") || undefined;
 
         if (country && country != "All")
           url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
