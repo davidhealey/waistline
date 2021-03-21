@@ -311,12 +311,12 @@ app.Foodlist = {
   },
 
   gotoEditor: function(item) {
-    app.f7.views.main.router.navigate("./food-editor/", {
-      "context": {
-        item: item,
-        origin: "foodlist"
-      }
-    });
+    app.data.context = {
+      item: item,
+      origin: "foodlist"
+    };
+
+    app.f7.views.main.router.navigate("./food-editor/");
   },
 
   getQuickAddItem: function() {
@@ -395,15 +395,15 @@ app.Foodlist = {
     let title = app.strings["product-not-found"] || "Product not found";
     let text = app.strings["add-to-off"] || "Would you like to add this product to the Open Food Facts database?";
 
+    app.data.context = {
+      origin: "foodlist",
+      scan: true,
+      item: undefined,
+      barcode: code
+    };
+
     let callbackOk = function() {
-      app.f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
-        context: {
-          origin: "foodlist",
-          scan: true,
-          item: undefined,
-          barcode: code
-        }
-      });
+      app.f7.views.main.router.navigate("/foods-meals-recipes/food-editor/");
     };
 
     let dialog = app.f7.dialog.confirm(text, title, callbackOk);

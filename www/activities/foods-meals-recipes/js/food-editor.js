@@ -64,6 +64,7 @@ app.FoodEditor = {
   getComponents: function() {
     app.FoodEditor.el.title = document.querySelector(".page[data-name='food-editor'] #title");
     app.FoodEditor.el.link = document.querySelector(".page[data-name='food-editor'] #link");
+    app.FoodEditor.el.linkIcon = document.querySelector(".page[data-name='food-editor'] #link-icon");
     app.FoodEditor.el.upload = document.querySelector(".page[data-name='food-editor'] #upload");
     app.FoodEditor.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
     app.FoodEditor.el.barcodeContainer = document.querySelector(".page[data-name='food-editor'] #barcode-container");
@@ -190,9 +191,9 @@ app.FoodEditor = {
 
   setLinkButtonIcon: function() {
     if (app.FoodEditor.linked)
-      app.FoodEditor.el.link.innerHTML = "link";
+      app.FoodEditor.el.linkIcon.innerHTML = "link";
     else
-      app.FoodEditor.el.link.innerHTML = "link_off";
+      app.FoodEditor.el.linkIcon.innerHTML = "link_off";
   },
 
   updateTitle: function() {
@@ -297,7 +298,6 @@ app.FoodEditor = {
     // Quantity (number of servings)
     app.FoodEditor.el.quantity.value = item.quantity || 1;
     app.FoodEditor.el.quantity.oldValue = app.FoodEditor.el.quantity.value;
-
   },
 
   populateImage: function(item) {
@@ -514,7 +514,9 @@ app.FoodEditor = {
 
 document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='food-editor']")) {
-    let context = app.f7.views.main.router.currentRoute.context;
+    let context = app.data.context;
+    app.data.context = undefined;
+    console.log(context);
     app.FoodEditor.init(context);
   }
 });

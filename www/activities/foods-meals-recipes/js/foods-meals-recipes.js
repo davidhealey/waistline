@@ -528,18 +528,16 @@ app.FoodsMealsRecipes = {
   },
 
   gotoEditor: function(item) {
-    //if (item.id !== undefined) {
     let origin;
     if (app.FoodsMealsRecipes.tab !== undefined)
       origin = app.FoodsMealsRecipes.tab;
 
-    app.f7.views.main.router.navigate("/foods-meals-recipes/food-editor/", {
-      context: {
-        item: item,
-        origin: origin
-      }
-    });
-    //  }
+    app.data.context = {
+      item: item,
+      origin: origin
+    };
+
+    app.f7.views.main.router.navigate("/foods-meals-recipes/food-editor/");
   },
 
   removeItem: function(id, type) {
@@ -575,7 +573,8 @@ app.FoodsMealsRecipes = {
 
 document.addEventListener("page:init", function(e) {
   if (e.target.matches(".page[data-name='foods-meals-recipes']")) {
-    let context = app.f7.views.main.router.currentRoute.context;
+    let context = app.data.context;
+    app.data.context = undefined;
     app.FoodsMealsRecipes.init(context);
   }
 });

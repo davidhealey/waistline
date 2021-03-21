@@ -521,13 +521,13 @@ app.Diary = {
   },
 
   gotoFoodlist: function(category) {
-    app.f7.views.main.router.navigate("/foods-meals-recipes/", {
-      "context": {
-        origin: "/diary/",
-        category: category,
-        date: new Date(app.Diary.calendar.getValue())
-      }
-    });
+    app.data.context = {
+      origin: "/diary/",
+      category: category,
+      date: new Date(app.Diary.calendar.getValue())
+    };
+
+    app.f7.views.main.router.navigate("/foods-meals-recipes/");
   },
 };
 
