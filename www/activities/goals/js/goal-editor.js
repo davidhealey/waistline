@@ -94,7 +94,8 @@ app.GoalEditor = {
 
 document.addEventListener("page:init", function(e) {
   if (e.target.matches(".page[data-name='goal-editor']")) {
-    let context = app.f7.views.main.router.currentRoute.context;
+    let context = app.data.context;
+    app.data.context = undefined;
     app.GoalEditor.init(context);
   }
 });

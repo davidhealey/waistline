@@ -154,7 +154,6 @@ app.Foodlist = {
       }
     }
     app.f7.preloader.hide();
-
   },
 
   getListFromDB: function() {
@@ -412,7 +411,8 @@ app.Foodlist = {
 
 document.addEventListener("tab:init", function(e) {
   if (e.target.id == "foodlist") {
-    let context = app.f7.views.main.router.currentRoute.context;
+    let context = app.data.context;
+    app.data.context = undefined;
     app.Foodlist.init(context);
   }
 });
