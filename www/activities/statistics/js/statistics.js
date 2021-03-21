@@ -32,6 +32,7 @@ app.Stats = {
     this.chart = undefined;
     this.dbData = await this.getDataFromDb();
     this.updateChart(app.Stats.el.stat.value);
+    this.renderStatLog(app.Stats.el.stat.value);
   },
 
   getComponents: function() {
@@ -40,6 +41,7 @@ app.Stats = {
     app.Stats.el.chart = document.querySelector(".page[data-name='statistics'] #chart");
     app.Stats.el.barType = document.querySelector(".page[data-name='statistics'] #bar-type");
     app.Stats.el.lineType = document.querySelector(".page[data-name='statistics'] #line-type");
+    app.Stats.el.timeline = document.querySelector(".page[data-name='statistics'] #timeline");
   },
 
   bindUIActions: function() {
@@ -49,6 +51,7 @@ app.Stats = {
       app.Stats.el.range.addEventListener("change", async (e) => {
         app.Stats.dbData = await this.getDataFromDb();
         app.Stats.updateChart(app.Stats.el.stat.value);
+        app.Stats.renderStatLog(app.Stats.el.stat.value);
       });
       app.Stats.el.range.hasChangedEvent = true;
     }
@@ -58,6 +61,7 @@ app.Stats = {
       app.Stats.el.stat.addEventListener("change", (e) => {
         let value = e.target.value;
         app.Stats.updateChart(value);
+        app.Stats.renderStatLog(value);
       });
       app.Stats.el.stat.hasChangedEvent = true;
     }
@@ -115,6 +119,37 @@ app.Stats = {
     }
   },
 
+  renderStatLog: async function(field) {
+    let data = await app.Stats.organiseData(app.Stats.dbData, field);
+
+    app.Stats.el.timeline.innerHTML = "";
+
+    for (let i = 0; i < data.dates.length; i++) {
+
+      let item = document.createElement("div");
+      item.className = "timeline-item";
+      app.Stats.el.timeline.appendChild(item);
+
+      let itemDate = document.createElement("div");
+      itemDate.className = "timeline-item-date";
+      itemDate.innerHTML = data.dates[i];
+      item.appendChild(itemDate);
+
+      let divider = document.createElement("div");
+      divider.className = "timeline-item-divider";
+      item.appendChild(divider);
+
+      let content = document.createElement("div");
+      content.className = "timeline-item-content";
+      item.appendChild(content);
+
+      let inner = document.createElement("div");
+      inner.className = "timeline-item-inner";
+      inner.innerHTML = data.dataset.values[i];
+      content.appendChild(inner);
+    }
+  },
+
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
@@ -125,21 +160,19 @@ app.Stats = {
         }
       };
 
-      // Format dates 
-      for (let i in data.timestamps) {
-        let timestamp = data.timestamps[i];
-        let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
-        result.dates.push(date);
-      }
+      for (let i = 0; i < data.timestamps.length; i++) {
+        let value;
 
-      if (app.nutriments.indexOf(field) == -1) {
-        for (let i in data.stats) {
-          result.dataset.values.push(data.stats[i][field]);
-        }
-      } else {
-        for (let i in data.items) {
-          let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i]);
-          result.dataset.values.push(nutrition[field]);
+        if (app.nutriments.indexOf(field) == -1)
+          value = data.stats[i][field];
+        else
+          value = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i]);
+
+        if (value !== undefined) {
+          let timestamp = data.timestamps[i];
+          let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
+          result.dates.push(date);
+          result.dataset.values.push(value);
         }
       }
 
