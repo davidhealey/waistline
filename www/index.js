@@ -212,7 +212,7 @@ const app = {
 let animate = true;
 let settings = JSON.parse(window.localStorage.getItem("settings"));
 
-if (settings !== undefined && settings.theme !== undefined && settings.theme.animations !== undefined)
+if (settings != undefined && settings.theme !== undefined && settings.theme.animations !== undefined)
   animate = settings.theme.animations;
 
 let viewOptions = {
@@ -243,9 +243,13 @@ app.f7.on("init", async function(event) {
     let path = await app.Utils.writeFile(data, filename);
   }
 
-  app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
-
-  app.f7.views.main.router.navigate(settings.theme["start-page"]);
+  if (settings == undefined || settings.firstTimeSetup == undefined) {
+    app.Settings.firstTimeSetup();
+    app.f7.views.main.router.navigate("/settings/");
+  } else {
+    app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
+    app.f7.views.main.router.navigate(settings.theme["start-page"]);
+  }
 });
 
 //Prevent chrome displaying context menu on long click

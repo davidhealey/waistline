@@ -265,6 +265,56 @@ app.Settings = {
       let json = await app.Utils.readFile(filename);
       await dbHandler.importFromJSON(json);
     });
+  },
+
+  firstTimeSetup: function() {
+    let defaults = {
+      diary: {
+        "meal-names": ["Breakfast", "Lunch", "Dinner", "Snacks", "", "", ""],
+        "show-nutrition-units": false,
+        "show-thumbnails": false,
+        timestamps: false,
+        "wifi-thumbnails": true
+      },
+      foodlist: {
+        "show-images": true,
+        sort: "alpha",
+        "wifi-images": true
+      },
+      integration: {
+        "search-country": "United Kingdom",
+        usda: false
+      },
+      theme: {
+        animations: true,
+        "dark-mode": false,
+        "start-page": "/settings/",
+        theme: "color-theme-red"
+      },
+      units: {
+        energy: "kcal",
+        "energy-unit": "kcal",
+        length: "cm",
+        weight: "kg",
+      },
+      goals: {
+        calories: ["2000", "", "", "", "", "", ""],
+        "calories-shared-goal": true,
+        "calories-show-in-diary": true,
+        proteins: ["50", "", "", "", "", "", ""],
+        "proteins-shared-goal": true,
+        "proteins-show-in-diary": true,
+        carbohydrates: ["250", "", "", "", "", "", ""],
+        "carbohydrates-shared-goal": true,
+        "carbohydrates-show-in-diary": true,
+        fat: ["65", "", "", "", "", "", ""],
+        "fat-shared-goal": true,
+        "fat-show-in-diary": true
+      },
+      firstTimeSetup: true
+    };
+
+    window.localStorage.setItem("settings", JSON.stringify(defaults));
   }
 };
 

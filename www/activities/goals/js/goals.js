@@ -60,11 +60,11 @@ app.Goals = {
   },
 
   gotoEditor: function(item) {
-    app.f7.views.main.router.navigate("./goal-editor/", {
-      "context": {
-        item: item
-      }
-    });
+    app.data.context = {
+      item: item
+    };
+
+    app.f7.views.main.router.navigate("./goal-editor/");
   },
 
   get: function(item, date) {
