@@ -59,6 +59,9 @@ app.FoodEditor = {
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
       this.populateCategoryField(app.FoodEditor.item);
+
+    if (context.barcode !== undefined)
+      app.FoodEditor.el.barcode.value = context.barcode;
   },
 
   getComponents: function() {
@@ -87,32 +90,38 @@ app.FoodEditor = {
   },
 
   bindUIActions: function() {
+
+    // Submit
     app.FoodEditor.el.submit.addEventListener("click", (e) => {
       app.FoodEditor.returnItem(app.FoodEditor.item, app.FoodEditor.origin);
     });
 
+    // Portion
     app.FoodEditor.el.portion.addEventListener("change", (e) => {
       app.FoodEditor.changeServing(app.FoodEditor.item, "portion", e.target.value);
     });
 
+    // Quantity
     app.FoodEditor.el.quantity.addEventListener("change", (e) => {
       app.FoodEditor.changeServing(app.FoodEditor.item, "quantity", e.target.value);
     });
 
+    // Link/Unlink
     app.FoodEditor.el.link.addEventListener("click", (e) => {
       app.FoodEditor.linked = 1 - app.FoodEditor.linked;
       app.FoodEditor.setLinkButtonIcon();
     });
 
+    //Upload
     if (!app.FoodEditor.el.upload.hasClickEvent) {
       app.FoodEditor.el.upload.addEventListener("click", async (e) => {
         await app.FoodEditor.upload();
-        app.FoodEditor.returnItem(app.FoodEditor.item, "foodlist");
+        app.f7.views.main.router.navigate("/foods-meals-recipes/");
       });
       app.FoodEditor.el.upload.hasClickEvent = true;
     }
 
-    // add-photo buttons
+    // Add-photo
     app.FoodEditor.el.addPhoto.forEach((x, i) => {
       if (!x.hasClickEvent) {
         x.addEventListener("click", (e) => {
@@ -383,8 +392,10 @@ app.FoodEditor = {
         app.FoodEditor.images[index] = image_uri;
       },
       (err) => {
-        app.Utils.toast("There was a problem accessing your camera.", 2000);
-        console.error(err);
+        if (err != "No Image Selected") {
+          app.Utils.toast("There was a problem accessing your camera.", 2000);
+          console.error(err);
+        }
       }, options);
   },
 
@@ -491,13 +502,12 @@ app.FoodEditor = {
             if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
               data.images = app.FoodEditor.images;
               app.f7.preloader.show();
+
               let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
                 app.Utils.toast("Upload Failed");
               });
-              app.f7.preloader.hide();
 
-              if (imgUrl !== undefined)
-                app.FoodEditor.item.image_url = imgUrl;
+              app.f7.preloader.hide();
 
               resolve();
             } else {
@@ -516,7 +526,6 @@ document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='food-editor']")) {
     let context = app.data.context;
     app.data.context = undefined;
-    console.log(context);
     app.FoodEditor.init(context);
   }
 });
