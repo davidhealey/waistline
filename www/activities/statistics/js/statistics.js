@@ -193,7 +193,7 @@ app.Stats = {
           value = nutrition[field];
         }
 
-        if (value != undefined && value != 0) {
+        if (value != undefined && value != 0 && !isNaN(value)) {
           let timestamp = data.timestamps[i];
           let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
           result.dates.push(date);
@@ -256,8 +256,6 @@ app.Stats = {
 
   renderChart: function(data) {
     Chart.defaults.global.defaultFontColor = 'black';
-
-    console.log(Chart.defaults);
     app.Stats.chart = new Chart(app.Stats.el.chart, {
       type: app.Stats.chartType,
       data: {

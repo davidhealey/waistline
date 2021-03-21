@@ -36,7 +36,6 @@ app.Diary = {
     if (context) {
 
       if (context.items || context.item) {
-
         if (context.items)
           await this.addItems(context.items, context.category);
         else
@@ -213,6 +212,7 @@ app.Diary = {
         if (count % columnsToShow == 0) {
           let slide = document.createElement("div");
           slide.className = "swiper-slide";
+          slide.style.height = "auto";
           swiper.appendSlide(slide);
 
           rows[0] = document.createElement("div");

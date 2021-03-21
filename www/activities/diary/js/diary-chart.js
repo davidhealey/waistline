@@ -27,7 +27,7 @@ app.DiaryChart = {
   init: async function(context) {
     this.getComponents();
     this.bindUIActions();
-
+    console.log("DIARY CHART");
     let d = new Date(context.date);
     this.dbData = await app.Stats.getDataFromDb(d, 0);
     let data = await this.organiseData(this.dbData);
