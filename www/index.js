@@ -245,7 +245,7 @@ app.f7.on("init", async function(event) {
 
   app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
 
-  app.f7.views.main.router.navigate("/settings/");
+  app.f7.views.main.router.navigate(settings.theme["start-page"]);
 });
 
 //Prevent chrome displaying context menu on long click
