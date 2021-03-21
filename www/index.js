@@ -33,6 +33,7 @@ const app = {
     "saturated-fat": "g",
     "cholesterol": "mg",
     "sugars": "g",
+    "fiber": "g",
     "salt": "g",
     "sodium": "mg",
     "potassium": "mg",
@@ -83,7 +84,15 @@ const app = {
       {
         name: "Diary",
         path: "/diary/",
-        url: "activities/diary/views/diary.html"
+        url: "activities/diary/views/diary.html",
+        routes: [{
+          name: "Chart",
+          path: "/chart/",
+          url: "activities/diary/views/diary-chart.html",
+          options: {
+            transition: "f7-parallax"
+          }
+        }]
       },
       {
         name: "Foods, Meals, Recipes",

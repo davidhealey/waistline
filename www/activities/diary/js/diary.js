@@ -56,14 +56,25 @@ app.Diary = {
   getComponents: function() {
     app.Diary.el.log = document.querySelector(".page[data-name='diary'] #log");
     app.Diary.el.date = document.querySelector(".page[data-name='diary'] #diary-date");
+    app.Diary.el.showChart = document.querySelector(".page[data-name='diary'] #show-chart");
   },
 
   bindUIActions: function() {
+
+    // Log button
     if (!app.Diary.el.log.hasClickEvent) {
       app.Diary.el.log.addEventListener("click", (e) => {
         app.Diary.log();
       });
       app.Diary.el.log.hasClickEvent = true;
+    }
+
+    // Show chart 
+    if (!app.Diary.el.showChart.hasClickEvent) {
+      app.Diary.el.showChart.addEventListener("click", (e) => {
+        app.Diary.showChart();
+      });
+      app.Diary.el.showChart.hasClickEvent = true;
     }
   },
 
@@ -139,7 +150,6 @@ app.Diary = {
   },
 
   render: async function() {
-
     let entry = await this.getEntryFromDB(); // Get diary entry from DB
     let totalNutrition;
 
@@ -170,7 +180,6 @@ app.Diary = {
   },
 
   renderNutritionCard: function(nutrition, date, swiper) {
-
     let nutriments = app.nutriments;
     let nutrimentShortNames = app.nutrimentShortNames;
     let nutrimentUnits = app.nutrimentUnits;
@@ -529,6 +538,13 @@ app.Diary = {
 
     app.f7.views.main.router.navigate("/foods-meals-recipes/");
   },
+
+  showChart: function() {
+    app.data.context = {
+      date: app.Diary.calendar.getValue()
+    };
+    app.f7.views.main.router.navigate("/diary/chart/");
+  }
 };
 
 document.addEventListener("page:init", function(event) {

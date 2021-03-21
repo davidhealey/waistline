@@ -209,22 +209,27 @@ app.Stats = {
     });
   },
 
-  getDataFromDb: function() {
+  getDataFromDb: function(from, range) {
     return new Promise(async function(resolve, reject) {
       let result = {
         "timestamps": [],
         "items": [],
-        "nutrition": [],
         "stats": []
       };
 
-      let now = new Date();
+      let now = from || new Date();
       let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
       let toDate = new Date(fromDate);
       toDate.setUTCHours(toDate.getUTCHours() + 24);
 
-      let range = app.Stats.el.range.value;
-      range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
+      let rangeValue = 0;
+
+      if (range !== undefined)
+        rangeValue = range;
+      else if (app.Stats.el.range !== undefined)
+        rangeValue = app.Stats.el.range.value;
+
+      rangeValue == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - rangeValue);
 
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e) {
         let cursor = e.target.result;
@@ -267,6 +272,12 @@ app.Stats = {
               beginAtZero: true
             }
           }]
+        },
+        legend: {
+          labels: {
+            fontColor: 'black',
+            fontSize: 16
+          }
         }
       }
     });
