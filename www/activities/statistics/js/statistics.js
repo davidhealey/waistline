@@ -24,10 +24,12 @@ app.Stats = {
   chartType: "bar",
   dbData: undefined,
 
-  init: async function(context) {
+  init: async function() {
     this.getComponents();
     this.bindUIActions();
     this.populateDropdownOptions();
+    this.setChartTypeButtonVisbility();
+    this.chart = undefined;
     this.dbData = await this.getDataFromDb();
     this.updateChart(app.Stats.el.stat.value);
   },
@@ -62,7 +64,6 @@ app.Stats = {
 
     // Chart type
     let buttons = Array.from(document.getElementsByClassName("chart-type"));
-
     buttons.forEach((x, i) => {
       if (!x.hasClickEvent) {
         x.addEventListener("click", (e) => {
@@ -80,6 +81,14 @@ app.Stats = {
         x.hasClickEvent = true;
       }
     });
+  },
+
+  setChartTypeButtonVisbility: function() {
+    let buttons = Array.from(document.getElementsByClassName("chart-type"));
+    let value = Number(app.Stats.chartType != "bar");
+
+    buttons[value].style.display = "none";
+    buttons[1 - value].style.display = "block";
   },
 
   populateDropdownOptions: function() {
@@ -208,8 +217,6 @@ app.Stats = {
 
 document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='statistics']")) {
-    let context = app.data.context;
-    app.data.context = undefined;
-    app.Stats.init(context);
+    app.Stats.init();
   }
 });
