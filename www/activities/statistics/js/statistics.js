@@ -255,6 +255,9 @@ app.Stats = {
   },
 
   renderChart: function(data) {
+    Chart.defaults.global.defaultFontColor = 'black';
+
+    console.log(Chart.defaults);
     app.Stats.chart = new Chart(app.Stats.el.chart, {
       type: app.Stats.chartType,
       data: {
@@ -262,7 +265,9 @@ app.Stats = {
         datasets: [{
           label: data.dataset.label,
           data: data.dataset.values,
-          borderWidth: 2
+          borderWidth: 2,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 0.5)'
         }]
       },
       options: {

@@ -57,13 +57,13 @@ app.DiaryChart = {
 
       for (let n in nutrition) {
 
-        if (n == "calories" && energyUnit != "kcal") continue;
-        if (n == "kilojoules" && energyUnit != "kj") continue;
+        if (energyUnit == "kJ" && n == "calories") continue;
+        if (energyUnit == "kcal" && n == "kilojoules") continue;
 
-        let label = app.Utils.tidyText(shortNames[nutriments.indexOf(n)]);
         let unit = nutrimentUnits[n] || "g";
+        let label = app.Utils.tidyText(shortNames[nutriments.indexOf(n)]) + " (" + unit + ")";
 
-        result.labels.push(label + " (" + unit + ")");
+        result.labels.push(label);
         result.values.push(Math.round(nutrition[n] * 100) / 100);
       }
 
