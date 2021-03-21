@@ -126,27 +126,26 @@ app.Stats = {
 
     for (let i = 0; i < data.dates.length; i++) {
 
-      let item = document.createElement("div");
-      item.className = "timeline-item";
-      app.Stats.el.timeline.appendChild(item);
-
-      let itemDate = document.createElement("div");
-      itemDate.className = "timeline-item-date";
-      itemDate.innerHTML = data.dates[i];
-      item.appendChild(itemDate);
-
-      let divider = document.createElement("div");
-      divider.className = "timeline-item-divider";
-      item.appendChild(divider);
+      let li = document.createElement("li");
+      app.Stats.el.timeline.appendChild(li);
 
       let content = document.createElement("div");
-      content.className = "timeline-item-content";
-      item.appendChild(content);
+      content.className = "item-content";
+      li.appendChild(content);
 
       let inner = document.createElement("div");
-      inner.className = "timeline-item-inner";
-      inner.innerHTML = data.dataset.values[i] + " " + data.dataset.unit;
+      inner.className = "item-inner";
       content.appendChild(inner);
+
+      let title = document.createElement("div");
+      title.className = "item-title";
+      title.innerHTML = data.dates[i];
+      inner.appendChild(title);
+
+      let after = document.createElement("div");
+      after.className = "item-after";
+      after.innerHTML = data.dataset.values[i] + " " + data.dataset.unit;
+      inner.appendChild(after);
     }
   },
 
@@ -198,7 +197,7 @@ app.Stats = {
           let timestamp = data.timestamps[i];
           let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
           result.dates.push(date);
-          result.dataset.values.push(value);
+          result.dataset.values.push(Math.round(value * 100) / 100);
         }
       }
 
