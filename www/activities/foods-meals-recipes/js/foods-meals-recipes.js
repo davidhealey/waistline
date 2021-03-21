@@ -87,7 +87,10 @@ app.FoodsMealsRecipes = {
 
   bindUIActions: function() {
     // Submit button - event handler is separate function to avoid duplicates
-    app.FoodsMealsRecipes.el.submit.addEventListener("click", app.FoodsMealsRecipes.submitButtonClickEventHandler);
+    if (!app.FoodsMealsRecipes.el.submit.hasClickEvent) {
+      app.FoodsMealsRecipes.el.submit.addEventListener("click", app.FoodsMealsRecipes.submitButtonClickEventHandler);
+      app.FoodsMealsRecipes.el.submit.hasClickEvent = true;
+    }
 
     // Fab button 
     app.FoodsMealsRecipes.el.fab.addEventListener("click", function(e) {

@@ -338,7 +338,6 @@ app.Foodlist = {
 
   createQuickAddItem: function() {
     return new Promise(function(resolve, reject) {
-
       item = {
         name: "Quick Add",
         barcode: "quick-add",
