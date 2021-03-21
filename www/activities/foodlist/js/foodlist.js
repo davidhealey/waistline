@@ -323,6 +323,9 @@ app.Foodlist = {
     return new Promise(async function(resolve, reject) {
       let item = await dbHandler.get("foodList", "barcode", "quick-add");
 
+      if (item == undefined)
+        item = await app.Foodlist.createQuickAddItem();
+
       let result = {
         id: item.id,
         portion: item.portion,
@@ -333,10 +336,9 @@ app.Foodlist = {
     });
   },
 
-  createQuickAddItem: async function() {
-    let item = await dbHandler.get("foodList", "barcode", "quick-add");
+  createQuickAddItem: function() {
+    return new Promise(function(resolve, reject) {
 
-    if (item == undefined) {
       item = {
         name: "Quick Add",
         barcode: "quick-add",
@@ -346,8 +348,13 @@ app.Foodlist = {
         },
         archived: true
       };
-      dbHandler.put(item, "foodList");
-    }
+      let request = dbHandler.put(item, "foodList");
+
+      request.onsuccess = () => {
+        item.id = request.result;
+        resolve(item);
+      };
+    });
   },
 
   scan: function() {
