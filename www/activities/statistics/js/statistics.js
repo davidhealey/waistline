@@ -145,7 +145,7 @@ app.Stats = {
 
       let inner = document.createElement("div");
       inner.className = "timeline-item-inner";
-      inner.innerHTML = data.dataset.values[i];
+      inner.innerHTML = data.dataset.values[i] + " " + data.dataset.unit;
       content.appendChild(inner);
     }
   },
@@ -153,22 +153,48 @@ app.Stats = {
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
+      let nutrimentUnits = app.nutrimentUnits;
+      let measurementUnits = app.Settings.getField("units");
+      let measurementFields = ["weight", "neck", "waist", "hips"];
+
+      let unit;
+      if (measurementFields.indexOf(field) !== -1)
+        field == "weight" ? unit = measurementUnits.weight : unit = measurementUnits.length;
+      else
+        unit = nutrimentUnits[field];
+
       let result = {
         dates: [],
         dataset: {
-          values: []
+          values: [],
+          unit: unit
         }
       };
 
       for (let i = 0; i < data.timestamps.length; i++) {
         let value;
 
-        if (app.nutriments.indexOf(field) == -1)
+        if (app.nutriments.indexOf(field) == -1) {
           value = data.stats[i][field];
-        else
-          value = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i]);
 
-        if (value !== undefined) {
+          if (value != undefined) {
+            if (field == "weight") {
+              if (unit == "lb")
+                value = Math.round(value / 0.45359237 * 100) / 100;
+              else if (unit == "st")
+                value = Math.round(value / 6.35029318 * 100) / 100;
+            } else {
+              if (unit == "inch")
+                value = Math.round(value / 2.54 * 100) / 100;
+            }
+          }
+
+        } else {
+          let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i]);
+          value = nutrition[field];
+        }
+
+        if (value != undefined && value != 0) {
           let timestamp = data.timestamps[i];
           let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
           result.dates.push(date);
@@ -176,7 +202,7 @@ app.Stats = {
         }
       }
 
-      result.dataset.label = app.Utils.tidyText(field);
+      result.dataset.label = app.Utils.tidyText(field) + " (" + unit + ")";
 
       resolve(result);
     }).catch(err => {
