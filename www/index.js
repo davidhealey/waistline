@@ -18,7 +18,7 @@
 */
 
 const app = {
-  mode: "release",
+  mode: "development",
   data: {}, // App wide object that can be used to store stuff
   strings: {}, //Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
