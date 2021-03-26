@@ -154,13 +154,17 @@ app.Stats = {
 
       let nutrimentUnits = app.nutrimentUnits;
       let measurementUnits = app.Settings.getField("units");
-      let measurementFields = ["weight", "neck", "waist", "hips"];
+      let measurementFields = ["weight", "neck", "waist", "hips", "body fat"];
 
       let unit;
-      if (measurementFields.indexOf(field) !== -1)
-        field == "weight" ? unit = measurementUnits.weight : unit = measurementUnits.length;
-      else
-        unit = nutrimentUnits[field];
+      if (field == "body fat") {
+        unit = "%";
+      } else {
+        if (measurementFields.indexOf(field) !== -1)
+          field == "weight" ? unit = measurementUnits.weight : unit = measurementUnits.length;
+        else
+          unit = nutrimentUnits[field];
+      }
 
       let result = {
         dates: [],

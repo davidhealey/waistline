@@ -420,7 +420,7 @@ app.Diary = {
     let title = app.strings["log-dialog-title"] || "Today's Stats";
     let stats = JSON.parse(window.localStorage.getItem("stats")) || {};
     let units = app.Settings.getField("units");
-    let fields = ["weight", "neck", "waist", "hips"];
+    let fields = ["weight", "neck", "waist", "hips", "body fat"];
 
     // Create dialog inputs
     let div = document.createElement("div");
@@ -433,11 +433,15 @@ app.Diary = {
       let x = fields[i];
 
       let unit;
-      x == "weight" ? unit = units.weight : unit = units.length;
+
+      if (x == "body fat")
+        unit = "%";
+      else
+        x == "weight" ? unit = units.weight : unit = units.length;
 
       let value = stats[x];
 
-      if (value != undefined) {
+      if (value != undefined && x != "body fat") {
         if (x == "weight") {
           if (unit == "lb")
             value = Math.round(stats[x] / 0.45359237 * 100) / 100;
@@ -508,14 +512,16 @@ app.Diary = {
 
       let value = x.value;
 
-      if (x.id == "weight") {
-        if (units.weight == "lb")
-          value = Math.round(x.value * 0.45359237 * 100) / 100;
-        else if (units.weight == "st")
-          value = Math.round(x.value * 6.35029318 * 100) / 100;
-      } else {
-        if (units.length == "inch")
-          value = Math.round(x.value * 2.54 * 100) / 100;
+      if (x.id !== "body fat") {
+        if (x.id == "weight") {
+          if (units.weight == "lb")
+            value = Math.round(x.value * 0.45359237 * 100) / 100;
+          else if (units.weight == "st")
+            value = Math.round(x.value * 6.35029318 * 100) / 100;
+        } else {
+          if (units.length == "inch")
+            value = Math.round(x.value * 2.54 * 100) / 100;
+        }
       }
 
       stats[x.id] = value;
@@ -539,11 +545,17 @@ app.Diary = {
     app.f7.views.main.router.navigate("/foods-meals-recipes/");
   },
 
-  showChart: function() {
-    app.data.context = {
-      date: app.Diary.calendar.getValue()
-    };
-    app.f7.views.main.router.navigate("/diary/chart/");
+  showChart: async function() {
+    let entry = await app.Diary.getEntryFromDB();
+
+    if (entry != undefined && entry.items.length > 0) {
+      app.data.context = {
+        date: app.Diary.calendar.getValue()
+      };
+      app.f7.views.main.router.navigate("/diary/chart/");
+    } else {
+      app.Utils.toast("No data");
+    }
   }
 };
 
