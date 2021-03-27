@@ -33,7 +33,7 @@
     <div class="list">
       <ul>
 
-        <li class="item-divider">Open Food Facts</li>
+        <li class="item-divider" data-localize="settings.integration.off">Open Food Facts</li>
 
         <li>
           <a href="#" class="item-link item-content login-screen-open" data-login-screen=".off-login">
@@ -44,7 +44,7 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label" data-localize="settings.foodlist.country">Search Country</div>
+              <div class="item-title item-label" data-localize="settings.integration.country">Search Country</div>
               <div class="item-input-wrap input-dropdown-wrap">
                 <select field="integration" name="search-country">
                   <option value="All" selected>All</option>
@@ -245,7 +245,7 @@
           </div>
         </li>
 
-        <li class="item-divider">U.S. DEPARTMENT OF AGRICULTURE</li>
+        <li class="item-divider" data-localize="settings.integration.usda-title">U.S. DEPARTMENT OF AGRICULTURE</li>
 
         <li>
           <div class="item-content">
@@ -269,7 +269,6 @@
 
       </ul>
     </div>
-
   </div>
 
   <!-- OFF Login Screen -->
@@ -277,13 +276,13 @@
     <div class="view">
       <div class="page">
         <div class="page-content login-screen-content">
-          <div class="login-screen-title">Open Food Facts</div>
+          <div class="login-screen-title" data-localize="settings.integration.off">Open Food Facts</div>
           <form>
             <div class="list">
               <ul>
                 <li class="item-content item-input">
                   <div class="item-inner">
-                    <div class="item-title item-label">Username</div>
+                    <div class="item-title item-label" data-localize="settings.integration.username">Username</div>
                     <div class="item-input-wrap">
                       <input class="manual-bind" id="off-username" type="text" name="off-username" field="integration" placeholder="Your username">
                     </div>
@@ -291,7 +290,7 @@
                 </li>
                 <li class="item-content item-input">
                   <div class="item-inner">
-                    <div class="item-title item-label">Password</div>
+                    <div class="item-title item-label" data-localize="settings.integration.password">Password</div>
                     <div class="item-input-wrap">
                       <input class="manual-bind" id="off-password" type="password" name="off-password" field="integration" placeholder="Your password">
                     </div>
@@ -301,11 +300,11 @@
             </div>
             <div class="list">
               <ul>
-                <li><a class="list-button" id="off-login" href="#">Sign In</a></li>
+                <li><a class="list-button" id="off-login" href="#" data-localize="settings.integration.sign-in">Sign In</a></li>
               </ul>
               <div class="block-footer">
-                <p>This is entirely optional. You do not need an OFF account to use app.</p>
-                <p><a class="link login-screen-close" href="#">Exit</a></p>
+                <p data-localize="settings.integration.off-account-note">This is entirely optional. You do not need an OFF account to use app.</p>
+                <p><a class="link login-screen-close" href="#" data-localize="settings.integration.exit">Exit</a></p>
               </div>
             </div>
           </form>
@@ -319,13 +318,13 @@
     <div class="view">
       <div class="page">
         <div class="page-content login-screen-content">
-          <div class="login-screen-title">USDA</div>
+          <div class="login-screen-title" data-localize="settings.integration.usda-login-title">USDA</div>
           <form>
             <div class="list">
               <ul>
                 <li class="item-content item-input">
                   <div class="item-inner">
-                    <div class="item-title item-label">USDA API Key</div>
+                    <div class="item-title item-label" data-localize="settings.integration.usda-api-key">USDA API Key</div>
                     <div class="item-input-wrap">
                       <input class="manual-bind" id="usda-key" type="password" name="usda-key" field="integration" placeholder="Your API Key">
                     </div>
@@ -335,12 +334,12 @@
             </div>
             <div class="list">
               <ul>
-                <li><a class="list-button" id="usda-save" href="#">Save</a></li>
+                <li><a class="list-button" id="usda-save" href="#" data-localize="settings.integration.save">Save</a></li>
               </ul>
               <div class="block-footer">
-                <p>You need to enter your personal API Key to search for foods in the USDA database.</p>
-                <p>You can request a free API Key by clicking <a href="https://fdc.nal.usda.gov/api-key-signup.html">here</a>.</p>
-                <p><a class="link login-screen-close" href="#">Exit</a></p>
+                <p data-localize="settings.integration.usda-note-0">You need to enter your personal API Key to search for foods in the USDA database.</p>
+                <p data-localize="settings.integration.usda-note-1">You can request a free API Key by clicking <a href="https://fdc.nal.usda.gov/api-key-signup.html">here</a>.</p>
+                <p><a class="link login-screen-close" href="#" data-localize="settings.integration.exit">Exit</a></p>
               </div>
             </div>
           </form>

@@ -20,7 +20,7 @@
 const app = {
   mode: "development",
   data: {}, // App wide object that can be used to store stuff
-  strings: {}, //Localization strings
+  strings: {}, // Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
   nutriments: ["calories", "kilojoules", "proteins", "carbohydrates", "fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
   nutrimentShortNames: ["calories", "kilojoules", "proteins", "carbs", "fat", "sat-fat", "mono-fat", "poly-fat", "trans-fat", "omega-3", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium", "vit-a", "vit-d", "vit-e", "vit-k", "vit-c", "vit-b1", "vit-b2", "vit-b6", "vit-b9", "vit-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
@@ -53,6 +53,30 @@ const app = {
     "vitamin-b6": "g",
     "vitamin-b9": "µg",
     "vitamin-b12": "µg"
+  },
+
+  localizationInit: function() {
+
+    //Get default/fallback locale data
+    fetch('assets/locales/locale-en.json')
+      .then(response => response.json())
+      .then(data => {
+        app.strings = data;
+
+        $("[data-localize]").localize("assets/locales/locale", {
+          callback: (data, defaultCallback) => {
+            defaultCallback(data);
+
+            // Get localized strings
+            let locale = $.localize.data["assets/locales/locale"];
+
+            // Merge the default strings with the locale in case there are any missing values
+            app.strings = Object.assign(app.strings, locale);
+            console.log(app.strings);
+          }
+        });
+      })
+      .catch(err => console.log(err));
   },
 
   f7: new Framework7({
@@ -251,6 +275,9 @@ app.f7.on("init", async function(event) {
     let filename = "waistline_auto_backup.json";
     let path = await app.Utils.writeFile(data, filename);
   }
+
+  // Localization
+  app.localizationInit();
 
   if (settings == undefined || settings.firstTimeSetup == undefined) {
     app.Settings.firstTimeSetup();

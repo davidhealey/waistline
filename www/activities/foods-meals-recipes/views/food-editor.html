@@ -25,7 +25,7 @@
       <div class="left">
         <a class="link back"><i class="icon icon-back"></i></a>
       </div>
-      <div class="title" id="title" data-localize="edit-item">Edit Item</div>
+      <div class="title" id="title" data-localize="food-editor.edit-item">Edit Item</div>
       <div class="right">
         <span id="link" style="display:none;">
           <a href="#" class="link icon-only"><i id="link-icon" class="icon material-icons">link</i></a>
@@ -48,7 +48,7 @@
         <li class="accordion-item accordion-item-opened">
           <a href="" class="item-divider item-link item-content">
             <div class="item-inner">
-              <div class="item-title"><b>Details</b></div>
+              <div class="item-title"><b data-localize="food-editor.details">Details</b></div>
             </div>
           </a>
           <div class="accordion-item-content inline-labels">
@@ -67,7 +67,7 @@
 
               <li class="item-content item-input upload-field" id="barcode-container" style="display:none;">
                 <div class="item-inner">
-                  <div class="item-title item-label">Barcode</div>
+                  <div class="item-title item-label" data-localize="food-editor.barcode">Barcode</div>
                   <div class="item-input-wrap">
                     <input class="align-right" type="text" id="barcode" name="barcode" readonly disabled>
                   </div>
@@ -75,7 +75,7 @@
               </li>
               <li class="item-content item-input">
                 <div class="item-inner">
-                  <div class="item-title item-label">Name</div>
+                  <div class="item-title item-label" data-localize="food-editor.name">Name</div>
                   <div class="item-input-wrap">
                     <input class="align-right" type="text" id="name" name="name" required validate>
                   </div>
@@ -83,7 +83,7 @@
               </li>
               <li class="item-content item-input">
                 <div class="item-inner">
-                  <div class="item-title item-label">Brand</div>
+                  <div class="item-title item-label" data-localize="food-editor.brand">Brand</div>
                   <div class="item-input-wrap">
                     <input class="align-right" type="text" id="brand" name="brand">
                   </div>
@@ -93,7 +93,7 @@
               <li id="category-container">
                 <div class="item-content item-input">
                   <div class="item-inner">
-                    <div class="item-title item-label">Category</div>
+                    <div class="item-title item-label" data-localize="food-editor.category">Category</div>
                     <div class="item-input-wrap">
                       <select class="align-right" id="category" name="category"></select>
                     </div>
@@ -103,7 +103,7 @@
 
               <li class="item-content item-input">
                 <div class="item-inner">
-                  <div class="item-title item-label">Serving Size</div>
+                  <div class="item-title item-label" data-localize="food-editor.serving-size">Serving Size</div>
                   <div class="item-input-wrap">
                     <input class="align-right" type="number" min="0" step="any" id="portion" name="portion" required validate>
                   </div>
@@ -113,7 +113,7 @@
               <li class="hide-for-upload">
                 <div class="item-content item-input">
                   <div class="item-inner">
-                    <div class="item-title item-label">Serving Unit</div>
+                    <div class="item-title item-label" data-localize="food-editor.serving-unit">Serving Unit</div>
                     <div class="item-input-wrap">
                       <input class="align-right hide-for-upload" type="text" onkeypress="return /[a-z]/i.test(event.key)" id="unit" name="unit" required validate>
                     </div>
@@ -124,7 +124,7 @@
               <li class="upload-field">
                 <div class="item-content item-input">
                   <div class="item-inner">
-                    <div class="item-title item-label">Serving Unit</div>
+                    <div class="item-title item-label" data-localize="food-editor.serving-unit">Serving Unit</div>
                     <div class="item-input-wrap">
                       <select class="align-right" id="upload-unit" name="upload-unit">
                         <option value="g">g</option>
@@ -140,7 +140,7 @@
 
               <li class="item-content item-input" id="quantity-container">
                 <div class="item-inner">
-                  <div class="item-title item-label">Number of servings</div>
+                  <div class="item-title item-label" data-localize="food-editor.number-of-servings">Number of servings</div>
                   <div class="item-input-wrap">
                     <input class="align-right" type="number" min="0" step="any" id="quantity" name="quantity">
                   </div>
@@ -153,7 +153,7 @@
         <li class="accordion-item accordion-item-opened">
           <a href="" class="item-divider item-link item-content">
             <div class="item-inner">
-              <div class="item-title"><b>Nutrition</b></div>
+              <div class="item-title"><b data-localize="food-editor.nutrition">Nutrition</b></div>
             </div>
           </a>
           <div class="accordion-item-content inline-labels">
@@ -171,7 +171,7 @@
                     <label class="radio">
                       <input type="radio" name="nutrition_per" id="per_100g" value="&nutrition_data_per=100g" checked /><i class="icon-radio"></i>
                     </label>
-                    For 100g/100ml
+                    <b data-localize="food-editor.per-100">Per 100g/100ml</b>
                   </div>
                 </div>
 
@@ -179,7 +179,7 @@
                   <label class="radio">
                     <input type="radio" name="nutrition_per" id="per_serving" value="&nutrition_data_per=serving" /><i class="icon-radio"></i>
                   </label>
-                  Per serving
+                  <b data-localize="food-editor.per-serving">Per serving</b>
                 </div>
               </li>
             </ul>
@@ -192,7 +192,7 @@
         <li class="accordion-item upload-field">
           <a href="" class="item-divider item-link item-content">
             <div class="item-inner">
-              <div class="item-title"><b>Ingredients</b></div>
+              <div class="item-title"><b data-localize="food-editor.ingredients">Ingredients</b></div>
             </div>
           </a>
           <div class="accordion-item-content">
@@ -205,7 +205,7 @@
               </li>
               <li class="item-content item-input">
                 <div class="item-inner">
-                  <div class="item-title item-label">Ingredients</div>
+                  <div class="item-title item-label" data-localize="food-editor.ingredients">Ingredients</div>
                   <div class="item-input-wrap">
                     <textarea id="ingredients_text" placeholder=""></textarea>
                   </div>
@@ -214,7 +214,7 @@
 
               <li class="item-content item-input">
                 <div class="item-inner">
-                  <div class="item-title item-label">Traces</div>
+                  <div class="item-title item-label" data-localize="food-editor.traces">Traces</div>
                   <div class="item-input-wrap">
                     <textarea id="traces" placeholder=""></textarea>
                   </div>
