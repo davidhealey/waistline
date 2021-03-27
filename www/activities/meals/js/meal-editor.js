@@ -172,7 +172,7 @@ app.MealEditor = {
 
         let title = document.createElement("div");
         title.className = "item-title item-label";
-        let text = app.strings.nutrition[n] || n;
+        let text = app.strings.nutriments[n] || n;
         title.innerHTML = app.Utils.tidyText(text, 30) + " (" + unit + ")";
         innerDiv.appendChild(title);
 
