@@ -46,6 +46,7 @@ app.DiaryChart = {
   organiseData: function(data) {
     return new Promise(async function(resolve, reject) {
 
+      let fields = ["calories", "kilojoules", "carbohydrates", "fat", "proteins"];
       let nutriments = app.nutriments;
       let nutrimentUnits = app.nutrimentUnits;
       let shortNames = app.nutrimentShortNames;
@@ -58,17 +59,9 @@ app.DiaryChart = {
 
       let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
 
-      // Sort nutrition by value
-      nutrition = Object
-        .entries(nutrition)
-        .sort((a, b) => b[1] - a[1])
-        .reduce((_sortedObj, [k, v]) => ({
-          ..._sortedObj,
-          [k]: v
-        }), {});
-
-      let i = 0;
       for (let n in nutrition) {
+
+        if (fields.indexOf(n) == -1) continue;
         if (energyUnit == "kJ" && n == "calories") continue;
         if (energyUnit == "kcal" && n == "kilojoules") continue;
 
@@ -77,10 +70,6 @@ app.DiaryChart = {
 
         result.labels.push(label);
         result.values.push(Math.round(nutrition[n] * 100) / 100);
-        i++;
-
-        if (i > 9)
-          break;
       }
 
       resolve(result);
