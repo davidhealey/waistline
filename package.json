@@ -3,6 +3,8 @@
   "version": "2.4.2",
   "displayName": "Waistline",
   "devDependencies": {
+    "cordova-android": "^9.0.0",
+    "cordova-browser": "^6.0.0",
     "cordova-ourcodeworld-filebrowser": "git+https://github.com/ourcodeworld/cordova-ourcodeworld-filebrowser.git",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
     "cordova-plugin-camera": "~4.0.3",
@@ -15,7 +17,10 @@
     "phonegap-plugin-barcodescanner": "^8.0.0"
   },
   "cordova": {
-    "platforms": [],
+    "platforms": [
+      "browser",
+      "android"
+    ],
     "plugins": {
       "cordova-plugin-browsersync-gen2": {},
       "cordova-plugin-camera": {},

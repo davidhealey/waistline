@@ -287,7 +287,7 @@ app.f7.on("init", async function(event) {
   await dbHandler.initializeDb();
 
   // Backup database 
-  if (app.mode !== "development") {
+  if (app.mode !== "development" && device.platform !== "browser") {
     let data = await dbHandler.exportToJSON();
     let filename = "waistline_auto_backup.json";
     let path = await app.Utils.writeFile(data, filename);

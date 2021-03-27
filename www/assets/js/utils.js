@@ -76,7 +76,7 @@ app.Utils = {
 
   writeFile: function(data, filename) {
     return new Promise(function(resolve, reject) {
-      if (app.mode !== "development") {
+      if (app.mode !== "development" && device.platform !== "browser") {
 
         console.log("Writing data to file");
 
@@ -116,7 +116,7 @@ app.Utils = {
 
   readFile(filename) {
     return new Promise(function(resolve, reject) {
-      if (app.mode !== "development") {
+      if (app.mode !== "development" && device.platform !== "browser") {
 
         console.log("Reading file");
 
