@@ -233,7 +233,7 @@ const app = {
       {
         name: "About",
         path: "/about/",
-        url: "about.html"
+        url: "activities/about/views/about.html"
       },
     ]
   })
