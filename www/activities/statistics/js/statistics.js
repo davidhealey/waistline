@@ -162,15 +162,15 @@ app.Stats = {
     return new Promise(async function(resolve, reject) {
 
       let nutrimentUnits = app.nutrimentUnits;
-      let measurementUnits = app.Settings.getField("units");
-      let measurementFields = ["weight", "neck", "waist", "hips", "body fat"];
+      let statUnits = app.Settings.getField("units");
+      let stats = ["weight", "neck", "waist", "hips", "body fat"];
 
       let unit;
       if (field == "body fat") {
         unit = "%";
       } else {
-        if (measurementFields.indexOf(field) !== -1)
-          field == "weight" ? unit = measurementUnits.weight : unit = measurementUnits.length;
+        if (stats.indexOf(field) !== -1)
+          field == "weight" ? unit = statUnits.weight : unit = statUnits.length;
         else
           unit = nutrimentUnits[field];
       }

@@ -71,7 +71,6 @@ const app = {
 
             // Merge the default strings with the locale in case there are any missing values
             app.strings = Object.assign(app.strings, locale);
-            console.log(app.strings);
           }
         });
       })
@@ -265,6 +264,9 @@ document.addEventListener("page:init", function(event) {
 
 app.f7.on("init", async function(event) {
 
+  // Localization
+  app.localizationInit();
+
   //Database setup
   await dbHandler.initializeDb();
 
@@ -274,9 +276,6 @@ app.f7.on("init", async function(event) {
     let filename = "waistline_auto_backup.json";
     let path = await app.Utils.writeFile(data, filename);
   }
-
-  // Localization
-  app.localizationInit();
 
   if (settings == undefined || settings.firstTimeSetup == undefined) {
     app.Settings.firstTimeSetup();

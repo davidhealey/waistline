@@ -249,7 +249,11 @@ app.Diary = {
 
         // Set value text colour
         if (goal !== undefined && goal !== "") {
-          if (parseFloat(t.nodeValue) > goal)
+
+          let isMin = app.Settings.get("goals", x + "-minimum-goal");
+          let v = parseFloat(t.nodeValue);
+
+          if ((!isMin && v > goal) || (isMin == true && v < goal))
             span.style.color = "red";
           else
             span.style.color = "green";

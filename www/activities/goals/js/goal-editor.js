@@ -37,6 +37,7 @@ app.GoalEditor = {
   getComponents: function() {
     app.GoalEditor.el.title = document.querySelector(".page[data-name='goal-editor'] #goal-editor-title");
     app.GoalEditor.el.sharedGoal = document.querySelector(".page[data-name='goal-editor'] #shared-goal");
+    app.GoalEditor.el.minimumGoal = document.querySelector(".page[data-name='goal-editor'] #minimum-goal");
   },
 
   bindUIActions: function() {
@@ -60,6 +61,15 @@ app.GoalEditor = {
       });
       app.GoalEditor.el.sharedGoal.hasChangeEvent = true;
     }
+
+    // Minimum goal toggle 
+    if (!app.GoalEditor.el.minimumGoal.hasChangeEvent) {
+      app.GoalEditor.el.minimumGoal.addEventListener("change", (e) => {
+        app.GoalEditor.setGoalSharing();
+        app.Settings.saveInputs([app.GoalEditor.el.minimumGoal]);
+      });
+      app.GoalEditor.el.minimumGoal.hasChangeEvent = true;
+    }
   },
 
   setInputNames: function(name) {
@@ -68,6 +78,8 @@ app.GoalEditor = {
     inputs.forEach((x) => {
       if (x.id == "shared-goal")
         x.name = name + "-shared-goal";
+      else if (x.id == "minimum-goal")
+        x.name = name + "-minimum-goal";
       else if (x.id == "show-in-diary")
         x.name = name + "-show-in-diary";
       else
