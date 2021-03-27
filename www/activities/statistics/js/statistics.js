@@ -31,6 +31,12 @@ app.Stats = {
     this.setChartTypeButtonVisbility();
     this.chart = undefined;
     this.dbData = await this.getDataFromDb();
+
+    let laststat = window.localStorage.getItem("last-stat");
+
+    if (laststat !== undefined)
+      app.Stats.el.stat.value = laststat;
+
     this.updateChart(app.Stats.el.stat.value);
     this.renderStatLog(app.Stats.el.stat.value);
   },
@@ -107,6 +113,8 @@ app.Stats = {
   },
 
   updateChart: async function(field) {
+    window.localStorage.setItem("last-stat", field);
+
     let data = await app.Stats.organiseData(app.Stats.dbData, field);
 
     if (app.Stats.chart == undefined) {
