@@ -57,24 +57,23 @@ const app = {
   localizationInit: function() {
 
     //Get default/fallback locale data
-    fetch('assets/locales/locale-en.json')
-      .then(response => response.json())
-      .then(data => {
+    $.getJSON("assets/locales/locale-en.json", function(data) {
         app.strings = data;
-
+      })
+      .then(function() {
         $("[data-localize]").localize("assets/locales/locale", {
-          callback: (data, defaultCallback) => {
-            defaultCallback(data);
+          callback: function(data, defaultCallback) {
 
             // Get localized strings
             let locale = $.localize.data["assets/locales/locale"];
 
             // Merge the default strings with the locale in case there are any missing values
             app.strings = Object.assign(app.strings, locale);
+
+            defaultCallback(data);
           }
         });
-      })
-      .catch(err => console.log(err));
+      });
   },
 
   f7: new Framework7({
@@ -84,7 +83,7 @@ const app = {
     name: "Waistline",
     // App id
     id: "com.waist.line",
-    version: "2.4.5",
+    version: "2.9.0",
     // Enable swipe panel
     panel: {
       swipe: "left",
