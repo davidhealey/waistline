@@ -261,7 +261,7 @@ document.addEventListener("page:init", function(event) {
 
   let pageName = app.f7.views.main.router.currentRoute.name;
 
-  if (pageName.includes("Editor"))
+  if (pageName !== undefined && pageName.includes("Editor"))
     panelLeft.disableSwipe();
   else
     panelLeft.enableSwipe();
@@ -271,7 +271,7 @@ document.addEventListener("page:reinit", function(event) {
   let panelLeft = app.f7.panel.get('.panel-left');
   let pageName = app.f7.views.main.router.currentRoute.name;
 
-  if (pageName.includes("Editor"))
+  if (pageName !== undefined && pageName.includes("Editor"))
     panelLeft.disableSwipe();
   else
     panelLeft.enableSwipe();
