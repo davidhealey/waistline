@@ -1,8 +1,10 @@
 # Waistline
 <div>
-<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/Screenshot_2018-08-01%20Waistline(2).png" width="25%" height="25%" border="0">
-<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/Screenshot_2018-08-01%20Waistline(3).png" width="25%" height="25%" border="0">
-<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/Screenshot_2018-08-01%20Waistline(4).png" width="25%" height="25%" border="0">
+<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/1.jpg" width="25%" height="25%" border="0">
+<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/2.jpg" width="25%" height="25%" border="0">
+<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/3.jpg" width="25%" height="25%" border="0">
+<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/4.jpg" width="25%" height="25%" border="0">
+<img src="https://raw.githubusercontent.com/davidhealey/waistline/master/images/screenshots/5.jpg" width="25%" height="25%" border="0">
 </div>
 
 Waistline is a libre calorie counter and weight tracker app for Android. It's built with Cordova, OnsenUI, and a few other free libraries.
