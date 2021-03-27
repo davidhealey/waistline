@@ -31,38 +31,12 @@ var app = {
       app.storage = window.localStorage; //Simple storage object
 
       //Set some default settings
-      if (app.storage.getItem("goals") == undefined)
-      {
-        goals.setDefaults(); //Generate default goals
-      }
-
-      if (app.storage.getItem("weight") == undefined)
-      {
-        app.storage.setItem("weight", 70);
-      }
-
-      if (app.storage.getItem("meal-names") == undefined)
-      {
-        app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"]));
-      }
-
-      if (app.storage.getItem("homescreen") == undefined)
-      {
-        app.storage.setItem("homescreen", "userguide");
-      }
-
-      //Each install gets a UUID that is added to the comments when uploading to the OFF database, to prevent trolls
-      if (app.storage.getItem("uuid") == undefined)
-      {
-        app.storage.setItem("uuid", app.uuidv4());
-      }
-
-      //Theme handler
-      if (app.storage.getItem("theme") == undefined)
-      {
-        app.storage.setItem("theme", 0); //Set defualt theme
-      }
-
+      if (app.storage.getItem("goals") == undefined) goals.setDefaults(); //Goals
+      if (app.storage.getItem("weight") == undefined) app.storage.setItem("weight", 70); //Weight
+      if (app.storage.getItem("meal-names") == undefined) app.storage.setItem("meal-names", JSON.stringify(["Breakfast", "Lunch", "Dinner", "Snacks"])); //Meal names
+      if (app.storage.getItem("homescreen") == undefined) app.storage.setItem("homescreen", "userguide"); //Homescreen
+      if (app.storage.getItem("uuid") == undefined) app.storage.setItem("uuid", app.uuidv4()); //UUID
+      if (app.storage.getItem("theme") == undefined) app.storage.setItem("theme", 0); //Set defualt theme
       app.setTheme(app.storage.getItem("theme")); //Set theme CSS
 
       //Localisation
@@ -143,6 +117,6 @@ ons.ready(function() {
 });
 
 //Localize when any page is initialized
-$(document).on("init", "ons-page", function(e){
+/*$(document).on("init", "ons-page", function(e){
   $("[data-localize]").localize("locales/locale");
-});
+});*/

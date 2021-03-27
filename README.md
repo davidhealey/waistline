@@ -11,7 +11,7 @@ Waistline is a libre calorie counter and weight tracker app for Android. It's bu
 Features of waistline include;
 
 - **Diary**: The is where users can keep a day by day account of the food they eat at different times.
-- **Food List**: This is where users can create a local database of foods. This can be done either by inputting the food details manually, by scanning the barcode of a product, or by searching for the product online. Waistline connects to the Open Food Facts database to find information about products when the scanning or searching.
+- **Food List**: This is where users can create a local database of foods. This can be done either by inputting the food details manually, by scanning the barcode of a product, or by searching for the product online. After choosing a locale in "Settings > Food List Settings > Country", Waistline can connect to the Open Food Facts database to find information about products when scanning or searching.
 - Import and export functionality to backup and restore app data.
 - Waistline is free and open source software.
 - Waistline doesn't contain any ads or in-app purchases.
@@ -55,7 +55,7 @@ This privacy policy may be updated from time to time as the functionalities of t
 Waistline is developed in good faith and for general use. The developer will not be held accountable for how you decide to use this software and will not be liable for any losses and/or damages in connection with the use of the software.
 
 ## Developer
-Waistline is developed by me, David Healey, with suggestions and contributions from fellow git-hubbers. Waistline is freely available from the links at the bottom of this page (F-Droid gets the most recent version usually). If you enjoy using this app and would like to buy me a coffee (or some high calorie comestible) here is my [PayPal link](https://www.paypal.me/healeyd) - Thanks!
+Waistline is developed by me, David Healey, with suggestions and contributions from fellow Git-hubbers. Waistline is freely available from the links at the bottom of this page (F-Droid gets the most recent version usually). If you enjoy using this app and would like to buy me a coffee (or some high calorie comestible) here is my [PayPal link](https://www.paypal.me/healeyd) - Thanks!
 
 Please spread the word and share this app with anyone you think could benefit from it. Also, let me know if you find any bugs and I'll try and squish them.
 
@@ -65,7 +65,7 @@ The best method way to contact me about this app is by opening an issue on [GitH
 
 Waistline can be downloaded from
 
-[<img src="https://f-droid.org/badge/get-it-on.png"
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/packages/com.waist.line/)
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
