@@ -49,7 +49,6 @@ app.DiaryChart = {
       let fields = ["calories", "kilojoules", "carbohydrates", "fat", "proteins"];
       let nutriments = app.nutriments;
       let nutrimentUnits = app.nutrimentUnits;
-      let shortNames = app.nutrimentShortNames;
       let energyUnit = app.Settings.get("units", "energy");
 
       let result = {
@@ -66,7 +65,8 @@ app.DiaryChart = {
         if (energyUnit == "kcal" && n == "kilojoules") continue;
 
         let unit = nutrimentUnits[n] || "g";
-        let label = app.Utils.tidyText(shortNames[nutriments.indexOf(n)]) + " (" + unit + ")";
+        let name = app.strings.nutriments[n] || n;
+        let label = app.Utils.tidyText(name) + " (" + unit + ")";
 
         result.labels.push(label);
         result.values.push(Math.round(nutrition[n] * 100) / 100);

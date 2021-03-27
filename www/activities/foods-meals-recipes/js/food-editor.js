@@ -206,7 +206,8 @@ app.FoodEditor = {
   },
 
   updateTitle: function() {
-    if (!app.FoodEditor.item) app.FoodEditor.el.title.innerHTML = app.strings["add-new-item"] || "Add New Item";
+    if (!app.FoodEditor.item)
+      app.FoodEditor.el.title.innerHTML = app.strings["food-editor"]["add-new-item"] || "Add New Item";
   },
 
   /* Nutrition fields are dynamically created for the nutriments of the item */
@@ -234,7 +235,7 @@ app.FoodEditor = {
 
         let titleDiv = document.createElement("div");
         titleDiv.className = "item-title item-label";
-        let text = app.strings[k] || k; //Localize
+        let text = app.strings.nutriments[k] || k;
         titleDiv.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " (" + (units[k] || "g") + ")";
         innerDiv.appendChild(titleDiv);
 
@@ -393,15 +394,16 @@ app.FoodEditor = {
       },
       (err) => {
         if (err != "No Image Selected") {
-          app.Utils.toast("There was a problem accessing your camera.", 2000);
+          let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
+          app.Utils.toast(msg, 2000);
           console.error(err);
         }
       }, options);
   },
 
   removePicture: function(index) {
-    let title = app.strings["confirm-delete-title"] || "Delete";
-    let text = app.strings["confirm-delete"] || "Are you sure?";
+    let title = app.strings.dialogs.delete || "Delete";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
 
     let dialog = app.f7.dialog.confirm(text, title, () => {
       app.FoodEditor.el.photoHolder[index].innerHTML = "";
@@ -504,17 +506,20 @@ app.FoodEditor = {
               app.f7.preloader.show();
 
               let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
-                app.Utils.toast("Upload Failed");
+                let msg = app.dialogs["upload-failed"] || "Upload Failed";
+                app.Utils.toast(msg);
               });
 
               app.f7.preloader.hide();
 
               resolve();
             } else {
-              app.Utils.toast("Please provide the number of calories for this food.", 2500);
+              let msg = app.string.dialogs["number-of-calories"] || "Please provide the number of calories for this food.";
+              app.Utils.toast(msg, 2500);
             }
           } else {
-            app.Utils.toast("Please add a main image.", 2500);
+            let msg = app.strings.dialogs["main-image"] || "Please add a main image";
+            app.Utils.toast(msg, 2500);
           }
         }
       }

@@ -281,7 +281,7 @@ app.FoodsMealsRecipes = {
       //Setup action sheet to ask user for category
       const mealNames = app.Settings.get("diary", "meal-names");
       let options = [{
-        text: "What meal is this?",
+        text: app.strings.dialogs["what-meal"] || "What meal is this?",
         label: true
       }];
 
@@ -505,7 +505,8 @@ app.FoodsMealsRecipes = {
     } else {
       app.FoodsMealsRecipes.el.scan.style.display = "none";
       app.FoodsMealsRecipes.el.submit.style.display = "block";
-      app.FoodsMealsRecipes.el.title.innerHTML = app.FoodsMealsRecipes.selection.length + " Selected";
+      let text = app.strings["foods-meals-recipes"].selected || "Selected";
+      app.FoodsMealsRecipes.el.title.innerHTML = app.FoodsMealsRecipes.selection.length + " " + text;
     }
   },
 

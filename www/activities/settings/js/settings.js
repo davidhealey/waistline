@@ -170,7 +170,8 @@ app.Settings = {
     let toggleAnimations = document.getElementById("toggle-animations");
     if (toggleAnimations != undefined) {
       toggleAnimations.addEventListener("click", function(e) {
-        app.Utils.toast("Restart app to apply changes.");
+        let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
+        app.Utils.toast(msg);
       });
     }
   },
@@ -223,7 +224,8 @@ app.Settings = {
         this.put("integration", "off-password", password);
         app.loginScreen.close(screen);
       } else {
-        app.Utils.notification("Invalid Credentials", "error");
+        let msg = app.strings.settings.integration["invalid-credentials"] || "Invalid Credentials";
+        app.Utils.notification(msg, "error");
       }
     } else {
       app.loginScreen.close(screen);
@@ -237,7 +239,8 @@ app.Settings = {
         this.put("integration", "usda-key", key);
         app.loginScreen.close(screen);
       } else {
-        app.Utils.notification("API Key Invalid", "error");
+        let msg = app.strings.settings.integration["invalid-credentials"] || "API Key Invalid";
+        app.Utils.notification(msg, "error");
       }
     } else {
       app.loginScreen.close(screen);
@@ -250,15 +253,17 @@ app.Settings = {
     let path = await app.Utils.writeFile(data, filename);
 
     if (path !== undefined) {
-      app.Utils.notify("Database Exported: " + path);
+      let msg = app.strings.settings.integration["export-success"] || "Database Exported";
+      app.Utils.notify(msg + ": " + path);
     } else {
-      app.Utils.toast("Export Failed");
+      let msg = app.strings.settings.integration["export-fail"] || "Export Failed";
+      app.Utils.toast(msg);
     }
   },
 
   importDatabase: function() {
-    let title = app.strings["confirm-import-title"] || "Import";
-    let msg = app.strings["confirm-import"] || "Are you sure? This will overwrite your current database.";
+    let title = app.strings.dialogs.import || "Import";
+    let msg = app.strings.dialogs["confirm-import"] || "Are you sure? This will overwrite your current database.";
 
     let dialog = app.f7.dialog.confirm(msg, title, async () => {
       let filename = "waistline_export.json";

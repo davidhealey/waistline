@@ -142,7 +142,7 @@ app.Diary = {
 
   updateDateDisplay: function() {
     let el = app.Diary.el.date;
-    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let months = app.strings.months || ['january', 'february', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     let date = new Date(app.Diary.date);
     let dateString = date.getUTCDate() + " " + months[date.getUTCMonth()] + " " + date.getUTCFullYear();
     el.innerText = dateString;
@@ -273,7 +273,7 @@ app.Diary = {
         title.className = "col";
         title.id = x + "-title";
 
-        let text = nutrimentShortNames[i];
+        let text = app.strings.nutriments[x] || x;
         t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
         title.appendChild(t);
         rows[1].appendChild(title);
@@ -373,8 +373,8 @@ app.Diary = {
   },
 
   deleteItem: function(item) {
-    let title = app.strings["confirm-delete-title"] || "Delete";
-    let text = app.strings["confirm-delete"] || "Are you sure?";
+    let title = app.strings.dialogs.delete || "Delete";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
 
     let dialog = app.f7.dialog.confirm(text, title, async () => {
 
@@ -390,8 +390,8 @@ app.Diary = {
   },
 
   quickAdd: function(category) {
-    let title = app.strings["quick-add"] || "Quick Add";
-    let text = app.strings["calories"] || "Calories";
+    let title = app.strings.diary["quick-add"] || "Quick Add";
+    let text = app.strings.nutrition["calories"] || "Calories";
 
     let dialog = app.f7.dialog.prompt(text, title, async function(value) {
       let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
@@ -417,7 +417,7 @@ app.Diary = {
   },
 
   log: function() {
-    let title = app.strings["log-dialog-title"] || "Today's Stats";
+    let title = app.strings.diary["log-title"] || "Today's Stats";
     let stats = JSON.parse(window.localStorage.getItem("stats")) || {};
     let units = app.Settings.getField("units");
     let fields = ["weight", "neck", "waist", "hips", "body fat"];
@@ -463,7 +463,8 @@ app.Diary = {
 
       let title = document.createElement("div");
       title.className = "item-title item-label";
-      title.innerHTML = app.Utils.tidyText(x) + " (" + unit + ")";
+      title.innerHTML = app.strings.statistics[x] || app.Utils.tidyText(x);
+      title.innerHTML += " (" + unit + ")";
       inner.appendChild(title);
 
       let inputWrap = document.createElement("div");
@@ -554,7 +555,8 @@ app.Diary = {
       };
       app.f7.views.main.router.navigate("/diary/chart/");
     } else {
-      app.Utils.toast("No data");
+      let msg = app.strings.diary["no-data"] || "No Data";
+      app.Utils.toast(msg);
     }
   }
 };

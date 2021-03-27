@@ -1,24 +1,68 @@
 {
-  "weight": "Weight",
-  "quantity": "Quantity",
-  "calories": "Calories",
-  "protein": "Protein",
-  "carbs": "Carbohydrates",
-  "fat": "Fat",
-  "saturated-fat": "Saturated Fat",
-  "sugar": "Sugar",
-  "fiber": "Fibre",
-  "salt": "Salt",
-  "sodium": "Sodium",
-  "no-internet": "No Internet Connection",
-
   "nutriments": {
     "calorie": "Calorie",
     "calories": "Calories",
     "kilojoule": "Kilojoule",
-    "kilojoules": "Kilojoules"
+    "kilojoules": "Kilojoules",
+    "proteins": "proteins",
+    "carbohydrates": "carbs",
+    "fat": "fat",
+    "saturated-fat": "sat-fat",
+    "monounsaturated-fat": "mono-fat",
+    "polyunsaturated-fat": "poly-fat",
+    "trans-fat": "trans-fat",
+    "omega-3-fat": "omega-3-fat",
+    "cholesterol": "cholesterol",
+    "sugars": "sugars",
+    "fiber": "fiber",
+    "sodium": "sodium",
+    "salt": "salt",
+    "potassium": "potassium",
+    "vitamin-a": "vitamin-a",
+    "vitamin-d": "vitamin-d",
+    "vitamin-e": "vitamin-e",
+    "vitamin-k": "vitamin-k",
+    "vitamin-c": "vitamin-c",
+    "vitamin-b1": "vitamin-b1",
+    "vitamin-b2": "vitamin-b2",
+    "vitamin-b6": "vitamin-b6",
+    "vitamin-b9": "vitamin-b9",
+    "vitamin-b12": "vitamin-b12",
+    "chloride": "chloride",
+    "calcium": "calcium",
+    "iron": "iron",
+    "magnesium": "magnesium",
+    "zinc": "zinc",
+    "caffeine": "caffeine",
+    "alcohol": "alcohol",
+    "sucrose": "sucrose",
+    "glucose": "glucose",
+    "fructose": "fructose",
+    "lactose": "lactose"
   },
-
+  "dialogs": {
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "confirm-delete": "Are you sure you want to delete this item?",
+    "delete-title": "Delete Entry",
+    "required-fields": "Please complete all required fields.",
+    "camera-problem": "There was a problem accessing your camera.",
+    "no-internet": "No Internet Connection",
+    "no-results": "No matching results",
+    "no-search-providers": "No search providers are enabled",
+    "scan-failed": "Scan Failed",
+    "search": "Search",
+    "number-of-calories": "Please provide the number of calories for this food.",
+    "add-to-off": "Would you like to add this product to the Open Food Facts database?",
+    "main-image": "Please add a main image",
+    "upload-success": "Product successfully added to Open Food Facts",
+    "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
+    "what-meal": "What meal is this?",
+    "import": "Import",
+    "confirm-import": "Are you sure? This will overwrite your current dataabse."
+  },
   "days": {
     "0": "Sunday",
     "1": "Monday",
@@ -28,7 +72,20 @@
     "5": "Friday",
     "6": "Saturday"
   },
-
+  "months": {
+    "0": "January",
+    "1": "February",
+    "2": "March",
+    "3": "April",
+    "4": "May",
+    "5": "June",
+    "6": "July",
+    "7": "August",
+    "8": "September",
+    "9": "October",
+    "10": "November",
+    "11": "December"
+  },
   "colours": {
     "red": "Red",
     "blue": "Blue",
@@ -39,62 +96,41 @@
     "yellow": "Yellow",
     "purple": "Purple"
   },
-
   "statistics": {
     "title": "Statistics",
-    "goal": "Goal",
-    "used": "Used",
-    "remaining": "Remaining",
+    "range": "Range",
+    "stat": "Stat",
     "week": "1 Week",
     "month": "1 Month",
     "3month": "3 Months",
     "6month": "6 Months",
-    "12month": "1 Year"
+    "12month": "1 Year",
+    "timeline": "Timeline",
+    "weight": "Weight",
+    "neck": "Neck",
+    "waist": "Waist",
+    "hips": "Hips",
+    "body fat": "Body Fat"
   },
-
-  "diary-old": {
-    "title": "Diarys",
-    "serving": "Serving",
-    "servings": "Servings",
-    "category": "Category",
-    "current-weight": "Current Weight",
-    "quick-add": {
-      "title": "Quick Add",
-      "body": "Number of calories"
-    },
-    "edit-item": {
-      "title": "Edit Entry",
-      "placeholders": {
-        "quantity": "Number of servings*",
-        "calories": "Calories*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrates (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
-      }
-    }
-  },
-
   "diary": {
-    "title": "Diary"
+    "title": "Diary",
+    "quick-add": "Quick Add",
+    "log-title": "Today's Stats"
   },
-
   "diary-chart": {
-    "title": "Overview"
+    "title": "Overview",
+    "no-data": "No data"
   },
-
   "foods-meals-recipes": {
     "title": "Foods, Meals, Recipes",
     "foods": "Foods",
     "meals": "Meals",
-    "recipes": "Recipes"
+    "recipes": "Recipes",
+    "selected": "Selected"
   },
-
   "food-editor": {
     "edit-item": "Edit Items",
+    "add-new-item": "Add New Item",
     "details": "Details",
     "barcode": "Barcode",
     "name": "Name",
@@ -109,37 +145,31 @@
     "ingredients": "Ingredients",
     "traces": "Traces"
   },
-
   "goals": {
     "title": "Goals"
   },
-
   "goal-editor": {
     "title": "Set Goals",
     "show-in-diary": "Show in Diary",
     "shared-goal": "Same goal every day"
   },
-
   "meal-editor": {
     "title": "Edit Meal",
     "foods-recipes": "Foods & Recipes"
   },
-
   "recipe-editor": {
     "title": "Edit Recipe",
     "notes": "Notes"
   },
-
   "settings": {
     "title": "Settings",
-
+    "needs-restart": "Restart app to apply changes.",
     "theme": {
       "title": "Theme",
       "dark": "Dark Mode",
       "animations": "Disable UI Animations",
       "start-page": "Start Page"
     },
-
     "units": {
       "title": "Units",
       "weight": "Weight",
@@ -150,7 +180,6 @@
       "centimeters": "Centimeters",
       "inches": "Inches"
     },
-
     "diary": {
       "title": "Diary",
       "categories": "Categories",
@@ -164,20 +193,17 @@
       "title": "Categories",
       "category": "Category"
     },
-
     "foods": {
       "title": "Foods, Meals, Recipes",
       "sort": "Sort foods",
       "images": "Show Food Images",
       "wifi-images": "Only show images over Wi-Fi"
     },
-
     "import-export": {
       "title": "Import/Export",
       "backup": "Backup Database",
       "import": "Import From Backup"
     },
-
     "integration": {
       "title": "Integration",
       "off": "Open Food Facts",
@@ -194,182 +220,17 @@
       "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
       "sign-in": "Sign In",
       "exit": "Exit",
-      "save": "Save"
+      "save": "Save",
+      "invalid-credentials": "Invalid Credentials",
+      "export-success": "Database exported",
+      "export-fail": "Export Failed"
     }
   },
-
-
-
-
-
-
-
-  "food-list": {
-    "title": "Foods",
-    "search": "Search Food",
-    "name-of-food": "Name of Food",
-    "no-results": "No matching results",
-    "scan-failed": "Scan Failed",
-    "edit-item": {
-      "title1": "Add Food",
-      "title2": "Edit Food",
-      "placeholders": {
-        "name": "Name*",
-        "brand": "Brand*",
-        "portion": "Portion*",
-        "calories": "Calories*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrates (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
-      }
-    },
-    "upload-item": {
-      "title": "Upload to Open Food Facts",
-      "success": "Product successfully added to Open Food Facts",
-      "fail": "Unfortunately the upload failed. Please try again or contact the developer.",
-      "placeholders": {
-        "barcode": "Barcode*",
-        "name": "Name*",
-        "brand": "Brand*",
-        "portion": "Serving Size*",
-        "calories": "Calories per serving*",
-        "protein": "Protein (g)",
-        "carbs": "Carbohydrate per serving (g)",
-        "fat": "Fat (g)",
-        "saturated-fat": "Saturated Fat (g)",
-        "sugar": "Sugar (g)",
-        "fiber": "Fibre (g)",
-        "salt": "Salt (g)"
-      }
-    }
+  "licenses": {
+    "title": "Licenses",
+    "p1": "Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
+    "p2": "The source code for Waistline can be found at github.com/davidhealey."
   },
-
-
-
-  "recipes": {
-    "title": "Recipes",
-    "filter": "Search Recipes",
-    "edit-recipe": {
-      "title1": "Add Recipe",
-      "title2": "Edit Recipe",
-      "placeholders": {
-        "name": "Recipe Name",
-        "notes": "Notes..."
-      }
-    }
-  },
-
-
-
-  "dialogs": {
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "yes": "Yes",
-    "no": "No",
-    "confirm-delete": "Are you sure you want to delete this item?",
-    "delete-title": "Delete Entry",
-    "required-fields": "Please complete all required fields."
-  },
-
-  "user-guide": {
-    "title": "User Guide",
-    "basics": {
-      "title": "Basics",
-      "p1": "Your body needs a certain amount of calories to maintain your current weight. We'll call this your maintenance level. You can increase your maintenance level by doing lots of exercise or you can decrease it by doing less.",
-      "p2": "The easiest method (that is also pretty accurate) to calculate your maintenance level is to use a TDEE calculator. You can find plenty of these online.",
-      "p3": "To lose weight you should eat at least 100 calories per day less than your maintenance level, to gain weight you should eat at least 100 calories per day more than your maintenance level.",
-      "p4": "The less you eat per day the more weight you will lose. If you plan to lose weight with a great calorie deficit consult your doctor and plan what you eat so you get all the nutrition your body needs. Have regular check ups with your doctor so you can react fast if anything goes wrong."
-    },
-    "statistics": {
-      "title": "Statistics",
-      "p1": "On the statistics screen you can see a chart showing the nutritiments you have consumed and variations in your weight during the selected time period. This screen will be mostly empty the first time you run the app.",
-      "p2": "You can select the time frame to display, such as 1 week, from the drop down menu above the chart.",
-      "p3": "You can choose what data to show in the chart by tapping on the items in the chart's legend.",
-      "p4": "Below the chart is a day by day list of your weight changes and the calories you've recorded. Only dates that you have recorded calories in your diary for will be displayed here. Tapping on an item in this list will allow you to edit the weight recorded for that date.",
-      "p5": "At the top of the screen is a display of the nutriments you have consumed, along with your goal and the amount remaining. You can swipe left and right on this display to scroll through the different nutriments."
-    },
-    "diary": {
-      "title": "Diary",
-      "p1": "The diary is where you will keep a log of the food you eat. Tap on a heading such as Breakfast to add food to that category.",
-      "p2": "This will take you to the food list where you can select one or more food items to add to the diary.",
-      "p3": "The calories for each food will be added to the total for the currently selected date and displayed at the bottom of the screen.",
-      "p4": "The buttons either side of the displayed date can be used to move to the previous or next day and you can tap on the date itself to select a specific date.",
-      "p5": "Tapping on a food item in your diary will allow you to adjust the number of servings and change the category for that item. These changes only apply to the item in your diary and do not affect the food list.",
-      "p6": "Tap and hold on an item in your diary to remove it.",
-      "p7": "You can record your weight by tapping on the scales icon on the top toolbar.",
-      "p8": "If you would just like to record some calories without the hassle of adding a product to your food list then you can do that too. Just tap and hold on one of the categories and enter the amount of calories in the box that appears. You can also enter a negative number here if you'd like to log calories burned."
-    },
-    "food-list": {
-      "title": "Food List",
-      "p1": "This screen contains a list of all the foods you have added to your local database. This list will be empty the first time you run the app.",
-      "p2": "You can use the search box to filter the list of food items to find the one you'd like. If you have an internet connection you can also use the search box to find products in the Open Food Facts database.",
-      "p3": "The list of items is automatically sorted by how recently you added them to your diary, so the foods you add most often will appear near the top of the list.",
-      "p4": "Tapping on an item in the list will select it. Once you've selected at least one item a tick will appear on the top toolbar, tapping this will add the selected items to your diary.",
-      "p5": "You can edit or delete a food item by tapping and holding on it and selecting an option from the popup that appears."
-    },
-    "adding-a-food": {
-      "title": "Adding a Food",
-      "p1": "There are three ways to add a new food to your food list. You can click the floating plus button on the food list screen, search the Open Food Facts database for products using the food list search bar, or scan the barcode of a product by tapping the barcode icon on the top toolbar of the food list screen.",
-      "p2": "Whichever method you choose will eventually take you to the food edit screen. Here you can manually enter the name of the food, the portion size (e.g. 1 biscuit, 100g, 3 cups, etc.), and the nutriments contained in that portion.",
-      "p3": "The data returned by the barcode scanner may not always be accurate for the product or serving size you have so check the information it adds to the form and adjust it as necessary before saving.",
-      "p4": "If no data is available for a scanned product you will be given the option of adding it to the Open Food Facts database.",
-      "p5": "Once you're happy with the data in the form you can tap the tick button on the top toolbar to add the item to your food list."
-    },
-    "uploading-a-product": {
-      "title": "Uploading a product",
-      "p1": "When you scan a barcode for a product that is not currently in the Open Food Facts database you will be asked if you would like to add it which you can do from within Waistline.",
-      "p2": "You'll be taken to a screen where you can enter the name and brand of the product and some basic nutritional information. You'll also be able to upload upto three pictures.",
-      "p3": "Click on the camera icon to take a photo. You can crop the image once you've taken it so that you're only uploading relevant information.",
-      "p4": "Once you've taken an image you'll be prompted to tag the image either as the front of the product, the ingredients, or the nutritional information.",
-      "p4": "All images that you upload using Waistline are automatically licensed as Creative Commons Attribution ShareAlike.",
-      "p5": "When you run Waistline for the first time the app generates a unique ID. This ID is included automatically in the comment field when you upload a product to Open Food Facts.",
-      "p6": "The purpose of this ID is to help the maintainers of the Open Food Facts database detect mistakes and prevent abuse of their system."
-    },
-    "meals": {
-      "title": "Meals",
-      "p1": "On the meals screen you can combine food items to create a new item called a meal. Click on the floating plus button to create a new meal. You can edit or delete an existing meal by tapping and holding on it and selecting from the options that pop up.",
-      "p2": "The edit meal screen allows you to enter a name for the meal and any notes you'd like. You can click the floating plus button on this screen to select the foods that you would like to add to your meal.",
-      "p3": "You can edit the quantity of each food you've added by tapping on the food and entering the value in the box that appears. Above the list of foods you'll see the total nutritional information for all of the food items you have added to the meal. You can swipe on this area to see more information.",
-      "p4": "Once you're happy with your meal you can tap the check button on the top toolbar to save it.",
-      "p5": "The basic procedure to add a meal to your diary is the same as when you add a food. Click on a heading on the diary screen, this will take you to the food list, then in the food list you will see a bookmark icon on the top toolbar, tapping this will take you to the meals screen.",
-      "p6": "When you add a meal to your diary all of the foods from the meal will be added individually, this allows you to further customise the meal as needed without having to create multiple meals for different variations."
-    },
-    "goals": {
-      "title": "Goals",
-      "p1": "From this screen you can set the various targets you would like to achieve.",
-      "p2": "You can set a weight goal and indicate if you would like to lose weight or gain weight.",
-      "p3": "And you can set a range of nutritional goals with a different goal for every day of the week."
-    },
-    "settings": {
-      "title": "Settings",
-      "p1": "There are various settings on this screen that can be used to customise the app. Most of these are self explanatory.",
-      "p2": "The diary settings allow you to customise the names of the categories used in the food diary. You can have up to 7 categories. Any categories that don't have a name won't be used."
-    },
-    "export": {
-      "title": "Export",
-      "p1": "All of the data you enter is kept locally on your device. The only time any information is sent from this app to the internet is when you scan a barcode, search for a product, or upload a new product.",
-      "p2": "This is great because it means you are in charge of your data and no-one can access it remotely. The only downside is your data won't be backed up to the cloud (someone else's computer) so when you move on to a new device your data won't automatically be available.",
-      "p3": "This is where the export button is useful. Tapping this button will export your data (diary, food list, and weight log) to a simple text file. This file is called waistline_export.json. You will find this file on your device in a location similar to 'Android/data/com.waist.line/files/'.",
-      "p4": "This is a private folder that can't be accessed by other apps so it's nice and secure but a little bit inconvenient to find.",
-      "p5": "Once you have this file you can install Waistline on your new device and move the exported file to the same location on the new device. Then you can import the data back into Waistline."
-    },
-    "import": {
-      "title": "Import",
-      "p1": "Warning!!!! Importing data will overwrite all of your existing data. The only time you'll need to do this is when moving to a new device or restoring data you have backed up.",
-      "p2": "To import data put the waistline_export.json file in the correct location on your device (see Export). Then tap the import button.",
-      "p3": "Waistline version 2 is not backwards compatible with version 1, you can try to import data from version 1 but it will produce some strange results."
-    },
-    "licenses": {
-      "title": "Licenses",
-      "p1": "Waistline was built using the Cordova framework and OnsenUI which are available under the Apache license. Also included are jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-      "p2": "The source code for Waistline can be found at github.com/davidhealey."
-    }
-  },
-
   "about": {
     "title": "About",
     "p1": "Waistline was created by David Healey with suggestions and contributions from fellow git-hubbers."

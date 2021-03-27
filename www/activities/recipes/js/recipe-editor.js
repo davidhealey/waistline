@@ -107,8 +107,8 @@ app.RecipeEditor = {
   },
 
   removeItem: function(item, li) {
-    let title = app.strings["confirm-delete-title"] || "Delete";
-    let text = app.strings["confirm-delete"] || "Are you sure?";
+    let title = app.strings.dialogs.delete || "Delete";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
     let dialog = app.f7.dialog.confirm(text, title, callbackOk);
 
     function callbackOk() {
@@ -179,7 +179,8 @@ app.RecipeEditor = {
 
         let title = document.createElement("div");
         title.className = "item-title item-label";
-        title.innerHTML = app.Utils.tidyText(n, 30) + " (" + unit + ")";
+        let text = app.strings.nutrition[n] || n;
+        title.innerHTML = app.Utils.tidyText(text, 30) + " (" + unit + ")";
         innerDiv.appendChild(title);
 
         let after = document.createElement("div");

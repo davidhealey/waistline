@@ -81,7 +81,7 @@ app.Foodlist = {
       if (navigator.connection.type !== "none")
         this.search(app.Foodlist.el.search.value);
       else
-        app.Utils.toast(app.strings["no-internet"] || "No internet connection");
+        app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
     });
 
     if (!app.Foodlist.el.scan.hasClickEvent) {
@@ -120,10 +120,12 @@ app.Foodlist = {
           app.Foodlist.list = result;
           app.Foodlist.filterList = app.Foodlist.list;
         } else {
-          app.Utils.toast("No results");
+          let msg = app.strings.dialogs["no-results"] || "No Results";
+          app.Utils.toast(msg);
         }
       } else {
-        app.Utils.toast("No search providers are enabled", 2000);
+        let msg = app.strings.dialogs["no-search-providers"] || "No search providers are enabled";
+        app.Utils.toast(msg, 2000);
       }
     }
 
@@ -136,8 +138,8 @@ app.Foodlist = {
     if (clear) app.Utils.deleteChildNodes(app.Foodlist.el.list);
 
     //List settings
-    let maxItems = 300; //Max items to load
-    let itemsPerLoad = 20; //Number of items to append at a time
+    let maxItems = 300; // Max items to load
+    let itemsPerLoad = 20; // Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
     let archived = 0;
 
@@ -209,8 +211,8 @@ app.Foodlist = {
 
   removeItem: function(item) {
     return new Promise(function(resolve, reject) {
-      let title = app.strings["confirm-delete-title"] || "Delete";
-      let msg = app.strings["confirm-delete"] || "Are you sure?";
+      let title = app.strings.dialogs.delete || "Delete";
+      let msg = app.strings.dialogs["confirm-delete"] || "Are you sure?";
 
       let dialog = app.f7.dialog.confirm(msg, title, async () => {
         await app.FoodsMealsRecipes.removeItem(item.id, "food");
@@ -366,7 +368,7 @@ app.Foodlist = {
           if (item === undefined) {
             // Not already in foodlist so search OFF 
             if (navigator.connection.type == "none") {
-              app.Utils.toast(app.strings["no-internet"] || "No internet connection");
+              app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
               resolve(undefined);
             }
 
@@ -390,8 +392,8 @@ app.Foodlist = {
   },
 
   gotoUploadEditor: function(code) {
-    let title = app.strings["product-not-found"] || "Product not found";
-    let text = app.strings["add-to-off"] || "Would you like to add this product to the Open Food Facts database?";
+    let title = app.strings.dialogs["no-results"] || "Product not found";
+    let text = app.strings.dialogs["add-to-off"] || "Would you like to add this product to the Open Food Facts database?";
 
     app.data.context = {
       origin: "foodlist",

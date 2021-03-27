@@ -64,6 +64,7 @@ app.GoalEditor = {
 
   setInputNames: function(name) {
     const inputs = Array.from(document.querySelectorAll("input"));
+
     inputs.forEach((x) => {
       if (x.id == "shared-goal")
         x.name = name + "-shared-goal";

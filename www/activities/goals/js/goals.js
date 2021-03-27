@@ -50,7 +50,8 @@ app.Goals = {
 
       let a = document.createElement("a");
       a.href = "#";
-      a.innerHTML = app.Utils.tidyText(n, 50) + " (" + unit + ")";
+      let text = app.strings.nutriments[n] || n;
+      a.innerHTML = app.Utils.tidyText(text, 50) + " (" + unit + ")";
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {

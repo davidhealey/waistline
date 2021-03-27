@@ -109,8 +109,8 @@ app.Recipes = {
   },
 
   removeItem: function(item) {
-    let title = app.strings["confirm-delete-title"] || "Delete";
-    let text = app.strings["confirm-delete"] || "Are you sure?";
+    let title = app.strings.dialogs.delete || "Delete";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
 
     let dialog = app.f7.dialog.confirm(text, title, async () => {
       await app.FoodsMealsRecipes.removeItem(item.id, "recipe");

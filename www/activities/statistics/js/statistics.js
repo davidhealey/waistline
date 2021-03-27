@@ -107,7 +107,8 @@ app.Stats = {
     nutriments.forEach((x, i) => {
       let option = document.createElement("option");
       option.value = x;
-      option.innerHTML = app.Utils.tidyText(x);
+      let text = app.strings.nutriments[x] || x;
+      option.innerHTML = app.Utils.tidyText(text);
       app.Stats.el.stat.appendChild(option);
     });
   },
@@ -213,7 +214,14 @@ app.Stats = {
         }
       }
 
-      result.dataset.label = app.Utils.tidyText(field) + " (" + unit + ")";
+      let title = field;
+
+      if (app.strings.nutriments[field] !== undefined)
+        title = app.strings.nutriments[field];
+      else if (app.strings.statistics[field] !== undefined)
+        title = app.strings.statistics[field];
+
+      result.dataset.label = app.Utils.tidyText(title) + " (" + unit + ")";
 
       resolve(result);
     }).catch(err => {
