@@ -6,3 +6,4 @@ package-lock.json
 platforms/
 platforms
 .jshintrc
+tasks
