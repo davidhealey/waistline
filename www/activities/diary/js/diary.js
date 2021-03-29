@@ -395,9 +395,10 @@ app.Diary = {
 
   quickAdd: function(category) {
     let title = app.strings.diary["quick-add"] || "Quick Add";
-    let text = app.strings.nutrition["calories"] || "Calories";
+    let text = app.strings.nutriments["calories"] || "Calories";
 
     let dialog = app.f7.dialog.prompt(text, title, async function(value) {
+
       let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
       let quantity = value;
@@ -418,6 +419,8 @@ app.Diary = {
         }
       }
     });
+
+    dialog.$el.find('input').attr('type', 'number');
   },
 
   log: function() {

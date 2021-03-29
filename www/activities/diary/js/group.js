@@ -86,6 +86,7 @@ app.Group = {
   renderFooter: function(ul, id, nutrition) {
 
     let li = document.createElement("li");
+    li.className = "noselect";
     ul.appendChild(li);
 
     let row = document.createElement("div");
@@ -109,7 +110,7 @@ app.Group = {
     left.appendChild(a);
 
     let icon = document.createElement("i");
-    icon.className = "icon material-icons";
+    icon.className = "icon material-icons ripple";
     icon.innerHTML = "add";
     a.appendChild(icon);
 
