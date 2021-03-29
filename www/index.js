@@ -18,7 +18,7 @@
 */
 
 const app = {
-  mode: "release",
+  mode: "debug",
   data: {}, // App wide object that can be used to store stuff
   strings: {}, // Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
@@ -286,7 +286,7 @@ app.f7.on("init", async function(event) {
   await dbHandler.initializeDb();
 
   // Backup database 
-  if (app.mode !== "development" && device.platform !== "browser") {
+  if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
     let data = await dbHandler.exportToJSON();
     let filename = "waistline_auto_backup.json";
     let path = await app.Utils.writeFile(data, filename);

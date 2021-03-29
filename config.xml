@@ -15,7 +15,8 @@
     <allow-navigation href="*" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="23" />
-	<preference name="android-targetSdkVersion" value="23" />
+        <preference name="android-targetSdkVersion" value="23" />
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <uses-permission name="android.permission.READ_EXTERNAL_STORAGE" />
         <uses-permission name="android.permission.WRITE_EXTERNAL_STORAGE" />
         <allow-intent href="market:*" />
