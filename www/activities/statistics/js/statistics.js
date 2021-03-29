@@ -239,6 +239,7 @@ app.Stats = {
 
       let now = from || new Date();
       let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      fromDate.setHours(0, 0, 0, 0);
       let toDate = new Date(fromDate);
       toDate.setUTCHours(toDate.getUTCHours() + 24);
 
