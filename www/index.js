@@ -278,19 +278,21 @@ document.addEventListener("page:reinit", function(event) {
 });
 
 app.f7.on("init", async function(event) {
-
   // Localization
   app.localizationInit();
 
   //Database setup
   await dbHandler.initializeDb();
+});
+
+document.addEventListener('deviceready', function() {
 
   // Backup database 
-  if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
+  /*if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
     let data = await dbHandler.exportToJSON();
     let filename = "waistline_auto_backup.json";
     let path = await app.Utils.writeFile(data, filename);
-  }
+  }*/
 
   if (settings == undefined || settings.firstTimeSetup == undefined) {
     app.Settings.firstTimeSetup();

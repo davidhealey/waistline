@@ -3,7 +3,7 @@
   "version": "2.9.0",
   "displayName": "Waistline",
   "devDependencies": {
-    "cordova-android": "^9.0.0",
+    "cordova-android": "^9.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
     "cordova-plugin-camera": "~4.0.3",
