@@ -61,7 +61,7 @@
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
     "what-meal": "What meal is this?",
     "import": "Import",
-    "confirm-import": "Are you sure? This will overwrite your current dataabse."
+    "confirm-import": "Are you sure? This will overwrite your current database."
   },
   "days": {
     "0": "Sunday",
