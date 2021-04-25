@@ -4,7 +4,7 @@
     "calories": "קלוריות",
     "kilojoule": "קילוג׳ול",
     "kilojoules": "קילוג׳ולים",
-    "proteins": "proteins",
+    "proteins": "חלבונים",
     "carbohydrates": "פחמימות",
     "fat": "שומן",
     "saturated-fat": "שומן רווי",
@@ -61,7 +61,7 @@
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
     "what-meal": "איזו מנה זו?",
     "import": "ייבוא",
-    "confirm-import": "Are you sure? This will overwrite your current database."
+    "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך."
   },
   "days": {
     "0": "יום ראשון",
