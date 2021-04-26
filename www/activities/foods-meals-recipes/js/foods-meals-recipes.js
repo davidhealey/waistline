@@ -189,7 +189,11 @@ app.FoodsMealsRecipes = {
       if (ids.recipe !== undefined && ids.recipe.length > 0)
         recipes = await dbHandler.getByMultipleKeys(ids.recipe, "recipes");
 
-      let data = foods.concat(recipes);
+      let data = [];
+      items.forEach((item) => {
+        let match = recipes.find(x => x.id === item.id) || foods.find(x => x.id === item.id)
+        data.push(match)
+      })
 
       if (data.length > 0) {
 
