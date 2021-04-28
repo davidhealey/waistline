@@ -54,7 +54,7 @@
     "no-search-providers": "Нет доступных поисковых систем",
     "scan-failed": "Ошибка сканирования",
     "search": "Поиск",
-    "number-of-calories": "Пожалуйста, укажите количество калорий для этого продукта.",
+    "number-of-calories": "Пожалуйста, укажите количество калорий для этой еды.",
     "add-to-off": "Вы хотите добавить этот продукт в базу данных Open Food Facts?",
     "main-image": "Пожалуйста, добавьте основное изображение",
     "upload-success": "Продукт успешно добавлен в Open Food Facts",
@@ -106,65 +106,65 @@
     "6month": "6 месяцев",
     "12month": "1 Год",
     "timeline": "График",
-    "weight": "Weight",
-    "neck": "Neck",
-    "waist": "Waist",
-    "hips": "Hips",
-    "body fat": "Body Fat"
+    "weight": "Вес",
+    "neck": "Шея",
+    "waist": "Талия",
+    "hips": "Бёдра",
+    "body fat": "Телесный жир"
   },
   "diary": {
-    "title": "Diary",
-    "quick-add": "Quick Add",
-    "log-title": "Today's Stats"
+    "title": "Дневник",
+    "quick-add": "Быстрое добавление",
+    "log-title": "Статистика на сегодня"
   },
   "diary-chart": {
-    "title": "Overview",
-    "no-data": "No data"
+    "title": "Общие сведения",
+    "no-data": "Нет данных"
   },
   "foods-meals-recipes": {
-    "title": "Foods, Meals, Recipes",
-    "foods": "Foods",
-    "meals": "Meals",
-    "recipes": "Recipes",
-    "selected": "Selected"
+    "title": "Еда, Блюда, Рецепты",
+    "foods": "Еда",
+    "meals": "Блюда",
+    "recipes": "Рецепты",
+    "selected": "Выбрано"
   },
   "food-editor": {
-    "edit-item": "Edit Items",
-    "add-new-item": "Add New Item",
-    "details": "Details",
-    "barcode": "Barcode",
-    "name": "Name",
-    "brand": "Brand",
-    "category": "Category",
-    "serving-size": "Serving Size",
-    "serving-unit": "Serving Unit",
-    "number-of-servings": "Number of Servings",
-    "nutrition": "Nutrition",
-    "per-100": "Per 100g/100ml",
-    "per-serving": "Per Serving",
-    "ingredients": "Ingredients",
+    "edit-item": "Изменить элементы",
+    "add-new-item": "Добавить новый элемент",
+    "details": "Сведения",
+    "barcode": "Штрих-код",
+    "name": "Название",
+    "brand": "Производитель",
+    "category": "Категория",
+    "serving-size": "Размер порции",
+    "serving-unit": "Ед. измерения",
+    "number-of-servings": "Количество порций",
+    "nutrition": "Пищевая ценность",
+    "per-100": "На 100г/100мл",
+    "per-serving": "На порцию",
+    "ingredients": "Ингредиенты",
     "traces": "Traces"
   },
   "goals": {
-    "title": "Goals"
+    "title": "Цели"
   },
   "goal-editor": {
-    "title": "Set Goals",
-    "show-in-diary": "Show in Diary",
-    "shared-goal": "Same goal every day",
-    "minimum-goal": "Is minimum goal"
+    "title": "Установить цели",
+    "show-in-diary": "Показать в дневнике",
+    "shared-goal": "Одинаковая цель каждый день",
+    "minimum-goal": "Минимальная цель"
   },
   "meal-editor": {
-    "title": "Edit Meal",
-    "foods-recipes": "Foods & Recipes"
+    "title": "Изменить блюдо",
+    "foods-recipes": "Продукты и рецепты"
   },
   "recipe-editor": {
-    "title": "Edit Recipe",
-    "notes": "Notes"
+    "title": "Изменить рецепт",
+    "notes": "Примечания"
   },
   "settings": {
-    "title": "Settings",
-    "needs-restart": "Restart app to apply changes.",
+    "title": "Настройки",
+    "needs-restart": "Перезапустите приложение, чтобы применить изменения.",
     "theme": {
       "title": "Theme",
       "dark": "Dark Mode",
