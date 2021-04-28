@@ -166,70 +166,70 @@
     "title": "Настройки",
     "needs-restart": "Перезапустите приложение, чтобы применить изменения.",
     "theme": {
-      "title": "Theme",
-      "dark": "Dark Mode",
-      "animations": "Disable UI Animations",
-      "start-page": "Start Page"
+      "title": "Тема",
+      "dark": "Тёмный режим",
+      "animations": "Отключить анимацию интерфейса",
+      "start-page": "Начальная страница"
     },
     "units": {
-      "title": "Units",
-      "weight": "Weight",
-      "length": "Length",
-      "kilograms": "Kilograms",
-      "pounds": "Pounds",
-      "stone": "Stones",
-      "centimeters": "Centimeters",
-      "inches": "Inches"
+      "title": "Единицы измерения",
+      "weight": "Вес",
+      "length": "Длина",
+      "kilograms": "Килограммы",
+      "pounds": "Фунты",
+      "stone": "Стоуны",
+      "centimeters": "Сантиметры",
+      "inches": "Дюймы"
     },
     "diary": {
-      "title": "Diary",
-      "categories": "Categories",
-      "timestamps": "Show Timestamps",
-      "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
-      "show-units": "Show nutrition units"
+      "title": "Дневник",
+      "categories": "Категории",
+      "timestamps": "Показать метки времени",
+      "thumbnails": "Показывать миниатюры",
+      "wifi-thumbnails": "Показывать миниатюры только через Wi-Fi",
+      "show-units": "Показать единицы питания"
     },
     "diary-categories": {
-      "title": "Categories",
-      "category": "Category"
+      "title": "Категории",
+      "category": "Категория"
     },
     "foods": {
-      "title": "Foods, Meals, Recipes",
-      "sort": "Sort foods",
-      "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi"
+      "title": "Еда, Блюда, Рецепты",
+      "sort": "Сортировка еды",
+      "images": "Показать изображения еды",
+      "wifi-images": "Показывать изображения только через Wi-Fi"
     },
     "import-export": {
-      "title": "Import/Export",
-      "backup": "Backup Database",
-      "import": "Import From Backup"
+      "title": "Импорт/Экспорт",
+      "backup": "Резервное копирование базы данных",
+      "import": "Импорт из резервной копии"
     },
     "integration": {
-      "title": "Integration",
+      "title": "Интеграция",
       "off": "Open Food Facts",
-      "off-account": "Open Food Facts Account",
-      "country": "Search Country",
-      "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
-      "usda": "Enable USDA search",
-      "usda-login-title": "USDA",
-      "usda-api-key": "USDA API Key",
-      "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
-      "usera-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
-      "username": "Username",
-      "password": "Password",
-      "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
-      "sign-in": "Sign In",
-      "exit": "Exit",
-      "save": "Save",
-      "invalid-credentials": "Invalid Credentials",
-      "export-success": "Database exported",
-      "export-fail": "Export Failed"
+      "off-account": "Учётная запись Open Food Facts",
+      "country": "Страна поиска",
+      "usda-title": "МИНИСТЕРСТВО СЕЛЬСКОГО ХОЗЯЙСТВА США",
+      "usda": "Включить поиск МСХ США",
+      "usda-login-title": "МСХ США",
+      "usda-api-key": "API ключ МСХ США",
+      "usda-note-0": "Необходимо ввести ваш персональный API ключ для поиска продуктов в базе данных МСХ США.",
+      "usera-note-1": "Вы можете запросить свободный API-ключ, нажав <a href='https://fdc.nal.usda.gov/api-key-signup.html'>здесь</a>.",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "off-account-note": "Это совершенно необязательно. Вам не нужен аккаунт OFF для использования приложения.",
+      "sign-in": "Войти",
+      "exit": "Выйти",
+      "save": "Сохранить",
+      "invalid-credentials": "Неверные учётные данные",
+      "export-success": "База данных экспортирована",
+      "export-fail": "Экспорт не удался"
     }
   },
   "about": {
-    "title": "About",
-    "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
-    "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-    "p2": "The source code for Waistline can be found at github.com/davidhealey/waistline."
+    "title": "О программе",
+    "p0": "Waistline был создан David Healey с предложениями и вкладами пользователей.",
+    "p1": "Waistline был собран с использованием фреймворка Cordova и OnsenUI, которые доступны по лицензии Apache. Также включены jQuery, jQuery localize и ChartJS, которые находятся под лицензией MIT. HTML, CSS и JavaScript, составляющие основную часть приложения, находятся под лицензией GPLv3.",
+    "p2": "Исходный код Waistline можно найти на github.com/davidhealey/waistline."
   }
 }
