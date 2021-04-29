@@ -1,14 +1,14 @@
 {
   "nutriments": {
-    "calorie": "Calorie",
-    "calories": "Calories",
+    "calorie": "Kalorien",
+    "calories": "Kalorien",
     "kilojoule": "Kilojoule",
-    "kilojoules": "Kilojoules",
+    "kilojoules": "Kilojoule",
     "proteins": "Proteine",
     "carbohydrates": "Kohlenhydrate",
     "fat": "Fett",
     "saturated-fat": "gesättigte Fettsäuren",
-    "monounsaturated-fat": "mono-fat",
+    "monounsaturated-fat": "einfach ungesättigte Fettsäuren",
     "polyunsaturated-fat": "poly-fat",
     "trans-fat": "trans-fat",
     "omega-3-fat": "omega-3-fat",
@@ -210,26 +210,26 @@
       "off-account": "Open Food Facts Konto",
       "country": "Land für Suche",
       "usda-title": "U.S. Landwirtschaftsministerium",
-      "usda": "Enable USDA search",
+      "usda": "USDA Suche aktivieren",
       "usda-login-title": "USDA",
-      "usda-api-key": "USDA API Key",
-      "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
-      "usera-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
-      "username": "Username",
-      "password": "Password",
-      "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
-      "sign-in": "Sign In",
-      "exit": "Exit",
-      "save": "Save",
-      "invalid-credentials": "Invalid Credentials",
-      "export-success": "Database exported",
-      "export-fail": "Export Failed"
+      "usda-api-key": "USDA API-Schlüssel",
+      "usda-note-0": "Du müsst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
+      "usera-note-1": "Du kannst <a href='https://fdc.nal.usda.gov/api-key-signup.html'>hier</a> einen kostenlosen API-Schlüssel anfordern.",
+      "username": "Benutzername",
+      "password": "Passwort",
+      "off-account-note": "Dies ist völlig optional. Du brauchst kein Open Food Facts Konto, um die App zu benutzen.",
+      "sign-in": "Anmelden",
+      "exit": "Zurück",
+      "save": "Speichern",
+      "invalid-credentials": "Ungültige Anmeldeinformationen",
+      "export-success": "Datenbank wurde exportiert",
+      "export-fail": "Fehler beim Export"
     }
   },
   "about": {
-    "title": "About",
-    "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
-    "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-    "p2": "The source code for Waistline can be found at github.com/davidhealey/waistline."
+    "title": "Über",
+    "p0": "Waistline wurde von David Healey entwickelt und von verschiedenen GitHub-Nutzern durch Vorschläge und Anpassungen unterstützt.",
+    "p1": "Waistline wurde mit dem Cordova Framework und OnsenUI erstellt, was unter der Apache Lizenz verfügbar ist. Ebenfalls verwendet wurden jQuery, jQuery localize und ChartJS, welche unter der MIT Lizenz stehen. HTML, CSS und JavaScript, die das Hauptgerüst der App bilden, gehören zur GPLv3 Lizenz.",
+    "p2": "Den Quellcode von Waistline finden Sie unter: github.com/davidhealey/waistline."
   }
 }
