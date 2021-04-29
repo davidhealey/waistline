@@ -178,34 +178,34 @@
       "kilograms": "Kilogramm",
       "pounds": "Pfund",
       "stone": "Stones",
-      "centimeters": "Centimeters",
-      "inches": "Inches"
+      "centimeters": "Zentimeter",
+      "inches": "Zoll"
     },
     "diary": {
-      "title": "Diary",
-      "categories": "Categories",
-      "timestamps": "Show Timestamps",
-      "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
-      "show-units": "Show nutrition units"
+      "title": "Tagebuch",
+      "categories": "Kategorien",
+      "timestamps": "Zeitstempel anzeigen",
+      "thumbnails": "Vorschaubilder anzeigen",
+      "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
+      "show-units": "Nährstoffeinheiten anzeigen"
     },
     "diary-categories": {
-      "title": "Categories",
-      "category": "Category"
+      "title": "Kategorien",
+      "category": "Kategorie"
     },
     "foods": {
-      "title": "Foods, Meals, Recipes",
-      "sort": "Sort foods",
-      "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi"
+      "title": "Lebensmittel, Mahlzeiten, Rezepte",
+      "sort": "Lebensmittel sortieren",
+      "images": "Lebensmittelbilder anzeigen",
+      "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen"
     },
     "import-export": {
-      "title": "Import/Export",
-      "backup": "Backup Database",
-      "import": "Import From Backup"
+      "title": "Importieren/Exportieren",
+      "backup": "Datenbanksicherung",
+      "import": "Aus Datenbanksicherung importieren"
     },
     "integration": {
-      "title": "Integration",
+      "title": "Integrationen",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts Konto",
       "country": "Land für Suche",
