@@ -1,11 +1,11 @@
 {
   "nutriments": {
-    "calorie": "Calorie",
-    "calories": "Calories",
-    "kilojoule": "Kilojoule",
-    "kilojoules": "Kilojoules",
-    "proteins": "proteins",
-    "carbohydrates": "carbs",
+    "calorie": "Kaloria",
+    "calories": "Kaloreita",
+    "kilojoule": "Kilojoulea",
+    "kilojoules": "Kilojouleja",
+    "proteins": "proteiineja",
+    "carbohydrates": "hiilihydraatteja",
     "fat": "fat",
     "saturated-fat": "sat-fat",
     "monounsaturated-fat": "mono-fat",
