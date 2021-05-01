@@ -130,27 +130,27 @@
   },
   "food-editor": {
     "edit-item": "Muokkaa tuotteita",
-    "add-new-item": "Add New Item",
-    "details": "Details",
-    "barcode": "Barcode",
-    "name": "Name",
-    "brand": "Brand",
-    "category": "Category",
-    "serving-size": "Serving Size",
-    "serving-unit": "Serving Unit",
-    "number-of-servings": "Number of Servings",
-    "nutrition": "Nutrition",
-    "per-100": "Per 100g/100ml",
-    "per-serving": "Per Serving",
-    "ingredients": "Ingredients",
-    "traces": "Traces"
+    "add-new-item": "Lisää uusi tuote",
+    "details": "Tarkat tiedot",
+    "barcode": "Viivakoodi",
+    "name": "Nimi",
+    "brand": "Tuotemerkki",
+    "category": "Kategoria",
+    "serving-size": "Annoskoko",
+    "serving-unit": "Annosyksikkö",
+    "number-of-servings": "Annosten määrä",
+    "nutrition": "Ravintosisältö",
+    "per-100": "100 g / 100 ml kohden",
+    "per-serving": "Annosta kohden",
+    "ingredients": "Ainesosat",
+    "traces": "Jäämät"
   },
   "goals": {
-    "title": "Goals"
+    "title": "Tavoitteet"
   },
   "goal-editor": {
-    "title": "Set Goals",
-    "show-in-diary": "Show in Diary",
+    "title": "Aseta tavoitteet",
+    "show-in-diary": "Näytä päiväkirjassa",
     "shared-goal": "Same goal every day",
     "minimum-goal": "Is minimum goal"
   },
