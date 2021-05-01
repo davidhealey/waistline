@@ -100,36 +100,36 @@
     "title": "Tilastot",
     "range": "Aikaväli",
     "stat": "Tilasto",
-    "week": "1 Week",
-    "month": "1 Month",
-    "3month": "3 Months",
-    "6month": "6 Months",
-    "12month": "1 Year",
-    "timeline": "Timeline",
-    "weight": "Weight",
-    "neck": "Neck",
-    "waist": "Waist",
-    "hips": "Hips",
-    "body fat": "Body Fat"
+    "week": "1 viikko",
+    "month": "1 kuukausi",
+    "3month": "3 kuukautta",
+    "6month": "6 kuukautta",
+    "12month": "1 vuosi",
+    "timeline": "Aikajana",
+    "weight": "Paino",
+    "neck": "Kaula",
+    "waist": "Vyötärö",
+    "hips": "Lantio",
+    "body fat": "Kehon rasva"
   },
   "diary": {
-    "title": "Diary",
-    "quick-add": "Quick Add",
-    "log-title": "Today's Stats"
+    "title": "Päiväkirja",
+    "quick-add": "Nopea lisäys",
+    "log-title": "Päivän tilastot"
   },
   "diary-chart": {
-    "title": "Overview",
-    "no-data": "No data"
+    "title": "Yleiskuva",
+    "no-data": "Ei tietoja"
   },
   "foods-meals-recipes": {
-    "title": "Foods, Meals, Recipes",
-    "foods": "Foods",
-    "meals": "Meals",
-    "recipes": "Recipes",
-    "selected": "Selected"
+    "title": "Ruoat, Ateriat, Reseptit",
+    "foods": "Ruoat",
+    "meals": "Ateriat",
+    "recipes": "Reseptit",
+    "selected": "Valitut"
   },
   "food-editor": {
-    "edit-item": "Edit Items",
+    "edit-item": "Muokkaa tuotteita",
     "add-new-item": "Add New Item",
     "details": "Details",
     "barcode": "Barcode",
