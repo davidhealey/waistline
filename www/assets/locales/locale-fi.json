@@ -186,16 +186,16 @@
       "categories": "Kategoriat",
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä tuotekuvat",
-      "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
-      "show-units": "Show nutrition units"
+      "wifi-thumbnails": "Näytä tuotekuvat vain Wi-Fi-yhteyttä käytettäessä",
+      "show-units": "Näytä ravintoyksiköt"
     },
     "diary-categories": {
-      "title": "Categories",
-      "category": "Category"
+      "title": "Kategoriat",
+      "category": "Kategoria"
     },
     "foods": {
-      "title": "Foods, Meals, Recipes",
-      "sort": "Sort foods",
+      "title": "Ruoat, Ateriat, Reseptit",
+      "sort": "Järjestä ruoat",
       "images": "Show Food Images",
       "wifi-images": "Only show images over Wi-Fi"
     },
