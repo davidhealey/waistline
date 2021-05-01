@@ -151,41 +151,41 @@
   "goal-editor": {
     "title": "Aseta tavoitteet",
     "show-in-diary": "Näytä päiväkirjassa",
-    "shared-goal": "Same goal every day",
-    "minimum-goal": "Is minimum goal"
+    "shared-goal": "Sama tavoite joka päivä",
+    "minimum-goal": "On vähimmäistavoite"
   },
   "meal-editor": {
-    "title": "Edit Meal",
-    "foods-recipes": "Foods & Recipes"
+    "title": "Muokkaa ateriaa",
+    "foods-recipes": "Ruoat & Reseptit"
   },
   "recipe-editor": {
-    "title": "Edit Recipe",
-    "notes": "Notes"
+    "title": "Muokkaa reseptiä",
+    "notes": "Muistiinpanot"
   },
   "settings": {
-    "title": "Settings",
-    "needs-restart": "Restart app to apply changes.",
+    "title": "Asetukset",
+    "needs-restart": "Käynnistä sovellus uudelleen, jotta muutokset voidaan ottaa käyttöön.",
     "theme": {
-      "title": "Theme",
-      "dark": "Dark Mode",
-      "animations": "Disable UI Animations",
-      "start-page": "Start Page"
+      "title": "Teema",
+      "dark": "Tumma teema",
+      "animations": "Poista käyttöliittymän animaatiot käytöstä",
+      "start-page": "Aloitussivu"
     },
     "units": {
-      "title": "Units",
-      "weight": "Weight",
-      "length": "Length",
-      "kilograms": "Kilograms",
-      "pounds": "Pounds",
-      "stone": "Stones",
-      "centimeters": "Centimeters",
-      "inches": "Inches"
+      "title": "Yksiköt",
+      "weight": "Paino",
+      "length": "Pituus",
+      "kilograms": "Kilogrammaa",
+      "pounds": "Paunaa",
+      "stone": "Kiveä",
+      "centimeters": "Senttimetriä",
+      "inches": "Tuumaa"
     },
     "diary": {
-      "title": "Diary",
-      "categories": "Categories",
-      "timestamps": "Show Timestamps",
-      "thumbnails": "Show Thumbnails",
+      "title": "Päiväkirja",
+      "categories": "Kategoriat",
+      "timestamps": "Näytä aikaleimat",
+      "thumbnails": "Näytä tuotekuvat",
       "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
       "show-units": "Show nutrition units"
     },
