@@ -196,21 +196,21 @@
     "foods": {
       "title": "Ruoat, Ateriat, Reseptit",
       "sort": "Järjestä ruoat",
-      "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi"
+      "images": "Näytä ruokakuvat",
+      "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä"
     },
     "import-export": {
-      "title": "Import/Export",
-      "backup": "Backup Database",
-      "import": "Import From Backup"
+      "title": "Tuo / Vie",
+      "backup": "Varmuuskopioi tietokanta",
+      "import": "Tuo varmuuskopiosta"
     },
     "integration": {
-      "title": "Integration",
+      "title": "Intergrointi",
       "off": "Open Food Facts",
-      "off-account": "Open Food Facts Account",
-      "country": "Search Country",
-      "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
-      "usda": "Enable USDA search",
+      "off-account": "Open Food Facts -tili",
+      "country": "Hae maa",
+      "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
+      "usda": "Ota USDA-haku käyttöön",
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API Key",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
