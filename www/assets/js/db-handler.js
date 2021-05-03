@@ -24,7 +24,7 @@ var dbHandler = {
     return new Promise(async function(resolve, reject) {
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 30;
+      var databaseVersion = 31;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -181,10 +181,36 @@ var dbHandler = {
       if (!oldVersion)
         resolve();
 
-      if (oldVersion < 30) {
-
+      if (oldVersion < 31) {
         console.log("Upgrading database");
 
+        // set hours and minutes of diary dateTime to 00:00 in UTC
+        await new Promise(function(resolve, reject) {
+          try {
+            store = transaction.objectStore('diary');
+
+            store.openCursor().onsuccess = function(event) {
+              let cursor = event.target.result;
+              if (cursor) {
+                let value = cursor.value;
+
+                let date = new Date(value.dateTime)
+                value.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+
+                cursor.update(value);
+                cursor.continue();
+              } else {
+                resolve();
+              }
+            };
+          } catch (e) {
+            console.log("No Diary store present (safe to ignore this)", e);
+            resolve();
+          }
+        });
+      }
+
+      if (oldVersion < 30) {
         let promises = [];
         let store;
 
