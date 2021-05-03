@@ -276,7 +276,6 @@ app.Stats = {
   },
 
   renderChart: function(data) {
-    Chart.defaults.global.defaultFontColor = 'black';
     app.Stats.chart = new Chart(app.Stats.el.chart, {
       type: app.Stats.chartType,
       data: {
@@ -299,7 +298,6 @@ app.Stats = {
         },
         legend: {
           labels: {
-            fontColor: 'black',
             fontSize: 16
           }
         }

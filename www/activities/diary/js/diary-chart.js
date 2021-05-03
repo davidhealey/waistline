@@ -118,7 +118,6 @@ app.DiaryChart = {
       options: {
         legend: {
           labels: {
-            fontColor: 'black',
             fontSize: 18
           }
         }
