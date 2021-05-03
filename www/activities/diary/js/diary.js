@@ -306,7 +306,8 @@ app.Diary = {
   getEntryFromDB: function() {
     return new Promise(async function(resolve, reject) {
       if (app.Diary.date !== undefined) {
-        let entry = await dbHandler.get("diary", "dateTime", new Date(app.Diary.date));
+        let date = new Date(app.Diary.date)
+        let entry = await dbHandler.get("diary", "dateTime", new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())));
         resolve(entry);
       }
     }).catch(err => {
@@ -315,8 +316,9 @@ app.Diary = {
   },
 
   getNewEntry: function() {
+    let date = new Date(app.Diary.date)
     let entry = {
-      dateTime: new Date(app.Diary.date),
+      dateTime: new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())),
       items: [],
       stats: {},
     };
