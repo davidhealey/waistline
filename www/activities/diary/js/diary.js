@@ -142,9 +142,9 @@ app.Diary = {
 
   updateDateDisplay: function() {
     let el = app.Diary.el.date;
-    let months = app.strings.months || ['january', 'february', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let months = app.strings.months || ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     let date = new Date(app.Diary.date);
-    let dateString = date.getUTCDate() + " " + months[date.getUTCMonth()] + " " + date.getUTCFullYear();
+    let dateString = date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
     el.innerText = dateString;
   },
 
