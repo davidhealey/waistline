@@ -289,7 +289,7 @@ document.addEventListener('deviceready', function() {
 
   // Backup database 
   /*if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
-    let data = await dbHandler.exportToJSON();
+    let data = await dbHandler.export();
     let filename = "waistline_auto_backup.json";
     let path = await app.Utils.writeFile(data, filename);
   }*/
