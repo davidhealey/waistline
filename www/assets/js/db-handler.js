@@ -627,7 +627,7 @@ var dbHandler = {
     });
   },
 
-  exportToJSON: function() {
+  export: function() {
     return new Promise(function(resolve, reject) {
       if (DB.objectStoreNames.length > 0) {
         let result = {};
@@ -656,7 +656,7 @@ var dbHandler = {
 
                 if (storeNames.length === Object.keys(result).length) {
                   result.version = DB.version;
-                  resolve(JSON.stringify(result));
+                  resolve(result);
                 }
               }
             };
@@ -670,7 +670,7 @@ var dbHandler = {
     });
   },
 
-  importFromJSON: function(jsonString) {
+  import: function(data) {
     return new Promise(function(resolve, reject) {
 
       let t = DB.transaction(DB.objectStoreNames, "readwrite");
@@ -686,7 +686,6 @@ var dbHandler = {
       };
 
       let storeNames = Array.from(DB.objectStoreNames);
-      let data = JSON.parse(jsonString);
       let version = data.version; // Get version from json data 
 
       // If no version is found then JSON must be from older version export
