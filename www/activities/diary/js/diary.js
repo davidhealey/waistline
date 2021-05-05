@@ -142,9 +142,8 @@ app.Diary = {
 
   updateDateDisplay: function() {
     let el = app.Diary.el.date;
-    let months = app.strings.months || ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     let date = new Date(app.Diary.date);
-    let dateString = date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+    let dateString = date.toLocaleDateString([], {weekday: "short", month: "long", day: "numeric", year: "numeric"})
     el.innerText = dateString;
   },
 
