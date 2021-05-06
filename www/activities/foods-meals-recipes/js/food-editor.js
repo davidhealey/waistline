@@ -426,6 +426,9 @@ app.FoodEditor = {
         if (data.index !== undefined)
           item.index = data.index;
 
+        if (data.dateTime !== undefined)
+          item.dateTime = data.dateTime;
+
         if (data.quantity !== undefined)
           item.quantity = app.FoodEditor.el.quantity.value;
 
@@ -437,7 +440,7 @@ app.FoodEditor = {
 
         let now = new Date();
         let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        item.dateTime = today;
+        item.dateTime = item.dateTime || today;
 
         const nutriments = app.nutriments;
         const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
