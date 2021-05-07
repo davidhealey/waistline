@@ -456,7 +456,7 @@ app.FoodsMealsRecipes = {
         if (timestamp == true && item.dateTime !== undefined) {
           let dateTime = new Date(item.dateTime);
           if (text != "") text += "<br>";
-          text += dateTime.toLocaleTimeString();
+          text += dateTime.toLocaleTimeString([],{hour: '2-digit', minute:'2-digit'});
         }
 
         details.innerHTML = text;
