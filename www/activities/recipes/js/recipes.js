@@ -156,7 +156,7 @@ app.Recipes = {
       on: {
         async search(sb, query, previousQuery) {
           if (query != "") {
-            app.Recipes.list = app.FoodsMealsRecipeapp.Recipes.filterList(query, app.Recipes.filterList);
+            app.Recipes.list = app.FoodsMealsRecipes.filterList(query, app.Recipes.filterList);
           } else {
             app.Recipes.list = await app.Recipes.getListFromDB();
             app.Recipes.filterList = app.Recipes.list;
