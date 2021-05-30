@@ -223,11 +223,11 @@ var dbHandler = {
 
             store.openCursor().onsuccess = function(event) {
               let cursor = event.target.result;
-              if (cursor) {
+              if (cursor && cursor.value && cursor.value.weight) {
                 let value = cursor.value;
                 let dateTime = value.dateTime.toDateString();
 
-                weights[dateTime] = value;
+                weights[dateTime] = value.weight;
                 cursor.continue();
               } else {
                 resolve();
