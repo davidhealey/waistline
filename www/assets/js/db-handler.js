@@ -178,13 +178,20 @@ var dbHandler = {
   upgradeDatabase: function(oldVersion, transaction) {
     return new Promise(async function(resolve, reject) {
 
+      let toast = app.f7.toast.create({
+        text: "Performing Database Upgrade",
+        position: 'center',
+        closeTimeout: 2000,
+      });
+
+      toast.open();
+
       if (!oldVersion)
         resolve();
 
       if (oldVersion < 31) {
-        console.log("Upgrading database");
 
-        // set hours and minutes of diary dateTime to 00:00 in UTC
+        // Set hours and minutes of diary dateTime to 00:00 in UTC
         await new Promise(function(resolve, reject) {
           try {
             store = transaction.objectStore('diary');
@@ -194,8 +201,12 @@ var dbHandler = {
               if (cursor) {
                 let value = cursor.value;
 
-                let date = new Date(value.dateTime)
-                value.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+                let date = new Date(value.dateTime);
+
+                // Convert dates for those on versions < 25
+                date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
+
+                value.dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
 
                 cursor.update(value);
                 cursor.continue();
@@ -225,9 +236,7 @@ var dbHandler = {
               let cursor = event.target.result;
               if (cursor) {
                 let value = cursor.value;
-                let dateTime = value.dateTime.toDateString();
-
-                weights[dateTime] = value;
+                weights[value.dateTime.toDateString()] = value.weight;
                 cursor.continue();
               } else {
                 resolve();
@@ -251,9 +260,6 @@ var dbHandler = {
             if (cursor) {
               let value = cursor.value;
               let date = value.dateTime;
-
-              // Convert dates for those on versions < 25
-              date.setUTCMinutes(date.getUTCMinutes() - date.getTimezoneOffset());
 
               // Create object for each date
               let index = date.toDateString();
@@ -696,8 +702,9 @@ var dbHandler = {
           version = 24;
       }
 
-      delete data.version; // Remove version key from import data 
-      delete data._version; // Remove old version key 
+      // Remove version key from import data 
+      delete data.version;
+      delete data._version;
 
       // Go through each object store and add the imported data
       storeNames.forEach((x) => {
@@ -708,13 +715,19 @@ var dbHandler = {
 
             let count = 0;
 
-            data[x].forEach((d) => {
+            data[x].forEach(async (d) => {
+
+              let entry = d;
 
               // Convert dateTime entries to Date objects
               if (d.dateTime !== undefined)
-                d.dateTime = new Date(d.dateTime);
+                entry.dateTime = new Date(d.dateTime);
 
-              let request = t.objectStore(x).add(d);
+              // Remove empty barcodes 
+              if (entry.barcode == "")
+                delete entry.barcode;
+
+              let request = t.objectStore(x).add(entry);
 
               request.onsuccess = async (e) => {
                 count++;
@@ -726,6 +739,7 @@ var dbHandler = {
                 // Added all objects
                 if (Object.keys(data).length == 0) {
                   await dbHandler.upgradeDatabase(version, t);
+                  resolve();
                 }
               };
 
