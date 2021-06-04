@@ -83,7 +83,7 @@ const app = {
     name: "Waistline",
     // App id
     id: "com.waist.line",
-    version: "2.9.0",
+    version: "2.9.1",
     // Enable swipe panel
     panel: {
       swipe: "left",
@@ -283,16 +283,6 @@ app.f7.on("init", async function(event) {
 
   //Database setup
   await dbHandler.initializeDb();
-});
-
-document.addEventListener('deviceready', function() {
-
-  // Backup database 
-  /*if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
-    let data = await dbHandler.export();
-    let filename = "waistline_auto_backup.json";
-    let path = await app.Utils.writeFile(data, filename);
-  }*/
 
   if (settings == undefined || settings.firstTimeSetup == undefined) {
     app.Settings.firstTimeSetup();
@@ -300,7 +290,15 @@ document.addEventListener('deviceready', function() {
   } else {
     app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
     app.f7.views.main.router.navigate(settings.theme["start-page"]);
+
+    // Backup database 
+    /*if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
+      let data = await dbHandler.export();
+      let filename = "waistline_auto_backup.json";
+      let path = await app.Utils.writeFile(data, filename);
+    }*/
   }
+
 });
 
 //Prevent chrome displaying context menu on long click
