@@ -322,6 +322,10 @@ var dbHandler = {
                   item.unit = cursor.value.portion.replace(/[^a-z]/g, "");
               }
 
+              // Remove empty barcodes 
+              if (item.barcode == "")
+                delete item.barcode;
+
               item.type = "food";
 
               foods.push(item);
