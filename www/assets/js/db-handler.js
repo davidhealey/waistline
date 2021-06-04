@@ -178,14 +178,6 @@ var dbHandler = {
   upgradeDatabase: function(oldVersion, transaction) {
     return new Promise(async function(resolve, reject) {
 
-      let toast = app.f7.toast.create({
-        text: "Performing Database Upgrade",
-        position: 'center',
-        closeTimeout: 2000,
-      });
-
-      toast.open();
-
       if (!oldVersion)
         resolve();
 
@@ -688,6 +680,8 @@ var dbHandler = {
 
       t.oncomplete = (e) => {
         console.log("Database import successful");
+        app.f7.preloader.hide();
+        app.f7.dialog.alert("The backup has been restored", "Import Complete");
         resolve(e);
       };
 
@@ -705,6 +699,8 @@ var dbHandler = {
       // Remove version key from import data 
       delete data.version;
       delete data._version;
+
+      app.f7.preloader.show("red");
 
       // Go through each object store and add the imported data
       storeNames.forEach((x) => {

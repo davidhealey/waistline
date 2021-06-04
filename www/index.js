@@ -298,7 +298,6 @@ app.f7.on("init", async function(event) {
       let path = await app.Utils.writeFile(data, filename);
     }*/
   }
-
 });
 
 //Prevent chrome displaying context menu on long click
