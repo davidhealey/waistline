@@ -78,10 +78,10 @@ app.Utils = {
     return new Promise(function(resolve, reject) {
       if (app.mode !== "development" && device.platform !== "browser") {
 
-        console.log("Writing data to file");
+        let base = cordova.file.externalDataDirectory;
+        let path = filename;
 
-        let base = cordova.file.externalRootDirectory;
-        let path = "Waistline/Database Backups/" + filename;
+        console.log("Writing data to file: " + base + path);
 
         window.resolveLocalFileSystemURL(base, (dir) => {
           dir.getFile(path, {
@@ -118,10 +118,10 @@ app.Utils = {
     return new Promise(function(resolve, reject) {
       if (app.mode !== "development" && device.platform !== "browser") {
 
-        console.log("Reading file");
+        let base = cordova.file.externalDataDirectory;
+        let path = filename;
 
-        let base = cordova.file.externalRootDirectory;
-        let path = "Waistline/Database Backups/" + filename;
+        console.log("Reading file: " + base + path);
 
         window.resolveLocalFileSystemURL(base, (dir) => {
           dir.getFile(path, {}, (file) => {

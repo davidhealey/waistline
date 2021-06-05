@@ -250,12 +250,16 @@ app.Settings = {
   },
 
   exportDatabase: async function() {
+    app.f7.preloader.show("red");
+
     let data = await dbHandler.export();
-    data.settings = JSON.parse(window.localStorage.getItem("settings"))
-    let json = JSON.stringify(data)
+    data.settings = JSON.parse(window.localStorage.getItem("settings"));
+    let json = JSON.stringify(data);
 
     let filename = "waistline_export.json";
     let path = await app.Utils.writeFile(json, filename);
+
+    app.f7.preloader.hide();
 
     if (path !== undefined) {
       let msg = app.strings.settings.integration["export-success"] || "Database Exported";
@@ -277,8 +281,8 @@ app.Settings = {
       await dbHandler.import(data);
 
       if (data.settings) {
-        window.localStorage.setItem("settings", JSON.stringify(data.settings))
-        this.changeTheme(data.settings.theme["dark-mode"], data.settings.theme["theme"])
+        window.localStorage.setItem("settings", JSON.stringify(data.settings));
+        this.changeTheme(data.settings.theme["dark-mode"], data.settings.theme["theme"]);
       }
     });
   },

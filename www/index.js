@@ -280,6 +280,9 @@ document.addEventListener("page:reinit", function(event) {
 app.f7.on("init", async function(event) {
   // Localization
   app.localizationInit();
+});
+
+document.addEventListener('deviceready', async function() {
 
   //Database setup
   await dbHandler.initializeDb();
@@ -290,15 +293,15 @@ app.f7.on("init", async function(event) {
   } else {
     app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
     app.f7.views.main.router.navigate(settings.theme["start-page"]);
-
-    // Backup database 
-    /*if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
-      let data = await dbHandler.export();
-      let filename = "waistline_auto_backup.json";
-      let path = await app.Utils.writeFile(data, filename);
-    }*/
   }
-});
+
+  // Backup database 
+  if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
+    let data = await dbHandler.export();
+    let filename = "waistline_auto_backup.json";
+    let path = await app.Utils.writeFile(data, filename);
+  }
+}, false);
 
 //Prevent chrome displaying context menu on long click
 window.addEventListener("contextmenu", function(e) {

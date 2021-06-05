@@ -631,6 +631,7 @@ var dbHandler = {
 
   export: function() {
     return new Promise(function(resolve, reject) {
+
       if (DB.objectStoreNames.length > 0) {
         let result = {};
         let t = DB.transaction(DB.objectStoreNames, "readonly");
