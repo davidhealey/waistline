@@ -25,16 +25,24 @@ app.OpenFoodFacts = {
         let url;
 
         // If query is a number, assume it's a barcode
-        if (isNaN(query) == true)
+        if (isNaN(query) == true) {
           url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURI(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
-        else
+        } else {
           url = "https://world.openfoodfacts.org/api/v0/product/" + query + ".json";
 
-        //Get country name
-        let country = app.Settings.get("integration", "search-country") || undefined;
+          //Get country name
+          let country = app.Settings.get("integration", "search-country") || undefined;
 
-        if (country && country != "All")
-          url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country); //Limit search to selected country
+          //Limit search to selected country
+          if (country && country != "All")
+            url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country);
+
+          //Get language
+          let lang = app.Settings.get("integration", "search-language") || undefined;
+
+          if (lang && lang != "Default")
+            url += "&lang=" + lang + "&lc=" + lang;
+        }
 
         let response = await fetch(url, {
           headers: {
@@ -150,7 +158,7 @@ app.OpenFoodFacts = {
 
       // Make request to OFF
       let endPoint;
-      if (app.mode == "development")
+      if (app.mode != "release")
         endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
       else
         endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
