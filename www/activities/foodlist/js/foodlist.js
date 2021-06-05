@@ -51,10 +51,7 @@ app.Foodlist = {
     app.Foodlist.filterList = app.Foodlist.list;
 
     // Set scan button visibility
-    if (navigator.connection.type !== "none")
-      app.Foodlist.el.scan.style.display = "block";
-    else
-      app.Foodlist.el.scan.style.display = "none";
+    app.Foodlist.el.scan.style.display = "block";
 
     this.renderList(true);
   },
