@@ -155,5 +155,13 @@ app.Utils = {
         console.log("Read file doesn't work in browser");
       }
     });
+  },
+
+  checkIfFileExists: function(path) {
+    window.resolveLocalFileSystemURL(path, () => {
+      return true;
+    }, () => {
+      return false;
+    });
   }
 };

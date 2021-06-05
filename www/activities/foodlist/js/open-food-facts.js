@@ -165,7 +165,7 @@ app.OpenFoodFacts = {
 
       let headers = {};
 
-      if (app.mode == "development")
+      if (app.mode != "release")
         headers.Authorization = "Basic " + btoa("off:off");
 
       let response = await fetch(endPoint + s, {

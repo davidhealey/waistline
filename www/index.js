@@ -55,6 +55,10 @@ const app = {
   },
 
   localizationInit: function() {
+    let lang = navigator.language.replace(/_/, '-').toLowerCase();
+
+    if (lang.length > 3)
+      lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
 
     //Get default/fallback locale data
     $.getJSON("assets/locales/locale-en.json", function(data) {
@@ -277,12 +281,12 @@ document.addEventListener("page:reinit", function(event) {
     panelLeft.enableSwipe();
 });
 
-app.f7.on("init", async function(event) {
-  // Localization
-  app.localizationInit();
-});
+app.f7.on("init", async function(event) {});
 
 document.addEventListener('deviceready', async function() {
+
+  // Localization
+  app.localizationInit();
 
   //Database setup
   await dbHandler.initializeDb();
