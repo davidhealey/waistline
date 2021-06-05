@@ -18,7 +18,7 @@
 */
 
 const app = {
-  mode: "debug",
+  mode: "release",
   data: {}, // App wide object that can be used to store stuff
   strings: {}, // Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
@@ -87,7 +87,7 @@ const app = {
     name: "Waistline",
     // App id
     id: "com.waist.line",
-    version: "2.9.1",
+    version: "2.9.2",
     // Enable swipe panel
     panel: {
       swipe: "left",
