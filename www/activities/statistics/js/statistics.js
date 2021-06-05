@@ -37,7 +37,7 @@ app.Stats = {
     if (laststat !== undefined)
       app.Stats.el.stat.value = laststat;
 
-    if (app.Stats.el.stat.value == undefined)
+    if (app.Stats.el.stat.value == undefined || app.Stats.el.stat.value == "")
       app.Stats.el.stat.value = "weight";
 
     this.updateChart(app.Stats.el.stat.value);
