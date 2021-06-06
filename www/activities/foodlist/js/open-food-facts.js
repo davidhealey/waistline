@@ -174,7 +174,7 @@ app.OpenFoodFacts = {
         })
         .catch((error) => {
           console.error('Error:', error);
-          reject();
+          return reject();
         });
 
       if (response) {
@@ -192,7 +192,7 @@ app.OpenFoodFacts = {
               let result = await app.OpenFoodFacts.search(data.barcode);
 
               if (result.length > 0 && result[0].image_url !== undefined)
-                resolve(result[0].image_url);
+                return resolve(result[0].image_url);
             }
           }
         }
@@ -280,7 +280,7 @@ app.OpenFoodFacts = {
           fileEntry.file((file) => {
             console.log("Reading file");
 
-            const imagefields = ["front", "ingredients", "nutrition"];
+            const imagefields = ["front", "nutrition", "ingredients"];
             let reader = new FileReader();
 
             reader.onloadend = function() {
@@ -292,6 +292,7 @@ app.OpenFoodFacts = {
               let data = new FormData();
               data.append("imgupload_" + imagefields[index], blob);
               data.append("imagefield", imagefields[index]);
+
               resolve(data);
             };
 
