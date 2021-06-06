@@ -513,6 +513,8 @@ app.FoodEditor = {
                 app.Utils.toast(msg);
               });
 
+              app.Utils.toast("Upload Complete. Please rescan the barcode", 3500);
+
               app.f7.preloader.hide();
 
               resolve();

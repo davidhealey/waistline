@@ -80,6 +80,7 @@ app.OpenFoodFacts = {
   },
 
   parseItem: function(item) {
+    console.log(item);
     const nutriments = app.nutriments; //Array of OFF nutriment names
     let result = {
       "nutrition": {}
@@ -205,8 +206,8 @@ app.OpenFoodFacts = {
     let string = "";
 
     // Gather additional data
-    let username = app.Settings.get("integrations", "off-username") || "waistline-app";
-    let password = app.Settings.get("integrations", "off-password") || "waistline";
+    let username = app.Settings.get("integration", "off-username") || "waistline-app";
+    let password = app.Settings.get("integration", "off-password") || "waistline";
 
     // Organise data for upload 
     string += "code=" + data.barcode;
@@ -220,31 +221,24 @@ app.OpenFoodFacts = {
     if (data.traces !== undefined) string += "&traces=" + escape(data.traces);
 
     // Energy
-    if (data.nutrition.kilojoules !== undefined) {
-      data.nutrition.calories = Math.round(data.nutrition.kilojoules / 4.1868 * 100) / 100;
-      string += "&nutriment_energy_unit=kj";
-      string += "&nutriment_energy=" + data.nutrition.kilojoules;
-    } else {
+    if (data.nutrition.calories !== undefined && data.nutrition.kilojoules == undefined)
       data.nutrition.kilojoules = Math.round(data.nutrition.calories * 4.1868 * 100) / 100;
-      string += "&nutriment_energy_unit=kcal";
-      string += "&nutriment_energy=" + data.nutrition.calories;
-    }
+    else if (data.nutrition.calories == undefined && data.nutrition.kilojoules !== undefined)
+      data.nutrition.calories = Math.round(data.nutrition.kilojoules / 4.1868 * 100) / 100;
 
-    string += "&energy-kcal=" + data.nutrition.calories;
-    string += "&energy-kj=" + data.nutrition.kilojoules;
+    data.nutrition["energy-kcal"] = data.nutrition.calories;
+    data.nutrition["energy-kj"] = data.nutrition.kilojoules;
 
     // Nutrition
     for (let n in data.nutrition) {
       if (data.nutrition[n] == 0 || n == "kilojoules" || n == "calories") continue;
 
-      string += "&nutriment_" + n + "=" + data.nutrition[n];
+      if (data.nutrition_per == "&nutrition_data_per=100g")
+        string += "&nutriment_" + n + "_100g=" + data.nutrition[n];
+      else
+        string += "&nutriment_" + n + "_value=" + data.nutrition[n];
 
-      if (app.nutrimentUnits[n] !== undefined) {
-        if (n == "alcohol")
-          string += "&nutriment_unit=" + "%25%20vol";
-        else
-          string += "&nutriment_" + n + "_unit=" + app.nutrimentUnits[n];
-      }
+      string += "&nutriment_" + n + "=" + data.nutrition[n];
     }
 
     return string;
@@ -252,8 +246,8 @@ app.OpenFoodFacts = {
 
   uploadImages: function(imageURIs, barcode) {
     return new Promise(async function(resolve, reject) {
-      let username = app.Settings.get("integrations", "off-username") || "waistline-app";
-      let password = app.Settings.get("integrations", "off-password") || "waistline";
+      let username = app.Settings.get("integration", "off-username") || "waistline-app";
+      let password = app.Settings.get("integration", "off-password") || "waistline";
       let promises = [];
 
       for (let i = 0; i < imageURIs.length; i++) {
@@ -331,7 +325,6 @@ app.OpenFoodFacts = {
       body: data
     }).catch((error) => {
       console.error('Error:', error);
-      reject();
     });
 
     return response;
