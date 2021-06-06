@@ -80,7 +80,6 @@ app.OpenFoodFacts = {
   },
 
   parseItem: function(item) {
-    console.log(item);
     const nutriments = app.nutriments; //Array of OFF nutriment names
     let result = {
       "nutrition": {}
@@ -107,7 +106,7 @@ app.OpenFoodFacts = {
 
     //Nutrition
     let perTag = "";
-    if (item.serving_size && (item.nutrition_data_per == "serving" || item.nutriments.energy_serving)) {
+    if (item.serving_size && item.nutriments.energy_serving) {
       result.portion = parseInt(item.serving_size);
       result.unit = item.serving_size.replace(/[^a-z]/g, "");
       result.nutrition.calories = parseInt(item.nutriments.energy_serving / 4.1868);
@@ -127,20 +126,15 @@ app.OpenFoodFacts = {
         result.nutrition.calories = item.nutriments.energy_value;
     }
 
+    // Calories to kilojoules
+    result.nutrition.kilojoules = item.nutriments.energy_serving;
+
     //Each nutriment 
     for (let i = 0; i < nutriments.length; i++) {
       let x = nutriments[i];
       if (x != "calories" && x != "kilojoules") {
         result.nutrition[x] = item.nutriments[x + perTag];
       }
-    }
-
-    //Kilojules to kcal
-    if (item.nutriments.energy_unit == "kJ") {
-      result.nutrition.kilojoules = result.nutrition.calories;
-      result.nutrition.calories = parseInt(result.nutrition.kilojoules / 4.1868);
-    } else {
-      result.nutrition.kilojoules = result.nutrition.calories * 4.1868;
     }
 
     // Ingredients 
