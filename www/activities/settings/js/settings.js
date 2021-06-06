@@ -224,13 +224,12 @@ app.Settings = {
       if ((username == "" && password == "") || await app.OpenFoodFacts.testCredentials(username, password)) {
         this.put("integration", "off-username", username);
         this.put("integration", "off-password", password);
-        app.loginScreen.close(screen);
+        app.f7.loginScreen.close(screen);
+        app.Utils.toast("Login Successfull");
       } else {
         let msg = app.strings.settings.integration["invalid-credentials"] || "Invalid Credentials";
-        app.Utils.notification(msg, "error");
+        app.Utils.toast(msg);
       }
-    } else {
-      app.loginScreen.close(screen);
     }
   },
 
@@ -239,13 +238,12 @@ app.Settings = {
     if (app.Utils.isInternetConnected()) {
       if (key == "" || await app.USDAtestApiKey(key)) {
         this.put("integration", "usda-key", key);
-        app.loginScreen.close(screen);
+        app.f7.loginScreen.close(screen);
+        app.Utils.toast("Login Successfull");
       } else {
         let msg = app.strings.settings.integration["invalid-credentials"] || "API Key Invalid";
-        app.Utils.notification(msg, "error");
+        app.Utils.toast(msg);
       }
-    } else {
-      app.loginScreen.close(screen);
     }
   },
 
