@@ -107,64 +107,64 @@
     "12month": "1 ano",
     "timeline": "Linha do tempo",
     "weight": "Peso",
-    "neck": "Neck",
-    "waist": "Waist",
-    "hips": "Hips",
-    "body fat": "Body Fat"
+    "neck": "Pescoço",
+    "waist": "Cintura",
+    "hips": "Quadril",
+    "body fat": "Gordura corporal"
   },
   "diary": {
-    "title": "Diary",
-    "quick-add": "Quick Add",
-    "log-title": "Today's Stats"
+    "title": "Diário",
+    "quick-add": "Adição rápida",
+    "log-title": "Estatísticas de hoje"
   },
   "diary-chart": {
-    "title": "Overview",
-    "no-data": "No data"
+    "title": "Visão geral",
+    "no-data": "Sem dados"
   },
   "foods-meals-recipes": {
-    "title": "Foods, Meals, Recipes",
-    "foods": "Foods",
-    "meals": "Meals",
-    "recipes": "Recipes",
-    "selected": "Selected"
+    "title": "Alimentos, Refeições, Receitas",
+    "foods": "Alimentos",
+    "meals": "Refeições",
+    "recipes": "Receitas",
+    "selected": "Selecionado"
   },
   "food-editor": {
-    "edit-item": "Edit Items",
-    "add-new-item": "Add New Item",
-    "details": "Details",
-    "barcode": "Barcode",
-    "name": "Name",
-    "brand": "Brand",
-    "category": "Category",
-    "serving-size": "Serving Size",
-    "serving-unit": "Serving Unit",
-    "number-of-servings": "Number of Servings",
-    "nutrition": "Nutrition",
-    "per-100": "Per 100g/100ml",
-    "per-serving": "Per Serving",
-    "ingredients": "Ingredients",
-    "traces": "Traces"
+    "edit-item": "Editar itens",
+    "add-new-item": "Adicionar Novo Item",
+    "details": "Detalhes",
+    "barcode": "Código de barras",
+    "name": "Nome",
+    "brand": "Marca",
+    "category": "Categoria",
+    "serving-size": "Tamanho da porção",
+    "serving-unit": "Unidade da porção",
+    "number-of-servings": "Numero de porções",
+    "nutrition": "Fatos nutricionais",
+    "per-100": "Por 100g/100ml",
+    "per-serving": "Por porção",
+    "ingredients": "Ingredientes",
+    "traces": "Vestígios"
   },
   "goals": {
-    "title": "Goals"
+    "title": "Objetivos"
   },
   "goal-editor": {
-    "title": "Set Goals",
-    "show-in-diary": "Show in Diary",
-    "shared-goal": "Same goal every day",
-    "minimum-goal": "Is minimum goal"
+    "title": "Defina objetivos",
+    "show-in-diary": "Mostrar no Diário",
+    "shared-goal": "Mesmo objetivo todos os dias",
+    "minimum-goal": "É o objetivo mínimo"
   },
   "meal-editor": {
-    "title": "Edit Meal",
-    "foods-recipes": "Foods & Recipes"
+    "title": "Editar refeição",
+    "foods-recipes": "Alimentos e receitas"
   },
   "recipe-editor": {
-    "title": "Edit Recipe",
-    "notes": "Notes"
+    "title": "Editar receita",
+    "notes": "Anotações"
   },
   "settings": {
-    "title": "Settings",
-    "needs-restart": "Restart app to apply changes.",
+    "title": "Configurações",
+    "needs-restart": "Reinicie o app para aplicar alterações.",
     "theme": {
       "title": "Theme",
       "dark": "Dark Mode",
