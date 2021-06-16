@@ -309,6 +309,11 @@ var dbHandler = {
         await new Promise(function(resolve, reject) {
           store = transaction.objectStore('foodList');
           let foods = [];
+          const renamedProperties = {
+            "carbs": "carbohydrates",
+            "protein": "proteins",
+            "sugar": "sugars"
+          };
 
           store.openCursor().onsuccess = function(event) {
 
@@ -316,6 +321,15 @@ var dbHandler = {
 
             if (cursor) {
               let item = cursor.value;
+
+              if (item.nutrition !== undefined) {
+                Object.keys(renamedProperties).forEach(oldProperty => {
+                  if (item.nutrition[oldProperty]) {
+                    item.nutrition[renamedProperties[oldProperty]] = item.nutrition[oldProperty];
+                    delete item.nutrition[oldProperty];
+                  }
+                })
+              }
 
               if (item.portion !== undefined) {
                 item.portion = parseInt(cursor.value.portion);
