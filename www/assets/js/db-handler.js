@@ -177,12 +177,12 @@ var dbHandler = {
 
   upgradeDatabase: function(oldVersion, transaction) {
     return new Promise(async function(resolve, reject) {
+      console.log("Upgrading Database");
 
       if (!oldVersion)
         resolve();
 
       if (oldVersion < 31) {
-
         // Set hours and minutes of diary dateTime to 00:00 in UTC
         await new Promise(function(resolve, reject) {
           try {
@@ -290,14 +290,12 @@ var dbHandler = {
               cursor.delete();
               cursor.continue();
             } else {
-
               for (let e in entries) {
                 promises.push(new Promise(function(resolve, reject) {
-                  store.put(entries[e]).onsuccess = () => {
-                    resolve("Diary upgraded");
-                  };
+                  store.put(entries[e]);
                 }));
               }
+              console.log("Diary upgraded");
               resolve();
             }
           };
@@ -336,11 +334,10 @@ var dbHandler = {
 
               for (let f in foods) {
                 promises.push(new Promise(function(resolve, reject) {
-                  store.put(foods[f]).onsuccess = () => {
-                    resolve("Foodlist upgraded");
-                  };
+                  store.put(foods[f]);
                 }));
               }
+              console.log("Foodlist upgraded");
               resolve();
             }
           };
@@ -390,11 +387,10 @@ var dbHandler = {
 
               for (let m in meals) {
                 promises.push(new Promise(function(resolve, reject) {
-                  store.put(meals[m]).onsuccess = () => {
-                    resolve("Meals upgraded");
-                  };
+                  store.put(meals[m]);
                 }));
               }
+              console.log("Meals upgraded");
               resolve();
             }
           };
@@ -446,21 +442,19 @@ var dbHandler = {
               cursor.delete();
               cursor.continue();
             } else {
-
               for (let r in recipes) {
                 promises.push(new Promise(function(resolve, reject) {
-                  store.put(recipes[r]).onsuccess = () => {
-                    resolve("Recipes upgraded");
-                  };
+                  store.put(recipes[r]);
                 }));
               }
+              console.log("Recipes upgraded");
+              resolve();
             }
-            resolve();
           };
         });
 
         await Promise.all(promises).then((values) => {
-          console.log(values);
+          console.log("Database Upgrade Complete");
           resolve();
         });
       }
@@ -708,14 +702,14 @@ var dbHandler = {
       app.f7.preloader.show("red");
 
       // Go through each object store and add the imported data
+      let storeCount = 0;
       storeNames.forEach((x) => {
         if (data[x] !== undefined && data[x].length > 0) {
 
           // Clear the object store to remove old data
           t.objectStore(x).clear().onsuccess = () => {
 
-            let count = 0;
-
+            let dataCount = 0;
             data[x].forEach(async (d) => {
 
               let entry = d;
@@ -731,24 +725,23 @@ var dbHandler = {
               let request = t.objectStore(x).add(entry);
 
               request.onsuccess = async (e) => {
-                count++;
-
+                dataCount++;
                 // Added all object for this store
-                if (count === data[x].length)
-                  delete data[x];
+                if (dataCount === data[x].length)
+                  storeCount++;
 
                 // Added all objects
-                if (Object.keys(data).length == 0) {
+                if (storeCount >= storeNames.length) {
                   await dbHandler.upgradeDatabase(version, t);
-                  resolve();
                 }
               };
-
               request.onerror = (e) => {
                 dbHandler.errorHandler(e);
               };
             });
           };
+        } else {
+          storeCount++;
         }
       });
     });
