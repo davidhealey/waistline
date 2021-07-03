@@ -175,6 +175,7 @@ app.FoodsMealsRecipes = {
       // Get item ids and quick-add items
       items.forEach((x) => {
         let type = x.type || "food";
+
         if (x.id !== undefined) {
           ids[type] = ids[type] || [];
           ids[type].push(x.id);
@@ -191,20 +192,17 @@ app.FoodsMealsRecipes = {
 
       let data = [];
       items.forEach((item) => {
-        let match = recipes.find(x => x.id === item.id) || foods.find(x => x.id === item.id)
-        data.push(match)
-      })
+        let match = recipes.find(x => x !== undefined && x.id === item.id) || foods.find(x => x !== undefined && x.id === item.id);
+        data.push(match);
+      });
 
       if (data.length > 0) {
-
         //Sum item nutrition
         data.forEach((x, i) => {
-
           if (x !== undefined) {
-
             let dataPortion = parseFloat(x.portion);
-            let itemPortion = parseFloat(items[i].portion);
-            let itemQuantity = parseFloat(items[i].quantity) || 1;
+            let itemPortion = parseFloat(data[i].portion);
+            let itemQuantity = parseFloat(data[i].quantity) || 1;
             let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
             for (let n in x.nutrition) {
@@ -456,7 +454,10 @@ app.FoodsMealsRecipes = {
         if (timestamp == true && item.dateTime !== undefined) {
           let dateTime = new Date(item.dateTime);
           if (text != "") text += "<br>";
-          text += dateTime.toLocaleTimeString([],{hour: '2-digit', minute:'2-digit'});
+          text += dateTime.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
         }
 
         details.innerHTML = text;
