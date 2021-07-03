@@ -312,12 +312,15 @@ var dbHandler = {
 
             if (cursor) {
               let item = cursor.value;
+              let portion = cursor.value.portion;
 
-              if (item.portion !== undefined) {
-                item.portion = parseInt(cursor.value.portion);
-
-                if (typeof item.unit == "string")
-                  item.unit = cursor.value.portion.replace(/[^a-z]/g, "");
+              if (portion !== undefined) {
+                if (typeof portion == "string") {
+                  item.portion = portion.replace(/\D/g, "");
+                  item.unit = portion.replace(/[^a-z]/g, "");
+                } else {
+                  item.portion = parseInt(portion);
+                }
               }
 
               // Remove empty barcodes 
@@ -358,21 +361,28 @@ var dbHandler = {
                 id: value.id,
                 dateTime: value.dateTime,
                 name: value.name,
-                type: "food",
                 items: []
               };
 
               if (value.foods !== undefined) {
-                for (let f in value.foods) {
+
+                for (let idx in value.foods) {
+
+                  let f = value.foods[idx];
+
                   let item = {
                     id: f.id,
-                    quantity: "1"
+                    quantity: "1",
+                    type: "food"
                   };
 
                   if (f.portion !== undefined) {
-                    item.portion == parseInt(f.portion);
-                    if (typeof f.portion == "string")
+                    if (typeof f.portion == "string") {
+                      item.portion = f.portion.replace(/\D/g, "");
                       item.unit = f.portion.replace(/[^a-z]/g, "");
+                    } else {
+                      item.portion = parseInt(f.portion);
+                    }
                   }
 
                   meal.items.push(item);
@@ -414,7 +424,6 @@ var dbHandler = {
                 portion: parseInt(value.portion),
                 quantity: "1",
                 notes: value.notes,
-                type: "food",
                 items: []
               };
 
@@ -422,15 +431,22 @@ var dbHandler = {
                 recipe.unit = value.portion.replace(/[^a-z]/g, "");
 
               if (value.foods !== undefined) {
-                for (let f in value.foods) {
+                for (let idx in value.foods) {
+
+                  let f = value.foods[idx];
+
                   let item = {
-                    id: f.id
+                    id: f.id,
+                    type: "food"
                   };
 
                   if (f.portion !== undefined) {
-                    item.portion == parseInt(f.portion);
-                    if (typeof f.portion == "string")
+                    if (typeof f.portion == "string") {
+                      item.portion = f.portion.replace(/\D/g, "");
                       item.unit = f.portion.replace(/[^a-z]/g, "");
+                    } else {
+                      item.portion = parseInt(f.portion);
+                    }
                   }
 
                   recipe.items.push(item);
