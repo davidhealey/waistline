@@ -253,7 +253,11 @@ app.FoodEditor = {
         input.name = k;
 
         if (item) {
-          input.value = Math.round(item.nutrition[k] * 100) / 100 || "";
+          if (item.nutrition[k] !== 0)
+            input.value = Math.round(item.nutrition[k] * 100) / 100 || "";
+          else
+            input.value = 0;
+
           input.oldValue = input.value;
         } else {
           input.value = "";
