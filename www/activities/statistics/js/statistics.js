@@ -28,6 +28,10 @@ app.Stats = {
     this.getComponents();
     this.bindUIActions();
     this.populateDropdownOptions();
+
+    let ct = app.Settings.get("statistics", "chart-type");
+    ct == 0 ? app.Stats.chartType = "bar" : app.Stats.chartType = "line";
+
     this.setChartTypeButtonVisbility();
     this.chart = undefined;
     this.dbData = await this.getDataFromDb();
@@ -86,6 +90,8 @@ app.Stats = {
           buttons[1 - value].style.display = "block";
 
           value == 0 ? app.Stats.chartType = "bar" : app.Stats.chartType = "line";
+
+          app.Settings.put("statistics", "chart-type", value);
 
           app.Stats.chart.destroy();
           app.Stats.chart = undefined;
