@@ -315,14 +315,20 @@ document.addEventListener('deviceready', async function() {
 }, false);
 
 //Prevent chrome displaying context menu on long click
-window.addEventListener("contextmenu", function(e) {
+window.addEventListener("contextmenu", (e) => {
   e.preventDefault();
 });
 
 // Android back button 
-document.addEventListener("backbutton", (event) => {
-  if (app.f7.views.main.history.length === 1)
-    navigator.app.exitApp();
-  else
+document.addEventListener("backbutton", (e) => {
+  if (app.f7.views.main.history.length > 1)
     app.f7.views.main.router.back();
+
+  let dialogs = document.getElementsByClassName("dialog");
+
+  if (dialogs.length) {
+    app.f7.dialog.close(".dialog");
+    e.preventDefault();
+    return false;
+  }
 });
