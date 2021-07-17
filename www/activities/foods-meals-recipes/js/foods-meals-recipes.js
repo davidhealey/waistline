@@ -201,8 +201,8 @@ app.FoodsMealsRecipes = {
         data.forEach((x, i) => {
           if (x !== undefined) {
             let dataPortion = parseFloat(x.portion);
-            let itemPortion = parseFloat(data[i].portion);
-            let itemQuantity = parseFloat(data[i].quantity) || 1;
+            let itemPortion = parseFloat(items[i].portion);
+            let itemQuantity = parseFloat(items[i].quantity) || 1;
             let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
             for (let n in x.nutrition) {
