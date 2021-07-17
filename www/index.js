@@ -205,6 +205,13 @@ const app = {
             }
           },
           {
+            path: "nutriments/",
+            url: "activities/settings/views/nutriments.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
             path: "integration/",
             url: "activities/settings/views/integration.html",
             options: {

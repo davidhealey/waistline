@@ -215,6 +215,10 @@ app.FoodEditor = {
 
     const nutriments = app.nutriments;
     const units = app.nutrimentUnits;
+    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+
+    let energy_unit = app.Settings.get("units", "energy");
+    energy_unit == "kcal" ? energy_unit = "calories" : energy_unit = "kilojoules";
 
     if (item !== undefined && item.nutrition.kilojoules == undefined)
       item.nutrition.kilojoules = Math.round(item.nutrition.calories * 4.1868);
@@ -227,6 +231,10 @@ app.FoodEditor = {
       if (app.FoodEditor.origin == "foodlist" || (item !== undefined && item.nutrition[k])) { // All nutriments or only items nutriments
         let li = document.createElement("li");
         li.className = "item-content item-input";
+
+        if (nutrimentVisibility[k] !== true && k != energy_unit)
+          li.style.display = "none";
+
         ul.appendChild(li);
 
         let innerDiv = document.createElement("div");

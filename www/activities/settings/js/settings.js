@@ -285,6 +285,52 @@ app.Settings = {
     });
   },
 
+  populateNutrimentList: function() {
+    let nutriments = app.nutriments;
+    let ul = document.querySelector("#nutriment-list");
+
+    for (let i in nutriments) {
+      let n = nutriments[i];
+
+      if (n == "calories" || n == "kilojoules") continue;
+
+      let li = document.createElement("li");
+      ul.appendChild(li);
+
+      let content = document.createElement("div");
+      content.className = "item-content";
+      li.appendChild(content);
+
+      let inner = document.createElement("div");
+      inner.className = "item-inner";
+      content.appendChild(inner);
+
+      let text = app.strings.nutriments[n] || n;
+      let title = document.createElement("div");
+      title.className = "item-title";
+      title.innerHTML = app.Utils.tidyText(text, 50, true);
+      inner.appendChild(title);
+
+      let after = document.createElement("div");
+      after.className = "item-after";
+      inner.appendChild(after);
+
+      let label = document.createElement("label");
+      label.className = "toggle toggle-init";
+      after.appendChild(label);
+
+      let input = document.createElement("input");
+      input.type = "checkbox";
+      input.name = n;
+      input.setAttribute('field', 'nutrimentVisibility');
+      label.appendChild(input);
+
+      let span = document.createElement("span");
+      span.className = "toggle-icon";
+      label.appendChild(span);
+    }
+  },
+
   firstTimeSetup: function() {
     let defaults = {
       diary: {
@@ -329,6 +375,13 @@ app.Settings = {
         "fat-shared-goal": true,
         "fat-show-in-diary": true
       },
+      nutrimentVisibility: {
+        "fat": true,
+        "carbohydrates": true,
+        "proteins": true,
+        "salt": true,
+        "sugars": true
+      },
       firstTimeSetup: true
     };
 
@@ -338,6 +391,9 @@ app.Settings = {
 
 document.addEventListener("page:init", async function(e) {
   const pageName = e.target.attributes["data-name"].value;
+
+  if (pageName == "settings-nutriments")
+    app.Settings.populateNutrimentList();
 
   //Settings and all settings subpages
   if (pageName.indexOf("settings") != -1) {
