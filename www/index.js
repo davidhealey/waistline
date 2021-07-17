@@ -321,8 +321,6 @@ window.addEventListener("contextmenu", (e) => {
 
 // Android back button 
 document.addEventListener("backbutton", (e) => {
-  if (app.f7.views.main.history.length > 1)
-    app.f7.views.main.router.back();
 
   let dialogs = document.getElementsByClassName("dialog");
 
@@ -331,4 +329,14 @@ document.addEventListener("backbutton", (e) => {
     e.preventDefault();
     return false;
   }
+
+  let activeSearch = document.getElementsByClassName("searchbar-focused");
+
+  if (activeSearch.length) {
+    app.f7.searchbar.clear(".searchbar-focused");
+    return false;
+  }
+
+  if (app.f7.views.main.history.length > 1)
+    app.f7.views.main.router.back();
 });
