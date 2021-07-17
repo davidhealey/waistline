@@ -158,36 +158,40 @@ app.RecipeEditor = {
   },
 
   renderNutrition: async function() {
-    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
-    let nutrimentUnits = app.nutrimentUnits;
-    let ul = app.RecipeEditor.el.nutrition;
+    const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
+    const nutrimentUnits = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
+    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+    const ul = app.RecipeEditor.el.nutrition;
 
     for (let n in nutrition) {
-      if (nutrition[n] !== 0) {
 
-        let unit = "g";
-        if (nutrimentUnits[n] !== undefined)
-          unit = nutrimentUnits[n];
+      if (n == "calories" && energyUnit !== "kcal") continue;
+      if (n == "kilojoules" && energyUnit == "kcal") continue;
+      if (nutrimentVisibility[n] !== true && !["calories", "kilojoules"].includes(n)) continue;
 
-        let li = document.createElement("li");
-        li.className = "item-content item-input";
-        ul.appendChild(li);
+      let unit = "g";
+      if (nutrimentUnits[n] !== undefined)
+        unit = nutrimentUnits[n];
 
-        let innerDiv = document.createElement("div");
-        innerDiv.className = "item-inner";
-        li.appendChild(innerDiv);
+      let li = document.createElement("li");
+      li.className = "item-content item-input";
+      ul.appendChild(li);
 
-        let title = document.createElement("div");
-        title.className = "item-title item-label";
-        let text = app.strings.nutriments[n] || n;
-        title.innerHTML = app.Utils.tidyText(text, 30) + " (" + unit + ")";
-        innerDiv.appendChild(title);
+      let innerDiv = document.createElement("div");
+      innerDiv.className = "item-inner";
+      li.appendChild(innerDiv);
 
-        let after = document.createElement("div");
-        after.className = "item-after";
-        after.innerHTML = Math.round(nutrition[n] * 100) / 100;
-        innerDiv.appendChild(after);
-      }
+      let title = document.createElement("div");
+      title.className = "item-title item-label";
+      let text = app.strings.nutriments[n] || n;
+      title.innerHTML = app.Utils.tidyText(text, 30, true) + " (" + unit + ")";
+      innerDiv.appendChild(title);
+
+      let after = document.createElement("div");
+      after.className = "item-after";
+      after.innerHTML = Math.round(nutrition[n] * 100) / 100;
+      innerDiv.appendChild(after);
     }
   },
 

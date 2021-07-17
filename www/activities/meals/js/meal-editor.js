@@ -151,12 +151,18 @@ app.MealEditor = {
   },
 
   renderNutrition: async function() {
-    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.MealEditor.meal.items);
-    let nutrimentUnits = app.nutrimentUnits;
-    let ul = app.MealEditor.el.nutrition;
+    const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.MealEditor.meal.items);
+    const nutrimentUnits = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
+    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+    const ul = app.MealEditor.el.nutrition;
 
     for (let n in nutrition) {
       if (nutrition[n] !== 0) {
+
+        if (n == "calories" && energyUnit !== "kcal") continue;
+        if (n == "kilojoules" && energyUnit == "kcal") continue;
+        if (nutrimentVisibility[n] !== true && !["calories", "kilojoules"].includes(n)) continue;
 
         let unit = "g";
         if (nutrimentUnits[n] !== undefined)
@@ -173,7 +179,7 @@ app.MealEditor = {
         let title = document.createElement("div");
         title.className = "item-title item-label";
         let text = app.strings.nutriments[n] || n;
-        title.innerHTML = app.Utils.tidyText(text, 30) + " (" + unit + ")";
+        title.innerHTML = app.Utils.tidyText(text, 30, true) + " (" + unit + ")";
         innerDiv.appendChild(title);
 
         let after = document.createElement("div");

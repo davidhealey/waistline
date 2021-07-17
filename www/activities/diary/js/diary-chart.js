@@ -67,7 +67,7 @@ app.DiaryChart = {
 
         let unit = nutrimentUnits[n] || "g";
         let name = app.strings.nutriments[n] || n;
-        let label = app.Utils.tidyText(name) + " (" + unit + ")";
+        let label = app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
 
         result.labels.push(label);
         result.values.push(Math.round(nutrition[n] * 100) / 100);
