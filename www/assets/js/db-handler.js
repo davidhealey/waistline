@@ -304,6 +304,8 @@ var dbHandler = {
         // Convert old foodlist entries to new schema
         await new Promise(function(resolve, reject) {
           store = transaction.objectStore('foodList');
+          const oldNutrimentNames = ["carbs", "protein", "sugar"];
+          const newNutrmentNames = ["carbohydrates", "proteins", "sugars"];
           let foods = [];
 
           store.openCursor().onsuccess = function(event) {
@@ -320,6 +322,14 @@ var dbHandler = {
                   item.unit = portion.replace(/[^a-z]/g, "");
                 } else {
                   item.portion = parseInt(portion);
+                }
+              }
+
+              for (let n in item.nutrition) {
+                let index = oldNutrimentNames.indexOf(n);
+                if (index !== -1) {
+                  item.nutrition[newNutrmentNames[index]] = item.nutrition[n];
+                  delete item.nutrition[n];
                 }
               }
 
