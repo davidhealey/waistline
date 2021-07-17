@@ -156,6 +156,7 @@ app.MealEditor = {
     const energyUnit = app.Settings.get("units", "energy");
     const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
     const ul = app.MealEditor.el.nutrition;
+    ul.innerHTML = "";
 
     for (let n in nutrition) {
       if (nutrition[n] !== 0) {
