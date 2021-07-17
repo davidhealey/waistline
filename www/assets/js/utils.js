@@ -1,6 +1,6 @@
 app.Utils = {
 
-  tidyText: function(text, maxLength) {
+  tidyText: function(text, maxLength, titleCase) {
 
     if (text) {
       let t = unescape(text);
@@ -9,9 +9,13 @@ app.Utils = {
         t = t.substring(0, maxLength - 2) + "..";
 
       //Format to title case
-      return t.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
+      if (titleCase === true) {
+        return t.replace(/\w\S*/g, function(txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+      }
+
+      return t;
     }
     return "";
   },
