@@ -20,6 +20,7 @@
 app.GoalEditor = {
 
   el: {},
+  item: "",
 
   init: function(context) {
     this.getComponents();
@@ -27,15 +28,19 @@ app.GoalEditor = {
 
     if (context.item !== undefined) {
       const inputs = Array.from(document.querySelectorAll("input"));
-      app.GoalEditor.el.title.innerText = app.Utils.tidyText(context.item, 50);
+      this.el.title.innerText = app.Utils.tidyText(context.item, 50, true);
       this.setInputNames(context.item);
       app.Settings.restoreInputValues(inputs);
-      app.GoalEditor.setGoalSharing();
+      this.setGoalSharing();
+      this.item = context.item;
     }
+
+    this.hideShowComponents();
   },
 
   getComponents: function() {
     app.GoalEditor.el.title = document.querySelector(".page[data-name='goal-editor'] #goal-editor-title");
+    app.GoalEditor.el.showInDiary = document.querySelector(".page[data-name='goal-editor'] #diary");
     app.GoalEditor.el.sharedGoal = document.querySelector(".page[data-name='goal-editor'] #shared-goal");
     app.GoalEditor.el.minimumGoal = document.querySelector(".page[data-name='goal-editor'] #minimum-goal");
   },
@@ -72,6 +77,12 @@ app.GoalEditor = {
     }
   },
 
+  hideShowComponents: function() {
+    const measurements = ["weight", "neck", "waist", "hips", "body fat"];
+    if (measurements.includes(app.GoalEditor.item))
+      app.GoalEditor.el.showInDiary.style.display = "none";
+  },
+
   setInputNames: function(name) {
     const inputs = Array.from(document.querySelectorAll("input"));
 
@@ -82,6 +93,8 @@ app.GoalEditor = {
         x.name = name + "-minimum-goal";
       else if (x.id == "show-in-diary")
         x.name = name + "-show-in-diary";
+      else if (x.id == "show-in-stats")
+        x.name = name + "-show-in-stats";
       else
         x.name = name;
     });

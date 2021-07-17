@@ -111,14 +111,19 @@ app.Stats = {
   },
 
   populateDropdownOptions: function() {
-    let nutriments = app.nutriments;
+    const nutriments = app.nutriments;
+    const measurements = ["weight", "neck", "waist", "hips", "body fat"];
+    const stats = measurements.concat(nutriments);
+    const goals = app.Settings.getField("goals");
 
-    nutriments.forEach((x, i) => {
-      let option = document.createElement("option");
-      option.value = x;
-      let text = app.strings.nutriments[x] || x;
-      option.innerHTML = app.Utils.tidyText(text);
-      app.Stats.el.stat.appendChild(option);
+    stats.forEach((x, i) => {
+      if (goals[x + "-show-in-stats"] == true) {
+        let option = document.createElement("option");
+        option.value = x;
+        let text = app.strings.nutriments[x] || x;
+        option.innerHTML = app.Utils.tidyText(text, 80, true);
+        app.Stats.el.stat.appendChild(option);
+      }
     });
   },
 

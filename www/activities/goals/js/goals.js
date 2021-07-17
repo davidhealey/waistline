@@ -31,31 +31,38 @@ app.Goals = {
   },
 
   populateGoalList: function() {
-    let nutriments = app.nutriments;
-    let units = app.nutrimentUnits;
-    let energy_unit = app.Settings.get("units", "energy");
 
-    for (let i in nutriments) {
-      let n = nutriments[i];
+    const measurements = ["weight", "neck", "waist", "hips", "body fat"];
+    const nutriments = app.nutriments;
+    const stats = measurements.concat(nutriments);
+    const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);
 
-      if (n == "calories" && energy_unit !== "kcal") continue;
-      if (n == "kilojoules" && energy_unit == "kcal") continue;
+    for (let i in stats) {
+      let x = stats[i];
 
-      let unit = "g";
-      if (units[n] !== undefined)
-        unit = units[n];
+      if (x == "calories" && units.energy !== "kcal") continue;
+      if (x == "kilojoules" && units.energy == "kcal") continue;
+
+      let unit = "";
+      if (units[x] !== undefined)
+        unit = "(" + units[x] + ")";
+      else if (measurements.includes(x))
+        unit = "(" + units.length + ")";
+      else if (nutriments.includes(x))
+        unit = "(g)";
 
       let li = document.createElement("li");
       app.Goals.el.list.appendChild(li);
 
       let a = document.createElement("a");
       a.href = "#";
-      let text = app.strings.nutriments[n] || n;
-      a.innerHTML = app.Utils.tidyText(text, 50, true) + " (" + unit + ")";
+
+      let text = app.strings.nutriments[x] || x;
+      a.innerHTML = app.Utils.tidyText(text, 50, true) + " " + unit;
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {
-        app.Goals.gotoEditor(n);
+        app.Goals.gotoEditor(x);
       });
     }
   },

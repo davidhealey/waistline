@@ -143,7 +143,12 @@ app.Diary = {
   updateDateDisplay: function() {
     let el = app.Diary.el.date;
     let date = new Date(app.Diary.date);
-    let dateString = date.toLocaleDateString([], {weekday: "short", month: "long", day: "numeric", year: "numeric"})
+    let dateString = date.toLocaleDateString([], {
+      weekday: "short",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    });
     el.innerText = dateString;
   },
 
@@ -305,7 +310,7 @@ app.Diary = {
   getEntryFromDB: function() {
     return new Promise(async function(resolve, reject) {
       if (app.Diary.date !== undefined) {
-        let date = new Date(app.Diary.date)
+        let date = new Date(app.Diary.date);
         let entry = await dbHandler.get("diary", "dateTime", new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())));
         resolve(entry);
       }
@@ -315,7 +320,7 @@ app.Diary = {
   },
 
   getNewEntry: function() {
-    let date = new Date(app.Diary.date)
+    let date = new Date(app.Diary.date);
     let entry = {
       dateTime: new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())),
       items: [],
@@ -425,10 +430,11 @@ app.Diary = {
   },
 
   log: function() {
-    let title = app.strings.diary["log-title"] || "Today's Stats";
-    let stats = JSON.parse(window.localStorage.getItem("stats")) || {};
-    let units = app.Settings.getField("units");
-    let fields = ["weight", "neck", "waist", "hips", "body fat"];
+    const title = app.strings.diary["log-title"] || "Today's Stats";
+    const stats = JSON.parse(window.localStorage.getItem("stats")) || {};
+    const units = app.Settings.getField("units");
+    const fields = ["weight", "neck", "waist", "hips", "body fat"];
+    const goals = app.Settings.getField("goals");
 
     // Create dialog inputs
     let div = document.createElement("div");
@@ -439,6 +445,8 @@ app.Diary = {
 
     for (let i = 0; i < fields.length; i++) {
       let x = fields[i];
+
+      if (x !== "weight" && goals[x + "-show-in-stats"] !== true) continue;
 
       let unit;
 
