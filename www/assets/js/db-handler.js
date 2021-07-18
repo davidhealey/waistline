@@ -337,6 +337,9 @@ var dbHandler = {
               if (item.barcode == "")
                 delete item.barcode;
 
+              item.name = unescape(cursor.value.name);
+              item.brand = unescape(cursor.value.brand);
+
               item.type = "food";
 
               foods.push(item);
@@ -370,7 +373,7 @@ var dbHandler = {
               let meal = {
                 id: value.id,
                 dateTime: value.dateTime,
-                name: value.name,
+                name: unescape(value.name),
                 items: []
               };
 
@@ -430,7 +433,7 @@ var dbHandler = {
               let recipe = {
                 id: value.id,
                 dateTime: value.dateTime,
-                name: value.name,
+                name: unescape(value.name),
                 portion: parseInt(value.portion),
                 quantity: "1",
                 notes: value.notes,
