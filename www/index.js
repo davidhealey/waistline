@@ -307,11 +307,13 @@ document.addEventListener('deviceready', async function() {
   }
 
   // Backup database 
-  if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
-    let data = await dbHandler.export();
-    let filename = "waistline_auto_backup.json";
-    let path = await app.Utils.writeFile(data, filename);
-  }
+  setTimeout(async () => {
+    if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
+      let data = await dbHandler.export();
+      let filename = "waistline_auto_backup.json";
+      let path = await app.Utils.writeFile(data, filename);
+    }
+  }, 2000);
 }, false);
 
 //Prevent chrome displaying context menu on long click
