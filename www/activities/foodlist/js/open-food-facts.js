@@ -91,7 +91,7 @@ app.OpenFoodFacts = {
     //Search for all keys containing 'item_name' to include local item names
     for (let k in item) {
       if (k.includes("product_name") && item[k].length > 1) {
-        result.name = escape(item[k]);
+        result.name = item[k];
         break;
       }
     }
@@ -102,7 +102,7 @@ app.OpenFoodFacts = {
     //Get first brand if there is more than one
     let brands = item.brands || "";
     let n = brands.indexOf(",");
-    result.brand = escape(brands.substring(0, n != -1 ? n : brands.length));
+    result.brand = brands.substring(0, n != -1 ? n : brands.length);
 
     //Nutrition
     let perTag = "";
@@ -158,7 +158,9 @@ app.OpenFoodFacts = {
       else
         endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
 
-      let headers = {};
+      let headers = {
+        'content-type': 'text/html; charset=UTF-8'
+      };
 
       if (app.mode != "release")
         headers.Authorization = "Basic " + btoa("off:off");
@@ -186,7 +188,7 @@ app.OpenFoodFacts = {
               // Get image URL from OFF
               let result = await app.OpenFoodFacts.search(data.barcode);
 
-              if (result.length > 0 && result[0].image_url !== undefined)
+              if (result.length > 0 && result[0] !== undefined && result[0].image_url !== undefined)
                 return resolve(result[0].image_url);
             }
           }
@@ -207,12 +209,12 @@ app.OpenFoodFacts = {
     string += "code=" + data.barcode;
     string += "&user_id=" + username;
     string += "&password=" + password;
-    string += "&product_name=" + escape(data.name);
-    if (data.brand !== undefined) string += "&brands=" + escape(data.brand);
+    string += "&product_name=" + data.name;
+    if (data.brand !== undefined) string += "&brands=" + data.brand;
     string += data.nutrition_per;
-    string += "&serving_size=" + escape(data.portion) + data.unit;
-    if (data.ingredients !== undefined) string += "&ingredients_text=" + escape(data.ingredients);
-    if (data.traces !== undefined) string += "&traces=" + escape(data.traces);
+    string += "&serving_size=" + data.portion + data.unit;
+    if (data.ingredients !== undefined) string += "&ingredients_text=" + data.ingredients;
+    if (data.traces !== undefined) string += "&traces=" + data.traces;
 
     // Energy
     if (data.nutrition.calories !== undefined && data.nutrition.kilojoules == undefined)

@@ -232,7 +232,7 @@ app.FoodEditor = {
         let li = document.createElement("li");
         li.className = "item-content item-input";
 
-        if (nutrimentVisibility[k] !== true && k != energy_unit)
+        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && k != energy_unit)
           li.style.display = "none";
 
         ul.appendChild(li);
