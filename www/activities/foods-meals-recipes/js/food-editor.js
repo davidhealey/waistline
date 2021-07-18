@@ -213,7 +213,7 @@ app.FoodEditor = {
   /* Nutrition fields are dynamically created for the nutriments of the item */
   renderNutritionFields: function(item) {
 
-    const nutriments = app.nutriments;
+    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.nutrimentUnits;
     const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
 
@@ -476,7 +476,7 @@ app.FoodEditor = {
           let value = x.value;
 
           if (id !== "" && value) {
-            if (app.nutriments.indexOf(id) !== -1) {
+            if (app.nutriments.includes(id)) {
               item.nutrition[id] = parseFloat(value);
             } else if (x.type == "radio") {
               if (item[x.name] == undefined && x.checked)

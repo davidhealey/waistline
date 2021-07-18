@@ -183,8 +183,7 @@ app.Diary = {
   },
 
   renderNutritionCard: function(nutrition, date, swiper) {
-    let nutriments = app.nutriments;
-    let nutrimentShortNames = app.nutrimentShortNames;
+    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     let nutrimentUnits = app.nutrimentUnits;
     let energyUnit = app.Settings.get("units", "energy");
     let rows = [];
@@ -479,7 +478,7 @@ app.Diary = {
 
       let title = document.createElement("div");
       title.className = "item-title item-label";
-      title.innerHTML = app.strings.statistics[x] || app.Utils.tidyText(x);
+      title.innerHTML = app.strings.statistics[x] || app.Utils.tidyText(x, 50, true);
       title.innerHTML += " (" + unit + ")";
       inner.appendChild(title);
 

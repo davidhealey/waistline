@@ -21,6 +21,7 @@ var s;
 app.Settings = {
 
   settings: {},
+  nutrimentSortLock: 1,
 
   init: function() {
     s = this.settings; //Assign settings object
@@ -169,9 +170,22 @@ app.Settings = {
     // Animations 
     let toggleAnimations = document.getElementById("toggle-animations");
     if (toggleAnimations != undefined) {
-      toggleAnimations.addEventListener("click", function(e) {
+      toggleAnimations.addEventListener("click", (e) => {
         let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
         app.Utils.toast(msg);
+      });
+    }
+
+    // Nutriment list 
+    let nutrimentList = document.getElementById("nutriment-list");
+    if (nutrimentList != undefined) {
+      app.f7.on("sortableSort", (e, data) => {
+        let li = nutrimentList.getElementsByTagName("li");
+        let newOrder = [];
+        for (let i = 0; i < li.length; i++) {
+          newOrder.push(li[i].id);
+        }
+        app.Settings.put("nutriments", "order", newOrder);
       });
     }
   },
@@ -286,7 +300,7 @@ app.Settings = {
   },
 
   populateNutrimentList: function() {
-    let nutriments = app.nutriments;
+    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     let ul = document.querySelector("#nutriment-list");
 
     for (let i in nutriments) {
@@ -295,6 +309,7 @@ app.Settings = {
       if (n == "calories" || n == "kilojoules") continue;
 
       let li = document.createElement("li");
+      li.id = n;
       ul.appendChild(li);
 
       let content = document.createElement("div");
@@ -328,6 +343,10 @@ app.Settings = {
       let span = document.createElement("span");
       span.className = "toggle-icon";
       label.appendChild(span);
+
+      let sortHandler = document.createElement("div");
+      sortHandler.className = "sortable-handler";
+      li.appendChild(sortHandler);
     }
   },
 

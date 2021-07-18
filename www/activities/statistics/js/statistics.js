@@ -111,7 +111,7 @@ app.Stats = {
   },
 
   populateDropdownOptions: function() {
-    const nutriments = app.nutriments;
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const measurements = ["weight", "neck", "waist", "hips", "body fat"];
     const stats = measurements.concat(nutriments);
     const goals = app.Settings.getField("goals");
