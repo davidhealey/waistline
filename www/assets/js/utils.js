@@ -83,14 +83,13 @@ app.Utils = {
       if (app.mode !== "development" && device.platform !== "browser") {
 
         let base = cordova.file.externalDataDirectory;
-        let path = filename;
 
-        console.log("Writing data to file: " + base + path);
+        console.log("Writing data to file: " + base + filename);
 
-        window.resolveLocalFileSystemURL(base, (dir) => {
-          dir.getFile(path, {
+        window.resolveLocalFileSystemURL(base, dir => {
+          dir.getFile(filename, {
             create: true
-          }, (file) => {
+          }, file => {
 
             // Write to the file, overwriting existing content 
             file.createWriter((fileWriter) => {
@@ -106,11 +105,13 @@ app.Utils = {
               };
 
               fileWriter.onerror = (e) => {
-                console.log("Failed to write file", e.toString());
+                console.warn("Failed to write file", e.toString());
                 reject();
               };
             });
           });
+        }, (e) => {
+          console.warn(e);
         });
       } else {
         console.log("Write to file doesn't work in browser");
@@ -154,6 +155,8 @@ app.Utils = {
                 break;
             }
           });
+        }, (e) => {
+          console.log(e);
         });
       } else {
         console.log("Read file doesn't work in browser");

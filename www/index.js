@@ -308,7 +308,10 @@ document.addEventListener('deviceready', async function() {
 
   // Backup database 
   setTimeout(async () => {
-    if (settings != undefined && settings.firstTimeSetup != undefined && device.platform !== "browser") {
+
+    let autoBackup = app.Settings.get("import-export", "auto-backup");
+
+    if (settings != undefined && settings.firstTimeSetup != undefined && autoBackup == true && device.platform !== "browser") {
       let data = await dbHandler.export();
       let filename = "waistline_auto_backup.json";
       let path = await app.Utils.writeFile(data, filename);
