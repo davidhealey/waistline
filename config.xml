@@ -19,6 +19,7 @@
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,sdcard,cache" />
         <config-file after="uses-permission" parent="/manifest" target="AndroidManifest.xml">
+          <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
           <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
