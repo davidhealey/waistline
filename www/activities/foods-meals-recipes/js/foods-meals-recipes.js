@@ -602,6 +602,12 @@ document.addEventListener("page:reinit", function(e) {
   if (e.target.matches(".page[data-name='foods-meals-recipes']")) {
     let context = app.data.context;
     app.data.context = undefined;
+
+    if (context !== undefined && context.item !== undefined) {
+      if (app.FoodsMealsRecipes.tab == "foodlist") {
+        app.Foodlist.init(context);
+      }
+    }
   }
 });
 

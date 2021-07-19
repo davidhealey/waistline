@@ -28,6 +28,9 @@ app.Foodlist = {
     if (context) {
       if (context.item)
         await this.putItem(context.item);
+
+      app.FoodsMealsRecipes.clearSearchSelection();
+      app.f7.searchbar.clear("#food-search-form");
     }
 
     this.getComponents();
