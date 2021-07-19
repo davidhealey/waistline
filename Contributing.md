@@ -115,6 +115,27 @@ cordova build browser
 cordova run browser
 ```
 
+In case you don't know how to build for Android or the browser at the command line you could adapt the command from the dockerfiles at _docker/_ directory.
+
+To build and test for android you can use _android.Dockerfile_:
+```sh
+sudo docker build -t waistline:android -f ./docker/android.Dockerfile .
+sudo docker run -it --workdir /waistline/app waistline:android
+cordova telemetry off && cordova prepare && cordova build android
+sudo docker container ls # to obtain <container-name>
+sudo docker cp <container-name>:/waistline/app/platforms/android/app/build/outputs/apk/debug/app-debug.apk .
+```
+
+We depend on an externally generated docker image at the android build. If you wish, you can build it locally in your repositories' directory by:
+```sh
+git clone https://github.com/alvr/alpine-android
+cd alpine-android/docker
+sudo docker build -t local/alpine-android-base:jdk8 --build-arg JDK_VERSION="8" -f ./base.Dockerfile .
+sudo docker build -t local/alpine-android:android-24-jdk8 --build-arg BUILD_TOOLS="24.0.3" --build-arg TARGET_SDK="24" --build-arg JDK_VERSION="8" -f ./android.Dockerfile .
+```
+
+Replace "alvrme/alpine-android:android-24-jdk8" by "local/alpine-android:android-24-jdk8" and then run the commands for _android.Dockerfile_ as stated above.
+
 To stop any container use `sudo docker stop <container-name>`. Check [Docker docs: get docker](https://docs.docker.com/get-docker/) for more info on docker.
 
 #### Explain Your Work
