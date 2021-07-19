@@ -21,12 +21,9 @@ app.Foodlist = {
 
   list: [], //Main list of foods
   filterList: [], //Copy of the list for filtering
-  selection: [],
   el: {}, //UI elements
 
   init: async function(context) {
-
-    this.selection = []; //Clear out selection when page is reloaded
 
     if (context) {
       if (context.item)
