@@ -292,6 +292,7 @@ app.FoodsMealsRecipes = {
           let choice = {
             text: x,
             onClick: function(action, e) {
+              app.FoodsMealsRecipes.updateDateTimes(items);
               app.data.context.category = i;
               app.f7.views.main.router.navigate("/diary/", {
                 reloadCurrent: true,
@@ -310,11 +311,23 @@ app.FoodsMealsRecipes = {
 
       ac.open();
     } else {
+      app.FoodsMealsRecipes.updateDateTimes(items);
 
       if (app.FoodsMealsRecipes.category !== undefined)
         app.data.context.category = app.FoodsMealsRecipes.category;
 
       app.f7.views.main.router.back();
+    }
+  },
+
+  updateDateTimes: function(items) {
+    let result = [];
+
+    if (items[0].type == "food") {
+      items.forEach(async (x, i) => {
+        let data = await dbHandler.getByKey(x.id, "foodList");
+        app.Foodlist.putItem(data);
+      });
     }
   },
 

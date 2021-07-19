@@ -29,13 +29,8 @@ app.Foodlist = {
     this.selection = []; //Clear out selection when page is reloaded
 
     if (context) {
-
-      if (context.item) {
-        if (context.item.id)
-          await this.updateItem(context.item);
-        else
-          await this.addItem(context.item);
-      }
+      if (context.item)
+        await this.putItem(context.item);
     }
 
     this.getComponents();
@@ -164,8 +159,9 @@ app.Foodlist = {
     });
   },
 
-  addItem: function(item) {
+  putItem: function(item) {
     return new Promise(function(resolve, reject) {
+      item.dateTime = new Date();
       dbHandler.put(item, "foodList").onsuccess = (e) => {
         resolve(e.target.result);
       };
@@ -174,36 +170,10 @@ app.Foodlist = {
     });
   },
 
-  updateItem: function(item) {
-    return new Promise(function(resolve, reject) {
-      let now = new Date();
-
-      item.dateTime = now;
-
-      dbHandler.put(item, "foodList").onsuccess = function() {
-        resolve();
-      };
-    }).catch(err => {
-      throw (err);
-    });
-  },
-
   updateItems: function(items) {
     items.forEach((x) => {
-      this.updateItem(x);
+      this.putItem(x);
     });
-  },
-
-  updateDateTimes: async function(itemIds) {
-    let items = [];
-
-    itemIds.forEach(async (x) => {
-      let item = await dbHandler.getItem(x, "foodList");
-      item.dateTime = new Date();
-      items.push(item);
-    });
-
-    await dbHandler.bulkInsert(items, "foodList");
   },
 
   removeItem: function(item) {
@@ -254,7 +224,6 @@ app.Foodlist = {
 
   submitButtonAction: async function(selection) {
     let data = await this.getItemsFromSelection(selection);
-    this.updateDateTimes(data.ids);
     app.FoodsMealsRecipes.returnItems(data.items);
   },
 
@@ -282,13 +251,14 @@ app.Foodlist = {
               // Unarchive the food if it has been archived
               if (data.archived == true) {
                 data.archived = false;
-                await app.Foodlist.updateItem(data);
+                await app.Foodlist.putItem(data);
               }
             }
           }
+
           // Doesn't have barcode or could not be found with barcode search
           if (data.id == undefined)
-            data.id = await app.Foodlist.addItem(data);
+            data.id = await app.Foodlist.putItem(data);
         }
 
         let item = {

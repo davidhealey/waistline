@@ -452,10 +452,6 @@ app.FoodEditor = {
 
       if (origin == "foodlist") {
 
-        let now = new Date();
-        let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        item.dateTime = item.dateTime || today;
-
         const nutriments = app.nutriments;
         const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
 

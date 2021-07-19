@@ -85,9 +85,6 @@ app.OpenFoodFacts = {
       "nutrition": {}
     };
 
-    let now = new Date();
-    result.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-
     //Search for all keys containing 'item_name' to include local item names
     for (let k in item) {
       if (k.includes("product_name") && item[k].length > 1) {
