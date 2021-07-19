@@ -36,16 +36,15 @@ app.Stats = {
     this.chart = undefined;
     this.dbData = await this.getDataFromDb();
 
-    let laststat = window.localStorage.getItem("last-stat");
+    if (this.dbData !== undefined) {
+      let laststat = window.localStorage.getItem("last-stat");
 
-    if (laststat !== undefined)
-      app.Stats.el.stat.value = laststat;
+      if (laststat != undefined && laststat != "")
+        app.Stats.el.stat.value = laststat;
 
-    if (app.Stats.el.stat.value == undefined || app.Stats.el.stat.value == "")
-      app.Stats.el.stat.value = "weight";
-
-    this.updateChart(app.Stats.el.stat.value);
-    this.renderStatLog(app.Stats.el.stat.value);
+      this.updateChart(app.Stats.el.stat.value);
+      this.renderStatLog(app.Stats.el.stat.value);
+    }
   },
 
   getComponents: function() {
@@ -73,8 +72,10 @@ app.Stats = {
     if (!app.Stats.el.stat.hasChangedEvent) {
       app.Stats.el.stat.addEventListener("change", (e) => {
         let value = e.target.value;
-        app.Stats.updateChart(value);
-        app.Stats.renderStatLog(value);
+        if (app.Stats.dbData !== undefined) {
+          app.Stats.updateChart(value);
+          app.Stats.renderStatLog(value);
+        }
       });
       app.Stats.el.stat.hasChangedEvent = true;
     }
@@ -125,6 +126,8 @@ app.Stats = {
         app.Stats.el.stat.appendChild(option);
       }
     });
+
+    app.Stats.el.stat.selectedIndex = 0;
   },
 
   updateChart: async function(field) {
@@ -235,7 +238,7 @@ app.Stats = {
       else if (app.strings.statistics[field] !== undefined)
         title = app.strings.statistics[field];
 
-      result.dataset.label = app.Utils.tidyText(title) + " (" + unit + ")";
+      result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
 
       resolve(result);
     }).catch(err => {
