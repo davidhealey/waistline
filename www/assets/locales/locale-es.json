@@ -183,36 +183,36 @@
     },
     "diary": {
       "title": "Diario",
-      "categories": "Categories",
-      "timestamps": "Show Timestamps",
-      "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
-      "show-units": "Show nutrition units"
+      "categories": "Categorías",
+      "timestamps": "Mostrar fecha y hora",
+      "thumbnails": "Mostrar miniaturas",
+      "wifi-thumbnails": "Mostrar miniaturas sólo por Wi-Fi",
+      "show-units": "Mostrar unidades nutricionales"
     },
     "diary-categories": {
-      "title": "Categories",
-      "category": "Category"
+      "title": "Categorías",
+      "category": "Categoría"
     },
     "foods": {
-      "title": "Foods, Meals, Recipes",
-      "sort": "Sort foods",
-      "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi"
+      "title": "Alimentos, Comidas, Recetas",
+      "sort": "Ordenar alimentos",
+      "images": "Mostrar imágenes de alimentos",
+      "wifi-images": "Mostrar solo imágenes por Wi-Fi"
     },
     "import-export": {
-      "title": "Import/Export",
-      "backup": "Backup Database",
-      "import": "Import From Backup"
+      "title": "Importar/Exportar",
+      "backup": "Copia de seguridad de base de datos",
+      "import": "Importar desde copia de seguridad"
     },
     "integration": {
-      "title": "Integration",
+      "title": "Integración",
       "off": "Open Food Facts",
-      "off-account": "Open Food Facts Account",
-      "country": "Search Country",
-      "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
-      "usda": "Enable USDA search",
+      "off-account": "Cuenta de Open Food Facts",
+      "country": "Buscar país",
+      "usda-title": "Departamento de Agricultura de EE.UU. (USDA)",
+      "usda": "Habilitar búsqueda USDA",
       "usda-login-title": "USDA",
-      "usda-api-key": "USDA API Key",
+      "usda-api-key": "Clave de API USDA",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
       "usera-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Username",
