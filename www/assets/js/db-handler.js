@@ -337,6 +337,10 @@ var dbHandler = {
               item.brand = unescape(cursor.value.brand);
               item.type = "food";
 
+              // Remove empty image_urls
+              if (item.image_url == "" || item.image_url == "undefined")
+                delete item.image_url;
+
               foods.push(item);
 
               cursor.delete();
@@ -745,10 +749,6 @@ var dbHandler = {
               // Remove empty barcodes 
               if (entry.barcode == "" || entry.barcode == undefined)
                 delete entry.barcode;
-
-              // Remove empty image_urls
-              if (entry.image_url == "" || entry.image_url == "undefined")
-                delete entry.image_url;
 
               let request = t.objectStore(x).add(entry);
 
