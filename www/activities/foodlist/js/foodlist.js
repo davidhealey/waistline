@@ -204,7 +204,6 @@ app.Foodlist = {
           } else {
             app.Foodlist.list = await app.Foodlist.getListFromDB();
             app.Foodlist.filterList = app.Foodlist.list;
-            app.f7.searchbar.disable(this);
           }
           app.Foodlist.renderList(true);
         },

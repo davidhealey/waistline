@@ -160,7 +160,6 @@ app.Recipes = {
           } else {
             app.Recipes.list = await app.Recipes.getListFromDB();
             app.Recipes.filterList = app.Recipes.list;
-            app.f7.searchbar.disable(this);
           }
           app.Recipes.renderList(true);
         },
