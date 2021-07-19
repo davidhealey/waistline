@@ -61,7 +61,7 @@
     "upload-failed": "Lamentablemente la carga falló. Por favor, inténtalo de nuevo o contacta al desarrollador.",
     "what-meal": "¿Qué comida del día es esta?",
     "import": "Importar",
-    "confirm-import": "Are you sure? This will overwrite your current database."
+    "confirm-import": "¿Estás seguro? Esto sobrescribirá tu base de datos actual."
   },
   "days": {
     "0": "Domingo",
@@ -98,59 +98,59 @@
   },
   "statistics": {
     "title": "Estadísticas",
-    "range": "Range",
-    "stat": "Stat",
+    "range": "Rango",
+    "stat": "Estadística",
     "week": "1 Semana",
     "month": "1 mes",
     "3month": "3 Meses",
     "6month": "6 mes",
     "12month": "1 Año",
-    "timeline": "Timeline",
-    "weight": "Weight",
-    "neck": "Neck",
-    "waist": "Waist",
-    "hips": "Hips",
-    "body fat": "Body Fat"
+    "timeline": "Línea de tiempo",
+    "weight": "Peso",
+    "neck": "Cuello",
+    "waist": "Cintura",
+    "hips": "Cadera",
+    "body fat": "Grasa corporal"
   },
   "diary": {
-    "title": "Diary",
-    "quick-add": "Quick Add",
-    "log-title": "Today's Stats"
+    "title": "Diario",
+    "quick-add": "Añadir rapidamente",
+    "log-title": "Estadísticas de hoy"
   },
   "diary-chart": {
-    "title": "Overview",
-    "no-data": "No data"
+    "title": "Resúmen",
+    "no-data": "Sin datos"
   },
   "foods-meals-recipes": {
-    "title": "Foods, Meals, Recipes",
-    "foods": "Foods",
-    "meals": "Meals",
-    "recipes": "Recipes",
-    "selected": "Selected"
+    "title": "Alimentos, Comidas, Recetas",
+    "foods": "Alimentos",
+    "meals": "Comidas",
+    "recipes": "Recetas",
+    "selected": "Seleccionados"
   },
   "food-editor": {
-    "edit-item": "Edit Items",
-    "add-new-item": "Add New Item",
-    "details": "Details",
-    "barcode": "Barcode",
-    "name": "Name",
-    "brand": "Brand",
-    "category": "Category",
-    "serving-size": "Serving Size",
-    "serving-unit": "Serving Unit",
-    "number-of-servings": "Number of Servings",
-    "nutrition": "Nutrition",
-    "per-100": "Per 100g/100ml",
-    "per-serving": "Per Serving",
-    "ingredients": "Ingredients",
-    "traces": "Traces"
+    "edit-item": "Editar ítems",
+    "add-new-item": "Añadir nuevo ítem",
+    "details": "Detalles",
+    "barcode": "Código de barras",
+    "name": "Nombre",
+    "brand": "Marca",
+    "category": "Categoría",
+    "serving-size": "Porción",
+    "serving-unit": "Unidad de la porción",
+    "number-of-servings": "Número de porciones",
+    "nutrition": "Nutrición",
+    "per-100": "Por 100g/100ml",
+    "per-serving": "Por porción",
+    "ingredients": "Ingredientes",
+    "traces": "Rastros"
   },
   "goals": {
-    "title": "Goals"
+    "title": "Objetivos"
   },
   "goal-editor": {
-    "title": "Set Goals",
-    "show-in-diary": "Show in Diary",
+    "title": "Establecer objetivos",
+    "show-in-diary": "Mostrar en Diario",
     "shared-goal": "Same goal every day",
     "minimum-goal": "Is minimum goal"
   },
@@ -220,7 +220,7 @@
       "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
       "sign-in": "Sign In",
       "exit": "Exit",
-      "save": "Save",
+      "save": "Guardar",
       "invalid-credentials": "Invalid Credentials",
       "export-success": "Database exported",
       "export-fail": "Export Failed"
