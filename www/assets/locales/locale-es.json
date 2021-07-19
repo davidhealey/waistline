@@ -151,38 +151,38 @@
   "goal-editor": {
     "title": "Establecer objetivos",
     "show-in-diary": "Mostrar en Diario",
-    "shared-goal": "Same goal every day",
-    "minimum-goal": "Is minimum goal"
+    "shared-goal": "Mismo objetivo todos los días",
+    "minimum-goal": "Es un objetivo mínimo"
   },
   "meal-editor": {
-    "title": "Edit Meal",
-    "foods-recipes": "Foods & Recipes"
+    "title": "Editar comida",
+    "foods-recipes": "Alimentos y Recetas"
   },
   "recipe-editor": {
-    "title": "Edit Recipe",
-    "notes": "Notes"
+    "title": "Editar receta",
+    "notes": "Notas"
   },
   "settings": {
-    "title": "Settings",
-    "needs-restart": "Restart app to apply changes.",
+    "title": "Ajustes",
+    "needs-restart": "Reinicia la aplicación para aplicar los cambios.",
     "theme": {
-      "title": "Theme",
-      "dark": "Dark Mode",
-      "animations": "Disable UI Animations",
-      "start-page": "Start Page"
+      "title": "Tema",
+      "dark": "Modo oscuro",
+      "animations": "Desactivar Animaciones de la interfaz",
+      "start-page": "Página inicial"
     },
     "units": {
-      "title": "Units",
-      "weight": "Weight",
-      "length": "Length",
-      "kilograms": "Kilograms",
-      "pounds": "Pounds",
-      "stone": "Stones",
-      "centimeters": "Centimeters",
-      "inches": "Inches"
+      "title": "Unidades",
+      "weight": "Peso",
+      "length": "Largo",
+      "kilograms": "Kilogramos",
+      "pounds": "Libras",
+      "stone": "Piedras",
+      "centimeters": "Centímetros",
+      "inches": "Pulgadas"
     },
     "diary": {
-      "title": "Diary",
+      "title": "Diario",
       "categories": "Categories",
       "timestamps": "Show Timestamps",
       "thumbnails": "Show Thumbnails",
@@ -221,15 +221,15 @@
       "sign-in": "Sign In",
       "exit": "Exit",
       "save": "Guardar",
-      "invalid-credentials": "Invalid Credentials",
-      "export-success": "Database exported",
-      "export-fail": "Export Failed"
+      "invalid-credentials": "Credenciales inválidas",
+      "export-success": "Base de datos exportada",
+      "export-fail": "Fallo al exportar"
     }
   },
   "about": {
-    "title": "About",
-    "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
-    "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-    "p2": "The source code for Waistline can be found at github.com/davidhealey/waistline."
+    "title": "Sobre",
+    "p0": "Waistline fue creado por David Healey con sugerencias y contribuciones de los usuarios.",
+    "p1": "Waistline fue construido usando Cordova disponible bajo la licencia Apache. También se incluyen Framework7, jQuery, jQuery localize y ChartJS que están bajo la licencia MIT. El HTML, CSS y otros Javascript que componen el cuerpo principal de la aplicación están bajo la licencia GPLv3.",
+    "p2": "El código fuente de Waistline se puede encontrar en github.com/davidhealey/waistline."
   }
 }
