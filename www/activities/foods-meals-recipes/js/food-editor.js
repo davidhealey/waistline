@@ -149,8 +149,10 @@ app.FoodEditor = {
       app.FoodEditor.el.ingredients_text.style.color = "grey";
       app.FoodEditor.el.traces.style.color = "grey";
     } else {
-      app.FoodEditor.el.link.style.display = "block";
       app.FoodEditor.el.quantityContainer.style.display = "none";
+
+      if (app.FoodEditor.item !== undefined)
+        app.FoodEditor.el.link.style.display = "block";
     }
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
