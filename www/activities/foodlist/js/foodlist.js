@@ -232,7 +232,6 @@ app.Foodlist = {
             app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, app.Foodlist.filterList);
             app.Foodlist.renderList(true);
           } else {
-            app.FoodsMealsRecipes.clearSearchSelection();
             app.Foodlist.list = await app.Foodlist.getListFromDB();
             app.Foodlist.filterList = app.Foodlist.list;
             app.f7.searchbar.disable(this);
