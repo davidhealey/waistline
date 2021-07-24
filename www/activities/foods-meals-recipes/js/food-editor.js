@@ -208,9 +208,9 @@ app.FoodEditor = {
   },
 
   updateTitle: function() {
-    if (!app.FoodEditor.item)
+    if (!app.FoodEditor.item || app.FoodEditor.item.id == undefined) {
       app.FoodEditor.el.title.innerHTML = app.strings["food-editor"]["add-new-item"] || "Add New Item";
-    else if (app.FoodEditor.origin != undefined) {
+    } else if (app.FoodEditor.origin != undefined) {
       const origins = ["diary", "foodlist", "meals", "recipes"];
       const titles = ["Diary", "Food List", "Meal", "Recipe"];
 
