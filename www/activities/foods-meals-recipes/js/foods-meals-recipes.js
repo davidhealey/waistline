@@ -460,7 +460,7 @@ app.FoodsMealsRecipes = {
               text += " " + item.unit;
           }
 
-          if (item.quantity !== undefined && item.quantity > 1)
+          if (item.quantity !== undefined && item.quantity != 1)
             text += " x" + item.quantity;
         }
 
