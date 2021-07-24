@@ -550,6 +550,8 @@ app.FoodsMealsRecipes = {
     let origin;
     if (app.FoodsMealsRecipes.tab !== undefined)
       origin = app.FoodsMealsRecipes.tab;
+    else
+      origin = "diary";
 
     app.data.context = {
       item: item,

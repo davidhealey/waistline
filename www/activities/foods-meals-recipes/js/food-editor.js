@@ -210,6 +210,13 @@ app.FoodEditor = {
   updateTitle: function() {
     if (!app.FoodEditor.item)
       app.FoodEditor.el.title.innerHTML = app.strings["food-editor"]["add-new-item"] || "Add New Item";
+    else if (app.FoodEditor.origin != undefined) {
+      const origins = ["diary", "foodlist", "meals", "recipes"];
+      const titles = ["Diary", "Food List", "Meal", "Recipe"];
+
+      app.FoodEditor.el.title.innerHTML = "Edit " + titles[origins.indexOf(app.FoodEditor.origin)] + " Item";
+    }
+
   },
 
   /* Nutrition fields are dynamically created for the nutriments of the item */
