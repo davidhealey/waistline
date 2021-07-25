@@ -98,7 +98,8 @@ const app = {
       dateFormat: 'dd.mm.yyyy',
     },
     touch: {
-      tapHold: true //enable tap hold events
+      tapHold: true, //enable tap hold events
+      disableContextMenu: false
     },
     // Add default routes
     routes: [{
