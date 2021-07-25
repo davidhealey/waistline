@@ -239,12 +239,12 @@ app.Diary = {
           if (x !== "calories" && x !== "kilojoules")
             t.nodeValue = parseFloat(nutrition[x].toFixed(2));
           else {
-            let energy = parseInt(nutrition[x]);
+            let energy = nutrition[x];
 
             if (x == "calories" && energyUnit == "kJ")
-              energy = Math.round(energy * 4.1868);
+              energy = Math.ceil(energy * 4.1868);
 
-            t.nodeValue = parseInt(energy);
+            t.nodeValue = energy.toFixed(0);
           }
         } else
           t.nodeValue = "0";
@@ -399,13 +399,19 @@ app.Diary = {
 
   quickAdd: function(category) {
     let title = app.strings.diary["quick-add"] || "Quick Add";
+    let energyUnit = app.Settings.get("units", "energy");
     let text = app.strings.nutriments["calories"] || "Calories";
 
-    let dialog = app.f7.dialog.prompt(text, title, async function(value) {
+    if (energyUnit != "kcal")
+      text = app.strings.nutriments["kilojoules"] || "Kilojoules";
 
+    let dialog = app.f7.dialog.prompt(text, title, async function(value) {
       let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
       let quantity = value;
+
+      if (energyUnit != "kcal")
+        quantity = value / 4.1868;
 
       if (!isNaN(quantity)) {
         let item = await app.Foodlist.getQuickAddItem(); // Get food item
@@ -413,7 +419,7 @@ app.Diary = {
         if (item !== undefined) {
           item.dateTime = new Date();
           item.category = category;
-          item.quantity = parseInt(quantity);
+          item.quantity = quantity;
 
           entry.items.push(item);
 

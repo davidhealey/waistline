@@ -119,12 +119,12 @@ app.Group = {
 
     let right = document.createElement("div");
     right.className = "col-25 energy";
-    let value = parseInt(nutrition.calories) || 0;
+    let value = nutrition.calories || 0;
 
     if (energyUnit == "kJ")
-      value = Math.round(value * 4.1868);
+      value = Math.ceil(value * 4.1868);
 
-    right.innerHTML = value + " " + energyUnit;
+    right.innerHTML = value.toFixed(0) + " " + energyUnit;
     row.appendChild(right);
   },
 

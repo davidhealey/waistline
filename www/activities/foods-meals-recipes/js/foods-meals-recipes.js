@@ -419,17 +419,17 @@ app.FoodsMealsRecipes = {
 
         //Energy
         if (item.nutrition !== undefined) {
-          let energy = parseInt(item.nutrition.calories);
+          let energy = item.nutrition.calories;
 
           if (energy !== undefined && !isNaN(energy)) {
             let energyUnit = app.Settings.get("units", "energy");
 
             if (energyUnit == "kJ")
-              energy = Math.round(energy * 4.1868);
+              energy = Math.ceil(energy * 4.1868);
 
             let after = document.createElement("div");
             after.className = "item-after";
-            after.innerHTML = energy + " " + energyUnit;
+            after.innerHTML = energy.toFixed(0) + " " + energyUnit;
             row.appendChild(after);
           }
         }
