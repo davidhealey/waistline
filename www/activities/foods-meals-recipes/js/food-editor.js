@@ -214,9 +214,15 @@ app.FoodEditor = {
       app.FoodEditor.el.title.innerHTML = app.strings["food-editor"]["add-new-item"] || "Add New Item";
     } else if (app.FoodEditor.origin != undefined) {
       const origins = ["diary", "foodlist", "meals", "recipes"];
-      const titles = ["Diary", "Food List", "Meal", "Recipe"];
+      const titles = [
+        app.strings["diary"]["title"] || "Diary",
+        app.strings["foods-meals-recipes"]["foods"] || "Food",
+        app.strings["foods-meals-recipes"]["meals"] || "Meal",
+        app.strings["foods-meals-recipes"]["recipes"] || "Recipe"
+      ];
 
-      app.FoodEditor.el.title.innerHTML = "Edit " + titles[origins.indexOf(app.FoodEditor.origin)] + " Item";
+      let title = app.strings["food-editor"]["edit"] + " " + titles[origins.indexOf(app.FoodEditor.origin)].replace("s", "") + " " + app.strings["food-editor"]["item"];
+      app.FoodEditor.el.title.innerHTML = title;
     }
 
   },
