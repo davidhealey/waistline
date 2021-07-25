@@ -143,7 +143,9 @@
     "per-100": "На 100г/100мл",
     "per-serving": "На порцию",
     "ingredients": "Ингредиенты",
-    "traces": "Следы"
+    "traces": "Следы",
+    "edit": "Edit",
+    "item": "Item"
   },
   "goals": {
     "title": "Цели"
