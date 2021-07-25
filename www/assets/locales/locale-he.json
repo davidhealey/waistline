@@ -143,7 +143,9 @@
     "per-100": "ל־100ג׳/100מ״ל",
     "per-serving": "להגשה",
     "ingredients": "רכיבים",
-    "traces": "עקבות"
+    "traces": "עקבות",
+    "edit": "Edit",
+    "item": "Item"
   },
   "goals": {
     "title": "יעדים"
