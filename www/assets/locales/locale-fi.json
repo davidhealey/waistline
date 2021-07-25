@@ -143,7 +143,9 @@
     "per-100": "100 g / 100 ml kohden",
     "per-serving": "Annosta kohden",
     "ingredients": "Ainesosat",
-    "traces": "Jäämät"
+    "traces": "Jäämät",
+    "edit": "Edit",
+    "item": "Item"
   },
   "goals": {
     "title": "Tavoitteet"
