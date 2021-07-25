@@ -99,7 +99,6 @@ app.USDA = {
 
   testApiKey: function(key) {
     return new Promise(async function(resolve, reject) {
-
       let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + key + "&query=cheese";
 
       let response = await fetch(url);
@@ -107,7 +106,7 @@ app.USDA = {
       if (response) {
         let data = await response.json();
         if (data.error && data.error.code == "API_KEY_INVALID")
-          resolve(false);
+          return resolve(false);
       }
 
       resolve(true);

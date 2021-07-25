@@ -250,7 +250,7 @@ app.Settings = {
   saveUSDAKey: async function(key) {
     let screen = document.querySelector(".usda-login");
     if (app.Utils.isInternetConnected()) {
-      if (key == "" || await app.USDAtestApiKey(key)) {
+      if (key == "" || await app.USDA.testApiKey(key)) {
         this.put("integration", "usda-key", key);
         app.f7.loginScreen.close(screen);
         app.Utils.toast("Login Successfull");
