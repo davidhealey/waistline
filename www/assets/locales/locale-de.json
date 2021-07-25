@@ -143,7 +143,9 @@
     "per-100": "Pro 100 g / 100 ml",
     "per-serving": "Pro Portion",
     "ingredients": "Inhaltsstoffe",
-    "traces": "Spuren"
+    "traces": "Spuren",
+    "edit": "Edit",
+    "item": "Item"
   },
   "goals": {
     "title": "Ziele"
