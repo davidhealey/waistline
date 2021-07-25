@@ -29,7 +29,6 @@ app.Diary = {
     this.getComponents();
     this.bindUIActions();
 
-    app.Diary.calendar = this.createCalendar(); //Setup calendar
     this.bindCalendarControls();
 
     //If items have been passed, add them to the db
@@ -581,6 +580,7 @@ document.addEventListener("page:init", function(event) {
     let context = app.data.context;
     app.data.context = undefined;
     app.Diary.init(context);
+    app.Diary.calendar = app.Diary.createCalendar();
   }
 });
 
