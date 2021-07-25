@@ -34,11 +34,13 @@ app.FoodEditor = {
 
     if (context) {
 
-      if (context.item !== undefined) {
+      if (context.item !== undefined)
         app.FoodEditor.item = context.item;
-        app.FoodEditor.linked = true;
-      } else
+
+      if (context.item == undefined || (context.item != undefined && context.item.id == undefined))
         app.FoodEditor.linked = false; //Unlinked by default for adding new items
+      else
+        app.FoodEditor.linked = true;
 
       app.FoodEditor.origin = context.origin;
       app.FoodEditor.scan = context.scan;
