@@ -143,7 +143,9 @@
     "per-100": "Por 100g/100ml",
     "per-serving": "Por porción",
     "ingredients": "Ingredientes",
-    "traces": "Rastros"
+    "traces": "Rastros",
+    "edit": "Edit",
+    "item": "Item"
   },
   "goals": {
     "title": "Objetivos"
