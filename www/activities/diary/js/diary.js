@@ -29,11 +29,8 @@ app.Diary = {
     this.getComponents();
     this.bindUIActions();
 
-    this.bindCalendarControls();
-
     //If items have been passed, add them to the db
     if (context) {
-
       if (context.items || context.item) {
         if (context.items)
           await this.addItems(context.items, context.category);
@@ -124,11 +121,13 @@ app.Diary = {
       }
     });
 
-    if (!app.Diary.el.date.hasClickEvent) {
-      app.Diary.el.date.addEventListener("click", (e) => {
+    let el = document.querySelector(".page[data-name='diary'] #diary-date");
+
+    if (!el.hasClickEvent) {
+      el.addEventListener("click", (e) => {
         app.Diary.calendar.open();
       });
-      app.Diary.el.date.hasClickEvent = true;
+      el.hasClickEvent = true;
     }
   },
 
@@ -140,7 +139,7 @@ app.Diary = {
   },
 
   updateDateDisplay: function() {
-    let el = app.Diary.el.date;
+    let el = document.querySelector(".page[data-name='diary'] #diary-date");
     let date = new Date(app.Diary.date);
     let dateString = date.toLocaleDateString([], {
       weekday: "short",
@@ -585,8 +584,9 @@ document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
     let context = app.data.context;
     app.data.context = undefined;
-    app.Diary.init(context);
+    app.Diary.bindCalendarControls();
     app.Diary.calendar = app.Diary.createCalendar();
+    app.Diary.init(context);
   }
 });
 
@@ -595,5 +595,12 @@ document.addEventListener("page:reinit", function(event) {
     let context = app.data.context;
     app.data.context = undefined;
     app.Diary.init(context);
+  }
+});
+
+document.addEventListener("page:afterout", function(event) {
+  if (event.target.matches(".page[data-name='diary']")) {
+    if (app.Diary.el.date != undefined)
+      app.f7.calendar.destroy(app.Diary.el.date);
   }
 });
