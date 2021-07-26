@@ -320,7 +320,7 @@ app.FoodEditor = {
     app.FoodEditor.el.ingredients_text.value = item.ingredients_text || "";
     app.FoodEditor.el.traces.value = item.traces || "";
 
-    if (item.barcode !== undefined) {
+    if (item.barcode !== undefined && !item.barcode.includes("fdcId_")) {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = item.barcode;
     }
