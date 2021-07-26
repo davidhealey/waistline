@@ -36,7 +36,7 @@ app.USDA = {
         let data = await response.json();
 
         resolve(data.foods.map((x) => {
-          return parseItem(x);
+          return app.USDA.parseItem(x);
         }));
       }
       reject();
@@ -67,19 +67,19 @@ app.USDA = {
 
       if (n.nutrientName.toLowerCase() == "energy") {
         if (n.unitName.toLowerCase() == "kcal")
-          result.nutrition.calories = parseInt(n.value);
+          result.nutrition.calories = Math.round(n.value);
         else
-          result.nutrition.kilojoules = parseInt(n.value);
+          result.nutrition.kilojoules = Math.round(n.value);
       }
     }
 
     if (result.nutrition.calories || result.nutrition.kilojoules) {
 
       if (result.nutrition.calories == undefined)
-        result.nutrition.calories = parseInt(result.nutrition.kilojoules / 4.1868);
+        result.nutrition.calories = Math.round(result.nutrition.kilojoules / 4.1868);
 
       if (result.nutrition.kilojoules == undefined)
-        result.nutrition.kilojoules = parseInt(result.nutrition.calories * 4.1868);
+        result.nutrition.kilojoules = Math.round(result.nutrition.calories * 4.1868);
 
       // Nutriments
       nutriments.forEach((x, i) => {
