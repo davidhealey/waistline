@@ -106,7 +106,12 @@ app.Foodlist = {
         if (usdaEnabled)
           usdaList = await app.USDA.search(query);
 
-        let result = offList.concat(usdaList);
+        let result;
+
+        if (usdaList != undefined)
+          result = usdaList.concat(offList);
+        else
+          result = offList;
 
         if (result.length > 0) {
           app.Foodlist.list = result;
