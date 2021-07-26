@@ -57,18 +57,20 @@ app.USDA = {
       else
         apiKey = app.Settings.get("integration", "usda-key");
 
-      let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + apiKey + "&query=" + encodeURI(query) + "&pageSize=15";
+      if (apiKey != undefined) {
+        let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + apiKey + "&query=" + encodeURI(query) + "&pageSize=15";
 
-      let response = await fetch(url);
+        let response = await fetch(url);
 
-      if (response) {
-        let data = await response.json();
+        if (response) {
+          let data = await response.json();
 
-        resolve(data.foods.map((x) => {
-          return app.USDA.parseItem(x);
-        }));
+          resolve(data.foods.map((x) => {
+            return app.USDA.parseItem(x);
+          }));
+        }
       }
-      reject();
+      reject(false);
     }).catch(err => {
       throw (err);
     });
