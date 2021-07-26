@@ -418,7 +418,7 @@ app.Diary = {
         if (item !== undefined) {
           item.dateTime = new Date();
           item.category = category;
-          item.quantity = quantity;
+          item.quantity = parseFloat(quantity);
 
           entry.items.push(item);
 
