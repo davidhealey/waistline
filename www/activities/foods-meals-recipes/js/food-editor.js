@@ -348,7 +348,7 @@ app.FoodEditor = {
 
       if (navigator.connection.type !== "none") {
         if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-          if (item.image_url !== undefined && item.image_url != "") {
+          if (item.image_url !== undefined && item.image_url != "" && item.image_url !== "undefined") {
             let img = document.createElement("img");
             img.src = unescape(item.image_url);
             img.style["width"] = "50%";
