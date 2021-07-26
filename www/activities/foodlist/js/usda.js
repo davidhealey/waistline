@@ -69,8 +69,10 @@ app.USDA = {
             return app.USDA.parseItem(x);
           }));
         }
+      } else {
+        return resolve(false);
       }
-      reject(false);
+      reject();
     }).catch(err => {
       throw (err);
     });

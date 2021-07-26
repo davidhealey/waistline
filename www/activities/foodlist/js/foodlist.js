@@ -103,12 +103,12 @@ app.Foodlist = {
         if (offEnabled)
           offList = await app.OpenFoodFacts.search(query);
 
-        if (usdaEnabled && usdaList != false)
+        if (usdaEnabled)
           usdaList = await app.USDA.search(query);
 
         let result;
 
-        if (usdaList != undefined)
+        if (usdaList != undefined && usdaList != false)
           result = usdaList.concat(offList);
         else
           result = offList;
