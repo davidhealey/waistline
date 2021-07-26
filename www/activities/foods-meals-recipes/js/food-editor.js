@@ -238,7 +238,7 @@ app.FoodEditor = {
     energy_unit == "kcal" ? energy_unit = "calories" : energy_unit = "kilojoules";
 
     if (item !== undefined && item.nutrition.kilojoules == undefined)
-      item.nutrition.kilojoules = Math.round(item.nutrition.calories * 4.1868);
+      item.nutrition.kilojoules = item.nutrition.calories * 4.1868;
 
     let ul = app.FoodEditor.el.nutrition;
     ul.innerHTML = ""; //Clear old form 
@@ -466,9 +466,11 @@ app.FoodEditor = {
       }
 
       if (origin == "foodlist") {
-
         const nutriments = app.nutriments;
+        let energyUnit = app.Settings.get("units", "energy");
         const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
+        const caloriesEl = document.getElementById("calories");
+        const kilojoulesEl = document.getElementById("kilojoules");
 
         if (data !== undefined && data.barcode !== undefined)
           item.barcode = data.barcode;
@@ -482,6 +484,10 @@ app.FoodEditor = {
           item.image_url = data.image_url;
 
         item.nutrition = {};
+
+        // Always store a calorie value
+        if (energyUnit == "kJ")
+          caloriesEl.value = kilojoulesEl.value / 4.1868;
 
         for (let i = 0; i < inputs.length; i++) {
           let x = inputs[i];

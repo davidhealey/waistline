@@ -425,11 +425,11 @@ app.FoodsMealsRecipes = {
             let energyUnit = app.Settings.get("units", "energy");
 
             if (energyUnit == "kJ")
-              energy = Math.round(energy * 4.1868);
+              energy = item.nutrition.kilojoules || energy * 4.1868;
 
             let after = document.createElement("div");
             after.className = "item-after";
-            after.innerHTML = energy.toFixed(0) + " " + energyUnit;
+            after.innerHTML = Math.round(energy * 100) / 100 + " " + energyUnit;
             row.appendChild(after);
           }
         }
