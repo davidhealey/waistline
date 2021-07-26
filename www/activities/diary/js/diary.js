@@ -242,7 +242,7 @@ app.Diary = {
             let energy = nutrition[x];
 
             if (x == "calories" && energyUnit == "kJ")
-              energy = Math.ceil(energy * 4.1868);
+              energy = Math.round(energy * 4.1868);
 
             t.nodeValue = energy.toFixed(0);
           }

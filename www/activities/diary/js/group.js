@@ -122,7 +122,7 @@ app.Group = {
     let value = nutrition.calories || 0;
 
     if (energyUnit == "kJ")
-      value = Math.ceil(value * 4.1868);
+      value = Math.round(value * 4.1868);
 
     right.innerHTML = value.toFixed(0) + " " + energyUnit;
     row.appendChild(right);

@@ -425,7 +425,7 @@ app.FoodsMealsRecipes = {
             let energyUnit = app.Settings.get("units", "energy");
 
             if (energyUnit == "kJ")
-              energy = Math.ceil(energy * 4.1868);
+              energy = Math.round(energy * 4.1868);
 
             let after = document.createElement("div");
             after.className = "item-after";
