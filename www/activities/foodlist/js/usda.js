@@ -18,6 +18,35 @@
 */
 
 app.USDA = {
+
+  nutriments: {
+    "proteins": "Protein",
+    "fat": "Total lipid (fat)",
+    "carbohydrates": "Carbohydrate, by difference",
+    "sugars": "Sugars, total including NLEA",
+    "fiber": "Fiber, total dietary",
+    "calcium": "Calcium",
+    "iron": "Iron",
+    "potassium": "Potassium",
+    "sodium": "Sodium",
+    "vitamin-a": "Vitamin A",
+    "vitamin-c": "Vitamin C",
+    "cholesterol": "Cholesterol",
+    "trans-fat": "Fatty acids, total trans",
+    "saturated-fat": "Fatty acids, total saturated",
+    "alcohol": "Alcohol, ethyl",
+    "caffeine": "Caffeine",
+    "magnesium": "Magnesium",
+    "zinc": "Zinc",
+    "vitamin-e": "Vitamin E",
+    "vitamin-d": "Vitamin D",
+    "vitamin-b6": "Vitamin B-6",
+    "vitamin-b12": "Vitamin B-12",
+    "vitamin-k": "Vitamin K",
+    "monounsaturated-fat": "Fatty acids, total monounsaturated",
+    "polyunsaturated-fat": "Fatty acids, total polyunsaturated",
+  },
+
   search: function(query) {
     return new Promise(async function(resolve, reject) {
 
@@ -34,7 +63,7 @@ app.USDA = {
 
       if (response) {
         let data = await response.json();
-        console.log(data.foods.length);
+
         resolve(data.foods.map((x) => {
           return app.USDA.parseItem(x);
         }));
@@ -47,7 +76,8 @@ app.USDA = {
 
   parseItem: function(item) {
 
-    const nutriments = app.nutriments; //Array of OFF nutriment names
+    const offNutriments = app.nutriments; //Array of OFF nutriment names
+    const usdaNutriments = app.USDA.nutriments; //Array of USDA nutriment names
 
     let result = {
       "nutrition": {}
@@ -62,10 +92,9 @@ app.USDA = {
     result.portion = "100";
     result.unit = "g";
 
-    //Energy 
+    //Energy     
     for (let n of item.foodNutrients) {
-
-      if (n.nutrientName.toLowerCase() == "energy") {
+      if (n.nutrientName == "Energy") {
         if (n.unitName.toLowerCase() == "kcal")
           result.nutrition.calories = Math.round(n.value);
         else
@@ -82,11 +111,19 @@ app.USDA = {
         result.nutrition.kilojoules = Math.round(result.nutrition.calories * 4.1868);
 
       // Nutriments
-      nutriments.forEach((x, i) => {
+      offNutriments.forEach((x, i) => {
         if (x != "calories" && x != "kilojoules") {
+
+          let nutriment = usdaNutriments[x];
+
           for (let n of item.foodNutrients) {
-            if (n.nutrientName.toLowerCase().includes(x.toLowerCase())) {
+
+            if (n.nutrientName.includes(nutriment)) {
               result.nutrition[x] = n.value;
+
+              if (x == "sodium")
+                result.nutrition.salt = n.value * 0.0025;
+
               break;
             }
           }
