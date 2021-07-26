@@ -429,7 +429,7 @@ app.FoodsMealsRecipes = {
 
             let after = document.createElement("div");
             after.className = "item-after";
-            after.innerHTML = Math.round(energy * 100) / 100 + " " + energyUnit;
+            after.innerHTML = Math.round(energy).toFixed(0) + " " + energyUnit;
             row.appendChild(after);
           }
         }
