@@ -1,289 +1,237 @@
 {
-  "weight":"Vikt",
-  "quantity":"Mängd",
-  "calories":"kilokalorier",
-  "protein":"Protein",
-  "carbs":"Kolhydrater",
-  "fat":"Fett",
-  "saturated-fat":"Mättat fett",
-  "sugar":"Socker",
-  "fiber":"Fiber",
-  "salt":"Salt",
-  "sodium":"Natrium",
-  "no-internet":"Ingen internetanslutning",
-
-  "days":{
-    "0":"Söndag",
-    "1":"Måndag",
-    "2":"Tisdag",
-    "3":"Onsdag",
-    "4":"Torsdag",
-    "5":"Fredag",
-    "6":"Lördag"
+  "nutriments": {
+    "calorie": "Calorie",
+    "calories": "Calories",
+    "kilojoule": "Kilojoule",
+    "kilojoules": "Kilojoules",
+    "proteins": "proteins",
+    "carbohydrates": "carbs",
+    "fat": "fat",
+    "saturated-fat": "sat-fat",
+    "monounsaturated-fat": "mono-fat",
+    "polyunsaturated-fat": "poly-fat",
+    "trans-fat": "trans-fat",
+    "omega-3-fat": "omega-3-fat",
+    "cholesterol": "cholesterol",
+    "sugars": "sugars",
+    "fiber": "fiber",
+    "sodium": "sodium",
+    "salt": "salt",
+    "potassium": "potassium",
+    "vitamin-a": "vitamin-a",
+    "vitamin-d": "vitamin-d",
+    "vitamin-e": "vitamin-e",
+    "vitamin-k": "vitamin-k",
+    "vitamin-c": "vitamin-c",
+    "vitamin-b1": "vitamin-b1",
+    "vitamin-b2": "vitamin-b2",
+    "vitamin-b6": "vitamin-b6",
+    "vitamin-b9": "vitamin-b9",
+    "vitamin-b12": "vitamin-b12",
+    "chloride": "chloride",
+    "calcium": "calcium",
+    "iron": "iron",
+    "magnesium": "magnesium",
+    "zinc": "zinc",
+    "caffeine": "caffeine",
+    "alcohol": "alcohol",
+    "sucrose": "sucrose",
+    "glucose": "glucose",
+    "fructose": "fructose",
+    "lactose": "lactose"
   },
-
-  "statistics":{
-    "title":"Statistik",
-    "goal":"Målsättning",
-    "used":"Använt",
-    "remaining":"Kvarstående",
-    "week": "1 Vecka",
-    "month": "1 Månad",
-    "3month": "3 Månader",
-    "6month": "6 Månader",
-    "12month": "1 År"
+  "dialogs": {
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "confirm-delete": "Are you sure you want to delete this item?",
+    "delete-title": "Delete Entry",
+    "required-fields": "Please complete all required fields.",
+    "camera-problem": "There was a problem accessing your camera.",
+    "no-internet": "No Internet Connection",
+    "no-results": "No matching results",
+    "no-search-providers": "No search providers are enabled",
+    "scan-failed": "Scan Failed",
+    "search": "Search",
+    "number-of-calories": "Please provide the number of calories for this food.",
+    "add-to-off": "Would you like to add this product to the Open Food Facts database?",
+    "main-image": "Please add a main image",
+    "upload-success": "Product successfully added to Open Food Facts",
+    "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
+    "what-meal": "What meal is this?",
+    "import": "Import",
+    "confirm-import": "Are you sure? This will overwrite your current database."
   },
-
-  "goals":
-  {
-    "title":"Målsättningar",
-    "nutrition":{
-      "same-goal":"Samma mål varje dag"
+  "days": {
+    "0": "Sunday",
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday"
+  },
+  "months": {
+    "0": "January",
+    "1": "February",
+    "2": "March",
+    "3": "April",
+    "4": "May",
+    "5": "June",
+    "6": "July",
+    "7": "August",
+    "8": "September",
+    "9": "October",
+    "10": "November",
+    "11": "December"
+  },
+  "colours": {
+    "red": "Red",
+    "blue": "Blue",
+    "green": "Green",
+    "pink": "Pink",
+    "orange": "Orange",
+    "gray": "Gray",
+    "yellow": "Yellow",
+    "purple": "Purple"
+  },
+  "statistics": {
+    "title": "Statistics",
+    "range": "Range",
+    "stat": "Stat",
+    "week": "1 Week",
+    "month": "1 Month",
+    "3month": "3 Months",
+    "6month": "6 Months",
+    "12month": "1 Year",
+    "timeline": "Timeline",
+    "weight": "Weight",
+    "neck": "Neck",
+    "waist": "Waist",
+    "hips": "Hips",
+    "body fat": "Body Fat"
+  },
+  "diary": {
+    "title": "Diary",
+    "quick-add": "Quick Add",
+    "log-title": "Today's Stats"
+  },
+  "diary-chart": {
+    "title": "Overview",
+    "no-data": "No data"
+  },
+  "foods-meals-recipes": {
+    "title": "Foods, Meals, Recipes",
+    "foods": "Foods",
+    "meals": "Meals",
+    "recipes": "Recipes",
+    "selected": "Selected"
+  },
+  "food-editor": {
+    "edit-item": "Edit Items",
+    "add-new-item": "Add New Item",
+    "details": "Details",
+    "barcode": "Barcode",
+    "name": "Name",
+    "brand": "Brand",
+    "category": "Category",
+    "serving-size": "Serving Size",
+    "serving-unit": "Serving Unit",
+    "number-of-servings": "Number of Servings",
+    "nutrition": "Nutrition",
+    "per-100": "Per 100g/100ml",
+    "per-serving": "Per Serving",
+    "ingredients": "Ingredients",
+    "traces": "Traces",
+    "edit": "Edit",
+    "item": "Item"
+  },
+  "goals": {
+    "title": "Goals"
+  },
+  "goal-editor": {
+    "title": "Set Goals",
+    "show-in-diary": "Show in Diary",
+    "shared-goal": "Same goal every day",
+    "minimum-goal": "Is minimum goal"
+  },
+  "meal-editor": {
+    "title": "Edit Meal",
+    "foods-recipes": "Foods & Recipes"
+  },
+  "recipe-editor": {
+    "title": "Edit Recipe",
+    "notes": "Notes"
+  },
+  "settings": {
+    "title": "Settings",
+    "needs-restart": "Restart app to apply changes.",
+    "theme": {
+      "title": "Theme",
+      "dark": "Dark Mode",
+      "animations": "Disable UI Animations",
+      "start-page": "Start Page"
     },
-    "weight":{
-      "title":"Viktmål",
-      "target":"Målvikt (kg)",
-      "weekly":"Veckovis förändring (kg)",
-      "is-min":"Jag vill öka i vikt"
+    "units": {
+      "title": "Units",
+      "weight": "Weight",
+      "length": "Length",
+      "kilograms": "Kilograms",
+      "pounds": "Pounds",
+      "stone": "Stones",
+      "centimeters": "Centimeters",
+      "inches": "Inches"
+    },
+    "diary": {
+      "title": "Diary",
+      "categories": "Categories",
+      "timestamps": "Show Timestamps",
+      "thumbnails": "Show Thumbnails",
+      "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
+      "show-units": "Show nutrition units"
+    },
+    "diary-categories": {
+      "title": "Categories",
+      "category": "Category"
+    },
+    "foods": {
+      "title": "Foods, Meals, Recipes",
+      "sort": "Sort foods",
+      "images": "Show Food Images",
+      "wifi-images": "Only show images over Wi-Fi"
+    },
+    "import-export": {
+      "title": "Import/Export",
+      "backup": "Backup Database",
+      "import": "Import From Backup"
+    },
+    "integration": {
+      "title": "Integration",
+      "off": "Open Food Facts",
+      "off-account": "Open Food Facts Account",
+      "country": "Search Country",
+      "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
+      "usda": "Enable USDA search",
+      "usda-login-title": "USDA",
+      "usda-api-key": "USDA API Key",
+      "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
+      "usera-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
+      "username": "Username",
+      "password": "Password",
+      "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
+      "sign-in": "Sign In",
+      "exit": "Exit",
+      "save": "Save",
+      "invalid-credentials": "Invalid Credentials",
+      "export-success": "Database exported",
+      "export-fail": "Export Failed"
     }
   },
-
-  "diary":
-  {
-    "title":"Dagbok",
-    "serving": "Portion",
-    "servings": "Portioner",
-    "category": "Kategori",
-    "current-weight":"Nuvarande vikt",
-    "quick-add":
-    {
-      "title":"Lägg Till Snabbt",
-      "body":"Antal kilokalorier"
-    },
-    "edit-item":{
-      "title":"Redigera Posten",
-      "placeholders":
-      {
-        "quantity":"Antal portioner*",
-        "calories":"kilokalorier*",
-        "protein":"Protein (g)",
-        "carbs":"Kolhydrater (g)",
-        "fat":"Fett (g)",
-        "saturated-fat":"Mättat fett (g)",
-        "fiber":"Fiber (g)",
-        "salt":"Salt (g)",
-        "sugar":"Socker (g)"
-      }
-    }
-  },
-
-  "food-list":
-  {
-    "title":"Livsmedelslista",
-    "search":"Sök livsmedel",
-    "name-of-food": "Namn på livsmedel",
-    "no-results": "Inga matchande resultat",
-    "scan-failed": "Sökning misslyckades",
-    "edit-item":
-    {
-    "title1":"Lägg Till Livsmedel",
-    "title2":"Redigera Livsmedel",
-    "placeholders":{
-      "name":"Namn*",
-      "brand":"Varumärke*",
-      "portion":"Portion*",
-      "calories":"kilokalorier*",
-      "protein":"Protein (g)",
-      "carbs":"Kolhydrater (g)",
-      "fat":"Fett (g)",
-      "saturated-fat":"Mättat fett (g)",
-      "sugar":"Socker (g)",
-      "fiber":"Fiber (g)",
-      "salt":"Salt (g)"
-      }
-    },
-    "upload-item":
-    {
-      "title":"Ladda upp till Open Food Facts",
-      "success":"Produkten tillagd i Open Food Facts",
-      "fail":"Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
-      "placeholders":
-      {
-        "barcode":"Streckkod*",
-        "name":"Namn*",
-        "brand":"Varumärke**",
-        "portion":"Portionsstorlek*",
-        "calories":"kcal per portion*",
-        "protein":"Protein (g)",
-        "carbs":"Kolhydrater per portion (g)",
-        "fat":"Fett per portion (g)",
-        "saturated-fat":"Mättat fett per portion (g)",
-        "sugar":"Socker per portion (g)",
-        "fiber":"Fiber per portion (g)",
-        "salt":"Salt per portion (g)"
-      }
-    }
-  },
-
-  "meals":{
-    "title":"Måltider",
-    "filter":"Sök måltider",
-    "edit-meal":{
-      "title1":"Lägg till Måltid",
-      "title2":"Redigera Måltid",
-      "placeholders":{
-        "name":"Måltidsnamn*",
-        "notes":"Anteckningar..."
-      }
-    }
-  },
-  
-  "recipes":{
-    "title":"Recept",
-    "filter":"Sök recept",
-    "edit-recipe":{
-      "title1":"Lägg till recept",
-      "title2":"Ändra recept",
-      "placeholders":{
-        "name":"Receptnamn",
-        "notes":"Anteckningar..."
-      }
-    }
-  },
-
-  "settings":{
-    "title":"Inställningar",
-    "show-images1":"Visa produktbilder",
-    "show-images2":"Bilder visas när du är ansluten till internet. De lagras inte på din enhet.",
-    "disable-animations1":"Inaktivera animering",
-    "disable-animations2":"Inaktivering av animeringar kan förbättra prestanda på vissa enheter. (Kräver omstart av app.)",
-    "import":"Importera Data",
-    "export":"Exportera Data",
-    "diary":{
-      "title":"Dagboksinställningar",
-      "instructions1":"Använd rutorna nedan för att anpassa måltidsnamnen som används i dagboken.",
-      "instructions2":"Alla tomma fält ignoreras.",
-      "meal":"Måltid"
-    }
-  },
-
-  "dialogs":
-  {
-    "delete": "Radera",
-    "cancel": "Avbryt",
-    "yes":"Ja",
-    "no":"Nej",
-    "confirm-delete": "Är du säker på att du vill radera detta objekt?",
-    "delete-title": "Ta bort inlägg",
-    "required-fields": "Vänligen fyll i alla obligatoriska fält."
-  },
-
-  "user-guide":{
-    "title":"Användarguide",
-    "basics":{
-      "title":"Grunder",
-      "p1":"Din kropp behöver en viss mängd kalorier för att upprätthålla din nuvarande vikt. Vi kallar detta din energibalansnivå. Du kan öka din energibalansnivå genom att motionera mycket eller du kan sänka den genom att göra mindre.",
-      "p2":"Den enklaste metoden (som ger ett ganska korrekt svar) för att beräkna din energibalansnivå är att använda en TDEE kalculator. Du kan hitta många av dessa online.",
-      "p3":"För att gå ner i vikt bör du varje dag äta minst 100 kcal mindre än din underhållsnivå, och för att gå upp i vikt minst 100 kcal över nivån.",
-      "p4":"Ju mindre du äter varje dag desto mer vikt kommer du att förlora. Om du planerar att gå ner i vikt med ett stort kaloriunderskott bör du rådfråga din läkare och planera din kost så att du får all den näring din kropp behöver. Ha regelbundna kontroller med din läkare så att du snabbt kan reagera om något går fel."
-    },
-    "statistics":{
-      "title":"Statistik",
-      "p1":"I statistikvyn kan du se ett diagram som visar de näringsämnen du har ätit och variationer i din vikt under den valda tidsperioden. Denna vy är så gott som tom första gången du kör appen.",
-      "p2":"Du kan välja den tidsram som ska visas, t.ex. 1 vecka, i rullgardinsmenyn ovanför diagrammet.",
-      "p3":"Du kan välja vilken data som ska visas i diagrammet genom att klicka på objekten i diagrammets legend.",
-      "p4":"Under diagrammet finns en dag-för-dag-lista över din vikt och dina registrerade energiintag. Endast de datum då du gjort inlägg i din dagbok visas här. Om du trycker på ett objekt i den här listan kan du redigera den registrerade vikten.",
-      "p5":"Överst i vyn finns de näringsämnen du har konsumerat, tillsammans med de mål du satt samt kvarstående mängd för dagen. Du kan svepa åt vänster och höger i fältet för att bläddra mellan de olika näringsämnena."
-    },
-    "diary":{
-      "title":"Dagbok",
-      "p1":"Dagboken är vyn där du kommer att föra en logg över maten du äter. Tryck på en rubrik såsom Frukost för att lägga till mat i den måltidskategorin.",
-      "p2":"Detta tar dig till livsmedelslistan där du kan välja en eller flera matvaror att registrera i dagboken.",
-      "p3":"Energiinnehållet för matvarorna kommer att summeras för det valda datumet och visas längst ned på skärmen.",
-      "p4":"Knapparna på vardera sida om det valda datumet kan användas för att gå till föregående eller nästa dag och du kan trycka på datumet för att välja något specifikt datum.",
-      "p5":"Genom att trycka på ett matobjekt i din dagbok kan du justera antalet portioner och ändra måltidskategorin för det aktuella objektet. Dessa ändringar gäller endast inlägget i din dagbok och påverkar inte livsmedelslistan.",
-      "p6":"Tryck och håll på ett objekt i din dagbok för att ta bort det.",
-      "p7":"Du kan registrera din vikt genom att trycka på vågikonen i det övre verktygsfältet.",
-      "p8":"Om du bara vill registrera energiintag utan att behöva lägga till en produkt i din livsmedelslista så kan du också göra det. Klicka på och håll kvar på en av måltidskategorierna och ange energiintag (kcal) i rutan som visas. "
-    },
-    "food-list":{
-      "title":"Livsmedelslista",
-      "p1":"Denna vy innehåller en lista över alla livsmedel som du har lagt till i din lokala databas. Listan kommer vara tom första gången du kör appen.",
-      "p2":"Du kan använda sökrutan för att filtrera livsmedelslistan och på så vis lättare hitta vad du söker efter. Om du har en internetanslutning kan du även använda sökrutan för att hitta produkter i databasen Open Food Facts.",
-      "p3":"Livsmedelslistan sorteras automatiskt efter hur nyligen du använt dem i din dagbok, så de livsmedel du lägger till oftast kommer att visas högt upp i listan.",
-      "p4":"Om du trycker på ett objekt i listan väljer du det. När du väl har valt minst ett objekt visas en bock i det övre verktygsfältet, genom att klicka på denna registrerar du de valda objekten i din dagbok.",
-      "p5":"Du kan redigera eller radera ett livsmedel genom att trycka och hålla på det och sedan välja ett alternativ i menyn som visas."
-    },
-    "adding-a-food":
-    {
-      "title":"Lägga till livsmedel",
-      "p1":"Det finns tre sätt att lägga till nya livsmedel i din livsmedelslista. Du kan i vyn för livsmedelslistan klicka på den flytande plusknappen, via sökfältet söka i databasen Open Food Facts efter produkter, eller skanna streckkoden för en produkt genom att trycka på streckkodsikonen i det övre verktygsfältet.",
-      "p2":"Oavsett vilken metod du väljer kommer du så småningom till livsmedelsredigeringsvyn. Här kan du manuellt ange namn på maten, portionsstorlek (t.ex. 1 kaka, 100g, 3 cups, etc.) och mängden näringsämnen i en portion av den valda storleken.",
-      "p3":"Data som du hittar med streckkodsläsaren kanske inte alltid är korrekt för den produkt eller portionsstorlek du har, så dubbelkolla informationen som läggs till i formuläret och justera det som behövs innan du sparar.",
-      "p4":"Om ingen data finns tillgänglig för en skannad produkt får du möjlighet att lägga till den i databasen Open Food Facts.",
-      "p5":"När du är nöjd med informationen i formuläret kan du trycka på kryssrutan på verktygsfältet för att lägga till objektet i din livsmedelslista."
-    },
-    "uploading-a-product":
-    {
-      "title":"Ladda upp en produkt",
-      "p1":"När du skannar en streckkod för en produkt som inte finns i databasen Open Food Facts kommer du att bli ombedd om du vill lägga till den, vilket du kan göra direkt från Waistline.",
-      "p2":"Du kommer att tas till en vy där du kan ange produktens namn och märke samt näringsinnehåll. Du kan också ladda upp upp till tre bilder.",
-      "p3":"Klicka på kameraikonen för att ta ett foto. Du kan beskära bilden när du har tagit den så att du bara laddar upp relevant information.",
-      "p4":"När du tagit en bild blir du uppmanad att märka bilden antingen som produktens framsida, ingredienslista, eller näringsinformation.",
-      "p4":"Alla bilder som du laddar upp med Waistline licensieras automatiskt som Creative Commons Attribution ShareAlike.",
-      "p5":"När du kör Waistline för första gången genererar appen ett unikt ID. Detta ID inkluderas automatiskt i kommentarsfältet när du laddar upp en produkt till Open Food Facts.",
-      "p6":"Syftet med detta ID är att hjälpa underhållarna av databasen för Open Food Facts att upptäcka misstag och förhindra missbruk av deras system."
-    },
-    "meals":
-    {
-      "title":"Måltider",
-      "p1":"I måltidsvyn kan du kombinera matvaror för att skapa ett nytt objekt som kallas måltid. Klicka på den flytande plusknappen för att skapa en ny måltid. Du kan redigera eller radera en existerande måltid genom att klicka och hålla på måltiden och sedan göra ett val i menyn som visas.",
-      "p2":"På skärmen Redigera Måltid kan du ange ett namn på måltiden och lägga till anteckningar. Du kan klicka på den flytande plus-knappen på den här skärmen för att välja de livsmedel som du vill lägga till i din måltid.",
-      "p3":"Du kan redigera mängden av varje livsmedel du har lagt till genom att klicka på livsmedlet och ange en mängd i rutan som visas. Ovanför listan över måltidens delar ser du det totala näringsinnehållet i måltiden. Du kan svepa på detta område för att se fler näringsämnen.",
-      "p4":"När du är nöjd med din måltid kan du trycka på bocken i det övre verktygsfältet för att spara måltiden.",
-      "p5":"Grundproceduren för att lägga till en måltid i din dagbok är densamma som när du lägger till ett livsmedel. Klicka på en måltidskategori i dagboksvyn, detta tar dig till matlistan. Genom att därefter klicka på Måltider i det nedre verktygsfältet kommer du till måltidsvyn.",
-      "p6":"När du lägger till en måltid i din dagbok kommer alla livsmedel från måltiden att läggas till individuellt. Detta gör det möjligt att ytterligare anpassa måltiden efter behov utan att behöva skapa flera varianter på en måltid."
-    },
-    "goals":
-    {
-      "title":"Målsättningar",
-      "p1":"Från den här skärmen kan du ställa in de olika mål du vill uppnå.",
-      "p2":"Du kan ställa in ett viktmål och ange om du vill förlora vikt eller öka i vikt.",
-      "p3":"Och du kan ställa in en rad näringsmål med en olika mål för varje dag i veckan."
-    },
-    "settings":
-    {
-      "title":"Inställningar",
-      "p1":"Det finns olika inställningar i den här vyn som kan användas för att anpassa appen efter dina behov. De flesta av dessa är självförklarande.",
-      "p2":"Med Dagboksinställningar kan du anpassa namnen på de kategorier som används i dagboken. Du kan ha upp till 7 kategorier. De kategorier som inte har ett namn kommer inte att användas."
-    },
-    "export":
-    {
-      "title":"Exportera",
-      "p1":"Alla uppgifter du anger lagras lokalt på din enhet. De enda gånger någon information över huvud taget skickas från denna app till internet är när du skannar en streckkod, söker efter en produkt, eller laddar upp en ny produkt.",
-      "p2":"Det här är bra eftersom det betyder att du har kontroll över dina data och ingen kommer åt dem på distans. Den enda nackdelen är att dina data inte säkerhetskopieras till molnet (någon annans dator) så när du går vidare till en ny enhet kommer dina data inte automatiskt att vara tillgängliga.",
-      "p3":"Det är här exportknappen är användbar. Om du trycker på den här knappen exporteras dina data (dagbok, matlista och viktlogg) till en enkel textfil. Den här filen heter waistline_export.json. Du hittar filen på din enhet i en mapp i stil med 'Android/data/com.waist.line/files/'.",
-      "p4":"Det här är en privat mapp som inte kan nås av andra appar, så det är trevligt och säkert men lite obekvämt att hitta.",
-      "p5":"När du har den här filen kan du installera Waistline på din nya enhet och flytta den exporterade filen till samma plats på den nya enheten. Då kan du importera data tillbaka till Waistline."
-    },
-    "import":
-    {
-      "title":"Importera",
-      "p1":"Varning!!!! Då du importerar data skrivs all befintlig data över. Den enda gången du behöver göra det är när du flyttar till en ny enhet eller vill återställa till en tidigare säkerhetskopia.",
-      "p2":"För att importera data, lägg waistline_export.json filen i rätt plats på din enhet (se Exportera). Tryck sedan på importknappen.",
-      "p3":"Waistline version 2 är inte bakåtkompatibel med version 1. Du kan försöka importera data från version 1 men det kommer att ge några konstiga resultat."
-    },
-    "licenses":
-    {
-      "title":"Licenser",
-      "p1":"Waistline byggdes med hjälp av Cordovas ramverk och OnsenUI, vilka är tillgängliga under Apache-licensen. Ingår gör även jQuery, jQuery lokalize, och ChartJS som är licenserade under MIT-licensen. HTML, CSS, och andra javascript som utgör huvuddelen av appen är släppta under GPLv3-licensen.",
-      "p2":"Källkoden för Waistline kan hittas på github.com/davidhealey."
-    }
-  },
-
-  "about":
-  {
-    "title":"Om",
-    "p1":"Waistline är skapad av David Healey med förslag och bidrag från andra på git-hub."
+  "about": {
+    "title": "About",
+    "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
+    "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
+    "p2": "The source code for Waistline can be found at github.com/davidhealey/waistline."
   }
 }
