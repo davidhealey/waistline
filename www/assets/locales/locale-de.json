@@ -171,7 +171,8 @@
       "title": "Thema",
       "dark": "Dunkelmodus",
       "animations": "UI Animationen deaktivieren",
-      "start-page": "Startseite"
+      "start-page": "Startseite",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Einheiten",
@@ -233,5 +234,18 @@
     "p0": "Waistline wurde von David Healey entwickelt und von verschiedenen GitHub-Nutzern durch Vorschläge und Anpassungen unterstützt.",
     "p1": "Waistline wurde mit dem Cordova Framework und OnsenUI erstellt, was unter der Apache Lizenz verfügbar ist. Ebenfalls verwendet wurden jQuery, jQuery localize und ChartJS, welche unter der MIT Lizenz stehen. HTML, CSS und JavaScript, die das Hauptgerüst der App bilden, gehören zur GPLv3 Lizenz.",
     "p2": "Den Quellcode von Waistline finden Sie unter: github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
