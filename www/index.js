@@ -64,25 +64,26 @@ const app = {
         lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
     }
 
+    let fallbackStrings;
+
     //Get default/fallback locale data
     $.getJSON("assets/locales/locale-en.json", function(data) {
-        app.strings = data;
-      })
-      .then(function() {
-        $("[data-localize]").localize("assets/locales/locale", {
-          language: lang,
-          callback: function(data, defaultCallback) {
+      fallbackStrings = data;
+    });
 
-            // Get localized strings
-            let locale = $.localize.data["assets/locales/locale"];
+    $("[data-localize]").localize("assets/locales/locale", {
+      language: lang,
+      callback: function(data, defaultCallback) {
 
-            // Merge the default strings with the locale in case there are any missing values
-            app.strings = Object.assign(app.strings, locale);
+        // Get localized strings
+        let locale = $.localize.data["assets/locales/locale"];
 
-            defaultCallback(data);
-          }
-        });
-      });
+        // Merge the default strings with the locale in case there are any missing values
+        app.strings = Object.assign(fallbackStrings, locale);
+        defaultCallback(data);
+      }
+    });
+
   },
 
   f7: new Framework7({
@@ -271,8 +272,6 @@ const mainView = app.f7.views.create("#main-view", viewOptions);
 document.addEventListener("page:init", function(event) {
   let page = event.detail;
 
-  app.localize();
-
   //Close panel when switching pages
   let panelLeft = app.f7.panel.get('.panel-left');
   if (panelLeft)
@@ -290,8 +289,6 @@ document.addEventListener("page:reinit", function(event) {
   let panelLeft = app.f7.panel.get('.panel-left');
   let pageName = app.f7.views.main.router.currentRoute.name;
 
-  app.localize();
-
   if (pageName !== undefined && pageName.includes("Editor"))
     panelLeft.disableSwipe();
   else
@@ -300,7 +297,13 @@ document.addEventListener("page:reinit", function(event) {
 
 app.f7.on("init", async function(event) {});
 
+document.addEventListener("page:beforein", (e) => {
+  app.localize();
+});
+
 document.addEventListener('deviceready', async function() {
+
+  app.localize();
 
   //Database setup
   await dbHandler.initializeDb();

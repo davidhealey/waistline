@@ -621,7 +621,7 @@ document.addEventListener("page:beforeremove", function(e) {
 
 document.addEventListener("tab:init", function(e) {
   app.FoodsMealsRecipes.tab = e.target.id;
-  app.FoodsMealsRecipes.tabTitle = e.target.title;
+  app.FoodsMealsRecipes.tabTitle = app.strings["foods-meals-recipes"][e.target.title.toLowerCase()] || e.target.title;
   app.FoodsMealsRecipes.selection = [];
   app.FoodsMealsRecipes.tabInit();
 });

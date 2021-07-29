@@ -57,7 +57,7 @@ app.Goals = {
       let a = document.createElement("a");
       a.href = "#";
 
-      let text = app.strings.nutriments[x] || x;
+      let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
       a.innerHTML = app.Utils.tidyText(text, 50, true) + " " + unit;
       li.appendChild(a);
 
