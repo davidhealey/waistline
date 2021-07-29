@@ -171,7 +171,8 @@
       "title": "Тема",
       "dark": "Тёмный режим",
       "animations": "Отключить анимацию интерфейса",
-      "start-page": "Начальная страница"
+      "start-page": "Начальная страница",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Единицы измерения",
@@ -233,5 +234,18 @@
     "p0": "Waistline был создан David Healey с предложениями и вкладами пользователей.",
     "p1": "Waistline был собран с использованием фреймворка Cordova и OnsenUI, которые доступны по лицензии Apache. Также включены jQuery, jQuery localize и ChartJS, которые находятся под лицензией MIT. HTML, CSS и JavaScript, составляющие основную часть приложения, находятся под лицензией GPLv3.",
     "p2": "Исходный код Waistline можно найти на github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
