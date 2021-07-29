@@ -144,8 +144,8 @@
     "per-serving": "На порцию",
     "ingredients": "Ингредиенты",
     "traces": "Следы",
-    "edit": "Edit",
-    "item": "Item"
+    "edit": "Редактировать",
+    "item": "Продукт"
   },
   "goals": {
     "title": "Цели"
@@ -172,7 +172,7 @@
       "dark": "Тёмный режим",
       "animations": "Отключить анимацию интерфейса",
       "start-page": "Начальная страница",
-      "language": "Preferred Language"
+      "language": "Предпочитаемый язык"
     },
     "units": {
       "title": "Единицы измерения",
@@ -236,16 +236,16 @@
     "p2": "Исходный код Waistline можно найти на github.com/davidhealey/waistline."
   },
   "locale": {
-    "auto": "Detect Automatically",
-    "english": "English",
-    "german": "German",
-    "italian": "Italian",
-    "french": "French",
-    "swedish": "Swedish",
-    "russian": "Russian",
-    "portuguese": "Portuguese",
-    "bulgarian": "Bulgarian",
-    "hebrew": "Hebrew",
-    "finnish": "Finnish"
+    "auto": "Определять автоматически",
+    "english": "Английский",
+    "german": "Немецкий",
+    "italian": "Итальянский",
+    "french": "Французский",
+    "swedish": "Шведский",
+    "russian": "Русский",
+    "portuguese": "Португальский",
+    "bulgarian": "Болгарский",
+    "hebrew": "Иврит",
+    "finnish": "Финский"
   }
 }
