@@ -372,7 +372,8 @@ app.Settings = {
         animations: true,
         "dark-mode": false,
         "start-page": "/settings/",
-        theme: "color-theme-red"
+        theme: "color-theme-red",
+        locale: "auto"
       },
       units: {
         energy: "kcal",

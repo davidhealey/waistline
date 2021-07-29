@@ -54,8 +54,7 @@ const app = {
     "vitamin-b12": "µg"
   },
 
-  localize: function(l) {
-
+  localize: function() {
     let lang = app.Settings.get("theme", "locale");
 
     if (lang == undefined || lang == "auto") {
