@@ -47,7 +47,7 @@
     "no": "Nein",
     "confirm-delete": "Diesen Eintrag wirklich löschen?",
     "delete-title": "Eintrag löschen",
-    "required-fields": "Bitte füllen Sie alle nötigen Felder aus.",
+    "required-fields": "Bitte fülle alle nötigen Felder aus.",
     "camera-problem": "Beim Zugriff auf deine Kamera ist ein Problem aufgetreten.",
     "no-internet": "Keine Internetverbindung",
     "no-results": "Keine passenden Ergebnisse gefunden",
@@ -55,13 +55,13 @@
     "scan-failed": "Scan fehlgeschlagen",
     "search": "Suchen",
     "number-of-calories": "Bitte gib die Anzahl der Kalorien für dieses Essen an.",
-    "add-to-off": "Möchten Sie dieses Produkt zur Open Food Facts Datenbank hinzufügen?",
-    "main-image": "Bitte laden Sie ein gültiges Bild hoch",
+    "add-to-off": "Möchtest du dieses Produkt zur Open Food Facts Datenbank hinzufügen?",
+    "main-image": "Bitte lade ein gültiges Bild hoch",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
-    "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie den Entwickler.",
+    "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
     "what-meal": "Welche Mahlzeit ist das?",
     "import": "Importieren",
-    "confirm-import": "Sind Sie sicher? Dies wird Ihre aktuelle Datenbank überschreiben."
+    "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben."
   },
   "days": {
     "0": "Sonntag",
@@ -233,7 +233,7 @@
     "title": "Über",
     "p0": "Waistline wurde von David Healey entwickelt und von verschiedenen GitHub-Nutzern durch Vorschläge und Anpassungen unterstützt.",
     "p1": "Waistline wurde mit dem Cordova Framework und OnsenUI erstellt, was unter der Apache Lizenz verfügbar ist. Ebenfalls verwendet wurden jQuery, jQuery localize und ChartJS, welche unter der MIT Lizenz stehen. HTML, CSS und JavaScript, die das Hauptgerüst der App bilden, gehören zur GPLv3 Lizenz.",
-    "p2": "Den Quellcode von Waistline finden Sie unter: github.com/davidhealey/waistline."
+    "p2": "Den Quellcode von Waistline findest du unter: github.com/davidhealey/waistline."
   },
   "locale": {
     "auto": "Detect Automatically",
