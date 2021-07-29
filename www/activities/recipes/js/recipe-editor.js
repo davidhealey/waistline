@@ -129,7 +129,7 @@ app.RecipeEditor = {
       let now = new Date();
       data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
-      let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input");
+      let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input, .page[data-name='recipe-editor'] textarea");
 
       inputs.forEach((x) => {
         if (x.value !== undefined && x.value != "")
