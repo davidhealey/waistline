@@ -171,7 +171,8 @@
       "title": "ערכת עיצוב",
       "dark": "מצב כהה",
       "animations": "השבתת הנפשות",
-      "start-page": "עמוד הפתיחה"
+      "start-page": "עמוד הפתיחה",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "יחידות",
@@ -233,5 +234,18 @@
     "p0": "היישומון Waistline נוצר על ידי David Healey בחיזוק הצעות ותרומות משתמשים.",
     "p1": "היישומון Waistline נבנה על גבי Cordova שזמינה בכפוף לרישיון Apache. בנוסף נכללות המערכות Framework7,‏ jQuery,‏ jQuery localize ו־ChartJS שכפופות לרישיון MIT. תשתיות ה־HTML,‏ ה־CSS ושאר ה־javascript שמרכיבות את הגוף הראשי של היישומון כפופות לרישיון GPLv3.",
     "p2": "ניתן למצוא את קוד המקור של Waistline בכתובת github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
