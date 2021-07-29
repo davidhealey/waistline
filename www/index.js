@@ -54,11 +54,16 @@ const app = {
     "vitamin-b12": "µg"
   },
 
-  localizationInit: function() {
-    let lang = navigator.language.replace(/_/, '-').toLowerCase();
+  localize: function(l) {
 
-    if (lang.length > 3)
-      lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
+    let lang = app.Settings.get("theme", "locale");
+
+    if (lang == undefined || lang == "auto") {
+      lang = navigator.language.replace(/_/, '-').toLowerCase();
+
+      if (lang.length > 3)
+        lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
+    }
 
     //Get default/fallback locale data
     $.getJSON("assets/locales/locale-en.json", function(data) {
@@ -66,6 +71,7 @@ const app = {
       })
       .then(function() {
         $("[data-localize]").localize("assets/locales/locale", {
+          language: lang,
           callback: function(data, defaultCallback) {
 
             // Get localized strings
@@ -266,6 +272,8 @@ const mainView = app.f7.views.create("#main-view", viewOptions);
 document.addEventListener("page:init", function(event) {
   let page = event.detail;
 
+  app.localize();
+
   //Close panel when switching pages
   let panelLeft = app.f7.panel.get('.panel-left');
   if (panelLeft)
@@ -283,6 +291,8 @@ document.addEventListener("page:reinit", function(event) {
   let panelLeft = app.f7.panel.get('.panel-left');
   let pageName = app.f7.views.main.router.currentRoute.name;
 
+  app.localize();
+
   if (pageName !== undefined && pageName.includes("Editor"))
     panelLeft.disableSwipe();
   else
@@ -292,9 +302,6 @@ document.addEventListener("page:reinit", function(event) {
 app.f7.on("init", async function(event) {});
 
 document.addEventListener('deviceready', async function() {
-
-  // Localization
-  app.localizationInit();
 
   //Database setup
   await dbHandler.initializeDb();
