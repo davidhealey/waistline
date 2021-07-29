@@ -1,0 +1,9 @@
+{
+  "name": "framework7/toggle",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/toggle/toggle.js",
+  "module": "../../esm/components/toggle/toggle.js",
+  "jsnext:main": "../../esm/components/toggle/toggle.js",
+  "typings": "../../types/components/toggle/toggle.d.ts"
+}

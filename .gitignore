@@ -2,7 +2,7 @@ deliverables/
 images/master/
 node_modules/
 platforms
-!/platforms/android/app
+!*/platforms/android/app
 plugins/
 package-lock.json
 .jshintrc

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/resize",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/resize/resize.js",
+  "module": "../../esm/modules/resize/resize.js",
+  "jsnext:main": "../../esm/modules/resize/resize.js",
+  "typings": "../../types/modules/resize/resize.d.ts"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/navbar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/navbar/navbar.js",
+  "module": "../../esm/components/navbar/navbar.js",
+  "jsnext:main": "../../esm/components/navbar/navbar.js",
+  "typings": "../../types/components/navbar/navbar.d.ts"
+}

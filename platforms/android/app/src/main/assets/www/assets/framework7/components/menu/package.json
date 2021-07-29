@@ -1,0 +1,9 @@
+{
+  "name": "framework7/menu",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/menu/menu.js",
+  "module": "../../esm/components/menu/menu.js",
+  "jsnext:main": "../../esm/components/menu/menu.js",
+  "typings": "../../types/components/menu/menu.d.ts"
+}

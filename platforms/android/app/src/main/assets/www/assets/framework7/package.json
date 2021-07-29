@@ -1,0 +1,88 @@
+{
+  "_from": "framework7@~6.0.12",
+  "_id": "framework7@6.0.12",
+  "_inBundle": false,
+  "_integrity": "sha512-1OWF2pQ8SdVZNebVw+VC4l2qWYKlefv1XdF5PTL/fg+HMeRwQTy7mD9m6mlk61NhWUnMN26J94bjEkjOQhX7PA==",
+  "_location": "/framework7",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "framework7@~6.0.12",
+    "name": "framework7",
+    "escapedName": "framework7",
+    "rawSpec": "~6.0.12",
+    "saveSpec": null,
+    "fetchSpec": "~6.0.12"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/framework7/-/framework7-6.0.12.tgz",
+  "_shasum": "3e52662272d5a875eb3c9900d42b56de510b280e",
+  "_spec": "framework7@~6.0.12",
+  "_where": "/media/dave/Internal Storage/Projects/Cordova/waistline",
+  "author": {
+    "name": "Vladimir Kharlampidi"
+  },
+  "bugs": {
+    "url": "https://github.com/framework7io/framework7/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "dom7": "^3.0.0",
+    "htm": "^3.0.4",
+    "path-to-regexp": "^6.2.0",
+    "skeleton-elements": "^3.3.0",
+    "ssr-window": "^3.0.0",
+    "swiper": "^6.4.15"
+  },
+  "deprecated": false,
+  "description": "Full featured mobile HTML framework for building iOS & Android apps",
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/vladimirkharlampidi"
+  },
+  "homepage": "https://framework7.io/",
+  "jsnext:main": "esm/framework7.js",
+  "keywords": [
+    "mobile",
+    "framework",
+    "framework7",
+    "cordova",
+    "ios",
+    "iphone",
+    "ipad",
+    "apple",
+    "phonegap",
+    "native",
+    "touch",
+    "appstore",
+    "app",
+    "f7",
+    "material",
+    "android",
+    "google",
+    "googleplay"
+  ],
+  "license": "MIT",
+  "main": "cjs/framework7.js",
+  "module": "esm/framework7.js",
+  "name": "framework7",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/framework7io/framework7.git"
+  },
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  },
+  "sideEffects": [
+    "*.less",
+    "*.css",
+    "cjs/utils/dom7.js",
+    "esm/utils/dom7.js"
+  ],
+  "typings": "framework7.d.ts",
+  "version": "6.0.12"
+}

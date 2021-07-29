@@ -1,0 +1,77 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="settings-units">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left"><a class="link back"><i class="icon icon-back"></i></a></div>
+      <div class="title" data-localize="settings.units.title">Units</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="list">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="settings.units.energy">Energy</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select name="energy" field="units">
+                  <option value="kcal" selected data-localize="nutriments.calorie">Calories</option>
+                  <option value="kJ" data-localize="nutriments.kilojoule">Kilojoules</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="settings.units.weight">Weight</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select name="weight" field="units">
+                  <option value="kg" selected data-localize="settings.units.kilograms">Kilograms</option>
+                  <option value="lb" data-localize="settings.units.pounds">Pounds</option>
+                  <option value="st" data-localize="settings.units.stones">Stones</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="settings.units.length">Length</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select name="length" field="units">
+                  <option value="cm" selected data-localize="settings.units.centimeters">Centimeters</option>
+                  <option value="inch" data-localize="settings.units.inches">Inches</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+@import url('./app-vars.less');
+// Core Icons
+@font-face {
+  @fontBase64: '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';
+  font-family: 'framework7-core-icons';
+  src: url('data:application/font-woff;charset=utf-8;base64, @{fontBase64}') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rtl({
+  html {
+    direction: rtl;
+  }
+});
+html,
+body,
+.framework7-root {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--f7-font-family);
+  font-size: var(--f7-font-size);
+  line-height: var(--f7-line-height);
+  color: var(--f7-text-color);
+}
+.theme-dark body,
+body.theme-dark {
+  background: #000;
+}
+.theme-dark {
+  color: var(--f7-text-color);
+}
+.framework7-root {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.framework7-initializing * {
+  &,
+  &:before,
+  &:after {
+    transition-duration: 0ms !important;
+  }
+}
+.device-ios,
+.device-android {
+  cursor: pointer;
+}
+.device-ios {
+  touch-action: manipulation;
+}
+
+// Fix for iPad in Safari in Lanscape mode
+@media (width: 1024px) and (height: 691px) and (orientation: landscape) {
+  html,
+  body,
+  .framework7-root {
+    height: 671px;
+  }
+}
+@media (width: 1024px) and (height: 692px) and (orientation: landscape) {
+  html,
+  body,
+  .framework7-root {
+    height: 672px;
+  }
+}
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+}
+a,
+input,
+textarea,
+select {
+  outline: 0;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--f7-theme-color);
+}
+.link,
+.item-link {
+  cursor: pointer;
+}
+p {
+  margin: 1em 0;
+}
+// Disabled
+.disabled {
+  .disabled() !important;
+}
+// Full viewport
+html.device-full-viewport {
+  &,
+  & body {
+    height: 100vh;
+  }
+}
+
+.if-ios-theme({
+  @import url('./app-ios.less');
+});
+.if-md-theme({
+  @import url('./app-md.less');
+});
+.if-aurora-theme({
+  @import url('./app-aurora.less');
+});

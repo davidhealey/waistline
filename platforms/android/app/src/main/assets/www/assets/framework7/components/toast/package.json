@@ -1,0 +1,9 @@
+{
+  "name": "framework7/toast",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/toast/toast.js",
+  "module": "../../esm/components/toast/toast.js",
+  "jsnext:main": "../../esm/components/toast/toast.js",
+  "typings": "../../types/components/toast/toast.d.ts"
+}

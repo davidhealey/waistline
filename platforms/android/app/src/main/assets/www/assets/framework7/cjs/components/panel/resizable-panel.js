@@ -1,0 +1,197 @@
+"use strict";
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _dom = _interopRequireDefault(require("../../shared/dom7"));
+
+var _utils = require("../../shared/utils");
+
+var _getSupport = require("../../shared/get-support");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function resizablePanel(panel) {
+  var app = panel.app;
+  var support = (0, _getSupport.getSupport)();
+  if (panel.resizableInitialized) return;
+  (0, _utils.extend)(panel, {
+    resizable: true,
+    resizableWidth: null,
+    resizableInitialized: true
+  });
+  var $htmlEl = (0, _dom.default)('html');
+  var $el = panel.$el,
+      $backdropEl = panel.$backdropEl,
+      side = panel.side,
+      effect = panel.effect;
+  if (!$el) return;
+  var isTouched;
+  var isMoved;
+  var touchesStart = {};
+  var touchesDiff;
+  var panelWidth;
+  var $viewEl;
+  var panelMinWidth;
+  var panelMaxWidth;
+  var visibleByBreakpoint;
+
+  function transformCSSWidth(v) {
+    if (!v) return null;
+
+    if (v.indexOf('%') >= 0 || v.indexOf('vw') >= 0) {
+      return parseInt(v, 10) / 100 * app.width;
+    }
+
+    var newV = parseInt(v, 10);
+    if (Number.isNaN(newV)) return null;
+    return newV;
+  }
+
+  function isResizable() {
+    return panel.resizable && $el.hasClass('panel-resizable');
+  }
+
+  function handleTouchStart(e) {
+    if (!isResizable()) return;
+    touchesStart.x = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
+    touchesStart.y = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+    isMoved = false;
+    isTouched = true;
+    panelMinWidth = transformCSSWidth($el.css('min-width'));
+    panelMaxWidth = transformCSSWidth($el.css('max-width'));
+    visibleByBreakpoint = $el.hasClass('panel-in-breakpoint');
+  }
+
+  function handleTouchMove(e) {
+    if (!isTouched) return;
+    var pageX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
+
+    if (!isMoved) {
+      panelWidth = $el[0].offsetWidth;
+      $el.transition(0);
+      $el.addClass('panel-resizing');
+      $htmlEl.css('cursor', 'col-resize');
+
+      if (effect === 'reveal' || visibleByBreakpoint) {
+        $viewEl = (0, _dom.default)(panel.getViewEl());
+
+        if (panel.$containerEl && panel.$containerEl.hasClass('page')) {
+          $viewEl.add(panel.$containerEl.children('.page-content, .tabs, .fab'));
+        }
+      }
+
+      if (effect === 'reveal' && !visibleByBreakpoint) {
+        $backdropEl.transition(0);
+        $viewEl.transition(0);
+      }
+    }
+
+    isMoved = true;
+    e.preventDefault();
+    touchesDiff = pageX - touchesStart.x;
+    var newPanelWidth = side === 'left' ? panelWidth + touchesDiff : panelWidth - touchesDiff;
+
+    if (panelMinWidth && !Number.isNaN(panelMinWidth)) {
+      newPanelWidth = Math.max(newPanelWidth, panelMinWidth);
+    }
+
+    if (panelMaxWidth && !Number.isNaN(panelMaxWidth)) {
+      newPanelWidth = Math.min(newPanelWidth, panelMaxWidth);
+    }
+
+    newPanelWidth = Math.min(Math.max(newPanelWidth, 0), app.width);
+    panel.resizableWidth = newPanelWidth;
+    $el[0].style.width = newPanelWidth + "px";
+
+    if (effect === 'reveal' && !visibleByBreakpoint) {
+      if ($viewEl) {
+        $viewEl.transform("translate3d(" + (side === 'left' ? newPanelWidth : -newPanelWidth) + "px, 0, 0)");
+      }
+
+      if ($backdropEl) {
+        $backdropEl.transform("translate3d(" + (side === 'left' ? newPanelWidth : -newPanelWidth) + "px, 0, 0)");
+      }
+    } else if (visibleByBreakpoint && $viewEl) {
+      $viewEl.css("margin-" + side, newPanelWidth + "px");
+    }
+
+    $el.trigger('panel:resize', newPanelWidth);
+    panel.emit('local::resize panelResize', panel, newPanelWidth);
+  }
+
+  function handleTouchEnd() {
+    (0, _dom.default)('html').css('cursor', '');
+
+    if (!isTouched || !isMoved) {
+      isTouched = false;
+      isMoved = false;
+      return;
+    }
+
+    isTouched = false;
+    isMoved = false;
+    $htmlEl[0].style.setProperty("--f7-panel-" + side + "-width", panel.resizableWidth + "px");
+    $el[0].style.width = '';
+
+    if (effect === 'reveal' && !visibleByBreakpoint) {
+      $viewEl.transform('');
+      $backdropEl.transform('');
+    }
+
+    $el.removeClass('panel-resizing');
+    (0, _utils.nextFrame)(function () {
+      $el.transition('');
+
+      if (effect === 'reveal') {
+        $backdropEl.transition('');
+        if ($viewEl) $viewEl.transition('');
+      }
+    });
+  }
+
+  function handleResize() {
+    if (!panel.opened || !panel.resizableWidth) return;
+    panelMinWidth = transformCSSWidth($el.css('min-width'));
+    panelMaxWidth = transformCSSWidth($el.css('max-width'));
+
+    if (panelMinWidth && !Number.isNaN(panelMinWidth) && panel.resizableWidth < panelMinWidth) {
+      panel.resizableWidth = Math.max(panel.resizableWidth, panelMinWidth);
+    }
+
+    if (panelMaxWidth && !Number.isNaN(panelMaxWidth) && panel.resizableWidth > panelMaxWidth) {
+      panel.resizableWidth = Math.min(panel.resizableWidth, panelMaxWidth);
+    }
+
+    panel.resizableWidth = Math.min(Math.max(panel.resizableWidth, 0), app.width);
+    $htmlEl[0].style.setProperty("--f7-panel-" + side + "-width", panel.resizableWidth + "px");
+  }
+
+  if (panel.$el.find('.panel-resize-handler').length === 0) {
+    panel.$el.append('<div class="panel-resize-handler"></div>');
+  }
+
+  panel.$resizeHandlerEl = panel.$el.children('.panel-resize-handler');
+  $el.addClass('panel-resizable'); // Add Events
+
+  var passive = support.passiveListener ? {
+    passive: true
+  } : false;
+  panel.$el.on(app.touchEvents.start, '.panel-resize-handler', handleTouchStart, passive);
+  app.on('touchmove:active', handleTouchMove);
+  app.on('touchend:passive', handleTouchEnd);
+  app.on('resize', handleResize);
+  panel.on('beforeOpen', handleResize);
+  panel.once('panelDestroy', function () {
+    $el.removeClass('panel-resizable');
+    panel.$resizeHandlerEl.remove();
+    panel.$el.off(app.touchEvents.start, '.panel-resize-handler', handleTouchStart, passive);
+    app.off('touchmove:active', handleTouchMove);
+    app.off('touchend:passive', handleTouchEnd);
+    app.off('resize', handleResize);
+    panel.off('beforeOpen', handleResize);
+  });
+}
+
+var _default = resizablePanel;
+exports.default = _default;

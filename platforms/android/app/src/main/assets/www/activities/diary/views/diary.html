@@ -1,0 +1,71 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="diary">
+
+	<div class="navbar">
+		<div class="navbar-bg"></div>
+		<div class="navbar-inner">
+			<div class="left">
+				<a href="#" class="link icon-only panel-toggle" data-panel=".panel-left">
+					<i class="icon material-icons">menu</i>
+				</a>
+			</div>
+			<div class="title" data-localize="diary.title">Diary</div>
+			<div class="right">
+				<span id="show-chart">
+					<a href="#" class="link icon-only">
+						<i class="icon material-icons">pie_chart</i>
+					</a>
+				</span>
+				<span id="log">
+					<a href="#" class="link icon-only">
+						<i class="icon fas fa-balance-scale-left"></i>
+					</a>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-content">
+
+		<div class="toolbar calendar-custom-toolbar no-shadow">
+			<div class="toolbar-inner">
+				<div class="left">
+					<a href="#" class="link icon-only change-date"><i class="icon icon-back"></i></a>
+				</div>
+				<div class="center" id="diary-date"></div>
+				<div class="right">
+					<a href="#" class="link icon-only change-date"><i class="icon icon-forward"></i></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="card no-border no-shadow">
+			<div class="card-content" id="diary-nutrition">
+				<div class="swiper-container swiper-init">
+					<div class="swiper-wrapper" style="height: auto;"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="diary-day"></div>
+
+	</div>
+</div>

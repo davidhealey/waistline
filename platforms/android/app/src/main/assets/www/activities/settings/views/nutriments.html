@@ -1,0 +1,55 @@
+<!--
+  Copyright 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="settings-nutriments">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" data-localize="settings.nutriments.title">Nutriments</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="list sortable sortable-tap-hold">
+      <ul id="nutriment-list">
+        <li id="calories" class="no-sorting" style="display: none;">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title">Calories</div>
+              <div class="item-after"><label class="toggle toggle-init"><input type="checkbox" name="calories" field="nutrimentVisibility" checked="1"><span class="toggle-icon"></span></label></div>
+            </div>
+          </div>
+        </li>
+        <li id="kilojoules" class="no-sorting" style="display: none;">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title">Kilojoules</div>
+              <div class="item-after"><label class="toggle toggle-init"><input type="checkbox" name="kilojoules" field="nutrimentVisibility" checked="1"><span class="toggle-icon"></span></label></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

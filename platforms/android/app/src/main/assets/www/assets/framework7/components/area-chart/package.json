@@ -1,0 +1,9 @@
+{
+  "name": "framework7/area-chart",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/area-chart/area-chart.js",
+  "module": "../../esm/components/area-chart/area-chart.js",
+  "jsnext:main": "../../esm/components/area-chart/area-chart.js",
+  "typings": "../../types/components/area-chart/area-chart.d.ts"
+}

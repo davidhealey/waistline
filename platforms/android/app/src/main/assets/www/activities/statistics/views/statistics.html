@@ -1,0 +1,88 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="statistics">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a href="#" class="link icon-only panel-toggle" data-panel=".panel-left">
+          <i class="icon material-icons">menu</i>
+        </a>
+      </div>
+      <div class="title" data-localize="statistics.title">Statistics</div>
+      <div class="right chart-type" style="display:none;">
+        <a href="#" class="link icon-only" id="bar-type"><i class="icon material-icons">bar_chart</i></a></div>
+      <div class="right chart-type">
+        <a href="#" class="link icon-only" id="line-type"><i class="icon material-icons">show_chart</i></a></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="list">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="statistics.range">Range</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select name="range" id="range">
+                  <option value="7" data-localize="statistics.week">1 Week</option>
+                  <option value="1" data-localize="statistics.month" selected="selected">1 Month</option>
+                  <option value="3" data-localize="statistics.3month">3 Months</option>
+                  <option value="6" data-localize="statistics.6month">6 Months</option>
+                  <option value="12" data-localize="statistics.12month">1 Year</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="statistics.stat">Stat</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select name="stat" id="stat"></select>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <canvas id="chart" width="200" height="200"></canvas>
+
+    <div class="list">
+      <ul>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b data-localize="statistics.timeline">Timeline</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
+            <ul id="timeline">
+            </ul>
+          </div>
+    </div>
+
+  </div>
+</div>

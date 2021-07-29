@@ -1,0 +1,20 @@
+/* === Swiper === */
+@import (inline) url('~swiper/swiper-bundle.css');
+
+:root {
+  --swiper-theme-color: var(--f7-theme-color);
+}
+each(@colors, {
+  .color-theme-@{key} {
+    --swiper-theme-color: @value;
+  }
+});
+each(@colors, {
+  .color-@{key} {
+    --swiper-theme-color: @value;
+  }
+});
+
+.if-ios-theme({@import url('./swiper-ios.less') ;});
+.if-md-theme({@import url('./swiper-md.less') ;});
+.if-aurora-theme({@import url('./swiper-aurora.less') ;});

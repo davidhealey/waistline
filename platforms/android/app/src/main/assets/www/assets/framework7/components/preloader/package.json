@@ -1,0 +1,9 @@
+{
+  "name": "framework7/preloader",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/preloader/preloader.js",
+  "module": "../../esm/components/preloader/preloader.js",
+  "jsnext:main": "../../esm/components/preloader/preloader.js",
+  "typings": "../../types/components/preloader/preloader.d.ts"
+}

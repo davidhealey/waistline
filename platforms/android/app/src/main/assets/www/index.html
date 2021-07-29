@@ -1,0 +1,128 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Waistline.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: ws: gap; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#2196f3"> <!-- Color theme for statusbar (Android only) -->
+
+  <!--Fontawsome-->
+  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+
+  <!--Material icons-->
+  <link rel="stylesheet" href="assets/material-icons/iconfont/material-icons.css">
+
+  <!--Framework7-->
+  <link rel="stylesheet" href="assets/framework7/framework7-bundle.min.css">
+
+  <!--CSS-->
+  <link rel="stylesheet" href="assets/css/global-styles.css">
+  <link rel="stylesheet" href="activities/diary/views/diary.css">
+
+  <!--Localization-->
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/jquery.localize.min.js"></script>
+
+  <title>Waistline</title>
+</head>
+
+<body>
+
+  <div id="app">
+
+    <!-- Left panel -->
+    <div id="left-panel" class="panel panel-left panel-cover panel-init">
+      <div class="list">
+        <ul>
+          <li class="no-chevron">
+            <a href="/statistics/" class="item-link item-content" data-reload-current="true">
+              <div class="item-media"><i class="icon fas fa-chart-pie"></i></div>
+              <div class="item-inner" data-localize="statistics.title">Statistics</div>
+            </a>
+          </li>
+
+          <li class="no-chevron">
+            <a href="/diary/" class="item-link item-content" data-reload-current="true">
+              <div class="item-media"><i class="icon far fa-calendar-alt"></i></div>
+              <div class="item-inner" data-localize="diary.title">Diary</div>
+            </a>
+          </li>
+
+          <li class="no-chevron">
+            <a href="/foods-meals-recipes/" class="item-link item-content" data-reload-current="true">
+              <div class="item-media"><i class="icon fas fa-utensils"></i></div>
+              <div class="item-inner" data-localize="foods-meals-recipes.title">Food, Meals, Recipes</div>
+            </a>
+          </li>
+
+          <li class="no-chevron">
+            <a href="/goals/" class="item-link item-content" data-reload-current="true">
+              <div class="item-media"><i class="icon fas fa-bullseye"></i></div>
+              <div class="item-inner" data-localize="goals.title">Goals</div>
+            </a>
+          </li>
+
+          <li class="no-chevron">
+            <a href="/settings/" class="item-link item-content" data-reload-current="true">
+              <div class="item-media"><i class="icon fas fa-cog"></i></div>
+              <div class="item-inner" data-localize="settings.title">Settings</div>
+            </a>
+          </li>
+
+          <li class="no-chevron">
+            <a href="/about/" class="item-link item-content" data-reload-current="true">
+              <div class="item-media"><i class="icon fas fa-info-circle"></i></div>
+              <div class="item-inner" data-localize="about.title">About</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="view view-main" id="main-view"></div>
+  </div>
+
+  <script src="cordova.js"></script>
+  <script src="assets/framework7/framework7-bundle.min.js"></script>
+  <script src="assets/js/db-handler.js" defer></script>
+  <script src="assets/js/utils.js" defer></script>
+  <script src="index.js"></script>
+  <script src="activities/statistics/js/statistics.js"></script>
+  <script src="activities/goals/js/goals.js"></script>
+  <script src="activities/goals/js/goal-editor.js"></script>
+  <script src="activities/diary/js/diary.js"></script>
+  <script src="activities/diary/js/diary-chart.js"></script>
+  <script src="activities/diary/js/group.js"></script>
+  <script src="activities/foods-meals-recipes/js/foods-meals-recipes.js"></script>
+  <script src="activities/foods-meals-recipes/js/food-editor.js"></script>
+  <script src="activities/foodlist/js/open-food-facts.js"></script>
+  <script src="activities/foodlist/js/usda.js"></script>
+  <script src="activities/foodlist/js/foodlist.js"></script>
+  <script src="activities/meals/js/meals.js"></script>
+  <script src="activities/meals/js/meal-editor.js"></script>
+  <script src="activities/recipes/js/recipes.js"></script>
+  <script src="activities/recipes/js/recipe-editor.js"></script>
+  <script src="activities/settings/js/settings.js"></script>
+  <script src="assets/chartjs/dist/Chart.bundle.min.js"></script>
+</body>
+
+</html>

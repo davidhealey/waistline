@@ -1,0 +1,9 @@
+{
+  "name": "framework7/clicks",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/clicks/clicks.js",
+  "module": "../../esm/modules/clicks/clicks.js",
+  "jsnext:main": "../../esm/modules/clicks/clicks.js",
+  "typings": "../../types/modules/clicks/clicks.d.ts"
+}

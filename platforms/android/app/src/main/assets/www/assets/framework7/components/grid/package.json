@@ -1,0 +1,9 @@
+{
+  "name": "framework7/grid",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/grid/grid.js",
+  "module": "../../esm/components/grid/grid.js",
+  "jsnext:main": "../../esm/components/grid/grid.js",
+  "typings": "../../types/components/grid/grid.d.ts"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/input",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/input/input.js",
+  "module": "../../esm/components/input/input.js",
+  "jsnext:main": "../../esm/components/input/input.js",
+  "typings": "../../types/components/input/input.d.ts"
+}

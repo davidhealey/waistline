@@ -1,0 +1,66 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="foods-meals-recipes">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left" id="left">
+        <span id="back" style="display:none;">
+          <a href="#" class="link back"><i class="icon icon-back"></i></a>
+        </span>
+        <span id="menu">
+          <a href="#" class="link icon-only panel-toggle" data-panel=".panel-left"><i class="icon material-icons">menu</i></a>
+        </span>
+      </div>
+      <div class="title" data-localize="foods-meals-recipes.foods" id="title">Foods</div>
+      <div class="right" id="scan" style="display:none;">
+        <a href="#" class="link icon-only"><i class="icon fas fa-barcode"></i></a>
+      </div>
+      <div class="right" id="submit" style="display:none;">
+        <a href="#" class="link icon-only"><i class="icon material-icons">done</i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="toolbar tabbar toolbar-bottom">
+    <div class="toolbar-inner">
+      <a href="./" class="tab-link" data-route-tab-id="foodlist" data-localize="foods-meals-recipes.foods">Foods</a>
+      <a id="meals-tab-button" href="meals/" class="tab-link" data-route-tab-id="meals" data-localize="foods-meals-recipes.meals">Meals</a>
+      <a id="recipe-tab-button" href="recipes/" class="tab-link" data-route-tab-id="recipes" data-localize="foods-meals-recipes.recipes">Recipes</a>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-animated-wrap">
+    <div class="tabs tabs-routable">
+      <div class="tab page-content infinite-scroll-content" id="foodlist" title="Foods"></div>
+      <div class="tab page-content infinite-scroll-content" id="meals" title="Meals"></div>
+      <div class="tab page-content infinite-scroll-content" id="recipes" title="Recipes"></div>
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <div class="fab fab-right-bottom new-item" id="add-item">
+    <a href="#"><i class="icon material-icons">add</i></a>
+  </div>
+
+</div>

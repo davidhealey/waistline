@@ -1,0 +1,61 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="settings">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left"><a class="link back"><i class="icon icon-back"></i></a></div>
+      <div class="title" data-localize="settings.import-export.title">Import/Export</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <div class="list">
+      <ul>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.import-export.auto-backup">Automatic Backup</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" field="import-export" name="auto-backup" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <p><a href="#" class="button button-large manual-bind" id="export-db" data-localize="settings.import-export.backup">Backup Database</a></p>
+        </li>
+
+        <li>
+          <a href="#" class="button button-large manual-bind" id="import-db" data-localize="settings.import-export.import">Import From Backup</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>

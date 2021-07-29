@@ -1,0 +1,98 @@
+<!--
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="meal-editor">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back">
+          <i class="icon icon-back"></i>
+        </a>
+      </div>
+      <div class="title" id="title" data-localize="meal-editor.title">Edit Meal</div>
+      <div class="right">
+        <a href="#" id="submit" class="link icon-only"><i class="icon material-icons">done</i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <form class="list" id="meal-edit-form">
+      <ul>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b data-localize="food-editor.details">Details</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
+            <ul>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label" data-localize="food-editor.name">Name</div>
+                  <div class="item-input-wrap">
+                    <input type="text" class="align-right" id="name" name="name" required validate placeholder="Meal Name">
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b data-localize="meal-editor.foods-recipes">Foods & Recipes</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content">
+            <div class="list media-list">
+              <ul id="meal-food-list">
+              </ul>
+            </div>
+            <ul>
+              <li class="item-content" id="add-food">
+                <div class="item-inner">
+                  <div class="item-title"><a><i class="icon material-icons">add</i></a></div>
+                  <div class="item-after"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="accordion-item accordion-item-opened">
+          <a href="" class="item-divider item-link item-content">
+            <div class="item-inner">
+              <div class="item-title"><b data-localize="food-editor.nutrition">Nutrition</b></div>
+            </div>
+          </a>
+          <div class="accordion-item-content inline-labels">
+            <ul id="nutrition">
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

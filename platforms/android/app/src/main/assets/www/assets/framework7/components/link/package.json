@@ -1,0 +1,9 @@
+{
+  "name": "framework7/link",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/link/link.js",
+  "module": "../../esm/components/link/link.js",
+  "jsnext:main": "../../esm/components/link/link.js",
+  "typings": "../../types/components/link/link.d.ts"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/subnavbar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/subnavbar/subnavbar.js",
+  "module": "../../esm/components/subnavbar/subnavbar.js",
+  "jsnext:main": "../../esm/components/subnavbar/subnavbar.js",
+  "typings": "../../types/components/subnavbar/subnavbar.d.ts"
+}

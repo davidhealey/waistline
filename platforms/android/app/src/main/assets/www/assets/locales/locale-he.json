@@ -1,0 +1,237 @@
+{
+  "nutriments": {
+    "calorie": "קלוריה",
+    "calories": "קלוריות",
+    "kilojoule": "קילוג׳ול",
+    "kilojoules": "קילוג׳ולים",
+    "proteins": "חלבונים",
+    "carbohydrates": "פחמימות",
+    "fat": "שומן",
+    "saturated-fat": "שומן רווי",
+    "monounsaturated-fat": "שומן חד בלתי רווי",
+    "polyunsaturated-fat": "שומן רב בלתי רווי",
+    "trans-fat": "שומן טראנס",
+    "omega-3-fat": "שומן אומגה 3",
+    "cholesterol": "כולסטרול",
+    "sugars": "סוכרים",
+    "fiber": "סיבים",
+    "sodium": "נתרן",
+    "salt": "מלח",
+    "potassium": "אשלגן",
+    "vitamin-a": "ויטמין A",
+    "vitamin-d": "ויטמין D",
+    "vitamin-e": "ויטמין E",
+    "vitamin-k": "ויטמין K",
+    "vitamin-c": "ויטמין C",
+    "vitamin-b1": "ויטמין B1",
+    "vitamin-b2": "ויטמין B2",
+    "vitamin-b6": "ויטמין B6",
+    "vitamin-b9": "ויטמין B9",
+    "vitamin-b12": "ויטמין B12",
+    "chloride": "כלוריד",
+    "calcium": "סידן",
+    "iron": "ברזל",
+    "magnesium": "מגנזיום",
+    "zinc": "אבץ",
+    "caffeine": "קפאין",
+    "alcohol": "אלכוהול",
+    "sucrose": "סוכרוז",
+    "glucose": "גלוקוז",
+    "fructose": "פרוקטוז",
+    "lactose": "לקטוז"
+  },
+  "dialogs": {
+    "delete": "מחיקה",
+    "cancel": "ביטול",
+    "yes": "כן",
+    "no": "לא",
+    "confirm-delete": "למחוק את הפריט הזה?",
+    "delete-title": "מחיקת רשומה",
+    "required-fields": "נא להשלים את כל השדות הנדרשים.",
+    "camera-problem": "הגישה למצלמה שלך נכשלה.",
+    "no-internet": "אין חיבור לאינטרנט",
+    "no-results": "אין תוצאות מתאימות",
+    "no-search-providers": "אין ספקי חיפוש פעילים",
+    "scan-failed": "הסריקה נכשלה",
+    "search": "חיפוש",
+    "number-of-calories": "נא לספק את מספר הקלוריות למאכל זה.",
+    "add-to-off": "להוסיף את המוצר הזה למסד הנתונים Open Food Facts?",
+    "main-image": "נא להוסיף תמונה ראשית",
+    "upload-success": "המוצר נוסף בהצלחה אל Open Food Facts",
+    "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
+    "what-meal": "איזו מנה זו?",
+    "import": "ייבוא",
+    "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך."
+  },
+  "days": {
+    "0": "יום ראשון",
+    "1": "יום שני",
+    "2": "יום שלישי",
+    "3": "יום רביעי",
+    "4": "יום חמישי",
+    "5": "יום שישי",
+    "6": "שבת"
+  },
+  "months": {
+    "0": "ינואר",
+    "1": "פברואר",
+    "2": "מרץ",
+    "3": "אפריל",
+    "4": "מאי",
+    "5": "יוני",
+    "6": "יולי",
+    "7": "אוגוסט",
+    "8": "ספטמבר",
+    "9": "אוקטובר",
+    "10": "נובמבר",
+    "11": "דצמבר"
+  },
+  "colours": {
+    "red": "אדום",
+    "blue": "כחול",
+    "green": "ירוק",
+    "pink": "ורוד",
+    "orange": "כתום",
+    "gray": "אפור",
+    "yellow": "צהוב",
+    "purple": "סגול"
+  },
+  "statistics": {
+    "title": "סטטיסטיקה",
+    "range": "טווח",
+    "stat": "סטטיסטיקה",
+    "week": "שבוע",
+    "month": "חודש",
+    "3month": "3 חודשים",
+    "6month": "חצי שנה",
+    "12month": "שנה",
+    "timeline": "ציר הזמן",
+    "weight": "משקל",
+    "neck": "צוואר",
+    "waist": "מותניים",
+    "hips": "ירכיים",
+    "body fat": "שומן גוף"
+  },
+  "diary": {
+    "title": "יומן",
+    "quick-add": "הוספה מהירה",
+    "log-title": "הסטטיסטיקה היומית"
+  },
+  "diary-chart": {
+    "title": "סקירה",
+    "no-data": "אין נתונים"
+  },
+  "foods-meals-recipes": {
+    "title": "מאכלים, מנות, מתכונים",
+    "foods": "מאכלים",
+    "meals": "מנות",
+    "recipes": "מתכונים",
+    "selected": "נבחרו"
+  },
+  "food-editor": {
+    "edit-item": "עריכת פריטים",
+    "add-new-item": "הוספת פריט חדש",
+    "details": "פרטים",
+    "barcode": "ברקוד",
+    "name": "שם",
+    "brand": "מותג",
+    "category": "קטגוריה",
+    "serving-size": "גודל הגשה",
+    "serving-unit": "יחידת הגשה",
+    "number-of-servings": "מספר המנות",
+    "nutrition": "תזונה",
+    "per-100": "ל־100ג׳/100מ״ל",
+    "per-serving": "להגשה",
+    "ingredients": "רכיבים",
+    "traces": "עקבות",
+    "edit": "עריכה",
+    "item": "פריט"
+  },
+  "goals": {
+    "title": "יעדים"
+  },
+  "goal-editor": {
+    "title": "הגדרת יעדים",
+    "show-in-diary": "הצגה ביומן",
+    "shared-goal": "אותו היעד כל יום",
+    "minimum-goal": "הוא היעד הקטן ביותר"
+  },
+  "meal-editor": {
+    "title": "עריכת ארוחה",
+    "foods-recipes": "מאכלים ומתכונים"
+  },
+  "recipe-editor": {
+    "title": "עריכת מתכון",
+    "notes": "הערות"
+  },
+  "settings": {
+    "title": "הגדרות",
+    "needs-restart": "השינויים יחולו לאחר הפעלת היישומון מחדש.",
+    "theme": {
+      "title": "ערכת עיצוב",
+      "dark": "מצב כהה",
+      "animations": "השבתת הנפשות",
+      "start-page": "עמוד הפתיחה"
+    },
+    "units": {
+      "title": "יחידות",
+      "weight": "משקל",
+      "length": "אורך",
+      "kilograms": "קילוגרמים",
+      "pounds": "פאונדים",
+      "stone": "אבנים",
+      "centimeters": "סנטימטרים",
+      "inches": "אינטשים"
+    },
+    "diary": {
+      "title": "יומן",
+      "categories": "קטגוריות",
+      "timestamps": "הצגת חותמות זמן",
+      "thumbnails": "הצגת תמונות ממוזערות",
+      "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
+      "show-units": "הצגת יחידות תזונה"
+    },
+    "diary-categories": {
+      "title": "קטגוריות",
+      "category": "קטגוריה"
+    },
+    "foods": {
+      "title": "מאכלים, מנות, מתכונים",
+      "sort": "מיון מאכלים",
+      "images": "הצגת תמונות מאכלים",
+      "wifi-images": "הצגת תמונות בחיבור אלחוטי בלבד"
+    },
+    "import-export": {
+      "title": "ייבוא/ייצוא",
+      "backup": "גיבוי מסד נתונים",
+      "import": "ייבוא מגיבוי"
+    },
+    "integration": {
+      "title": "שילוב",
+      "off": "Open Food Facts",
+      "off-account": "חשבון Open Food Facts",
+      "country": "חיפוש מדינה",
+      "usda-title": "משרד החקלאות של ארה״ב",
+      "usda": "הפעלת חיפוש ב־USDA",
+      "usda-login-title": "USDA",
+      "usda-api-key": "מפתח API של USDA",
+      "usda-note-0": "עליך למלא את מפתח ה־API האישי שלך כדי לחפש מאכלים במסד הנתונים של משרד החקלאות האמריקאי.",
+      "usera-note-1": "ניתן לבקש מפתח API בחינם <a href='https://fdc.nal.usda.gov/api-key-signup.html'>מפה</a>.",
+      "username": "שם משתמש",
+      "password": "ססמה",
+      "off-account-note": "זה בגדר רשות בלבד. אין צורך בחשבון OFF כדי להשתמש ביישומון הזה.",
+      "sign-in": "כניסה",
+      "exit": "יציאה",
+      "save": "שמירה",
+      "invalid-credentials": "פרטי התחברות שגויים",
+      "export-success": "מד הנתונים ייוצא",
+      "export-fail": "הייצוא נכשל"
+    }
+  },
+  "about": {
+    "title": "על אודות",
+    "p0": "היישומון Waistline נוצר על ידי David Healey בחיזוק הצעות ותרומות משתמשים.",
+    "p1": "היישומון Waistline נבנה על גבי Cordova שזמינה בכפוף לרישיון Apache. בנוסף נכללות המערכות Framework7,‏ jQuery,‏ jQuery localize ו־ChartJS שכפופות לרישיון MIT. תשתיות ה־HTML,‏ ה־CSS ושאר ה־javascript שמרכיבות את הגוף הראשי של היישומון כפופות לרישיון GPLv3.",
+    "p2": "ניתן למצוא את קוד המקור של Waistline בכתובת github.com/davidhealey/waistline."
+  }
+}

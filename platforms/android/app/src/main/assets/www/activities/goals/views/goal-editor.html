@@ -1,0 +1,172 @@
+<!--
+  Copyright 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="goal-editor">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" id="goal-editor-title" data-localize="goal-editor.title">Edit</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="list">
+      <ul>
+        <li id="diary">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="goal-editor.show-in-diary">Show in Diary</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" id="show-in-diary" field="goals" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="goal-editor.show-in-stats">Show in Statistics</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" id="show-in-stats" field="goals" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="goal-editor.shared-goal">Same goal every day</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" class="manual-bind" id="shared-goal" field="goals" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="goal-editor.minimum-goal">Is minimum goal</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" class="manual-bind" id="minimum-goal" field="goals" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="days.0">Sunday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="days.1">Monday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="days.2">Tuesday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="days.3">Wednesday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="days.4">Thursday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="days.5">Friday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="days.6">Saturday</div>
+              <div class="item-input-wrap">
+                <input type="number" min="0" step="any" field="goals">
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

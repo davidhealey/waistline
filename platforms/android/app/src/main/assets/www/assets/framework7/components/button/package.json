@@ -1,0 +1,9 @@
+{
+  "name": "framework7/button",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/button/button.js",
+  "module": "../../esm/components/button/button.js",
+  "jsnext:main": "../../esm/components/button/button.js",
+  "typings": "../../types/components/button/button.d.ts"
+}

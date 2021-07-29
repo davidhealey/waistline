@@ -1,0 +1,9 @@
+{
+  "name": "framework7/chip",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/chip/chip.js",
+  "module": "../../esm/components/chip/chip.js",
+  "jsnext:main": "../../esm/components/chip/chip.js",
+  "typings": "../../types/components/chip/chip.d.ts"
+}

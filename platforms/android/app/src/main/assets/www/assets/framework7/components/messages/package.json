@@ -1,0 +1,9 @@
+{
+  "name": "framework7/messages",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/messages/messages.js",
+  "module": "../../esm/components/messages/messages.js",
+  "jsnext:main": "../../esm/components/messages/messages.js",
+  "typings": "../../types/components/messages/messages.d.ts"
+}

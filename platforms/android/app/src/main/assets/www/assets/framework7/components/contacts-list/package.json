@@ -1,0 +1,9 @@
+{
+  "name": "framework7/contacts-list",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/contacts-list/contacts-list.js",
+  "module": "../../esm/components/contacts-list/contacts-list.js",
+  "jsnext:main": "../../esm/components/contacts-list/contacts-list.js",
+  "typings": "../../types/components/contacts-list/contacts-list.d.ts"
+}

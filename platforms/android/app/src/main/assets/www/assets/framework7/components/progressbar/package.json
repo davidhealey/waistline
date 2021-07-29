@@ -1,0 +1,9 @@
+{
+  "name": "framework7/progressbar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/progressbar/progressbar.js",
+  "module": "../../esm/components/progressbar/progressbar.js",
+  "jsnext:main": "../../esm/components/progressbar/progressbar.js",
+  "typings": "../../types/components/progressbar/progressbar.d.ts"
+}

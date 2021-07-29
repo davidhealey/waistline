@@ -1,0 +1,38 @@
+<!--
+  Copyright 2018, 2019, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="block" id="recipes-tab">
+
+  <!-- static searchbar -->
+  <form class="searchbar" id="recipe-search-form">
+    <div class="searchbar-inner">
+      <div class="searchbar-input-wrap">
+        <input type="search" id="recipe-search" placeholder="Search">
+        <i class="searchbar-icon"></i>
+      </div>
+      <span class="searchbar-disable-button">Cancel</span>
+    </div>
+  </form>
+
+  <div class="list media-list" id="recipe-list-container">
+    <ul>
+    </ul>
+  </div>
+  <div class="preloader infinite-scroll-preloader" id="spinner" style="display:none;"></div>
+</div>

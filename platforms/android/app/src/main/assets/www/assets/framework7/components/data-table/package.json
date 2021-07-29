@@ -1,0 +1,9 @@
+{
+  "name": "framework7/data-table",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/data-table/data-table.js",
+  "module": "../../esm/components/data-table/data-table.js",
+  "jsnext:main": "../../esm/components/data-table/data-table.js",
+  "typings": "../../types/components/data-table/data-table.d.ts"
+}

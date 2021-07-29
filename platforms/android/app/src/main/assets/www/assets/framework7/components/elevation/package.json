@@ -1,0 +1,9 @@
+{
+  "name": "framework7/elevation",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/elevation/elevation.js",
+  "module": "../../esm/components/elevation/elevation.js",
+  "jsnext:main": "../../esm/components/elevation/elevation.js",
+  "typings": "../../types/components/elevation/elevation.d.ts"
+}

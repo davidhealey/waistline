@@ -1,0 +1,9 @@
+{
+  "name": "framework7/skeleton",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/skeleton/skeleton.js",
+  "module": "../../esm/components/skeleton/skeleton.js",
+  "jsnext:main": "../../esm/components/skeleton/skeleton.js",
+  "typings": "../../types/components/skeleton/skeleton.d.ts"
+}

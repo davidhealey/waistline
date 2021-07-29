@@ -1,0 +1,9 @@
+{
+  "name": "framework7/searchbar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/searchbar/searchbar.js",
+  "module": "../../esm/components/searchbar/searchbar.js",
+  "jsnext:main": "../../esm/components/searchbar/searchbar.js",
+  "typings": "../../types/components/searchbar/searchbar.d.ts"
+}

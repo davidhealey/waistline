@@ -1,0 +1,9 @@
+{
+  "name": "framework7/messagebar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/messagebar/messagebar.js",
+  "module": "../../esm/components/messagebar/messagebar.js",
+  "jsnext:main": "../../esm/components/messagebar/messagebar.js",
+  "typings": "../../types/components/messagebar/messagebar.d.ts"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/list-index",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/list-index/list-index.js",
+  "module": "../../esm/components/list-index/list-index.js",
+  "jsnext:main": "../../esm/components/list-index/list-index.js",
+  "typings": "../../types/components/list-index/list-index.d.ts"
+}
