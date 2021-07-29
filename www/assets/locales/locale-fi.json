@@ -171,7 +171,8 @@
       "title": "Teema",
       "dark": "Tumma teema",
       "animations": "Poista käyttöliittymän animaatiot käytöstä",
-      "start-page": "Aloitussivu"
+      "start-page": "Aloitussivu",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Yksiköt",
@@ -233,5 +234,18 @@
     "p0": "Waistlinen on kehittänyt David Healey, työssä hyödynnetty myös käyttäjäehdotuksia ja osallistumisia kehitykseen.",
     "p1": "Waistline rakennettiin käyttäen Cordovaa, joka on saatavilla Apache-lisenssin alaisena. Mukana ovat myös Framework7, jQuery, jQuery localize ja ChartJS, jotka ovat MIT-lisenssin alaisia. Sovelluksen pääosan muodostavat HTML, CSS ja muu javascript ovat GPLv3-lisenssin alaisia.",
     "p2": "Waistlinen lähdekoodi on saatavilla osoitteessa github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
