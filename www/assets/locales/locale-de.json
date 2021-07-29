@@ -172,7 +172,7 @@
       "dark": "Dunkelmodus",
       "animations": "UI Animationen deaktivieren",
       "start-page": "Startseite",
-      "language": "Preferred Language"
+      "language": "Bevorzugte Sprache"
     },
     "units": {
       "title": "Einheiten",
@@ -216,7 +216,7 @@
       "usda": "USDA Suche aktivieren",
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API-Schlüssel",
-      "usda-note-0": "Du müsst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
+      "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
       "usera-note-1": "Du kannst <a href='https://fdc.nal.usda.gov/api-key-signup.html'>hier</a> einen kostenlosen API-Schlüssel anfordern.",
       "username": "Benutzername",
       "password": "Passwort",
@@ -236,16 +236,16 @@
     "p2": "Den Quellcode von Waistline findest du unter: github.com/davidhealey/waistline."
   },
   "locale": {
-    "auto": "Detect Automatically",
-    "english": "English",
-    "german": "German",
-    "italian": "Italian",
-    "french": "French",
-    "swedish": "Swedish",
-    "russian": "Russian",
-    "portuguese": "Portuguese",
-    "bulgarian": "Bulgarian",
-    "hebrew": "Hebrew",
-    "finnish": "Finnish"
+    "auto": "Automatisch erkennen",
+    "english": "Englisch",
+    "german": "Deutsch",
+    "italian": "Italienisch",
+    "french": "Französisch",
+    "swedish": "Schwedisch",
+    "russian": "Russisch",
+    "portuguese": "Portugiesisch",
+    "bulgarian": "Bulgarisch",
+    "hebrew": "Hebräisch",
+    "finnish": "Finnisch"
   }
 }
