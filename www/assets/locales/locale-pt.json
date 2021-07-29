@@ -171,7 +171,8 @@
       "title": "Tema",
       "dark": "Modo escuro",
       "animations": "Desativar animações",
-      "start-page": "Página inicial"
+      "start-page": "Página inicial",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Unidades",
@@ -233,5 +234,18 @@
     "p0": "O Waistline foi criado por David Healey com sugestões e contribuições de usuários.",
     "p1": "Waistline foi feito usando Cordova, disponível sob a licença Apache. Também foram usados Framework7, jQuery, jQuery localize e ChartJS que estão sob a licença MIT. HTML, CSS e outros códigos javascript que compõem o corpo principal da aplicação foram licenciados pela GPLv3.",
     "p2": "O código-fonte do Waistline pode ser encontrado em github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
