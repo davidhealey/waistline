@@ -129,7 +129,7 @@
     "selected": "Ausgewählt"
   },
   "food-editor": {
-    "edit-item": "Einträge bearbeiten",
+    "edit-item": "Edit Item",
     "add-new-item": "Neuen Eintrag hinzufügen",
     "details": "Details",
     "barcode": "Strichcode",
@@ -144,8 +144,9 @@
     "per-serving": "Pro Portion",
     "ingredients": "Inhaltsstoffe",
     "traces": "Spuren",
-    "edit": "Bearbeite",
-    "item": "Eintrag"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Ziele"
@@ -217,7 +218,7 @@
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API-Schlüssel",
       "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
-      "usera-note-1": "Du kannst <a href='https://fdc.nal.usda.gov/api-key-signup.html'>hier</a> einen kostenlosen API-Schlüssel anfordern.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Benutzername",
       "password": "Passwort",
       "off-account-note": "Dies ist völlig optional. Du brauchst kein Open Food Facts Konto, um die App zu benutzen.",
