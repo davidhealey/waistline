@@ -83,7 +83,6 @@ const app = {
         defaultCallback(data);
       }
     });
-
   },
 
   f7: new Framework7({

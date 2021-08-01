@@ -72,6 +72,7 @@ app.FoodsMealsRecipes = {
   tabInit: function() {
     app.FoodsMealsRecipes.el.title.innerHTML = this.tabTitle;
     app.FoodsMealsRecipes.el.submit.style.display = "none";
+    app.FoodsMealsRecipes.localizeSearchPlaceholder();
   },
 
   getComponents: function() {
@@ -108,6 +109,17 @@ app.FoodsMealsRecipes = {
           break;
       }
     });
+  },
+
+  localizeSearchPlaceholder: function() {
+    const el = document.getElementsByClassName("searchbar-input-wrap");
+    const text = app.strings["foods-meals-recipes"]["search"];
+
+    if (el.length > 0) {
+      for (let x of el) {
+        x.children[0].placeholder = text;
+      }
+    }
   },
 
   submitButtonClickEventHandler: function(e) {

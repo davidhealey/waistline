@@ -283,8 +283,8 @@ app.Settings = {
   },
 
   importDatabase: function() {
-    let title = app.strings.dialogs.import || "Import";
-    let msg = app.strings.dialogs["confirm-import"] || "Are you sure? This will overwrite your current database.";
+    let title = app.strings.settings.integration.import || "Import";
+    let msg = app.strings.settings.integration["confirm-import"] || "Are you sure? This will overwrite your current database.";
 
     let dialog = app.f7.dialog.confirm(msg, title, async () => {
       let filename = "waistline_export.json";

@@ -23,7 +23,8 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "cordova-plugin-device": {}
     },
     "platforms": [
       "browser",

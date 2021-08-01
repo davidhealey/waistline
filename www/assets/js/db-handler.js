@@ -707,8 +707,10 @@ var dbHandler = {
 
       t.oncomplete = (e) => {
         console.log("Database import successful");
+        const title = app.strings.settings.integration["import-success-title"] || "The backup has been restored";
+        const msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
         app.f7.preloader.hide();
-        app.f7.dialog.alert("The backup has been restored", "Import Complete");
+        app.f7.dialog.alert(title, msg);
         resolve(e);
       };
 

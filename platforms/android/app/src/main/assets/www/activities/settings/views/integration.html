@@ -488,7 +488,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label" data-localize="settings.integration.username">Username</div>
                     <div class="item-input-wrap">
-                      <input class="manual-bind" id="off-username" type="text" name="off-username" field="integration" placeholder="Your username">
+                      <input class="manual-bind" id="off-username" type="text" name="off-username" field="integration">
                     </div>
                   </div>
                 </li>
@@ -496,7 +496,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label" data-localize="settings.integration.password">Password</div>
                     <div class="item-input-wrap">
-                      <input class="manual-bind" id="off-password" type="password" name="off-password" field="integration" placeholder="Your password">
+                      <input class="manual-bind" id="off-password" type="password" name="off-password" field="integration">
                     </div>
                   </div>
                 </li>
@@ -530,7 +530,7 @@
                   <div class="item-inner">
                     <div class="item-title item-label" data-localize="settings.integration.usda-api-key">USDA API Key</div>
                     <div class="item-input-wrap">
-                      <input class="manual-bind" id="usda-key" type="password" name="usda-key" field="integration" placeholder="Your API Key">
+                      <input class="manual-bind" id="usda-key" type="text" name="usda-key" field="integration">
                     </div>
                   </div>
                 </li>
@@ -542,8 +542,10 @@
               </ul>
               <div class="block-footer">
                 <p data-localize="settings.integration.usda-note-0">You need to enter your personal API Key to search for foods in the USDA database.</p>
-                <p data-localize="settings.integration.usda-note-1">You can request a free API Key by clicking <a class="link" href="https://fdc.nal.usda.gov/api-key-signup.html"
-                    onclick="window.open('https://fdc.nal.usda.gov/api-key-signup.html', '_system'); return false;">here</a>.</p>
+                <p>
+                  <a data-localize="settings.integration.usda-click-here" class="link" href="https://fdc.nal.usda.gov/api-key-signup.html" onclick="window.open('https://fdc.nal.usda.gov/api-key-signup.html', '_system'); return false;">Click here</a>
+                  <span data-localize="settings.integration.usda-note-1">to request a free API Key</span>
+                </p>
                 <p><a class="link login-screen-close" href="#" data-localize="settings.integration.exit">Exit</a></p>
               </div>
             </div>
