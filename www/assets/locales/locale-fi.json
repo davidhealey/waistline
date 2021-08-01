@@ -59,9 +59,7 @@
     "main-image": "Lisää tuotteen pääkuva",
     "upload-success": "Tuote lisätty Open Food Factsiin",
     "upload-failed": "Valitettavasti lataus epäonnistui. Yritä uudelleen tai ota yhteyttä kehittäjään.",
-    "what-meal": "Mikä ateria tämä on?",
-    "import": "Tuo",
-    "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan."
+    "what-meal": "Mikä ateria tämä on?"
   },
   "days": {
     "0": "Sunnuntai",
@@ -115,7 +113,8 @@
   "diary": {
     "title": "Päiväkirja",
     "quick-add": "Nopea lisäys",
-    "log-title": "Päivän tilastot"
+    "log-title": "Päivän tilastot",
+    "no-data": "No Data"
   },
   "diary-chart": {
     "title": "Yleiskuva",
@@ -126,7 +125,8 @@
     "foods": "Ruoat",
     "meals": "Ateriat",
     "recipes": "Reseptit",
-    "selected": "Valitut"
+    "selected": "Valitut",
+    "search": "Etsi"
   },
   "food-editor": {
     "edit-item": "Edit Item",
@@ -154,6 +154,7 @@
   "goal-editor": {
     "title": "Aseta tavoitteet",
     "show-in-diary": "Näytä päiväkirjassa",
+    "show-in-stats": "Show in Statistics",
     "shared-goal": "Sama tavoite joka päivä",
     "minimum-goal": "On vähimmäistavoite"
   },
@@ -200,25 +201,30 @@
     "foods": {
       "title": "Ruoat, Ateriat, Reseptit",
       "sort": "Järjestä ruoat",
+      "sort-date": "By last used",
+      "sort-alpha": "Alphabetically",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä"
     },
     "import-export": {
       "title": "Tuo / Vie",
       "backup": "Varmuuskopioi tietokanta",
-      "import": "Tuo varmuuskopiosta"
+      "import": "Tuo varmuuskopiosta",
+      "auto-backup": "Automatic Backup"
     },
     "integration": {
       "title": "Intergrointi",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts -tili",
       "country": "Hae maa",
+      "language": "Preferred Search Language",
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
       "usda-login-title": "USDA - Yhdysvaltojen maatalousministeriö",
       "usda-api-key": "USDA API-avain",
+      "usda-click-here": "Click here",
       "usda-note-0": "Sinun täytyy syöttää henkilökohtainen API-avain etsiäksesi elintarvikkeita USDA tietokannasta.",
-      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
+      "usda-note-1": "to request a free API Key.",
       "username": "Käyttäjänimi",
       "password": "Salasana",
       "off-account-note": "Tämä on täysin valinnaista. Et tarvitse OFF tiliä käyttääksesi sovellusta.",
@@ -227,7 +233,11 @@
       "save": "Tallenna",
       "invalid-credentials": "Virheelliset kirjautumistiedot",
       "export-success": "Tietokanta viety",
-      "export-fail": "Vienti epäonnistui"
+      "export-fail": "Vienti epäonnistui",
+      "import": "Tuo",
+      "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
+      "import-success-title": "The backup has been restored",
+      "import-success-message": "Import Complete"
     }
   },
   "about": {
