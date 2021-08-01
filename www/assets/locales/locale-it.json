@@ -144,8 +144,9 @@
     "per-serving": "Per Porzione",
     "ingredients": "Ingredienti",
     "traces": "Tracce",
-    "edit": "Modifica",
-    "item": "Elemento"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Obiettivi"
@@ -171,7 +172,8 @@
       "title": "Tema",
       "dark": "Modalità dark",
       "animations": "Disabilita le animazioni dell' interfaccia",
-      "start-page": "Inizio pagina"
+      "start-page": "Inizio pagina",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Unità",
@@ -191,7 +193,6 @@
       "wifi-thumbnails": "Mostra le anteprime solo con il Wi-Fi",
       "show-units": "Mostra le unità nutrizionali"
     },
-
     "diary-categories": {
       "title": "Categorie",
       "category": "Categoria"
@@ -217,7 +218,7 @@
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API chiave",
       "usda-note-0": "Hai bisogno di inserire la tua chiave API personale per cercare nel database USDA.",
-      "usera-note-1": "Puoi richiedere una chiave API gratuita cliccando <a href='https://fdc.nal.usda.gov/api-key-signup.html'>qui</a>.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Username",
       "password": "Password",
       "off-account-note": "Questo è completamente opzionale. Non hai bisogno di un OFF account per usare l' applicazione.",
@@ -234,5 +235,18 @@
     "p0": "Waistline è stata creata da David Healey con i suggerimenti e i contributi degli utenti.",
     "p1": "Waistline è stata costruita utilizzando Cordova disponibile sotto la licenza Apache. L' applicazione include anche: Framework7, jQuery, jQuery localize, e ChartJS i quali sono sotto licenza MIT. L' HTML, CSS, e altro javascript che fanno parte del corpo principale dell' applicazione sono sotto la licenza GPLv3.",
     "p2": "Il codice sorgente di Waistline è disponibile al link https://github.com/davidhealey/waistline ."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
