@@ -129,7 +129,7 @@
     "selected": "נבחרו"
   },
   "food-editor": {
-    "edit-item": "Edit Item",
+    "edit-item": "עריכת פריט",
     "add-new-item": "הוספת פריט חדש",
     "details": "פרטים",
     "barcode": "ברקוד",
@@ -144,9 +144,9 @@
     "per-serving": "להגשה",
     "ingredients": "רכיבים",
     "traces": "עקבות",
-    "edit-food": "Edit Food Item",
-    "edit-meal": "Edit Meal Item",
-    "edit-recipe": "Edit Recipe Item"
+    "edit-food": "עריכת פריט מזון",
+    "edit-meal": "עריכת פריט ארוחה",
+    "edit-recipe": "עריכת פריט מתכון"
   },
   "goals": {
     "title": "יעדים"
@@ -173,7 +173,7 @@
       "dark": "מצב כהה",
       "animations": "השבתת הנפשות",
       "start-page": "עמוד הפתיחה",
-      "language": "Preferred Language"
+      "language": "שפה מועדפת"
     },
     "units": {
       "title": "יחידות",
@@ -218,7 +218,7 @@
       "usda-login-title": "USDA",
       "usda-api-key": "מפתח API של USDA",
       "usda-note-0": "עליך למלא את מפתח ה־API האישי שלך כדי לחפש מאכלים במסד הנתונים של משרד החקלאות האמריקאי.",
-      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
+      "usda-note-1": "ניתן לבקש מפתח API בחינם <a href='https://fdc.nal.usda.gov/api-key-signup.html'>מפה</a>.",
       "username": "שם משתמש",
       "password": "ססמה",
       "off-account-note": "זה בגדר רשות בלבד. אין צורך בחשבון OFF כדי להשתמש ביישומון הזה.",
@@ -237,16 +237,16 @@
     "p2": "ניתן למצוא את קוד המקור של Waistline בכתובת github.com/davidhealey/waistline."
   },
   "locale": {
-    "auto": "Detect Automatically",
-    "english": "English",
-    "german": "German",
-    "italian": "Italian",
-    "french": "French",
-    "swedish": "Swedish",
-    "russian": "Russian",
-    "portuguese": "Portuguese",
-    "bulgarian": "Bulgarian",
-    "hebrew": "Hebrew",
-    "finnish": "Finnish"
+    "auto": "זיהוי אוטומטי",
+    "english": "אנגלית",
+    "german": "גרמנית",
+    "italian": "איטלקית",
+    "french": "צרפתית",
+    "swedish": "שוודית",
+    "russian": "רוסית",
+    "portuguese": "פורטוגלית",
+    "bulgarian": "בולגרית",
+    "hebrew": "עברית",
+    "finnish": "פינית"
   }
 }
