@@ -129,7 +129,7 @@
     "selected": "Selected"
   },
   "food-editor": {
-    "edit-item": "Edit Items",
+    "edit-item": "Edit Item",
     "add-new-item": "Add New Item",
     "details": "Details",
     "barcode": "Barcode",
@@ -144,8 +144,9 @@
     "per-serving": "Per Serving",
     "ingredients": "Ingredients",
     "traces": "Traces",
-    "edit": "Edit",
-    "item": "Item"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Goals"
@@ -171,7 +172,8 @@
       "title": "Theme",
       "dark": "Dark Mode",
       "animations": "Disable UI Animations",
-      "start-page": "Start Page"
+      "start-page": "Start Page",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Units",
@@ -216,7 +218,7 @@
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API Key",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
-      "usera-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Username",
       "password": "Password",
       "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
@@ -233,5 +235,18 @@
     "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
     "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
     "p2": "The source code for Waistline can be found at github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
