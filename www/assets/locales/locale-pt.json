@@ -114,7 +114,13 @@
     "title": "Diário",
     "quick-add": "Adição rápida",
     "log-title": "Estatísticas de hoje",
-    "no-data": "No Data"
+    "no-data": "No Data",
+    "default-meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    }
   },
   "diary-chart": {
     "title": "Visão geral",
