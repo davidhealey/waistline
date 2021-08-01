@@ -129,7 +129,7 @@
     "selected": "Seleccionados"
   },
   "food-editor": {
-    "edit-item": "Editar ítems",
+    "edit-item": "Edit Item",
     "add-new-item": "Añadir nuevo ítem",
     "details": "Detalles",
     "barcode": "Código de barras",
@@ -144,8 +144,9 @@
     "per-serving": "Por porción",
     "ingredients": "Ingredientes",
     "traces": "Rastros",
-    "edit": "Edit",
-    "item": "Item"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Objetivos"
@@ -217,7 +218,7 @@
       "usda-login-title": "USDA",
       "usda-api-key": "Clave de API USDA",
       "usda-note-0": "Debe introducir tu clave de API personal para buscar alimentos en la base de datos del USDA.",
-      "usera-note-1": "Puedes solicitar una clave de API gratis haciendo clic <a href='https://fdc.nal.usda.gov/api-key-signup.html'>aquí</a>.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Nombre de usuario",
       "password": "Contraseña",
       "off-account-note": "Esto es completamente opcional. No necesitas una cuenta OFF para usar la aplicación.",
