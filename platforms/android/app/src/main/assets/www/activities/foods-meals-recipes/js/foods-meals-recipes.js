@@ -113,7 +113,7 @@ app.FoodsMealsRecipes = {
 
   localizeSearchPlaceholder: function() {
     const el = document.getElementsByClassName("searchbar-input-wrap");
-    const text = app.strings["foods-meals-recipes"]["search"];
+    const text = app.strings["foods-meals-recipes"]["search"] || "Search";
 
     if (el.length > 0) {
       for (let x of el) {

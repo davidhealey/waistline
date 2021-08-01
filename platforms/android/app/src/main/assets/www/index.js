@@ -64,22 +64,23 @@ const app = {
         lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
     }
 
-    let fallbackStrings;
-
     //Get default/fallback locale data
-    $.getJSON("assets/locales/locale-en.json", function(data) {
-      fallbackStrings = data;
-    });
+    if (Object.keys(app.strings).length == 0) {
+      $.getJSON("assets/locales/locale-en.json", function(data) {
+        app.strings = data;
+      });
+    }
 
     $("[data-localize]").localize("assets/locales/locale", {
       language: lang,
+      skipLanguage: /^en/,
       callback: function(data, defaultCallback) {
 
         // Get localized strings
         let locale = $.localize.data["assets/locales/locale"];
 
         // Merge the default strings with the locale in case there are any missing values
-        app.strings = Object.assign(fallbackStrings, locale);
+        app.strings = Object.assign(app.strings, locale);
         defaultCallback(data);
       }
     });
