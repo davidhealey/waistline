@@ -129,7 +129,7 @@
     "selected": "Selecionado"
   },
   "food-editor": {
-    "edit-item": "Editar itens",
+    "edit-item": "Edit Item",
     "add-new-item": "Adicionar Novo Item",
     "details": "Detalhes",
     "barcode": "Código de barras",
@@ -144,8 +144,9 @@
     "per-serving": "Por porção",
     "ingredients": "Ingredientes",
     "traces": "Vestígios",
-    "edit": "Edit",
-    "item": "Item"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Objetivos"
@@ -171,7 +172,8 @@
       "title": "Tema",
       "dark": "Modo escuro",
       "animations": "Desativar animações",
-      "start-page": "Página inicial"
+      "start-page": "Página inicial",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Unidades",
@@ -216,7 +218,7 @@
       "usda-login-title": "USDA",
       "usda-api-key": "Chave de API USDA",
       "usda-note-0": "Você precisa informar sua chave de API pessoal para procurar alimentos no banco de dados USDA.",
-      "usera-note-1": "Você pode solicitar uma chave de API gratuita clicando <a href='https://fdc.nal.usda.gov/api-key-signup.html'>aqui</a>.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Nome de usuário",
       "password": "Senha",
       "off-account-note": "Isso é totalmente opcional. Você não precisa de uma conta no OFF para usar o app.",
@@ -233,5 +235,18 @@
     "p0": "O Waistline foi criado por David Healey com sugestões e contribuições de usuários.",
     "p1": "Waistline foi feito usando Cordova, disponível sob a licença Apache. Também foram usados Framework7, jQuery, jQuery localize e ChartJS que estão sob a licença MIT. HTML, CSS e outros códigos javascript que compõem o corpo principal da aplicação foram licenciados pela GPLv3.",
     "p2": "O código-fonte do Waistline pode ser encontrado em github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
