@@ -114,7 +114,13 @@
     "title": "יומן",
     "quick-add": "הוספה מהירה",
     "log-title": "הסטטיסטיקה היומית",
-    "no-data": "No Data"
+    "no-data": "No Data",
+    "default-meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    }
   },
   "diary-chart": {
     "title": "סקירה",
