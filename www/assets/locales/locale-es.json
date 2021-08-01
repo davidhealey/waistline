@@ -59,9 +59,7 @@
     "main-image": "Por favor agregue una imagen principal",
     "upload-success": "Producto añadido con éxito a Open Food Facts",
     "upload-failed": "Lamentablemente la carga falló. Por favor, inténtalo de nuevo o contacta al desarrollador.",
-    "what-meal": "¿Qué comida del día es esta?",
-    "import": "Importar",
-    "confirm-import": "¿Estás seguro? Esto sobrescribirá tu base de datos actual."
+    "what-meal": "¿Qué comida del día es esta?"
   },
   "days": {
     "0": "Domingo",
@@ -115,7 +113,8 @@
   "diary": {
     "title": "Diario",
     "quick-add": "Añadir rapidamente",
-    "log-title": "Estadísticas de hoy"
+    "log-title": "Estadísticas de hoy",
+    "no-data": "No Data"
   },
   "diary-chart": {
     "title": "Resúmen",
@@ -126,7 +125,8 @@
     "foods": "Alimentos",
     "meals": "Comidas",
     "recipes": "Recetas",
-    "selected": "Seleccionados"
+    "selected": "Seleccionados",
+    "search": "Búsqueda"
   },
   "food-editor": {
     "edit-item": "Edit Item",
@@ -154,6 +154,7 @@
   "goal-editor": {
     "title": "Establecer objetivos",
     "show-in-diary": "Mostrar en Diario",
+    "show-in-stats": "Show in Statistics",
     "shared-goal": "Mismo objetivo todos los días",
     "minimum-goal": "Es un objetivo mínimo"
   },
@@ -200,25 +201,30 @@
     "foods": {
       "title": "Alimentos, Comidas, Recetas",
       "sort": "Ordenar alimentos",
+      "sort-date": "By last used",
+      "sort-alpha": "Alphabetically",
       "images": "Mostrar imágenes de alimentos",
       "wifi-images": "Mostrar solo imágenes por Wi-Fi"
     },
     "import-export": {
       "title": "Importar/Exportar",
       "backup": "Copia de seguridad de base de datos",
-      "import": "Importar desde copia de seguridad"
+      "import": "Importar desde copia de seguridad",
+      "auto-backup": "Automatic Backup"
     },
     "integration": {
       "title": "Integración",
       "off": "Open Food Facts",
       "off-account": "Cuenta de Open Food Facts",
       "country": "Buscar país",
+      "language": "Preferred Search Language",
       "usda-title": "Departamento de Agricultura de EE.UU. (USDA)",
       "usda": "Habilitar búsqueda USDA",
       "usda-login-title": "USDA",
       "usda-api-key": "Clave de API USDA",
+      "usda-click-here": "Click here",
       "usda-note-0": "Debe introducir tu clave de API personal para buscar alimentos en la base de datos del USDA.",
-      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
+      "usda-note-1": "to request a free API Key.",
       "username": "Nombre de usuario",
       "password": "Contraseña",
       "off-account-note": "Esto es completamente opcional. No necesitas una cuenta OFF para usar la aplicación.",
@@ -227,7 +233,11 @@
       "save": "Guardar",
       "invalid-credentials": "Credenciales inválidas",
       "export-success": "Base de datos exportada",
-      "export-fail": "Fallo al exportar"
+      "export-fail": "Fallo al exportar",
+      "import": "Importar",
+      "confirm-import": "¿Estás seguro? Esto sobrescribirá tu base de datos actual.",
+      "import-success-title": "The backup has been restored",
+      "import-success-message": "Import Complete"
     }
   },
   "about": {
