@@ -114,7 +114,13 @@
     "title": "Päiväkirja",
     "quick-add": "Nopea lisäys",
     "log-title": "Päivän tilastot",
-    "no-data": "No Data"
+    "no-data": "No Data",
+    "default-meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    }
   },
   "diary-chart": {
     "title": "Yleiskuva",
