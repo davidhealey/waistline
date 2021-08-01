@@ -295,7 +295,8 @@ app.Diary = {
     if (mealNames !== undefined) {
       mealNames.forEach((x, i) => {
         if (x != "") {
-          let g = app.Group.create(x, i);
+          let t = app.strings.diary["default-meals"][x.toLowerCase()] || x;
+          let g = app.Group.create(t, i);
           groups.push(g);
         }
       });
