@@ -216,15 +216,14 @@ app.FoodEditor = {
       const origins = ["diary", "foodlist", "meals", "recipes"];
       const titles = [
         app.strings["diary"]["title"] || "Diary",
-        app.strings["foods-meals-recipes"]["foods"] || "Food",
-        app.strings["foods-meals-recipes"]["meals"] || "Meal",
-        app.strings["foods-meals-recipes"]["recipes"] || "Recipe"
+        app.strings["food-editor"]["edit-food"] || "Edit Food Item",
+        app.strings["food-editor"]["edit-meal"] || "Edit Meal Item",
+        app.strings["food-editor"]["edit-recipe"] || "Edit Recipe Item"
       ];
 
-      let title = app.strings["food-editor"]["edit"] + " " + titles[origins.indexOf(app.FoodEditor.origin)].replace("s", "") + " " + app.strings["food-editor"]["item"];
+      let title = titles[origins.indexOf(app.FoodEditor.origin)];
       app.FoodEditor.el.title.innerHTML = title;
     }
-
   },
 
   /* Nutrition fields are dynamically created for the nutriments of the item */
