@@ -62,14 +62,19 @@ const app = {
 
       if (lang.length > 3)
         lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
+
+      if (lang == "en-GB")
+        lang = "en";
     }
 
-    let fallbackStrings;
+    let fallbackStrings = app.strings;
 
     //Get default/fallback locale data
-    $.getJSON("assets/locales/locale-en.json", function(data) {
-      fallbackStrings = data;
-    });
+    if (Object.keys(app.strings).length == 0) {
+      $.getJSON("assets/locales/locale-en.json", function(data) {
+        fallbackStrings = data;
+      });
+    }
 
     $("[data-localize]").localize("assets/locales/locale", {
       language: lang,
