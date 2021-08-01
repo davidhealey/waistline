@@ -129,7 +129,7 @@
     "selected": "Valitut"
   },
   "food-editor": {
-    "edit-item": "Muokkaa tuotteita",
+    "edit-item": "Edit Item",
     "add-new-item": "Lisää uusi tuote",
     "details": "Tarkat tiedot",
     "barcode": "Viivakoodi",
@@ -144,8 +144,9 @@
     "per-serving": "Annosta kohden",
     "ingredients": "Ainesosat",
     "traces": "Jäämät",
-    "edit": "Muokkaa",
-    "item": "Tuote"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Tavoitteet"
@@ -217,7 +218,7 @@
       "usda-login-title": "USDA - Yhdysvaltojen maatalousministeriö",
       "usda-api-key": "USDA API-avain",
       "usda-note-0": "Sinun täytyy syöttää henkilökohtainen API-avain etsiäksesi elintarvikkeita USDA tietokannasta.",
-      "usera-note-1": "Voit pyytää ilmaisen API-avaimen klikkaamalla <a href='https://fdc.nal.usda.gov/api-key-signup.html'>tästä</a>.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Käyttäjänimi",
       "password": "Salasana",
       "off-account-note": "Tämä on täysin valinnaista. Et tarvitse OFF tiliä käyttääksesi sovellusta.",
