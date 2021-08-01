@@ -129,7 +129,7 @@
     "selected": "Выбрано"
   },
   "food-editor": {
-    "edit-item": "Изменить элементы",
+    "edit-item": "Edit Item",
     "add-new-item": "Добавить новый элемент",
     "details": "Сведения",
     "barcode": "Штрих-код",
@@ -144,8 +144,9 @@
     "per-serving": "На порцию",
     "ingredients": "Ингредиенты",
     "traces": "Следы",
-    "edit": "Edit",
-    "item": "Item"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Цели"
@@ -171,7 +172,8 @@
       "title": "Тема",
       "dark": "Тёмный режим",
       "animations": "Отключить анимацию интерфейса",
-      "start-page": "Начальная страница"
+      "start-page": "Начальная страница",
+      "language": "Предпочитаемый язык"
     },
     "units": {
       "title": "Единицы измерения",
@@ -216,7 +218,7 @@
       "usda-login-title": "МСХ США",
       "usda-api-key": "API ключ МСХ США",
       "usda-note-0": "Необходимо ввести ваш персональный API ключ для поиска продуктов в базе данных МСХ США.",
-      "usera-note-1": "Вы можете запросить свободный API-ключ, нажав <a href='https://fdc.nal.usda.gov/api-key-signup.html'>здесь</a>.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Имя пользователя",
       "password": "Пароль",
       "off-account-note": "Это совершенно необязательно. Вам не нужен аккаунт OFF для использования приложения.",
@@ -233,5 +235,18 @@
     "p0": "Waistline был создан David Healey с предложениями и вкладами пользователей.",
     "p1": "Waistline был собран с использованием фреймворка Cordova и OnsenUI, которые доступны по лицензии Apache. Также включены jQuery, jQuery localize и ChartJS, которые находятся под лицензией MIT. HTML, CSS и JavaScript, составляющие основную часть приложения, находятся под лицензией GPLv3.",
     "p2": "Исходный код Waistline можно найти на github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Определять автоматически",
+    "english": "Английский",
+    "german": "Немецкий",
+    "italian": "Итальянский",
+    "french": "Французский",
+    "swedish": "Шведский",
+    "russian": "Русский",
+    "portuguese": "Португальский",
+    "bulgarian": "Болгарский",
+    "hebrew": "Иврит",
+    "finnish": "Финский"
   }
 }
