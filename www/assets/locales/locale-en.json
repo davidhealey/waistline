@@ -219,7 +219,7 @@
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API Key",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
-      "usera-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
+      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
       "username": "Username",
       "password": "Password",
       "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
