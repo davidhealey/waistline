@@ -59,9 +59,7 @@
     "main-image": "Bitte lade ein gültiges Bild hoch",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
-    "what-meal": "Welche Mahlzeit ist das?",
-    "import": "Importieren",
-    "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben."
+    "what-meal": "Welche Mahlzeit ist das?"
   },
   "days": {
     "0": "Sonntag",
@@ -115,7 +113,8 @@
   "diary": {
     "title": "Tagebuch",
     "quick-add": "Schnelles Hinzufügen",
-    "log-title": "Heutige Statistik"
+    "log-title": "Heutige Statistik",
+    "no-data": "No Data"
   },
   "diary-chart": {
     "title": "Übersicht",
@@ -126,7 +125,8 @@
     "foods": "Lebensmittel",
     "meals": "Mahlzeiten",
     "recipes": "Rezepte",
-    "selected": "Ausgewählt"
+    "selected": "Ausgewählt",
+    "search": "Suchen"
   },
   "food-editor": {
     "edit-item": "Eintrag bearbeiten",
@@ -154,6 +154,7 @@
   "goal-editor": {
     "title": "Ziele setzen",
     "show-in-diary": "Im Tagebuch anzeigen",
+    "show-in-stats": "Show in Statistics",
     "shared-goal": "Gleiches Ziel für jeden Tag",
     "minimum-goal": "Ist Mindestziel"
   },
@@ -200,25 +201,30 @@
     "foods": {
       "title": "Lebensmittel, Mahlzeiten, Rezepte",
       "sort": "Lebensmittel sortieren",
+      "sort-date": "By last used",
+      "sort-alpha": "Alphabetically",
       "images": "Lebensmittelbilder anzeigen",
       "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen"
     },
     "import-export": {
       "title": "Importieren/Exportieren",
       "backup": "Datenbanksicherung",
-      "import": "Aus Datenbanksicherung importieren"
+      "import": "Aus Datenbanksicherung importieren",
+      "auto-backup": "Automatic Backup"
     },
     "integration": {
       "title": "Integrationen",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts Konto",
       "country": "Land für Suche",
+      "language": "Preferred Search Language",
       "usda-title": "U.S. Landwirtschaftsministerium",
       "usda": "USDA Suche aktivieren",
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API-Schlüssel",
+      "usda-click-here": "Click here",
       "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
-      "usda-note-1": "Du kannst <a href='https://fdc.nal.usda.gov/api-key-signup.html'>hier</a> einen kostenlosen API-Schlüssel anfordern.",
+      "usda-note-1": "to request a free API Key.",
       "username": "Benutzername",
       "password": "Passwort",
       "off-account-note": "Dies ist völlig optional. Du brauchst kein Open Food Facts Konto, um die App zu benutzen.",
@@ -227,7 +233,11 @@
       "save": "Speichern",
       "invalid-credentials": "Ungültige Anmeldeinformationen",
       "export-success": "Datenbank wurde exportiert",
-      "export-fail": "Fehler beim Export"
+      "export-fail": "Fehler beim Export",
+      "import": "Importieren",
+      "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
+      "import-success-title": "The backup has been restored",
+      "import-success-message": "Import Complete"
     }
   },
   "about": {
