@@ -114,11 +114,11 @@
     "title": "Tagebuch",
     "quick-add": "Schnelles Hinzufügen",
     "log-title": "Heutige Statistik",
-    "no-data": "No Data",
+    "no-data": "Keine Daten",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
-      "dinner": "Dinner",
+      "breakfast": "Frühstück",
+      "lunch": "Mittagessen",
+      "dinner": "Abendessen",
       "snacks": "Snacks"
     }
   },
@@ -160,7 +160,7 @@
   "goal-editor": {
     "title": "Ziele setzen",
     "show-in-diary": "Im Tagebuch anzeigen",
-    "show-in-stats": "Show in Statistics",
+    "show-in-stats": "In Statistik anzeigen",
     "shared-goal": "Gleiches Ziel für jeden Tag",
     "minimum-goal": "Ist Mindestziel"
   },
@@ -207,8 +207,8 @@
     "foods": {
       "title": "Lebensmittel, Mahlzeiten, Rezepte",
       "sort": "Lebensmittel sortieren",
-      "sort-date": "By last used",
-      "sort-alpha": "Alphabetically",
+      "sort-date": "Zuletzt verwendet",
+      "sort-alpha": "Alphabetisch",
       "images": "Lebensmittelbilder anzeigen",
       "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen"
     },
@@ -216,21 +216,21 @@
       "title": "Importieren/Exportieren",
       "backup": "Datenbanksicherung",
       "import": "Aus Datenbanksicherung importieren",
-      "auto-backup": "Automatic Backup"
+      "auto-backup": "Automatische Sicherung"
     },
     "integration": {
       "title": "Integrationen",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts Konto",
       "country": "Land für Suche",
-      "language": "Preferred Search Language",
+      "language": "Bevorzugte Sprache für Suche",
       "usda-title": "U.S. Landwirtschaftsministerium",
       "usda": "USDA Suche aktivieren",
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API-Schlüssel",
-      "usda-click-here": "Click here",
+      "usda-click-here": "Hier",
       "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
-      "usda-note-1": "to request a free API Key.",
+      "usda-note-1": "kannst du einen kostenlosen API-Schlüssel anfordern.",
       "username": "Benutzername",
       "password": "Passwort",
       "off-account-note": "Dies ist völlig optional. Du brauchst kein Open Food Facts Konto, um die App zu benutzen.",
@@ -242,8 +242,8 @@
       "export-fail": "Fehler beim Export",
       "import": "Importieren",
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
-      "import-success-title": "The backup has been restored",
-      "import-success-message": "Import Complete"
+      "import-success-title": "Die Sicherung wurde wiederhergestellt",
+      "import-success-message": "Import abgeschlossen"
     }
   },
   "about": {
