@@ -114,12 +114,12 @@
     "title": "Päiväkirja",
     "quick-add": "Nopea lisäys",
     "log-title": "Päivän tilastot",
-    "no-data": "No Data",
+    "no-data": "Ei tietoja",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
-      "dinner": "Dinner",
-      "snacks": "Snacks"
+      "breakfast": "Aamiainen",
+      "lunch": "Lounas",
+      "dinner": "Päivällinen",
+      "snacks": "Välipala"
     }
   },
   "diary-chart": {
@@ -135,7 +135,7 @@
     "search": "Etsi"
   },
   "food-editor": {
-    "edit-item": "Edit Item",
+    "edit-item": "Muokkaa tuotetta",
     "add-new-item": "Lisää uusi tuote",
     "details": "Tarkat tiedot",
     "barcode": "Viivakoodi",
@@ -150,9 +150,9 @@
     "per-serving": "Annosta kohden",
     "ingredients": "Ainesosat",
     "traces": "Jäämät",
-    "edit-food": "Edit Food Item",
-    "edit-meal": "Edit Meal Item",
-    "edit-recipe": "Edit Recipe Item"
+    "edit-food": "Muokkaa ruokaa",
+    "edit-meal": "Muokkaa ateriaa",
+    "edit-recipe": "Muokkaa reseptiä"
   },
   "goals": {
     "title": "Tavoitteet"
@@ -160,7 +160,7 @@
   "goal-editor": {
     "title": "Aseta tavoitteet",
     "show-in-diary": "Näytä päiväkirjassa",
-    "show-in-stats": "Show in Statistics",
+    "show-in-stats": "Näytä tilastoissa",
     "shared-goal": "Sama tavoite joka päivä",
     "minimum-goal": "On vähimmäistavoite"
   },
@@ -180,7 +180,7 @@
       "dark": "Tumma teema",
       "animations": "Poista käyttöliittymän animaatiot käytöstä",
       "start-page": "Aloitussivu",
-      "language": "Preferred Language"
+      "language": "Kieli"
     },
     "units": {
       "title": "Yksiköt",
@@ -207,8 +207,8 @@
     "foods": {
       "title": "Ruoat, Ateriat, Reseptit",
       "sort": "Järjestä ruoat",
-      "sort-date": "By last used",
-      "sort-alpha": "Alphabetically",
+      "sort-date": "Viimeksi käytetty",
+      "sort-alpha": "Aakkosellinen",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä"
     },
@@ -216,21 +216,21 @@
       "title": "Tuo / Vie",
       "backup": "Varmuuskopioi tietokanta",
       "import": "Tuo varmuuskopiosta",
-      "auto-backup": "Automatic Backup"
+      "auto-backup": "Automaattinen varmuuskopiointi"
     },
     "integration": {
       "title": "Intergrointi",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts -tili",
       "country": "Hae maa",
-      "language": "Preferred Search Language",
+      "language": "Ensisijainen hakukieli",
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
       "usda-login-title": "USDA - Yhdysvaltojen maatalousministeriö",
       "usda-api-key": "USDA API-avain",
-      "usda-click-here": "Click here",
+      "usda-click-here": "Klikkaa tästä",
       "usda-note-0": "Sinun täytyy syöttää henkilökohtainen API-avain etsiäksesi elintarvikkeita USDA tietokannasta.",
-      "usda-note-1": "to request a free API Key.",
+      "usda-note-1": "pyytääksesi ilmaisen API-avaimen.",
       "username": "Käyttäjänimi",
       "password": "Salasana",
       "off-account-note": "Tämä on täysin valinnaista. Et tarvitse OFF tiliä käyttääksesi sovellusta.",
@@ -242,7 +242,7 @@
       "export-fail": "Vienti epäonnistui",
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
-      "import-success-title": "The backup has been restored",
+      "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Import Complete"
     }
   },
@@ -253,16 +253,16 @@
     "p2": "Waistlinen lähdekoodi on saatavilla osoitteessa github.com/davidhealey/waistline."
   },
   "locale": {
-    "auto": "Detect Automatically",
-    "english": "English",
-    "german": "German",
-    "italian": "Italian",
-    "french": "French",
-    "swedish": "Swedish",
-    "russian": "Russian",
-    "portuguese": "Portuguese",
-    "bulgarian": "Bulgarian",
-    "hebrew": "Hebrew",
-    "finnish": "Finnish"
+    "auto": "Tunnista Automaattisesti",
+    "english": "Englanti",
+    "german": "Saksa",
+    "italian": "Italia",
+    "french": "Ranska",
+    "swedish": "Ruotsi",
+    "russian": "Venäjä",
+    "portuguese": "Portugali",
+    "bulgarian": "Bulgaria",
+    "hebrew": "Hebrea",
+    "finnish": "Suomi"
   }
 }
