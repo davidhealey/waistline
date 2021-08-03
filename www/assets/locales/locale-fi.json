@@ -180,7 +180,7 @@
       "dark": "Tumma teema",
       "animations": "Poista käyttöliittymän animaatiot käytöstä",
       "start-page": "Aloitussivu",
-      "language": "Kieli"
+      "language": "Ensisijainen kieli"
     },
     "units": {
       "title": "Yksiköt",
@@ -243,7 +243,7 @@
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
       "import-success-title": "Varmuuskopio on palautettu",
-      "import-success-message": "Import Complete"
+      "import-success-message": "Tuonti valmis"
     }
   },
   "about": {
