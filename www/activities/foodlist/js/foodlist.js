@@ -357,6 +357,13 @@ app.Foodlist = {
         } else {
           resolve(undefined);
         }
+      },
+      async (error) => {
+        resolve(undefined);
+      },
+      {
+        showTorchButton: true,
+        disableSuccessBeep: true
       });
     });
   },
