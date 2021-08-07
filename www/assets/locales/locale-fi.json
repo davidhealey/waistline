@@ -243,7 +243,8 @@
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
       "import-success-title": "Varmuuskopio on palautettu",
-      "import-success-message": "Tuonti valmis"
+      "import-success-message": "Tuonti valmis",
+      "barcode-sound": "Barcode Scan Beep"
     }
   },
   "about": {
