@@ -252,12 +252,8 @@ app.Foodlist = {
             //If item is in DB use retrieved data, otherwise add item to DB and get new ID
             if (dbData) {
               data = dbData;
-
-              // Unarchive the food if it has been archived
-              if (data.archived == true) {
-                data.archived = false;
-                await app.Foodlist.putItem(data);
-              }
+              data.archived = false; // Unarchive the food if it has been archived
+              await app.Foodlist.putItem(data);
             }
           }
 
@@ -336,8 +332,8 @@ app.Foodlist = {
             // Check if the item is already in the foodlist
             let item = await dbHandler.get("foodList", "barcode", code);
 
-            if (item === undefined) {
-              // Not already in foodlist so search OFF 
+            // Not already in foodlist so search OFF 
+            if (item === undefined || (item.archived !== undefined && item.archived == true)) {
               if (navigator.connection.type == "none") {
                 app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
                 resolve(undefined);
@@ -347,12 +343,15 @@ app.Foodlist = {
               app.f7.preloader.show();
               let result = await app.OpenFoodFacts.search(code);
               app.f7.preloader.hide();
-              // Return result from OFF
-              if (result[0] !== undefined) {
+
+              // When downloading data for archived items reuse the same id
+              if (item !== undefined && item.id !== undefined)
+                result[0].id = item.id;
+
+              if (result[0] !== undefined)
                 item = result[0];
-              } else {
+              else
                 app.Foodlist.gotoUploadEditor(code);
-              }
             }
             resolve(item);
           } else {
