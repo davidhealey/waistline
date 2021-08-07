@@ -243,7 +243,8 @@
       "import": "Импорт",
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
       "import-success-title": "Резервная копия была восстановлена",
-      "import-success-message": "Импорт завершён"
+      "import-success-message": "Импорт завершён",
+      "barcode-sound": "Barcode Scan Beep"
     }
   },
   "about": {
