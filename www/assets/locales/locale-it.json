@@ -243,7 +243,8 @@
       "import": "Importa",
       "confirm-import": "Sei sicuro? Questo sovrascriverà il database corrente.",
       "import-success-title": "Il tuo backup è stato ripristinato",
-      "import-success-message": "Importazione completa"
+      "import-success-message": "Importazione completa",
+      "barcode-sound": "Barcode Scan Beep"
     }
   },
   "about": {
