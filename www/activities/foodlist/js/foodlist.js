@@ -329,42 +329,41 @@ app.Foodlist = {
   scan: function() {
     return new Promise(function(resolve, reject) {
       cordova.plugins.barcodeScanner.scan(async (data) => {
-        let code = data.text;
+          let code = data.text;
 
-        if (code !== undefined && !data.cancelled) {
-          // Check if the item is already in the foodlist
-          let item = await dbHandler.get("foodList", "barcode", code);
+          if (code !== undefined && !data.cancelled) {
+            // Check if the item is already in the foodlist
+            let item = await dbHandler.get("foodList", "barcode", code);
 
-          if (item === undefined) {
-            // Not already in foodlist so search OFF 
-            if (navigator.connection.type == "none") {
-              app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
-              resolve(undefined);
+            if (item === undefined) {
+              // Not already in foodlist so search OFF 
+              if (navigator.connection.type == "none") {
+                app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
+                resolve(undefined);
+              }
+
+              // Display loading image
+              app.f7.preloader.show();
+              let result = await app.OpenFoodFacts.search(code);
+              app.f7.preloader.hide();
+              // Return result from OFF
+              if (result[0] !== undefined) {
+                item = result[0];
+              } else {
+                app.Foodlist.gotoUploadEditor(code);
+              }
             }
-
-            // Display loading image
-            app.f7.preloader.show();
-            let result = await app.OpenFoodFacts.search(code);
-            app.f7.preloader.hide();
-            // Return result from OFF
-            if (result[0] !== undefined) {
-              item = result[0];
-            } else {
-              app.Foodlist.gotoUploadEditor(code);
-            }
+            resolve(item);
+          } else {
+            resolve(undefined);
           }
-          resolve(item);
-        } else {
+        },
+        async (error) => {
           resolve(undefined);
-        }
-      },
-      async (error) => {
-        resolve(undefined);
-      },
-      {
-        showTorchButton: true,
-        disableSuccessBeep: true
-      });
+        }, {
+          showTorchButton: true,
+          disableSuccessBeep: app.Settings.get("integration", "barcode-sound") || true
+        });
     });
   },
 
