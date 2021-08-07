@@ -243,7 +243,8 @@
       "import": "ייבוא",
       "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
       "import-success-title": "The backup has been restored",
-      "import-success-message": "Import Complete"
+      "import-success-message": "Import Complete",
+      "barcode-sound": "Barcode Scan Beep"
     }
   },
   "about": {
