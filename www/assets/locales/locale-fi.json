@@ -59,9 +59,7 @@
     "main-image": "Lisää tuotteen pääkuva",
     "upload-success": "Tuote lisätty Open Food Factsiin",
     "upload-failed": "Valitettavasti lataus epäonnistui. Yritä uudelleen tai ota yhteyttä kehittäjään.",
-    "what-meal": "Mikä ateria tämä on?",
-    "import": "Tuo",
-    "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan."
+    "what-meal": "Mikä ateria tämä on?"
   },
   "days": {
     "0": "Sunnuntai",
@@ -115,7 +113,14 @@
   "diary": {
     "title": "Päiväkirja",
     "quick-add": "Nopea lisäys",
-    "log-title": "Päivän tilastot"
+    "log-title": "Päivän tilastot",
+    "no-data": "Ei tietoja",
+    "default-meals": {
+      "breakfast": "Aamiainen",
+      "lunch": "Lounas",
+      "dinner": "Päivällinen",
+      "snacks": "Välipala"
+    }
   },
   "diary-chart": {
     "title": "Yleiskuva",
@@ -126,10 +131,11 @@
     "foods": "Ruoat",
     "meals": "Ateriat",
     "recipes": "Reseptit",
-    "selected": "Valitut"
+    "selected": "Valitut",
+    "search": "Etsi"
   },
   "food-editor": {
-    "edit-item": "Muokkaa tuotteita",
+    "edit-item": "Muokkaa tuotetta",
     "add-new-item": "Lisää uusi tuote",
     "details": "Tarkat tiedot",
     "barcode": "Viivakoodi",
@@ -144,8 +150,9 @@
     "per-serving": "Annosta kohden",
     "ingredients": "Ainesosat",
     "traces": "Jäämät",
-    "edit": "Edit",
-    "item": "Item"
+    "edit-food": "Muokkaa ruokaa",
+    "edit-meal": "Muokkaa ateriaa",
+    "edit-recipe": "Muokkaa reseptiä"
   },
   "goals": {
     "title": "Tavoitteet"
@@ -153,6 +160,7 @@
   "goal-editor": {
     "title": "Aseta tavoitteet",
     "show-in-diary": "Näytä päiväkirjassa",
+    "show-in-stats": "Näytä tilastoissa",
     "shared-goal": "Sama tavoite joka päivä",
     "minimum-goal": "On vähimmäistavoite"
   },
@@ -171,7 +179,8 @@
       "title": "Teema",
       "dark": "Tumma teema",
       "animations": "Poista käyttöliittymän animaatiot käytöstä",
-      "start-page": "Aloitussivu"
+      "start-page": "Aloitussivu",
+      "language": "Ensisijainen kieli"
     },
     "units": {
       "title": "Yksiköt",
@@ -198,25 +207,30 @@
     "foods": {
       "title": "Ruoat, Ateriat, Reseptit",
       "sort": "Järjestä ruoat",
+      "sort-date": "Viimeksi käytetty",
+      "sort-alpha": "Aakkosellinen",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä"
     },
     "import-export": {
       "title": "Tuo / Vie",
       "backup": "Varmuuskopioi tietokanta",
-      "import": "Tuo varmuuskopiosta"
+      "import": "Tuo varmuuskopiosta",
+      "auto-backup": "Automaattinen varmuuskopiointi"
     },
     "integration": {
       "title": "Intergrointi",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts -tili",
       "country": "Hae maa",
+      "language": "Ensisijainen hakukieli",
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
       "usda-login-title": "USDA - Yhdysvaltojen maatalousministeriö",
       "usda-api-key": "USDA API-avain",
+      "usda-click-here": "Klikkaa tästä",
       "usda-note-0": "Sinun täytyy syöttää henkilökohtainen API-avain etsiäksesi elintarvikkeita USDA tietokannasta.",
-      "usera-note-1": "Voit pyytää ilmaisen API-avaimen klikkaamalla <a href='https://fdc.nal.usda.gov/api-key-signup.html'>tästä</a>.",
+      "usda-note-1": "pyytääksesi ilmaisen API-avaimen.",
       "username": "Käyttäjänimi",
       "password": "Salasana",
       "off-account-note": "Tämä on täysin valinnaista. Et tarvitse OFF tiliä käyttääksesi sovellusta.",
@@ -225,7 +239,11 @@
       "save": "Tallenna",
       "invalid-credentials": "Virheelliset kirjautumistiedot",
       "export-success": "Tietokanta viety",
-      "export-fail": "Vienti epäonnistui"
+      "export-fail": "Vienti epäonnistui",
+      "import": "Tuo",
+      "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
+      "import-success-title": "Varmuuskopio on palautettu",
+      "import-success-message": "Tuonti valmis"
     }
   },
   "about": {
@@ -233,5 +251,18 @@
     "p0": "Waistlinen on kehittänyt David Healey, työssä hyödynnetty myös käyttäjäehdotuksia ja osallistumisia kehitykseen.",
     "p1": "Waistline rakennettiin käyttäen Cordovaa, joka on saatavilla Apache-lisenssin alaisena. Mukana ovat myös Framework7, jQuery, jQuery localize ja ChartJS, jotka ovat MIT-lisenssin alaisia. Sovelluksen pääosan muodostavat HTML, CSS ja muu javascript ovat GPLv3-lisenssin alaisia.",
     "p2": "Waistlinen lähdekoodi on saatavilla osoitteessa github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Tunnista Automaattisesti",
+    "english": "Englanti",
+    "german": "Saksa",
+    "italian": "Italia",
+    "french": "Ranska",
+    "swedish": "Ruotsi",
+    "russian": "Venäjä",
+    "portuguese": "Portugali",
+    "bulgarian": "Bulgaria",
+    "hebrew": "Hebrea",
+    "finnish": "Suomi"
   }
 }

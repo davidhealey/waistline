@@ -59,9 +59,7 @@
     "main-image": "נא להוסיף תמונה ראשית",
     "upload-success": "המוצר נוסף בהצלחה אל Open Food Facts",
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
-    "what-meal": "איזו מנה זו?",
-    "import": "ייבוא",
-    "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך."
+    "what-meal": "איזו מנה זו?"
   },
   "days": {
     "0": "יום ראשון",
@@ -115,7 +113,14 @@
   "diary": {
     "title": "יומן",
     "quick-add": "הוספה מהירה",
-    "log-title": "הסטטיסטיקה היומית"
+    "log-title": "הסטטיסטיקה היומית",
+    "no-data": "No Data",
+    "default-meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    }
   },
   "diary-chart": {
     "title": "סקירה",
@@ -126,10 +131,11 @@
     "foods": "מאכלים",
     "meals": "מנות",
     "recipes": "מתכונים",
-    "selected": "נבחרו"
+    "selected": "נבחרו",
+    "search": "חיפוש"
   },
   "food-editor": {
-    "edit-item": "עריכת פריטים",
+    "edit-item": "עריכת פריט",
     "add-new-item": "הוספת פריט חדש",
     "details": "פרטים",
     "barcode": "ברקוד",
@@ -144,8 +150,9 @@
     "per-serving": "להגשה",
     "ingredients": "רכיבים",
     "traces": "עקבות",
-    "edit": "עריכה",
-    "item": "פריט"
+    "edit-food": "עריכת פריט מזון",
+    "edit-meal": "עריכת פריט ארוחה",
+    "edit-recipe": "עריכת פריט מתכון"
   },
   "goals": {
     "title": "יעדים"
@@ -153,6 +160,7 @@
   "goal-editor": {
     "title": "הגדרת יעדים",
     "show-in-diary": "הצגה ביומן",
+    "show-in-stats": "Show in Statistics",
     "shared-goal": "אותו היעד כל יום",
     "minimum-goal": "הוא היעד הקטן ביותר"
   },
@@ -171,7 +179,8 @@
       "title": "ערכת עיצוב",
       "dark": "מצב כהה",
       "animations": "השבתת הנפשות",
-      "start-page": "עמוד הפתיחה"
+      "start-page": "עמוד הפתיחה",
+      "language": "שפה מועדפת"
     },
     "units": {
       "title": "יחידות",
@@ -198,25 +207,30 @@
     "foods": {
       "title": "מאכלים, מנות, מתכונים",
       "sort": "מיון מאכלים",
+      "sort-date": "By last used",
+      "sort-alpha": "Alphabetically",
       "images": "הצגת תמונות מאכלים",
       "wifi-images": "הצגת תמונות בחיבור אלחוטי בלבד"
     },
     "import-export": {
       "title": "ייבוא/ייצוא",
       "backup": "גיבוי מסד נתונים",
-      "import": "ייבוא מגיבוי"
+      "import": "ייבוא מגיבוי",
+      "auto-backup": "Automatic Backup"
     },
     "integration": {
       "title": "שילוב",
       "off": "Open Food Facts",
       "off-account": "חשבון Open Food Facts",
       "country": "חיפוש מדינה",
+      "language": "Preferred Search Language",
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
       "usda-login-title": "USDA",
       "usda-api-key": "מפתח API של USDA",
+      "usda-click-here": "Click here",
       "usda-note-0": "עליך למלא את מפתח ה־API האישי שלך כדי לחפש מאכלים במסד הנתונים של משרד החקלאות האמריקאי.",
-      "usera-note-1": "ניתן לבקש מפתח API בחינם <a href='https://fdc.nal.usda.gov/api-key-signup.html'>מפה</a>.",
+      "usda-note-1": "to request a free API Key.",
       "username": "שם משתמש",
       "password": "ססמה",
       "off-account-note": "זה בגדר רשות בלבד. אין צורך בחשבון OFF כדי להשתמש ביישומון הזה.",
@@ -225,7 +239,11 @@
       "save": "שמירה",
       "invalid-credentials": "פרטי התחברות שגויים",
       "export-success": "מד הנתונים ייוצא",
-      "export-fail": "הייצוא נכשל"
+      "export-fail": "הייצוא נכשל",
+      "import": "ייבוא",
+      "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
+      "import-success-title": "The backup has been restored",
+      "import-success-message": "Import Complete"
     }
   },
   "about": {
@@ -233,5 +251,18 @@
     "p0": "היישומון Waistline נוצר על ידי David Healey בחיזוק הצעות ותרומות משתמשים.",
     "p1": "היישומון Waistline נבנה על גבי Cordova שזמינה בכפוף לרישיון Apache. בנוסף נכללות המערכות Framework7,‏ jQuery,‏ jQuery localize ו־ChartJS שכפופות לרישיון MIT. תשתיות ה־HTML,‏ ה־CSS ושאר ה־javascript שמרכיבות את הגוף הראשי של היישומון כפופות לרישיון GPLv3.",
     "p2": "ניתן למצוא את קוד המקור של Waistline בכתובת github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "זיהוי אוטומטי",
+    "english": "אנגלית",
+    "german": "גרמנית",
+    "italian": "איטלקית",
+    "french": "צרפתית",
+    "swedish": "שוודית",
+    "russian": "רוסית",
+    "portuguese": "פורטוגלית",
+    "bulgarian": "בולגרית",
+    "hebrew": "עברית",
+    "finnish": "פינית"
   }
 }

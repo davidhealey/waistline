@@ -59,9 +59,7 @@
     "main-image": "Por favor agregue una imagen principal",
     "upload-success": "Producto añadido con éxito a Open Food Facts",
     "upload-failed": "Lamentablemente la carga falló. Por favor, inténtalo de nuevo o contacta al desarrollador.",
-    "what-meal": "¿Qué comida del día es esta?",
-    "import": "Importar",
-    "confirm-import": "¿Estás seguro? Esto sobrescribirá tu base de datos actual."
+    "what-meal": "¿Qué comida del día es esta?"
   },
   "days": {
     "0": "Domingo",
@@ -115,7 +113,14 @@
   "diary": {
     "title": "Diario",
     "quick-add": "Añadir rapidamente",
-    "log-title": "Estadísticas de hoy"
+    "log-title": "Estadísticas de hoy",
+    "no-data": "No Data",
+    "default-meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    }
   },
   "diary-chart": {
     "title": "Resúmen",
@@ -126,10 +131,11 @@
     "foods": "Alimentos",
     "meals": "Comidas",
     "recipes": "Recetas",
-    "selected": "Seleccionados"
+    "selected": "Seleccionados",
+    "search": "Búsqueda"
   },
   "food-editor": {
-    "edit-item": "Editar ítems",
+    "edit-item": "Edit Item",
     "add-new-item": "Añadir nuevo ítem",
     "details": "Detalles",
     "barcode": "Código de barras",
@@ -144,8 +150,9 @@
     "per-serving": "Por porción",
     "ingredients": "Ingredientes",
     "traces": "Rastros",
-    "edit": "Edit",
-    "item": "Item"
+    "edit-food": "Edit Food Item",
+    "edit-meal": "Edit Meal Item",
+    "edit-recipe": "Edit Recipe Item"
   },
   "goals": {
     "title": "Objetivos"
@@ -153,6 +160,7 @@
   "goal-editor": {
     "title": "Establecer objetivos",
     "show-in-diary": "Mostrar en Diario",
+    "show-in-stats": "Show in Statistics",
     "shared-goal": "Mismo objetivo todos los días",
     "minimum-goal": "Es un objetivo mínimo"
   },
@@ -171,7 +179,8 @@
       "title": "Tema",
       "dark": "Modo oscuro",
       "animations": "Desactivar Animaciones de la interfaz",
-      "start-page": "Página inicial"
+      "start-page": "Página inicial",
+      "language": "Preferred Language"
     },
     "units": {
       "title": "Unidades",
@@ -198,25 +207,30 @@
     "foods": {
       "title": "Alimentos, Comidas, Recetas",
       "sort": "Ordenar alimentos",
+      "sort-date": "By last used",
+      "sort-alpha": "Alphabetically",
       "images": "Mostrar imágenes de alimentos",
       "wifi-images": "Mostrar solo imágenes por Wi-Fi"
     },
     "import-export": {
       "title": "Importar/Exportar",
       "backup": "Copia de seguridad de base de datos",
-      "import": "Importar desde copia de seguridad"
+      "import": "Importar desde copia de seguridad",
+      "auto-backup": "Automatic Backup"
     },
     "integration": {
       "title": "Integración",
       "off": "Open Food Facts",
       "off-account": "Cuenta de Open Food Facts",
       "country": "Buscar país",
+      "language": "Preferred Search Language",
       "usda-title": "Departamento de Agricultura de EE.UU. (USDA)",
       "usda": "Habilitar búsqueda USDA",
       "usda-login-title": "USDA",
       "usda-api-key": "Clave de API USDA",
+      "usda-click-here": "Click here",
       "usda-note-0": "Debe introducir tu clave de API personal para buscar alimentos en la base de datos del USDA.",
-      "usera-note-1": "Puedes solicitar una clave de API gratis haciendo clic <a href='https://fdc.nal.usda.gov/api-key-signup.html'>aquí</a>.",
+      "usda-note-1": "to request a free API Key.",
       "username": "Nombre de usuario",
       "password": "Contraseña",
       "off-account-note": "Esto es completamente opcional. No necesitas una cuenta OFF para usar la aplicación.",
@@ -225,7 +239,11 @@
       "save": "Guardar",
       "invalid-credentials": "Credenciales inválidas",
       "export-success": "Base de datos exportada",
-      "export-fail": "Fallo al exportar"
+      "export-fail": "Fallo al exportar",
+      "import": "Importar",
+      "confirm-import": "¿Estás seguro? Esto sobrescribirá tu base de datos actual.",
+      "import-success-title": "The backup has been restored",
+      "import-success-message": "Import Complete"
     }
   },
   "about": {
@@ -233,5 +251,18 @@
     "p0": "Waistline fue creado por David Healey con sugerencias y contribuciones de los usuarios.",
     "p1": "Waistline fue construido usando Cordova disponible bajo la licencia Apache. También se incluyen Framework7, jQuery, jQuery localize y ChartJS que están bajo la licencia MIT. El HTML, CSS y otros Javascript que componen el cuerpo principal de la aplicación están bajo la licencia GPLv3.",
     "p2": "El código fuente de Waistline se puede encontrar en github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Detect Automatically",
+    "english": "English",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "swedish": "Swedish",
+    "russian": "Russian",
+    "portuguese": "Portuguese",
+    "bulgarian": "Bulgarian",
+    "hebrew": "Hebrew",
+    "finnish": "Finnish"
   }
 }
