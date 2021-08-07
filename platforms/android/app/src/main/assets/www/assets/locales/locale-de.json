@@ -47,7 +47,7 @@
     "no": "Nein",
     "confirm-delete": "Diesen Eintrag wirklich löschen?",
     "delete-title": "Eintrag löschen",
-    "required-fields": "Bitte füllen Sie alle nötigen Felder aus.",
+    "required-fields": "Bitte fülle alle nötigen Felder aus.",
     "camera-problem": "Beim Zugriff auf deine Kamera ist ein Problem aufgetreten.",
     "no-internet": "Keine Internetverbindung",
     "no-results": "Keine passenden Ergebnisse gefunden",
@@ -55,13 +55,11 @@
     "scan-failed": "Scan fehlgeschlagen",
     "search": "Suchen",
     "number-of-calories": "Bitte gib die Anzahl der Kalorien für dieses Essen an.",
-    "add-to-off": "Möchten Sie dieses Produkt zur Open Food Facts Datenbank hinzufügen?",
-    "main-image": "Bitte laden Sie ein gültiges Bild hoch",
+    "add-to-off": "Möchtest du dieses Produkt zur Open Food Facts Datenbank hinzufügen?",
+    "main-image": "Bitte lade ein gültiges Bild hoch",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
-    "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie den Entwickler.",
-    "what-meal": "Welche Mahlzeit ist das?",
-    "import": "Importieren",
-    "confirm-import": "Sind Sie sicher? Dies wird Ihre aktuelle Datenbank überschreiben."
+    "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
+    "what-meal": "Welche Mahlzeit ist das?"
   },
   "days": {
     "0": "Sonntag",
@@ -115,7 +113,14 @@
   "diary": {
     "title": "Tagebuch",
     "quick-add": "Schnelles Hinzufügen",
-    "log-title": "Heutige Statistik"
+    "log-title": "Heutige Statistik",
+    "no-data": "Keine Daten",
+    "default-meals": {
+      "breakfast": "Frühstück",
+      "lunch": "Mittagessen",
+      "dinner": "Abendessen",
+      "snacks": "Snacks"
+    }
   },
   "diary-chart": {
     "title": "Übersicht",
@@ -126,10 +131,11 @@
     "foods": "Lebensmittel",
     "meals": "Mahlzeiten",
     "recipes": "Rezepte",
-    "selected": "Ausgewählt"
+    "selected": "Ausgewählt",
+    "search": "Suchen"
   },
   "food-editor": {
-    "edit-item": "Einträge bearbeiten",
+    "edit-item": "Eintrag bearbeiten",
     "add-new-item": "Neuen Eintrag hinzufügen",
     "details": "Details",
     "barcode": "Strichcode",
@@ -144,8 +150,9 @@
     "per-serving": "Pro Portion",
     "ingredients": "Inhaltsstoffe",
     "traces": "Spuren",
-    "edit": "Edit",
-    "item": "Item"
+    "edit-food": "Lebensmittel bearbeiten",
+    "edit-meal": "Mahlzeit-Eintrag bearbeiten",
+    "edit-recipe": "Rezept-Eintrag bearbeiten"
   },
   "goals": {
     "title": "Ziele"
@@ -153,6 +160,7 @@
   "goal-editor": {
     "title": "Ziele setzen",
     "show-in-diary": "Im Tagebuch anzeigen",
+    "show-in-stats": "In Statistik anzeigen",
     "shared-goal": "Gleiches Ziel für jeden Tag",
     "minimum-goal": "Ist Mindestziel"
   },
@@ -171,7 +179,8 @@
       "title": "Thema",
       "dark": "Dunkelmodus",
       "animations": "UI Animationen deaktivieren",
-      "start-page": "Startseite"
+      "start-page": "Startseite",
+      "language": "Bevorzugte Sprache"
     },
     "units": {
       "title": "Einheiten",
@@ -198,25 +207,30 @@
     "foods": {
       "title": "Lebensmittel, Mahlzeiten, Rezepte",
       "sort": "Lebensmittel sortieren",
+      "sort-date": "Zuletzt verwendet",
+      "sort-alpha": "Alphabetisch",
       "images": "Lebensmittelbilder anzeigen",
       "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen"
     },
     "import-export": {
       "title": "Importieren/Exportieren",
       "backup": "Datenbanksicherung",
-      "import": "Aus Datenbanksicherung importieren"
+      "import": "Aus Datenbanksicherung importieren",
+      "auto-backup": "Automatische Sicherung"
     },
     "integration": {
       "title": "Integrationen",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts Konto",
       "country": "Land für Suche",
+      "language": "Bevorzugte Sprache für Suche",
       "usda-title": "U.S. Landwirtschaftsministerium",
       "usda": "USDA Suche aktivieren",
       "usda-login-title": "USDA",
       "usda-api-key": "USDA API-Schlüssel",
-      "usda-note-0": "Du müsst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
-      "usera-note-1": "Du kannst <a href='https://fdc.nal.usda.gov/api-key-signup.html'>hier</a> einen kostenlosen API-Schlüssel anfordern.",
+      "usda-click-here": "Hier",
+      "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
+      "usda-note-1": "kannst du einen kostenlosen API-Schlüssel anfordern.",
       "username": "Benutzername",
       "password": "Passwort",
       "off-account-note": "Dies ist völlig optional. Du brauchst kein Open Food Facts Konto, um die App zu benutzen.",
@@ -225,13 +239,30 @@
       "save": "Speichern",
       "invalid-credentials": "Ungültige Anmeldeinformationen",
       "export-success": "Datenbank wurde exportiert",
-      "export-fail": "Fehler beim Export"
+      "export-fail": "Fehler beim Export",
+      "import": "Importieren",
+      "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
+      "import-success-title": "Die Sicherung wurde wiederhergestellt",
+      "import-success-message": "Import abgeschlossen"
     }
   },
   "about": {
     "title": "Über",
     "p0": "Waistline wurde von David Healey entwickelt und von verschiedenen GitHub-Nutzern durch Vorschläge und Anpassungen unterstützt.",
     "p1": "Waistline wurde mit dem Cordova Framework und OnsenUI erstellt, was unter der Apache Lizenz verfügbar ist. Ebenfalls verwendet wurden jQuery, jQuery localize und ChartJS, welche unter der MIT Lizenz stehen. HTML, CSS und JavaScript, die das Hauptgerüst der App bilden, gehören zur GPLv3 Lizenz.",
-    "p2": "Den Quellcode von Waistline finden Sie unter: github.com/davidhealey/waistline."
+    "p2": "Den Quellcode von Waistline findest du unter: github.com/davidhealey/waistline."
+  },
+  "locale": {
+    "auto": "Automatisch erkennen",
+    "english": "Englisch",
+    "german": "Deutsch",
+    "italian": "Italienisch",
+    "french": "Französisch",
+    "swedish": "Schwedisch",
+    "russian": "Russisch",
+    "portuguese": "Portugiesisch",
+    "bulgarian": "Bulgarisch",
+    "hebrew": "Hebräisch",
+    "finnish": "Finnisch"
   }
 }
