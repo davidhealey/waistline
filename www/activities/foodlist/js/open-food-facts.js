@@ -79,12 +79,12 @@ app.OpenFoodFacts = {
   },
 
   parseItem: function(item) {
-    const nutriments = app.nutriments; //Array of OFF nutriment names
+    const nutriments = app.nutriments; // Array of OFF nutriment names
     let result = {
       "nutrition": {}
     };
 
-    //Search for all keys containing 'item_name' to include local item names
+    // Search for all keys containing 'item_name' to include local item names
     for (let k in item) {
       if (k.includes("product_name") && item[k].length > 1) {
         result.name = item[k];
@@ -95,37 +95,55 @@ app.OpenFoodFacts = {
     result.image_url = escape(item.image_url);
     result.barcode = item.code;
 
-    //Get first brand if there is more than one
+    // Get first brand if there is more than one
     let brands = item.brands || "";
     let n = brands.indexOf(",");
     result.brand = brands.substring(0, n != -1 ? n : brands.length);
 
-    //Nutrition
+    // Calories and Kilojoules
     let perTag = "";
-    if (item.serving_size && item.nutriments.energy_serving) {
+    if (item.serving_size) {
       result.portion = parseInt(item.serving_size);
       result.unit = item.serving_size.replace(/[^a-z]/g, "");
-      result.nutrition.calories = parseInt(item.nutriments.energy_serving / 4.1868);
-      perTag = "_serving";
-    } else if (item.nutrition_data_per == "100g" && item.nutriments.energy_100g) {
+      if (item.nutriments.energy_serving) {
+        result.nutrition.calories = (item.nutriments["energy-kcal_serving"])
+          ? parseInt(item.nutriments["energy-kcal_serving"])
+          : parseInt(item.nutriments.energy_serving / 4.1868);
+        result.nutrition.kilojoules = item.nutriments.energy_serving;
+        perTag = "_serving";
+      } else if (item.nutriments.energy_prepared_serving) {
+        result.nutrition.calories = (item.nutriments["energy-kcal_prepared_serving"])
+          ? parseInt(item.nutriments["energy-kcal_prepared_serving"])
+          : parseInt(item.nutriments.energy_prepared_serving / 4.1868);
+        result.nutrition.kilojoules = item.nutriments.energy_prepared_serving;
+        perTag = "_prepared_serving";
+      }
+    } else if (item.nutrition_data_per == "100g") {
       result.portion = "100";
       result.unit = "g";
-      result.nutrition.calories = parseInt(item.nutriments.energy_100g / 4.1868);
-      perTag = "_100g";
-    } else if (item.quantity) { //If all else fails
+      if (item.nutriments.energy_100g) {
+        result.nutrition.calories = (item.nutriments["energy-kcal_100g"])
+          ? item.nutriments["energy-kcal_100g"]
+          : parseInt(item.nutriments.energy_100g / 4.1868);
+        result.nutrition.kilojoules = item.nutriments.energy_100g;
+        perTag = "_100g";
+      } else if (item.nutriments.energy_prepared_100g) {
+        result.nutrition.calories = (item.nutriments["energy-kcal_prepared_100g"])
+          ? item.nutriments["energy-kcal_prepared_100g"]
+          : parseInt(item.nutriments.energy_prepared_100g / 4.1868);
+        result.nutrition.kilojoules = item.nutriments.energy_prepared_100g;
+        perTag = "_prepared_100g";
+      }
+    } else if (item.quantity) { // If all else fails
       result.portion = parseInt(item.quantity);
       result.unit = item.quantity.replace(/[^a-z]/g, "");
-
-      if (item.nutriments["energy-kcal"])
-        result.nutrition.calories = item.nutriments["energy-kcal"];
-      else
-        result.nutrition.calories = item.nutriments.energy_value;
+      result.nutrition.calories = (item.nutriments["energy-kcal"])
+        ? item.nutriments["energy-kcal"]
+        : item.nutriments.energy_value
+      result.nutrition.kilojoules = item.nutriments.energy;
     }
 
-    // Calories to kilojoules
-    result.nutrition.kilojoules = item.nutriments.energy_serving;
-
-    //Each nutriment 
+    // Each nutriment 
     for (let i = 0; i < nutriments.length; i++) {
       let x = nutriments[i];
       if (x != "calories" && x != "kilojoules") {
