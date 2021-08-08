@@ -244,7 +244,7 @@
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
-      "barcode-sound": "Barcode Scan Beep"
+      "barcode-sound": "Ton wenn Strichcode gescannt wird"
     }
   },
   "about": {
