@@ -1,8 +1,10 @@
 deliverables/
 images/master/
 node_modules/
-platforms
-!*/platforms/android/app
+platforms/browser
+*/build/
+.gradle
+.idea
 plugins/
 package-lock.json
 .jshintrc
