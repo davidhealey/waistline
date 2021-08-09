@@ -244,7 +244,7 @@
       "confirm-import": "Sei sicuro? Questo sovrascriverà il database corrente.",
       "import-success-title": "Il tuo backup è stato ripristinato",
       "import-success-message": "Importazione completa",
-      "barcode-sound": "Barcode Scan Beep"
+      "barcode-sound": "Verifica codice a barre suono"
     }
   },
   "about": {
