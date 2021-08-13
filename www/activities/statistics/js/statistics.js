@@ -320,6 +320,7 @@ app.Stats = {
         }
       }
     });
+    Chart.register("AnnotationPlugin");
   }
 };
 
