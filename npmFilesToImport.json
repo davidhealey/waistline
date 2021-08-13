@@ -1,0 +1,6 @@
+{
+  "chart.js": {
+    "from": ["dist"],
+    "to": ["assets", "js", "chartjs", "dist"]
+  }
+}
