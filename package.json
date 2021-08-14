@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "chart.js": "^3.5.0",
-    "chartjs-plugin-annotation": "^1.0.2",
-    "cordova-import-npm": "^1.0.33"
+    "chartjs-plugin-annotation": "^1.0.2"
   }
 }
