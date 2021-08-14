@@ -250,6 +250,12 @@ app.OpenFoodFacts = {
       string += "&nutriment_" + n + "=" + data.nutrition[n];
     }
 
+    // Tags
+    let countries = app.Settings.get("integration", "upload-country");
+
+    if (countries != undefined && countries != "Auto")
+      string += "&countries=" + countries;
+
     return string;
   },
 
