@@ -108,7 +108,8 @@
     "neck": "Nacken",
     "waist": "Taille",
     "hips": "Hüften",
-    "body fat": "Körperfettanteil"
+    "body fat": "Körperfettanteil",
+    "average": "Average"
   },
   "diary": {
     "title": "Tagebuch",
