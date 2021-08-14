@@ -317,7 +317,7 @@ app.FoodEditor = {
     app.FoodEditor.el.name.value = app.Utils.tidyText(item.name, 200);
     app.FoodEditor.el.brand.value = app.Utils.tidyText(item.brand, 200);
     app.FoodEditor.el.unit.value = item.unit || "";
-    app.FoodEditor.el.notes.value = item.notes;
+    app.FoodEditor.el.notes.value = item.notes || "";
     app.FoodEditor.el.ingredients_text.value = item.ingredients_text || "";
     app.FoodEditor.el.traces.value = item.traces || "";
 
