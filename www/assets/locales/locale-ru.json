@@ -108,7 +108,8 @@
     "neck": "Шея",
     "waist": "Талия",
     "hips": "Бёдра",
-    "body fat": "Телесный жир"
+    "body fat": "Телесный жир",
+    "average": "Average"
   },
   "diary": {
     "title": "Дневник",
