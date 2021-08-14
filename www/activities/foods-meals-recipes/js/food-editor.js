@@ -324,6 +324,17 @@ app.FoodEditor = {
     if (item.barcode !== undefined && !item.barcode.includes("fdcId_")) {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = item.barcode;
+
+      if (navigator.connection.type != "none") {
+        let url = "https://world.openfoodfacts.org/product/" + item.barcode;
+        if (!app.FoodEditor.el.barcode.hasClickEvent) {
+          app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
+            window.open(url, '_system');
+            return false;
+          });
+          app.FoodEditor.el.barcode.hasClickEvent = true;
+        }
+      }
     }
 
     // Portion (serving size)
