@@ -224,6 +224,7 @@
       "off": "Open Food Facts",
       "off-account": "Учётная запись Open Food Facts",
       "country": "Страна поиска",
+      "upload-country": "Upload Country",
       "language": "Предпочитаемый язык поиска",
       "usda-title": "МИНИСТЕРСТВО СЕЛЬСКОГО ХОЗЯЙСТВА США",
       "usda": "Включить поиск МСХ США",
@@ -245,7 +246,8 @@
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
-      "barcode-sound": "Звуковой сигнал при сканировании штрихкода"
+      "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
+      "edit-images": "Edit Images Before Upload"
     }
   },
   "about": {
@@ -265,6 +267,7 @@
     "portuguese": "Португальский",
     "bulgarian": "Болгарский",
     "hebrew": "Иврит",
-    "finnish": "Финский"
+    "finnish": "Финский",
+    "spanish": "Spanish"
   }
 }
