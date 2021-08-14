@@ -30,9 +30,5 @@
       "browser",
       "android"
     ]
-  },
-  "dependencies": {
-    "chart.js": "^3.5.0",
-    "chartjs-plugin-annotation": "^1.0.2"
   }
 }
