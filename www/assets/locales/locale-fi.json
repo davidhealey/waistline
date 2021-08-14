@@ -224,6 +224,7 @@
       "off": "Open Food Facts",
       "off-account": "Open Food Facts -tili",
       "country": "Hae maa",
+      "upload-country": "Upload Country",
       "language": "Ensisijainen hakukieli",
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
@@ -245,7 +246,8 @@
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
       "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Tuonti valmis",
-      "barcode-sound": "Barcode Scan Beep"
+      "barcode-sound": "Barcode Scan Beep",
+      "edit-images": "Edit Images Before Upload"
     }
   },
   "about": {
@@ -265,6 +267,7 @@
     "portuguese": "Portugali",
     "bulgarian": "Bulgaria",
     "hebrew": "Hebrea",
-    "finnish": "Suomi"
+    "finnish": "Suomi",
+    "spanish": "Spanish"
   }
 }
