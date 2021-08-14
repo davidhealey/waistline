@@ -108,7 +108,8 @@
     "neck": "Collo",
     "waist": "Vita",
     "hips": "Fianchi",
-    "body fat": "Grasso corporeo"
+    "body fat": "Grasso corporeo",
+    "average": "Average"
   },
   "diary": {
     "title": "Diario",
