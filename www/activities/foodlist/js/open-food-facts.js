@@ -100,11 +100,10 @@ app.OpenFoodFacts = {
     let n = brands.indexOf(",");
     result.brand = brands.substring(0, n != -1 ? n : brands.length);
 
-    // Calories and Kilojoules
     let perTag = "";
     if (item.serving_size) {
       result.portion = parseInt(item.serving_size);
-      result.unit = item.serving_size.replace(/[^a-z]/g, "");
+      result.unit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/[^a-z]+|\s+/gmi, "");
       if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
@@ -139,7 +138,7 @@ app.OpenFoodFacts = {
       result.unit = item.quantity.replace(/[^a-z]/g, "");
       result.nutrition.calories = (item.nutriments["energy-kcal"]) ?
         item.nutriments["energy-kcal"] :
-        item.nutriments.energy_value
+        item.nutriments.energy_value;
       result.nutrition.kilojoules = item.nutriments.energy;
     }
 
