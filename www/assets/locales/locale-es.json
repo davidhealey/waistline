@@ -108,7 +108,8 @@
     "neck": "Cuello",
     "waist": "Cintura",
     "hips": "Cadera",
-    "body fat": "Grasa corporal"
+    "body fat": "Grasa corporal",
+    "average": "Average"
   },
   "diary": {
     "title": "Diario",
