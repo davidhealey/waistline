@@ -141,14 +141,17 @@ app.Stats = {
       app.Stats.chart.data.labels = data.dates;
       app.Stats.chart.data.datasets[0].label = data.dataset.label;
       app.Stats.chart.data.datasets[0].data = data.dataset.values;
-      app.Stats.chart.update();
     }
+    app.Stats.updateAnnotations(data.average, data.goal);
   },
 
   renderStatLog: async function(field) {
     let data = await app.Stats.organiseData(app.Stats.dbData, field);
 
     app.Stats.el.timeline.innerHTML = "";
+
+    let avg = app.Stats.renderAverage(data.average, data.dataset.unit);
+    app.Stats.el.timeline.appendChild(avg);
 
     for (let i = 0; i < data.dates.length; i++) {
 
@@ -175,6 +178,30 @@ app.Stats = {
     }
   },
 
+  renderAverage: function(average, unit) {
+    let li = document.createElement("li");
+
+    let content = document.createElement("div");
+    content.className = "item-content";
+    li.appendChild(content);
+
+    let inner = document.createElement("div");
+    inner.className = "item-inner";
+    content.appendChild(inner);
+
+    let title = document.createElement("div");
+    title.className = "item-title";
+    title.innerHTML = app.strings.statistics["average"] || "Average";
+    inner.appendChild(title);
+
+    let after = document.createElement("div");
+    after.className = "item-after";
+    after.innerHTML = Math.round(average) + " (" + unit + ")";
+    inner.appendChild(after);
+
+    return li;
+  },
+
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
@@ -197,7 +224,8 @@ app.Stats = {
         dataset: {
           values: [],
           unit: unit
-        }
+        },
+        average: 0
       };
 
       for (let i = 0; i < data.timestamps.length; i++) {
@@ -228,6 +256,7 @@ app.Stats = {
           let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
           result.dates.push(date);
           result.dataset.values.push(Math.round(value * 100) / 100);
+          result.average = result.average + value;
         }
       }
 
@@ -239,6 +268,8 @@ app.Stats = {
         title = app.strings.statistics[field];
 
       result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
+      result.average = result.average / result.dates.length;
+      result.goal = app.Goals.get(field, new Date());
 
       resolve(result);
     }).catch(err => {
@@ -293,6 +324,8 @@ app.Stats = {
   },
 
   renderChart: function(data) {
+    Chart.register("AnnotationPlugin");
+
     app.Stats.chart = new Chart(app.Stats.el.chart, {
       type: app.Stats.chartType,
       data: {
@@ -306,6 +339,20 @@ app.Stats = {
         }]
       },
       options: {
+        plugins: {
+          annotation: {
+            annotations: []
+          },
+          legend: {
+            labels: {
+              font: {
+                size: 16,
+                weight: "bold"
+              }
+            },
+            onClick: (e) => {}
+          }
+        },
         scales: {
           yAxes: [{
             ticks: {
@@ -313,13 +360,40 @@ app.Stats = {
             }
           }]
         },
-        legend: {
-          labels: {
-            fontSize: 16
-          }
-        }
+        animation: !app.Settings.get("theme", "animations")
       }
     });
+  },
+
+  updateAnnotations: function(average, goal) {
+    let annotations = [];
+
+    if (average != undefined) {
+      annotations.push({
+        id: "average",
+        type: 'line',
+        yScaleID: "yAxes",
+        yMin: average,
+        yMax: average,
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 1
+      });
+    }
+
+    if (goal != undefined) {
+      annotations.push({
+        id: "goal",
+        type: 'line',
+        yScaleID: "yAxes",
+        yMin: goal,
+        yMax: goal,
+        borderColor: 'rgb(99, 99, 255)',
+        borderWidth: 3
+      });
+    }
+
+    app.Stats.chart.options.plugins.annotation.annotations = annotations;
+    app.Stats.chart.update();
   }
 };
 

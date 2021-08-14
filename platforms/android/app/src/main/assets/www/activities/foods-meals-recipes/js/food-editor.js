@@ -83,6 +83,7 @@ app.FoodEditor = {
     app.FoodEditor.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
     app.FoodEditor.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
     app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
+    app.FoodEditor.el.notes = document.querySelector(".page[data-name='food-editor'] #notes");
     app.FoodEditor.el.nutrition = document.querySelector(".page[data-name='food-editor'] #nutrition");
     app.FoodEditor.el.ingredients_text = document.querySelector(".page[data-name='food-editor'] #ingredients_text");
     app.FoodEditor.el.traces = document.querySelector(".page[data-name='food-editor'] #traces");
@@ -316,12 +317,24 @@ app.FoodEditor = {
     app.FoodEditor.el.name.value = app.Utils.tidyText(item.name, 200);
     app.FoodEditor.el.brand.value = app.Utils.tidyText(item.brand, 200);
     app.FoodEditor.el.unit.value = item.unit || "";
+    app.FoodEditor.el.notes.value = item.notes || "";
     app.FoodEditor.el.ingredients_text.value = item.ingredients_text || "";
     app.FoodEditor.el.traces.value = item.traces || "";
 
     if (item.barcode !== undefined && !item.barcode.includes("fdcId_")) {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = item.barcode;
+
+      if (navigator.connection.type != "none") {
+        let url = "https://world.openfoodfacts.org/product/" + item.barcode;
+        if (!app.FoodEditor.el.barcode.hasClickEvent) {
+          app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
+            window.open(url, '_system');
+            return false;
+          });
+          app.FoodEditor.el.barcode.hasClickEvent = true;
+        }
+      }
     }
 
     // Portion (serving size)
@@ -400,7 +413,7 @@ app.FoodEditor = {
   takePicture: function(index) {
 
     let options = {
-      "allowEdit": true,
+      "allowEdit": app.Settings.get("integration", "edit-images"),
       "saveToPhotoAlbum": false
     };
 

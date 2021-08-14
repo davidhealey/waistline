@@ -197,11 +197,11 @@ app.Settings = {
     if (darkMode === true) {
       body.className = colourTheme + " theme-dark";
       panel.style["background-color"] = "black";
-      Chart.defaults.global.defaultFontColor = 'white';
+      Chart.defaults.defaultFontColor = 'white';
     } else {
       body.className = colourTheme;
       panel.style["background-color"] = "white";
-      Chart.defaults.global.defaultFontColor = 'black';
+      Chart.defaults.defaultFontColor = 'black';
     }
   },
 
@@ -365,6 +365,7 @@ app.Settings = {
         "wifi-images": true
       },
       integration: {
+        "edit-images": false,
         "search-country": "United Kingdom",
         usda: false
       },
