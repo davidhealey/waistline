@@ -224,6 +224,7 @@
       "off": "Open Food Facts",
       "off-account": "חשבון Open Food Facts",
       "country": "חיפוש מדינה",
+      "upload-country": "Upload Country",
       "language": "שפת החיפוש המועדפת",
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
@@ -245,7 +246,8 @@
       "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
-      "barcode-sound": "צפצוף סריקת ברקוד"
+      "barcode-sound": "צפצוף סריקת ברקוד",
+      "edit-images": "Edit Images Before Upload"
     }
   },
   "about": {
@@ -265,6 +267,7 @@
     "portuguese": "פורטוגלית",
     "bulgarian": "בולגרית",
     "hebrew": "עברית",
-    "finnish": "פינית"
+    "finnish": "פינית",
+    "spanish": "Spanish"
   }
 }
