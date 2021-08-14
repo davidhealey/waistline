@@ -246,7 +246,8 @@
       "confirm-import": "Are you sure? This will overwrite your current database.",
       "import-success-title": "The backup has been restored",
       "import-success-message": "Import Complete",
-      "barcode-sound": "Barcode Scan Beep"
+      "barcode-sound": "Barcode Scan Beep",
+      "edit-images": "Edit Images Before Upload"
     }
   },
   "about": {

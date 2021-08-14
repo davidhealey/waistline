@@ -400,7 +400,7 @@ app.FoodEditor = {
   takePicture: function(index) {
 
     let options = {
-      "allowEdit": true,
+      "allowEdit": app.Settings.get("integration", "edit-images"),
       "saveToPhotoAlbum": false
     };
 

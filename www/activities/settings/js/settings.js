@@ -365,6 +365,7 @@ app.Settings = {
         "wifi-images": true
       },
       integration: {
+        "edit-images": false,
         "search-country": "United Kingdom",
         usda: false
       },
