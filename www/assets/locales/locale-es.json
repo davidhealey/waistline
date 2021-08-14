@@ -224,6 +224,7 @@
       "off": "Open Food Facts",
       "off-account": "Cuenta de Open Food Facts",
       "country": "Buscar país",
+      "upload-country": "Upload Country",
       "language": "Preferred Search Language",
       "usda-title": "Departamento de Agricultura de EE.UU. (USDA)",
       "usda": "Habilitar búsqueda USDA",
@@ -245,7 +246,8 @@
       "confirm-import": "¿Estás seguro? Esto sobrescribirá tu base de datos actual.",
       "import-success-title": "The backup has been restored",
       "import-success-message": "Import Complete",
-      "barcode-sound": "Barcode Scan Beep"
+      "barcode-sound": "Barcode Scan Beep",
+      "edit-images": "Edit Images Before Upload"
     }
   },
   "about": {
@@ -265,6 +267,7 @@
     "portuguese": "Portuguese",
     "bulgarian": "Bulgarian",
     "hebrew": "Hebrew",
-    "finnish": "Finnish"
+    "finnish": "Finnish",
+    "spanish": "Spanish"
   }
 }
