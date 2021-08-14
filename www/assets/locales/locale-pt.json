@@ -108,7 +108,8 @@
     "neck": "Pescoço",
     "waist": "Cintura",
     "hips": "Quadril",
-    "body fat": "Gordura corporal"
+    "body fat": "Gordura corporal",
+    "average": "Average"
   },
   "diary": {
     "title": "Diário",
