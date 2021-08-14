@@ -109,7 +109,7 @@
     "waist": "Vita",
     "hips": "Fianchi",
     "body fat": "Grasso corporeo",
-    "average": "Average"
+    "average": "Media"
   },
   "diary": {
     "title": "Diario",
@@ -224,7 +224,7 @@
       "off": "Open Food Facts",
       "off-account": "Apri l' account di Food Facts",
       "country": "Cerca per Nazione",
-      "upload-country": "Upload Country",
+      "upload-country": "Carica nazione",
       "language": "Lingua di ricerca preferita",
       "usda-title": "U.S. DIPARTIMENTO DELL' AGRICOLTURA",
       "usda": "Attiva la ricerca USDA",
@@ -247,7 +247,7 @@
       "import-success-title": "Il tuo backup è stato ripristinato",
       "import-success-message": "Importazione completa",
       "barcode-sound": "Verifica codice a barre suono",
-      "edit-images": "Edit Images Before Upload"
+      "edit-images": "Modifica le immagini prima del caricamento"
     }
   },
   "about": {
@@ -268,6 +268,6 @@
     "bulgarian": "Bulgaro",
     "hebrew": "Ebraico",
     "finnish": "Finlandese",
-    "spanish": "Spanish"
+    "spanish": "Spagnolo"
   }
 }
