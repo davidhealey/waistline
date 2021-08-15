@@ -142,7 +142,29 @@ app.Stats = {
       app.Stats.chart.data.datasets[0].label = data.dataset.label;
       app.Stats.chart.data.datasets[0].data = data.dataset.values;
     }
-    app.Stats.updateAnnotations(data.average, data.goal);
+
+    app.Stats.chart.annotation.elements = [];
+    app.Stats.chart.options.annotation.annotations = [{
+        id: "average",
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: data.average,
+        borderColor: 'red',
+        borderWidth: 2
+      },
+      {
+        id: "goal",
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: data.goal,
+        borderColor: 'green',
+        borderWidth: 3
+      }
+    ];
+
+    app.Stats.chart.update();
   },
 
   renderStatLog: async function(field) {
@@ -196,7 +218,7 @@ app.Stats = {
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerHTML = Math.round(average) + " (" + unit + ")";
+    after.innerHTML = Math.round(average) + " " + unit;
     inner.appendChild(after);
 
     return li;
@@ -324,8 +346,6 @@ app.Stats = {
   },
 
   renderChart: function(data) {
-    Chart.register("AnnotationPlugin");
-
     app.Stats.chart = new Chart(app.Stats.el.chart, {
       type: app.Stats.chartType,
       data: {
@@ -339,19 +359,20 @@ app.Stats = {
         }]
       },
       options: {
-        plugins: {
-          annotation: {
-            annotations: []
+        animation: {
+          duration: 1000 * !app.Settings.get("theme", "animations"),
+        },
+        annotation: {
+          annotations: []
+        },
+        legend: {
+          labels: {
+            font: {
+              size: 16,
+              weight: "bold"
+            }
           },
-          legend: {
-            labels: {
-              font: {
-                size: 16,
-                weight: "bold"
-              }
-            },
-            onClick: (e) => {}
-          }
+          onClick: (e) => {}
         },
         scales: {
           yAxes: [{
@@ -359,42 +380,10 @@ app.Stats = {
               beginAtZero: true
             }
           }]
-        },
-        animation: !app.Settings.get("theme", "animations")
+        }
       }
     });
   },
-
-  updateAnnotations: function(average, goal) {
-    let annotations = [];
-
-    if (average != undefined) {
-      annotations.push({
-        id: "average",
-        type: 'line',
-        yScaleID: "yAxes",
-        yMin: average,
-        yMax: average,
-        borderColor: 'rgb(255, 99, 132)',
-        borderWidth: 1
-      });
-    }
-
-    if (goal != undefined) {
-      annotations.push({
-        id: "goal",
-        type: 'line',
-        yScaleID: "yAxes",
-        yMin: goal,
-        yMax: goal,
-        borderColor: 'rgb(99, 99, 255)',
-        borderWidth: 3
-      });
-    }
-
-    app.Stats.chart.options.plugins.annotation.annotations = annotations;
-    app.Stats.chart.update();
-  }
 };
 
 document.addEventListener("page:init", function(event) {

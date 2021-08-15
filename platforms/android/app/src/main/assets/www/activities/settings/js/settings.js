@@ -197,11 +197,11 @@ app.Settings = {
     if (darkMode === true) {
       body.className = colourTheme + " theme-dark";
       panel.style["background-color"] = "black";
-      Chart.defaults.defaultFontColor = 'white';
+      Chart.defaults.global.defaultFontColor = 'white';
     } else {
       body.className = colourTheme;
       panel.style["background-color"] = "white";
-      Chart.defaults.defaultFontColor = 'black';
+      Chart.defaults.global.defaultFontColor = 'black';
     }
   },
 
