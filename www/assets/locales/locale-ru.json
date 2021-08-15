@@ -109,7 +109,7 @@
     "waist": "Талия",
     "hips": "Бёдра",
     "body fat": "Телесный жир",
-    "average": "Average"
+    "average": "Среднее"
   },
   "diary": {
     "title": "Дневник",
@@ -224,7 +224,7 @@
       "off": "Open Food Facts",
       "off-account": "Учётная запись Open Food Facts",
       "country": "Страна поиска",
-      "upload-country": "Upload Country",
+      "upload-country": "Страна загрузки",
       "language": "Предпочитаемый язык поиска",
       "usda-title": "МИНИСТЕРСТВО СЕЛЬСКОГО ХОЗЯЙСТВА США",
       "usda": "Включить поиск МСХ США",
@@ -247,7 +247,7 @@
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
-      "edit-images": "Edit Images Before Upload"
+      "edit-images": "Изменить изображения перед загрузкой"
     }
   },
   "about": {
@@ -268,6 +268,6 @@
     "bulgarian": "Болгарский",
     "hebrew": "Иврит",
     "finnish": "Финский",
-    "spanish": "Spanish"
+    "spanish": "Испанский"
   }
 }
