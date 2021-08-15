@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Scatter Chart</title>
+    <script src="../node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <script src="../chartjs-plugin-annotation.js"></script>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="width:75%">
+        <canvas id="canvas"></canvas>
+    </div>
+    <button onclick="addLine()">Add line</button>
+    <button onclick="removeLine()">Remove line</button>
+    
+    <script>
+        var randomScalingFactor = function() {
+            return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+        };
+        var randomColor = function(opacity) {
+            return 'rgba(' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ',' + (opacity || '.3') + ')';
+        };
+
+        var scatterChartData = {
+            datasets: [{
+                label: "My First dataset",
+                data: [{
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }]
+            }, {
+                label: "My Second dataset",
+                data: [{
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }]
+            }]
+        };
+
+        scatterChartData.datasets.forEach(function(dataset) {
+            dataset.borderColor = randomColor(0.4);
+            dataset.backgroundColor = randomColor(0.1);
+            dataset.pointBorderColor = randomColor(0.7);
+            dataset.pointBackgroundColor = randomColor(0.5);
+            dataset.pointBorderWidth = 1;
+        });
+
+        var lines = [{
+            type: 'line',
+            mode: 'horizontal',
+            scaleID: 'y-axis-1',
+            value: randomScalingFactor() + 50,
+            borderColor: randomColor(0.75),
+            borderWidth: 5
+        }];
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myScatter = Chart.Scatter(ctx, {
+                data: scatterChartData,
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Chart.js Scatter Chart'
+                    },
+                    scales: {
+                        xAxes: [{
+                            id: 'x-axis-1',
+                            position: 'top',
+                            gridLines: {
+                                zeroLineColor: "rgba(0,255,0,1)"
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'x axis'
+                            },
+                            ticks: {
+                                maxRotation: 0,
+                                reverse: true
+                            }
+                        }],
+                        yAxes: [{
+                            id: 'y-axis-1',
+                            position: 'right',
+                            gridLines: {
+                                zeroLineColor: "rgba(0,255,0,1)"
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'y axis'
+                            },
+                            ticks: {
+                                reverse: true
+                            }
+                        }]
+                    },
+                    annotation: {
+                        drawTime: "afterDraw",
+                        annotations: lines
+                    }
+                }
+            });
+        };
+
+        function addLine() {
+            lines.push({
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y-axis-1',
+                value: randomScalingFactor() * 3,
+                borderColor: randomColor(0.75),
+                borderWidth: 5
+            });
+            window.myScatter.update(0);
+        }
+
+        function removeLine() {
+            lines.pop();
+            window.myScatter.update(0);
+        }
+    </script>
+</body>
+
+</html>

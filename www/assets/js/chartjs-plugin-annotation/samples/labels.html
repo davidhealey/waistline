@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Scatter Chart</title>
+    <script src="../node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <script src="../chartjs-plugin-annotation.js"></script>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="width:75%">
+        <div>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <script>
+        var randomScalingFactor = function() {
+            return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+        };
+        var randomColor = function(opacity) {
+            return 'rgba(' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ',' + (opacity || '.3') + ')';
+        };
+
+        var scatterChartData = {
+            datasets: [{
+                label: "My First dataset",
+                data: [{
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }]
+            }, {
+                label: "My Second dataset",
+                data: [{
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }, {
+                    x: randomScalingFactor(),
+                    y: randomScalingFactor(),
+                }]
+            }]
+        };
+
+        scatterChartData.datasets.forEach(function(dataset) {
+            dataset.borderColor = randomColor(0.4);
+            dataset.backgroundColor = randomColor(0.1);
+            dataset.pointBorderColor = randomColor(0.7);
+            dataset.pointBackgroundColor = randomColor(0.5);
+            dataset.pointBorderWidth = 1;
+        });
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myScatter = Chart.Scatter(ctx, {
+                data: scatterChartData,
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Chart.js Scatter Chart'
+                    },
+                    scales: {
+                        xAxes: [{
+                            position: 'top',
+                            gridLines: {
+                                zeroLineColor: "rgba(0,255,0,1)"
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'x axis'
+                            },
+                            ticks: {
+                                maxRotation: 0,
+                                reverse: true,
+                                //min: -100,
+                                //max: 0
+                            }
+                        }],
+                        yAxes: [{
+                            position: 'right',
+                            gridLines: {
+                                zeroLineColor: "rgba(0,255,0,1)"
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'y axis'
+                            },
+                            ticks: {
+                                reverse: true,
+                                //min: -100,
+                                //max: 0
+                            }
+                        }]
+                    },
+                    annotation: {
+                        events: ['click'],
+                        annotations: [{
+                            id: 'hline',
+                            type: 'line',
+                            mode: 'horizontal',
+                            scaleID: 'y-axis-1',
+                            value: 25,
+                            borderColor: 'black',
+                            borderWidth: 5,
+                            label: {
+                                yAdjust: -20,
+                                backgroundColor: "red",
+                                content: "This is a long test label",
+                                enabled: true
+                            },
+                            onClick: function(e) {
+                                // The annotation is is bound to the `this` variable
+                                console.log('Annotation', e.type, this);
+                            }
+                        },
+                        {
+                            id: 'vline',
+                            type: 'line',
+                            mode: 'vertical',
+                            scaleID: 'x-axis-1',
+                            value: 25,
+                            endValue: 45,
+                            borderColor: 'red',
+                            borderWidth: 5,
+                            label: {
+                                position: "bottom",
+                                yAdjust: 100,
+                                content: "This is a another test label",
+                                enabled: true
+                            },
+                            onClick: function(e) {
+                                // The annotation is is bound to the `this` variable
+                                console.log('Annotation', e.type, this);
+                            }
+                        }]
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>
