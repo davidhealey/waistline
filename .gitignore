@@ -6,6 +6,7 @@ platforms/browser
 .gradle
 .idea
 plugins/
+!/platforms/android/platform_www/plugins
 package-lock.json
 .jshintrc
 tasks
