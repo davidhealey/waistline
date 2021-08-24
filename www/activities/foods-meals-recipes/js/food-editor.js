@@ -84,6 +84,7 @@ app.FoodEditor = {
     app.FoodEditor.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
     app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
     app.FoodEditor.el.notes = document.querySelector(".page[data-name='food-editor'] #notes");
+    app.FoodEditor.el.notesContainer = document.querySelector(".page[data-name='food-editor'] #notes-container");
     app.FoodEditor.el.nutrition = document.querySelector(".page[data-name='food-editor'] #nutrition");
     app.FoodEditor.el.ingredients_text = document.querySelector(".page[data-name='food-editor'] #ingredients_text");
     app.FoodEditor.el.traces = document.querySelector(".page[data-name='food-editor'] #traces");
@@ -151,11 +152,18 @@ app.FoodEditor = {
       app.FoodEditor.el.unit.style.color = "grey";
       app.FoodEditor.el.ingredients_text.style.color = "grey";
       app.FoodEditor.el.traces.style.color = "grey";
+      app.FoodEditor.el.notes.disabled = true;
+      app.FoodEditor.el.notes.style.color = "grey";
     } else {
       app.FoodEditor.el.quantityContainer.style.display = "none";
 
       if (app.FoodEditor.item !== undefined)
         app.FoodEditor.el.link.style.display = "block";
+
+      if (app.Settings.get("foodlist", "show-notes") == true && app.FoodEditor.scan != true)
+        app.FoodEditor.el.notesContainer.style.display = "block";
+      else
+        app.FoodEditor.el.notesContainer.style.display = "none";
     }
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
