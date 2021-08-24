@@ -47,10 +47,9 @@ app.DiaryChart = {
   organiseData: function(data) {
     return new Promise(async function(resolve, reject) {
 
-      let fields = ["calories", "kilojoules", "carbohydrates", "fat", "proteins"];
+      let fields = ["carbohydrates", "fat", "proteins"];
       let nutriments = app.nutriments;
       let nutrimentUnits = app.nutrimentUnits;
-      let energyUnit = app.Settings.get("units", "energy");
 
       let result = {
         "labels": [],
@@ -62,8 +61,6 @@ app.DiaryChart = {
       for (let n in nutrition) {
 
         if (fields.indexOf(n) == -1) continue;
-        if (energyUnit == "kJ" && n == "calories") continue;
-        if (energyUnit == "kcal" && n == "kilojoules") continue;
 
         let unit = nutrimentUnits[n] || "g";
         let name = app.strings.nutriments[n] || n;
