@@ -44,12 +44,12 @@
           "/manifest": [
             {
               "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
-              "count": 12719,
+              "count": 12769,
               "after": "uses-permission"
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-              "count": 12719,
+              "count": 12769,
               "after": "uses-permission"
             },
             {
