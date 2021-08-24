@@ -348,7 +348,7 @@ app.Foodlist = {
               if (item !== undefined && item.id !== undefined)
                 result[0].id = item.id;
 
-              if (result[0] !== undefined)
+              if (result !== undefined && result[0] !== undefined)
                 item = result[0];
               else
                 app.Foodlist.gotoUploadEditor(code);
