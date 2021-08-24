@@ -400,6 +400,9 @@ app.Settings = {
         "fat-show-in-diary": true,
         "fat-show-in-stats": true,
       },
+      nutriments: {
+        order: ["calories", "kilojoules", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sodium", "potassium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"]
+      },
       nutrimentVisibility: {
         "fat": true,
         "carbohydrates": true,
