@@ -215,8 +215,8 @@ app.OpenFoodFacts = {
     let string = "";
 
     // Gather additional data
-    let username = encodeURIComponent(app.Settings.get("integration", "off-username")) || "waistline-app";
-    let password = encodeURIComponent(app.Settings.get("integration", "off-password")) || "waistline";
+    let username = encodeURIComponent(app.Settings.get("integration", "off-username") || "waistline-app");
+    let password = encodeURIComponent(app.Settings.get("integration", "off-password") || "waistline");
 
     // Organise data for upload 
     string += "code=" + data.barcode;
