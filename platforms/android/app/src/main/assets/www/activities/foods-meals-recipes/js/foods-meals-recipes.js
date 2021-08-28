@@ -188,7 +188,7 @@ app.FoodsMealsRecipes = {
       items.forEach((x) => {
         let type = x.type || "food";
 
-        if (x.id !== undefined) {
+        if (x.id !== undefined && ("category" in x == false || x.category !== undefined)) {
           ids[type] = ids[type] || [];
           ids[type].push(x.id);
         }
@@ -286,9 +286,7 @@ app.FoodsMealsRecipes = {
 
     let origin = app.FoodsMealsRecipes.origin;
 
-    app.data.context = {
-      items: items,
-    };
+    app.data.context = {};
 
     if (origin == undefined) {
 
@@ -305,6 +303,7 @@ app.FoodsMealsRecipes = {
             text: x,
             onClick: function(action, e) {
               app.FoodsMealsRecipes.updateDateTimes(items);
+              app.data.context.items = items;
               app.data.context.category = i;
               app.f7.views.main.router.navigate("/diary/", {
                 reloadCurrent: true,
@@ -318,7 +317,9 @@ app.FoodsMealsRecipes = {
 
       //Create and show the action sheet
       let ac = app.f7.actions.create({
-        buttons: options
+        buttons: options,
+        closeOnEscape: true,
+        animate: !app.Settings.get("theme", "animations")
       });
 
       ac.open();
@@ -328,6 +329,7 @@ app.FoodsMealsRecipes = {
       if (app.FoodsMealsRecipes.category !== undefined)
         app.data.context.category = app.FoodsMealsRecipes.category;
 
+      app.data.context.items = items;
       app.f7.views.main.router.back();
     }
   },

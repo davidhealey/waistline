@@ -330,8 +330,10 @@ app.Diary = {
   populateGroups: function(entry) {
     return new Promise(async function(resolve, reject) {
       entry.items.forEach(async (x, i) => {
-        x.index = i; // Index in array, not stored in DB
-        app.Diary.groups[x.category].addItem(x);
+        if (x.category !== undefined) {
+          x.index = i; // Index in array, not stored in DB
+          app.Diary.groups[x.category].addItem(x);
+        }
       });
 
       resolve();
@@ -342,20 +344,23 @@ app.Diary = {
 
   addItems: function(items, category) {
     return new Promise(async function(resolve, reject) {
-      // Get current entry or create a new one
-      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+      if (category !== undefined) {
+        // Get current entry or create a new one
+        let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-      items.forEach((x) => {
-        let item = x;
-        item.dateTime = new Date();
-        item.category = category;
-        item.quantity = x.quantity || 1;
-        entry.items.push(item);
-      });
+        items.forEach((x) => {
+          let item = x;
+          item.dateTime = new Date();
+          item.category = category;
+          item.quantity = x.quantity || 1;
+          entry.items.push(item);
+        });
 
-      await dbHandler.put(entry, "diary");
+        await dbHandler.put(entry, "diary");
 
-      resolve();
+        resolve();
+      }
+      reject();
     }).catch(err => {
       throw (err);
     });

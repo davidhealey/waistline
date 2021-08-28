@@ -108,7 +108,8 @@
     "neck": "Kaula",
     "waist": "Vyötärö",
     "hips": "Lantio",
-    "body fat": "Kehon rasva"
+    "body fat": "Kehon rasva",
+    "average": "Keskimäärin"
   },
   "diary": {
     "title": "Päiväkirja",
@@ -223,6 +224,7 @@
       "off": "Open Food Facts",
       "off-account": "Open Food Facts -tili",
       "country": "Hae maa",
+      "upload-country": "Lähetettävän sisällön maa",
       "language": "Ensisijainen hakukieli",
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
@@ -243,7 +245,9 @@
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
       "import-success-title": "Varmuuskopio on palautettu",
-      "import-success-message": "Tuonti valmis"
+      "import-success-message": "Tuonti valmis",
+      "barcode-sound": "Viivakoodin lukemisen äänimerkki",
+      "edit-images": "Muokkaa kuvia ennen lähetystä"
     }
   },
   "about": {
@@ -263,6 +267,7 @@
     "portuguese": "Portugali",
     "bulgarian": "Bulgaria",
     "hebrew": "Hebrea",
-    "finnish": "Suomi"
+    "finnish": "Suomi",
+    "spanish": "Espanja"
   }
 }

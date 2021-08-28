@@ -184,6 +184,13 @@ const app = {
             }
           },
           {
+            path: "statistics/",
+            url: "activities/settings/views/statistics.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
             path: "diary/",
             url: "activities/settings/views/diary.html",
             options: {

@@ -47,7 +47,10 @@ app.DiaryChart = {
   organiseData: function(data) {
     return new Promise(async function(resolve, reject) {
 
-      let fields = ["carbohydrates", "fat", "proteins"];
+      let visible = app.Settings.getField("nutrimentVisibility");
+      delete visible.calories;
+      delete visible.kilojoules;
+
       let nutriments = app.nutriments;
       let nutrimentUnits = app.nutrimentUnits;
 
@@ -60,7 +63,7 @@ app.DiaryChart = {
 
       for (let n in nutrition) {
 
-        if (fields.indexOf(n) == -1) continue;
+        if (!visible[n]) continue;
 
         let unit = nutrimentUnits[n] || "g";
         let name = app.strings.nutriments[n] || n;
