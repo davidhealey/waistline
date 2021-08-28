@@ -133,7 +133,8 @@
     "meals": "מנות",
     "recipes": "מתכונים",
     "selected": "נבחרו",
-    "search": "חיפוש"
+    "search": "חיפוש",
+    "scan-prompt": "נא להציב ברקוד בתוך אזור הסריקה"
   },
   "food-editor": {
     "edit-item": "עריכת פריט",
@@ -211,7 +212,12 @@
       "sort-date": "לפי השימוש האחרון",
       "sort-alpha": "בסדר אלפביתי",
       "images": "הצגת תמונות מאכלים",
-      "wifi-images": "הצגת תמונות בחיבור אלחוטי בלבד"
+      "wifi-images": "הצגת תמונות בחיבור אלחוטי בלבד",
+      "show-notes": "הצגת הערות מזון"
+    },
+    "statistics": {
+      "title": "הגדרות סטטיסטיקה",
+      "y-zero": "להתחיל את ציר Y באפס"
     },
     "import-export": {
       "title": "ייבוא/ייצוא",
@@ -247,7 +253,8 @@
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
       "barcode-sound": "צפצוף סריקת ברקוד",
-      "edit-images": "עריכת תמונות בטרם ההעלאה"
+      "edit-images": "עריכת תמונות בטרם ההעלאה",
+      "login-success": "הכניסה הצליחה"
     }
   },
   "about": {
