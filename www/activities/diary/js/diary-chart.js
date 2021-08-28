@@ -120,7 +120,10 @@ app.DiaryChart = {
           labels: {
             fontSize: 18
           }
-        }
+        },
+        animation: {
+          duration: 1000 * !app.Settings.get("theme", "animations"),
+        },
       }
     });
   }
