@@ -1,6 +1,6 @@
 # Waistline
 
-Waistline is a libre calorie counter and weight tracker app for Android. It's built with Cordova, OnsenUI, and a few other free libraries.
+Waistline is a libre calorie counter and weight tracker app for Android. It's built with Cordova, Framework7, and a few other free libraries.
 
 ### App Features
 Features of waistline include;
