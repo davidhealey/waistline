@@ -63,7 +63,7 @@ Please spread the word and share this app with anyone you think could benefit fr
 
 ## Localization
 
-This project is localized using [![Crowdin](https://badges.crowdin.net/waistline/localized.svg)](https://crowdin.com/project/waistline)
+This project is localized using Crowdin: [![Crowdin](https://badges.crowdin.net/waistline/localized.svg)](https://crowdin.com/project/waistline)
 
 ## Contact
 
