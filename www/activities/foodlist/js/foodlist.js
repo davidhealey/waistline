@@ -362,7 +362,8 @@ app.Foodlist = {
           resolve(undefined);
         }, {
           showTorchButton: true,
-          disableSuccessBeep: app.Settings.get("integration", "barcode-sound") || true
+          disableSuccessBeep: !app.Settings.get("integration", "barcode-sound"),
+          prompt: app.strings.foods["scan-prompt"] || "Place a barcode inside the scan area"
         });
     });
   },

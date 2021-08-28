@@ -133,7 +133,8 @@
     "meals": "Meals",
     "recipes": "Recipes",
     "selected": "Selected",
-    "search": "Search"
+    "search": "Search",
+    "scan-prompt": "Place a barcode inside the scan area"
   },
   "food-editor": {
     "edit-item": "Edit Item",
@@ -212,7 +213,8 @@
       "sort-date": "By last used",
       "sort-alpha": "Alphabetically",
       "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi"
+      "wifi-images": "Only show images over Wi-Fi",
+      "show-notes": "Show Food Notes"
     },
     "statistics": {
       "title": "Statistics Settings",
@@ -252,7 +254,8 @@
       "import-success-title": "The backup has been restored",
       "import-success-message": "Import Complete",
       "barcode-sound": "Barcode Scan Beep",
-      "edit-images": "Edit Images Before Upload"
+      "edit-images": "Edit Images Before Upload",
+      "login-success": "Login Successful"
     }
   },
   "about": {

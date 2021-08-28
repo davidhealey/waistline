@@ -167,6 +167,17 @@ app.Settings = {
       themeSelect.hasChangeEvent = true;
     }
 
+    // Preferred Language
+    let locale = document.querySelector(".page[data-name='settings-theme'] #locale");
+
+    if (locale != undefined && !locale.hasChangeEvent) {
+      locale.addEventListener("change", (e) => {
+        let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
+        app.Utils.toast(msg);
+      });
+      locale.hasChangeEvent = true;
+    }
+
     // Animations 
     let toggleAnimations = document.getElementById("toggle-animations");
     if (toggleAnimations != undefined) {
@@ -239,7 +250,7 @@ app.Settings = {
         this.put("integration", "off-username", username);
         this.put("integration", "off-password", password);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast("Login Successfull");
+        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
       } else {
         let msg = app.strings.settings.integration["invalid-credentials"] || "Invalid Credentials";
         app.Utils.toast(msg);
@@ -253,7 +264,7 @@ app.Settings = {
       if (key == "" || await app.USDA.testApiKey(key)) {
         this.put("integration", "usda-key", key);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast("Login Successfull");
+        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
       } else {
         let msg = app.strings.settings.integration["invalid-credentials"] || "API Key Invalid";
         app.Utils.toast(msg);
