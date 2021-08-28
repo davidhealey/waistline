@@ -377,7 +377,7 @@ app.Stats = {
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero: true
+              beginAtZero: app.Settings.get("statistics", "y-zero")
             }
           }]
         }

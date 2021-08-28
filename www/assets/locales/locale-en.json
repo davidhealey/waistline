@@ -214,6 +214,10 @@
       "images": "Show Food Images",
       "wifi-images": "Only show images over Wi-Fi"
     },
+    "statistics": {
+      "title": "Statistics Settings",
+      "y-zero": "Begin Y Axis at Zero"
+    },
     "import-export": {
       "title": "Import/Export",
       "backup": "Backup Database",
