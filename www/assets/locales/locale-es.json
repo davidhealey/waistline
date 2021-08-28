@@ -108,18 +108,19 @@
     "neck": "Cuello",
     "waist": "Cintura",
     "hips": "Cadera",
-    "body fat": "Grasa corporal"
+    "body fat": "Grasa corporal",
+    "average": "Promedio"
   },
   "diary": {
     "title": "Diario",
     "quick-add": "Añadir rapidamente",
     "log-title": "Estadísticas de hoy",
-    "no-data": "No Data",
+    "no-data": "Sin datos",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
-      "dinner": "Dinner",
-      "snacks": "Snacks"
+      "breakfast": "Desayuno",
+      "lunch": "Almuerzo",
+      "dinner": "Cena",
+      "snacks": "Refrigerio"
     }
   },
   "diary-chart": {
@@ -135,7 +136,7 @@
     "search": "Búsqueda"
   },
   "food-editor": {
-    "edit-item": "Edit Item",
+    "edit-item": "Editar ítem",
     "add-new-item": "Añadir nuevo ítem",
     "details": "Detalles",
     "barcode": "Código de barras",
@@ -150,9 +151,9 @@
     "per-serving": "Por porción",
     "ingredients": "Ingredientes",
     "traces": "Rastros",
-    "edit-food": "Edit Food Item",
-    "edit-meal": "Edit Meal Item",
-    "edit-recipe": "Edit Recipe Item"
+    "edit-food": "Editar alimento",
+    "edit-meal": "Editar comida del día",
+    "edit-recipe": "Editar receta"
   },
   "goals": {
     "title": "Objetivos"
@@ -160,7 +161,7 @@
   "goal-editor": {
     "title": "Establecer objetivos",
     "show-in-diary": "Mostrar en Diario",
-    "show-in-stats": "Show in Statistics",
+    "show-in-stats": "Mostrar en Estadísticas",
     "shared-goal": "Mismo objetivo todos los días",
     "minimum-goal": "Es un objetivo mínimo"
   },
@@ -180,7 +181,7 @@
       "dark": "Modo oscuro",
       "animations": "Desactivar Animaciones de la interfaz",
       "start-page": "Página inicial",
-      "language": "Preferred Language"
+      "language": "Idioma preferido"
     },
     "units": {
       "title": "Unidades",
@@ -207,8 +208,8 @@
     "foods": {
       "title": "Alimentos, Comidas, Recetas",
       "sort": "Ordenar alimentos",
-      "sort-date": "By last used",
-      "sort-alpha": "Alphabetically",
+      "sort-date": "Por última vez usado",
+      "sort-alpha": "Alfabético",
       "images": "Mostrar imágenes de alimentos",
       "wifi-images": "Mostrar solo imágenes por Wi-Fi"
     },
@@ -216,21 +217,22 @@
       "title": "Importar/Exportar",
       "backup": "Copia de seguridad de base de datos",
       "import": "Importar desde copia de seguridad",
-      "auto-backup": "Automatic Backup"
+      "auto-backup": "Copia de seguridad automática"
     },
     "integration": {
       "title": "Integración",
       "off": "Open Food Facts",
       "off-account": "Cuenta de Open Food Facts",
       "country": "Buscar país",
-      "language": "Preferred Search Language",
+      "upload-country": "Subir País",
+      "language": "Idioma de búsqueda preferido",
       "usda-title": "Departamento de Agricultura de EE.UU. (USDA)",
       "usda": "Habilitar búsqueda USDA",
       "usda-login-title": "USDA",
       "usda-api-key": "Clave de API USDA",
-      "usda-click-here": "Click here",
+      "usda-click-here": "Haz clic aquí",
       "usda-note-0": "Debe introducir tu clave de API personal para buscar alimentos en la base de datos del USDA.",
-      "usda-note-1": "to request a free API Key.",
+      "usda-note-1": "para solicitar una clave API gratuita.",
       "username": "Nombre de usuario",
       "password": "Contraseña",
       "off-account-note": "Esto es completamente opcional. No necesitas una cuenta OFF para usar la aplicación.",
@@ -242,8 +244,10 @@
       "export-fail": "Fallo al exportar",
       "import": "Importar",
       "confirm-import": "¿Estás seguro? Esto sobrescribirá tu base de datos actual.",
-      "import-success-title": "The backup has been restored",
-      "import-success-message": "Import Complete"
+      "import-success-title": "Se ha restaurado la copia de seguridad",
+      "import-success-message": "Importación completa",
+      "barcode-sound": "Pitido del escaneo de código de barras",
+      "edit-images": "Editar imágenes antes de subir"
     }
   },
   "about": {
@@ -253,16 +257,17 @@
     "p2": "El código fuente de Waistline se puede encontrar en github.com/davidhealey/waistline."
   },
   "locale": {
-    "auto": "Detect Automatically",
-    "english": "English",
-    "german": "German",
-    "italian": "Italian",
-    "french": "French",
-    "swedish": "Swedish",
-    "russian": "Russian",
-    "portuguese": "Portuguese",
-    "bulgarian": "Bulgarian",
-    "hebrew": "Hebrew",
-    "finnish": "Finnish"
+    "auto": "Detectar automáticamente",
+    "english": "Inglés",
+    "german": "Alemán",
+    "italian": "Italiano",
+    "french": "Francés",
+    "swedish": "Sueco",
+    "russian": "Ruso",
+    "portuguese": "Portugués",
+    "bulgarian": "Búlgaro",
+    "hebrew": "Hebreo",
+    "finnish": "Finlandés",
+    "spanish": "Español"
   }
 }

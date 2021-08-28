@@ -108,18 +108,19 @@
     "neck": "צוואר",
     "waist": "מותניים",
     "hips": "ירכיים",
-    "body fat": "שומן גוף"
+    "body fat": "שומן גוף",
+    "average": "ממוצע"
   },
   "diary": {
     "title": "יומן",
     "quick-add": "הוספה מהירה",
     "log-title": "הסטטיסטיקה היומית",
-    "no-data": "No Data",
+    "no-data": "אין נתונים",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
-      "dinner": "Dinner",
-      "snacks": "Snacks"
+      "breakfast": "ארוחת בוקר",
+      "lunch": "ארוחת צהריים",
+      "dinner": "ארוחת ערב",
+      "snacks": "חטיפים"
     }
   },
   "diary-chart": {
@@ -160,7 +161,7 @@
   "goal-editor": {
     "title": "הגדרת יעדים",
     "show-in-diary": "הצגה ביומן",
-    "show-in-stats": "Show in Statistics",
+    "show-in-stats": "הצגה בסטטיסטיקה",
     "shared-goal": "אותו היעד כל יום",
     "minimum-goal": "הוא היעד הקטן ביותר"
   },
@@ -207,8 +208,8 @@
     "foods": {
       "title": "מאכלים, מנות, מתכונים",
       "sort": "מיון מאכלים",
-      "sort-date": "By last used",
-      "sort-alpha": "Alphabetically",
+      "sort-date": "לפי השימוש האחרון",
+      "sort-alpha": "בסדר אלפביתי",
       "images": "הצגת תמונות מאכלים",
       "wifi-images": "הצגת תמונות בחיבור אלחוטי בלבד"
     },
@@ -216,21 +217,22 @@
       "title": "ייבוא/ייצוא",
       "backup": "גיבוי מסד נתונים",
       "import": "ייבוא מגיבוי",
-      "auto-backup": "Automatic Backup"
+      "auto-backup": "גיבוי אוטומטי"
     },
     "integration": {
       "title": "שילוב",
       "off": "Open Food Facts",
       "off-account": "חשבון Open Food Facts",
       "country": "חיפוש מדינה",
-      "language": "Preferred Search Language",
+      "upload-country": "מדינת ההעלאה",
+      "language": "שפת החיפוש המועדפת",
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
       "usda-login-title": "USDA",
       "usda-api-key": "מפתח API של USDA",
-      "usda-click-here": "Click here",
+      "usda-click-here": "נא ללחוץ כאן",
       "usda-note-0": "עליך למלא את מפתח ה־API האישי שלך כדי לחפש מאכלים במסד הנתונים של משרד החקלאות האמריקאי.",
-      "usda-note-1": "to request a free API Key.",
+      "usda-note-1": "להגשת בקשה למפתח API בחינם.",
       "username": "שם משתמש",
       "password": "ססמה",
       "off-account-note": "זה בגדר רשות בלבד. אין צורך בחשבון OFF כדי להשתמש ביישומון הזה.",
@@ -242,8 +244,10 @@
       "export-fail": "הייצוא נכשל",
       "import": "ייבוא",
       "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
-      "import-success-title": "The backup has been restored",
-      "import-success-message": "Import Complete"
+      "import-success-title": "הגיבוי שוחזר",
+      "import-success-message": "הייבוא הושלם",
+      "barcode-sound": "צפצוף סריקת ברקוד",
+      "edit-images": "עריכת תמונות בטרם ההעלאה"
     }
   },
   "about": {
@@ -263,6 +267,7 @@
     "portuguese": "פורטוגלית",
     "bulgarian": "בולגרית",
     "hebrew": "עברית",
-    "finnish": "פינית"
+    "finnish": "פינית",
+    "spanish": "ספרדית"
   }
 }
