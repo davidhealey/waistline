@@ -133,7 +133,8 @@
     "meals": "Comidas",
     "recipes": "Recetas",
     "selected": "Seleccionados",
-    "search": "Búsqueda"
+    "search": "Búsqueda",
+    "scan-prompt": "Place a barcode inside the scan area"
   },
   "food-editor": {
     "edit-item": "Editar ítem",
@@ -211,7 +212,12 @@
       "sort-date": "Por última vez usado",
       "sort-alpha": "Alfabético",
       "images": "Mostrar imágenes de alimentos",
-      "wifi-images": "Mostrar solo imágenes por Wi-Fi"
+      "wifi-images": "Mostrar solo imágenes por Wi-Fi",
+      "show-notes": "Show Food Notes"
+    },
+    "statistics": {
+      "title": "Statistics Settings",
+      "y-zero": "Begin Y Axis at Zero"
     },
     "import-export": {
       "title": "Importar/Exportar",
@@ -247,7 +253,8 @@
       "import-success-title": "Se ha restaurado la copia de seguridad",
       "import-success-message": "Importación completa",
       "barcode-sound": "Pitido del escaneo de código de barras",
-      "edit-images": "Editar imágenes antes de subir"
+      "edit-images": "Editar imágenes antes de subir",
+      "login-success": "Login Successful"
     }
   },
   "about": {
