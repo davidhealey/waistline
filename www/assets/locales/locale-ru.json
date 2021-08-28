@@ -217,7 +217,9 @@
     },
     "statistics": {
       "title": "Statistics Settings",
-      "y-zero": "Begin Y Axis at Zero"
+      "y-zero": "Begin Y Axis at Zero",
+      "average-line": "Show Average Line",
+      "goal-line": "Show Goal Line"
     },
     "import-export": {
       "title": "Импорт/Экспорт",
