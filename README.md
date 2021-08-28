@@ -61,6 +61,10 @@ Waistline is developed by me, David Healey, with suggestions and contributions f
 
 Please spread the word and share this app with anyone you think could benefit from it. Also, let me know if you find any bugs and I'll try and squish them.
 
+## Localization
+
+This project is localized using [![Crowdin](https://badges.crowdin.net/waistline/localized.svg)](https://crowdin.com/project/waistline)
+
 ## Contact
 
 The best method way to contact me about this app is by opening an issue on [GitHub](https://github.com/davidhealey/waistline). Contributions, suggestions, and bug reports are welcome.
