@@ -218,8 +218,8 @@
     "statistics": {
       "title": "הגדרות סטטיסטיקה",
       "y-zero": "להתחיל את ציר Y באפס",
-      "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "average-line": "הצגת קו ממוצע",
+      "goal-line": "הצגת קו יעד"
     },
     "import-export": {
       "title": "ייבוא/ייצוא",
