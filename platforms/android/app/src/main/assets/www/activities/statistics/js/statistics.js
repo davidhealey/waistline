@@ -144,7 +144,10 @@ app.Stats = {
     }
 
     app.Stats.chart.annotation.elements = [];
-    app.Stats.chart.options.annotation.annotations = [{
+    app.Stats.chart.options.annotation.annotations = [];
+
+    if (app.Settings.get("statistics", "average-line") == true) {
+      app.Stats.chart.options.annotation.annotations.push({
         id: "average",
         type: 'line',
         mode: 'horizontal',
@@ -152,8 +155,11 @@ app.Stats = {
         value: data.average,
         borderColor: 'red',
         borderWidth: 2
-      },
-      {
+      });
+    }
+
+    if (app.Settings.get("statistics", "goal-line") == true) {
+      app.Stats.chart.options.annotation.annotations.push({
         id: "goal",
         type: 'line',
         mode: 'horizontal',
@@ -161,8 +167,8 @@ app.Stats = {
         value: data.goal,
         borderColor: 'green',
         borderWidth: 3
-      }
-    ];
+      });
+    }
 
     app.Stats.chart.update();
   },

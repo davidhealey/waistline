@@ -363,6 +363,11 @@ app.Settings = {
 
   firstTimeSetup: function() {
     let defaults = {
+      statistics: {
+        "y-zero": false,
+        "average-line": true,
+        "goal-line": true
+      },
       diary: {
         "meal-names": ["Breakfast", "Lunch", "Dinner", "Snacks", "", "", ""],
         "show-nutrition-units": false,
