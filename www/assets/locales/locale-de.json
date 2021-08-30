@@ -218,8 +218,8 @@
     "statistics": {
       "title": "Statistik",
       "y-zero": "Y-Achse bei Null beginnen",
-      "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "average-line": "Linie für Durchschnitt anzeigen",
+      "goal-line": "Linie für Ziel anzeigen"
     },
     "import-export": {
       "title": "Importieren/Exportieren",
