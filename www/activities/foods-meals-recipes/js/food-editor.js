@@ -281,9 +281,11 @@ app.FoodEditor = {
         input.className = "align-right";
         input.type = "number";
         input.step = "0.01";
-        input.min = "0";
         input.placeholder = "0";
         input.name = k;
+
+        if (k != "calories" && k != "kilojoules")
+          input.min = "0";
 
         if (item) {
           if (item.nutrition[k] !== 0)
