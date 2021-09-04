@@ -540,6 +540,8 @@ app.FoodEditor = {
       if (item.nutrition_per !== undefined)
         delete item.nutrition_per;
 
+      item.archived = false;
+
       app.data.context = {
         item: item
       };
