@@ -340,7 +340,8 @@ app.FoodsMealsRecipes = {
     if (items[0].type == "food") {
       items.forEach(async (x, i) => {
         let data = await dbHandler.getByKey(x.id, "foodList");
-        app.Foodlist.putItem(data);
+        if (data != undefined)
+          app.Foodlist.putItem(data);
       });
     }
   },

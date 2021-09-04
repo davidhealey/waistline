@@ -171,7 +171,9 @@ app.Foodlist = {
       // Check if search result already exists in the db
       if (item.id == undefined && item.barcode !== undefined) {
         let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
-        item.id = dbRecord.id;
+
+        if (dbRecord !== undefined)
+          item.id = dbRecord.id;
       }
 
       item.dateTime = new Date();
