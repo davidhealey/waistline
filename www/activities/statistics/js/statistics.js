@@ -23,6 +23,7 @@ app.Stats = {
   chart: undefined,
   chartType: "bar",
   dbData: undefined,
+  data: {},
 
   init: async function() {
     this.getComponents();
@@ -42,8 +43,12 @@ app.Stats = {
       if (laststat != undefined && laststat != "")
         app.Stats.el.stat.value = laststat;
 
-      this.updateChart(app.Stats.el.stat.value);
-      this.renderStatLog(app.Stats.el.stat.value);
+      // Organise db data and render chart
+      app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+      window.localStorage.setItem("last-stat", app.Stats.el.stat.value);
+
+      this.updateChart();
+      this.renderStatLog();
     }
   },
 
@@ -62,19 +67,21 @@ app.Stats = {
     if (!app.Stats.el.range.hasChangedEvent) {
       app.Stats.el.range.addEventListener("change", async (e) => {
         app.Stats.dbData = await this.getDataFromDb();
-        app.Stats.updateChart(app.Stats.el.stat.value);
-        app.Stats.renderStatLog(app.Stats.el.stat.value);
+        app.Stats.updateChart();
+        app.Stats.renderStatLog();
       });
       app.Stats.el.range.hasChangedEvent = true;
     }
 
     // Stat field
     if (!app.Stats.el.stat.hasChangedEvent) {
-      app.Stats.el.stat.addEventListener("change", (e) => {
+      app.Stats.el.stat.addEventListener("change", async (e) => {
         let value = e.target.value;
         if (app.Stats.dbData !== undefined) {
-          app.Stats.updateChart(value);
-          app.Stats.renderStatLog(value);
+          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, value);
+          window.localStorage.setItem("last-stat", value);
+          app.Stats.updateChart();
+          app.Stats.renderStatLog();
         }
       });
       app.Stats.el.stat.hasChangedEvent = true;
@@ -130,17 +137,14 @@ app.Stats = {
     app.Stats.el.stat.selectedIndex = 0;
   },
 
-  updateChart: async function(field) {
-    window.localStorage.setItem("last-stat", field);
-
-    let data = await app.Stats.organiseData(app.Stats.dbData, field);
+  updateChart: function() {
 
     if (app.Stats.chart == undefined) {
-      app.Stats.renderChart(data);
+      app.Stats.renderChart(app.Stats.data);
     } else {
-      app.Stats.chart.data.labels = data.dates;
-      app.Stats.chart.data.datasets[0].label = data.dataset.label;
-      app.Stats.chart.data.datasets[0].data = data.dataset.values;
+      app.Stats.chart.data.labels = app.Stats.data.dates;
+      app.Stats.chart.data.datasets[0].label = app.Stats.data.dataset.label;
+      app.Stats.chart.data.datasets[0].data = app.Stats.data.dataset.values;
     }
 
     app.Stats.chart.annotation.elements = [];
@@ -152,7 +156,7 @@ app.Stats = {
         type: 'line',
         mode: 'horizontal',
         scaleID: 'y-axis-0',
-        value: data.average,
+        value: app.Stats.data.average,
         borderColor: 'red',
         borderWidth: 2
       });
@@ -164,7 +168,7 @@ app.Stats = {
         type: 'line',
         mode: 'horizontal',
         scaleID: 'y-axis-0',
-        value: data.goal,
+        value: app.Stats.data.goal,
         borderColor: 'green',
         borderWidth: 3
       });
@@ -173,15 +177,14 @@ app.Stats = {
     app.Stats.chart.update();
   },
 
-  renderStatLog: async function(field) {
-    let data = await app.Stats.organiseData(app.Stats.dbData, field);
+  renderStatLog: function() {
 
     app.Stats.el.timeline.innerHTML = "";
 
-    let avg = app.Stats.renderAverage(data.average, data.dataset.unit);
+    let avg = app.Stats.renderAverage(app.Stats.data.average, app.Stats.data.dataset.unit);
     app.Stats.el.timeline.appendChild(avg);
 
-    for (let i = 0; i < data.dates.length; i++) {
+    for (let i = 0; i < app.Stats.data.dates.length; i++) {
 
       let li = document.createElement("li");
       app.Stats.el.timeline.appendChild(li);
@@ -196,12 +199,12 @@ app.Stats = {
 
       let title = document.createElement("div");
       title.className = "item-title";
-      title.innerHTML = data.dates[i];
+      title.innerHTML = app.Stats.data.dates[i];
       inner.appendChild(title);
 
       let after = document.createElement("div");
       after.className = "item-after";
-      after.innerHTML = data.dataset.values[i] + " " + data.dataset.unit;
+      after.innerHTML = app.Stats.data.dataset.values[i] + " " + app.Stats.data.dataset.unit;
       inner.appendChild(after);
     }
   },
@@ -260,7 +263,7 @@ app.Stats = {
         let value;
 
         if (app.nutriments.indexOf(field) == -1) {
-          value = data.stats[i][field];
+          value = parseFloat(data.stats[i][field]);
 
           if (value != undefined) {
             if (field == "weight") {
@@ -276,7 +279,7 @@ app.Stats = {
 
         } else {
           let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i]);
-          value = nutrition[field];
+          value = parseFloat(nutrition[field]);
         }
 
         if (value != undefined && value != 0 && !isNaN(value)) {

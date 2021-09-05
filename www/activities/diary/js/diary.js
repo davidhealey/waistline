@@ -550,7 +550,7 @@ app.Diary = {
         }
       }
 
-      stats[x.id] = value;
+      stats[x.id] = parseFloat(value);
     }
 
     entry.stats = stats;
