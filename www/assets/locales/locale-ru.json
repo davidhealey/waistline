@@ -133,7 +133,8 @@
     "meals": "Блюда",
     "recipes": "Рецепты",
     "selected": "Выбрано",
-    "search": "Поиск"
+    "search": "Поиск",
+    "scan-prompt": "Place a barcode inside the scan area"
   },
   "food-editor": {
     "edit-item": "Редактировать элемент",
@@ -211,7 +212,14 @@
       "sort-date": "По последнему использованию",
       "sort-alpha": "В алфавитном порядке",
       "images": "Показать изображения еды",
-      "wifi-images": "Показывать изображения только через Wi-Fi"
+      "wifi-images": "Показывать изображения только через Wi-Fi",
+      "show-notes": "Show Food Notes"
+    },
+    "statistics": {
+      "title": "Statistics Settings",
+      "y-zero": "Begin Y Axis at Zero",
+      "average-line": "Show Average Line",
+      "goal-line": "Show Goal Line"
     },
     "import-export": {
       "title": "Импорт/Экспорт",
@@ -247,7 +255,8 @@
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
-      "edit-images": "Изменить изображения перед загрузкой"
+      "edit-images": "Изменить изображения перед загрузкой",
+      "login-success": "Login Successful"
     }
   },
   "about": {
