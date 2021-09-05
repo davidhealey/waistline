@@ -5,7 +5,7 @@ input { -webkit-touch-callout: default !important; -webkit-user-select: auto !im
 
 .nutrition-card {margin-top: 1em; margin-bottom: 1em;}
 .nutrition-card .col {text-align: center;}
-.nutrition-card .nutrition-total-title {font-weight: bold;}
+.nutrition-card .nutrition-total-values {font-weight: bold;}
 
 select.align-right {direction: rtl;}
 option {direction: ltr;}
@@ -13,3 +13,25 @@ option {direction: ltr;}
 #foodlist-container .item-title {width:65% !important;}
 #quantity-container .item-title {width:65% !important;}
 #nutrition .item-title {width:65% !important;}
+
+/* Custom color themes */
+.color-theme-pink {
+  --f7-theme-color: #f6b0ba;
+  --f7-theme-color-rgb: 246, 176, 186;
+  --f7-theme-color-shade: #f28b9a;
+  --f7-theme-color-tint: #fad5da;
+}
+
+.color-theme-camino {
+  --f7-theme-color: #FF5FE1;
+  --f7-theme-color-rgb: 255, 95, 225;
+  --f7-theme-color-shade: #ff36d9;
+  --f7-theme-color-tint: #ff88e9;
+}
+
+.color-theme-eink {
+  --f7-theme-color: #253238;
+  --f7-theme-color-rgb: 37, 50, 56;
+  --f7-theme-color-shade: #151c1f;
+  --f7-theme-color-tint: #354851;
+}

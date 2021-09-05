@@ -133,7 +133,8 @@
     "meals": "Pasti",
     "recipes": "Ricette",
     "selected": "Selezionato",
-    "search": "Ricerca"
+    "search": "Ricerca",
+    "scan-prompt": "Posiziona il codice Qr all'interno dell'area di scansione"
   },
   "food-editor": {
     "edit-item": "Modifica elementi",
@@ -211,7 +212,14 @@
       "sort-date": "Ultimo utilizzato",
       "sort-alpha": "Alfabetico",
       "images": "Mostra l' immagine dei cibi",
-      "wifi-images": "Mostra le immagini solo con la Wi-Fi"
+      "wifi-images": "Mostra le immagini solo con la Wi-Fi",
+      "show-notes": "Mostra le note dei cibi"
+    },
+    "statistics": {
+      "title": "Impostazioni Statistiche",
+      "y-zero": "Inizia l'asse Y a Zero",
+      "average-line": "Mostra media",
+      "goal-line": "Mostra obiettivo"
     },
     "import-export": {
       "title": "Importa/Esporta",
@@ -247,7 +255,8 @@
       "import-success-title": "Il tuo backup è stato ripristinato",
       "import-success-message": "Importazione completa",
       "barcode-sound": "Verifica codice a barre suono",
-      "edit-images": "Modifica le immagini prima del caricamento"
+      "edit-images": "Modifica le immagini prima del caricamento",
+      "login-success": "Accesso Riuscito"
     }
   },
   "about": {

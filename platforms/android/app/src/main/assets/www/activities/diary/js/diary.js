@@ -217,13 +217,23 @@ app.Diary = {
           swiper.appendSlide(slide);
 
           rows[0] = document.createElement("div");
-          rows[0].className = "row nutrition-total-values";
+          rows[0].className = "row nutrition-total-title";
           slide.appendChild(rows[0]);
 
           rows[1] = document.createElement("div");
-          rows[1].className = "row nutrition-total-title";
+          rows[1].className = "row nutrition-total-values";
           slide.appendChild(rows[1]);
         }
+
+        // Title
+        let title = document.createElement("div");
+        title.className = "col";
+        title.id = x + "-title";
+
+        let text = app.strings.nutriments[x] || x;
+        let t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
+        title.appendChild(t);
+        rows[0].appendChild(title);
 
         // Values and goal text
         let values = document.createElement("div");
@@ -231,7 +241,7 @@ app.Diary = {
         values.id = x + "-value";
 
         let span = document.createElement("span");
-        let t = document.createTextNode("");
+        t = document.createTextNode("");
 
         if (nutrition && nutrition[x] !== undefined) {
 
@@ -271,17 +281,7 @@ app.Diary = {
 
         span.appendChild(t);
         values.appendChild(span);
-        rows[0].appendChild(values);
-
-        // Title
-        let title = document.createElement("div");
-        title.className = "col";
-        title.id = x + "-title";
-
-        let text = app.strings.nutriments[x] || x;
-        t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-        title.appendChild(t);
-        rows[1].appendChild(title);
+        rows[1].appendChild(values);
 
         count++;
       }
@@ -550,7 +550,7 @@ app.Diary = {
         }
       }
 
-      stats[x.id] = value;
+      stats[x.id] = parseFloat(value);
     }
 
     entry.stats = stats;

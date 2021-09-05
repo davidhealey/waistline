@@ -133,7 +133,8 @@
     "meals": "Mahlzeiten",
     "recipes": "Rezepte",
     "selected": "Ausgewählt",
-    "search": "Suchen"
+    "search": "Suchen",
+    "scan-prompt": "Platziere einen Strichcode im Scanbereich"
   },
   "food-editor": {
     "edit-item": "Eintrag bearbeiten",
@@ -211,7 +212,14 @@
       "sort-date": "Zuletzt verwendet",
       "sort-alpha": "Alphabetisch",
       "images": "Lebensmittelbilder anzeigen",
-      "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen"
+      "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen",
+      "show-notes": "Notizen für Lebensmittel anzeigen"
+    },
+    "statistics": {
+      "title": "Statistik",
+      "y-zero": "Y-Achse bei Null beginnen",
+      "average-line": "Linie für Durchschnitt anzeigen",
+      "goal-line": "Linie für Ziel anzeigen"
     },
     "import-export": {
       "title": "Importieren/Exportieren",
@@ -247,7 +255,8 @@
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
       "barcode-sound": "Ton wenn Strichcode gescannt wird",
-      "edit-images": "Bilder vor dem Hochladen bearbeiten"
+      "edit-images": "Bilder vor dem Hochladen bearbeiten",
+      "login-success": "Anmeldung erfolgreich"
     }
   },
   "about": {

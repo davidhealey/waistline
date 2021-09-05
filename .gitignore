@@ -7,6 +7,7 @@ platforms/browser
 .idea
 plugins/
 !/platforms/android/platform_www/plugins
+!/platforms/android/cordova/node_modules/
 package-lock.json
 .jshintrc
 tasks

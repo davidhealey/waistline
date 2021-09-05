@@ -281,9 +281,11 @@ app.FoodEditor = {
         input.className = "align-right";
         input.type = "number";
         input.step = "0.01";
-        input.min = "0";
         input.placeholder = "0";
         input.name = k;
+
+        if (k != "calories" && k != "kilojoules")
+          input.min = "0";
 
         if (item) {
           if (item.nutrition[k] !== 0)
@@ -539,6 +541,8 @@ app.FoodEditor = {
       // Delete unneeded fields
       if (item.nutrition_per !== undefined)
         delete item.nutrition_per;
+
+      item.archived = false;
 
       app.data.context = {
         item: item

@@ -133,7 +133,8 @@
     "meals": "Ateriat",
     "recipes": "Reseptit",
     "selected": "Valitut",
-    "search": "Etsi"
+    "search": "Etsi",
+    "scan-prompt": "Place a barcode inside the scan area"
   },
   "food-editor": {
     "edit-item": "Muokkaa tuotetta",
@@ -211,7 +212,14 @@
       "sort-date": "Viimeksi käytetty",
       "sort-alpha": "Aakkosellinen",
       "images": "Näytä ruokakuvat",
-      "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä"
+      "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä",
+      "show-notes": "Show Food Notes"
+    },
+    "statistics": {
+      "title": "Statistics Settings",
+      "y-zero": "Begin Y Axis at Zero",
+      "average-line": "Show Average Line",
+      "goal-line": "Show Goal Line"
     },
     "import-export": {
       "title": "Tuo / Vie",
@@ -247,7 +255,8 @@
       "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Tuonti valmis",
       "barcode-sound": "Viivakoodin lukemisen äänimerkki",
-      "edit-images": "Muokkaa kuvia ennen lähetystä"
+      "edit-images": "Muokkaa kuvia ennen lähetystä",
+      "login-success": "Login Successful"
     }
   },
   "about": {
