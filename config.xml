@@ -14,6 +14,7 @@
     <allow-intent href="*" />
     <allow-navigation href="*" />
     <platform name="android">
+        <hook src="hooks/copy_build_extras.js" type="before_build" />
         <preference name="android-minSdkVersion" value="20" />
         <preference name="android-targetSdkVersion" value="30" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />

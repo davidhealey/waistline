@@ -1,0 +1,6 @@
+// disables warnings about missing logos. should maybe be investigated
+android {
+    lintOptions {
+        disable 'MissingDefaultResource'
+    }
+}
