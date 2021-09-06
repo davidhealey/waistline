@@ -67,8 +67,11 @@ app.Stats = {
     if (!app.Stats.el.range.hasChangedEvent) {
       app.Stats.el.range.addEventListener("change", async (e) => {
         app.Stats.dbData = await this.getDataFromDb();
-        app.Stats.updateChart();
-        app.Stats.renderStatLog();
+        if (app.Stats.dbData !== undefined) {
+          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+          app.Stats.updateChart();
+          app.Stats.renderStatLog();
+        }
       });
       app.Stats.el.range.hasChangedEvent = true;
     }
