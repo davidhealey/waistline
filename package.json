@@ -5,6 +5,7 @@
     "build:android": "cordova prepare && cordova build android --release"
   },
   "devDependencies": {
+    "cordova": "^10.0.0",
     "cordova-android": "^10.0.1",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
