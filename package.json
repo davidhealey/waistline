@@ -1,6 +1,9 @@
 {
   "name": "com.waist.line",
   "displayName": "Waistline",
+  "scripts": {
+    "build:android": "cordova prepare && cordova build android --release"
+  },
   "devDependencies": {
     "cordova-android": "^10.0.1",
     "cordova-browser": "^6.0.0",
