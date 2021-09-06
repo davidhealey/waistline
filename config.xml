@@ -38,6 +38,7 @@
         <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
         <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
     </platform>
+    <preference name="AndroidXEnabled" value="true" />
     <preference name="loadUrlTimeoutValue" value="900000" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreenDuration" value="500" />
