@@ -92,7 +92,9 @@
     "orange": "Orange",
     "gray": "Gray",
     "yellow": "Yellow",
-    "purple": "Purple"
+    "purple": "Purple",
+    "eink": "E-ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Statistics",
