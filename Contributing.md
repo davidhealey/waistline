@@ -98,21 +98,21 @@ Do you have ideas of some new cool functionalities, a bug fix or other code you 
 
 Make sure your project is building and running in your local machine and every change you made doesn't explicitly affect another feature of the project. Also, check for any gradle or runtime errors.
 
-If you use docker, you can build this project locally with the following commands:
+If you have Docker, you can use _browser.Dockerfile_ to build and run this project locally:
 ```sh
-sudo docker build -t waistline:base -f ./docker/Dockerfile .
 sudo docker build -t waistline:browser -f ./docker/browser.Dockerfile .
-sudo docker run -p 80:8000 waistline:browser
+sudo docker run -d -p 80:8000 -v $(pwd):/usr/src/ --name waistline_browser waistline:browser
 ```
-This would allow to test the app in your browser via [localhost](http://localhost:80).
+Once the app has been built, you should be able to access it in your browser via [localhost](http://localhost:80).
 
-If you want to create a development environment without installing dependencies locally, you can lift the container and use its command line:
+You can check the build status using the `docker logs` command:
 ```sh
-sudo docker build -t waistline:base -f ./docker/Dockerfile .
-sudo docker run -it -p 80:8000 waistline:base
-# example building for browser:
-cordova build browser
-cordova run browser
+sudo docker logs waistline_browser
+```
+
+To apply any local code changes, simply restart the Docker container:
+```sh
+sudo docker restart waistline_browser
 ```
 
 In case you don't know how to build for Android or the browser at the command line you could adapt the command from the dockerfiles at _docker/_ directory.
