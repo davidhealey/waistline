@@ -156,7 +156,8 @@
     "traces": "Traces",
     "edit-food": "Edit Food Item",
     "edit-meal": "Edit Meal Item",
-    "edit-recipe": "Edit Recipe Item"
+    "edit-recipe": "Edit Recipe Item",
+    "error-message": "Please fill out this field."
   },
   "goals": {
     "title": "Goals"

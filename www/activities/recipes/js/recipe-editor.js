@@ -45,6 +45,7 @@ app.RecipeEditor = {
       await app.RecipeEditor.renderItems();
     }
 
+    app.RecipeEditor.setRequiredFieldErrorMessage();
     app.RecipeEditor.bindUIActions();
   },
 
@@ -80,6 +81,16 @@ app.RecipeEditor = {
       });
       app.RecipeEditor.el.add.hasClickEvent = true;
     }
+  },
+
+  setRequiredFieldErrorMessage: function() {
+    const error_message = app.strings["food-editor"]["error-message"] || "Please fill out this field.";
+    let inputs = Array.from(document.getElementsByTagName("input"));
+    inputs.forEach((x) => {
+      if (x.hasAttribute("required") && x.hasAttribute("validate")) {
+        x.setAttribute("data-error-message", error_message);
+      }
+    });
   },
 
   populateInputs: function(recipe) {

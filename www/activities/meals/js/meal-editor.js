@@ -42,6 +42,7 @@ app.MealEditor = {
       await app.MealEditor.renderItems();
     }
 
+    app.MealEditor.setRequiredFieldErrorMessage();
     app.MealEditor.bindUIActions();
   },
 
@@ -77,6 +78,16 @@ app.MealEditor = {
       });
       app.MealEditor.el.add.hasClickEvent = true;
     }
+  },
+
+  setRequiredFieldErrorMessage: function() {
+    const error_message = app.strings["food-editor"]["error-message"] || "Please fill out this field.";
+    let inputs = Array.from(document.getElementsByTagName("input"));
+    inputs.forEach((x) => {
+      if (x.hasAttribute("required") && x.hasAttribute("validate")) {
+        x.setAttribute("data-error-message", error_message);
+      }
+    });
   },
 
   populateInputs: function(meal) {
