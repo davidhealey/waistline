@@ -217,7 +217,7 @@
       "show-notes": "Show Food Notes"
     },
     "statistics": {
-      "title": "Statistics Settings",
+      "title": "Statistics",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
       "goal-line": "Show Goal Line"
