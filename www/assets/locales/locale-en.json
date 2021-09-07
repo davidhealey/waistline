@@ -205,7 +205,9 @@
       "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
       "show-units": "Show nutrition units"
     },
-
+    "nutriments": {
+      "title": "Nutriments"
+    },
     "diary-categories": {
       "title": "Categories",
       "category": "Category"
