@@ -115,8 +115,6 @@ To apply any local code changes, simply restart the Docker container:
 sudo docker restart waistline_browser
 ```
 
-In case you don't know how to build for Android or the browser at the command line you could adapt the command from the dockerfiles at _docker/_ directory.
-
 To build for Android, you can use _android.Dockerfile_:
 ```sh
 sudo docker build -t waistline:android -f ./docker/android.Dockerfile .
@@ -133,7 +131,9 @@ sudo docker build -t local/alpine-android:android-24-jdk8 --build-arg BUILD_TOOL
 ```
 Replace "alvrme/alpine-android:android-24-jdk8" by "local/alpine-android:android-24-jdk8" and then run the commands for _android.Dockerfile_ as stated above.
 
-To stop any container use `sudo docker stop <container-name>`. Check [Docker docs: get docker](https://docs.docker.com/get-docker/) for more info on docker.
+To stop any container use `sudo docker stop <container-name>`. Check [Docker docs](https://docs.docker.com/) for more info on Docker.
+
+To build for Android or the browser on the command line (without Docker), you can adapt the commands from the files in the _docker/_ directory.
 
 #### Explain Your Work
 
