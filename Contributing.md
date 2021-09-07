@@ -45,7 +45,6 @@ Finally, please be patient. The developer has a lot of things to do. But, be ass
 ---
 
 
-
 ## Commit Guidelines
 
 The developer encourages more small commits over one large commit. Small, focused commits make the review process easier and are more likely to be accepted. It is also important to summarise the changes made with brief commit messages. If the commit fixes a specific issue, it is also good to note that in the commit message.
@@ -56,9 +55,8 @@ Before committing check for unnecessary whitespace with `git diff --check`.
 
 For further recommendations, see [Pro Git Commit Guidelines](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#Commit-Guidelines "Pro Git Commit Guidelines").
 
-## Submitting Changes
 
-### Pull Request Guidelines
+## Pull Request Guidelines
 
 The following guidelines can increase the likelihood that your pull request will get accepted:
 
@@ -75,6 +73,7 @@ A pull request should contain the following:
 
 After submitting a pull request, you should get a response within the next 7 days. If you do not, don't hesitate to ping the thread.
 
+
 ## Creating a pull request
 
 If you don't know how to create a pull request, this section will help you to get started.
@@ -90,13 +89,14 @@ Simply put, the way to create a Pull request is first to;
 
 ---
 
+
 ## Code Contribution.
 
 Do you have ideas of some new cool functionalities, a bug fix or other code you wish to contribute? This is the perfect section to guide you on that path.
 
-#### Test Your Project
+### Test Your Project
 
-Make sure your project is building and running in your local machine and every change you made doesn't explicitly affect another feature of the project. Also, check for any gradle or runtime errors.
+Make sure your project is building and running on your local machine and every change you made doesn't explicitly affect another feature of the project. Also, check for any gradle or runtime errors.
 
 If you have Docker, you can use _browser.Dockerfile_ to build and run this project locally:
 ```sh
@@ -135,14 +135,16 @@ To stop any container use `sudo docker stop <container-name>`. Check [Docker doc
 
 To build for Android or the browser on the command line (without Docker), you can adapt the commands from the files in the _docker/_ directory.
 
-#### Explain Your Work
+### Explain Your Work
 
 At the top of every patch, you should include a description of the problem you are trying to solve, how you solved it, and why you chose the solution you implemented. If you are submitting a bug fix, it is also incredibly helpful if you can describe/include a reproducer for the problem in the description as well as instructions on how to test for the bug and verify that it has been
 fixed.
 
+
 ---
 
-## Contact.
+
+## Contact
 
 For further inquiries, you can contact the developer by [opening an issue](https://github.com/davidhealey/waistline/issues/new) on the repository.
 
