@@ -1,21 +1,25 @@
 FROM alvrme/alpine-android:android-24-jdk8
 
-WORKDIR /waistline/app
-
+# Set up some environment variables
 ENV GRADLE_VERSION 4.4.1
+ENV GRADLE_HOME /opt/gradle-$GRADLE_VERSION
+ENV PATH $PATH:$GRADLE_HOME/bin
 
-# installing dependencies
+# Install dependencies
+WORKDIR /opt
 RUN apk add --no-cache --update curl ca-certificates unzip nodejs npm
-# TODO: change destination folder to /opt
 RUN curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip \
     -o gradle-$GRADLE_VERSION-bin.zip && \
     unzip gradle-$GRADLE_VERSION-bin.zip && \
     rm -f gradle-$GRADLE_VERSION-bin.zip && \
     ln -s gradle-$GRADLE_VERSION gradle
-RUN npm i -g cordova
+RUN npm install -g cordova
 
-ENV GRADLE_HOME /waistline/app/gradle-$GRADLE_VERSION
-ENV PATH $PATH:$GRADLE_HOME/bin
+# Because some commands ask if we want to opt in
+RUN cordova telemetry off
 
-# building the app
-COPY . .
+# Create app directory
+WORKDIR /waistline/app
+
+# Build the app when the container is run
+CMD ["./docker/android.start.sh"]
