@@ -45,7 +45,6 @@ Finally, please be patient. The developer has a lot of things to do. But, be ass
 ---
 
 
-
 ## Commit Guidelines
 
 The developer encourages more small commits over one large commit. Small, focused commits make the review process easier and are more likely to be accepted. It is also important to summarise the changes made with brief commit messages. If the commit fixes a specific issue, it is also good to note that in the commit message.
@@ -56,9 +55,8 @@ Before committing check for unnecessary whitespace with `git diff --check`.
 
 For further recommendations, see [Pro Git Commit Guidelines](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#Commit-Guidelines "Pro Git Commit Guidelines").
 
-## Submitting Changes
 
-### Pull Request Guidelines
+## Pull Request Guidelines
 
 The following guidelines can increase the likelihood that your pull request will get accepted:
 
@@ -75,6 +73,7 @@ A pull request should contain the following:
 
 After submitting a pull request, you should get a response within the next 7 days. If you do not, don't hesitate to ping the thread.
 
+
 ## Creating a pull request
 
 If you don't know how to create a pull request, this section will help you to get started.
@@ -90,62 +89,62 @@ Simply put, the way to create a Pull request is first to;
 
 ---
 
+
 ## Code Contribution.
 
 Do you have ideas of some new cool functionalities, a bug fix or other code you wish to contribute? This is the perfect section to guide you on that path.
 
-#### Test Your Project
+### Test Your Project
 
-Make sure your project is building and running in your local machine and every change you made doesn't explicitly affect another feature of the project. Also, check for any gradle or runtime errors.
+Make sure your project is building and running on your local machine and every change you made doesn't explicitly affect another feature of the project. Also, check for any gradle or runtime errors.
 
-If you use docker, you can build this project locally with the following commands:
+If you have Docker, you can use _browser.Dockerfile_ to build and run this project locally:
 ```sh
-sudo docker build -t waistline:base -f ./docker/Dockerfile .
 sudo docker build -t waistline:browser -f ./docker/browser.Dockerfile .
-sudo docker run -p 80:8000 waistline:browser
+sudo docker run -d -p 80:8000 -v $(pwd):/usr/src/ --name waistline_browser waistline:browser
 ```
-This would allow to test the app in your browser via [localhost](http://localhost:80).
+Once the app has been built, you should be able to access it in your browser via [localhost](http://localhost:80).
 
-If you want to create a development environment without installing dependencies locally, you can lift the container and use its command line:
+You can check the build status using the `docker logs` command:
 ```sh
-sudo docker build -t waistline:base -f ./docker/Dockerfile .
-sudo docker run -it -p 80:8000 waistline:base
-# example building for browser:
-cordova build browser
-cordova run browser
+sudo docker logs waistline_browser
 ```
 
-In case you don't know how to build for Android or the browser at the command line you could adapt the command from the dockerfiles at _docker/_ directory.
+To apply any local code changes, simply restart the Docker container:
+```sh
+sudo docker restart waistline_browser
+```
 
-To build and test for android you can use _android.Dockerfile_:
+To build for Android, you can use _android.Dockerfile_:
 ```sh
 sudo docker build -t waistline:android -f ./docker/android.Dockerfile .
-sudo docker run -it --workdir /waistline/app waistline:android
-cordova telemetry off && cordova prepare && cordova build android
-sudo docker container ls # to obtain <container-name>
-sudo docker cp <container-name>:/waistline/app/platforms/android/app/build/outputs/apk/debug/app-debug.apk .
+sudo docker run --rm -v $(pwd):/waistline/app/ --name waistline_android waistline:android
 ```
+If the build succeeded, you should find the APK under `./platforms/android/app/build/outputs/apk/debug/app-debug.apk`.
 
-We depend on an externally generated docker image at the android build. If you wish, you can build it locally in your repositories' directory by:
+We depend on an externally generated Docker image at the Android build. If you wish, you can build it locally in your repositories' directory by:
 ```sh
 git clone https://github.com/alvr/alpine-android
 cd alpine-android/docker
 sudo docker build -t local/alpine-android-base:jdk8 --build-arg JDK_VERSION="8" -f ./base.Dockerfile .
 sudo docker build -t local/alpine-android:android-24-jdk8 --build-arg BUILD_TOOLS="24.0.3" --build-arg TARGET_SDK="24" --build-arg JDK_VERSION="8" -f ./android.Dockerfile .
 ```
-
 Replace "alvrme/alpine-android:android-24-jdk8" by "local/alpine-android:android-24-jdk8" and then run the commands for _android.Dockerfile_ as stated above.
 
-To stop any container use `sudo docker stop <container-name>`. Check [Docker docs: get docker](https://docs.docker.com/get-docker/) for more info on docker.
+To stop any container use `sudo docker stop <container-name>`. Check [Docker docs](https://docs.docker.com/) for more info on Docker.
 
-#### Explain Your Work
+To build for Android or the browser on the command line (without Docker), you can adapt the commands from the files in the _docker/_ directory.
+
+### Explain Your Work
 
 At the top of every patch, you should include a description of the problem you are trying to solve, how you solved it, and why you chose the solution you implemented. If you are submitting a bug fix, it is also incredibly helpful if you can describe/include a reproducer for the problem in the description as well as instructions on how to test for the bug and verify that it has been
 fixed.
 
+
 ---
 
-## Contact.
+
+## Contact
 
 For further inquiries, you can contact the developer by [opening an issue](https://github.com/davidhealey/waistline/issues/new) on the repository.
 
