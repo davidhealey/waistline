@@ -9,3 +9,4 @@ plugins/
 .jshintrc
 tasks
 test
+build.json

@@ -428,10 +428,34 @@ app.FoodEditor = {
     };
 
     navigator.camera.getPicture((image_uri) => {
+      let blob = new Promise((resolve, reject) => {
+        window.resolveLocalFileSystemURL(image_uri, (fileEntry) => {
+          fileEntry.file((file) => {
+            resolve(file);
+          });
+        }, reject);
+      })
+      .then(file => {
+        return new Promise((resolve, reject) => {
+          let reader = new FileReader();
+          reader.onloadend = function() {
+            // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+            let blob = new Blob([new Uint8Array(this.result)], {
+              type: "image/png"
+            });
+            resolve(blob);
+          };
+          reader.onerror = reject;
+    
+          reader.readAsArrayBuffer(file);
+        })
+      })
+      .then(blob => {
+        let url = window.URL.createObjectURL(blob);
 
         // Add new image
         let img = document.createElement("img");
-        img.src = image_uri;
+        img.src = url;
         img.style["width"] = "50%";
 
         img.addEventListener("taphold", function(e) {
@@ -441,15 +465,18 @@ app.FoodEditor = {
         app.FoodEditor.el.photoHolder[index].innerHTML = "";
         app.FoodEditor.el.photoHolder[index].appendChild(img);
         app.FoodEditor.el.addPhoto[index].style.display = "none";
-        app.FoodEditor.images[index] = image_uri;
-      },
-      (err) => {
-        if (err != "No Image Selected") {
-          let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-          app.Utils.toast(msg, 2000);
-          console.error(err);
-        }
-      }, options);
+        app.FoodEditor.images[index] = blob;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }, (err) => {
+      if (err != "No Image Selected") {
+        let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
+        app.Utils.toast(msg, 2000);
+        console.error(err);
+      }
+    }, options);
   },
 
   removePicture: function(index) {
