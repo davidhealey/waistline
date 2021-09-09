@@ -28,6 +28,7 @@
           <application android:requestLegacyExternalStorage="true" />
         </edit-config>
         <allow-intent href="market:*" />
+        <icon density="ldpi" src="res/android/ldpi.png" />
         <icon density="mdpi" src="res/android/mdpi.png" />
         <icon density="hdpi" src="res/android/hdpi.png" />
         <icon density="xhdpi" src="res/android/xhdpi.png" />
