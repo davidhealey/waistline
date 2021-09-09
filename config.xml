@@ -33,10 +33,12 @@
         <icon density="xhdpi" src="res/android/xhdpi.png" />
         <icon density="xxhdpi" src="res/android/xxhdpi.png" />
         <icon density="xxxhdpi" src="res/android/xxxhdpi.png" />
-        <splash density="port-hdpi" src="res/screen/android/hdpi.png" />
-        <splash density="port-ldpi" src="res/screen/android/ldpi.png" />
-        <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
-        <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
+        <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
+        <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
+        <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
+        <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
+        <splash density="port-xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
+        <splash density="port-xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
     </platform>
     <preference name="loadUrlTimeoutValue" value="900000" />
     <preference name="SplashScreenDelay" value="3000" />
