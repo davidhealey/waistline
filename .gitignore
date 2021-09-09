@@ -6,8 +6,10 @@ platforms/browser
 .gradle
 .idea
 plugins/
-!/platforms/android/platform_www/plugins
+!/platforms/android/platform_www/plugins/
 !/platforms/android/cordova/node_modules/
+!/platforms/android/gradle/
+!/platforms/android/gradlew
 .jshintrc
 tasks
 test
