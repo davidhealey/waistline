@@ -2,7 +2,7 @@
   "name": "com.waist.line",
   "displayName": "Waistline",
   "devDependencies": {
-    "cordova-android": "^10.0.1",
+    "cordova-android": "^10.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
     "cordova-plugin-camera": "~4.0.3",
