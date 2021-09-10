@@ -213,7 +213,7 @@ app.FoodEditor = {
   },
 
   setRequiredFieldErrorMessage: function() {
-    const error_message = app.strings["food-editor"]["error-message"] || "Please fill out this field.";
+    const error_message = app.strings["food-editor"]["required-field-message"] || "Please fill out this field.";
     let inputs = Array.from(document.getElementsByTagName("input"));
     inputs.forEach((x) => {
       if (x.hasAttribute("required") && x.hasAttribute("validate")) {
