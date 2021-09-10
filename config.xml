@@ -56,4 +56,5 @@
     <preference name="loadUrlTimeoutValue" value="900000" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreenDuration" value="500" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
 </widget>
