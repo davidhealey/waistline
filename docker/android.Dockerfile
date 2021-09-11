@@ -1,7 +1,7 @@
 FROM alvrme/alpine-android:android-30-jdk8
 
 # Set up some environment variables
-ENV GRADLE_VERSION 7.1.1
+ENV GRADLE_VERSION 6.5
 ENV GRADLE_HOME /opt/gradle-$GRADLE_VERSION
 ENV PATH $PATH:$GRADLE_HOME/bin
 
