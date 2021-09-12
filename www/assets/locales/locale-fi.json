@@ -134,7 +134,7 @@
     "recipes": "Reseptit",
     "selected": "Valitut",
     "search": "Etsi",
-    "scan-prompt": "Place a barcode inside the scan area"
+    "scan-prompt": "Aseta viivakoodi kuvausalueen sisälle"
   },
   "food-editor": {
     "edit-item": "Muokkaa tuotetta",
@@ -213,13 +213,13 @@
       "sort-alpha": "Aakkosellinen",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä",
-      "show-notes": "Show Food Notes"
+      "show-notes": "Näytä ateriamerkinnät"
     },
     "statistics": {
-      "title": "Statistics Settings",
-      "y-zero": "Begin Y Axis at Zero",
-      "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "title": "Tilastotietojen asetukset",
+      "y-zero": "Aloita Y-akseli nollasta",
+      "average-line": "Näytä keskiarvoviiva",
+      "goal-line": "Näytä tavoiteviiva"
     },
     "import-export": {
       "title": "Tuo / Vie",
@@ -256,7 +256,7 @@
       "import-success-message": "Tuonti valmis",
       "barcode-sound": "Viivakoodin lukemisen äänimerkki",
       "edit-images": "Muokkaa kuvia ennen lähetystä",
-      "login-success": "Login Successful"
+      "login-success": "Kirjautuminen onnistui"
     }
   },
   "about": {
