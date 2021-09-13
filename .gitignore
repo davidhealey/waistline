@@ -1,15 +1,10 @@
 deliverables/
 images/master/
 node_modules/
-platforms/browser
-*/build/
+platforms/
+plugins/
 .gradle
 .idea
-plugins/
-!/platforms/android/platform_www/plugins/
-!/platforms/android/cordova/node_modules/
-!/platforms/android/gradle/
-!/platforms/android/gradlew
 .jshintrc
 tasks
 test

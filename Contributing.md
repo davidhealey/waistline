@@ -1,17 +1,17 @@
-# Contributor's guidelines for Waistline.
+# Contributor's guidelines for Waistline
 
 If you have opened this document purposely, it means you are interested in contributing to the Waistline project. First of all, thank you for your interest in contributing, you are awesome!
 Every contribution is helpful and I thank you for your effort. To ensure the process of contributing is as smooth as possible, here are a few guidelines for you to follow.
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 
 
-## Opening an Issue.
+## Opening an Issue
 
 Opening issues on Github are a way of drawing the attention of the project maintainer(s). You can open an issue for two major reasons. Either to pitch in an idea(feature request) or, to report a bug.
 Before opening a new issue, browse through the issue tracker if the issue hasn't already been reported by another user. There's a chance that the feature you wish to request for, or, the bug you experienced has already been reported. You can check out closed issues too. With the new features on Github, you can easily know if an issue has been submitted before. You can do this by typing a few words on the title bar and you will get suggestions for similar issues. If you have confirmed that that the issue hasn't been opened before, go ahead and [open an issue](https://github.com/davidhealey/waistline/issues/new)
 
 
-### Requesting a feature.
+### Requesting a feature
 
 As already explained above;
 
@@ -23,7 +23,7 @@ As already explained above;
 
 - Attempt a Pull Request; If you are able to, start writing some code. If you can write some code then that will speed the process along.
 
-### Bug reports.
+### Bug reports
 
 Sincere apologies for any inconvenience this error may have caused you. I put effort into making this app rid of bugs. But, all of them can't totally be exterminated at once. These reports are valuable and I appreciate you for reporting them.
 
@@ -90,7 +90,7 @@ Simply put, the way to create a Pull request is first to;
 ---
 
 
-## Code Contribution.
+## Code Contribution
 
 Do you have ideas of some new cool functionalities, a bug fix or other code you wish to contribute? This is the perfect section to guide you on that path.
 
@@ -107,7 +107,7 @@ Once the app has been built, you should be able to access it in your browser via
 
 You can check the build status using the `docker logs` command:
 ```sh
-sudo docker logs waistline_browser
+sudo docker logs --follow waistline_browser
 ```
 
 To apply any local code changes, simply restart the Docker container:
@@ -122,14 +122,19 @@ sudo docker run --rm -v $(pwd):/waistline/app/ --name waistline_android waistlin
 ```
 If the build succeeded, you should find the APK under `./platforms/android/app/build/outputs/apk/debug/app-debug.apk`.
 
+You can also launch the container interactively to execute your own commands:
+```sh
+sudo docker run -it --rm -v $(pwd):/waistline/app/ --name waistline_android waistline:android /bin/sh
+```
+
 We depend on an externally generated Docker image at the Android build. If you wish, you can build it locally in your repositories' directory by:
 ```sh
 git clone https://github.com/alvr/alpine-android
 cd alpine-android/docker
 sudo docker build -t local/alpine-android-base:jdk8 --build-arg JDK_VERSION="8" -f ./base.Dockerfile .
-sudo docker build -t local/alpine-android:android-24-jdk8 --build-arg BUILD_TOOLS="24.0.3" --build-arg TARGET_SDK="24" --build-arg JDK_VERSION="8" -f ./android.Dockerfile .
+sudo docker build -t local/alpine-android:android-30-jdk8 --build-arg BUILD_TOOLS="30.0.3" --build-arg TARGET_SDK="30" --build-arg JDK_VERSION="8" -f ./android.Dockerfile .
 ```
-Replace "alvrme/alpine-android:android-24-jdk8" by "local/alpine-android:android-24-jdk8" and then run the commands for _android.Dockerfile_ as stated above.
+Replace "alvrme/alpine-android:android-30-jdk8" by "local/alpine-android:android-30-jdk8" and then run the commands for _android.Dockerfile_ as stated above.
 
 To stop any container use `sudo docker stop <container-name>`. Check [Docker docs](https://docs.docker.com/) for more info on Docker.
 
