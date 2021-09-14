@@ -1,8 +1,6 @@
 {
   "nutriments": {
-    "calorie": "Kalorien",
     "calories": "Kalorien",
-    "kilojoule": "Kilojoule",
     "kilojoules": "Kilojoule",
     "proteins": "Proteine",
     "carbohydrates": "Kohlenhydrate",
@@ -92,7 +90,9 @@
     "orange": "Orange",
     "gray": "Grau",
     "yellow": "Gelb",
-    "purple": "Lila"
+    "purple": "Lila",
+    "eink": "E-ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Statistik",
@@ -154,7 +154,8 @@
     "traces": "Spuren",
     "edit-food": "Lebensmittel bearbeiten",
     "edit-meal": "Mahlzeit-Eintrag bearbeiten",
-    "edit-recipe": "Rezept-Eintrag bearbeiten"
+    "edit-recipe": "Rezept-Eintrag bearbeiten",
+    "required-field-message": "Please fill out this field."
   },
   "goals": {
     "title": "Ziele"
@@ -177,9 +178,10 @@
   "settings": {
     "title": "Einstellungen",
     "needs-restart": "Starte die App neu, um die Änderungen anzuwenden.",
-    "theme": {
-      "title": "Thema",
+    "appearance": {
+      "title": "Appearance",
       "dark": "Dunkelmodus",
+      "colour-theme": "Colour Theme",
       "animations": "UI Animationen deaktivieren",
       "start-page": "Startseite",
       "language": "Bevorzugte Sprache"
@@ -199,8 +201,11 @@
       "categories": "Kategorien",
       "timestamps": "Zeitstempel anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
-      "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "show-units": "Nährstoffeinheiten anzeigen"
+    },
+    "nutriments": {
+      "title": "Nutriments"
     },
     "diary-categories": {
       "title": "Kategorien",
@@ -208,7 +213,7 @@
     },
     "foods": {
       "title": "Lebensmittel, Mahlzeiten, Rezepte",
-      "sort": "Lebensmittel sortieren",
+      "sort": "Sort Foods",
       "sort-date": "Zuletzt verwendet",
       "sort-alpha": "Alphabetisch",
       "images": "Lebensmittelbilder anzeigen",
@@ -237,6 +242,7 @@
       "usda-title": "U.S. Landwirtschaftsministerium",
       "usda": "USDA Suche aktivieren",
       "usda-login-title": "USDA",
+      "usda-api": "USDA API",
       "usda-api-key": "USDA API-Schlüssel",
       "usda-click-here": "Hier",
       "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
@@ -248,7 +254,8 @@
       "exit": "Zurück",
       "save": "Speichern",
       "invalid-credentials": "Ungültige Anmeldeinformationen",
-      "export-success": "Datenbank wurde exportiert",
+      "invalid-api-key": "API Key Invalid",
+      "export-success": "Database Exported",
       "export-fail": "Fehler beim Export",
       "import": "Importieren",
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
@@ -277,6 +284,7 @@
     "bulgarian": "Bulgarisch",
     "hebrew": "Hebräisch",
     "finnish": "Finnisch",
-    "spanish": "Spanisch"
+    "spanish": "Spanisch",
+    "dutch": "Dutch"
   }
 }
