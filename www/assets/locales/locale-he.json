@@ -91,8 +91,8 @@
     "gray": "אפור",
     "yellow": "צהוב",
     "purple": "סגול",
-    "eink": "E-ink",
-    "camino": "Camino"
+    "eink": "דיו דיגיטלי",
+    "camino": "קמינו"
   },
   "statistics": {
     "title": "סטטיסטיקה",
@@ -155,7 +155,7 @@
     "edit-food": "עריכת פריט מזון",
     "edit-meal": "עריכת פריט ארוחה",
     "edit-recipe": "עריכת פריט מתכון",
-    "required-field-message": "Please fill out this field."
+    "required-field-message": "נא למלא את השדה הזה."
   },
   "goals": {
     "title": "יעדים"
@@ -179,9 +179,9 @@
     "title": "הגדרות",
     "needs-restart": "השינויים יחולו לאחר הפעלת היישומון מחדש.",
     "appearance": {
-      "title": "Appearance",
+      "title": "מראה",
       "dark": "מצב כהה",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "ערכת צבע",
       "animations": "השבתת הנפשות",
       "start-page": "עמוד הפתיחה",
       "language": "שפה מועדפת"
@@ -201,11 +201,11 @@
       "categories": "קטגוריות",
       "timestamps": "הצגת חותמות זמן",
       "thumbnails": "הצגת תמונות ממוזערות",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
       "show-units": "הצגת יחידות תזונה"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "חומרי הזנה"
     },
     "diary-categories": {
       "title": "קטגוריות",
@@ -213,7 +213,7 @@
     },
     "foods": {
       "title": "מאכלים, מנות, מתכונים",
-      "sort": "Sort Foods",
+      "sort": "מיון מאכלים",
       "sort-date": "לפי השימוש האחרון",
       "sort-alpha": "בסדר אלפביתי",
       "images": "הצגת תמונות מאכלים",
@@ -242,7 +242,7 @@
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
       "usda-login-title": "USDA",
-      "usda-api": "USDA API",
+      "usda-api": "ה־API של USDA",
       "usda-api-key": "מפתח API של USDA",
       "usda-click-here": "נא ללחוץ כאן",
       "usda-note-0": "עליך למלא את מפתח ה־API האישי שלך כדי לחפש מאכלים במסד הנתונים של משרד החקלאות האמריקאי.",
@@ -254,8 +254,8 @@
       "exit": "יציאה",
       "save": "שמירה",
       "invalid-credentials": "פרטי התחברות שגויים",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "מפתח ה־API שגוי",
+      "export-success": "מסד הנתונים ייוצא",
       "export-fail": "הייצוא נכשל",
       "import": "ייבוא",
       "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
@@ -285,6 +285,6 @@
     "hebrew": "עברית",
     "finnish": "פינית",
     "spanish": "ספרדית",
-    "dutch": "Dutch"
+    "dutch": "הולנדית"
   }
 }
