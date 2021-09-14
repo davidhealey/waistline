@@ -1,8 +1,6 @@
 {
   "nutriments": {
-    "calorie": "Calorie",
     "calories": "Calorie",
-    "kilojoule": "Kilojoule",
     "kilojoules": "Kilojoules",
     "proteins": "proteine",
     "carbohydrates": "carboidrati",
@@ -92,7 +90,9 @@
     "orange": "Arancione",
     "gray": "Grigio",
     "yellow": "Giallo",
-    "purple": "Viola"
+    "purple": "Viola",
+    "eink": "E-ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Statistiche",
@@ -154,7 +154,8 @@
     "traces": "Tracce",
     "edit-food": "Modifica cibo",
     "edit-meal": "Modifica elemento del pasto",
-    "edit-recipe": "Modifica elemento della ricetta"
+    "edit-recipe": "Modifica elemento della ricetta",
+    "required-field-message": "Please fill out this field."
   },
   "goals": {
     "title": "Obiettivi"
@@ -177,9 +178,10 @@
   "settings": {
     "title": "Impostazioni",
     "needs-restart": "Riavvia l' applicazione per applicare le modifiche.",
-    "theme": {
-      "title": "Tema",
+    "appearance": {
+      "title": "Appearance",
       "dark": "Modalità dark",
+      "colour-theme": "Colour Theme",
       "animations": "Disabilita le animazioni dell' interfaccia",
       "start-page": "Inizio pagina",
       "language": "Lingua Preferita"
@@ -199,8 +201,11 @@
       "categories": "Categorie",
       "timestamps": "Mostra i marcatori temporali",
       "thumbnails": "Mostra le anteprime",
-      "wifi-thumbnails": "Mostra le anteprime solo con il Wi-Fi",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "show-units": "Mostra le unità nutrizionali"
+    },
+    "nutriments": {
+      "title": "Nutriments"
     },
     "diary-categories": {
       "title": "Categorie",
@@ -208,7 +213,7 @@
     },
     "foods": {
       "title": "Cibi, Pasti, Ricette",
-      "sort": "Ordina cibi",
+      "sort": "Sort Foods",
       "sort-date": "Ultimo utilizzato",
       "sort-alpha": "Alfabetico",
       "images": "Mostra l' immagine dei cibi",
@@ -216,7 +221,7 @@
       "show-notes": "Mostra le note dei cibi"
     },
     "statistics": {
-      "title": "Impostazioni Statistiche",
+      "title": "Statistiche",
       "y-zero": "Inizia l'asse Y a Zero",
       "average-line": "Mostra media",
       "goal-line": "Mostra obiettivo"
@@ -237,6 +242,7 @@
       "usda-title": "U.S. DIPARTIMENTO DELL' AGRICOLTURA",
       "usda": "Attiva la ricerca USDA",
       "usda-login-title": "USDA",
+      "usda-api": "USDA API",
       "usda-api-key": "USDA API chiave",
       "usda-click-here": "Clicca qui",
       "usda-note-0": "Hai bisogno di inserire la tua chiave API personale per cercare nel database USDA.",
@@ -248,7 +254,8 @@
       "exit": "Esci",
       "save": "Salva",
       "invalid-credentials": "Credenziali non valide",
-      "export-success": "Database esportato",
+      "invalid-api-key": "API Key Invalid",
+      "export-success": "Database Exported",
       "export-fail": "Esportazione fallita",
       "import": "Importa",
       "confirm-import": "Sei sicuro? Questo sovrascriverà il database corrente.",
@@ -277,6 +284,7 @@
     "bulgarian": "Bulgaro",
     "hebrew": "Ebraico",
     "finnish": "Finlandese",
-    "spanish": "Spagnolo"
+    "spanish": "Spagnolo",
+    "dutch": "Dutch"
   }
 }
