@@ -1,8 +1,6 @@
 {
   "nutriments": {
-    "calorie": "Kaloria",
     "calories": "Kaloreita",
-    "kilojoule": "Kilojoulea",
     "kilojoules": "Kilojouleja",
     "proteins": "proteiinit",
     "carbohydrates": "hiilihydraatit",
@@ -92,7 +90,9 @@
     "orange": "Oranssi",
     "gray": "Harmaa",
     "yellow": "Keltainen",
-    "purple": "Violetti"
+    "purple": "Violetti",
+    "eink": "E-ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Tilastot",
@@ -154,7 +154,8 @@
     "traces": "Jäämät",
     "edit-food": "Muokkaa ruokaa",
     "edit-meal": "Muokkaa ateriaa",
-    "edit-recipe": "Muokkaa reseptiä"
+    "edit-recipe": "Muokkaa reseptiä",
+    "required-field-message": "Please fill out this field."
   },
   "goals": {
     "title": "Tavoitteet"
@@ -177,9 +178,10 @@
   "settings": {
     "title": "Asetukset",
     "needs-restart": "Käynnistä sovellus uudelleen, jotta muutokset voidaan ottaa käyttöön.",
-    "theme": {
-      "title": "Teema",
+    "appearance": {
+      "title": "Appearance",
       "dark": "Tumma teema",
+      "colour-theme": "Colour Theme",
       "animations": "Poista käyttöliittymän animaatiot käytöstä",
       "start-page": "Aloitussivu",
       "language": "Ensisijainen kieli"
@@ -199,8 +201,11 @@
       "categories": "Kategoriat",
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä tuotekuvat",
-      "wifi-thumbnails": "Näytä tuotekuvat vain Wi-Fi-yhteyttä käytettäessä",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "show-units": "Näytä ravintoyksiköt"
+    },
+    "nutriments": {
+      "title": "Nutriments"
     },
     "diary-categories": {
       "title": "Kategoriat",
@@ -208,7 +213,7 @@
     },
     "foods": {
       "title": "Ruoat, Ateriat, Reseptit",
-      "sort": "Järjestä ruoat",
+      "sort": "Sort Foods",
       "sort-date": "Viimeksi käytetty",
       "sort-alpha": "Aakkosellinen",
       "images": "Näytä ruokakuvat",
@@ -216,7 +221,7 @@
       "show-notes": "Näytä ateriamerkinnät"
     },
     "statistics": {
-      "title": "Tilastotietojen asetukset",
+      "title": "Tilastot",
       "y-zero": "Aloita Y-akseli nollasta",
       "average-line": "Näytä keskiarvoviiva",
       "goal-line": "Näytä tavoiteviiva"
@@ -237,6 +242,7 @@
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
       "usda-login-title": "USDA - Yhdysvaltojen maatalousministeriö",
+      "usda-api": "USDA API",
       "usda-api-key": "USDA API-avain",
       "usda-click-here": "Klikkaa tästä",
       "usda-note-0": "Sinun täytyy syöttää henkilökohtainen API-avain etsiäksesi elintarvikkeita USDA tietokannasta.",
@@ -248,7 +254,8 @@
       "exit": "Poistu",
       "save": "Tallenna",
       "invalid-credentials": "Virheelliset kirjautumistiedot",
-      "export-success": "Tietokanta viety",
+      "invalid-api-key": "API Key Invalid",
+      "export-success": "Database Exported",
       "export-fail": "Vienti epäonnistui",
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
@@ -277,6 +284,7 @@
     "bulgarian": "Bulgaria",
     "hebrew": "Hebrea",
     "finnish": "Suomi",
-    "spanish": "Espanja"
+    "spanish": "Espanja",
+    "dutch": "Dutch"
   }
 }
