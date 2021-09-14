@@ -492,7 +492,7 @@ app.FoodEditor = {
 
   removePicture: function(index) {
     let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
     let dialog = app.f7.dialog.confirm(text, title, () => {
       app.FoodEditor.el.photoHolder[index].innerHTML = "";

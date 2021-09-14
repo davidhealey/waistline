@@ -1,8 +1,6 @@
 {
   "nutriments": {
-    "calorie": "Calorie",
     "calories": "Calories",
-    "kilojoule": "Kilojoule",
     "kilojoules": "Kilojoules",
     "proteins": "proteins",
     "carbohydrates": "carbs",
@@ -183,6 +181,7 @@
     "appearance": {
       "title": "Appearance",
       "dark": "Dark Mode",
+      "colour-theme": "Colour Theme",
       "animations": "Disable UI Animations",
       "start-page": "Start Page",
       "language": "Preferred Language"
@@ -202,7 +201,7 @@
       "categories": "Categories",
       "timestamps": "Show Timestamps",
       "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "show-units": "Show nutrition units"
     },
     "nutriments": {
@@ -214,7 +213,7 @@
     },
     "foods": {
       "title": "Foods, Meals, Recipes",
-      "sort": "Sort foods",
+      "sort": "Sort Foods",
       "sort-date": "By last used",
       "sort-alpha": "Alphabetically",
       "images": "Show Food Images",
@@ -243,6 +242,7 @@
       "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
       "usda": "Enable USDA search",
       "usda-login-title": "USDA",
+      "usda-api": "USDA API",
       "usda-api-key": "USDA API Key",
       "usda-click-here": "Click here",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
@@ -254,7 +254,8 @@
       "exit": "Exit",
       "save": "Save",
       "invalid-credentials": "Invalid Credentials",
-      "export-success": "Database exported",
+      "invalid-api-key": "API Key Invalid",
+      "export-success": "Database Exported",
       "export-fail": "Export Failed",
       "import": "Import",
       "confirm-import": "Are you sure? This will overwrite your current database.",

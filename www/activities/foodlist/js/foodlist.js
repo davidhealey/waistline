@@ -73,7 +73,7 @@ app.Foodlist = {
       if (navigator.connection.type !== "none")
         this.search(app.Foodlist.el.search.value);
       else
-        app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
+        app.Utils.toast(app.strings.dialogs["no-internet"] || "No Internet Connection");
     });
 
     if (!app.Foodlist.el.scan.hasClickEvent) {
@@ -117,7 +117,7 @@ app.Foodlist = {
           app.Foodlist.list = result;
           app.Foodlist.filterList = app.Foodlist.list;
         } else {
-          let msg = app.strings.dialogs["no-results"] || "No Results";
+          let msg = app.strings.dialogs["no-results"] || "No matching results";
           app.Utils.toast(msg);
         }
       } else {
@@ -195,7 +195,7 @@ app.Foodlist = {
   removeItem: function(item) {
     return new Promise(function(resolve, reject) {
       let title = app.strings.dialogs.delete || "Delete";
-      let msg = app.strings.dialogs["confirm-delete"] || "Are you sure?";
+      let msg = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
       let dialog = app.f7.dialog.confirm(msg, title, async () => {
         await app.FoodsMealsRecipes.removeItem(item.id, "food");
@@ -345,7 +345,7 @@ app.Foodlist = {
             // Not already in foodlist so search OFF 
             if (item === undefined || (item.archived !== undefined && item.archived == true)) {
               if (navigator.connection.type == "none") {
-                app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
+                app.Utils.toast(app.strings.dialogs["no-internet"] || "No Internet Connection");
                 resolve(undefined);
               }
 
@@ -379,7 +379,7 @@ app.Foodlist = {
   },
 
   gotoUploadEditor: function(code) {
-    let title = app.strings.dialogs["no-results"] || "Product not found";
+    let title = app.strings.dialogs["no-results"] || "No matching results";
     let text = app.strings.dialogs["add-to-off"] || "Would you like to add this product to the Open Food Facts database?";
 
     app.data.context = {

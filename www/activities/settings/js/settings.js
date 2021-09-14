@@ -266,7 +266,7 @@ app.Settings = {
         app.f7.loginScreen.close(screen);
         app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
       } else {
-        let msg = app.strings.settings.integration["invalid-credentials"] || "API Key Invalid";
+        let msg = app.strings.settings.integration["invalid-api-key"] || "API Key Invalid";
         app.Utils.toast(msg);
       }
     }
