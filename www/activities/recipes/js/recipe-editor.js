@@ -45,6 +45,7 @@ app.RecipeEditor = {
       await app.RecipeEditor.renderItems();
     }
 
+    app.RecipeEditor.setRequiredFieldErrorMessage();
     app.RecipeEditor.bindUIActions();
   },
 
@@ -82,6 +83,16 @@ app.RecipeEditor = {
     }
   },
 
+  setRequiredFieldErrorMessage: function() {
+    const error_message = app.strings["food-editor"]["required-field-message"] || "Please fill out this field.";
+    let inputs = Array.from(document.getElementsByTagName("input"));
+    inputs.forEach((x) => {
+      if (x.hasAttribute("required") && x.hasAttribute("validate")) {
+        x.setAttribute("data-error-message", error_message);
+      }
+    });
+  },
+
   populateInputs: function(recipe) {
     let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input, .page[data-name='recipe-editor'] textarea");
 
@@ -108,7 +119,7 @@ app.RecipeEditor = {
 
   removeItem: function(item, li) {
     let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
     let dialog = app.f7.dialog.confirm(text, title, callbackOk);
 
     function callbackOk() {

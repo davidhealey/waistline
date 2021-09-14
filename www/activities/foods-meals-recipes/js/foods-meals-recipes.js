@@ -319,7 +319,7 @@ app.FoodsMealsRecipes = {
       let ac = app.f7.actions.create({
         buttons: options,
         closeOnEscape: true,
-        animate: !app.Settings.get("theme", "animations")
+        animate: !app.Settings.get("appearance", "animations")
       });
 
       ac.open();

@@ -55,7 +55,7 @@ const app = {
   },
 
   localize: function() {
-    let lang = app.Settings.get("theme", "locale");
+    let lang = app.Settings.get("appearance", "locale");
 
     if (lang == undefined || lang == "auto") {
       lang = navigator.language.replace(/_/, '-').toLowerCase();
@@ -177,8 +177,8 @@ const app = {
         path: "/settings/",
         url: "activities/settings/views/settings.html",
         routes: [{
-            path: "theme/",
-            url: "activities/settings/views/theme.html",
+            path: "appearance/",
+            url: "activities/settings/views/appearance.html",
             options: {
               transition: "f7-parallax"
             }
@@ -267,8 +267,8 @@ const app = {
 let animate = true;
 let settings = JSON.parse(window.localStorage.getItem("settings"));
 
-if (settings != undefined && settings.theme !== undefined && settings.theme.animations !== undefined)
-  animate = settings.theme.animations;
+if (settings != undefined && settings.appearance !== undefined && settings.appearance.animations !== undefined)
+  animate = settings.appearance.animations;
 
 let viewOptions = {
   animate: animate
@@ -319,8 +319,9 @@ document.addEventListener('deviceready', async function() {
     app.Settings.firstTimeSetup();
     app.f7.views.main.router.navigate("/settings/");
   } else {
-    app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
-    app.f7.views.main.router.navigate(settings.theme["start-page"]);
+    settings = app.Settings.migrateThemeSettings(settings);
+    app.Settings.changeTheme(settings.appearance["dark-mode"], settings.appearance.theme);
+    app.f7.views.main.router.navigate(settings.appearance["start-page"]);
   }
 
   // Backup database 

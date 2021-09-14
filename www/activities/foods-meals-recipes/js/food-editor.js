@@ -52,6 +52,7 @@ app.FoodEditor = {
     this.renderNutritionFields(app.FoodEditor.item);
     this.setComponentVisibility(app.FoodEditor.origin);
     this.setUploadFieldVisibility();
+    this.setRequiredFieldErrorMessage();
     this.setLinkButtonIcon();
 
     if (app.FoodEditor.item) {
@@ -209,6 +210,16 @@ app.FoodEditor = {
       app.FoodEditor.linked = false;
       app.FoodEditor.el.link.style.display = "none";
     }
+  },
+
+  setRequiredFieldErrorMessage: function() {
+    const error_message = app.strings["food-editor"]["required-field-message"] || "Please fill out this field.";
+    let inputs = Array.from(document.getElementsByTagName("input"));
+    inputs.forEach((x) => {
+      if (x.hasAttribute("required") && x.hasAttribute("validate")) {
+        x.setAttribute("data-error-message", error_message);
+      }
+    });
   },
 
   setLinkButtonIcon: function() {
@@ -481,7 +492,7 @@ app.FoodEditor = {
 
   removePicture: function(index) {
     let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
     let dialog = app.f7.dialog.confirm(text, title, () => {
       app.FoodEditor.el.photoHolder[index].innerHTML = "";
