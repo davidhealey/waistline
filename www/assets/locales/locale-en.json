@@ -180,8 +180,8 @@
   "settings": {
     "title": "Settings",
     "needs-restart": "Restart app to apply changes.",
-    "theme": {
-      "title": "Theme",
+    "appearance": {
+      "title": "Appearance",
       "dark": "Dark Mode",
       "animations": "Disable UI Animations",
       "start-page": "Start Page",

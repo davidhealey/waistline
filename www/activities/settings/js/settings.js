@@ -148,7 +148,7 @@ app.Settings = {
     }
 
     // Dark mode
-    let darkMode = document.querySelector(".page[data-name='settings-theme'] #dark-mode");
+    let darkMode = document.querySelector(".page[data-name='settings-appearance'] #dark-mode");
 
     if (darkMode != undefined && !darkMode.hasClickEvent) {
       darkMode.addEventListener("click", (e) => {
@@ -158,7 +158,7 @@ app.Settings = {
     }
 
     // Theme
-    let themeSelect = document.querySelector(".page[data-name='settings-theme'] #theme");
+    let themeSelect = document.querySelector(".page[data-name='settings-appearance'] #theme");
 
     if (themeSelect != undefined && !themeSelect.hasChangeEvent) {
       themeSelect.addEventListener("change", (e) => {
@@ -168,7 +168,7 @@ app.Settings = {
     }
 
     // Preferred Language
-    let locale = document.querySelector(".page[data-name='settings-theme'] #locale");
+    let locale = document.querySelector(".page[data-name='settings-appearance'] #locale");
 
     if (locale != undefined && !locale.hasChangeEvent) {
       locale.addEventListener("change", (e) => {
@@ -304,8 +304,9 @@ app.Settings = {
       await dbHandler.import(data);
 
       if (data.settings) {
-        window.localStorage.setItem("settings", JSON.stringify(data.settings));
-        this.changeTheme(data.settings.theme["dark-mode"], data.settings.theme["theme"]);
+        let settings = app.Settings.migrateThemeSettings(data.settings);
+        window.localStorage.setItem("settings", JSON.stringify(settings));
+        this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
       }
     });
   },
@@ -385,7 +386,7 @@ app.Settings = {
         "search-country": "United Kingdom",
         usda: false
       },
-      theme: {
+      appearance: {
         animations: true,
         "dark-mode": false,
         "start-page": "/settings/",
@@ -430,6 +431,15 @@ app.Settings = {
     };
 
     window.localStorage.setItem("settings", JSON.stringify(defaults));
+  },
+
+  migrateThemeSettings: function(settings) {
+    if (settings != undefined && settings.theme !== undefined) {
+      settings.appearance = settings.theme;
+      delete settings.theme;
+      window.localStorage.setItem("settings", JSON.stringify(settings));
+    }
+    return settings;
   }
 };
 

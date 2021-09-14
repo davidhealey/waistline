@@ -122,7 +122,7 @@ app.DiaryChart = {
           }
         },
         animation: {
-          duration: 1000 * !app.Settings.get("theme", "animations"),
+          duration: 1000 * !app.Settings.get("appearance", "animations"),
         },
       }
     });
