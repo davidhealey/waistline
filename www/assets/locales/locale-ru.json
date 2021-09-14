@@ -91,8 +91,8 @@
     "gray": "Серый",
     "yellow": "Жёлтый",
     "purple": "Фиолетовый",
-    "eink": "E-ink",
-    "camino": "Camino"
+    "eink": "Электронные чернила",
+    "camino": "Камино"
   },
   "statistics": {
     "title": "Статистика",
@@ -155,7 +155,7 @@
     "edit-food": "Редактировать еду",
     "edit-meal": "Редактировать блюдо",
     "edit-recipe": "Редактировать рецепт",
-    "required-field-message": "Please fill out this field."
+    "required-field-message": "Пожалуйста, заполните это поле."
   },
   "goals": {
     "title": "Цели"
@@ -179,9 +179,9 @@
     "title": "Настройки",
     "needs-restart": "Перезапустите приложение, чтобы применить изменения.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Внешний вид",
       "dark": "Тёмный режим",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Цветовая схема",
       "animations": "Отключить анимацию интерфейса",
       "start-page": "Начальная страница",
       "language": "Предпочитаемый язык"
@@ -201,11 +201,11 @@
       "categories": "Категории",
       "timestamps": "Показать метки времени",
       "thumbnails": "Показывать миниатюры",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
       "show-units": "Показать единицы питания"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Питательные вещества"
     },
     "diary-categories": {
       "title": "Категории",
@@ -213,7 +213,7 @@
     },
     "foods": {
       "title": "Еда, Блюда, Рецепты",
-      "sort": "Sort Foods",
+      "sort": "Сортировка еды",
       "sort-date": "По последнему использованию",
       "sort-alpha": "В алфавитном порядке",
       "images": "Показать изображения еды",
@@ -254,8 +254,8 @@
       "exit": "Выйти",
       "save": "Сохранить",
       "invalid-credentials": "Неверные учётные данные",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "Неправильный API-ключ",
+      "export-success": "База данных экспортирована",
       "export-fail": "Экспорт не удался",
       "import": "Импорт",
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
@@ -285,6 +285,6 @@
     "hebrew": "Иврит",
     "finnish": "Финский",
     "spanish": "Испанский",
-    "dutch": "Dutch"
+    "dutch": "Голландский"
   }
 }
