@@ -91,7 +91,7 @@
     "gray": "Grau",
     "yellow": "Gelb",
     "purple": "Lila",
-    "eink": "E-ink",
+    "eink": "E-Ink",
     "camino": "Camino"
   },
   "statistics": {
@@ -155,7 +155,7 @@
     "edit-food": "Lebensmittel bearbeiten",
     "edit-meal": "Mahlzeit-Eintrag bearbeiten",
     "edit-recipe": "Rezept-Eintrag bearbeiten",
-    "required-field-message": "Please fill out this field."
+    "required-field-message": "Bitte fülle dieses Feld aus."
   },
   "goals": {
     "title": "Ziele"
@@ -179,9 +179,9 @@
     "title": "Einstellungen",
     "needs-restart": "Starte die App neu, um die Änderungen anzuwenden.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Darstellung",
       "dark": "Dunkelmodus",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Farb-Thema",
       "animations": "UI Animationen deaktivieren",
       "start-page": "Startseite",
       "language": "Bevorzugte Sprache"
@@ -201,11 +201,11 @@
       "categories": "Kategorien",
       "timestamps": "Zeitstempel anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
       "show-units": "Nährstoffeinheiten anzeigen"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Nährstoffe"
     },
     "diary-categories": {
       "title": "Kategorien",
@@ -213,7 +213,7 @@
     },
     "foods": {
       "title": "Lebensmittel, Mahlzeiten, Rezepte",
-      "sort": "Sort Foods",
+      "sort": "Lebensmittel sortieren",
       "sort-date": "Zuletzt verwendet",
       "sort-alpha": "Alphabetisch",
       "images": "Lebensmittelbilder anzeigen",
@@ -254,8 +254,8 @@
       "exit": "Zurück",
       "save": "Speichern",
       "invalid-credentials": "Ungültige Anmeldeinformationen",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "API-Schlüssel ungültig",
+      "export-success": "Datenbank wurde exportiert",
       "export-fail": "Fehler beim Export",
       "import": "Importieren",
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
@@ -285,6 +285,6 @@
     "hebrew": "Hebräisch",
     "finnish": "Finnisch",
     "spanish": "Spanisch",
-    "dutch": "Dutch"
+    "dutch": "Niederländisch"
   }
 }
