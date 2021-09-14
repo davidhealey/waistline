@@ -1,8 +1,6 @@
 {
   "nutriments": {
-    "calorie": "Калории",
     "calories": "Калории",
-    "kilojoule": "Килоджоуль",
     "kilojoules": "Килоджоулей",
     "proteins": "Белок",
     "carbohydrates": "Углеводы",
@@ -92,7 +90,9 @@
     "orange": "Оранжевый",
     "gray": "Серый",
     "yellow": "Жёлтый",
-    "purple": "Фиолетовый"
+    "purple": "Фиолетовый",
+    "eink": "E-ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Статистика",
@@ -154,7 +154,8 @@
     "traces": "Следы",
     "edit-food": "Редактировать еду",
     "edit-meal": "Редактировать блюдо",
-    "edit-recipe": "Редактировать рецепт"
+    "edit-recipe": "Редактировать рецепт",
+    "required-field-message": "Please fill out this field."
   },
   "goals": {
     "title": "Цели"
@@ -177,9 +178,10 @@
   "settings": {
     "title": "Настройки",
     "needs-restart": "Перезапустите приложение, чтобы применить изменения.",
-    "theme": {
-      "title": "Тема",
+    "appearance": {
+      "title": "Appearance",
       "dark": "Тёмный режим",
+      "colour-theme": "Colour Theme",
       "animations": "Отключить анимацию интерфейса",
       "start-page": "Начальная страница",
       "language": "Предпочитаемый язык"
@@ -199,8 +201,11 @@
       "categories": "Категории",
       "timestamps": "Показать метки времени",
       "thumbnails": "Показывать миниатюры",
-      "wifi-thumbnails": "Показывать миниатюры только через Wi-Fi",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "show-units": "Показать единицы питания"
+    },
+    "nutriments": {
+      "title": "Nutriments"
     },
     "diary-categories": {
       "title": "Категории",
@@ -208,7 +213,7 @@
     },
     "foods": {
       "title": "Еда, Блюда, Рецепты",
-      "sort": "Сортировка еды",
+      "sort": "Sort Foods",
       "sort-date": "По последнему использованию",
       "sort-alpha": "В алфавитном порядке",
       "images": "Показать изображения еды",
@@ -216,7 +221,7 @@
       "show-notes": "Показать заметки о еде"
     },
     "statistics": {
-      "title": "Настройки статистики",
+      "title": "Статистика",
       "y-zero": "Начало оси Y на нулевом уровне",
       "average-line": "Показать линию среднего значения",
       "goal-line": "Показать линию цели"
@@ -237,6 +242,7 @@
       "usda-title": "МИНИСТЕРСТВО СЕЛЬСКОГО ХОЗЯЙСТВА США",
       "usda": "Включить поиск МСХ США",
       "usda-login-title": "МСХ США",
+      "usda-api": "USDA API",
       "usda-api-key": "API ключ МСХ США",
       "usda-click-here": "Нажмите здесь",
       "usda-note-0": "Необходимо ввести ваш персональный API ключ для поиска продуктов в базе данных МСХ США.",
@@ -248,7 +254,8 @@
       "exit": "Выйти",
       "save": "Сохранить",
       "invalid-credentials": "Неверные учётные данные",
-      "export-success": "База данных экспортирована",
+      "invalid-api-key": "API Key Invalid",
+      "export-success": "Database Exported",
       "export-fail": "Экспорт не удался",
       "import": "Импорт",
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
@@ -277,6 +284,7 @@
     "bulgarian": "Болгарский",
     "hebrew": "Иврит",
     "finnish": "Финский",
-    "spanish": "Испанский"
+    "spanish": "Испанский",
+    "dutch": "Dutch"
   }
 }
