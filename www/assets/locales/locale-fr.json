@@ -91,7 +91,7 @@
     "gray": "Gris",
     "yellow": "Jaune",
     "purple": "Violet",
-    "eink": "E-ink",
+    "eink": "Encre électronique",
     "camino": "Camino"
   },
   "statistics": {
@@ -155,7 +155,7 @@
     "edit-food": "Modifier aliment",
     "edit-meal": "Modifier Repas",
     "edit-recipe": "Modifier Recette",
-    "required-field-message": "Please fill out this field."
+    "required-field-message": "Veuillez remplir ce champ."
   },
   "goals": {
     "title": "Objectifs"
@@ -179,9 +179,9 @@
     "title": "Paramètres",
     "needs-restart": "Redémarrer l’application pour appliquer les changements.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Apparence",
       "dark": "Mode sombre",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Thème de couleur",
       "animations": "Désactiver les animations",
       "start-page": "Page d’accueil",
       "language": "Langage préféré"
@@ -201,7 +201,7 @@
       "categories": "Catégories",
       "timestamps": "Afficher les dates",
       "thumbnails": "Afficher les vignettes",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
       "show-units": "Afficher les unités nutritionnelles"
     },
     "nutriments": {
@@ -213,7 +213,7 @@
     },
     "foods": {
       "title": "Aliments, Repas, Recettes",
-      "sort": "Sort Foods",
+      "sort": "Trier les aliments",
       "sort-date": "Dernière utilisation",
       "sort-alpha": "Ordre alphabétique",
       "images": "Afficher les images des aliments",
@@ -242,7 +242,7 @@
       "usda-title": "Département d’Agriculture des États-Unis d’Amérique (USDA)",
       "usda": "Activer la recherche USDA",
       "usda-login-title": "USDA",
-      "usda-api": "USDA API",
+      "usda-api": "API USDA",
       "usda-api-key": "Clé API USDA",
       "usda-click-here": "Cliquer ici",
       "usda-note-0": "Une clé API personnelle est nécessaire pour accéder aux données USDA.",
@@ -254,8 +254,8 @@
       "exit": "Quitter",
       "save": "Sauvegarder",
       "invalid-credentials": "Identifiants erronés",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "Clé API invalide",
+      "export-success": "Données expportées",
       "export-fail": "Erreur d’exportation",
       "import": "Importation",
       "confirm-import": "Cette opération écrasera la base de données actuelle, continuer ?",
@@ -285,6 +285,6 @@
     "hebrew": "Hébreu",
     "finnish": "Finnois",
     "spanish": "Espagnol",
-    "dutch": "Dutch"
+    "dutch": "Néerlandais"
   }
 }
