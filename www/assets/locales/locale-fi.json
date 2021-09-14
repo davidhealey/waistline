@@ -155,7 +155,7 @@
     "edit-food": "Muokkaa ruokaa",
     "edit-meal": "Muokkaa ateriaa",
     "edit-recipe": "Muokkaa reseptiä",
-    "required-field-message": "Please fill out this field."
+    "required-field-message": "Täytä tämä kenttä."
   },
   "goals": {
     "title": "Tavoitteet"
@@ -179,9 +179,9 @@
     "title": "Asetukset",
     "needs-restart": "Käynnistä sovellus uudelleen, jotta muutokset voidaan ottaa käyttöön.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Ulkoasu",
       "dark": "Tumma teema",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Väriteema",
       "animations": "Poista käyttöliittymän animaatiot käytöstä",
       "start-page": "Aloitussivu",
       "language": "Ensisijainen kieli"
@@ -201,11 +201,11 @@
       "categories": "Kategoriat",
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä tuotekuvat",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
       "show-units": "Näytä ravintoyksiköt"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Ravinteet"
     },
     "diary-categories": {
       "title": "Kategoriat",
@@ -213,7 +213,7 @@
     },
     "foods": {
       "title": "Ruoat, Ateriat, Reseptit",
-      "sort": "Sort Foods",
+      "sort": "Järjestä ruoat",
       "sort-date": "Viimeksi käytetty",
       "sort-alpha": "Aakkosellinen",
       "images": "Näytä ruokakuvat",
@@ -254,8 +254,8 @@
       "exit": "Poistu",
       "save": "Tallenna",
       "invalid-credentials": "Virheelliset kirjautumistiedot",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "API-avain on virheellinen",
+      "export-success": "Tietokanta viety",
       "export-fail": "Vienti epäonnistui",
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
@@ -285,6 +285,6 @@
     "hebrew": "Hebrea",
     "finnish": "Suomi",
     "spanish": "Espanja",
-    "dutch": "Dutch"
+    "dutch": "Hollanti"
   }
 }
