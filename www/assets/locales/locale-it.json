@@ -179,9 +179,9 @@
     "title": "Impostazioni",
     "needs-restart": "Riavvia l' applicazione per applicare le modifiche.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Aspetto",
       "dark": "Modalità dark",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Colore del tema",
       "animations": "Disabilita le animazioni dell' interfaccia",
       "start-page": "Inizio pagina",
       "language": "Lingua Preferita"
@@ -201,11 +201,11 @@
       "categories": "Categorie",
       "timestamps": "Mostra i marcatori temporali",
       "thumbnails": "Mostra le anteprime",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Mostra solo le miniature su Wi-Fi",
       "show-units": "Mostra le unità nutrizionali"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Nutrimenti"
     },
     "diary-categories": {
       "title": "Categorie",
@@ -213,7 +213,7 @@
     },
     "foods": {
       "title": "Cibi, Pasti, Ricette",
-      "sort": "Sort Foods",
+      "sort": "Ordina Alimenti",
       "sort-date": "Ultimo utilizzato",
       "sort-alpha": "Alfabetico",
       "images": "Mostra l' immagine dei cibi",
@@ -254,8 +254,8 @@
       "exit": "Esci",
       "save": "Salva",
       "invalid-credentials": "Credenziali non valide",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "Chiave API non valida",
+      "export-success": "Database esportato",
       "export-fail": "Esportazione fallita",
       "import": "Importa",
       "confirm-import": "Sei sicuro? Questo sovrascriverà il database corrente.",
@@ -285,6 +285,6 @@
     "hebrew": "Ebraico",
     "finnish": "Finlandese",
     "spanish": "Spagnolo",
-    "dutch": "Dutch"
+    "dutch": "Olandese"
   }
 }
