@@ -350,7 +350,7 @@ app.FoodEditor = {
         let url = "https://world.openfoodfacts.org/product/" + item.barcode;
         if (!app.FoodEditor.el.barcode.hasClickEvent) {
           app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
-            window.open(url, '_system');
+            cordova.InAppBrowser.open(url, '_system');
             return false;
           });
           app.FoodEditor.el.barcode.hasClickEvent = true;
