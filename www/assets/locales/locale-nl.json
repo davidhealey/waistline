@@ -15,31 +15,31 @@
     "omega-3-fat": "Omega 3-vetzuren",
     "cholesterol": "cholesterol",
     "sodium": "sodium",
-    "vitamin-a": "vitamin A",
-    "vitamin-d": "vitamin D",
-    "vitamin-e": "vitamin E",
-    "vitamin-k": "vitamin K",
-    "vitamin-c": "vitamin C",
-    "vitamin-b1": "vitamin B1",
-    "vitamin-b2": "vitamin B2",
-    "vitamin-pp": "vitamin B3",
-    "pantothenic-acid": "vitamin B5",
-    "vitamin-b6": "vitamin B6",
-    "biotin": "vitamin B7",
-    "vitamin-b9": "vitamin B9",
-    "vitamin-b12": "vitamin B12",
+    "vitamin-a": "vitamine A",
+    "vitamin-d": "vitamine D",
+    "vitamin-e": "vitamine E",
+    "vitamin-k": "vitamine K",
+    "vitamin-c": "vitamine C",
+    "vitamin-b1": "vitamine B1",
+    "vitamin-b2": "vitamine B2",
+    "vitamin-pp": "vitamine B3",
+    "pantothenic-acid": "vitamine B5",
+    "vitamin-b6": "vitamine B6",
+    "biotin": "vitamine B7",
+    "vitamin-b9": "vitamine B9",
+    "vitamin-b12": "vitamine B12",
     "potassium": "potassium",
     "chloride": "chloride",
     "calcium": "calcium",
-    "phosphorus": "phosphorus",
+    "phosphorus": "fosfor",
     "iron": "ijzer",
     "magnesium": "magnesium",
     "zinc": "zink",
-    "copper": "copper",
-    "manganese": "manganese",
+    "copper": "koper",
+    "manganese": "mangaan",
     "fluoride": "fluoride",
     "selenium": "selenium",
-    "iodine": "iodine",
+    "iodine": "jodium",
     "caffeine": "caffeïne",
     "alcohol": "alcohol",
     "sucrose": "sucrose",
@@ -100,7 +100,7 @@
     "gray": "Grijs",
     "yellow": "Geel",
     "purple": "Paars",
-    "eink": "E-ink",
+    "eink": "E-inkt",
     "camino": "Camino"
   },
   "statistics": {
@@ -118,17 +118,17 @@
     "waist": "Taille",
     "hips": "Heupen",
     "body fat": "Lichaamsvet",
-    "average": "Average"
+    "average": "Gemiddelde"
   },
   "diary": {
     "title": "Dagboek",
     "quick-add": "Snel toevoegen",
     "log-title": "Huidige gegevens",
-    "no-data": "No Data",
+    "no-data": "Geen gegevens",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
-      "dinner": "Dinner",
+      "breakfast": "Ontbijt",
+      "lunch": "Middageten",
+      "dinner": "Avondeten",
       "snacks": "Snacks"
     }
   },
@@ -143,7 +143,7 @@
     "recipes": "Recepten",
     "selected": "Geselecteerd",
     "search": "Zoeken",
-    "scan-prompt": "Place a barcode inside the scan area"
+    "scan-prompt": "Plaats een streepjescode in het scangebied"
   },
   "food-editor": {
     "edit-item": "Bewerk opvoer",
@@ -164,7 +164,7 @@
     "edit-food": "Bewerk voeding",
     "edit-meal": "Bewerk maaltijd",
     "edit-recipe": "Bewerk recept",
-    "required-field-message": "Please fill out this field."
+    "required-field-message": "Vul alsjeblieft dit veld in."
   },
   "goals": {
     "title": "Doelen"
@@ -172,7 +172,7 @@
   "goal-editor": {
     "title": "Doel stellen",
     "show-in-diary": "Toon in dagboek",
-    "show-in-stats": "Show in Statistics",
+    "show-in-stats": "Toon in statistieken",
     "shared-goal": "Dagelijks doel",
     "minimum-goal": "Is minimumdoel"
   },
@@ -188,9 +188,9 @@
     "title": "Instellingen",
     "needs-restart": "Herstart app om wijzigingen door te voeren.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Weergave",
       "dark": "Donkere modus",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Kleurenthema",
       "animations": "UI-animaties uitschakelen",
       "start-page": "Startpagina",
       "language": "Voorkeurstaal"
@@ -210,11 +210,11 @@
       "categories": "Categorieën",
       "timestamps": "Toon tijdstempel",
       "thumbnails": "Toon voorvertoning",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
       "show-units": "Toon voedingswaarde-eenheden"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Voedingsstoffen"
     },
     "diary-categories": {
       "title": "Categorieën",
@@ -222,40 +222,40 @@
     },
     "foods": {
       "title": "Voedsel, maaltijden, recepten",
-      "sort": "Sort Foods",
-      "sort-date": "By last used",
-      "sort-alpha": "Alphabetically",
+      "sort": "Sorteer voedsel",
+      "sort-date": "Op laatst gebruikt",
+      "sort-alpha": "Alfabetisch",
       "images": "Toon voedselfafbeeldingen",
       "wifi-images": "Toon afbeeldingen enkel over Wi-Fi",
-      "show-notes": "Show Food Notes"
+      "show-notes": "Toon voedselnotities"
     },
     "statistics": {
       "title": "Statistieken",
-      "y-zero": "Begin Y Axis at Zero",
-      "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "y-zero": "Begin Y-as op nul",
+      "average-line": "Toon gemiddeldelijn",
+      "goal-line": "Toon doellijn"
     },
     "import-export": {
       "title": "Importeren/exporten",
       "backup": "Backup database",
       "import": "Importeer uit backup",
-      "auto-backup": "Automatic Backup"
+      "auto-backup": "Automatische backup"
     },
     "integration": {
       "title": "Integratie",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts-account",
       "country": "Zoek land",
-      "upload-country": "Upload Country",
-      "language": "Preferred Search Language",
+      "upload-country": "Upload land",
+      "language": "Voorkeurszoektaal",
       "usda-title": "VS Ministerie van Landbouw (USDA)",
       "usda": "USDA-zoeken inschakelen",
       "usda-login-title": "USDA",
-      "usda-api": "USDA API",
+      "usda-api": "USDA-API",
       "usda-api-key": "USDA API-sleutel",
-      "usda-click-here": "Click here",
+      "usda-click-here": "Klik hier",
       "usda-note-0": "Je moet je persoonlijke API-sleutel opvoeren om in de USDA-database te kunnen zoeken.",
-      "usda-note-1": "to request a free API Key.",
+      "usda-note-1": "om een persoonlijke API-sleutel aan te vragen.",
       "username": "Geruikersnaam",
       "password": "Wachtwoord",
       "off-account-note": "Dit is volledig optioneel. Je hebt geen OFF-account nodig om de app te gebruiken.",
@@ -263,24 +263,24 @@
       "exit": "Verlaten",
       "save": "Opslaan",
       "invalid-credentials": "Ongeldige inloggegevens",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "API-sleutel is ongeldig",
+      "export-success": "Database geëxporteerd",
       "export-fail": "Export mislukt",
-      "import": "Import",
-      "confirm-import": "Are you sure? This will overwrite your current database.",
-      "import-success-title": "The backup has been restored",
-      "import-success-message": "Import Complete",
-      "barcode-sound": "Barcode Scan Beep",
-      "edit-images": "Edit Images Before Upload",
-      "login-success": "Login Successful"
+      "import": "Importeren",
+      "confirm-import": "Weet je het zeker? Dit overschrijft je huidige database.",
+      "import-success-title": "De backup is hersteld",
+      "import-success-message": "Import afgerond",
+      "barcode-sound": "Geluid bij het scannen",
+      "edit-images": "Bewerk foto's voor het uploaden",
+      "login-success": "Login succesvol"
     }
   },
   "about": {
     "title": "Over",
     "p0": "Waistline is ontwikkeld door David Healey met suggesties en bijdragen van gebruikers.",
     "p1": "Waistline gebouwd met Cordova en is beschikbaar gesteld via de Apache-licentie. Ook meegeleverd zijn Framework7, jQuery, jQuery localize, en ChartJS, beschikbaar gesteld via de MIT-licentie. De HTML, CSS en overige javascript die de app opmaken zijn beschikbaar gesteld via de GPLv3-licentie.",
-    "p2": "The source code for Waistline can be found at",
-    "p3": "Current version:"
+    "p2": "De broncode van Waistline is beschikbaar op github.com/davidhealey/waistline.",
+    "p3": "Huidige versie:"
   },
   "locale": {
     "auto": "Automatisch detecteren",
@@ -294,7 +294,7 @@
     "bulgarian": "Bulgaars",
     "hebrew": "Hebreeuws",
     "finnish": "Fins",
-    "spanish": "Spanish",
-    "dutch": "Dutch"
+    "spanish": "Spaans",
+    "dutch": "Nederlands"
   }
 }
