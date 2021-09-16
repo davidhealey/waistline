@@ -337,7 +337,7 @@ document.addEventListener('deviceready', async function() {
     app.Settings.firstTimeSetup();
     app.f7.views.main.router.navigate("/settings/");
   } else {
-    settings = app.Settings.migrateThemeSettings(settings);
+    settings = app.Settings.migrateSettings(settings);
     app.Settings.changeTheme(settings.appearance["dark-mode"], settings.appearance.theme);
     app.f7.views.main.router.navigate(settings.appearance["start-page"]);
   }

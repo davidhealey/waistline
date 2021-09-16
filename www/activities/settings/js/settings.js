@@ -304,7 +304,7 @@ app.Settings = {
       await dbHandler.import(data);
 
       if (data.settings) {
-        let settings = app.Settings.migrateThemeSettings(data.settings);
+        let settings = app.Settings.migrateSettings(data.settings);
         window.localStorage.setItem("settings", JSON.stringify(settings));
         this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
       }
@@ -433,12 +433,26 @@ app.Settings = {
     window.localStorage.setItem("settings", JSON.stringify(defaults));
   },
 
-  migrateThemeSettings: function(settings) {
-    if (settings != undefined && settings.theme !== undefined) {
+  migrateSettings: function(settings) {
+    var changed = false;
+
+    // Theme settings must be renamed to Appearance
+    if (settings != undefined && settings.theme !== undefined && settings.appearance === undefined) {
       settings.appearance = settings.theme;
       delete settings.theme;
-      window.localStorage.setItem("settings", JSON.stringify(settings));
+      changed = true;
     }
+
+    // New nutriments must be added
+    const newNutriments = ["vitamin-pp", "pantothenic-acid", "biotin", "phosphorus", "copper", "manganese", "fluoride", "selenium", "iodine"];
+    if (settings != undefined && settings.nutriments !== undefined && settings.nutriments.order !== undefined && !settings.nutriments.order.includes(newNutriments[0])) {
+      settings.nutriments.order = settings.nutriments.order.concat(newNutriments);
+      changed = true;
+    }
+
+    if (changed)
+      window.localStorage.setItem("settings", JSON.stringify(settings));
+
     return settings;
   }
 };
