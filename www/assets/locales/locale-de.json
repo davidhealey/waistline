@@ -1,23 +1,20 @@
 {
   "nutriments": {
-    "calorie": "Kalorien",
     "calories": "Kalorien",
-    "kilojoule": "Kilojoule",
     "kilojoules": "Kilojoule",
-    "proteins": "Proteine",
-    "carbohydrates": "Kohlenhydrate",
     "fat": "Fett",
     "saturated-fat": "gesättigte Fettsäuren",
+    "carbohydrates": "Kohlenhydrate",
+    "sugars": "Zucker",
+    "fiber": "Ballaststoffe",
+    "proteins": "Proteine",
+    "salt": "Salz",
     "monounsaturated-fat": "einfach ungesättigte Fettsäuren",
     "polyunsaturated-fat": "mehrfach ungesättigte Fettsäuren",
     "trans-fat": "Transfette",
     "omega-3-fat": "Omega 3 Fettsäuren",
     "cholesterol": "Cholesterin",
-    "sugars": "Zucker",
-    "fiber": "Ballaststoffe",
     "sodium": "Natrium",
-    "salt": "Salz",
-    "potassium": "Kalium",
     "vitamin-a": "Vitamin A",
     "vitamin-d": "Vitamin D",
     "vitamin-e": "Vitamin E",
@@ -25,14 +22,24 @@
     "vitamin-c": "Vitamin C",
     "vitamin-b1": "Vitamin B1",
     "vitamin-b2": "Vitamin B2",
+    "vitamin-pp": "Vitamin B3",
+    "pantothenic-acid": "Pantothensäure",
     "vitamin-b6": "Vitamin B6",
+    "biotin": "Biotin",
     "vitamin-b9": "Vitamin B9",
     "vitamin-b12": "Vitamin B12",
+    "potassium": "Kalium",
     "chloride": "Chlorid",
     "calcium": "Kalzium",
+    "phosphorus": "Phosphor",
     "iron": "Eisen",
     "magnesium": "Magnesium",
     "zinc": "Zink",
+    "copper": "Kupfer",
+    "manganese": "Mangan",
+    "fluoride": "Fluorid",
+    "selenium": "Selen",
+    "iodine": "Jod",
     "caffeine": "Koffein",
     "alcohol": "Alkohol",
     "sucrose": "Saccharose",
@@ -92,7 +99,9 @@
     "orange": "Orange",
     "gray": "Grau",
     "yellow": "Gelb",
-    "purple": "Lila"
+    "purple": "Lila",
+    "eink": "E-Ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Statistik",
@@ -114,7 +123,7 @@
   "diary": {
     "title": "Tagebuch",
     "quick-add": "Schnelles Hinzufügen",
-    "log-title": "Heutige Statistik",
+    "log-title": "Heutige Werte",
     "no-data": "Keine Daten",
     "default-meals": {
       "breakfast": "Frühstück",
@@ -154,7 +163,8 @@
     "traces": "Spuren",
     "edit-food": "Lebensmittel bearbeiten",
     "edit-meal": "Mahlzeit-Eintrag bearbeiten",
-    "edit-recipe": "Rezept-Eintrag bearbeiten"
+    "edit-recipe": "Rezept-Eintrag bearbeiten",
+    "required-field-message": "Bitte fülle dieses Feld aus."
   },
   "goals": {
     "title": "Ziele"
@@ -177,9 +187,10 @@
   "settings": {
     "title": "Einstellungen",
     "needs-restart": "Starte die App neu, um die Änderungen anzuwenden.",
-    "theme": {
-      "title": "Thema",
+    "appearance": {
+      "title": "Darstellung",
       "dark": "Dunkelmodus",
+      "colour-theme": "Farb-Thema",
       "animations": "UI Animationen deaktivieren",
       "start-page": "Startseite",
       "language": "Bevorzugte Sprache"
@@ -201,6 +212,9 @@
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
       "show-units": "Nährstoffeinheiten anzeigen"
+    },
+    "nutriments": {
+      "title": "Nährstoffe"
     },
     "diary-categories": {
       "title": "Kategorien",
@@ -237,6 +251,7 @@
       "usda-title": "U.S. Landwirtschaftsministerium",
       "usda": "USDA Suche aktivieren",
       "usda-login-title": "USDA",
+      "usda-api": "USDA API",
       "usda-api-key": "USDA API-Schlüssel",
       "usda-click-here": "Hier",
       "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
@@ -248,6 +263,7 @@
       "exit": "Zurück",
       "save": "Speichern",
       "invalid-credentials": "Ungültige Anmeldeinformationen",
+      "invalid-api-key": "API-Schlüssel ungültig",
       "export-success": "Datenbank wurde exportiert",
       "export-fail": "Fehler beim Export",
       "import": "Importieren",
@@ -263,7 +279,8 @@
     "title": "Über",
     "p0": "Waistline wurde von David Healey entwickelt und von verschiedenen GitHub-Nutzern durch Vorschläge und Anpassungen unterstützt.",
     "p1": "Waistline wurde mit dem Cordova Framework und OnsenUI erstellt, was unter der Apache Lizenz verfügbar ist. Ebenfalls verwendet wurden jQuery, jQuery localize und ChartJS, welche unter der MIT Lizenz stehen. HTML, CSS und JavaScript, die das Hauptgerüst der App bilden, gehören zur GPLv3 Lizenz.",
-    "p2": "Den Quellcode von Waistline findest du unter: github.com/davidhealey/waistline."
+    "p2": "Den Quellcode von Waistline findest du unter",
+    "p3": "Aktuelle Version:"
   },
   "locale": {
     "auto": "Automatisch erkennen",
@@ -277,6 +294,7 @@
     "bulgarian": "Bulgarisch",
     "hebrew": "Hebräisch",
     "finnish": "Finnisch",
-    "spanish": "Spanisch"
+    "spanish": "Spanisch",
+    "dutch": "Niederländisch"
   }
 }

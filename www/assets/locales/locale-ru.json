@@ -1,38 +1,45 @@
 {
   "nutriments": {
-    "calorie": "Калории",
     "calories": "Калории",
-    "kilojoule": "Килоджоуль",
     "kilojoules": "Килоджоулей",
-    "proteins": "Белок",
-    "carbohydrates": "Углеводы",
     "fat": "Жиры",
     "saturated-fat": "Насыщенные жиры",
+    "carbohydrates": "Углеводы",
+    "sugars": "Сахар",
+    "fiber": "Клетчатка",
+    "proteins": "Белок",
+    "salt": "Соль",
     "monounsaturated-fat": "Мононенасыщенные жиры",
     "polyunsaturated-fat": "Полиненасыщенные жиры",
     "trans-fat": "Трансжиры",
     "omega-3-fat": "Омега-3 жиры",
     "cholesterol": "Холестерин",
-    "sugars": "Сахар",
-    "fiber": "Клетчатка",
     "sodium": "Натрий",
-    "salt": "Соль",
+    "vitamin-a": "витамин А",
+    "vitamin-d": "витамин D",
+    "vitamin-e": "витамин Е",
+    "vitamin-k": "витамин K",
+    "vitamin-c": "витамин C",
+    "vitamin-b1": "витамин B1",
+    "vitamin-b2": "витамин В2",
+    "vitamin-pp": "витамин B3",
+    "pantothenic-acid": "витамин B5",
+    "vitamin-b6": "витамин B6",
+    "biotin": "витамин B7",
+    "vitamin-b9": "витамин B9",
+    "vitamin-b12": "витамин В12",
     "potassium": "Калий",
-    "vitamin-a": "Витамин A",
-    "vitamin-d": "Витамин D",
-    "vitamin-e": "Витамин E",
-    "vitamin-k": "Витамин K",
-    "vitamin-c": "Витамин C",
-    "vitamin-b1": "Витамин B1",
-    "vitamin-b2": "Витамин B2",
-    "vitamin-b6": "Витамин B6",
-    "vitamin-b9": "Витамин B9",
-    "vitamin-b12": "Витамин B12",
-    "chloride": "Хлорид",
+    "chloride": "хлорид",
     "calcium": "Кальций",
+    "phosphorus": "фосфор",
     "iron": "Железо",
     "magnesium": "Магний",
     "zinc": "Цинк",
+    "copper": "медь",
+    "manganese": "марганец",
+    "fluoride": "фторид",
+    "selenium": "селен",
+    "iodine": "йод",
     "caffeine": "Кофеин",
     "alcohol": "Алкоголь",
     "sucrose": "Сахароза",
@@ -92,7 +99,9 @@
     "orange": "Оранжевый",
     "gray": "Серый",
     "yellow": "Жёлтый",
-    "purple": "Фиолетовый"
+    "purple": "Фиолетовый",
+    "eink": "Электронные чернила",
+    "camino": "Камино"
   },
   "statistics": {
     "title": "Статистика",
@@ -134,7 +143,7 @@
     "recipes": "Рецепты",
     "selected": "Выбрано",
     "search": "Поиск",
-    "scan-prompt": "Place a barcode inside the scan area"
+    "scan-prompt": "Поместите штрих-код в область сканирования"
   },
   "food-editor": {
     "edit-item": "Редактировать элемент",
@@ -154,7 +163,8 @@
     "traces": "Следы",
     "edit-food": "Редактировать еду",
     "edit-meal": "Редактировать блюдо",
-    "edit-recipe": "Редактировать рецепт"
+    "edit-recipe": "Редактировать рецепт",
+    "required-field-message": "Пожалуйста, заполните это поле."
   },
   "goals": {
     "title": "Цели"
@@ -177,9 +187,10 @@
   "settings": {
     "title": "Настройки",
     "needs-restart": "Перезапустите приложение, чтобы применить изменения.",
-    "theme": {
-      "title": "Тема",
+    "appearance": {
+      "title": "Внешний вид",
       "dark": "Тёмный режим",
+      "colour-theme": "Цветовая схема",
       "animations": "Отключить анимацию интерфейса",
       "start-page": "Начальная страница",
       "language": "Предпочитаемый язык"
@@ -199,8 +210,11 @@
       "categories": "Категории",
       "timestamps": "Показать метки времени",
       "thumbnails": "Показывать миниатюры",
-      "wifi-thumbnails": "Показывать миниатюры только через Wi-Fi",
+      "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
       "show-units": "Показать единицы питания"
+    },
+    "nutriments": {
+      "title": "Питательные вещества"
     },
     "diary-categories": {
       "title": "Категории",
@@ -213,13 +227,13 @@
       "sort-alpha": "В алфавитном порядке",
       "images": "Показать изображения еды",
       "wifi-images": "Показывать изображения только через Wi-Fi",
-      "show-notes": "Show Food Notes"
+      "show-notes": "Показать заметки о еде"
     },
     "statistics": {
-      "title": "Statistics Settings",
-      "y-zero": "Begin Y Axis at Zero",
-      "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "title": "Статистика",
+      "y-zero": "Начало оси Y на нулевом уровне",
+      "average-line": "Показать линию среднего значения",
+      "goal-line": "Показать линию цели"
     },
     "import-export": {
       "title": "Импорт/Экспорт",
@@ -237,6 +251,7 @@
       "usda-title": "МИНИСТЕРСТВО СЕЛЬСКОГО ХОЗЯЙСТВА США",
       "usda": "Включить поиск МСХ США",
       "usda-login-title": "МСХ США",
+      "usda-api": "USDA API",
       "usda-api-key": "API ключ МСХ США",
       "usda-click-here": "Нажмите здесь",
       "usda-note-0": "Необходимо ввести ваш персональный API ключ для поиска продуктов в базе данных МСХ США.",
@@ -248,6 +263,7 @@
       "exit": "Выйти",
       "save": "Сохранить",
       "invalid-credentials": "Неверные учётные данные",
+      "invalid-api-key": "Неправильный API-ключ",
       "export-success": "База данных экспортирована",
       "export-fail": "Экспорт не удался",
       "import": "Импорт",
@@ -256,14 +272,15 @@
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
       "edit-images": "Изменить изображения перед загрузкой",
-      "login-success": "Login Successful"
+      "login-success": "Вход выполнен"
     }
   },
   "about": {
     "title": "О программе",
     "p0": "Waistline был создан David Healey с предложениями и вкладами пользователей.",
     "p1": "Waistline был собран с использованием фреймворка Cordova и OnsenUI, которые доступны по лицензии Apache. Также включены jQuery, jQuery localize и ChartJS, которые находятся под лицензией MIT. HTML, CSS и JavaScript, составляющие основную часть приложения, находятся под лицензией GPLv3.",
-    "p2": "Исходный код Waistline можно найти на github.com/davidhealey/waistline."
+    "p2": "Исходный код Waistline можно найти на",
+    "p3": "Текущая версия:"
   },
   "locale": {
     "auto": "Определять автоматически",
@@ -277,6 +294,7 @@
     "bulgarian": "Болгарский",
     "hebrew": "Иврит",
     "finnish": "Финский",
-    "spanish": "Испанский"
+    "spanish": "Испанский",
+    "dutch": "Голландский"
   }
 }

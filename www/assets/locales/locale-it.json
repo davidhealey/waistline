@@ -1,23 +1,20 @@
 {
   "nutriments": {
-    "calorie": "Calorie",
     "calories": "Calorie",
-    "kilojoule": "Kilojoule",
     "kilojoules": "Kilojoules",
-    "proteins": "proteine",
-    "carbohydrates": "carboidrati",
     "fat": "grassi",
     "saturated-fat": "grassi saturi",
+    "carbohydrates": "carboidrati",
+    "sugars": "zuccheri",
+    "fiber": "fibre",
+    "proteins": "proteine",
+    "salt": "sale",
     "monounsaturated-fat": "grassi monosaturi",
     "polyunsaturated-fat": "grassi polisaturi",
     "trans-fat": "grassi idrogenati",
     "omega-3-fat": "grassi omega 3",
     "cholesterol": "colesterolo",
-    "sugars": "zuccheri",
-    "fiber": "fibre",
     "sodium": "sodio",
-    "salt": "sale",
-    "potassium": "potassio",
     "vitamin-a": "vitamina A",
     "vitamin-d": "vitamina D",
     "vitamin-e": "vitamina E",
@@ -25,14 +22,24 @@
     "vitamin-c": "vitamina C",
     "vitamin-b1": "vitamina B1",
     "vitamin-b2": "vitamina B2",
+    "vitamin-pp": "vitamina B3",
+    "pantothenic-acid": "vitamina B5",
     "vitamin-b6": "vitamina B6",
+    "biotin": "vitamina B7",
     "vitamin-b9": "vitamina B9",
     "vitamin-b12": "vitamina B12",
+    "potassium": "potassio",
     "chloride": "cloruro",
     "calcium": "calcio",
+    "phosphorus": "fosforo",
     "iron": "ferro",
     "magnesium": "magnesio",
     "zinc": "zinco",
+    "copper": "rame",
+    "manganese": "manganese",
+    "fluoride": "fluoruro",
+    "selenium": "selenio",
+    "iodine": "iodio",
     "caffeine": "caffeina",
     "alcohol": "alcool",
     "sucrose": "saccarosio",
@@ -92,7 +99,9 @@
     "orange": "Arancione",
     "gray": "Grigio",
     "yellow": "Giallo",
-    "purple": "Viola"
+    "purple": "Viola",
+    "eink": "E-ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Statistiche",
@@ -154,7 +163,8 @@
     "traces": "Tracce",
     "edit-food": "Modifica cibo",
     "edit-meal": "Modifica elemento del pasto",
-    "edit-recipe": "Modifica elemento della ricetta"
+    "edit-recipe": "Modifica elemento della ricetta",
+    "required-field-message": "Per favore, compila questo campo."
   },
   "goals": {
     "title": "Obiettivi"
@@ -177,9 +187,10 @@
   "settings": {
     "title": "Impostazioni",
     "needs-restart": "Riavvia l' applicazione per applicare le modifiche.",
-    "theme": {
-      "title": "Tema",
+    "appearance": {
+      "title": "Aspetto",
       "dark": "Modalità dark",
+      "colour-theme": "Colore del tema",
       "animations": "Disabilita le animazioni dell' interfaccia",
       "start-page": "Inizio pagina",
       "language": "Lingua Preferita"
@@ -199,8 +210,11 @@
       "categories": "Categorie",
       "timestamps": "Mostra i marcatori temporali",
       "thumbnails": "Mostra le anteprime",
-      "wifi-thumbnails": "Mostra le anteprime solo con il Wi-Fi",
+      "wifi-thumbnails": "Mostra solo le miniature su Wi-Fi",
       "show-units": "Mostra le unità nutrizionali"
+    },
+    "nutriments": {
+      "title": "Nutrimenti"
     },
     "diary-categories": {
       "title": "Categorie",
@@ -208,7 +222,7 @@
     },
     "foods": {
       "title": "Cibi, Pasti, Ricette",
-      "sort": "Ordina cibi",
+      "sort": "Ordina Alimenti",
       "sort-date": "Ultimo utilizzato",
       "sort-alpha": "Alfabetico",
       "images": "Mostra l' immagine dei cibi",
@@ -216,7 +230,7 @@
       "show-notes": "Mostra le note dei cibi"
     },
     "statistics": {
-      "title": "Impostazioni Statistiche",
+      "title": "Statistiche",
       "y-zero": "Inizia l'asse Y a Zero",
       "average-line": "Mostra media",
       "goal-line": "Mostra obiettivo"
@@ -237,6 +251,7 @@
       "usda-title": "U.S. DIPARTIMENTO DELL' AGRICOLTURA",
       "usda": "Attiva la ricerca USDA",
       "usda-login-title": "USDA",
+      "usda-api": "USDA API",
       "usda-api-key": "USDA API chiave",
       "usda-click-here": "Clicca qui",
       "usda-note-0": "Hai bisogno di inserire la tua chiave API personale per cercare nel database USDA.",
@@ -248,6 +263,7 @@
       "exit": "Esci",
       "save": "Salva",
       "invalid-credentials": "Credenziali non valide",
+      "invalid-api-key": "Chiave API non valida",
       "export-success": "Database esportato",
       "export-fail": "Esportazione fallita",
       "import": "Importa",
@@ -263,7 +279,8 @@
     "title": "Riguardo",
     "p0": "Waistline è stata creata da David Healey con i suggerimenti e i contributi degli utenti.",
     "p1": "Waistline è stata costruita utilizzando Cordova disponibile sotto la licenza Apache. L' applicazione include anche: Framework7, jQuery, jQuery localize, e ChartJS i quali sono sotto licenza MIT. L' HTML, CSS, e altro javascript che fanno parte del corpo principale dell' applicazione sono sotto la licenza GPLv3.",
-    "p2": "Il codice sorgente di Waistline è disponibile al link https://github.com/davidhealey/waistline ."
+    "p2": "Il codice sorgente di waistline può essere trovato a",
+    "p3": "Versione attuale:"
   },
   "locale": {
     "auto": "Rileva automaticamente",
@@ -277,6 +294,7 @@
     "bulgarian": "Bulgaro",
     "hebrew": "Ebraico",
     "finnish": "Finlandese",
-    "spanish": "Spagnolo"
+    "spanish": "Spagnolo",
+    "dutch": "Olandese"
   }
 }
