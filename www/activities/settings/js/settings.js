@@ -383,11 +383,15 @@ app.Settings = {
       foodlist: {
         "show-images": true,
         sort: "alpha",
+        "show-notes": false,
         "wifi-images": true
       },
       integration: {
+        "barcode-sound": false,
         "edit-images": false,
-        "search-country": "United Kingdom",
+        "search-country": "All",
+        "search-language": "Default",
+        "upload-country": "Auto",
         usda: false
       },
       appearance: {
