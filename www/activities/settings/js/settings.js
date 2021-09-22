@@ -17,6 +17,10 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// After a breaking change to the settings schema, increment this constant
+// and implement the migration in the migrateSettings() function below
+const currentSettingsSchemaVersion = 2;
+
 var s;
 app.Settings = {
 
@@ -148,7 +152,7 @@ app.Settings = {
     }
 
     // Dark mode
-    let darkMode = document.querySelector(".page[data-name='settings-theme'] #dark-mode");
+    let darkMode = document.querySelector(".page[data-name='settings-appearance'] #dark-mode");
 
     if (darkMode != undefined && !darkMode.hasClickEvent) {
       darkMode.addEventListener("click", (e) => {
@@ -158,13 +162,24 @@ app.Settings = {
     }
 
     // Theme
-    let themeSelect = document.querySelector(".page[data-name='settings-theme'] #theme");
+    let themeSelect = document.querySelector(".page[data-name='settings-appearance'] #theme");
 
     if (themeSelect != undefined && !themeSelect.hasChangeEvent) {
       themeSelect.addEventListener("change", (e) => {
         app.Settings.changeTheme(darkMode.checked, e.target.value);
       });
       themeSelect.hasChangeEvent = true;
+    }
+
+    // Preferred Language
+    let locale = document.querySelector(".page[data-name='settings-appearance'] #locale");
+
+    if (locale != undefined && !locale.hasChangeEvent) {
+      locale.addEventListener("change", (e) => {
+        let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
+        app.Utils.toast(msg);
+      });
+      locale.hasChangeEvent = true;
     }
 
     // Animations 
@@ -239,7 +254,7 @@ app.Settings = {
         this.put("integration", "off-username", username);
         this.put("integration", "off-password", password);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast("Login Successfull");
+        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
       } else {
         let msg = app.strings.settings.integration["invalid-credentials"] || "Invalid Credentials";
         app.Utils.toast(msg);
@@ -253,9 +268,9 @@ app.Settings = {
       if (key == "" || await app.USDA.testApiKey(key)) {
         this.put("integration", "usda-key", key);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast("Login Successfull");
+        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
       } else {
-        let msg = app.strings.settings.integration["invalid-credentials"] || "API Key Invalid";
+        let msg = app.strings.settings.integration["invalid-api-key"] || "API Key Invalid";
         app.Utils.toast(msg);
       }
     }
@@ -283,8 +298,8 @@ app.Settings = {
   },
 
   importDatabase: function() {
-    let title = app.strings.dialogs.import || "Import";
-    let msg = app.strings.dialogs["confirm-import"] || "Are you sure? This will overwrite your current database.";
+    let title = app.strings.settings.integration.import || "Import";
+    let msg = app.strings.settings.integration["confirm-import"] || "Are you sure? This will overwrite your current database.";
 
     let dialog = app.f7.dialog.confirm(msg, title, async () => {
       let filename = "waistline_export.json";
@@ -293,8 +308,9 @@ app.Settings = {
       await dbHandler.import(data);
 
       if (data.settings) {
-        window.localStorage.setItem("settings", JSON.stringify(data.settings));
-        this.changeTheme(data.settings.theme["dark-mode"], data.settings.theme["theme"]);
+        let settings = app.Settings.migrateSettings(data.settings, false);
+        window.localStorage.setItem("settings", JSON.stringify(settings));
+        this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
       }
     });
   },
@@ -352,6 +368,11 @@ app.Settings = {
 
   firstTimeSetup: function() {
     let defaults = {
+      statistics: {
+        "y-zero": false,
+        "average-line": true,
+        "goal-line": true
+      },
       diary: {
         "meal-names": ["Breakfast", "Lunch", "Dinner", "Snacks", "", "", ""],
         "show-nutrition-units": false,
@@ -362,13 +383,18 @@ app.Settings = {
       foodlist: {
         "show-images": true,
         sort: "alpha",
+        "show-notes": false,
         "wifi-images": true
       },
       integration: {
-        "search-country": "United Kingdom",
+        "barcode-sound": false,
+        "edit-images": false,
+        "search-country": "All",
+        "search-language": "Default",
+        "upload-country": "Auto",
         usda: false
       },
-      theme: {
+      appearance: {
         animations: true,
         "dark-mode": false,
         "start-page": "/settings/",
@@ -399,6 +425,9 @@ app.Settings = {
         "fat-show-in-diary": true,
         "fat-show-in-stats": true,
       },
+      nutriments: {
+        order: ["calories", "kilojoules", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sodium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"]
+      },
       nutrimentVisibility: {
         "fat": true,
         "carbohydrates": true,
@@ -406,10 +435,37 @@ app.Settings = {
         "salt": true,
         "sugars": true
       },
-      firstTimeSetup: true
+      firstTimeSetup: true,
+      schemaVersion: currentSettingsSchemaVersion
     };
 
     window.localStorage.setItem("settings", JSON.stringify(defaults));
+  },
+
+  migrateSettings: function(settings, saveChanges=true) {
+    if (settings !== undefined && (settings.schemaVersion === undefined || settings.schemaVersion < currentSettingsSchemaVersion)) {
+
+      // Theme settings must be renamed to Appearance
+      if (settings.theme !== undefined && settings.appearance === undefined) {
+        settings.appearance = settings.theme;
+        delete settings.theme;
+      }
+
+      // New nutriments must be added
+      if (settings.nutriments !== undefined && settings.nutriments.order !== undefined) {
+        app.nutriments.forEach(x => {
+          if (!settings.nutriments.order.includes(x))
+            settings.nutriments.order.push(x);
+        });
+      }
+
+      settings.schemaVersion = currentSettingsSchemaVersion;
+
+      if (saveChanges)
+        window.localStorage.setItem("settings", JSON.stringify(settings));
+    }
+
+    return settings;
   }
 };
 

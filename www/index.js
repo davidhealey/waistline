@@ -22,26 +22,23 @@ const app = {
   data: {}, // App wide object that can be used to store stuff
   strings: {}, // Localization strings
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
-  nutriments: ["calories", "kilojoules", "proteins", "carbohydrates", "fat", "saturated-fat", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sugars", "fiber", "sodium", "salt", "potassium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-b6", "vitamin-b9", "vitamin-b12", "chloride", "calcium", "iron", "magnesium", "zinc", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
+  nutriments: ["calories", "kilojoules", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sodium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
   nutrimentUnits: {
     "calories": "kcal",
     "kilojoules": "kJ",
-    "proteins": "g",
-    "carbohydrates": "g",
     "fat": "g",
     "saturated-fat": "g",
-    "cholesterol": "mg",
+    "carbohydrates": "g",
     "sugars": "g",
     "fiber": "g",
+    "proteins": "g",
     "salt": "g",
+    "monounsaturated-fat": "g",
+    "polyunsaturated-fat": "g",
+    "trans-fat": "g",
+    "omega-3-fat": "g",
+    "cholesterol": "mg",
     "sodium": "mg",
-    "potassium": "mg",
-    "calcium": "mg",
-    "iron": "mg",
-    "magnesium": "mg",
-    "zinc": "mg",
-    "caffeine": "g",
-    "alcohol": "%",
     "vitamin-a": "µg",
     "vitamin-d": "µg",
     "vitamin-e": "mg",
@@ -49,13 +46,34 @@ const app = {
     "vitamin-c": "mg",
     "vitamin-b1": "mg",
     "vitamin-b2": "mg",
-    "vitamin-b6": "g",
+    "vitamin-pp": "mg",
+    "pantothenic-acid": "mg",
+    "vitamin-b6": "mg",
+    "biotin": "µg",
     "vitamin-b9": "µg",
-    "vitamin-b12": "µg"
+    "vitamin-b12": "µg",
+    "potassium": "mg",
+    "chloride": "mg",
+    "calcium": "mg",
+    "phosphorus": "mg",
+    "iron": "mg",
+    "magnesium": "mg",
+    "zinc": "mg",
+    "copper": "mg",
+    "manganese": "mg",
+    "fluoride": "mg",
+    "selenium": "µg",
+    "iodine": "µg",
+    "caffeine": "mg",
+    "alcohol": "g",
+    "sucrose": "g",
+    "glucose": "g",
+    "fructose": "g",
+    "lactose": "g"
   },
 
   localize: function() {
-    let lang = app.Settings.get("theme", "locale");
+    let lang = app.Settings.get("appearance", "locale");
 
     if (lang == undefined || lang == "auto") {
       lang = navigator.language.replace(/_/, '-').toLowerCase();
@@ -64,26 +82,26 @@ const app = {
         lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
     }
 
-    let fallbackStrings;
-
     //Get default/fallback locale data
-    $.getJSON("assets/locales/locale-en.json", function(data) {
-      fallbackStrings = data;
-    });
+    if (Object.keys(app.strings).length == 0) {
+      $.getJSON("assets/locales/locale-en.json", function(data) {
+        app.strings = data;
+      });
+    }
 
     $("[data-localize]").localize("assets/locales/locale", {
       language: lang,
+      skipLanguage: /^en/,
       callback: function(data, defaultCallback) {
 
         // Get localized strings
         let locale = $.localize.data["assets/locales/locale"];
 
         // Merge the default strings with the locale in case there are any missing values
-        app.strings = Object.assign(fallbackStrings, locale);
+        app.strings = Object.assign(app.strings, locale);
         defaultCallback(data);
       }
     });
-
   },
 
   f7: new Framework7({
@@ -177,8 +195,15 @@ const app = {
         path: "/settings/",
         url: "activities/settings/views/settings.html",
         routes: [{
-            path: "theme/",
-            url: "activities/settings/views/theme.html",
+            path: "appearance/",
+            url: "activities/settings/views/appearance.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            path: "statistics/",
+            url: "activities/settings/views/statistics.html",
             options: {
               transition: "f7-parallax"
             }
@@ -260,8 +285,8 @@ const app = {
 let animate = true;
 let settings = JSON.parse(window.localStorage.getItem("settings"));
 
-if (settings != undefined && settings.theme !== undefined && settings.theme.animations !== undefined)
-  animate = settings.theme.animations;
+if (settings != undefined && settings.appearance !== undefined && settings.appearance.animations !== undefined)
+  animate = settings.appearance.animations;
 
 let viewOptions = {
   animate: animate
@@ -312,8 +337,9 @@ document.addEventListener('deviceready', async function() {
     app.Settings.firstTimeSetup();
     app.f7.views.main.router.navigate("/settings/");
   } else {
-    app.Settings.changeTheme(settings.theme["dark-mode"], settings.theme.theme);
-    app.f7.views.main.router.navigate(settings.theme["start-page"]);
+    settings = app.Settings.migrateSettings(settings);
+    app.Settings.changeTheme(settings.appearance["dark-mode"], settings.appearance.theme);
+    app.f7.views.main.router.navigate(settings.appearance["start-page"]);
   }
 
   // Backup database 

@@ -36,9 +36,9 @@
             <div class="item-inner">
               <div class="item-title item-label" data-localize="settings.foods.sort">Sort Foods</div>
               <div class="item-input-wrap input-dropdown-wrap">
-                <select id="theme" name="sort" field="foodlist">
-                  <option value="date" selected>By last used</option>
-                  <option value="alpha">Alphabetically</option>
+                <select name="sort" field="foodlist">
+                  <option value="date" selected data-localize="settings.foods.sort-date">By last used</option>
+                  <option value="alpha" selected data-localize="settings.foods.sort-alpha">Alphabetically</option>
                 </select>
               </div>
             </div>
@@ -66,6 +66,20 @@
               <div class="item-after">
                 <label class="toggle toggle-init">
                   <input type="checkbox" field="foodlist" name="wifi-images" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.foods.show-notes">Show Food Notes</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" field="foodlist" name="show-notes" />
                   <span class="toggle-icon"></span>
                 </label>
               </div>

@@ -707,8 +707,10 @@ var dbHandler = {
 
       t.oncomplete = (e) => {
         console.log("Database import successful");
+        const title = app.strings.settings.integration["import-success-title"] || "The backup has been restored";
+        const msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
         app.f7.preloader.hide();
-        app.f7.dialog.alert("The backup has been restored", "Import Complete");
+        app.f7.dialog.alert(title, msg);
         resolve(e);
       };
 
@@ -729,6 +731,8 @@ var dbHandler = {
 
       app.f7.preloader.show("red");
 
+      let barcodes = []; // Keep track of barcodes to avoid duplicates
+
       // Go through each object store and add the imported data
       let storeCount = 0;
       storeNames.forEach((x) => {
@@ -747,8 +751,16 @@ var dbHandler = {
                 entry.dateTime = new Date(d.dateTime);
 
               // Remove empty barcodes 
-              if (entry.barcode == "" || entry.barcode == undefined)
+              if (entry.barcode == "" || entry.barcode == undefined || entry.barcode == "undefined")
                 delete entry.barcode;
+
+              // Catch duplicate barcodes
+              if (entry.barcode != undefined) {
+                if (barcodes.includes(entry.barcode))
+                  delete entry.barcode;
+                else
+                  barcodes.push(entry.barcode);
+              }
 
               let request = t.objectStore(x).add(entry);
 

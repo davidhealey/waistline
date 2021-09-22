@@ -57,7 +57,7 @@ app.Group = {
 
     let innerDiv = document.createElement("div");
     innerDiv.className = "item-title";
-    innerDiv.innerHTML = this.name;
+    innerDiv.innerHTML = "<strong>" + this.name + "</strong>";
     div.appendChild(innerDiv);
 
     let content = document.createElement("div");
@@ -124,7 +124,7 @@ app.Group = {
     if (energyUnit == "kJ")
       value = Math.round(value * 4.1868);
 
-    right.innerHTML = value.toFixed(0) + " " + energyUnit;
+    right.innerHTML = "<strong>" + value.toFixed(0) + " " + energyUnit + "</strong>";
     row.appendChild(right);
   },
 

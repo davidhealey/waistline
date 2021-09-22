@@ -217,13 +217,23 @@ app.Diary = {
           swiper.appendSlide(slide);
 
           rows[0] = document.createElement("div");
-          rows[0].className = "row nutrition-total-values";
+          rows[0].className = "row nutrition-total-title";
           slide.appendChild(rows[0]);
 
           rows[1] = document.createElement("div");
-          rows[1].className = "row nutrition-total-title";
+          rows[1].className = "row nutrition-total-values";
           slide.appendChild(rows[1]);
         }
+
+        // Title
+        let title = document.createElement("div");
+        title.className = "col";
+        title.id = x + "-title";
+
+        let text = app.strings.nutriments[x] || x;
+        let t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
+        title.appendChild(t);
+        rows[0].appendChild(title);
 
         // Values and goal text
         let values = document.createElement("div");
@@ -231,7 +241,7 @@ app.Diary = {
         values.id = x + "-value";
 
         let span = document.createElement("span");
-        let t = document.createTextNode("");
+        t = document.createTextNode("");
 
         if (nutrition && nutrition[x] !== undefined) {
 
@@ -271,17 +281,7 @@ app.Diary = {
 
         span.appendChild(t);
         values.appendChild(span);
-        rows[0].appendChild(values);
-
-        // Title
-        let title = document.createElement("div");
-        title.className = "col";
-        title.id = x + "-title";
-
-        let text = app.strings.nutriments[x] || x;
-        t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-        title.appendChild(t);
-        rows[1].appendChild(title);
+        rows[1].appendChild(values);
 
         count++;
       }
@@ -295,7 +295,8 @@ app.Diary = {
     if (mealNames !== undefined) {
       mealNames.forEach((x, i) => {
         if (x != "") {
-          let g = app.Group.create(x, i);
+          let t = app.strings.diary["default-meals"][x.toLowerCase()] || x;
+          let g = app.Group.create(t, i);
           groups.push(g);
         }
       });
@@ -329,8 +330,10 @@ app.Diary = {
   populateGroups: function(entry) {
     return new Promise(async function(resolve, reject) {
       entry.items.forEach(async (x, i) => {
-        x.index = i; // Index in array, not stored in DB
-        app.Diary.groups[x.category].addItem(x);
+        if (x.category !== undefined) {
+          x.index = i; // Index in array, not stored in DB
+          app.Diary.groups[x.category].addItem(x);
+        }
       });
 
       resolve();
@@ -341,20 +344,23 @@ app.Diary = {
 
   addItems: function(items, category) {
     return new Promise(async function(resolve, reject) {
-      // Get current entry or create a new one
-      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+      if (category !== undefined) {
+        // Get current entry or create a new one
+        let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-      items.forEach((x) => {
-        let item = x;
-        item.dateTime = new Date();
-        item.category = category;
-        item.quantity = x.quantity || 1;
-        entry.items.push(item);
-      });
+        items.forEach((x) => {
+          let item = x;
+          item.dateTime = new Date();
+          item.category = category;
+          item.quantity = x.quantity || 1;
+          entry.items.push(item);
+        });
 
-      await dbHandler.put(entry, "diary");
+        await dbHandler.put(entry, "diary");
 
-      resolve();
+        resolve();
+      }
+      reject();
     }).catch(err => {
       throw (err);
     });
@@ -381,7 +387,7 @@ app.Diary = {
 
   deleteItem: function(item) {
     let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
     let dialog = app.f7.dialog.confirm(text, title, async () => {
 
@@ -544,7 +550,7 @@ app.Diary = {
         }
       }
 
-      stats[x.id] = value;
+      stats[x.id] = parseFloat(value);
     }
 
     entry.stats = stats;

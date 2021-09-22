@@ -73,7 +73,7 @@ app.Foodlist = {
       if (navigator.connection.type !== "none")
         this.search(app.Foodlist.el.search.value);
       else
-        app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
+        app.Utils.toast(app.strings.dialogs["no-internet"] || "No Internet Connection");
     });
 
     if (!app.Foodlist.el.scan.hasClickEvent) {
@@ -117,7 +117,7 @@ app.Foodlist = {
           app.Foodlist.list = result;
           app.Foodlist.filterList = app.Foodlist.list;
         } else {
-          let msg = app.strings.dialogs["no-results"] || "No Results";
+          let msg = app.strings.dialogs["no-results"] || "No matching results";
           app.Utils.toast(msg);
         }
       } else {
@@ -138,7 +138,6 @@ app.Foodlist = {
     let maxItems = 300; // Max items to load
     let itemsPerLoad = 20; // Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
-    let archived = 0;
 
     if (lastIndex <= app.Foodlist.list.length) {
       //Render next set of items to list
@@ -146,9 +145,11 @@ app.Foodlist = {
         if (i >= app.Foodlist.list.length) break; //Exit after all items in list
 
         let item = app.Foodlist.list[i];
-        item.type = "food";
 
-        app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem);
+        if (item != undefined) {
+          item.type = "food";
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem);
+        }
       }
     }
     app.f7.preloader.hide();
@@ -165,8 +166,18 @@ app.Foodlist = {
   },
 
   putItem: function(item) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
+
+      // Check if search result already exists in the db
+      if (item.id == undefined && item.barcode !== undefined) {
+        let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
+
+        if (dbRecord !== undefined)
+          item.id = dbRecord.id;
+      }
+
       item.dateTime = new Date();
+
       dbHandler.put(item, "foodList").onsuccess = (e) => {
         resolve(e.target.result);
       };
@@ -184,7 +195,7 @@ app.Foodlist = {
   removeItem: function(item) {
     return new Promise(function(resolve, reject) {
       let title = app.strings.dialogs.delete || "Delete";
-      let msg = app.strings.dialogs["confirm-delete"] || "Are you sure?";
+      let msg = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
       let dialog = app.f7.dialog.confirm(msg, title, async () => {
         await app.FoodsMealsRecipes.removeItem(item.id, "food");
@@ -251,12 +262,8 @@ app.Foodlist = {
             //If item is in DB use retrieved data, otherwise add item to DB and get new ID
             if (dbData) {
               data = dbData;
-
-              // Unarchive the food if it has been archived
-              if (data.archived == true) {
-                data.archived = false;
-                await app.Foodlist.putItem(data);
-              }
+              data.archived = false; // Unarchive the food if it has been archived
+              await app.Foodlist.putItem(data);
             }
           }
 
@@ -329,40 +336,50 @@ app.Foodlist = {
   scan: function() {
     return new Promise(function(resolve, reject) {
       cordova.plugins.barcodeScanner.scan(async (data) => {
-        let code = data.text;
+          let code = data.text;
 
-        if (code !== undefined && !data.cancelled) {
-          // Check if the item is already in the foodlist
-          let item = await dbHandler.get("foodList", "barcode", code);
+          if (code !== undefined && !data.cancelled) {
+            // Check if the item is already in the foodlist
+            let item = await dbHandler.get("foodList", "barcode", code);
 
-          if (item === undefined) {
             // Not already in foodlist so search OFF 
-            if (navigator.connection.type == "none") {
-              app.Utils.toast(app.strings.dialogs["no-internet"] || "No internet connection");
-              resolve(undefined);
-            }
+            if (item === undefined || (item.archived !== undefined && item.archived == true)) {
+              if (navigator.connection.type == "none") {
+                app.Utils.toast(app.strings.dialogs["no-internet"] || "No Internet Connection");
+                resolve(undefined);
+              }
 
-            // Display loading image
-            app.f7.preloader.show();
-            let result = await app.OpenFoodFacts.search(code);
-            app.f7.preloader.hide();
-            // Return result from OFF
-            if (result[0] !== undefined) {
-              item = result[0];
-            } else {
-              app.Foodlist.gotoUploadEditor(code);
+              // Display loading image
+              app.f7.preloader.show();
+              let result = await app.OpenFoodFacts.search(code);
+              app.f7.preloader.hide();
+
+              // When downloading data for archived items reuse the same id
+              if (item !== undefined && item.id !== undefined)
+                result[0].id = item.id;
+
+              if (result !== undefined && result[0] !== undefined)
+                item = result[0];
+              else
+                app.Foodlist.gotoUploadEditor(code);
             }
+            resolve(item);
+          } else {
+            resolve(undefined);
           }
-          resolve(item);
-        } else {
+        },
+        async (error) => {
           resolve(undefined);
-        }
-      });
+        }, {
+          showTorchButton: true,
+          disableSuccessBeep: !app.Settings.get("integration", "barcode-sound"),
+          prompt: app.strings["foods-meals-recipes"]["scan-prompt"] || "Place a barcode inside the scan area"
+        });
     });
   },
 
   gotoUploadEditor: function(code) {
-    let title = app.strings.dialogs["no-results"] || "Product not found";
+    let title = app.strings.dialogs["no-results"] || "No matching results";
     let text = app.strings.dialogs["add-to-off"] || "Would you like to add this product to the Open Food Facts database?";
 
     app.data.context = {

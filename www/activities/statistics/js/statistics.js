@@ -23,6 +23,7 @@ app.Stats = {
   chart: undefined,
   chartType: "bar",
   dbData: undefined,
+  data: {},
 
   init: async function() {
     this.getComponents();
@@ -42,8 +43,12 @@ app.Stats = {
       if (laststat != undefined && laststat != "")
         app.Stats.el.stat.value = laststat;
 
-      this.updateChart(app.Stats.el.stat.value);
-      this.renderStatLog(app.Stats.el.stat.value);
+      // Organise db data and render chart
+      app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+      window.localStorage.setItem("last-stat", app.Stats.el.stat.value);
+
+      this.updateChart();
+      this.renderStatLog();
     }
   },
 
@@ -62,19 +67,24 @@ app.Stats = {
     if (!app.Stats.el.range.hasChangedEvent) {
       app.Stats.el.range.addEventListener("change", async (e) => {
         app.Stats.dbData = await this.getDataFromDb();
-        app.Stats.updateChart(app.Stats.el.stat.value);
-        app.Stats.renderStatLog(app.Stats.el.stat.value);
+        if (app.Stats.dbData !== undefined) {
+          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+          app.Stats.updateChart();
+          app.Stats.renderStatLog();
+        }
       });
       app.Stats.el.range.hasChangedEvent = true;
     }
 
     // Stat field
     if (!app.Stats.el.stat.hasChangedEvent) {
-      app.Stats.el.stat.addEventListener("change", (e) => {
+      app.Stats.el.stat.addEventListener("change", async (e) => {
         let value = e.target.value;
         if (app.Stats.dbData !== undefined) {
-          app.Stats.updateChart(value);
-          app.Stats.renderStatLog(value);
+          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, value);
+          window.localStorage.setItem("last-stat", value);
+          app.Stats.updateChart();
+          app.Stats.renderStatLog();
         }
       });
       app.Stats.el.stat.hasChangedEvent = true;
@@ -130,27 +140,54 @@ app.Stats = {
     app.Stats.el.stat.selectedIndex = 0;
   },
 
-  updateChart: async function(field) {
-    window.localStorage.setItem("last-stat", field);
-
-    let data = await app.Stats.organiseData(app.Stats.dbData, field);
+  updateChart: function() {
 
     if (app.Stats.chart == undefined) {
-      app.Stats.renderChart(data);
+      app.Stats.renderChart(app.Stats.data);
     } else {
-      app.Stats.chart.data.labels = data.dates;
-      app.Stats.chart.data.datasets[0].label = data.dataset.label;
-      app.Stats.chart.data.datasets[0].data = data.dataset.values;
-      app.Stats.chart.update();
+      app.Stats.chart.data.labels = app.Stats.data.dates;
+      app.Stats.chart.data.datasets[0].label = app.Stats.data.dataset.label;
+      app.Stats.chart.data.datasets[0].data = app.Stats.data.dataset.values;
     }
+
+    app.Stats.chart.annotation.elements = [];
+    app.Stats.chart.options.annotation.annotations = [];
+
+    if (app.Settings.get("statistics", "average-line") == true) {
+      app.Stats.chart.options.annotation.annotations.push({
+        id: "average",
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: app.Stats.data.average,
+        borderColor: 'red',
+        borderWidth: 2
+      });
+    }
+
+    if (app.Settings.get("statistics", "goal-line") == true) {
+      app.Stats.chart.options.annotation.annotations.push({
+        id: "goal",
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: app.Stats.data.goal,
+        borderColor: 'green',
+        borderWidth: 3
+      });
+    }
+
+    app.Stats.chart.update();
   },
 
-  renderStatLog: async function(field) {
-    let data = await app.Stats.organiseData(app.Stats.dbData, field);
+  renderStatLog: function() {
 
     app.Stats.el.timeline.innerHTML = "";
 
-    for (let i = 0; i < data.dates.length; i++) {
+    let avg = app.Stats.renderAverage(app.Stats.data.average, app.Stats.data.dataset.unit);
+    app.Stats.el.timeline.appendChild(avg);
+
+    for (let i = 0; i < app.Stats.data.dates.length; i++) {
 
       let li = document.createElement("li");
       app.Stats.el.timeline.appendChild(li);
@@ -165,14 +202,38 @@ app.Stats = {
 
       let title = document.createElement("div");
       title.className = "item-title";
-      title.innerHTML = data.dates[i];
+      title.innerHTML = app.Stats.data.dates[i];
       inner.appendChild(title);
 
       let after = document.createElement("div");
       after.className = "item-after";
-      after.innerHTML = data.dataset.values[i] + " " + data.dataset.unit;
+      after.innerHTML = app.Stats.data.dataset.values[i] + " " + app.Stats.data.dataset.unit;
       inner.appendChild(after);
     }
+  },
+
+  renderAverage: function(average, unit) {
+    let li = document.createElement("li");
+
+    let content = document.createElement("div");
+    content.className = "item-content";
+    li.appendChild(content);
+
+    let inner = document.createElement("div");
+    inner.className = "item-inner";
+    content.appendChild(inner);
+
+    let title = document.createElement("div");
+    title.className = "item-title";
+    title.innerHTML = app.strings.statistics["average"] || "Average";
+    inner.appendChild(title);
+
+    let after = document.createElement("div");
+    after.className = "item-after";
+    after.innerHTML = Math.round(average) + " " + unit;
+    inner.appendChild(after);
+
+    return li;
   },
 
   organiseData: function(data, field) {
@@ -197,14 +258,15 @@ app.Stats = {
         dataset: {
           values: [],
           unit: unit
-        }
+        },
+        average: 0
       };
 
       for (let i = 0; i < data.timestamps.length; i++) {
         let value;
 
         if (app.nutriments.indexOf(field) == -1) {
-          value = data.stats[i][field];
+          value = parseFloat(data.stats[i][field]);
 
           if (value != undefined) {
             if (field == "weight") {
@@ -220,7 +282,7 @@ app.Stats = {
 
         } else {
           let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i]);
-          value = nutrition[field];
+          value = parseFloat(nutrition[field]);
         }
 
         if (value != undefined && value != 0 && !isNaN(value)) {
@@ -228,6 +290,7 @@ app.Stats = {
           let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
           result.dates.push(date);
           result.dataset.values.push(Math.round(value * 100) / 100);
+          result.average = result.average + value;
         }
       }
 
@@ -239,6 +302,8 @@ app.Stats = {
         title = app.strings.statistics[field];
 
       result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
+      result.average = result.average / result.dates.length;
+      result.goal = app.Goals.get(field, new Date());
 
       resolve(result);
     }).catch(err => {
@@ -306,21 +371,31 @@ app.Stats = {
         }]
       },
       options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
+        animation: {
+          duration: 1000 * !app.Settings.get("appearance", "animations"),
+        },
+        annotation: {
+          annotations: []
         },
         legend: {
           labels: {
-            fontSize: 16
-          }
+            font: {
+              size: 16,
+              weight: "bold"
+            }
+          },
+          onClick: (e) => {}
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: app.Settings.get("statistics", "y-zero")
+            }
+          }]
         }
       }
     });
-  }
+  },
 };
 
 document.addEventListener("page:init", function(event) {

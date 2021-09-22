@@ -52,6 +52,7 @@ app.FoodEditor = {
     this.renderNutritionFields(app.FoodEditor.item);
     this.setComponentVisibility(app.FoodEditor.origin);
     this.setUploadFieldVisibility();
+    this.setRequiredFieldErrorMessage();
     this.setLinkButtonIcon();
 
     if (app.FoodEditor.item) {
@@ -83,6 +84,8 @@ app.FoodEditor = {
     app.FoodEditor.el.unit = document.querySelector(".page[data-name='food-editor'] #unit");
     app.FoodEditor.el.quantityContainer = document.querySelector(".page[data-name='food-editor'] #quantity-container");
     app.FoodEditor.el.quantity = document.querySelector(".page[data-name='food-editor'] #quantity");
+    app.FoodEditor.el.notes = document.querySelector(".page[data-name='food-editor'] #notes");
+    app.FoodEditor.el.notesContainer = document.querySelector(".page[data-name='food-editor'] #notes-container");
     app.FoodEditor.el.nutrition = document.querySelector(".page[data-name='food-editor'] #nutrition");
     app.FoodEditor.el.ingredients_text = document.querySelector(".page[data-name='food-editor'] #ingredients_text");
     app.FoodEditor.el.traces = document.querySelector(".page[data-name='food-editor'] #traces");
@@ -150,11 +153,18 @@ app.FoodEditor = {
       app.FoodEditor.el.unit.style.color = "grey";
       app.FoodEditor.el.ingredients_text.style.color = "grey";
       app.FoodEditor.el.traces.style.color = "grey";
+      app.FoodEditor.el.notes.disabled = true;
+      app.FoodEditor.el.notes.style.color = "grey";
     } else {
       app.FoodEditor.el.quantityContainer.style.display = "none";
 
       if (app.FoodEditor.item !== undefined)
         app.FoodEditor.el.link.style.display = "block";
+
+      if (app.Settings.get("foodlist", "show-notes") == true && app.FoodEditor.scan != true)
+        app.FoodEditor.el.notesContainer.style.display = "block";
+      else
+        app.FoodEditor.el.notesContainer.style.display = "none";
     }
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
@@ -200,6 +210,16 @@ app.FoodEditor = {
       app.FoodEditor.linked = false;
       app.FoodEditor.el.link.style.display = "none";
     }
+  },
+
+  setRequiredFieldErrorMessage: function() {
+    const error_message = app.strings["food-editor"]["required-field-message"] || "Please fill out this field.";
+    let inputs = Array.from(document.getElementsByTagName("input"));
+    inputs.forEach((x) => {
+      if (x.hasAttribute("required") && x.hasAttribute("validate")) {
+        x.setAttribute("data-error-message", error_message);
+      }
+    });
   },
 
   setLinkButtonIcon: function() {
@@ -272,9 +292,11 @@ app.FoodEditor = {
         input.className = "align-right";
         input.type = "number";
         input.step = "0.01";
-        input.min = "0";
         input.placeholder = "0";
         input.name = k;
+
+        if (k != "calories" && k != "kilojoules")
+          input.min = "0";
 
         if (item) {
           if (item.nutrition[k] !== 0)
@@ -316,12 +338,24 @@ app.FoodEditor = {
     app.FoodEditor.el.name.value = app.Utils.tidyText(item.name, 200);
     app.FoodEditor.el.brand.value = app.Utils.tidyText(item.brand, 200);
     app.FoodEditor.el.unit.value = item.unit || "";
+    app.FoodEditor.el.notes.value = item.notes || "";
     app.FoodEditor.el.ingredients_text.value = item.ingredients_text || "";
     app.FoodEditor.el.traces.value = item.traces || "";
 
     if (item.barcode !== undefined && !item.barcode.includes("fdcId_")) {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = item.barcode;
+
+      if (navigator.connection.type != "none") {
+        let url = "https://world.openfoodfacts.org/product/" + item.barcode;
+        if (!app.FoodEditor.el.barcode.hasClickEvent) {
+          app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
+            cordova.InAppBrowser.open(url, '_system');
+            return false;
+          });
+          app.FoodEditor.el.barcode.hasClickEvent = true;
+        }
+      }
     }
 
     // Portion (serving size)
@@ -400,7 +434,7 @@ app.FoodEditor = {
   takePicture: function(index) {
 
     let options = {
-      "allowEdit": true,
+      "allowEdit": app.Settings.get("integration", "edit-images"),
       "saveToPhotoAlbum": false
     };
 
@@ -431,7 +465,7 @@ app.FoodEditor = {
 
   removePicture: function(index) {
     let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
     let dialog = app.f7.dialog.confirm(text, title, () => {
       app.FoodEditor.el.photoHolder[index].innerHTML = "";
@@ -518,6 +552,8 @@ app.FoodEditor = {
       // Delete unneeded fields
       if (item.nutrition_per !== undefined)
         delete item.nutrition_per;
+
+      item.archived = false;
 
       app.data.context = {
         item: item

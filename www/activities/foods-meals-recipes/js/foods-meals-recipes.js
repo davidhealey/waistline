@@ -72,6 +72,7 @@ app.FoodsMealsRecipes = {
   tabInit: function() {
     app.FoodsMealsRecipes.el.title.innerHTML = this.tabTitle;
     app.FoodsMealsRecipes.el.submit.style.display = "none";
+    app.FoodsMealsRecipes.localizeSearchPlaceholder();
   },
 
   getComponents: function() {
@@ -108,6 +109,17 @@ app.FoodsMealsRecipes = {
           break;
       }
     });
+  },
+
+  localizeSearchPlaceholder: function() {
+    const el = document.getElementsByClassName("searchbar-input-wrap");
+    const text = app.strings["foods-meals-recipes"]["search"] || "Search";
+
+    if (el.length > 0) {
+      for (let x of el) {
+        x.children[0].placeholder = text;
+      }
+    }
   },
 
   submitButtonClickEventHandler: function(e) {
@@ -176,7 +188,7 @@ app.FoodsMealsRecipes = {
       items.forEach((x) => {
         let type = x.type || "food";
 
-        if (x.id !== undefined) {
+        if (x.id !== undefined && ("category" in x == false || x.category !== undefined)) {
           ids[type] = ids[type] || [];
           ids[type].push(x.id);
         }
@@ -202,7 +214,7 @@ app.FoodsMealsRecipes = {
           if (x !== undefined) {
             let dataPortion = parseFloat(x.portion);
             let itemPortion = parseFloat(items[i].portion);
-            let itemQuantity = parseFloat(items[i].quantity) || 1;
+            let itemQuantity = parseFloat(items[i].quantity) || 0;
             let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
             for (let n in x.nutrition) {
@@ -274,9 +286,7 @@ app.FoodsMealsRecipes = {
 
     let origin = app.FoodsMealsRecipes.origin;
 
-    app.data.context = {
-      items: items,
-    };
+    app.data.context = {};
 
     if (origin == undefined) {
 
@@ -293,6 +303,7 @@ app.FoodsMealsRecipes = {
             text: x,
             onClick: function(action, e) {
               app.FoodsMealsRecipes.updateDateTimes(items);
+              app.data.context.items = items;
               app.data.context.category = i;
               app.f7.views.main.router.navigate("/diary/", {
                 reloadCurrent: true,
@@ -306,7 +317,9 @@ app.FoodsMealsRecipes = {
 
       //Create and show the action sheet
       let ac = app.f7.actions.create({
-        buttons: options
+        buttons: options,
+        closeOnEscape: true,
+        animate: !app.Settings.get("appearance", "animations")
       });
 
       ac.open();
@@ -316,6 +329,7 @@ app.FoodsMealsRecipes = {
       if (app.FoodsMealsRecipes.category !== undefined)
         app.data.context.category = app.FoodsMealsRecipes.category;
 
+      app.data.context.items = items;
       app.f7.views.main.router.back();
     }
   },
@@ -326,7 +340,8 @@ app.FoodsMealsRecipes = {
     if (items[0].type == "food") {
       items.forEach(async (x, i) => {
         let data = await dbHandler.getByKey(x.id, "foodList");
-        app.Foodlist.putItem(data);
+        if (data != undefined)
+          app.Foodlist.putItem(data);
       });
     }
   },

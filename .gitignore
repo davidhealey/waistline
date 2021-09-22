@@ -1,10 +1,10 @@
 deliverables/
 images/master/
 node_modules/
-platforms
-!*/platforms/android/app
+platforms/
 plugins/
-package-lock.json
+.gradle
+.idea
 .jshintrc
 tasks
 test

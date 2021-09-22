@@ -1,0 +1,37 @@
+{
+  "name": "chartjs-plugin-annotation",
+  "description": "Annotations for Chart.js",
+  "version": "0.5.7",
+  "author": "Evert Timberg <evert.timberg@gmail.com>",
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chartjs/chartjs-plugin-annotation.git"
+  },
+  "scripts": {
+    "test": "gulp jshint",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-insert": "^0.5.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.10",
+    "inquirer": "^1.0.2",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.1",
+    "merge-stream": "^1.0.0",
+    "semver": "^5.1.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "chart.js": "^2.4.0"
+  }
+}

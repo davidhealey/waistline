@@ -140,12 +140,22 @@
 
               <li class="item-content item-input" id="quantity-container">
                 <div class="item-inner">
-                  <div class="item-title item-label" data-localize="food-editor.number-of-servings">Number of servings</div>
+                  <div class="item-title item-label" data-localize="food-editor.number-of-servings">Number of Servings</div>
                   <div class="item-input-wrap">
                     <input class="align-right" type="number" min="0" step="any" id="quantity" name="quantity">
                   </div>
                 </div>
               </li>
+
+              <li class="item-content item-input" class="hide-for-upload" id="notes-container">
+                <div class="item-inner">
+                  <div class="item-title item-label" data-localize="food-editor.notes">Notes</div>
+                  <div class="item-input-wrap">
+                    <textarea style="text-align:right" id="notes" name="notes" placeholder=""></textarea>
+                  </div>
+                </div>
+              </li>
+
             </ul>
           </div>
         </li>
@@ -179,7 +189,7 @@
                   <label class="radio">
                     <input type="radio" name="nutrition_per" id="per_serving" value="&nutrition_data_per=serving" /><i class="icon-radio"></i>
                   </label>
-                  <b data-localize="food-editor.per-serving">Per serving</b>
+                  <b data-localize="food-editor.per-serving">Per Serving</b>
                 </div>
               </li>
             </ul>

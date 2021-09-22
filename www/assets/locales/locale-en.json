@@ -1,38 +1,45 @@
 {
   "nutriments": {
-    "calorie": "Calorie",
     "calories": "Calories",
-    "kilojoule": "Kilojoule",
     "kilojoules": "Kilojoules",
-    "proteins": "proteins",
-    "carbohydrates": "carbs",
     "fat": "fat",
     "saturated-fat": "sat-fat",
+    "carbohydrates": "carbs",
+    "sugars": "sugars",
+    "fiber": "fiber",
+    "proteins": "proteins",
+    "salt": "salt",
     "monounsaturated-fat": "mono-fat",
     "polyunsaturated-fat": "poly-fat",
     "trans-fat": "trans-fat",
     "omega-3-fat": "omega-3-fat",
     "cholesterol": "cholesterol",
-    "sugars": "sugars",
-    "fiber": "fiber",
     "sodium": "sodium",
-    "salt": "salt",
+    "vitamin-a": "vitamin A",
+    "vitamin-d": "vitamin D",
+    "vitamin-e": "vitamin E",
+    "vitamin-k": "vitamin K",
+    "vitamin-c": "vitamin C",
+    "vitamin-b1": "vitamin B1",
+    "vitamin-b2": "vitamin B2",
+    "vitamin-pp": "vitamin B3",
+    "pantothenic-acid": "vitamin B5",
+    "vitamin-b6": "vitamin B6",
+    "biotin": "vitamin B7",
+    "vitamin-b9": "vitamin B9",
+    "vitamin-b12": "vitamin B12",
     "potassium": "potassium",
-    "vitamin-a": "vitamin-a",
-    "vitamin-d": "vitamin-d",
-    "vitamin-e": "vitamin-e",
-    "vitamin-k": "vitamin-k",
-    "vitamin-c": "vitamin-c",
-    "vitamin-b1": "vitamin-b1",
-    "vitamin-b2": "vitamin-b2",
-    "vitamin-b6": "vitamin-b6",
-    "vitamin-b9": "vitamin-b9",
-    "vitamin-b12": "vitamin-b12",
     "chloride": "chloride",
     "calcium": "calcium",
+    "phosphorus": "phosphorus",
     "iron": "iron",
     "magnesium": "magnesium",
     "zinc": "zinc",
+    "copper": "copper",
+    "manganese": "manganese",
+    "fluoride": "fluoride",
+    "selenium": "selenium",
+    "iodine": "iodine",
     "caffeine": "caffeine",
     "alcohol": "alcohol",
     "sucrose": "sucrose",
@@ -59,9 +66,7 @@
     "main-image": "Please add a main image",
     "upload-success": "Product successfully added to Open Food Facts",
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
-    "what-meal": "What meal is this?",
-    "import": "Import",
-    "confirm-import": "Are you sure? This will overwrite your current database."
+    "what-meal": "What meal is this?"
   },
   "days": {
     "0": "Sunday",
@@ -94,7 +99,9 @@
     "orange": "Orange",
     "gray": "Gray",
     "yellow": "Yellow",
-    "purple": "Purple"
+    "purple": "Purple",
+    "eink": "E-ink",
+    "camino": "Camino"
   },
   "statistics": {
     "title": "Statistics",
@@ -110,12 +117,20 @@
     "neck": "Neck",
     "waist": "Waist",
     "hips": "Hips",
-    "body fat": "Body Fat"
+    "body fat": "Body Fat",
+    "average": "Average"
   },
   "diary": {
     "title": "Diary",
     "quick-add": "Quick Add",
-    "log-title": "Today's Stats"
+    "log-title": "Today's Stats",
+    "no-data": "No Data",
+    "default-meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    }
   },
   "diary-chart": {
     "title": "Overview",
@@ -126,7 +141,9 @@
     "foods": "Foods",
     "meals": "Meals",
     "recipes": "Recipes",
-    "selected": "Selected"
+    "selected": "Selected",
+    "search": "Search",
+    "scan-prompt": "Place a barcode inside the scan area"
   },
   "food-editor": {
     "edit-item": "Edit Item",
@@ -146,7 +163,8 @@
     "traces": "Traces",
     "edit-food": "Edit Food Item",
     "edit-meal": "Edit Meal Item",
-    "edit-recipe": "Edit Recipe Item"
+    "edit-recipe": "Edit Recipe Item",
+    "required-field-message": "Please fill out this field."
   },
   "goals": {
     "title": "Goals"
@@ -154,6 +172,7 @@
   "goal-editor": {
     "title": "Set Goals",
     "show-in-diary": "Show in Diary",
+    "show-in-stats": "Show in Statistics",
     "shared-goal": "Same goal every day",
     "minimum-goal": "Is minimum goal"
   },
@@ -168,9 +187,10 @@
   "settings": {
     "title": "Settings",
     "needs-restart": "Restart app to apply changes.",
-    "theme": {
-      "title": "Theme",
+    "appearance": {
+      "title": "Appearance",
       "dark": "Dark Mode",
+      "colour-theme": "Colour Theme",
       "animations": "Disable UI Animations",
       "start-page": "Start Page",
       "language": "Preferred Language"
@@ -190,36 +210,52 @@
       "categories": "Categories",
       "timestamps": "Show Timestamps",
       "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Show thumbnails over Wi-Fi only",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "show-units": "Show nutrition units"
     },
-
+    "nutriments": {
+      "title": "Nutriments"
+    },
     "diary-categories": {
       "title": "Categories",
       "category": "Category"
     },
     "foods": {
       "title": "Foods, Meals, Recipes",
-      "sort": "Sort foods",
+      "sort": "Sort Foods",
+      "sort-date": "By last used",
+      "sort-alpha": "Alphabetically",
       "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi"
+      "wifi-images": "Only show images over Wi-Fi",
+      "show-notes": "Show Food Notes"
+    },
+    "statistics": {
+      "title": "Statistics",
+      "y-zero": "Begin Y Axis at Zero",
+      "average-line": "Show Average Line",
+      "goal-line": "Show Goal Line"
     },
     "import-export": {
       "title": "Import/Export",
       "backup": "Backup Database",
-      "import": "Import From Backup"
+      "import": "Import From Backup",
+      "auto-backup": "Automatic Backup"
     },
     "integration": {
       "title": "Integration",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts Account",
       "country": "Search Country",
+      "upload-country": "Upload Country",
+      "language": "Preferred Search Language",
       "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
       "usda": "Enable USDA search",
       "usda-login-title": "USDA",
+      "usda-api": "USDA API",
       "usda-api-key": "USDA API Key",
+      "usda-click-here": "Click here",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
-      "usda-note-1": "You can request a free API Key by clicking <a href='https://fdc.nal.usda.gov/api-key-signup.html'>here</a>.",
+      "usda-note-1": "to request a free API Key.",
       "username": "Username",
       "password": "Password",
       "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
@@ -227,15 +263,24 @@
       "exit": "Exit",
       "save": "Save",
       "invalid-credentials": "Invalid Credentials",
-      "export-success": "Database exported",
-      "export-fail": "Export Failed"
+      "invalid-api-key": "API Key Invalid",
+      "export-success": "Database Exported",
+      "export-fail": "Export Failed",
+      "import": "Import",
+      "confirm-import": "Are you sure? This will overwrite your current database.",
+      "import-success-title": "The backup has been restored",
+      "import-success-message": "Import Complete",
+      "barcode-sound": "Barcode Scan Beep",
+      "edit-images": "Edit Images Before Upload",
+      "login-success": "Login Successful"
     }
   },
   "about": {
     "title": "About",
     "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
     "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
-    "p2": "The source code for Waistline can be found at github.com/davidhealey/waistline."
+    "p2": "The source code for Waistline can be found at",
+    "p3": "Current version:"
   },
   "locale": {
     "auto": "Detect Automatically",
@@ -248,6 +293,8 @@
     "portuguese": "Portuguese",
     "bulgarian": "Bulgarian",
     "hebrew": "Hebrew",
-    "finnish": "Finnish"
+    "finnish": "Finnish",
+    "spanish": "Spanish",
+    "dutch": "Dutch"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "name": "chartjs-plugin-annotation",
+  "description": "Annotations for Chart.js",
+  "author": "Evert Timberg <evert.timberg@gmail.com>",
+  "license": "MIT",
+  "main": "./chartjs-plugin-annotation.js"
+}
