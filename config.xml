@@ -13,6 +13,7 @@
     <allow-intent href="https://*/*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
+    <allow-intent href="market:*" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="20" />
         <preference name="android-targetSdkVersion" value="30" />
@@ -57,5 +58,6 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreenDuration" value="500" />
     <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="AndroidInsecureFileModeEnabled" value="true" />
     <hook src="hooks/read_app_version.js" type="after_prepare" />
 </widget>
