@@ -268,7 +268,7 @@ app.OpenFoodFacts = {
       for (let i = 0; i < imageURIs.length; i++) {
         let x = imageURIs[i];
         if (x != undefined) {
-          let data = app.OpenFoodFacts.getImageData(x, i);
+          let data = await app.OpenFoodFacts.getImageData(x, i);
           data.append("code", barcode);
           data.append("user_id", username);
           data.append("password", password);
@@ -283,13 +283,41 @@ app.OpenFoodFacts = {
     });
   },
 
-  getImageData: function(blob, index) {
-    const imagefields = ["front", "nutrition", "ingredients"];
+  getImageData: function(uri, index) {
+    return new Promise(function(resolve, reject) {
+        window.resolveLocalFileSystemURL(uri, (fileEntry) => {
+          fileEntry.file((file) => {
+            console.log("Reading file");
 
-    let data = new FormData();
-    data.append("imgupload_" + imagefields[index], blob);
-    data.append("imagefield", imagefields[index]);
-    return data;
+            const imagefields = ["front", "nutrition", "ingredients"];
+            let reader = new FileReader();
+
+            reader.onloadend = function() {
+              // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+              let blob = new Blob([new Uint8Array(this.result)], {
+                type: "image/png"
+              });
+
+              let data = new FormData();
+              data.append("imgupload_" + imagefields[index], blob);
+              data.append("imagefield", imagefields[index]);
+
+              resolve(data);
+            };
+
+            reader.readAsArrayBuffer(file);
+
+          }, (err) => {
+            console.error("Error getting file entry", err);
+          });
+        }, (err) => {
+          console.error("Error getting file", err);
+        });
+      })
+      .catch(function(err) {
+        console.error('Error!', err.statusText);
+        reject();
+      });
   },
 
   postImage: function(data) {
