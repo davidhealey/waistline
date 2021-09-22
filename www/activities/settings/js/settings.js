@@ -17,6 +17,10 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// After a breaking change to the settings schema, increment this constant
+// and implement the migration in the migrateSettings() function below
+const currentSettingsSchemaVersion = 2;
+
 var s;
 app.Settings = {
 
@@ -304,7 +308,7 @@ app.Settings = {
       await dbHandler.import(data);
 
       if (data.settings) {
-        let settings = app.Settings.migrateThemeSettings(data.settings);
+        let settings = app.Settings.migrateSettings(data.settings, false);
         window.localStorage.setItem("settings", JSON.stringify(settings));
         this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
       }
@@ -379,11 +383,15 @@ app.Settings = {
       foodlist: {
         "show-images": true,
         sort: "alpha",
+        "show-notes": false,
         "wifi-images": true
       },
       integration: {
+        "barcode-sound": false,
         "edit-images": false,
-        "search-country": "United Kingdom",
+        "search-country": "All",
+        "search-language": "Default",
+        "upload-country": "Auto",
         usda: false
       },
       appearance: {
@@ -427,18 +435,36 @@ app.Settings = {
         "salt": true,
         "sugars": true
       },
-      firstTimeSetup: true
+      firstTimeSetup: true,
+      schemaVersion: currentSettingsSchemaVersion
     };
 
     window.localStorage.setItem("settings", JSON.stringify(defaults));
   },
 
-  migrateThemeSettings: function(settings) {
-    if (settings != undefined && settings.theme !== undefined) {
-      settings.appearance = settings.theme;
-      delete settings.theme;
-      window.localStorage.setItem("settings", JSON.stringify(settings));
+  migrateSettings: function(settings, saveChanges=true) {
+    if (settings !== undefined && (settings.schemaVersion === undefined || settings.schemaVersion < currentSettingsSchemaVersion)) {
+
+      // Theme settings must be renamed to Appearance
+      if (settings.theme !== undefined && settings.appearance === undefined) {
+        settings.appearance = settings.theme;
+        delete settings.theme;
+      }
+
+      // New nutriments must be added
+      if (settings.nutriments !== undefined && settings.nutriments.order !== undefined) {
+        app.nutriments.forEach(x => {
+          if (!settings.nutriments.order.includes(x))
+            settings.nutriments.order.push(x);
+        });
+      }
+
+      settings.schemaVersion = currentSettingsSchemaVersion;
+
+      if (saveChanges)
+        window.localStorage.setItem("settings", JSON.stringify(settings));
     }
+
     return settings;
   }
 };
