@@ -27,8 +27,8 @@
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
           <application android:usesCleartextTraffic="true" />
           <application android:requestLegacyExternalStorage="true" />
+          <application android:extractNativeLibs="true" />
         </edit-config>
-        <allow-intent href="market:*" />
         <icon density="ldpi" background="res/icon/android/ldpi-background.png" foreground="res/icon/android/ldpi-foreground.png" src="res/android/ldpi.png" />
         <icon density="mdpi" background="res/icon/android/mdpi-background.png" foreground="res/icon/android/mdpi-foreground.png" src="res/android/mdpi.png" />
         <icon density="hdpi" background="res/icon/android/hdpi-background.png" foreground="res/icon/android/hdpi-foreground.png" src="res/android/hdpi.png" />
