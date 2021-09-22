@@ -18,7 +18,7 @@
         <preference name="android-targetSdkVersion" value="30" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,sdcard,cache" />
-        <preference name="AndroidXEnabled" value="true" />
+        <preference name="AndroidInsecureFileModeEnabled" value="true" />
         <config-file after="uses-permission" parent="/manifest" target="AndroidManifest.xml">
           <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
           <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
