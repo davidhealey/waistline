@@ -124,6 +124,10 @@ app.Group = {
     if (energyUnit == "kJ")
       value = Math.round(value * 4.1868);
 
+    right.addEventListener("click", function(e) {
+      app.Diary.showCategoryNutriments(id, nutrition);
+    });
+
     right.innerHTML = "<strong>" + value.toFixed(0) + " " + energyUnit + "</strong>";
     row.appendChild(right);
   },

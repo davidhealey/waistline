@@ -560,6 +560,84 @@ app.Diary = {
     };
   },
 
+  showCategoryNutriments: function(category, nutrition) {
+    const mealNames = app.Settings.get("diary", "meal-names");
+    const mealName = mealNames[category];
+    const title = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const nutrimentUnits = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
+
+    // Create dialog
+    let div = document.createElement("div");
+    div.className = "list";
+
+    let ul = document.createElement("ul");
+    div.appendChild(ul);
+
+    for (i = 0; i < nutriments.length; i++) {
+
+      let x = nutriments[i];
+
+      // Skip calories if energyUnit is "kJ" and skip kilojoule if energyUnit is "kcal"
+      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
+
+      if (!app.Goals.showInDiary(x)) continue;
+
+      // Get name, unit and value
+      let nutriment = app.strings.nutriments[x] || x;
+      let unit = nutrimentUnits[x] || "g";
+      let value = 0;
+
+      if (nutrition) {
+        if (x !== "calories" && x !== "kilojoules") {
+          let v = nutrition[x] || 0;
+          value = parseFloat(v.toFixed(2));
+        } else {
+          let energy = nutrition.calories || 0;
+
+          if (energyUnit == "kJ")
+            energy = Math.round(energy * 4.1868);
+
+          value = energy.toFixed(0);
+        }
+      }
+
+      // List item
+      let li = document.createElement("li");
+      let div = document.createElement("div");
+      div.className = "item-inner";
+
+      // Name
+      let name = document.createElement("div");
+      let text = app.Utils.tidyText(nutriment, 50, true);
+      let t = document.createTextNode(text);
+      name.appendChild(t);
+
+      // Value and Unit
+      let content = document.createElement("div");
+      text = value + " " + unit;
+      t = document.createTextNode(text);
+      content.appendChild(t);
+
+      div.appendChild(name);
+      div.appendChild(content);
+      li.appendChild(div);
+      ul.appendChild(li);
+    }
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: "Ok",
+          keyCodes: [13]
+        }
+      ]
+    }).open();
+  },
+
   gotoFoodlist: function(category) {
     app.data.context = {
       origin: "/diary/",
