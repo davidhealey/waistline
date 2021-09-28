@@ -446,7 +446,7 @@ app.Diary = {
 
     // Create dialog inputs
     let div = document.createElement("div");
-    div.className = "list";
+    div.className = "list scroll-dialog";
 
     let ul = document.createElement("ul");
     div.appendChild(ul);
@@ -571,7 +571,7 @@ app.Diary = {
 
     // Create dialog
     let div = document.createElement("div");
-    div.className = "list";
+    div.className = "list scroll-dialog";
 
     let ul = document.createElement("ul");
     div.appendChild(ul);

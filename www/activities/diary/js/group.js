@@ -118,7 +118,7 @@ app.Group = {
     let energyUnit = app.Settings.get("units", "energy");
 
     let right = document.createElement("div");
-    right.className = "col-25 energy";
+    right.className = "col-25 energy link icon-only";
     let value = nutrition.calories || 0;
 
     if (energyUnit == "kJ")

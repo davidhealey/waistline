@@ -21,3 +21,6 @@
 .page[data-name="diary"] #diary-nutrition {margin-top: 1em; margin-bottom: 1em;}
 .page[data-name="diary"] #diary-nutrition .col {text-align: center;}
 .page[data-name="diary"] #diary-nutrition .nutrition-total-title {font-weight: bold;}
+
+/* Dialog with scrollbar */
+.scroll-dialog {max-height: 70vh; overflow-y: auto;}
