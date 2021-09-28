@@ -232,7 +232,7 @@ app.Diary = {
       title.id = x + "-title";
 
       let text = app.strings.nutriments[x] || x;
-      let t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
+      let t = document.createTextNode(app.Utils.tidyText(text, 25, true));
       title.appendChild(t);
       rows[0].appendChild(title);
 
@@ -611,7 +611,7 @@ app.Diary = {
 
       // Name
       let name = document.createElement("div");
-      let text = app.Utils.tidyText(nutriment, 50, true);
+      let text = app.Utils.tidyText(nutriment, 25, true);
       let t = document.createTextNode(text);
       name.appendChild(t);
 
