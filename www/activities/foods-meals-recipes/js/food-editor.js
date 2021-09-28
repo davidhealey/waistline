@@ -160,12 +160,12 @@ app.FoodEditor = {
 
       if (app.FoodEditor.item !== undefined)
         app.FoodEditor.el.link.style.display = "block";
-
-      if (app.Settings.get("foodlist", "show-notes") == true && app.FoodEditor.scan != true)
-        app.FoodEditor.el.notesContainer.style.display = "block";
-      else
-        app.FoodEditor.el.notesContainer.style.display = "none";
     }
+
+    if (app.Settings.get("foodlist", "show-notes") == true && app.FoodEditor.scan != true)
+      app.FoodEditor.el.notesContainer.style.display = "block";
+    else
+      app.FoodEditor.el.notesContainer.style.display = "none";
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
       app.FoodEditor.el.categoryContainer.style.display = "block";
