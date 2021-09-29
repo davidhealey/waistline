@@ -123,18 +123,21 @@ app.Stats = {
 
   populateDropdownOptions: function() {
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const nutrimentUnits = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
     const measurements = ["weight", "neck", "waist", "hips", "body fat"];
     const stats = measurements.concat(nutriments);
     const goals = app.Settings.getField("goals");
 
     stats.forEach((x, i) => {
-      if (goals[x + "-show-in-stats"] == true) {
-        let option = document.createElement("option");
-        option.value = x;
-        let text = app.strings.nutriments[x] || x;
-        option.innerHTML = app.Utils.tidyText(text, 80, true);
-        app.Stats.el.stat.appendChild(option);
-      }
+      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) return;
+      if (goals[x + "-show-in-stats"] !== true) return;
+
+      let option = document.createElement("option");
+      option.value = x;
+      let text = app.strings.nutriments[x] || x;
+      option.innerHTML = app.Utils.tidyText(text, 80, true);
+      app.Stats.el.stat.appendChild(option);
     });
 
     app.Stats.el.stat.selectedIndex = 0;
