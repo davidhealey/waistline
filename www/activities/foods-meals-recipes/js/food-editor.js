@@ -252,9 +252,7 @@ app.FoodEditor = {
     let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.nutrimentUnits;
     const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
-
-    let energy_unit = app.Settings.get("units", "energy");
-    energy_unit == "kcal" ? energy_unit = "calories" : energy_unit = "kilojoules";
+    const energyUnit = app.Settings.get("units", "energy");
 
     if (item !== undefined && item.nutrition.kilojoules == undefined)
       item.nutrition.kilojoules = item.nutrition.calories * 4.1868;
@@ -268,7 +266,10 @@ app.FoodEditor = {
         let li = document.createElement("li");
         li.className = "item-content item-input";
 
-        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && k != energy_unit)
+        let name = app.strings.nutriments[k] || k;
+        let unit = units[k] || "g";
+
+        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && unit !== energyUnit)
           li.style.display = "none";
 
         ul.appendChild(li);
@@ -279,8 +280,7 @@ app.FoodEditor = {
 
         let titleDiv = document.createElement("div");
         titleDiv.className = "item-title item-label";
-        let text = app.strings.nutriments[k] || k;
-        titleDiv.innerText = app.Utils.tidyText(text, 50, true) + " (" + (units[k] || "g") + ")";
+        titleDiv.innerText = app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
         innerDiv.appendChild(titleDiv);
 
         let inputWrapper = document.createElement("div");
