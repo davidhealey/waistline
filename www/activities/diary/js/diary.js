@@ -232,7 +232,7 @@ app.Diary = {
       title.id = x + "-title";
 
       let text = app.strings.nutriments[x] || x;
-      let t = document.createTextNode(app.Utils.tidyText(text, 25, true));
+      let t = document.createTextNode(app.Utils.tidyText(text, 20, true));
       title.appendChild(t);
       rows[0].appendChild(title);
 
@@ -611,12 +611,14 @@ app.Diary = {
 
       // Name
       let name = document.createElement("div");
-      let text = app.Utils.tidyText(nutriment, 25, true);
+      name.className = "item-title";
+      let text = app.Utils.tidyText(nutriment, 50, true);
       let t = document.createTextNode(text);
       name.appendChild(t);
 
       // Value and Unit
       let content = document.createElement("div");
+      content.className = "flex-shrink-0";
       text = value + " " + unit;
       t = document.createTextNode(text);
       content.appendChild(t);

@@ -280,7 +280,7 @@ app.FoodEditor = {
         let titleDiv = document.createElement("div");
         titleDiv.className = "item-title item-label";
         let text = app.strings.nutriments[k] || k;
-        titleDiv.innerText = (text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " ") + " (" + (units[k] || "g") + ")";
+        titleDiv.innerText = app.Utils.tidyText(text, 50, true) + " (" + (units[k] || "g") + ")";
         innerDiv.appendChild(titleDiv);
 
         let inputWrapper = document.createElement("div");
