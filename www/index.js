@@ -286,7 +286,7 @@ let animate = true;
 let settings = JSON.parse(window.localStorage.getItem("settings"));
 
 if (settings != undefined && settings.appearance !== undefined && settings.appearance.animations !== undefined)
-  animate = settings.appearance.animations;
+  animate = !settings.appearance.animations;
 
 let viewOptions = {
   animate: animate
