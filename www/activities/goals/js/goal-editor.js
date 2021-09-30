@@ -43,7 +43,9 @@ app.GoalEditor = {
 
   getComponents: function() {
     app.GoalEditor.el.title = document.querySelector(".page[data-name='goal-editor'] #goal-editor-title");
-    app.GoalEditor.el.showInDiary = document.querySelector(".page[data-name='goal-editor'] #diary");
+    app.GoalEditor.el.showInDiaryOption = document.querySelector(".page[data-name='goal-editor'] #diary");
+    app.GoalEditor.el.sharedGoalOption = document.querySelector(".page[data-name='goal-editor'] #shared");
+    app.GoalEditor.el.minimumGoalOption = document.querySelector(".page[data-name='goal-editor'] #minimum");
     app.GoalEditor.el.sharedGoal = document.querySelector(".page[data-name='goal-editor'] #shared-goal");
     app.GoalEditor.el.minimumGoal = document.querySelector(".page[data-name='goal-editor'] #minimum-goal");
   },
@@ -82,8 +84,11 @@ app.GoalEditor = {
 
   hideShowComponents: function() {
     const measurements = app.measurements;
-    if (measurements.includes(app.GoalEditor.item))
-      app.GoalEditor.el.showInDiary.style.display = "none";
+    if (measurements.includes(app.GoalEditor.item)) {
+      app.GoalEditor.el.showInDiaryOption.style.display = "none";
+      app.GoalEditor.el.sharedGoalOption.style.display = "none";
+      app.GoalEditor.el.minimumGoalOption.style.display = "none";
+    }
   },
 
   setInputNames: function(name) {
