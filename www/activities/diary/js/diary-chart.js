@@ -20,6 +20,13 @@
 app.DiaryChart = {
 
   chart: undefined,
+  chartColours: [
+    'rgba(170, 9, 9, 0.5)',
+    'rgba(213, 11, 11, 0.5)',
+    'rgba(8, 118, 184, 0.5)',
+    'rgba(0, 151, 225, 0.5)',
+    'rgba(255, 206, 86, 0.5)'
+  ],
   chartType: "pie",
   dbData: undefined,
   el: {},
@@ -34,7 +41,7 @@ app.DiaryChart = {
 
     if (this.dbData.timestamps.length > 0) {
       let data = await this.organiseData(this.dbData);
-      this.renderChart(data);
+      this.renderPage(data);
     }
   },
 
@@ -47,75 +54,54 @@ app.DiaryChart = {
   organiseData: function(data) {
     return new Promise(async function(resolve, reject) {
 
-      let visible = app.Settings.getField("nutrimentVisibility");
-      delete visible.calories;
-      delete visible.kilojoules;
-
-      let nutriments = app.nutriments;
-      let nutrimentUnits = app.nutrimentUnits;
+      const visible = app.Settings.getField("nutrimentVisibility");
+      const nutrimentUnits = app.nutrimentUnits;
 
       let result = {
         "labels": [],
-        "values": []
+        "values": [],
+        "colours": []
       };
 
-      let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
+      const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
+      const macros = ["fat", "saturated-fat", "carbohydrates", "sugars", "proteins"];
 
-      for (let n in nutrition) {
+      macros.forEach((x, i) => {
 
-        if (!visible[n]) continue;
+        let value = nutrition[x] || 0;
+        if (x == "fat")
+          value -= nutrition["saturated-fat"] || 0;
+        else if (x == "carbohydrates")
+          value -= nutrition["sugars"] || 0;
 
-        let unit = nutrimentUnits[n] || "g";
-        let name = app.strings.nutriments[n] || n;
-        let label = app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
-
-        result.labels.push(label);
-        result.values.push(Math.round(nutrition[n] * 100) / 100);
-      }
+        if (value > 0) {
+          let name = app.strings.nutriments[x] || x;
+          result.labels.push(app.Utils.tidyText(name, 50, true));
+          result.values.push(Math.round(value * 100) / 100);
+          result.colours.push(app.DiaryChart.chartColours[i]);
+        }
+      });
 
       resolve(result);
     });
   },
 
-  renderChart: function(data) {
+  renderPage: function(data) {
     app.DiaryChart.chart = new Chart(app.DiaryChart.el.chart, {
       type: app.DiaryChart.chartType,
       data: {
         datasets: [{
           data: data.values,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(13, 102, 255, 0.5)',
-            'rgba(223, 102, 255, 0.5)',
-            'rgba(113, 102, 255, 0.5)',
-            'rgba(168, 102, 255, 0.5)',
-            'rgba(53, 102, 255, 0.5)',
-            'rgba(145, 159, 64, 0.5)',
-            'rgba(45, 159, 64, 0.5)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(13, 102, 255, 0.5)',
-            'rgba(223, 102, 255, 0.5)',
-            'rgba(113, 102, 255, 0.5)',
-            'rgba(168, 102, 255, 0.5)',
-            'rgba(53, 102, 255, 0.5)',
-            'rgba(145, 159, 64, 0.5)',
-            'rgba(45, 159, 64, 0.5)'
-          ],
+          backgroundColor: data.colours,
+          borderColor: data.colours,
           borderWidth: 1
         }],
         labels: data.labels
       },
       options: {
+        tooltips: {
+          enabled: false
+        },
         legend: {
           labels: {
             fontSize: 18
