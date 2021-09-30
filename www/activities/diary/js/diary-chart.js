@@ -47,6 +47,8 @@ app.DiaryChart = {
 
   getComponents: function() {
     app.DiaryChart.el.chart = document.querySelector(".page[data-name='diary-chart'] #chart");
+    app.DiaryChart.el.macrosList = document.querySelector(".page[data-name='diary-chart'] #macros-list");
+    app.DiaryChart.el.totalsList = document.querySelector(".page[data-name='diary-chart'] #totals-list");
   },
 
   bindUIActions: function() {},
@@ -54,18 +56,23 @@ app.DiaryChart = {
   organiseData: function(data) {
     return new Promise(async function(resolve, reject) {
 
+      const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
       const visible = app.Settings.getField("nutrimentVisibility");
       const nutrimentUnits = app.nutrimentUnits;
 
       let result = {
         "labels": [],
         "values": [],
-        "colours": []
+        "colours": [],
+        "macros": [],
+        "totals": []
       };
 
       const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
       const macros = ["fat", "saturated-fat", "carbohydrates", "sugars", "proteins"];
+      let sum = 0;
 
+      // Chart
       macros.forEach((x, i) => {
 
         let value = nutrition[x] || 0;
@@ -73,6 +80,7 @@ app.DiaryChart = {
           value -= nutrition["saturated-fat"] || 0;
         else if (x == "carbohydrates")
           value -= nutrition["sugars"] || 0;
+        sum += value;
 
         if (value > 0) {
           let name = app.strings.nutriments[x] || x;
@@ -82,11 +90,43 @@ app.DiaryChart = {
         }
       });
 
+      // Macros
+      macros.forEach((x) => {
+        if (x == "saturated-fat" || x == "sugars") return;
+
+        let value = nutrition[x] || 0;
+        let percent = value / sum * 100;
+        let name = app.strings.nutriments[x] || x;
+
+        let entry = {
+          name: app.Utils.tidyText(name, 50, true),
+          value: (Math.round(percent * 100) / 100) + "%"
+        }
+        result.macros.push(entry);
+      });
+
+      // Totals
+      nutriments.forEach((x) => {
+        if (x == "calories" || x == "kilojoules") return;
+        if (!visible[x]) return;
+        if (!nutrition[x]) return;
+
+        let name = app.strings.nutriments[x] || x;
+        let unit = nutrimentUnits[x] || "g";
+
+        let entry = {
+          name: app.Utils.tidyText(name, 50, true),
+          value: (Math.round(nutrition[x] * 100) / 100) + " " + unit
+        }
+        result.totals.push(entry);
+      });
+
       resolve(result);
     });
   },
 
   renderPage: function(data) {
+    // Chart
     app.DiaryChart.chart = new Chart(app.DiaryChart.el.chart, {
       type: app.DiaryChart.chartType,
       data: {
@@ -111,6 +151,46 @@ app.DiaryChart = {
           duration: 1000 * !app.Settings.get("appearance", "animations"),
         },
       }
+    });
+
+    // Macros
+    data.macros.forEach((x) => {
+      let li = document.createElement("li");
+      li.className = "item-inner";
+
+      let name = document.createElement("div");
+      name.className = "item-title";
+      let t = document.createTextNode(x.name);
+      name.appendChild(t);
+
+      let value = document.createElement("div");
+      value.className = "flex-shrink-0";
+      t = document.createTextNode(x.value);
+      value.appendChild(t);
+
+      li.appendChild(name);
+      li.appendChild(value);
+      app.DiaryChart.el.macrosList.appendChild(li);
+    });
+
+    // Totals
+    data.totals.forEach((x) => {
+      let li = document.createElement("li");
+      li.className = "item-inner";
+
+      let name = document.createElement("div");
+      name.className = "item-title";
+      let t = document.createTextNode(x.name);
+      name.appendChild(t);
+
+      let value = document.createElement("div");
+      value.className = "flex-shrink-0";
+      t = document.createTextNode(x.value);
+      value.appendChild(t);
+
+      li.appendChild(name);
+      li.appendChild(value);
+      app.DiaryChart.el.totalsList.appendChild(li);
     });
   }
 };
