@@ -32,7 +32,7 @@ app.Goals = {
 
   populateGoalList: function() {
 
-    const measurements = ["weight", "neck", "waist", "hips", "body fat"];
+    const measurements = app.measurements;
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const stats = measurements.concat(nutriments);
     const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);

@@ -442,7 +442,7 @@ app.Diary = {
     const title = app.strings.diary["log-title"] || "Today's Stats";
     const stats = JSON.parse(window.localStorage.getItem("stats")) || {};
     const units = app.Settings.getField("units");
-    const fields = ["weight", "neck", "waist", "hips", "body fat"];
+    const fields = app.measurements;
     const goals = app.Settings.getField("goals");
 
     // Create dialog inputs

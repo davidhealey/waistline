@@ -81,7 +81,7 @@ app.GoalEditor = {
   },
 
   hideShowComponents: function() {
-    const measurements = ["weight", "neck", "waist", "hips", "body fat"];
+    const measurements = app.measurements;
     if (measurements.includes(app.GoalEditor.item))
       app.GoalEditor.el.showInDiary.style.display = "none";
   },
