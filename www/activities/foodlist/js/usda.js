@@ -136,10 +136,13 @@ app.USDA = {
           for (let n of item.foodNutrients) {
 
             if (n.nutrientName.includes(nutriment)) {
-              result.nutrition[x] = n.value;
 
-              if (x == "sodium")
+              if (x == "sodium") { // USDA sodium value is in mg
                 result.nutrition.salt = n.value * 0.0025;
+                result.nutrition.sodium = n.value * 0.001;
+              } else {
+                result.nutrition[x] = n.value;
+              }
 
               break;
             }

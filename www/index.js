@@ -38,7 +38,7 @@ const app = {
     "trans-fat": "g",
     "omega-3-fat": "g",
     "cholesterol": "mg",
-    "sodium": "mg",
+    "sodium": "g",
     "vitamin-a": "µg",
     "vitamin-d": "µg",
     "vitamin-e": "mg",
