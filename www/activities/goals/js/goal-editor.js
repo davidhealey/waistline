@@ -28,7 +28,10 @@ app.GoalEditor = {
 
     if (context.item !== undefined) {
       const inputs = Array.from(document.querySelectorAll("input"));
-      this.el.title.innerText = app.Utils.tidyText(context.item, 50, true);
+      const title = app.strings["goal-editor"]["title"] || "Set Goals";
+      const stat = app.strings.nutriments[context.item] || app.strings.statistics[context.item] || context.item;
+      const text = title + ": " + app.Utils.tidyText(stat, 50, true)
+      this.el.title.innerText = text;
       this.setInputNames(context.item);
       app.Settings.restoreInputValues(inputs);
       this.setGoalSharing();
