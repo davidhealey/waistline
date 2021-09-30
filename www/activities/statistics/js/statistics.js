@@ -131,7 +131,7 @@ app.Stats = {
       if (goals[x + "-show-in-stats"] == true) {
         let option = document.createElement("option");
         option.value = x;
-        let text = app.strings.nutriments[x] || x;
+        let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
         option.innerHTML = app.Utils.tidyText(text, 80, true);
         app.Stats.el.stat.appendChild(option);
       }
@@ -292,12 +292,7 @@ app.Stats = {
         }
       }
 
-      let title = field;
-
-      if (app.strings.nutriments[field] !== undefined)
-        title = app.strings.nutriments[field];
-      else if (app.strings.statistics[field] !== undefined)
-        title = app.strings.statistics[field];
+      let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
 
       result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
       result.average = result.average / result.dates.length;
