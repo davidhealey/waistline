@@ -171,6 +171,7 @@
   },
   "goal-editor": {
     "title": "Set Goals",
+    "goal": "Goal",
     "show-in-diary": "Show in Diary",
     "show-in-stats": "Show in Statistics",
     "shared-goal": "Same goal every day",

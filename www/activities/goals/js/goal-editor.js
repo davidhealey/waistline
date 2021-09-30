@@ -48,6 +48,7 @@ app.GoalEditor = {
     app.GoalEditor.el.minimumGoalOption = document.querySelector(".page[data-name='goal-editor'] #minimum");
     app.GoalEditor.el.sharedGoal = document.querySelector(".page[data-name='goal-editor'] #shared-goal");
     app.GoalEditor.el.minimumGoal = document.querySelector(".page[data-name='goal-editor'] #minimum-goal");
+    app.GoalEditor.el.primaryGoal = document.querySelector(".page[data-name='goal-editor'] #primary-goal");
   },
 
   bindUIActions: function() {
@@ -88,6 +89,13 @@ app.GoalEditor = {
       app.GoalEditor.el.showInDiaryOption.style.display = "none";
       app.GoalEditor.el.sharedGoalOption.style.display = "none";
       app.GoalEditor.el.minimumGoalOption.style.display = "none";
+      app.GoalEditor.el.primaryGoal.innerText = app.strings["goal-editor"]["goal"] || "Goal";
+      const extraGoals = Array.from(document.querySelectorAll("li.extra-goal"));
+      extraGoals.forEach((x) => {
+        x.style.display = "none";
+      });
+    } else {
+      app.GoalEditor.el.primaryGoal.innerText = app.strings["days"]["0"] || "Sunday";
     }
   },
 
