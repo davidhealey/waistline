@@ -78,7 +78,7 @@ app.Goals = {
     let day = date.getUTCDay();
     let goal = app.Settings.get("goals", item);
 
-    if (app.Settings.get("goals", item + "-shared-goal"))
+    if (app.Settings.get("goals", item + "-shared-goal") || app.measurements.includes(item))
       return goal[0];
 
     return goal[day];
