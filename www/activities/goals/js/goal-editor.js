@@ -46,6 +46,7 @@ app.GoalEditor = {
     app.GoalEditor.el.showInDiaryOption = document.querySelector(".page[data-name='goal-editor'] #diary");
     app.GoalEditor.el.sharedGoalOption = document.querySelector(".page[data-name='goal-editor'] #shared");
     app.GoalEditor.el.minimumGoalOption = document.querySelector(".page[data-name='goal-editor'] #minimum");
+    app.GoalEditor.el.showInDiary = document.querySelector(".page[data-name='goal-editor'] #show-in-diary");
     app.GoalEditor.el.sharedGoal = document.querySelector(".page[data-name='goal-editor'] #shared-goal");
     app.GoalEditor.el.minimumGoal = document.querySelector(".page[data-name='goal-editor'] #minimum-goal");
     app.GoalEditor.el.primaryGoal = document.querySelector(".page[data-name='goal-editor'] #primary-goal");
@@ -64,6 +65,14 @@ app.GoalEditor = {
       }
     });
 
+    // Show in diary toggle 
+    if (!app.GoalEditor.el.showInDiary.hasChangeEvent) {
+      app.GoalEditor.el.showInDiary.addEventListener("change", (e) => {
+        app.Settings.saveInputs([app.GoalEditor.el.showInDiary]);
+      });
+      app.GoalEditor.el.showInDiary.hasChangeEvent = true;
+    }
+
     // Shared goal toggle 
     if (!app.GoalEditor.el.sharedGoal.hasChangeEvent) {
       app.GoalEditor.el.sharedGoal.addEventListener("change", (e) => {
@@ -76,7 +85,6 @@ app.GoalEditor = {
     // Minimum goal toggle 
     if (!app.GoalEditor.el.minimumGoal.hasChangeEvent) {
       app.GoalEditor.el.minimumGoal.addEventListener("change", (e) => {
-        app.GoalEditor.setGoalSharing();
         app.Settings.saveInputs([app.GoalEditor.el.minimumGoal]);
       });
       app.GoalEditor.el.minimumGoal.hasChangeEvent = true;
