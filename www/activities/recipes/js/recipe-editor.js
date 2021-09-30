@@ -178,8 +178,7 @@ app.RecipeEditor = {
 
     for (let n in nutrition) {
 
-      if (n == "calories" && energyUnit !== "kcal") continue;
-      if (n == "kilojoules" && energyUnit == "kcal") continue;
+      if ((n == "calories" || n == "kilojoules") && nutrimentUnits[n] != energyUnit) continue;
       if (nutrimentVisibility[n] !== true && !["calories", "kilojoules"].includes(n)) continue;
 
       let unit = "g";

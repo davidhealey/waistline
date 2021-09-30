@@ -40,8 +40,7 @@ app.Goals = {
     for (let i in stats) {
       let x = stats[i];
 
-      if (x == "calories" && units.energy !== "kcal") continue;
-      if (x == "kilojoules" && units.energy == "kcal") continue;
+      if ((x == "calories" || x == "kilojoules") && units[x] != units.energy) continue;
 
       let unit = "";
       if (units[x] !== undefined)
