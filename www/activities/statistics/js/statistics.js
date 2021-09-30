@@ -244,14 +244,12 @@ app.Stats = {
       let stats = app.measurements;
 
       let unit;
-      if (field == "body fat") {
+      if (field == "body fat")
         unit = "%";
-      } else {
-        if (stats.indexOf(field) !== -1)
-          field == "weight" ? unit = statUnits.weight : unit = statUnits.length;
-        else
-          unit = nutrimentUnits[field];
-      }
+      else if (stats.includes(field))
+        field == "weight" ? unit = statUnits.weight : unit = statUnits.length;
+      else
+        unit = nutrimentUnits[field] || "g";
 
       let result = {
         dates: [],

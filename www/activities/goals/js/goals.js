@@ -42,13 +42,13 @@ app.Goals = {
 
       if ((x == "calories" || x == "kilojoules") && units[x] != units.energy) continue;
 
-      let unit = "";
-      if (units[x] !== undefined)
-        unit = "(" + units[x] + ")";
-      else if (measurements.includes(x))
-        unit = "(" + units.length + ")";
-      else if (nutriments.includes(x))
-        unit = "(g)";
+      let unit;
+      if (x == "body fat")
+        unit = "%";
+      else if (stats.includes(x))
+        x == "weight" ? unit = units.weight : unit = units.length;
+      else
+        unit = units[x] || "g";
 
       let li = document.createElement("li");
       app.Goals.el.list.appendChild(li);
@@ -57,7 +57,7 @@ app.Goals = {
       a.href = "#";
 
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      a.innerHTML = app.Utils.tidyText(text, 50, true) + " " + unit;
+      a.innerHTML = app.Utils.tidyText(text, 50, true) + " (" + unit + ")";
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {
