@@ -93,9 +93,9 @@ app.DiaryChart = {
       // Macros
       macros.forEach((x) => {
         if (x == "saturated-fat" || x == "sugars") return;
+        if (!nutrition[x]) return;
 
-        let value = nutrition[x] || 0;
-        let percent = value / sum * 100;
+        let percent = nutrition[x] / sum * 100;
         let name = app.strings.nutriments[x] || x;
 
         let entry = {
