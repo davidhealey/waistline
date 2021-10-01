@@ -30,7 +30,8 @@ app.GoalEditor = {
       const inputs = Array.from(document.querySelectorAll("input"));
       const title = app.strings["goal-editor"]["title"] || "Set Goals";
       const stat = app.strings.nutriments[context.item] || app.strings.statistics[context.item] || context.item;
-      const text = title + ": " + app.Utils.tidyText(stat, 50, true)
+      const unit = (context.unit !== undefined) ? " (" + context.unit + ")" : "";
+      const text = title + ": " + app.Utils.tidyText(stat, 50, true) + unit;
       this.el.title.innerText = text;
       this.setInputNames(context.item);
       app.Settings.restoreInputValues(inputs);

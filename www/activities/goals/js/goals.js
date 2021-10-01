@@ -45,7 +45,7 @@ app.Goals = {
       let unit;
       if (x == "body fat")
         unit = "%";
-      else if (stats.includes(x))
+      else if (measurements.includes(x))
         x == "weight" ? unit = units.weight : unit = units.length;
       else
         unit = units[x] || "g";
@@ -61,14 +61,15 @@ app.Goals = {
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {
-        app.Goals.gotoEditor(x);
+        app.Goals.gotoEditor(x, unit);
       });
     }
   },
 
-  gotoEditor: function(item) {
+  gotoEditor: function(item, unit) {
     app.data.context = {
-      item: item
+      item: item,
+      unit: unit
     };
 
     app.f7.views.main.router.navigate("./goal-editor/");
