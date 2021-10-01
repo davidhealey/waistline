@@ -430,10 +430,11 @@ app.Settings = {
       },
       nutrimentVisibility: {
         "fat": true,
+        "saturated-fat": true,
         "carbohydrates": true,
+        "sugars": true,
         "proteins": true,
-        "salt": true,
-        "sugars": true
+        "salt": true
       },
       firstTimeSetup: true,
       schemaVersion: currentSettingsSchemaVersion
