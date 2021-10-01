@@ -23,4 +23,4 @@
 .page[data-name="diary"] #diary-nutrition .nutrition-total-title {font-weight: bold;}
 
 /* Dialog with scrollbar */
-.scroll-dialog {max-height: 70vh; overflow-y: auto;}
+.scroll-dialog {max-height: 64vh; overflow-y: auto;}

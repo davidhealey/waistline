@@ -566,6 +566,7 @@ app.Diary = {
     const title = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const visible = app.Settings.getField("nutrimentVisibility");
     const nutrimentUnits = app.nutrimentUnits;
     const energyUnit = app.Settings.get("units", "energy");
 
@@ -583,7 +584,7 @@ app.Diary = {
       // Skip calories if energyUnit is "kJ" and skip kilojoule if energyUnit is "kcal"
       if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
 
-      if (!app.Goals.showInDiary(x)) continue;
+      if (!visible[x]) continue;
 
       // Get name, unit and value
       let nutriment = app.strings.nutriments[x] || x;
