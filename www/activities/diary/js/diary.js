@@ -581,10 +581,11 @@ app.Diary = {
 
       let x = nutriments[i];
 
-      // Skip calories if energyUnit is "kJ" and skip kilojoule if energyUnit is "kcal"
-      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
-
-      if (!visible[x]) continue;
+      if (x == "calories" || x == "kilojoules") {
+        if (nutrimentUnits[x] != energyUnit) continue;
+      } else {
+        if (!visible[x]) continue;
+      }
 
       // Get name, unit and value
       let nutriment = app.strings.nutriments[x] || x;
