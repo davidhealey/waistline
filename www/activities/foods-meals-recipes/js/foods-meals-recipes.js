@@ -429,7 +429,7 @@ app.FoodsMealsRecipes = {
         //Title
         let title = document.createElement("div");
         title.className = "item-title";
-        title.innerHTML = app.Utils.tidyText(item.name, 25);
+        title.innerHTML = app.Utils.tidyText(item.name, 50);
         row.appendChild(title);
 
         //Energy
@@ -453,7 +453,7 @@ app.FoodsMealsRecipes = {
         if (item.brand && item.brand != "") {
           let subtitle = document.createElement("div");
           subtitle.className = "item-subtitle";
-          subtitle.innerHTML = app.Utils.tidyText(item.brand, 35).italics();
+          subtitle.innerHTML = app.Utils.tidyText(item.brand, 50).italics();
           inner.appendChild(subtitle);
         }
 

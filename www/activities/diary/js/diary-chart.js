@@ -98,6 +98,15 @@ app.DiaryChart = {
         let percent = nutrition[x] / sum * 100;
         let name = app.strings.nutriments[x] || x;
 
+        if (x == "fat" && nutrition["saturated-fat"] !== undefined && nutrition["saturated-fat"] !== 0) {
+          const including = app.strings["diary-chart"]["including-saturated-fat"] || "including sat fat";
+          name += " (" + including + ")";
+        }
+        else if (x == "carbohydrates" && nutrition["sugars"] !== undefined && nutrition["sugars"] !== 0) {
+          const including = app.strings["diary-chart"]["including-sugars"] || "including sugars";
+          name += " (" + including + ")";
+        }
+
         let entry = {
           name: app.Utils.tidyText(name, 50, true),
           value: (Math.round(percent * 100) / 100) + "%"
