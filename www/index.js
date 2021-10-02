@@ -409,11 +409,6 @@ document.addEventListener('deviceready', async function() {
   }, 2000);
 }, false);
 
-//Prevent chrome displaying context menu on long click
-window.addEventListener("contextmenu", (e) => {
-  e.preventDefault();
-});
-
 // Android back button 
 document.addEventListener("backbutton", (e) => {
 
