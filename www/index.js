@@ -106,6 +106,18 @@ const app = {
     });
   },
 
+  setWritingDirection: function(dir) {
+    let panelDir = (dir === "rtl") ? "panel-right" : "panel-left";
+    $("#app-panel").get(0).classList.add(panelDir);
+
+    let framework7css = (dir === "rtl") ?
+      "assets/framework7/framework7-bundle-rtl.min.css" :
+      "assets/framework7/framework7-bundle.min.css";
+    $("#framework7").get(0).setAttribute("href", framework7css);
+
+    $("html").get(0).setAttribute("dir", dir);
+  },
+
   f7: new Framework7({
     // App root element
     root: "#app",
@@ -116,7 +128,7 @@ const app = {
     version: "2.9.2",
     // Enable swipe panel
     panel: {
-      swipe: "left",
+      swipe: true,
       swipeActiveArea: 30,
     },
     calendar: {
@@ -347,14 +359,21 @@ const app = {
 
 // Create main view
 let animate = true;
+let dir = "ltr";
 let settings = JSON.parse(window.localStorage.getItem("settings"));
 
-if (settings != undefined && settings.appearance !== undefined && settings.appearance.animations !== undefined)
-  animate = !settings.appearance.animations;
+if (settings != undefined && settings.appearance !== undefined) {
+  if (settings.appearance.animations !== undefined)
+    animate = !settings.appearance.animations;
+  if (settings.appearance.direction !== undefined)
+    dir = settings.appearance.direction;
+}
 
 let viewOptions = {
   animate: animate
 };
+
+app.setWritingDirection(dir);
 
 const mainView = app.f7.views.create("#main-view", viewOptions);
 
@@ -362,26 +381,26 @@ document.addEventListener("page:init", function(event) {
   let page = event.detail;
 
   //Close panel when switching pages
-  let panelLeft = app.f7.panel.get('.panel-left');
-  if (panelLeft)
-    panelLeft.close(animate);
+  let panel = app.f7.panel.get("#app-panel");
+  if (panel)
+    panel.close(animate);
 
   let pageName = app.f7.views.main.router.currentRoute.name;
 
   if (pageName !== undefined && pageName.includes("Editor"))
-    panelLeft.disableSwipe();
+    panel.disableSwipe();
   else
-    panelLeft.enableSwipe();
+    panel.enableSwipe();
 });
 
 document.addEventListener("page:reinit", function(event) {
-  let panelLeft = app.f7.panel.get('.panel-left');
+  let panel = app.f7.panel.get("#app-panel");
   let pageName = app.f7.views.main.router.currentRoute.name;
 
   if (pageName !== undefined && pageName.includes("Editor"))
-    panelLeft.disableSwipe();
+    panel.disableSwipe();
   else
-    panelLeft.enableSwipe();
+    panel.enableSwipe();
 });
 
 app.f7.on("init", async function(event) {});

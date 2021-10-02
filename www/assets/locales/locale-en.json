@@ -116,6 +116,10 @@
     "eink": "E-ink",
     "camino": "Camino"
   },
+  "writing-directions": {
+    "ltr": "Left to Right (LTR)",
+    "rtl": "Right to Left (RTL)"
+  },
   "statistics": {
     "title": "Statistics",
     "range": "Range",
@@ -214,7 +218,8 @@
       "colour-theme": "Colour Theme",
       "animations": "Disable UI Animations",
       "start-page": "Start Page",
-      "language": "Preferred Language"
+      "language": "Preferred Language",
+      "writing-direction": "Writing Direction"
     },
     "units": {
       "title": "Units",

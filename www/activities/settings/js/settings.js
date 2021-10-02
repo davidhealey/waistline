@@ -185,6 +185,17 @@ app.Settings = {
       locale.hasChangeEvent = true;
     }
 
+    // Writing Direction
+    let direction = document.querySelector(".page[data-name='settings-appearance'] #direction");
+
+    if (direction != undefined && !direction.hasChangeEvent) {
+      direction.addEventListener("change", (e) => {
+        let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
+        app.Utils.toast(msg);
+      });
+      direction.hasChangeEvent = true;
+    }
+
     // Animations 
     let toggleAnimations = document.getElementById("toggle-animations");
     if (toggleAnimations != undefined) {
@@ -210,7 +221,7 @@ app.Settings = {
 
   changeTheme: function(darkMode, colourTheme) {
     let body = document.getElementsByTagName("body")[0];
-    let panel = document.getElementById("left-panel");
+    let panel = document.getElementById("app-panel");
 
     if (darkMode === true) {
       body.className = colourTheme + " theme-dark";
@@ -402,7 +413,8 @@ app.Settings = {
         "dark-mode": false,
         "start-page": "/settings/",
         theme: "color-theme-red",
-        locale: "auto"
+        locale: "auto",
+        direction: "ltr"
       },
       units: {
         energy: "kcal",
