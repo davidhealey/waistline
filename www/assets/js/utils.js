@@ -82,6 +82,9 @@ app.Utils = {
 
     let result = -1;
 
+    if (unit1 == unit2)
+      result = value;
+
     // lb/kg
     if (unit1 == "lb" && unit2 == "kg")
       result = value * 0.4535924;
