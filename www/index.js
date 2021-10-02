@@ -417,9 +417,11 @@ document.addEventListener('deviceready', async function() {
   }, 2000);
 }, false);
 
-//Prevent chrome displaying context menu on long click
+// Prevent chrome displaying context menu on long click
 window.addEventListener("contextmenu", (e) => {
-  e.preventDefault();
+  let target = e.target.nodeName.toLowerCase();
+  if (target !== "input" && target !== "textarea")
+    e.preventDefault();
 });
 
 // Android back button 
