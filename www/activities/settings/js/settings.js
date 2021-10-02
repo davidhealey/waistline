@@ -185,17 +185,6 @@ app.Settings = {
       locale.hasChangeEvent = true;
     }
 
-    // Writing Direction
-    let direction = document.querySelector(".page[data-name='settings-appearance'] #direction");
-
-    if (direction != undefined && !direction.hasChangeEvent) {
-      direction.addEventListener("change", (e) => {
-        let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
-        app.Utils.toast(msg);
-      });
-      direction.hasChangeEvent = true;
-    }
-
     // Animations 
     let toggleAnimations = document.getElementById("toggle-animations");
     if (toggleAnimations != undefined) {

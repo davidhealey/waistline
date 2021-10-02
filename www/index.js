@@ -74,17 +74,20 @@ const app = {
     "lactose": "g"
   },
 
-  localize: function() {
-    let lang = app.Settings.get("appearance", "locale");
+  getLanguage: function(locale) {
+    if (locale == undefined || locale == "auto") {
+      locale = navigator.language.replace(/_/, '-').toLowerCase();
 
-    if (lang == undefined || lang == "auto") {
-      lang = navigator.language.replace(/_/, '-').toLowerCase();
-
-      if (lang.length > 3)
-        lang = lang.substring(0, 3) + lang.substring(3, 5).toUpperCase();
+      if (locale.length > 3)
+        locale = locale.substring(0, 3) + locale.substring(3, 5).toUpperCase();
     }
+    return locale;
+  },
 
-    //Get default/fallback locale data
+  localize: function() {
+    let lang = app.getLanguage(app.Settings.get("appearance", "locale"));
+
+    // Get default/fallback locale data
     if (Object.keys(app.strings).length == 0) {
       $.getJSON("assets/locales/locale-en.json", function(data) {
         app.strings = data;
@@ -106,16 +109,10 @@ const app = {
     });
   },
 
-  setWritingDirection: function(dir) {
-    let panelDir = (dir === "rtl") ? "panel-right" : "panel-left";
-    $("#app-panel").get(0).classList.add(panelDir);
-
-    let framework7css = (dir === "rtl") ?
-      "assets/framework7/framework7-bundle-rtl.min.css" :
-      "assets/framework7/framework7-bundle.min.css";
-    $("#framework7").get(0).setAttribute("href", framework7css);
-
-    $("html").get(0).setAttribute("dir", dir);
+  setRtlWritingDirection: function() {
+    $("#app-panel").get(0).classList.replace("panel-left", "panel-right");
+    $("#framework7").get(0).setAttribute("href", "assets/framework7/framework7-bundle-rtl.min.css");
+    $("html").get(0).setAttribute("dir", "rtl");
   },
 
   f7: new Framework7({
@@ -359,28 +356,29 @@ const app = {
 
 // Create main view
 let animate = true;
-let dir = "ltr";
+let rtl = false;
 let settings = JSON.parse(window.localStorage.getItem("settings"));
 
 if (settings != undefined && settings.appearance !== undefined) {
   if (settings.appearance.animations !== undefined)
     animate = !settings.appearance.animations;
-  if (settings.appearance.direction !== undefined)
-    dir = settings.appearance.direction;
+  if (settings.appearance.locale !== undefined)
+    rtl = app.getLanguage(settings.appearance.locale).startsWith("he");
 }
 
 let viewOptions = {
   animate: animate
 };
 
-app.setWritingDirection(dir);
+if (rtl)
+  app.setRtlWritingDirection();
 
 const mainView = app.f7.views.create("#main-view", viewOptions);
 
 document.addEventListener("page:init", function(event) {
   let page = event.detail;
 
-  //Close panel when switching pages
+  // Close panel when switching pages
   let panel = app.f7.panel.get("#app-panel");
   if (panel)
     panel.close(animate);
@@ -413,7 +411,7 @@ document.addEventListener('deviceready', async function() {
 
   app.localize();
 
-  //Database setup
+  // Database setup
   await dbHandler.initializeDb();
 
   if (settings == undefined || settings.firstTimeSetup == undefined) {
