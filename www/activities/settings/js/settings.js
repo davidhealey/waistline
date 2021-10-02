@@ -227,7 +227,7 @@ app.Settings = {
         if (y.name == x.name) {
           if (y.type == "checkbox")
             result.push(y.checked);
-          else
+          else if ((y.type == "radio" && y.checked) || y.type != "radio")
             result.push(y.value);
         }
         return result;
@@ -442,7 +442,7 @@ app.Settings = {
     window.localStorage.setItem("settings", JSON.stringify(defaults));
   },
 
-  migrateSettings: function(settings, saveChanges=true) {
+  migrateSettings: function(settings, saveChanges = true) {
     if (settings !== undefined && (settings.schemaVersion === undefined || settings.schemaVersion < currentSettingsSchemaVersion)) {
 
       // Theme settings must be renamed to Appearance

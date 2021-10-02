@@ -27,7 +27,9 @@
       </div>
       <div class="title" data-localize="setup-wizard.title">Setup Wizard</div>
       <div class="right">
-        <a href="#" class="link icon-only"><i class="icon material-icons">done</i></a>
+        <a href="/setup-wizard/target-weight/" id="next-setup-page" class="link icon-only" style="visibility: hidden;">
+          <i class="icon material-icons">done</i>
+        </a>
       </div>
     </div>
   </div>
@@ -45,15 +47,15 @@
           <div class="item-inner">
             <div class="item-title item-floating-label" data-localize="setup-wizard.current-weight">Current Weight</div>
             <div class="item-input-wrap">
-              <input type="text" placeholder="" />
+              <input type="text" type="number" field="user" name="current-weight" id="current-weight-input" placeholder="" />
             </div>
           </div>
 
           <div class="item-inner">
             <div class="item-title item-floating-label"></div>
             <div class="item-input-wrap input-dropdown-wrap">
-              <select>
-                <option value="g">kg</option>
+              <select field="user" name="current-weight-unit" id="current-weight-unit">
+                <option value="kg">kg</option>
                 <option value="mg">lb</option>
                 <option value="μg">Stone</option>
               </select>

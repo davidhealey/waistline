@@ -27,7 +27,9 @@
       </div>
       <div class="title" data-localize="setup-wizard.title">Setup Wizard</div>
       <div class="right">
-        <a href="#" class="link icon-only"><i class="icon material-icons">done</i></a>
+        <a href="/setup-wizard/dob/" id="next-setup-page" class="link icon-only" style="visibility: hidden;">
+          <i class="icon material-icons">done</i>
+        </a>
       </div>
     </div>
   </div>
@@ -43,7 +45,7 @@
       <ul>
         <li>
           <label class="item-radio item-content">
-            <input type="radio" name="gender" value="0" />
+            <input type="radio" field="user" name="gender" value="0" />
             <i class="icon icon-radio"></i>
             <div class="item-inner">
               <div class="item-title-row">
@@ -55,7 +57,7 @@
 
         <li>
           <label class="item-radio item-content">
-            <input type="radio" name="gender" value="1" />
+            <input type="radio" field="user" name="gender" value="1" />
             <i class="icon icon-radio"></i>
             <div class="item-inner">
               <div class="item-title-row">
