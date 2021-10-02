@@ -502,7 +502,6 @@ app.Diary = {
       input.name = x;
       input.type = "number";
       input.step = "any";
-      input.min = "0";
       input.setAttribute("value", value || "");
       input.placeholder = value || 0;
       inputWrap.appendChild(input);
