@@ -328,6 +328,14 @@ const app = {
             options: {
               transition: "f7-parallax"
             }
+          },
+          {
+            name: "Summary",
+            path: "/summary/",
+            url: "activities/setup-wizard/views/setup-wizard-summary.html",
+            options: {
+              transition: "f7-parallax"
+            }
           }
         ]
       },
