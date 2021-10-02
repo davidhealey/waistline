@@ -78,6 +78,51 @@ app.Utils = {
     }
   },
 
+  convertUnit: function(value, unit1, unit2, round) {
+
+    let result = -1;
+
+    // lb/kg
+    if (unit1 == "lb" && unit2 == "kg")
+      result = value * 0.4535924;
+
+    if (unit1 == "kg" && unit2 == "lb")
+      result = value / 0.4535924;
+
+    // mg/g
+    if (unit1 == "mg" && unit2 == "g")
+      result = value * 0.001;
+
+    if (unit1 == "g" && unit2 == "mg")
+      result = value / 0.001;
+
+    // stone/kg
+    if (unit1 == "stone" && unit2 == "kg")
+      result = value * 6.350293;
+
+    if (unit1 == "kg" && unit2 == "stone")
+      result = value / 6.350293;
+
+    // cm/inches
+    if (unit1 == "inch" && unit2 == "cm")
+      result = value * 2.54;
+
+    if (unit1 == "cm" && unit2 == "inch")
+      result = value / 2.54;
+
+    // kj/kcal
+    if (unit1 == "kj" && unit2 == "kcal")
+      result = value * 0.23900573614;
+
+    if (unit1 == "kcal" && unit2 == "kj")
+      result = value / 0.23900573614;
+
+    if (result != -1 && round == true)
+      result = Math.round(result);
+
+    return result;
+  },
+
   writeFile: function(data, filename) {
     return new Promise(function(resolve, reject) {
       if (app.mode !== "development" && device.platform !== "browser") {
