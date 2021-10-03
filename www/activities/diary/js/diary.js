@@ -237,7 +237,7 @@ app.Diary = {
 
       // Values and goal text
       let values = document.createElement("div");
-      values.className = "col";
+      values.className = "col keep-ltr";
       values.id = x + "-value";
 
       let span = document.createElement("span");

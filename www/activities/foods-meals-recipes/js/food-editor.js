@@ -289,7 +289,7 @@ app.FoodEditor = {
 
         let input = document.createElement("input");
         input.id = k;
-        input.className = "align-right";
+        input.className = "align-end";
         input.type = "number";
         input.step = "0.01";
         input.placeholder = "0";

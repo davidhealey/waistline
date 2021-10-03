@@ -1,10 +1,16 @@
-.align-left {text-align: left;}
-.align-right {text-align: right;}
+.align-end {text-align: end;}
 * {-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
-input { -webkit-touch-callout: default !important; -webkit-user-select: auto !important; -khtml-user-select: auto !important; -moz-user-select: auto !important; -ms-user-select: auto !important; user-select: auto !important;}
+input {-webkit-touch-callout: default !important; -webkit-user-select: auto !important; -khtml-user-select: auto !important; -moz-user-select: auto !important; -ms-user-select: auto !important; user-select: auto !important;}
 
-select.align-right {direction: rtl;}
+select.align-end {direction: rtl;}
 option {direction: ltr;}
+
+html[dir="rtl"] select.align-end {direction: ltr;}
+html[dir="rtl"] option {direction: rtl;}
+
+.keep-ltr {direction: ltr;}
+
+i.searchbar-icon {margin: -12px 12px;}
 
 #foodlist-container .item-title {width:65% !important;}
 #quantity-container .item-title {width:65% !important;}
