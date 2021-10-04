@@ -123,6 +123,7 @@
   "diary": {
     "title": "Дневник",
     "quick-add": "Быстрое добавление",
+    "yesterdays-meal": "Yesterday's %s",
     "log-title": "Статистика на сегодня",
     "no-data": "Нет данных",
     "default-meals": {
@@ -164,7 +165,8 @@
     "edit-food": "Редактировать еду",
     "edit-meal": "Редактировать блюдо",
     "edit-recipe": "Редактировать рецепт",
-    "required-field-message": "Пожалуйста, заполните это поле."
+    "required-field-message": "Пожалуйста, заполните это поле.",
+    "negative-value-message": "No negative values."
   },
   "goals": {
     "title": "Цели"
@@ -201,7 +203,7 @@
       "length": "Длина",
       "kilograms": "Килограммы",
       "pounds": "Фунты",
-      "stone": "Стоуны",
+      "stones": "Стоуны",
       "centimeters": "Сантиметры",
       "inches": "Дюймы"
     },
