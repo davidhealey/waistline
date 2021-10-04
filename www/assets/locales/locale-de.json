@@ -123,6 +123,7 @@
   "diary": {
     "title": "Tagebuch",
     "quick-add": "Schnelles Hinzufügen",
+    "yesterdays-meal": "Yesterday's %s",
     "log-title": "Heutige Werte",
     "no-data": "Keine Daten",
     "default-meals": {
@@ -164,7 +165,8 @@
     "edit-food": "Lebensmittel bearbeiten",
     "edit-meal": "Mahlzeit-Eintrag bearbeiten",
     "edit-recipe": "Rezept-Eintrag bearbeiten",
-    "required-field-message": "Bitte fülle dieses Feld aus."
+    "required-field-message": "Bitte fülle dieses Feld aus.",
+    "negative-value-message": "No negative values."
   },
   "goals": {
     "title": "Ziele"
@@ -201,7 +203,7 @@
       "length": "Länge",
       "kilograms": "Kilogramm",
       "pounds": "Pfund",
-      "stone": "Stones",
+      "stones": "Stones",
       "centimeters": "Zentimeter",
       "inches": "Zoll"
     },
