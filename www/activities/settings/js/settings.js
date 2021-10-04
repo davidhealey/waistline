@@ -395,7 +395,7 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        animations: true,
+        animations: false,
         "dark-mode": false,
         "start-page": "/settings/",
         theme: "color-theme-red",
