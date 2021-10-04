@@ -18,6 +18,6 @@
 */
 
 /* Nutrition/Goals display */
-.page[data-name="diary"] #diary-nutrition {margin-top: 1em; margin-bottom: 1em;}
-.page[data-name="diary"] #diary-nutrition .col {text-align: center;}
+.page[data-name="diary"] #diary-nutrition .row {justify-content: space-around;}
+.page[data-name="diary"] #diary-nutrition .col {text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .page[data-name="diary"] #diary-nutrition .nutrition-total-title {font-weight: bold;}
