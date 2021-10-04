@@ -131,9 +131,13 @@ app.Meals = {
         yesterday.setUTCHours(yesterday.getUTCHours() - 24);
 
         const mealNames = app.Settings.get("diary", "meal-names");
+        const mealName = mealNames[category];
+
+        const yesterdays = app.strings.diary["yesterdays-meal"] || "Yesterday's %s";
+        const meal = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
 
         let result = {
-          name: "Yesterday's " + mealNames[category],
+          name: yesterdays.replace("%s", meal),
           items: []
         };
 

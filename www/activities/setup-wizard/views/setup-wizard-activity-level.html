@@ -1,0 +1,119 @@
+<!--
+  Copyright 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="setup-wizard-activity-level">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" data-localize="setup-wizard.title">Setup Wizard</div>
+      <div class="right">
+        <a href="/setup-wizard/gender/" id="next-setup-page" class="link icon-only" style="visibility: hidden;">
+          <i class="icon material-icons">done</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="block">
+      <div class="block-title" data-localize="setup-wizard.activity-level-title">
+        What is your activity level?
+      </div>
+    </div>
+
+    <div class="list media-list">
+      <ul>
+        <li>
+          <label class="item-radio item-content">
+            <input type="radio" field="user" name="activity-level" value="0" />
+            <i class="icon icon-radio"></i>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">Sedentary</div>
+              </div>
+              <div class="item-subtitle">Little or no exercise</div>
+              <div class="item-text">Activities such as reading, working at a desk, watching television, playing cards, etc.</div>
+            </div>
+          </label>
+        </li>
+
+        <li>
+          <label class="item-radio item-content">
+            <input type="radio" field="user" name="activity-level" value="1" />
+            <i class="icon icon-radio"></i>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">Lightly Active</div>
+              </div>
+              <div class="item-subtitle">Light exercise/sports 1 – 3 days per week</div>
+              <div class="item-text">Several hours each day are spent walking, doing housework, exercising, etc.</div>
+            </div>
+          </label>
+        </li>
+
+        <li>
+          <label class="item-radio item-content">
+            <input type="radio" field="user" name="activity-level" value="2" />
+            <i class="icon icon-radio"></i>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">Moderately Active</div>
+              </div>
+              <div class="item-subtitle">Moderate exercise/sports 3 – 5 days per week</div>
+              <div class="item-text">Daily routine includes acitivities that require moderate physical effort.</div>
+            </div>
+          </label>
+        </li>
+
+        <li>
+          <label class="item-radio item-content">
+            <input type="radio" field="user" name="activity-level" value="3" />
+            <i class="icon icon-radio"></i>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">Very Active</div>
+              </div>
+              <div class="item-subtitle">Hard exercise/sports 3 – 5 days per week</div>
+              <div class="item-text">This activity level is appropriate for part-time athletes, laborers, miners, etc.</div>
+            </div>
+          </label>
+        </li>
+
+        <li>
+          <label class="item-radio item-content">
+            <input type="radio" field="user" name="activity-level" value="4" />
+            <i class="icon icon-radio"></i>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">Extremely Active</div>
+              </div>
+              <div class="item-subtitle">Hard exercise/sports daily/physical job</div>
+              <div class="item-text">Professional athletes or those employed in physically demanding jobs.</div>
+            </div>
+          </label>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>

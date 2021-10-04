@@ -1,0 +1,133 @@
+<!--
+  Copyright 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="setup-wizard-height">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" data-localize="setup-wizard.title">Setup Wizard</div>
+      <div class="right">
+        <a href="/setup-wizard/current-weight/" id="next-setup-page" class="link icon-only" style="visibility: hidden;">
+          <i class="icon material-icons">done</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="block">
+      <div class="block-title" data-localize="setup-wizard.height-title">
+        What is your height?
+      </div>
+    </div>
+
+    <div class="list no-hairlines-md">
+      <ul>
+        <li class="item-content item-input item-input-outline">
+          <div class="item-inner" id="height-cm">
+            <div class="item-title item-floating-label" data-localize="setup-wizard.height">Height</div>
+            <div class="item-input-wrap">
+              <input type="number" field="user" id="height-cm-input" name="height" placeholder="" />
+            </div>
+          </div>
+
+          <div class="item-inner" id="height-feet" style="display: none">
+            <div class="item-title item-floating-label" data-localize="setup-wizard.height">Height</div>
+            <div class="item-input-wrap input-dropdown-wrap">
+              <select field="user" name="height">
+                <option value="91.44">3'0"</option>
+                <option value="93.98">3'1"</option>
+                <option value="96.52">3'2"</option>
+                <option value="99.06">3'3"</option>
+                <option value="101.6">3'4"</option>
+                <option value="104.14">3'5"</option>
+                <option value="106.68">3'6"</option>
+                <option value="109.22">3'7"</option>
+                <option value="111.76">3'8"</option>
+                <option value="114.3">3'9"</option>
+                <option value="116.84">3'10"</option>
+                <option value="119.38">3'11"</option>
+                <option value="121.92">4'0"</option>
+                <option value="124.46">4'1"</option>
+                <option value="127">4'2"</option>
+                <option value="129.54">4'3"</option>
+                <option value="132.08">4'4"</option>
+                <option value="134.62">4'5"</option>
+                <option value="137.16">4'6"</option>
+                <option value="139.7">4'7"</option>
+                <option value="142.24">4'8"</option>
+                <option value="144.78">4'9"</option>
+                <option value="147.32">4'10"</option>
+                <option value="149.86">4'11"</option>
+                <option value="152.40">5'0"</option>
+                <option value="154.94">5'1"</option>
+                <option value="157.48">5'2"</option>
+                <option value="160.02">5'3"</option>
+                <option value="162.56">5'4"</option>
+                <option value="165.10">5'5"</option>
+                <option value="167.74">5'6"</option>
+                <option value="170.18">5'7"</option>
+                <option value="172.72">5'8"</option>
+                <option value="175.26">5'9"</option>
+                <option value="177.80">5'10"</option>
+                <option value="180.34">5'11"</option>
+                <option value="182.88">6'0"</option>
+                <option value="185.45">6'1"</option>
+                <option value="187.96">6'2"</option>
+                <option value="190.50">6'3"</option>
+                <option value="193.04">6'4"</option>
+                <option value="195.58">6'5"</option>
+                <option value="198.12">6'6"</option>
+                <option value="200.66">6'7"</option>
+                <option value="203.20">6'8"</option>
+                <option value="205.74">6'9"</option>
+                <option value="208.28">6'10"</option>
+                <option value="210.82">6'11"</option>
+                <option value="213.36">7'0"</option>
+                <option value="215.90">7'1"</option>
+                <option value="218.44">7'2"</option>
+                <option value="220.98">7'3"</option>
+                <option value="223.52">7'4"</option>
+                <option value="226.06">7'5"</option>
+                <option value="228.6">7'6"</option>
+                <option value="231.14">7'7"</option>
+                <option value="233.68">7'8"</option>
+                <option value="236.22">7'9"</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="item-inner">
+            <div class="item-title item-floating-label"></div>
+            <div class="item-input-wrap input-dropdown-wrap">
+              <select field="user" name="height-unit" id="height-unit">
+                <option value="cm">cm</option>
+                <option value="ft">ft/in</option>
+              </select>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<!--
+  Copyright 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="setup-wizard-dob">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" data-localize="setup-wizard.title">Setup Wizard</div>
+      <div class="right">
+        <a href="/setup-wizard/height/" id="next-setup-page" class="link icon-only">
+          <i class="icon material-icons">done</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="block">
+      <div class="block-title" data-localize="setup-wizard.dob">
+        What is your date of birth?
+      </div>
+    </div>
+
+    <div class="list no-hairlines-md">
+      <ul>
+        <li class="item-content item-input item-input-outline">
+          <div class="item-inner">
+            <div class="item-title item-label item-floating-label" data-localize="setup-wizard.dob-label">D.O.B</div>
+            <div class="item-input-wrap">
+              <input type="date" field="user" name="dob" value="1990-01-01" />
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

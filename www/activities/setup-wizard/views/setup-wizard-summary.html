@@ -1,5 +1,5 @@
-/*
-  Copyright 2018, 2019, 2020 David Healey
+<!--
+  Copyright 2021 David Healey
 
   This file is part of Waistline.
 
@@ -15,12 +15,26 @@
 
   You should have received a copy of the GNU General Public License
   along with app.  If not, see <http://www.gnu.org/licenses/>.
-*/
+-->
 
-/* Nutrition/Goals display */
-.page[data-name="diary"] #diary-nutrition .row {justify-content: space-around;}
-.page[data-name="diary"] #diary-nutrition .col {text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-.page[data-name="diary"] #diary-nutrition .nutrition-total-title {font-weight: bold;}
+<div class="page" data-name="setup-wizard-summary">
 
-/* Dialog with scrollbar */
-.scroll-dialog {max-height: 64vh; overflow-y: auto;}
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" data-localize="setup-wizard.title">Setup Wizard</div>
+      <div class="right">
+        <a href="#" id="next-setup-page" class="link icon-only">
+          <i class="icon material-icons">done</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    Summary
+  </div>
+</div>
