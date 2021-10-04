@@ -123,6 +123,7 @@
   "diary": {
     "title": "Diary",
     "quick-add": "Quick Add",
+    "yesterdays-meal": "Yesterday's %s",
     "log-title": "Today's Stats",
     "no-data": "No Data",
     "default-meals": {
@@ -202,7 +203,7 @@
       "length": "Length",
       "kilograms": "Kilograms",
       "pounds": "Pounds",
-      "stone": "Stones",
+      "stones": "Stones",
       "centimeters": "Centimeters",
       "inches": "Inches"
     },
