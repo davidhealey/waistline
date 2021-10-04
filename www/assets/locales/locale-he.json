@@ -123,6 +123,7 @@
   "diary": {
     "title": "יומן",
     "quick-add": "הוספה מהירה",
+    "yesterdays-meal": "Yesterday's %s",
     "log-title": "הסטטיסטיקה היומית",
     "no-data": "אין נתונים",
     "default-meals": {
@@ -164,7 +165,8 @@
     "edit-food": "עריכת פריט מזון",
     "edit-meal": "עריכת פריט ארוחה",
     "edit-recipe": "עריכת פריט מתכון",
-    "required-field-message": "נא למלא את השדה הזה."
+    "required-field-message": "נא למלא את השדה הזה.",
+    "negative-value-message": "No negative values."
   },
   "goals": {
     "title": "יעדים"
@@ -201,7 +203,7 @@
       "length": "אורך",
       "kilograms": "קילוגרמים",
       "pounds": "פאונדים",
-      "stone": "אבנים",
+      "stones": "אבנים",
       "centimeters": "סנטימטרים",
       "inches": "אינטשים"
     },
