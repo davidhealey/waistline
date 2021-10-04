@@ -164,7 +164,8 @@
     "edit-food": "Edit Food Item",
     "edit-meal": "Edit Meal Item",
     "edit-recipe": "Edit Recipe Item",
-    "required-field-message": "Please fill out this field."
+    "required-field-message": "Please fill out this field.",
+    "negative-value-message": "No negative values."
   },
   "goals": {
     "title": "Goals"
