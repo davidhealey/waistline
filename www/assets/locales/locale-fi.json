@@ -123,6 +123,7 @@
   "diary": {
     "title": "Päiväkirja",
     "quick-add": "Nopea lisäys",
+    "yesterdays-meal": "Yesterday's %s",
     "log-title": "Päivän tilastot",
     "no-data": "Ei tietoja",
     "default-meals": {
@@ -164,7 +165,8 @@
     "edit-food": "Muokkaa ruokaa",
     "edit-meal": "Muokkaa ateriaa",
     "edit-recipe": "Muokkaa reseptiä",
-    "required-field-message": "Täytä tämä kenttä."
+    "required-field-message": "Täytä tämä kenttä.",
+    "negative-value-message": "No negative values."
   },
   "goals": {
     "title": "Tavoitteet"
@@ -201,7 +203,7 @@
       "length": "Pituus",
       "kilograms": "Kilogrammaa",
       "pounds": "Paunaa",
-      "stone": "Kiveä",
+      "stones": "Kiveä",
       "centimeters": "Senttimetriä",
       "inches": "Tuumaa"
     },
