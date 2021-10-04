@@ -123,6 +123,7 @@
   "diary": {
     "title": "Journal",
     "quick-add": "Ajout rapide",
+    "yesterdays-meal": "Yesterday's %s",
     "log-title": "Statistiques du jour",
     "no-data": "Pas de données",
     "default-meals": {
@@ -164,7 +165,8 @@
     "edit-food": "Modifier aliment",
     "edit-meal": "Modifier Repas",
     "edit-recipe": "Modifier Recette",
-    "required-field-message": "Veuillez remplir ce champ."
+    "required-field-message": "Veuillez remplir ce champ.",
+    "negative-value-message": "No negative values."
   },
   "goals": {
     "title": "Objectifs"
@@ -201,7 +203,7 @@
       "length": "Longueur",
       "kilograms": "Kilograms",
       "pounds": "Livres",
-      "stone": "Stones",
+      "stones": "Stones",
       "centimeters": "Centimètres",
       "inches": "Pouces"
     },
