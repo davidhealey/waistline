@@ -61,45 +61,49 @@ app.Goals = {
     }
   },
 
-  gotoEditor: function(item) {
+  gotoEditor: function(stat) {
     app.data.context = {
-      item: item
+      stat: stat
     };
 
     app.f7.views.main.router.navigate("./goal-editor/");
   },
 
-  getGoalUnit(item) {
+  getGoalUnit(stat) {
     const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);
 
-    if (item == "body fat")
+    if (stat == "body fat")
       return "%";
-    if (app.measurements.includes(item))
-      return (item == "weight") ? units.weight : units.length;
+    if (app.measurements.includes(stat))
+      return (stat == "weight") ? units.weight : units.length;
     else
-      return units[item] || "g";
+      return units[stat] || "g";
   },
 
-  get: function(item, date) {
+  get: function(stat, date) {
     let day = date.getUTCDay();
-    let goal = app.Settings.get("goals", item);
+    let goal = app.Settings.get("goals", stat);
 
-    if (app.Settings.get("goals", item + "-shared-goal") || app.measurements.includes(item))
+    if (app.Goals.sharedGoal(stat) || app.measurements.includes(stat))
       return goal[0];
 
     return goal[day];
   },
 
-  showInDiary: function(item) {
-    return app.Settings.get("goals", item + "-show-in-diary");
+  showInDiary: function(stat) {
+    return app.Settings.get("goals", stat + "-show-in-diary");
   },
 
-  showInStats: function(item) {
-    return app.Settings.get("goals", item + "-show-in-stats");
+  showInStats: function(stat) {
+    return app.Settings.get("goals", stat + "-show-in-stats");
   },
 
-  isMinimumGoal: function(item) {
-    return app.Settings.get("goals", item + "-minimum-goal");
+  sharedGoal: function(stat) {
+    return app.Settings.get("goals", stat + "-shared-goal");
+  },
+
+  isMinimumGoal: function(stat) {
+    return app.Settings.get("goals", stat + "-minimum-goal");
   }
 };
 

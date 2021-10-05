@@ -20,28 +20,28 @@
 app.GoalEditor = {
 
   el: {},
-  item: "",
+  stat: "",
 
   init: function(context) {
     this.getComponents();
     this.bindUIActions();
 
-    if (context.item !== undefined) {
+    if (context.stat !== undefined) {
       const inputs = Array.from(document.querySelectorAll("input"));
-      this.setPageTitle(context.item);
-      this.setInputNames(context.item);
+      this.setPageTitle(context.stat);
+      this.setInputNames(context.stat);
       app.Settings.restoreInputValues(inputs);
       this.setGoalSharing();
-      this.item = context.item;
+      this.stat = context.stat;
     }
 
     this.hideShowComponents();
   },
 
-  setPageTitle: function(item) {
+  setPageTitle: function(stat) {
     const title = app.strings["goal-editor"]["title"] || "Set Goals";
-    const name = app.strings.nutriments[item] || app.strings.statistics[item] || item;
-    const unit = app.Goals.getGoalUnit(item);
+    const name = app.strings.nutriments[stat] || app.strings.statistics[stat] || stat;
+    const unit = app.Goals.getGoalUnit(stat);
     const text = title + ": " + app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
     app.GoalEditor.el.title.innerText = text;
   },
