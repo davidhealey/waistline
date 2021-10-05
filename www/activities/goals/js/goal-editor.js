@@ -184,9 +184,11 @@ app.GoalEditor = {
   setPercentGoal: function() {
     const inputs = Array.from(document.querySelectorAll("input[type=number]"));
     const state = app.GoalEditor.el.percentGoal.checked;
+    const event = new Event("change");
 
     inputs.forEach((x) => {
       x.value = "";
+      x.dispatchEvent(event);
     });
 
     app.GoalEditor.setPageTitle(app.GoalEditor.stat, state);
