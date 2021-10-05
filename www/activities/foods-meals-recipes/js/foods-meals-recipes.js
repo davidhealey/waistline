@@ -220,6 +220,11 @@ app.FoodsMealsRecipes = {
             for (let n in x.nutrition) {
               result[n] = result[n] || 0;
               result[n] += Math.round(x.nutrition[n] * multiplier * 100) / 100;
+              if (n === "calories" && x.nutrition["kilojoules"] === undefined) {
+                let kilojoules = x.nutrition[n] * 4.1868;
+                result["kilojoules"] = result["kilojoules"] || 0;
+                result["kilojoules"] += Math.round(kilojoules * multiplier * 100) / 100;
+              }
             }
           }
         });
