@@ -115,7 +115,10 @@ app.Goals = {
     let weekDaysLeft = 7 - day;
     let delta = weekGoalDelta / weekDaysLeft;
 
-    return Math.round(goal - delta);
+    let result = Math.round(goal - delta);
+    if (result < 0)
+      return 0;
+    return result;
   },
 
   getDayGoal: async function(stat, date) {
