@@ -238,17 +238,7 @@ app.Stats = {
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
-      let nutrimentUnits = app.nutrimentUnits;
-      let statUnits = app.Settings.getField("units");
-      let stats = app.measurements;
-
-      let unit;
-      if (field == "body fat")
-        unit = "%";
-      else if (stats.includes(field))
-        field == "weight" ? unit = statUnits.weight : unit = statUnits.length;
-      else
-        unit = nutrimentUnits[field] || "g";
+      let unit = app.Goals.getGoalUnit(field, false);
 
       let result = {
         dates: [],
