@@ -35,20 +35,15 @@ app.Goals = {
     const measurements = app.measurements;
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const stats = measurements.concat(nutriments);
-    const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);
+    const nutrimentUnits = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
 
     for (let i in stats) {
       let x = stats[i];
 
-      if ((x == "calories" || x == "kilojoules") && units[x] != units.energy) continue;
+      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
 
-      let unit;
-      if (x == "body fat")
-        unit = "%";
-      else if (measurements.includes(x))
-        x == "weight" ? unit = units.weight : unit = units.length;
-      else
-        unit = units[x] || "g";
+      let unit = app.Goals.getGoalUnit(x);
 
       let li = document.createElement("li");
       app.Goals.el.list.appendChild(li);
@@ -61,18 +56,28 @@ app.Goals = {
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {
-        app.Goals.gotoEditor(x, unit);
+        app.Goals.gotoEditor(x);
       });
     }
   },
 
-  gotoEditor: function(item, unit) {
+  gotoEditor: function(item) {
     app.data.context = {
-      item: item,
-      unit: unit
+      item: item
     };
 
     app.f7.views.main.router.navigate("./goal-editor/");
+  },
+
+  getGoalUnit(item) {
+    const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);
+
+    if (item == "body fat")
+      return "%";
+    if (app.measurements.includes(item))
+      return (item == "weight") ? units.weight : units.length;
+    else
+      return units[item] || "g";
   },
 
   get: function(item, date) {

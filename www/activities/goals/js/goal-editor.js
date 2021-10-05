@@ -28,11 +28,7 @@ app.GoalEditor = {
 
     if (context.item !== undefined) {
       const inputs = Array.from(document.querySelectorAll("input"));
-      const title = app.strings["goal-editor"]["title"] || "Set Goals";
-      const stat = app.strings.nutriments[context.item] || app.strings.statistics[context.item] || context.item;
-      const unit = (context.unit !== undefined) ? " (" + context.unit + ")" : "";
-      const text = title + ": " + app.Utils.tidyText(stat, 50, true) + unit;
-      this.el.title.innerText = text;
+      this.setPageTitle(context.item);
       this.setInputNames(context.item);
       app.Settings.restoreInputValues(inputs);
       this.setGoalSharing();
@@ -40,6 +36,14 @@ app.GoalEditor = {
     }
 
     this.hideShowComponents();
+  },
+
+  setPageTitle: function(item) {
+    const title = app.strings["goal-editor"]["title"] || "Set Goals";
+    const name = app.strings.nutriments[item] || app.strings.statistics[item] || item;
+    const unit = app.Goals.getGoalUnit(item);
+    const text = title + ": " + app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
+    app.GoalEditor.el.title.innerText = text;
   },
 
   getComponents: function() {
