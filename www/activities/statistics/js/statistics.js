@@ -295,7 +295,7 @@ app.Stats = {
 
       result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
       result.average = result.average / result.dates.length;
-      result.goal = app.Goals.get(field, new Date());
+      result.goal = await app.Goals.get(field, new Date());
 
       resolve(result);
     }).catch(err => {

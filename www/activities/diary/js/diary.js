@@ -180,7 +180,7 @@ app.Diary = {
     await app.Diary.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
   },
 
-  renderNutritionCard: function(nutrition, date, swiper) {
+  renderNutritionCard: async function(nutrition, date, swiper) {
     let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     let nutrimentUnits = app.nutrimentUnits;
     let energyUnit = app.Settings.get("units", "energy");
@@ -205,7 +205,7 @@ app.Diary = {
 
       if (!app.Goals.showInDiary(x)) continue;
 
-      let goal = app.Goals.get(x, date);
+      let goal = await app.Goals.get(x, date);
 
       if (((x == "kilojoules" && energyUnit == "kj") || x != "kilojoules")) {
 

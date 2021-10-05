@@ -83,13 +83,43 @@ app.Goals = {
       return units[stat] || "g";
   },
 
-  get: function(stat, date) {
-    let day = date.getUTCDay();
+  get: async function(stat, date) {
+    let goal = await app.Goals.getDayGoal(stat, date);
 
-    return app.Goals.getDayGoal(stat, day);
+    if (!app.Goals.autoAdjustGoal(stat))
+      return goal;
+
+    let weekStatSum = 0;
+    let weekGoalSum = 0;
+    let day = date.getDay();
+    for (let d = 0; d < day; d++) {
+      let dayDelta = day - d;
+      let currentDate = new Date(date.getTime());
+      currentDate.setDate(currentDate.getDate() - dayDelta);
+
+      let diaryEntry = await app.Goals.getDiaryEntryFromDB(currentDate);
+
+      if (diaryEntry !== undefined && diaryEntry.items !== undefined && diaryEntry.items.length > 0) {
+        let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items);
+
+        let dayStat = nutrition[stat] || 0;
+        weekStatSum += dayStat;
+
+        let dayGoal = await app.Goals.getDayGoal(stat, currentDate);
+        if (dayGoal !== undefined && dayGoal !== "")
+          weekGoalSum += parseFloat(dayGoal);
+      }
+    }
+
+    let weekGoalDelta = weekStatSum - weekGoalSum;
+    let weekDaysLeft = 7 - day;
+    let delta = weekGoalDelta / weekDaysLeft;
+
+    return Math.round(goal - delta);
   },
 
-  getDayGoal: function(stat, day) {
+  getDayGoal: async function(stat, date) {
+    let day = date.getDay();
     let goals = app.Settings.get("goals", stat);
     let goal;
 
@@ -101,7 +131,7 @@ app.Goals = {
     if (app.Goals.isPercentGoal(stat)) {
       const energyUnit = app.Settings.get("units", "energy");
       const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
-      const energyGoal = app.Goals.getDayGoal(energyName, day);
+      const energyGoal = await app.Goals.get(energyName, date);
       goal = app.Goals.getEnergyPercentGoal(stat, goal, energyUnit, energyGoal);
     }
 
@@ -116,7 +146,7 @@ app.Goals = {
     let caloriesPerUnit = app.Goals.getMacroNutrimentCalories(stat);
     let result = Math.round(percentGoal / 100 * energyGoal / caloriesPerUnit);
 
-    if (result !== NaN)
+    if (!isNaN(result))
       return result;
     return undefined;
   },
@@ -130,6 +160,15 @@ app.Goals = {
     // Each gram of fat, saturated-fat has 9 calories
     if (nutriment == "fat" || nutriment == "saturated-fat")
       return 9;
+  },
+
+  getDiaryEntryFromDB: function(date) {
+    return new Promise(async function(resolve, reject) {
+      let entry = await dbHandler.get("diary", "dateTime", new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())));
+      resolve(entry);
+    }).catch(err => {
+      throw (err);
+    });
   },
 
   showInDiary: function(stat) {
