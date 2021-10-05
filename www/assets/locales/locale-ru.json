@@ -123,7 +123,7 @@
   "diary": {
     "title": "Дневник",
     "quick-add": "Быстрое добавление",
-    "yesterdays-meal": "Yesterday's %s",
+    "yesterdays-meal": "Вчерашний %s",
     "log-title": "Статистика на сегодня",
     "no-data": "Нет данных",
     "default-meals": {
@@ -166,7 +166,7 @@
     "edit-meal": "Редактировать блюдо",
     "edit-recipe": "Редактировать рецепт",
     "required-field-message": "Пожалуйста, заполните это поле.",
-    "negative-value-message": "No negative values."
+    "negative-value-message": "Нет отрицательных значений."
   },
   "goals": {
     "title": "Цели"
