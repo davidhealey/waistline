@@ -123,7 +123,7 @@
   "diary": {
     "title": "יומן",
     "quick-add": "הוספה מהירה",
-    "yesterdays-meal": "Yesterday's %s",
+    "yesterdays-meal": "%s מאתמול",
     "log-title": "הסטטיסטיקה היומית",
     "no-data": "אין נתונים",
     "default-meals": {
@@ -166,7 +166,7 @@
     "edit-meal": "עריכת פריט ארוחה",
     "edit-recipe": "עריכת פריט מתכון",
     "required-field-message": "נא למלא את השדה הזה.",
-    "negative-value-message": "No negative values."
+    "negative-value-message": "אין ערכים שליליים."
   },
   "goals": {
     "title": "יעדים"
