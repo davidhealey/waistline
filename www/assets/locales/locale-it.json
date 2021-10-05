@@ -123,7 +123,7 @@
   "diary": {
     "title": "Diario",
     "quick-add": "Aggiungi velocemente",
-    "yesterdays-meal": "Yesterday's %s",
+    "yesterdays-meal": "Ieri %s",
     "log-title": "Statistiche di oggi",
     "no-data": "Nessun dato",
     "default-meals": {
@@ -166,7 +166,7 @@
     "edit-meal": "Modifica elemento del pasto",
     "edit-recipe": "Modifica elemento della ricetta",
     "required-field-message": "Per favore, compila questo campo.",
-    "negative-value-message": "No negative values."
+    "negative-value-message": "Nessun valore negativo."
   },
   "goals": {
     "title": "Obiettivi"
