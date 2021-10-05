@@ -31,6 +31,7 @@ app.Goals = {
   },
 
   populateGoalList: function() {
+    app.Goals.el.list.innerHTML = "";
 
     const measurements = app.measurements;
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
@@ -69,13 +70,15 @@ app.Goals = {
     app.f7.views.main.router.navigate("./goal-editor/");
   },
 
-  getGoalUnit(stat) {
+  getGoalUnit(stat, checkPercentGoal=true) {
     const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);
 
     if (stat == "body fat")
       return "%";
     if (app.measurements.includes(stat))
       return (stat == "weight") ? units.weight : units.length;
+    if (checkPercentGoal && app.Goals.isPercentGoal(stat))
+      return "%"
     else
       return units[stat] || "g";
   },
@@ -102,12 +105,26 @@ app.Goals = {
     return app.Settings.get("goals", stat + "-shared-goal");
   },
 
+  autoAdjustGoal: function(stat) {
+    return app.Settings.get("goals", stat + "-auto-adjust");
+  },
+
   isMinimumGoal: function(stat) {
     return app.Settings.get("goals", stat + "-minimum-goal");
+  },
+
+  isPercentGoal: function(stat) {
+    return app.Settings.get("goals", stat + "-percent-goal");
   }
 };
 
 document.addEventListener("page:init", function(e) {
+  if (e.target.matches(".page[data-name='goals']")) {
+    app.Goals.init();
+  }
+});
+
+document.addEventListener("page:reinit", function(e) {
   if (e.target.matches(".page[data-name='goals']")) {
     app.Goals.init();
   }
