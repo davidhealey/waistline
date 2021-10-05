@@ -85,12 +85,51 @@ app.Goals = {
 
   get: function(stat, date) {
     let day = date.getUTCDay();
-    let goal = app.Settings.get("goals", stat);
+
+    return app.Goals.getDayGoal(stat, day);
+  },
+
+  getDayGoal: function(stat, day) {
+    let goals = app.Settings.get("goals", stat);
+    let goal;
 
     if (app.Goals.sharedGoal(stat) || app.measurements.includes(stat))
-      return goal[0];
+      goal = goals[0];
+    else
+      goal = goals[day];
 
-    return goal[day];
+    if (app.Goals.isPercentGoal(stat)) {
+      const energyUnit = app.Settings.get("units", "energy");
+      const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
+      const energyGoal = app.Goals.getDayGoal(energyName, day);
+      goal = app.Goals.getEnergyPercentGoal(stat, goal, energyUnit, energyGoal);
+    }
+
+    return goal;
+  },
+
+  getEnergyPercentGoal: function(stat, percentGoal, energyUnit, energyGoal) {
+    // Convert energy goal to calories
+    if (energyUnit == "kJ")
+      energyGoal = energyGoal * 0.23900573614
+
+    let caloriesPerUnit = app.Goals.getMacroNutrimentCalories(stat);
+    let result = Math.round(percentGoal / 100 * energyGoal / caloriesPerUnit);
+
+    if (result !== NaN)
+      return result;
+    return undefined;
+  },
+
+  getMacroNutrimentCalories: function(nutriment) {
+    if (!app.energyMacroNutriments.includes(nutriment))
+      return 0;
+    // Each gram of carbohydrates, sugars and proteins has 4 calories
+    if (nutriment == "carbohydrates" || nutriment == "sugars" || nutriment == "proteins")
+      return 4;
+    // Each gram of fat, saturated-fat has 9 calories
+    if (nutriment == "fat" || nutriment == "saturated-fat")
+      return 9;
   },
 
   showInDiary: function(stat) {
