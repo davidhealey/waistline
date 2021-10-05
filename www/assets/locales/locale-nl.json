@@ -123,7 +123,7 @@
   "diary": {
     "title": "Dagboek",
     "quick-add": "Snel toevoegen",
-    "yesterdays-meal": "Yesterday's %s",
+    "yesterdays-meal": "%s van gisteren",
     "log-title": "Huidige gegevens",
     "no-data": "Geen gegevens",
     "default-meals": {
@@ -166,7 +166,7 @@
     "edit-meal": "Bewerk maaltijd",
     "edit-recipe": "Bewerk recept",
     "required-field-message": "Vul alsjeblieft dit veld in.",
-    "negative-value-message": "No negative values."
+    "negative-value-message": "Negatieve waarden niet toegestaan."
   },
   "goals": {
     "title": "Doelen"
