@@ -125,10 +125,9 @@ app.Stats = {
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const measurements = app.measurements;
     const stats = measurements.concat(nutriments);
-    const goals = app.Settings.getField("goals");
 
     stats.forEach((x, i) => {
-      if (goals[x + "-show-in-stats"] == true) {
+      if (app.Goals.showInStats(x)) {
         let option = document.createElement("option");
         option.value = x;
         let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;

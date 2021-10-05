@@ -87,6 +87,14 @@ app.Goals = {
 
   showInDiary: function(item) {
     return app.Settings.get("goals", item + "-show-in-diary");
+  },
+
+  showInStats: function(item) {
+    return app.Settings.get("goals", item + "-show-in-stats");
+  },
+
+  isMinimumGoal: function(item) {
+    return app.Settings.get("goals", item + "-minimum-goal");
   }
 };
 

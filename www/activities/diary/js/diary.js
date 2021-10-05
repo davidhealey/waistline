@@ -261,7 +261,7 @@ app.Diary = {
         // Set value text colour
         if (goal !== undefined && goal !== "") {
 
-          let isMin = app.Settings.get("goals", x + "-minimum-goal");
+          let isMin = app.Goals.isMinimumGoal(x);
           let v = parseFloat(t.nodeValue);
 
           if ((!isMin && v > goal) || (isMin == true && v < goal))
@@ -443,7 +443,6 @@ app.Diary = {
     const stats = JSON.parse(window.localStorage.getItem("stats")) || {};
     const units = app.Settings.getField("units");
     const fields = app.measurements;
-    const goals = app.Settings.getField("goals");
 
     // Create dialog inputs
     let div = document.createElement("div");
@@ -455,7 +454,7 @@ app.Diary = {
     for (let i = 0; i < fields.length; i++) {
       let x = fields[i];
 
-      if (x !== "weight" && goals[x + "-show-in-stats"] !== true) continue;
+      if (x !== "weight" && !app.Goals.showInStats(x)) continue;
 
       let unit;
 
