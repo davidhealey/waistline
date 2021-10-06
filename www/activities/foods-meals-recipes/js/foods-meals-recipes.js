@@ -447,10 +447,11 @@ app.FoodsMealsRecipes = {
           let energy = item.nutrition.calories;
 
           if (energy !== undefined && !isNaN(energy)) {
+            let units = app.nutrimentUnits;
             let energyUnit = app.Settings.get("units", "energy");
 
-            if (energyUnit == "kJ")
-              energy = item.nutrition.kilojoules || energy * 4.1868;
+            if (energyUnit == units.kilojoules)
+              energy = item.nutrition.kilojoules || app.Utils.convertUnit(energy, units.calories, units.kilojoules);
 
             let after = document.createElement("div");
             after.className = "item-after";
