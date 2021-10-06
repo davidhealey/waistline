@@ -172,10 +172,10 @@ app.GoalEditor = {
       if (i !== 0) {
         if (state == true) {
           x.disabled = true;
-          x.style.color = "grey";
+          x.classList.add("disabled");
         } else {
           x.disabled = false;
-          x.style.color = "black";
+          x.classList.remove("disabled");
         }
       }
     });
