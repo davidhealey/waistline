@@ -184,6 +184,7 @@ app.Diary = {
     let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     let nutrimentUnits = app.nutrimentUnits;
     let energyUnit = app.Settings.get("units", "energy");
+    let energyName = Object.keys(nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
     let rows = [];
     let count = 0;
 
@@ -248,11 +249,7 @@ app.Diary = {
           if (x !== "calories" && x !== "kilojoules")
             t.nodeValue = parseFloat(nutrition[x].toFixed(2));
           else {
-            let energy = nutrition[x];
-
-            if (x == "calories" && energyUnit == "kJ")
-              energy = Math.round(energy * 4.1868);
-
+            let energy = nutrition[energyName] || 0;
             t.nodeValue = energy.toFixed(0);
           }
         } else
