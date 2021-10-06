@@ -605,6 +605,8 @@ app.Diary = {
         }
       }
 
+      if (value == 0) continue;
+
       // List item
       let li = document.createElement("li");
       let div = document.createElement("div");
@@ -630,15 +632,17 @@ app.Diary = {
       ul.appendChild(li);
     }
 
-    let dialog = app.f7.dialog.create({
-      title: title,
-      content: div.outerHTML,
-      buttons: [{
-          text: "Ok",
-          keyCodes: [13]
-        }
-      ]
-    }).open();
+    if (ul.childElementCount > 0) {
+      let dialog = app.f7.dialog.create({
+        title: title,
+        content: div.outerHTML,
+        buttons: [{
+            text: "Ok",
+            keyCodes: [13]
+          }
+        ]
+      }).open();
+    }
   },
 
   gotoFoodlist: function(category) {
