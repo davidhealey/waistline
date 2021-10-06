@@ -78,49 +78,68 @@ app.Utils = {
     }
   },
 
-  convertUnit: function(value, unit1, unit2, round) {
+  convertUnit: function(value, unit1, unit2, round=false) {
 
-    let result = -1;
+    if (unit1 !== undefined && typeof unit1.toLowerCase === "function")
+      unit1 = unit1.toLowerCase();
+    if (unit2 !== undefined && typeof unit2.toLowerCase === "function")
+      unit2 = unit2.toLowerCase();
+
+    let result;
 
     if (unit1 == unit2)
       result = value;
 
     // lb/kg
-    if (unit1 == "lb" && unit2 == "kg")
+    else if (unit1 == "lb" && unit2 == "kg")
       result = value * 0.4535924;
 
-    if (unit1 == "kg" && unit2 == "lb")
+    else if (unit1 == "kg" && unit2 == "lb")
       result = value / 0.4535924;
 
-    // mg/g
-    if (unit1 == "mg" && unit2 == "g")
-      result = value * 0.001;
-
-    if (unit1 == "g" && unit2 == "mg")
-      result = value / 0.001;
-
-    // stone/kg
-    if (unit1 == "stone" && unit2 == "kg")
+    // stones/kg
+    else if (unit1 == "st" && unit2 == "kg")
       result = value * 6.350293;
 
-    if (unit1 == "kg" && unit2 == "stone")
+    else if (unit1 == "kg" && unit2 == "st")
       result = value / 6.350293;
 
-    // cm/inches
-    if (unit1 == "inch" && unit2 == "cm")
+    // inches/cm
+    else if (unit1 == "inch" && unit2 == "cm")
       result = value * 2.54;
 
-    if (unit1 == "cm" && unit2 == "inch")
+    else if (unit1 == "cm" && unit2 == "inch")
       result = value / 2.54;
 
     // kj/kcal
-    if (unit1 == "kj" && unit2 == "kcal")
+    else if (unit1 == "kj" && unit2 == "kcal")
       result = value * 0.23900573614;
 
-    if (unit1 == "kcal" && unit2 == "kj")
+    else if (unit1 == "kcal" && unit2 == "kj")
       result = value / 0.23900573614;
 
-    if (result != -1 && round == true)
+    // mg/g
+    else if (unit1 == "mg" && unit2 == "g")
+      result = value * 0.001;
+
+    else if (unit1 == "g" && unit2 == "mg")
+      result = value / 0.001;
+
+    // µg/g
+    else if ((unit1 == "µg" || unit1 == "ug") && unit2 == "g")
+      result = value * 0.000001;
+
+    else if (unit1 == "g" && (unit2 == "µg" || unit2 == "ug"))
+      result = value / 0.000001;
+
+    // µg/mg
+    else if ((unit1 == "µg" || unit1 == "ug") && unit2 == "mg")
+      result = value * 0.001;
+
+    else if (unit1 == "mg" && (unit2 == "µg" || unit2 == "ug"))
+      result = value / 0.001;
+
+    if (result !== undefined && round === true)
       result = Math.round(result);
 
     return result;
