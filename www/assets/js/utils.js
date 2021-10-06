@@ -78,36 +78,90 @@ app.Utils = {
     }
   },
 
+  convertUnit: function(value, unit1, unit2, round) {
+
+    let result = -1;
+
+    if (unit1 == unit2)
+      result = value;
+
+    // lb/kg
+    if (unit1 == "lb" && unit2 == "kg")
+      result = value * 0.4535924;
+
+    if (unit1 == "kg" && unit2 == "lb")
+      result = value / 0.4535924;
+
+    // mg/g
+    if (unit1 == "mg" && unit2 == "g")
+      result = value * 0.001;
+
+    if (unit1 == "g" && unit2 == "mg")
+      result = value / 0.001;
+
+    // stone/kg
+    if (unit1 == "stone" && unit2 == "kg")
+      result = value * 6.350293;
+
+    if (unit1 == "kg" && unit2 == "stone")
+      result = value / 6.350293;
+
+    // cm/inches
+    if (unit1 == "inch" && unit2 == "cm")
+      result = value * 2.54;
+
+    if (unit1 == "cm" && unit2 == "inch")
+      result = value / 2.54;
+
+    // kj/kcal
+    if (unit1 == "kj" && unit2 == "kcal")
+      result = value * 0.23900573614;
+
+    if (unit1 == "kcal" && unit2 == "kj")
+      result = value / 0.23900573614;
+
+    if (result != -1 && round == true)
+      result = Math.round(result);
+
+    return result;
+  },
+
   writeFile: function(data, filename) {
     return new Promise(function(resolve, reject) {
       if (app.mode !== "development" && device.platform !== "browser") {
 
-        let base = cordova.file.externalDataDirectory;
+        let base = cordova.file.externalRootDirectory;
+        let path = base + "Android/media/com.waist.line/" + filename;
 
-        console.log("Writing data to file: " + base + filename);
+        console.log("Writing data to file: " + path);
 
-        window.resolveLocalFileSystemURL(base, dir => {
-          dir.getFile(filename, {
-            create: true
-          }, file => {
+        window.resolveLocalFileSystemURL(base, (baseDir) => {
+          baseDir.getDirectory("Android", { create: true }, function (androidDir) {
+            androidDir.getDirectory("media", { create: true }, function (mediaDir) {
+              mediaDir.getDirectory("com.waist.line", { create: true }, function (appDir) {
+                appDir.getFile(filename, { create: true }, (file) => {
 
-            // Write to the file, overwriting existing content 
-            file.createWriter((fileWriter) => {
-              let blob = new Blob([data], {
-                type: "text/plain"
+                  // Write to the file, overwriting existing content
+                  file.createWriter((fileWriter) => {
+                    let blob = new Blob([data], {
+                      type: "text/plain"
+                    });
+
+                    fileWriter.write(blob);
+
+                    fileWriter.onwriteend = () => {
+                      console.log("Successul file write.");
+                      resolve(file.fullPath);
+                    };
+
+                    fileWriter.onerror = (e) => {
+                      console.warn("Failed to write file", e.toString());
+                      reject();
+                    };
+                  });
+
+                });
               });
-
-              fileWriter.write(blob);
-
-              fileWriter.onwriteend = () => {
-                console.log("Successul file write.");
-                resolve(file.fullPath);
-              };
-
-              fileWriter.onerror = (e) => {
-                console.warn("Failed to write file", e.toString());
-                reject();
-              };
             });
           });
         }, (e) => {
@@ -119,41 +173,48 @@ app.Utils = {
     });
   },
 
-  readFile(filename) {
+  readFile: function(filename) {
     return new Promise(function(resolve, reject) {
       if (app.mode !== "development" && device.platform !== "browser") {
 
-        let base = cordova.file.externalDataDirectory;
-        let path = filename;
+        let base = cordova.file.externalRootDirectory;
+        let path = base + "Android/media/com.waist.line/" + filename;
 
-        console.log("Reading file: " + base + path);
+        console.log("Reading file: " + path);
 
-        window.resolveLocalFileSystemURL(base, (dir) => {
-          dir.getFile(path, {}, (file) => {
+        window.resolveLocalFileSystemURL(base, (baseDir) => {
+          baseDir.getDirectory("Android", { create: true }, function (androidDir) {
+            androidDir.getDirectory("media", { create: true }, function (mediaDir) {
+              mediaDir.getDirectory("com.waist.line", { create: true }, function (appDir) {
+                appDir.getFile(filename, {}, (file) => {
 
-            file.file((file) => {
-              let fileReader = new FileReader();
+                  file.file((file) => {
+                    let fileReader = new FileReader();
 
-              fileReader.readAsText(file);
+                    fileReader.readAsText(file);
 
-              fileReader.onloadend = (e) => {
-                console.log("Successful file read", e);
-                resolve(e.target.result);
-              };
+                    fileReader.onloadend = (e) => {
+                      console.log("Successful file read", e);
+                      resolve(e.target.result);
+                    };
 
-              fileReader.onerror = (e) => {
-                console.log("File read error", e);
-                reject({});
-              };
+                    fileReader.onerror = (e) => {
+                      console.log("File read error", e);
+                      reject({});
+                    };
+                  });
+
+                }, (e) => {
+                  console.log("FileSystem Error", e);
+
+                  switch (e.code) {
+                    case 1:
+                      alert("File not found: " + path);
+                      break;
+                  }
+                });
+              });
             });
-          }, (e) => {
-            console.log("FileSystem Error", e);
-
-            switch (e.code) {
-              case 1:
-                alert("File not found: /" + path);
-                break;
-            }
           });
         }, (e) => {
           console.log(e);

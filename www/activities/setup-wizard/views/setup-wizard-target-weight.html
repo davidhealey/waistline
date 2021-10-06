@@ -1,0 +1,68 @@
+<!--
+  Copyright 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="setup-wizard-target-weight">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left">
+        <a class="link back"><i class="icon icon-back"></i></a>
+      </div>
+      <div class="title" data-localize="setup-wizard.title">Setup Wizard</div>
+      <div class="right">
+        <a href="/setup-wizard/summary/" id="next-setup-page" class="link icon-only" style="visibility: hidden;">
+          <i class="icon material-icons">done</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="block">
+      <div class="block-title" data-localize="setup-wizard.target-weight-title">
+        What is your target weight?
+      </div>
+    </div>
+
+    <div class="list no-hairlines-md">
+      <ul>
+        <li class="item-content item-input item-input-outline">
+          <div class="item-inner">
+            <div class="item-title item-floating-label" data-localize="setup-wizard.target-weight">Target Weight</div>
+            <div class="item-input-wrap">
+              <input type="text" field="user" name="target-weight" placeholder="" />
+            </div>
+          </div>
+
+          <div class="item-inner">
+            <div class="item-title item-floating-label"></div>
+            <div class="item-input-wrap input-dropdown-wrap">
+              <select field="user" name="target-weight-unit">
+                <option value="kg">kg</option>
+                <option value="mg">lb</option>
+                <option value="μg">Stone</option>
+              </select>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
