@@ -95,6 +95,7 @@ app.USDA = {
 
     const offNutriments = app.nutriments; //Array of OFF nutriment names
     const usdaNutriments = app.USDA.nutriments; //Array of USDA nutriment names
+    const units = app.nutrimentUnits;
 
     let result = {
       "nutrition": {}
@@ -137,12 +138,10 @@ app.USDA = {
 
             if (n.nutrientName.includes(nutriment)) {
 
-              if (x == "sodium") { // USDA sodium value is in mg
-                result.nutrition.salt = n.value * 0.0025;
-                result.nutrition.sodium = n.value * 0.001;
-              } else {
-                result.nutrition[x] = n.value;
-              }
+              result.nutrition[x] = app.Utils.convertUnit(n.value, n.unitName, units[x]);
+
+              if (x == "sodium")
+                result.nutrition.salt = result.nutrition.sodium * 0.0025;
 
               break;
             }
