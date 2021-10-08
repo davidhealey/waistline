@@ -450,7 +450,7 @@ app.FoodsMealsRecipes = {
         }
 
         //Brand 
-        if (item.brand && item.brand != "") {
+        if (item.brand && item.brand != "" && item.brand != "undefined") {
           let subtitle = document.createElement("div");
           subtitle.className = "item-subtitle";
           subtitle.innerHTML = app.Utils.tidyText(item.brand, 35).italics();

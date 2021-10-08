@@ -175,7 +175,7 @@ var dbHandler = {
     });
   },
 
-  upgradeDatabase: function(oldVersion, transaction) {
+  upgradeDatabase: function(oldVersion, transaction, data) {
     return new Promise(async function(resolve, reject) {
       console.log("Upgrading Database");
 
@@ -242,9 +242,9 @@ var dbHandler = {
 
         // Convert old diary entries to new schema
         await new Promise(function(resolve, reject) {
-          store = transaction.objectStore('diary');
           let entries = {};
 
+          store = transaction.objectStore('diary');
           store.openCursor().onsuccess = function(event) {
 
             let cursor = event.target.result;
@@ -271,11 +271,19 @@ var dbHandler = {
 
               // Foods/recipes
               let item = {
-                category: value.category,
-                portion: parseInt(value.portion),
-                unit: value.portion.replace(/[^a-z]/g, ""),
-                quantity: value.quantity || "1"
+                category: value.category
               };
+
+              if (value.portion == "Quick Add" && data != undefined && data.quickAddId !== undefined) {
+                item.id = data.quickAddId;
+                item.portion = 1;
+                item.type = "food";
+                item.quantity = value.nutrition.calories;
+              } else {
+                item.unit = value.portion.replace(/[^a-z]/g, "");
+                item.portion = parseInt(value.portion);
+                item.quantity = value.quantity || "1";
+              }
 
               if (value.foodId !== undefined) {
                 item.id = value.foodId;
@@ -334,8 +342,10 @@ var dbHandler = {
               }
 
               item.name = unescape(cursor.value.name);
-              item.brand = unescape(cursor.value.brand);
               item.type = "food";
+
+              if (cursor.value.brand != undefined)
+                item.brand = unescape(cursor.value.brand);
 
               // Remove empty image_urls
               if (item.image_url == "" || item.image_url == "undefined")
@@ -705,7 +715,7 @@ var dbHandler = {
         reject(e);
       };
 
-      t.oncomplete = (e) => {
+      t.oncomplete = async (e) => {
         console.log("Database import successful");
         const title = app.strings.settings.integration["import-success-title"] || "The backup has been restored";
         const msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
@@ -732,6 +742,17 @@ var dbHandler = {
       app.f7.preloader.show("red");
 
       let barcodes = []; // Keep track of barcodes to avoid duplicates
+
+      // Add quick add item to foodlist data if it isn't already there
+      if (data.foodList == undefined)
+        data.foodList = [];
+
+      let quickAddItem = data.foodList.find(obj => obj.barcode == "quick-add"); // Check if it already exists
+
+      if (quickAddItem == undefined) {
+        quickAddItem = app.Foodlist.getQuickAddItemDefinition();
+        data.foodList.push(quickAddItem);
+      }
 
       // Go through each object store and add the imported data
       let storeCount = 0;
@@ -765,14 +786,25 @@ var dbHandler = {
               let request = t.objectStore(x).add(entry);
 
               request.onsuccess = async (e) => {
+
+                // Get entry details
+                let item = data[x][dataCount];
+
+                // If it's the new "quick add" item get its id to pass to upgrade function
+                if (item != undefined && item.barcode != undefined && item.barcode == "quick-add")
+                  quickAddItem.id = e.target.result;
+
                 dataCount++;
+
                 // Added all object for this store
                 if (dataCount === data[x].length)
                   storeCount++;
 
                 // Added all objects
                 if (storeCount >= storeNames.length) {
-                  await dbHandler.upgradeDatabase(version, t);
+                  await dbHandler.upgradeDatabase(version, t, {
+                    "quickAddId": quickAddItem.id
+                  });
                 }
               };
               request.onerror = (e) => {

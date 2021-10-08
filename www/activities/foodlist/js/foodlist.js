@@ -313,17 +313,25 @@ app.Foodlist = {
     });
   },
 
+  getQuickAddItemDefinition: function() {
+    let result = {
+      name: "Quick Add",
+      barcode: "quick-add",
+      portion: 1,
+      nutrition: {
+        calories: 1
+      },
+      archived: true
+    };
+
+    return result;
+  },
+
   createQuickAddItem: function() {
     return new Promise(function(resolve, reject) {
-      item = {
-        name: "Quick Add",
-        barcode: "quick-add",
-        "portion": 1,
-        nutrition: {
-          "calories": 1
-        },
-        archived: true
-      };
+
+      item = app.Foodlist.getQuickAddItemDefinition();
+
       let request = dbHandler.put(item, "foodList");
 
       request.onsuccess = () => {
