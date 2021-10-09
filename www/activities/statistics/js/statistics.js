@@ -33,7 +33,7 @@ app.Stats = {
     let ct = app.Settings.get("statistics", "chart-type");
     ct == 0 ? app.Stats.chartType = "bar" : app.Stats.chartType = "line";
 
-    this.setChartTypeButtonVisbility();
+    this.setChartTypeButtonVisibility();
     this.chart = undefined;
     this.dbData = await this.getDataFromDb();
 
@@ -113,7 +113,7 @@ app.Stats = {
     });
   },
 
-  setChartTypeButtonVisbility: function() {
+  setChartTypeButtonVisibility: function() {
     let buttons = Array.from(document.getElementsByClassName("chart-type"));
     let value = Number(app.Stats.chartType != "bar");
 
@@ -123,18 +123,20 @@ app.Stats = {
 
   populateDropdownOptions: function() {
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const measurements = ["weight", "neck", "waist", "hips", "body fat"];
+    const nutrimentUnits = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
+    const measurements = app.measurements;
     const stats = measurements.concat(nutriments);
-    const goals = app.Settings.getField("goals");
 
     stats.forEach((x, i) => {
-      if (goals[x + "-show-in-stats"] == true) {
-        let option = document.createElement("option");
-        option.value = x;
-        let text = app.strings.nutriments[x] || x;
-        option.innerHTML = app.Utils.tidyText(text, 80, true);
-        app.Stats.el.stat.appendChild(option);
-      }
+      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) return;
+      if (!app.Goals.showInStats(x)) return;
+
+      let option = document.createElement("option");
+      option.value = x;
+      let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
+      option.innerHTML = app.Utils.tidyText(text, 50, true);
+      app.Stats.el.stat.appendChild(option);
     });
 
     app.Stats.el.stat.selectedIndex = 0;
@@ -239,19 +241,7 @@ app.Stats = {
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
-      let nutrimentUnits = app.nutrimentUnits;
-      let statUnits = app.Settings.getField("units");
-      let stats = ["weight", "neck", "waist", "hips", "body fat"];
-
-      let unit;
-      if (field == "body fat") {
-        unit = "%";
-      } else {
-        if (stats.indexOf(field) !== -1)
-          field == "weight" ? unit = statUnits.weight : unit = statUnits.length;
-        else
-          unit = nutrimentUnits[field];
-      }
+      let unit = app.Goals.getGoalUnit(field, false);
 
       let result = {
         dates: [],
@@ -294,16 +284,11 @@ app.Stats = {
         }
       }
 
-      let title = field;
-
-      if (app.strings.nutriments[field] !== undefined)
-        title = app.strings.nutriments[field];
-      else if (app.strings.statistics[field] !== undefined)
-        title = app.strings.statistics[field];
+      let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
 
       result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
       result.average = result.average / result.dates.length;
-      result.goal = app.Goals.get(field, new Date());
+      result.goal = await app.Goals.get(field, new Date());
 
       resolve(result);
     }).catch(err => {

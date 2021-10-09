@@ -80,6 +80,8 @@ app.OpenFoodFacts = {
 
   parseItem: function(item) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
+    const units = app.nutrimentUnits;
+
     let result = {
       "nutrition": {}
     };
@@ -87,7 +89,7 @@ app.OpenFoodFacts = {
     // Search for all keys containing 'item_name' to include local item names
     for (let k in item) {
       if (k.includes("product_name") && item[k].length > 1) {
-        result.name = item[k];
+        result.name = he.decode(item[k]);
         break;
       }
     }
@@ -98,7 +100,8 @@ app.OpenFoodFacts = {
     // Get first brand if there is more than one
     let brands = item.brands || "";
     let n = brands.indexOf(",");
-    result.brand = brands.substring(0, n != -1 ? n : brands.length);
+    let brand = brands.substring(0, n != -1 ? n : brands.length);
+    result.brand = he.decode(brand);
 
     let perTag = "";
     if (item.serving_size) {
@@ -107,13 +110,13 @@ app.OpenFoodFacts = {
       if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
-          parseInt(item.nutriments.energy_serving / 4.1868);
+          app.Utils.convertUnit(item.nutriments.energy_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_serving;
         perTag = "_serving";
       } else if (item.nutriments.energy_prepared_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_serving"]) ?
           parseInt(item.nutriments["energy-kcal_prepared_serving"]) :
-          parseInt(item.nutriments.energy_prepared_serving / 4.1868);
+          app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_serving;
         perTag = "_prepared_serving";
       }
@@ -123,13 +126,13 @@ app.OpenFoodFacts = {
       if (item.nutriments.energy_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
           item.nutriments["energy-kcal_100g"] :
-          parseInt(item.nutriments.energy_100g / 4.1868);
+          app.Utils.convertUnit(item.nutriments.energy_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_100g;
         perTag = "_100g";
       } else if (item.nutriments.energy_prepared_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_100g"]) ?
           item.nutriments["energy-kcal_prepared_100g"] :
-          parseInt(item.nutriments.energy_prepared_100g / 4.1868);
+          app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_100g;
         perTag = "_prepared_100g";
       }
@@ -146,13 +149,15 @@ app.OpenFoodFacts = {
     for (let i = 0; i < nutriments.length; i++) {
       let x = nutriments[i];
       if (x != "calories" && x != "kilojoules") {
-        result.nutrition[x] = item.nutriments[x + perTag];
+        let value = item.nutriments[x + perTag];
+        let unit = item.nutriments[x + "_unit"];
+        result.nutrition[x] = app.Utils.convertUnit(value, unit, units[x]);
       }
     }
 
     // Ingredients 
-    result.ingredients_text = item.ingredients_text;
-    result.traces = item.traces;
+    result.ingredients_text = he.decode(item.ingredients_text);
+    result.traces = he.decode(item.traces);
 
     if (result.name == "" || result.nutrition.calories == undefined || result.portion === undefined)
       result = undefined;
@@ -212,6 +217,8 @@ app.OpenFoodFacts = {
   },
 
   getUploadString: function(data) {
+    const units = app.nutrimentUnits;
+
     let string = "";
 
     // Gather additional data
@@ -231,9 +238,9 @@ app.OpenFoodFacts = {
 
     // Energy
     if (data.nutrition.calories !== undefined && data.nutrition.kilojoules == undefined)
-      data.nutrition.kilojoules = Math.round(data.nutrition.calories * 4.1868 * 100) / 100;
+      data.nutrition.kilojoules = app.Utils.convertUnit(data.nutrition.calories, units.calories, units.kilojoules, true);
     else if (data.nutrition.calories == undefined && data.nutrition.kilojoules !== undefined)
-      data.nutrition.calories = Math.round(data.nutrition.kilojoules / 4.1868 * 100) / 100;
+      data.nutrition.calories = app.Utils.convertUnit(data.nutrition.kilojoules, units.kilojoules, units.calories, true);
 
     data.nutrition["energy-kcal"] = data.nutrition.calories;
     data.nutrition["energy-kj"] = data.nutrition.kilojoules;

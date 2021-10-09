@@ -20,29 +20,52 @@
 app.GoalEditor = {
 
   el: {},
-  item: "",
+  stat: "",
 
   init: function(context) {
     this.getComponents();
     this.bindUIActions();
 
-    if (context.item !== undefined) {
+    if (context.stat !== undefined) {
       const inputs = Array.from(document.querySelectorAll("input"));
-      this.el.title.innerText = app.Utils.tidyText(context.item, 50, true);
-      this.setInputNames(context.item);
+      this.setPageTitle(context.stat);
+      this.setInputNames(context.stat);
       app.Settings.restoreInputValues(inputs);
       this.setGoalSharing();
-      this.item = context.item;
+      this.stat = context.stat;
     }
 
     this.hideShowComponents();
   },
 
+  setPageTitle: function(stat, percentGoalState=null) {
+    const title = app.strings["goal-editor"]["title"] || "Set Goals";
+    const name = app.strings.nutriments[stat] || app.strings.statistics[stat] || stat;
+    let unit;
+    if (percentGoalState === null)
+      unit = app.Goals.getGoalUnit(stat);
+    else if (percentGoalState === false)
+      unit = app.Goals.getGoalUnit(stat, false);
+    else if (percentGoalState === true)
+      unit = "%";
+
+    const text = title + ": " + app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
+    app.GoalEditor.el.title.innerText = text;
+  },
+
   getComponents: function() {
     app.GoalEditor.el.title = document.querySelector(".page[data-name='goal-editor'] #goal-editor-title");
-    app.GoalEditor.el.showInDiary = document.querySelector(".page[data-name='goal-editor'] #diary");
+    app.GoalEditor.el.showInDiaryOption = document.querySelector(".page[data-name='goal-editor'] #diary");
+    app.GoalEditor.el.sharedGoalOption = document.querySelector(".page[data-name='goal-editor'] #shared");
+    app.GoalEditor.el.autoAdjustOption = document.querySelector(".page[data-name='goal-editor'] #adjust");
+    app.GoalEditor.el.minimumGoalOption = document.querySelector(".page[data-name='goal-editor'] #minimum");
+    app.GoalEditor.el.percentGoalOption = document.querySelector(".page[data-name='goal-editor'] #percent");
+    app.GoalEditor.el.showInDiary = document.querySelector(".page[data-name='goal-editor'] #show-in-diary");
     app.GoalEditor.el.sharedGoal = document.querySelector(".page[data-name='goal-editor'] #shared-goal");
+    app.GoalEditor.el.autoAdjust = document.querySelector(".page[data-name='goal-editor'] #auto-adjust");
     app.GoalEditor.el.minimumGoal = document.querySelector(".page[data-name='goal-editor'] #minimum-goal");
+    app.GoalEditor.el.percentGoal = document.querySelector(".page[data-name='goal-editor'] #percent-goal");
+    app.GoalEditor.el.primaryGoal = document.querySelector(".page[data-name='goal-editor'] #primary-goal");
   },
 
   bindUIActions: function() {
@@ -58,7 +81,15 @@ app.GoalEditor = {
       }
     });
 
-    // Shared goal toggle 
+    // Show in diary toggle
+    if (!app.GoalEditor.el.showInDiary.hasChangeEvent) {
+      app.GoalEditor.el.showInDiary.addEventListener("change", (e) => {
+        app.Settings.saveInputs([app.GoalEditor.el.showInDiary]);
+      });
+      app.GoalEditor.el.showInDiary.hasChangeEvent = true;
+    }
+
+    // Shared goal toggle
     if (!app.GoalEditor.el.sharedGoal.hasChangeEvent) {
       app.GoalEditor.el.sharedGoal.addEventListener("change", (e) => {
         app.GoalEditor.setGoalSharing();
@@ -67,34 +98,67 @@ app.GoalEditor = {
       app.GoalEditor.el.sharedGoal.hasChangeEvent = true;
     }
 
-    // Minimum goal toggle 
+    // Auto adjust toggle
+    if (!app.GoalEditor.el.autoAdjust.hasChangeEvent) {
+      app.GoalEditor.el.autoAdjust.addEventListener("change", (e) => {
+        app.Settings.saveInputs([app.GoalEditor.el.autoAdjust]);
+      });
+      app.GoalEditor.el.autoAdjust.hasChangeEvent = true;
+    }
+
+    // Minimum goal toggle
     if (!app.GoalEditor.el.minimumGoal.hasChangeEvent) {
       app.GoalEditor.el.minimumGoal.addEventListener("change", (e) => {
-        app.GoalEditor.setGoalSharing();
         app.Settings.saveInputs([app.GoalEditor.el.minimumGoal]);
       });
       app.GoalEditor.el.minimumGoal.hasChangeEvent = true;
     }
+
+    // Percent goal toggle
+    if (!app.GoalEditor.el.percentGoal.hasChangeEvent) {
+      app.GoalEditor.el.percentGoal.addEventListener("change", (e) => {
+        app.GoalEditor.setPercentGoal();
+        app.Settings.saveInputs([app.GoalEditor.el.percentGoal]);
+      });
+      app.GoalEditor.el.percentGoal.hasChangeEvent = true;
+    }
   },
 
   hideShowComponents: function() {
-    const measurements = ["weight", "neck", "waist", "hips", "body fat"];
-    if (measurements.includes(app.GoalEditor.item))
-      app.GoalEditor.el.showInDiary.style.display = "none";
+    if (app.measurements.includes(app.GoalEditor.stat)) {
+      app.GoalEditor.el.showInDiaryOption.style.display = "none";
+      app.GoalEditor.el.sharedGoalOption.style.display = "none";
+      app.GoalEditor.el.autoAdjustOption.style.display = "none";
+      app.GoalEditor.el.minimumGoalOption.style.display = "none";
+      app.GoalEditor.el.percentGoalOption.style.display = "none";
+      app.GoalEditor.el.primaryGoal.innerText = app.strings["goal-editor"]["goal"] || "Goal";
+      const extraGoals = Array.from(document.querySelectorAll("li.extra-goal"));
+      extraGoals.forEach((x) => {
+        x.style.display = "none";
+      });
+    } else {
+      app.GoalEditor.el.primaryGoal.innerText = app.strings["days"]["0"] || "Sunday";
+      if (!app.energyMacroNutriments.includes(app.GoalEditor.stat))
+        app.GoalEditor.el.percentGoalOption.style.display = "none";
+    }
   },
 
   setInputNames: function(name) {
     const inputs = Array.from(document.querySelectorAll("input"));
 
     inputs.forEach((x) => {
-      if (x.id == "shared-goal")
-        x.name = name + "-shared-goal";
-      else if (x.id == "minimum-goal")
-        x.name = name + "-minimum-goal";
-      else if (x.id == "show-in-diary")
+      if (x.id == "show-in-diary")
         x.name = name + "-show-in-diary";
       else if (x.id == "show-in-stats")
         x.name = name + "-show-in-stats";
+      else if (x.id == "shared-goal")
+        x.name = name + "-shared-goal";
+      else if (x.id == "auto-adjust")
+        x.name = name + "-auto-adjust";
+      else if (x.id == "minimum-goal")
+        x.name = name + "-minimum-goal";
+      else if (x.id == "percent-goal")
+        x.name = name + "-percent-goal";
       else
         x.name = name;
     });
@@ -108,13 +172,26 @@ app.GoalEditor = {
       if (i !== 0) {
         if (state == true) {
           x.disabled = true;
-          x.style.color = "grey";
+          x.classList.add("disabled");
         } else {
           x.disabled = false;
-          x.style.color = "black";
+          x.classList.remove("disabled");
         }
       }
     });
+  },
+
+  setPercentGoal: function() {
+    const inputs = Array.from(document.querySelectorAll("input[type=number]"));
+    const state = app.GoalEditor.el.percentGoal.checked;
+    const event = new Event("change");
+
+    inputs.forEach((x) => {
+      x.value = "";
+      x.dispatchEvent(event);
+    });
+
+    app.GoalEditor.setPageTitle(app.GoalEditor.stat, state);
   }
 };
 

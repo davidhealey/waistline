@@ -20,6 +20,13 @@
 app.DiaryChart = {
 
   chart: undefined,
+  chartColours: [
+    'rgba(170, 9, 9, 0.5)',
+    'rgba(213, 11, 11, 0.5)',
+    'rgba(8, 118, 184, 0.5)',
+    'rgba(0, 151, 225, 0.5)',
+    'rgba(255, 206, 86, 0.5)'
+  ],
   chartType: "pie",
   dbData: undefined,
   el: {},
@@ -34,12 +41,14 @@ app.DiaryChart = {
 
     if (this.dbData.timestamps.length > 0) {
       let data = await this.organiseData(this.dbData);
-      this.renderChart(data);
+      this.renderPage(data);
     }
   },
 
   getComponents: function() {
     app.DiaryChart.el.chart = document.querySelector(".page[data-name='diary-chart'] #chart");
+    app.DiaryChart.el.macrosList = document.querySelector(".page[data-name='diary-chart'] #macros-list");
+    app.DiaryChart.el.totalsList = document.querySelector(".page[data-name='diary-chart'] #totals-list");
   },
 
   bindUIActions: function() {},
@@ -47,75 +56,108 @@ app.DiaryChart = {
   organiseData: function(data) {
     return new Promise(async function(resolve, reject) {
 
-      let visible = app.Settings.getField("nutrimentVisibility");
-      delete visible.calories;
-      delete visible.kilojoules;
-
-      let nutriments = app.nutriments;
-      let nutrimentUnits = app.nutrimentUnits;
+      const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+      const visible = app.Settings.getField("nutrimentVisibility");
+      const nutrimentUnits = app.nutrimentUnits;
 
       let result = {
         "labels": [],
-        "values": []
+        "values": [],
+        "colours": [],
+        "macros": [],
+        "totals": []
       };
 
-      let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
+      const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
+      const macros = app.energyMacroNutriments;
 
-      for (let n in nutrition) {
+      let energy = {};
+      let energyTotal = 0;
 
-        if (!visible[n]) continue;
+      // Chart
+      macros.forEach((x, i) => {
 
-        let unit = nutrimentUnits[n] || "g";
-        let name = app.strings.nutriments[n] || n;
-        let label = app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
+        let amount = nutrition[x] || 0;
+        let caloriesPerUnit = app.Goals.getMacroNutrimentCalories(x);
+        energy[x] = amount * caloriesPerUnit;
 
-        result.labels.push(label);
-        result.values.push(Math.round(nutrition[n] * 100) / 100);
-      }
+        if (x == "fat")
+          amount -= nutrition["saturated-fat"] || 0;
+        else if (x == "carbohydrates")
+          amount -= nutrition["sugars"] || 0;
+
+        let value = amount * caloriesPerUnit;
+        energyTotal += value;
+
+        if (value > 0) {
+          let name = app.strings.nutriments[x] || x;
+          result.labels.push(app.Utils.tidyText(name, 50, true));
+          result.values.push(Math.round(value * 100) / 100);
+          result.colours.push(app.DiaryChart.chartColours[i]);
+        }
+      });
+
+      // Macros
+      macros.forEach((x) => {
+        if (x == "saturated-fat" || x == "sugars") return;
+        if (!nutrition[x]) return;
+
+        let percent = energy[x] / energyTotal * 100;
+        let name = app.strings.nutriments[x] || x;
+
+        if (x == "fat" && nutrition["saturated-fat"] !== undefined && nutrition["saturated-fat"] !== 0) {
+          const including = app.strings["diary-chart"]["including-saturated-fat"] || "including sat fat";
+          name += " (" + including + ")";
+        }
+        else if (x == "carbohydrates" && nutrition["sugars"] !== undefined && nutrition["sugars"] !== 0) {
+          const including = app.strings["diary-chart"]["including-sugars"] || "including sugars";
+          name += " (" + including + ")";
+        }
+
+        let entry = {
+          name: app.Utils.tidyText(name, 50, true),
+          value: (Math.round(percent * 100) / 100) + "%"
+        }
+        result.macros.push(entry);
+      });
+
+      // Totals
+      nutriments.forEach((x) => {
+        if (x == "calories" || x == "kilojoules") return;
+        if (!visible[x]) return;
+        if (!nutrition[x]) return;
+
+        let name = app.strings.nutriments[x] || x;
+        let unit = nutrimentUnits[x] || "g";
+
+        let entry = {
+          name: app.Utils.tidyText(name, 50, true),
+          value: (Math.round(nutrition[x] * 100) / 100) + " " + unit
+        }
+        result.totals.push(entry);
+      });
 
       resolve(result);
     });
   },
 
-  renderChart: function(data) {
+  renderPage: function(data) {
+    // Chart
     app.DiaryChart.chart = new Chart(app.DiaryChart.el.chart, {
       type: app.DiaryChart.chartType,
       data: {
         datasets: [{
           data: data.values,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(13, 102, 255, 0.5)',
-            'rgba(223, 102, 255, 0.5)',
-            'rgba(113, 102, 255, 0.5)',
-            'rgba(168, 102, 255, 0.5)',
-            'rgba(53, 102, 255, 0.5)',
-            'rgba(145, 159, 64, 0.5)',
-            'rgba(45, 159, 64, 0.5)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(13, 102, 255, 0.5)',
-            'rgba(223, 102, 255, 0.5)',
-            'rgba(113, 102, 255, 0.5)',
-            'rgba(168, 102, 255, 0.5)',
-            'rgba(53, 102, 255, 0.5)',
-            'rgba(145, 159, 64, 0.5)',
-            'rgba(45, 159, 64, 0.5)'
-          ],
+          backgroundColor: data.colours,
+          borderColor: data.colours,
           borderWidth: 1
         }],
         labels: data.labels
       },
       options: {
+        tooltips: {
+          enabled: false
+        },
         legend: {
           labels: {
             fontSize: 18
@@ -125,6 +167,46 @@ app.DiaryChart = {
           duration: 1000 * !app.Settings.get("appearance", "animations"),
         },
       }
+    });
+
+    // Macros
+    data.macros.forEach((x) => {
+      let li = document.createElement("li");
+      li.className = "item-inner";
+
+      let name = document.createElement("div");
+      name.className = "item-title";
+      let t = document.createTextNode(x.name);
+      name.appendChild(t);
+
+      let value = document.createElement("div");
+      value.className = "flex-shrink-0";
+      t = document.createTextNode(x.value);
+      value.appendChild(t);
+
+      li.appendChild(name);
+      li.appendChild(value);
+      app.DiaryChart.el.macrosList.appendChild(li);
+    });
+
+    // Totals
+    data.totals.forEach((x) => {
+      let li = document.createElement("li");
+      li.className = "item-inner";
+
+      let name = document.createElement("div");
+      name.className = "item-title";
+      let t = document.createTextNode(x.name);
+      name.appendChild(t);
+
+      let value = document.createElement("div");
+      value.className = "flex-shrink-0";
+      t = document.createTextNode(x.value);
+      value.appendChild(t);
+
+      li.appendChild(name);
+      li.appendChild(value);
+      app.DiaryChart.el.totalsList.appendChild(li);
     });
   }
 };

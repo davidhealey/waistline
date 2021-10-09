@@ -406,7 +406,6 @@ app.Settings = {
       },
       units: {
         energy: "kcal",
-        "energy-unit": "kcal",
         length: "cm",
         weight: "kg",
       },
@@ -415,6 +414,10 @@ app.Settings = {
         "calories-shared-goal": true,
         "calories-show-in-diary": true,
         "calories-show-in-stats": true,
+        kilojoules: ["8400", "", "", "", "", "", ""],
+        "kilojoules-shared-goal": true,
+        "kilojoules-show-in-diary": true,
+        "kilojoules-show-in-stats": true,
         proteins: ["50", "", "", "", "", "", ""],
         "proteins-shared-goal": true,
         "proteins-show-in-diary": true,
@@ -433,10 +436,11 @@ app.Settings = {
       },
       nutrimentVisibility: {
         "fat": true,
+        "saturated-fat": true,
         "carbohydrates": true,
+        "sugars": true,
         "proteins": true,
-        "salt": true,
-        "sugars": true
+        "salt": true
       },
       firstTimeSetup: true,
       schemaVersion: currentSettingsSchemaVersion
@@ -456,7 +460,7 @@ app.Settings = {
 
       // New nutriments must be added
       if (settings.nutriments !== undefined && settings.nutriments.order !== undefined) {
-        app.nutriments.forEach(x => {
+        app.nutriments.forEach((x) => {
           if (!settings.nutriments.order.includes(x))
             settings.nutriments.order.push(x);
         });
