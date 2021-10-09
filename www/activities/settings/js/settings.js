@@ -406,7 +406,6 @@ app.Settings = {
       },
       units: {
         energy: "kcal",
-        "energy-unit": "kcal",
         length: "cm",
         weight: "kg",
       },

@@ -180,7 +180,7 @@ app.Diary = {
     await app.Diary.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
   },
 
-  renderNutritionCard: function(nutrition, date, swiper) {
+  renderNutritionCard: async function(nutrition, date, swiper) {
     let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     let nutrimentUnits = app.nutrimentUnits;
     let energyUnit = app.Settings.get("units", "energy");
@@ -208,7 +208,7 @@ app.Diary = {
 
       if (!app.Goals.showInDiary(x)) continue;
 
-      let goal = app.Goals.get(x, date);
+      let goal = await app.Goals.get(x, date);
 
       // Show n nutriments at a time
       if (count % columnsToShow == 0) {
@@ -261,7 +261,7 @@ app.Diary = {
       // Set value text colour
       if (goal !== undefined && goal !== "") {
 
-        let isMin = app.Settings.get("goals", x + "-minimum-goal");
+        let isMin = app.Goals.isMinimumGoal(x);
         let v = parseFloat(t.nodeValue);
 
         if ((!isMin && v > goal) || (isMin == true && v < goal))
@@ -444,8 +444,7 @@ app.Diary = {
     const title = app.strings.diary["log-title"] || "Today's Stats";
     const stats = JSON.parse(window.localStorage.getItem("stats")) || {};
     const units = app.Settings.getField("units");
-    const fields = ["weight", "neck", "waist", "hips", "body fat"];
-    const goals = app.Settings.getField("goals");
+    const fields = app.measurements;
 
     // Create dialog inputs
     let div = document.createElement("div");
@@ -457,7 +456,7 @@ app.Diary = {
     for (let i = 0; i < fields.length; i++) {
       let x = fields[i];
 
-      if (x !== "weight" && goals[x + "-show-in-stats"] !== true) continue;
+      if (x !== "weight" && !app.Goals.showInStats(x)) continue;
 
       let unit;
 
