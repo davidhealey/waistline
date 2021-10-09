@@ -89,7 +89,7 @@ app.OpenFoodFacts = {
     // Search for all keys containing 'item_name' to include local item names
     for (let k in item) {
       if (k.includes("product_name") && item[k].length > 1) {
-        result.name = item[k];
+        result.name = he.decode(item[k]);
         break;
       }
     }
@@ -100,7 +100,8 @@ app.OpenFoodFacts = {
     // Get first brand if there is more than one
     let brands = item.brands || "";
     let n = brands.indexOf(",");
-    result.brand = brands.substring(0, n != -1 ? n : brands.length);
+    let brand = brands.substring(0, n != -1 ? n : brands.length);
+    result.brand = he.decode(brand);
 
     let perTag = "";
     if (item.serving_size) {
@@ -155,8 +156,8 @@ app.OpenFoodFacts = {
     }
 
     // Ingredients 
-    result.ingredients_text = item.ingredients_text;
-    result.traces = item.traces;
+    result.ingredients_text = he.decode(item.ingredients_text);
+    result.traces = he.decode(item.traces);
 
     if (result.name == "" || result.nutrition.calories == undefined || result.portion === undefined)
       result = undefined;
