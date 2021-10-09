@@ -148,8 +148,8 @@
   },
   "diary-chart": {
     "title": "Overzicht",
-    "including-saturated-fat": "including sat fat",
-    "including-sugars": "including sugars",
+    "including-saturated-fat": "waarvan verzadigd vet",
+    "including-sugars": "waarvan suikers",
     "no-data": "Geen gegevens"
   },
   "foods-meals-recipes": {
@@ -188,13 +188,13 @@
   },
   "goal-editor": {
     "title": "Doel stellen",
-    "goal": "Goal",
+    "goal": "Doel",
     "show-in-diary": "Toon in dagboek",
     "show-in-stats": "Toon in statistieken",
     "shared-goal": "Dagelijks doel",
-    "auto-adjust": "Auto adjust to meet weekly goal",
+    "auto-adjust": "Automatisch aanpassen om wekelijks doel te bereiken",
     "minimum-goal": "Is minimumdoel",
-    "percent-goal": "Goal as percentage of energy intake"
+    "percent-goal": "Doelstelling als percentage van de energie-inname"
   },
   "meal-editor": {
     "title": "Bewerk maaltijd",
