@@ -188,10 +188,13 @@
   },
   "goal-editor": {
     "title": "Defina objetivos",
+    "goal": "Goal",
     "show-in-diary": "Mostrar no Diário",
     "show-in-stats": "Mostrar nas Estatísticas",
     "shared-goal": "Mesmo objetivo todos os dias",
-    "minimum-goal": "É o objetivo mínimo"
+    "auto-adjust": "Auto adjust to meet weekly goal",
+    "minimum-goal": "É o objetivo mínimo",
+    "percent-goal": "Goal as percentage of energy intake"
   },
   "meal-editor": {
     "title": "Editar refeição",
