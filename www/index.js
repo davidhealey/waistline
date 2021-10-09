@@ -403,7 +403,7 @@ document.addEventListener('deviceready', async function() {
   } else {
     settings = app.Settings.migrateSettings(settings);
     app.Settings.changeTheme(settings.appearance["dark-mode"], settings.appearance.theme);
-    app.f7.views.main.router.navigate("/setup-wizard/dob/"); //settings.appearance["start-page"]);
+    app.f7.views.main.router.navigate(settings.appearance["start-page"]);
   }
 
   // Backup database 
