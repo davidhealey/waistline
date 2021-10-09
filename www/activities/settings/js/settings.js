@@ -433,10 +433,11 @@ app.Settings = {
       },
       nutrimentVisibility: {
         "fat": true,
+        "saturated-fat": true,
         "carbohydrates": true,
+        "sugars": true,
         "proteins": true,
-        "salt": true,
-        "sugars": true
+        "salt": true
       },
       firstTimeSetup: true,
       schemaVersion: currentSettingsSchemaVersion
@@ -456,7 +457,7 @@ app.Settings = {
 
       // New nutriments must be added
       if (settings.nutriments !== undefined && settings.nutriments.order !== undefined) {
-        app.nutriments.forEach(x => {
+        app.nutriments.forEach((x) => {
           if (!settings.nutriments.order.includes(x))
             settings.nutriments.order.push(x);
         });

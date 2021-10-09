@@ -132,7 +132,7 @@ app.Stats = {
         let option = document.createElement("option");
         option.value = x;
         let text = app.strings.nutriments[x] || x;
-        option.innerHTML = app.Utils.tidyText(text, 80, true);
+        option.innerHTML = app.Utils.tidyText(text, 50, true);
         app.Stats.el.stat.appendChild(option);
       }
     });
