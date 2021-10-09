@@ -145,7 +145,7 @@ app.OpenFoodFacts = {
       result.nutrition.kilojoules = item.nutriments.energy;
     }
 
-    // Each nutriment 
+    // Each nutriment
     for (let i = 0; i < nutriments.length; i++) {
       let x = nutriments[i];
       if (x != "calories" && x != "kilojoules") {
@@ -155,9 +155,11 @@ app.OpenFoodFacts = {
       }
     }
 
-    // Ingredients 
-    result.ingredients_text = he.decode(item.ingredients_text);
-    result.traces = he.decode(item.traces);
+    // Ingredients and traces
+    if (item.ingredients_text !== undefined)
+      result.ingredients_text = he.decode(item.ingredients_text);
+    if (item.traces !== undefined)
+      result.traces = he.decode(item.traces);
 
     if (result.name == "" || result.nutrition.calories == undefined || result.portion === undefined)
       result = undefined;
