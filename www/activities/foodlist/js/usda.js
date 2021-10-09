@@ -95,6 +95,7 @@ app.USDA = {
 
     const offNutriments = app.nutriments; //Array of OFF nutriment names
     const usdaNutriments = app.USDA.nutriments; //Array of USDA nutriment names
+    const units = app.nutrimentUnits;
 
     let result = {
       "nutrition": {}
@@ -112,7 +113,7 @@ app.USDA = {
     //Energy     
     for (let n of item.foodNutrients) {
       if (n.nutrientName == "Energy") {
-        if (n.unitName.toLowerCase() == "kcal")
+        if (n.unitName.toLowerCase() == units.calories)
           result.nutrition.calories = Math.round(n.value);
         else
           result.nutrition.kilojoules = Math.round(n.value);
@@ -122,10 +123,10 @@ app.USDA = {
     if (result.nutrition.calories || result.nutrition.kilojoules) {
 
       if (result.nutrition.calories == undefined)
-        result.nutrition.calories = Math.round(result.nutrition.kilojoules / 4.1868);
+        result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, true);
 
       if (result.nutrition.kilojoules == undefined)
-        result.nutrition.kilojoules = Math.round(result.nutrition.calories * 4.1868);
+        result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, true);
 
       // Nutriments
       offNutriments.forEach((x, i) => {
@@ -136,10 +137,11 @@ app.USDA = {
           for (let n of item.foodNutrients) {
 
             if (n.nutrientName.includes(nutriment)) {
-              result.nutrition[x] = n.value;
+
+              result.nutrition[x] = app.Utils.convertUnit(n.value, n.unitName, units[x]);
 
               if (x == "sodium")
-                result.nutrition.salt = n.value * 0.0025;
+                result.nutrition.salt = result.nutrition.sodium * 0.0025;
 
               break;
             }

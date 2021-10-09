@@ -75,11 +75,14 @@ app.Settings = {
       let setting = x.getAttribute("name");
 
       if (field && setting) {
-        let value = this.get(field, setting); //Get value from storage
+        let value = this.get(field, setting); // Get value from storage
 
         if (value) {
-          if (Array.isArray(value)) { // Deal with array values            
+          if (Array.isArray(value)) { // Deal with array values
             value.forEach((y, j) => {
+              if (setting == "meal-names") // Meal names must be localized
+                y = app.strings.diary["default-meals"][y.toLowerCase()] || y;
+
               for (let k = 0; k < inputs.length; k++) {
                 let z = inputs[k];
 
@@ -227,7 +230,7 @@ app.Settings = {
         if (y.name == x.name) {
           if (y.type == "checkbox")
             result.push(y.checked);
-          else
+          else if ((y.type == "radio" && y.checked) || y.type != "radio")
             result.push(y.value);
         }
         return result;
@@ -395,7 +398,7 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        animations: true,
+        animations: false,
         "dark-mode": false,
         "start-page": "/settings/",
         theme: "color-theme-red",
@@ -434,10 +437,11 @@ app.Settings = {
       },
       nutrimentVisibility: {
         "fat": true,
+        "saturated-fat": true,
         "carbohydrates": true,
+        "sugars": true,
         "proteins": true,
-        "salt": true,
-        "sugars": true
+        "salt": true
       },
       firstTimeSetup: true,
       schemaVersion: currentSettingsSchemaVersion
@@ -446,7 +450,7 @@ app.Settings = {
     window.localStorage.setItem("settings", JSON.stringify(defaults));
   },
 
-  migrateSettings: function(settings, saveChanges=true) {
+  migrateSettings: function(settings, saveChanges = true) {
     if (settings !== undefined && (settings.schemaVersion === undefined || settings.schemaVersion < currentSettingsSchemaVersion)) {
 
       // Theme settings must be renamed to Appearance
@@ -457,7 +461,7 @@ app.Settings = {
 
       // New nutriments must be added
       if (settings.nutriments !== undefined && settings.nutriments.order !== undefined) {
-        app.nutriments.forEach(x => {
+        app.nutriments.forEach((x) => {
           if (!settings.nutriments.order.includes(x))
             settings.nutriments.order.push(x);
         });
