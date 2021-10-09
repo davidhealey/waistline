@@ -69,18 +69,25 @@ app.DiaryChart = {
       };
 
       const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
-      const macros = ["fat", "saturated-fat", "carbohydrates", "sugars", "proteins"];
-      let sum = 0;
+      const macros = app.energyMacroNutriments;
+
+      let energy = {};
+      let energyTotal = 0;
 
       // Chart
       macros.forEach((x, i) => {
 
-        let value = nutrition[x] || 0;
+        let amount = nutrition[x] || 0;
+        let caloriesPerUnit = app.Goals.getMacroNutrimentCalories(x);
+        energy[x] = amount * caloriesPerUnit;
+
         if (x == "fat")
-          value -= nutrition["saturated-fat"] || 0;
+          amount -= nutrition["saturated-fat"] || 0;
         else if (x == "carbohydrates")
-          value -= nutrition["sugars"] || 0;
-        sum += value;
+          amount -= nutrition["sugars"] || 0;
+
+        let value = amount * caloriesPerUnit;
+        energyTotal += value;
 
         if (value > 0) {
           let name = app.strings.nutriments[x] || x;
@@ -95,7 +102,7 @@ app.DiaryChart = {
         if (x == "saturated-fat" || x == "sugars") return;
         if (!nutrition[x]) return;
 
-        let percent = nutrition[x] / sum * 100;
+        let percent = energy[x] / energyTotal * 100;
         let name = app.strings.nutriments[x] || x;
 
         if (x == "fat" && nutrition["saturated-fat"] !== undefined && nutrition["saturated-fat"] !== 0) {
