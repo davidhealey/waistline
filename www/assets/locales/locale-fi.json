@@ -188,10 +188,13 @@
   },
   "goal-editor": {
     "title": "Aseta tavoitteet",
+    "goal": "Goal",
     "show-in-diary": "Näytä päiväkirjassa",
     "show-in-stats": "Näytä tilastoissa",
     "shared-goal": "Sama tavoite joka päivä",
-    "minimum-goal": "On vähimmäistavoite"
+    "auto-adjust": "Auto adjust to meet weekly goal",
+    "minimum-goal": "On vähimmäistavoite",
+    "percent-goal": "Goal as percentage of energy intake"
   },
   "meal-editor": {
     "title": "Muokkaa ateriaa",
