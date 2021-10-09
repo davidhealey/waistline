@@ -44,8 +44,8 @@ app.Stats = {
         app.Stats.el.stat.value = laststat;
 
       // Organise db data and render chart
-      app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
-      window.localStorage.setItem("last-stat", app.Stats.el.stat.value);
+      this.data = await this.organiseData(this.dbData, this.el.stat.value);
+      window.localStorage.setItem("last-stat", this.el.stat.value);
 
       this.updateChart();
       this.renderStatLog();
@@ -184,10 +184,10 @@ app.Stats = {
 
   renderStatLog: function() {
 
-    app.Stats.el.timeline.innerHTML = "";
+    this.el.timeline.innerHTML = "";
 
-    let avg = app.Stats.renderAverage(app.Stats.data.average, app.Stats.data.dataset.unit);
-    app.Stats.el.timeline.appendChild(avg);
+    let avg = this.renderAverage(this.data.average, this.data.dataset.unit);
+    this.el.timeline.appendChild(avg);
 
     for (let i = 0; i < app.Stats.data.dates.length; i++) {
 
@@ -215,6 +215,7 @@ app.Stats = {
   },
 
   renderAverage: function(average, unit) {
+
     let li = document.createElement("li");
 
     let content = document.createElement("div");
@@ -287,7 +288,7 @@ app.Stats = {
       let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
 
       result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
-      result.average = result.average / result.dates.length;
+      result.average = result.average / result.dates.length || 0;
       result.goal = await app.Goals.get(field, new Date());
 
       resolve(result);
