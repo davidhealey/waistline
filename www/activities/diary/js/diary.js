@@ -403,10 +403,13 @@ app.Diary = {
 
   quickAdd: function(category) {
     let title = app.strings.diary["quick-add"] || "Quick Add";
+    let units = app.nutrimentUnits;
     let energyUnit = app.Settings.get("units", "energy");
-    let text = app.strings.nutriments["calories"] || "Calories";
 
-    if (energyUnit != "kcal")
+    let text;
+    if (energyUnit == units.calories)
+      text = app.strings.nutriments["calories"] || "Calories";
+    else
       text = app.strings.nutriments["kilojoules"] || "Kilojoules";
 
     let dialog = app.f7.dialog.prompt(text, title, async function(value) {
@@ -414,8 +417,8 @@ app.Diary = {
 
       let quantity = value;
 
-      if (energyUnit != "kcal")
-        quantity = value / 4.1868;
+      if (energyUnit == units.kilojoules)
+        quantity = app.Utils.convertUnit(value, units.kilojoules, units.calories);
 
       if (!isNaN(quantity)) {
         let item = await app.Foodlist.getQuickAddItem(); // Get food item

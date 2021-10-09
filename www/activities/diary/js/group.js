@@ -115,10 +115,12 @@ app.Group = {
     a.appendChild(icon);
 
     //Energy 
-    let energyUnit = app.Settings.get("units", "energy");
+    const energyUnit = app.Settings.get("units", "energy");
+    const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
 
     let right = document.createElement("div");
     right.className = "col-25 energy link icon-only";
+    
     let value = nutrition.calories || 0;
 
     if (energyUnit == "kJ")
