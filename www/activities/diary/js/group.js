@@ -119,8 +119,16 @@ app.Group = {
     const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
 
     let right = document.createElement("div");
-    right.className = "col-25 energy";
-    let value = nutrition[energyName] || 0;
+    right.className = "col-25 energy link icon-only";
+    
+    let value = nutrition.calories || 0;
+
+    if (energyUnit == "kJ")
+      value = Math.round(value * 4.1868);
+
+    right.addEventListener("click", function(e) {
+      app.Diary.showCategoryNutriments(id, nutrition);
+    });
 
     right.innerHTML = "<strong>" + value.toFixed(0) + " " + energyUnit + "</strong>";
     row.appendChild(right);

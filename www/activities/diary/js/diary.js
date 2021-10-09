@@ -203,81 +203,87 @@ app.Diary = {
 
       let x = nutriments[i];
 
+      // Skip calories if energyUnit is "kJ" and skip kilojoules if energyUnit is "kcal"
+      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
+
       if (!app.Goals.showInDiary(x)) continue;
 
       let goal = app.Goals.get(x, date);
 
-      if (((x == "kilojoules" && energyUnit == "kj") || x != "kilojoules")) {
+      // Show n nutriments at a time
+      if (count % columnsToShow == 0) {
+        let slide = document.createElement("div");
+        slide.className = "swiper-slide";
+        slide.style.height = "auto";
+        swiper.appendSlide(slide);
 
-        // Show n nutriments at a time 
-        if (count % columnsToShow == 0) {
-          let slide = document.createElement("div");
-          slide.className = "swiper-slide";
-          slide.style.height = "auto";
-          swiper.appendSlide(slide);
+        rows[0] = document.createElement("div");
+        rows[0].className = "row nutrition-total-title";
+        slide.appendChild(rows[0]);
 
-          rows[0] = document.createElement("div");
-          rows[0].className = "row nutrition-total-title";
-          slide.appendChild(rows[0]);
-
-          rows[1] = document.createElement("div");
-          rows[1].className = "row nutrition-total-values";
-          slide.appendChild(rows[1]);
-        }
-
-        // Title
-        let title = document.createElement("div");
-        title.className = "col";
-        title.id = x + "-title";
-
-        let text = app.strings.nutriments[x] || x;
-        let t = document.createTextNode((text.charAt(0).toUpperCase() + text.slice(1)).replace("-", " "));
-        title.appendChild(t);
-        rows[0].appendChild(title);
-
-        // Values and goal text
-        let values = document.createElement("div");
-        values.className = "col";
-        values.id = x + "-value";
-
-        let span = document.createElement("span");
-        t = document.createTextNode("");
-
-        if (nutrition !== undefined && nutrition[x] !== undefined) {
-          if (x !== "calories" && x !== "kilojoules")
-            t.nodeValue = parseFloat(nutrition[x].toFixed(2));
-          else
-            t.nodeValue = nutrition[x].toFixed(0);
-        } else
-          t.nodeValue = "0";
-
-        // Set value text colour
-        if (goal !== undefined && goal !== "") {
-
-          let isMin = app.Settings.get("goals", x + "-minimum-goal");
-          let v = parseFloat(t.nodeValue);
-
-          if ((!isMin && v > goal) || (isMin == true && v < goal))
-            span.style.color = "red";
-          else
-            span.style.color = "green";
-
-          t.nodeValue += " / " + goal + " ";
-        }
-
-        // Unit
-        if (app.Settings.get("diary", "show-nutrition-units")) {
-          let unit = nutrimentUnits[x];
-          if (unit !== undefined)
-            t.nodeValue += unit;
-        }
-
-        span.appendChild(t);
-        values.appendChild(span);
-        rows[1].appendChild(values);
-
-        count++;
+        rows[1] = document.createElement("div");
+        rows[1].className = "row nutrition-total-values";
+        slide.appendChild(rows[1]);
       }
+
+      // Title
+      let title = document.createElement("div");
+      title.className = "col";
+      title.id = x + "-title";
+
+      let text = app.strings.nutriments[x] || x;
+      let t = document.createTextNode(app.Utils.tidyText(text, 20, true));
+      title.appendChild(t);
+      rows[0].appendChild(title);
+
+      // Values and goal text
+      let values = document.createElement("div");
+      values.className = "col";
+      values.id = x + "-value";
+
+      let span = document.createElement("span");
+      t = document.createTextNode("0");
+
+      if (nutrition) {
+        if (x !== "calories" && x !== "kilojoules") {
+          let value = nutrition[x] || 0;
+          t.nodeValue = parseFloat(value.toFixed(2));
+        } else {
+          let energy = nutrition.calories || 0;
+
+          if (energyUnit == "kJ")
+            energy = Math.round(energy * 4.1868);
+
+          t.nodeValue = energy.toFixed(0);
+        }
+      }
+
+      // Set value text colour
+      if (goal !== undefined && goal !== "") {
+
+        let isMin = app.Settings.get("goals", x + "-minimum-goal");
+        let v = parseFloat(t.nodeValue);
+
+        if ((!isMin && v > goal) || (isMin == true && v < goal))
+          span.style.color = "red";
+        else
+          span.style.color = "green";
+
+        t.nodeValue += " / " + goal + " ";
+      }
+
+      // Unit
+      if (app.Settings.get("diary", "show-nutrition-units")) {
+        let unit = nutrimentUnits[x];
+        if (unit !== undefined)
+          t.nodeValue += unit;
+      }
+
+      span.appendChild(t);
+      values.appendChild(span);
+      rows[1].appendChild(values);
+
+      count++;
     }
   },
 
@@ -443,7 +449,7 @@ app.Diary = {
 
     // Create dialog inputs
     let div = document.createElement("div");
-    div.className = "list";
+    div.className = "list scroll-dialog";
 
     let ul = document.createElement("ul");
     div.appendChild(ul);
@@ -554,6 +560,92 @@ app.Diary = {
     dbHandler.put(entry, "diary").onsuccess = function(e) {
       app.Utils.toast("Saved");
     };
+  },
+
+  showCategoryNutriments: function(category, nutrition) {
+    const mealNames = app.Settings.get("diary", "meal-names");
+    const mealName = mealNames[category];
+    const title = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const visible = app.Settings.getField("nutrimentVisibility");
+    const nutrimentUnits = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
+
+    // Create dialog
+    let div = document.createElement("div");
+    div.className = "list scroll-dialog";
+
+    let ul = document.createElement("ul");
+    div.appendChild(ul);
+
+    for (i = 0; i < nutriments.length; i++) {
+
+      let x = nutriments[i];
+
+      if (x == "calories" || x == "kilojoules") {
+        if (nutrimentUnits[x] != energyUnit) continue;
+      } else {
+        if (!visible[x]) continue;
+      }
+
+      // Get name, unit and value
+      let nutriment = app.strings.nutriments[x] || x;
+      let unit = nutrimentUnits[x] || "g";
+      let value = 0;
+
+      if (nutrition) {
+        if (x !== "calories" && x !== "kilojoules") {
+          let v = nutrition[x] || 0;
+          value = parseFloat(v.toFixed(2));
+        } else {
+          let energy = nutrition.calories || 0;
+
+          if (energyUnit == "kJ")
+            energy = Math.round(energy * 4.1868);
+
+          value = energy.toFixed(0);
+        }
+      }
+
+      if (value == 0) continue;
+
+      // List item
+      let li = document.createElement("li");
+      let div = document.createElement("div");
+      div.className = "item-inner";
+
+      // Name
+      let name = document.createElement("div");
+      name.className = "item-title";
+      let text = app.Utils.tidyText(nutriment, 50, true);
+      let t = document.createTextNode(text);
+      name.appendChild(t);
+
+      // Value and Unit
+      let content = document.createElement("div");
+      content.className = "flex-shrink-0";
+      text = value + " " + unit;
+      t = document.createTextNode(text);
+      content.appendChild(t);
+
+      div.appendChild(name);
+      div.appendChild(content);
+      li.appendChild(div);
+      ul.appendChild(li);
+    }
+
+    if (ul.childElementCount > 0) {
+      let dialog = app.f7.dialog.create({
+        title: title,
+        content: div.outerHTML,
+        buttons: [{
+            text: "Ok",
+            keyCodes: [13]
+          }
+        ]
+      }).open();
+    }
   },
 
   gotoFoodlist: function(category) {
