@@ -203,7 +203,6 @@ app.Diary = {
 
       let x = nutriments[i];
 
-      // Skip calories if energyUnit is "kJ" and skip kilojoules if energyUnit is "kcal"
       if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
 
       if (!app.Goals.showInDiary(x)) continue;
@@ -232,7 +231,7 @@ app.Diary = {
       title.id = x + "-title";
 
       let text = app.strings.nutriments[x] || x;
-      let t = document.createTextNode(app.Utils.tidyText(text, 20, true));
+      let t = document.createTextNode(app.Utils.tidyText(text, 50, true));
       title.appendChild(t);
       rows[0].appendChild(title);
 
@@ -244,18 +243,11 @@ app.Diary = {
       let span = document.createElement("span");
       t = document.createTextNode("0");
 
-      if (nutrition) {
-        if (x !== "calories" && x !== "kilojoules") {
-          let value = nutrition[x] || 0;
-          t.nodeValue = parseFloat(value.toFixed(2));
-        } else {
-          let energy = nutrition.calories || 0;
-
-          if (energyUnit == "kJ")
-            energy = Math.round(energy * 4.1868);
-
-          t.nodeValue = energy.toFixed(0);
-        }
+      if (nutrition !== undefined && nutrition[x] !== undefined) {
+        if (x !== "calories" && x !== "kilojoules")
+          t.nodeValue = parseFloat(nutrition[x].toFixed(2));
+        else
+          t.nodeValue = nutrition[x].toFixed(0);
       }
 
       // Set value text colour
@@ -593,18 +585,11 @@ app.Diary = {
       let unit = nutrimentUnits[x] || "g";
       let value = 0;
 
-      if (nutrition) {
-        if (x !== "calories" && x !== "kilojoules") {
-          let v = nutrition[x] || 0;
-          value = parseFloat(v.toFixed(2));
-        } else {
-          let energy = nutrition.calories || 0;
-
-          if (energyUnit == "kJ")
-            energy = Math.round(energy * 4.1868);
-
-          value = energy.toFixed(0);
-        }
+      if (nutrition !== undefined && nutrition[x] !== undefined) {
+        if (x !== "calories" && x !== "kilojoules")
+          value = parseFloat(nutrition[x].toFixed(2));
+        else
+          value = nutrition[x].toFixed(0);
       }
 
       if (value == 0) continue;

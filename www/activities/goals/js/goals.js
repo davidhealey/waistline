@@ -143,8 +143,8 @@ app.Goals = {
 
   getEnergyPercentGoal: function(stat, percentGoal, energyUnit, energyGoal) {
     // Convert energy goal to calories
-    if (energyUnit == "kJ")
-      energyGoal = energyGoal * 0.23900573614
+    if (energyUnit == app.nutrimentUnits.kilojoules)
+      energyGoal = app.Utils.convertUnit(energyGoal, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
 
     let caloriesPerUnit = app.Goals.getMacroNutrimentCalories(stat);
     let result = Math.round(percentGoal / 100 * energyGoal / caloriesPerUnit);

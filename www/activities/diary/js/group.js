@@ -120,11 +120,7 @@ app.Group = {
 
     let right = document.createElement("div");
     right.className = "col-25 energy link icon-only";
-    
-    let value = nutrition.calories || 0;
-
-    if (energyUnit == "kJ")
-      value = Math.round(value * 4.1868);
+    let value = nutrition[energyName] || 0;
 
     right.addEventListener("click", function(e) {
       app.Diary.showCategoryNutriments(id, nutrition);
