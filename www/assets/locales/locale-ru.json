@@ -188,10 +188,13 @@
   },
   "goal-editor": {
     "title": "Установить цели",
+    "goal": "Goal",
     "show-in-diary": "Показать в дневнике",
     "show-in-stats": "Показать в статистике",
     "shared-goal": "Одинаковая цель каждый день",
-    "minimum-goal": "Минимальная цель"
+    "auto-adjust": "Auto adjust to meet weekly goal",
+    "minimum-goal": "Минимальная цель",
+    "percent-goal": "Goal as percentage of energy intake"
   },
   "meal-editor": {
     "title": "Изменить блюдо",
