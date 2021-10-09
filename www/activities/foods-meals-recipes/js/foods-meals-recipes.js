@@ -180,31 +180,35 @@ app.FoodsMealsRecipes = {
   getTotalNutrition: function(items) {
     return new Promise(async function(resolve, reject) {
       let ids = {};
+      let entries = {};
       let result = {
         calories: 0
       };
 
       // Get item ids and quick-add items
-      items.forEach((x) => {
-        let type = x.type || "food";
+      items.forEach((item) => {
+        let type = item.type || "food";
 
-        if (x.id !== undefined && ("category" in x == false || x.category !== undefined)) {
+        if (item.id !== undefined && ("category" in item == false || item.category !== undefined)) {
           ids[type] = ids[type] || [];
-          ids[type].push(x.id);
+          ids[type].push(item.id);
         }
       });
 
-      let foods = [];
+      // Get relevant database entries
+      entries["food"] = [];
       if (ids.food !== undefined && ids.food.length > 0)
-        foods = await dbHandler.getByMultipleKeys(ids.food, "foodList");
+        entries["food"] = await dbHandler.getByMultipleKeys(ids.food, "foodList");
 
-      let recipes = [];
+      entries["recipe"] = [];
       if (ids.recipe !== undefined && ids.recipe.length > 0)
-        recipes = await dbHandler.getByMultipleKeys(ids.recipe, "recipes");
+        entries["recipe"] = await dbHandler.getByMultipleKeys(ids.recipe, "recipes");
 
+      // Prepare a list of items to be summed
       let data = [];
       items.forEach((item) => {
-        let match = recipes.find(x => x !== undefined && x.id === item.id) || foods.find(x => x !== undefined && x.id === item.id);
+        let type = item.type || "food";
+        let match = entries[type].find(x => x !== undefined && x.id === item.id);
         data.push(match);
       });
 

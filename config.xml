@@ -58,6 +58,5 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreenDuration" value="500" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="AndroidInsecureFileModeEnabled" value="true" />
     <hook src="hooks/read_app_version.js" type="after_prepare" />
 </widget>

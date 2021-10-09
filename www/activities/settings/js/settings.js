@@ -75,11 +75,14 @@ app.Settings = {
       let setting = x.getAttribute("name");
 
       if (field && setting) {
-        let value = this.get(field, setting); //Get value from storage
+        let value = this.get(field, setting); // Get value from storage
 
         if (value) {
-          if (Array.isArray(value)) { // Deal with array values            
+          if (Array.isArray(value)) { // Deal with array values
             value.forEach((y, j) => {
+              if (setting == "meal-names") // Meal names must be localized
+                y = app.strings.diary["default-meals"][y.toLowerCase()] || y;
+
               for (let k = 0; k < inputs.length; k++) {
                 let z = inputs[k];
 
@@ -395,7 +398,7 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        animations: true,
+        animations: false,
         "dark-mode": false,
         "start-page": "/settings/",
         theme: "color-theme-red",

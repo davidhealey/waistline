@@ -295,8 +295,12 @@ app.FoodEditor = {
         input.placeholder = "0";
         input.name = k;
 
-        if (k != "calories" && k != "kilojoules")
+        const errorMessage = app.strings["food-editor"]["negative-value-message"] || "No negative values.";
+        if (k != "calories" && k != "kilojoules") {
           input.min = "0";
+          input.setAttribute("validate", "");
+          input.setAttribute("data-error-message", errorMessage);
+        }
 
         if (item) {
           if (item.nutrition[k] !== 0)
