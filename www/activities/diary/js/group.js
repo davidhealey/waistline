@@ -115,14 +115,20 @@ app.Group = {
     a.appendChild(icon);
 
     //Energy 
-    let energyUnit = app.Settings.get("units", "energy");
+    const energyUnit = app.Settings.get("units", "energy");
+    const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
 
     let right = document.createElement("div");
-    right.className = "col-25 energy";
+    right.className = "col-25 energy link icon-only";
+    
     let value = nutrition.calories || 0;
 
     if (energyUnit == "kJ")
       value = Math.round(value * 4.1868);
+
+    right.addEventListener("click", function(e) {
+      app.Diary.showCategoryNutriments(id, nutrition);
+    });
 
     right.innerHTML = "<strong>" + value.toFixed(0) + " " + energyUnit + "</strong>";
     row.appendChild(right);

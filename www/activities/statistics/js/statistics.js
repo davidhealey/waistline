@@ -33,7 +33,7 @@ app.Stats = {
     let ct = app.Settings.get("statistics", "chart-type");
     ct == 0 ? app.Stats.chartType = "bar" : app.Stats.chartType = "line";
 
-    this.setChartTypeButtonVisbility();
+    this.setChartTypeButtonVisibility();
     this.chart = undefined;
     this.dbData = await this.getDataFromDb();
 
@@ -113,7 +113,7 @@ app.Stats = {
     });
   },
 
-  setChartTypeButtonVisbility: function() {
+  setChartTypeButtonVisibility: function() {
     let buttons = Array.from(document.getElementsByClassName("chart-type"));
     let value = Number(app.Stats.chartType != "bar");
 

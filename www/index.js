@@ -279,6 +279,68 @@ const app = {
         path: "/about/",
         url: "activities/about/views/about.html"
       },
+      {
+        name: "Setup Wizard",
+        path: "/setup-wizard/",
+        url: "activities/setup-wizard/views/setup-wizard.html",
+        routes: [{
+            name: "Setup Wizard Target Weight",
+            path: "/target-weight/",
+            url: "activities/setup-wizard/views/setup-wizard-target-weight.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            name: "Setup Wizard Current Weight",
+            path: "/current-weight/",
+            url: "activities/setup-wizard/views/setup-wizard-current-weight.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            name: "Setup Wizard Height",
+            path: "/height/",
+            url: "activities/setup-wizard/views/setup-wizard-height.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            name: "Setup Wizard DOB",
+            path: "/dob/",
+            url: "activities/setup-wizard/views/setup-wizard-dob.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            name: "Setup Wizard Gender",
+            path: "/gender/",
+            url: "activities/setup-wizard/views/setup-wizard-gender.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            name: "Setup Wizard Activity Level",
+            path: "/activity-level/",
+            url: "activities/setup-wizard/views/setup-wizard-activity-level.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            name: "Summary",
+            path: "/summary/",
+            url: "activities/setup-wizard/views/setup-wizard-summary.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          }
+        ]
+      },
     ]
   })
 };
@@ -288,7 +350,7 @@ let animate = true;
 let settings = JSON.parse(window.localStorage.getItem("settings"));
 
 if (settings != undefined && settings.appearance !== undefined && settings.appearance.animations !== undefined)
-  animate = settings.appearance.animations;
+  animate = !settings.appearance.animations;
 
 let viewOptions = {
   animate: animate
@@ -341,7 +403,7 @@ document.addEventListener('deviceready', async function() {
   } else {
     settings = app.Settings.migrateSettings(settings);
     app.Settings.changeTheme(settings.appearance["dark-mode"], settings.appearance.theme);
-    app.f7.views.main.router.navigate(settings.appearance["start-page"]);
+    app.f7.views.main.router.navigate("/setup-wizard/dob/"); //settings.appearance["start-page"]);
   }
 
   // Backup database 
@@ -357,9 +419,11 @@ document.addEventListener('deviceready', async function() {
   }, 2000);
 }, false);
 
-//Prevent chrome displaying context menu on long click
+// Prevent chrome displaying context menu on long click
 window.addEventListener("contextmenu", (e) => {
-  e.preventDefault();
+  let target = e.target.nodeName.toLowerCase();
+  if (target !== "input" && target !== "textarea")
+    e.preventDefault();
 });
 
 // Android back button 

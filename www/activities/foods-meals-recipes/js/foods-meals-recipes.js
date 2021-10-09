@@ -180,36 +180,41 @@ app.FoodsMealsRecipes = {
   getTotalNutrition: function(items) {
     return new Promise(async function(resolve, reject) {
       let ids = {};
+      let entries = {};
       let result = {
         calories: 0
       };
 
       // Get item ids and quick-add items
-      items.forEach((x) => {
-        let type = x.type || "food";
+      items.forEach((item) => {
+        let type = item.type || "food";
 
-        if (x.id !== undefined && ("category" in x == false || x.category !== undefined)) {
+        if (item.id !== undefined && ("category" in item == false || item.category !== undefined)) {
           ids[type] = ids[type] || [];
-          ids[type].push(x.id);
+          ids[type].push(item.id);
         }
       });
 
-      let foods = [];
+      // Get relevant database entries
+      entries["food"] = [];
       if (ids.food !== undefined && ids.food.length > 0)
-        foods = await dbHandler.getByMultipleKeys(ids.food, "foodList");
+        entries["food"] = await dbHandler.getByMultipleKeys(ids.food, "foodList");
 
-      let recipes = [];
+      entries["recipe"] = [];
       if (ids.recipe !== undefined && ids.recipe.length > 0)
-        recipes = await dbHandler.getByMultipleKeys(ids.recipe, "recipes");
+        entries["recipe"] = await dbHandler.getByMultipleKeys(ids.recipe, "recipes");
 
+      // Prepare a list of items to be summed
       let data = [];
       items.forEach((item) => {
-        let match = recipes.find(x => x !== undefined && x.id === item.id) || foods.find(x => x !== undefined && x.id === item.id);
+        let type = item.type || "food";
+        let match = entries[type].find(x => x !== undefined && x.id === item.id);
         data.push(match);
       });
 
+      const units = app.nutrimentUnits;
       if (data.length > 0) {
-        //Sum item nutrition
+        // Sum item nutrition
         data.forEach((x, i) => {
           if (x !== undefined) {
             let dataPortion = parseFloat(x.portion);
@@ -221,7 +226,7 @@ app.FoodsMealsRecipes = {
               result[n] = result[n] || 0;
               result[n] += Math.round(x.nutrition[n] * multiplier * 100) / 100;
               if (n === "calories" && x.nutrition["kilojoules"] === undefined) {
-                let kilojoules = x.nutrition[n] * 4.1868;
+                let kilojoules = app.Utils.convertUnit(x.nutrition.calories, units.calories, units.kilojoules);
                 result["kilojoules"] = result["kilojoules"] || 0;
                 result["kilojoules"] += Math.round(kilojoules * multiplier * 100) / 100;
               }
@@ -434,7 +439,7 @@ app.FoodsMealsRecipes = {
         //Title
         let title = document.createElement("div");
         title.className = "item-title";
-        title.innerHTML = app.Utils.tidyText(item.name, 25);
+        title.innerHTML = app.Utils.tidyText(item.name, 50);
         row.appendChild(title);
 
         //Energy
@@ -442,10 +447,11 @@ app.FoodsMealsRecipes = {
           let energy = item.nutrition.calories;
 
           if (energy !== undefined && !isNaN(energy)) {
+            let units = app.nutrimentUnits;
             let energyUnit = app.Settings.get("units", "energy");
 
-            if (energyUnit == "kJ")
-              energy = item.nutrition.kilojoules || energy * 4.1868;
+            if (energyUnit == units.kilojoules)
+              energy = item.nutrition.kilojoules || app.Utils.convertUnit(energy, units.calories, units.kilojoules);
 
             let after = document.createElement("div");
             after.className = "item-after";
@@ -458,7 +464,7 @@ app.FoodsMealsRecipes = {
         if (item.brand && item.brand != "") {
           let subtitle = document.createElement("div");
           subtitle.className = "item-subtitle";
-          subtitle.innerHTML = app.Utils.tidyText(item.brand, 35).italics();
+          subtitle.innerHTML = app.Utils.tidyText(item.brand, 50).italics();
           inner.appendChild(subtitle);
         }
 

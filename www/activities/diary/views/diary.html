@@ -17,7 +17,7 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<div class="page" data-name="diary">
+<div class="page page-with-subnavbar" data-name="diary">
 
 	<div class="navbar">
 		<div class="navbar-bg"></div>
@@ -43,27 +43,27 @@
 		</div>
 	</div>
 
+	<div class="subnavbar">
+		<div class="subnavbar-inner">
+			<div>
+				<a href="#" class="link icon-only change-date"><i class="icon icon-back"></i></a>
+			</div>
+			<div id="diary-date"></div>
+			<div>
+				<a href="#" class="link icon-only change-date"><i class="icon icon-forward"></i></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="toolbar toolbar-bottom">
+		<div class="toolbar-inner" id="diary-nutrition">
+			<div class="swiper-container swiper-init">
+				<div class="swiper-wrapper" style="height: auto;"></div>
+			</div>
+		</div>
+	</div>
+
 	<div class="page-content">
-
-		<div class="toolbar calendar-custom-toolbar no-shadow">
-			<div class="toolbar-inner">
-				<div class="left">
-					<a href="#" class="link icon-only change-date"><i class="icon icon-back"></i></a>
-				</div>
-				<div class="center" id="diary-date"></div>
-				<div class="right">
-					<a href="#" class="link icon-only change-date"><i class="icon icon-forward"></i></a>
-				</div>
-			</div>
-		</div>
-
-		<div class="card no-border no-shadow">
-			<div class="card-content" id="diary-nutrition">
-				<div class="swiper-container swiper-init">
-					<div class="swiper-wrapper" style="height: auto;"></div>
-				</div>
-			</div>
-		</div>
 
 		<div id="diary-day"></div>
 
