@@ -32,5 +32,8 @@
       "browser",
       "android"
     ]
+  },
+  "dependencies": {
+    "recursive-readdir": "^2.2.2"
   }
 }
