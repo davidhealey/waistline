@@ -188,10 +188,13 @@
   },
   "goal-editor": {
     "title": "הגדרת יעדים",
+    "goal": "Goal",
     "show-in-diary": "הצגה ביומן",
     "show-in-stats": "הצגה בסטטיסטיקה",
     "shared-goal": "אותו היעד כל יום",
-    "minimum-goal": "הוא היעד הקטן ביותר"
+    "auto-adjust": "Auto adjust to meet weekly goal",
+    "minimum-goal": "הוא היעד הקטן ביותר",
+    "percent-goal": "Goal as percentage of energy intake"
   },
   "meal-editor": {
     "title": "עריכת ארוחה",
