@@ -8,3 +8,4 @@ plugins/
 .jshintrc
 tasks
 test
+package-lock.json
