@@ -341,6 +341,8 @@ app.Diary = {
 
         items.forEach((x) => {
           let item = x;
+          delete item.unit; // Do not store item unit in the DB
+          delete item.archived; // Do not store archived status in the DB
           item.dateTime = new Date();
           item.category = category;
           item.quantity = x.quantity || 1;
@@ -363,7 +365,9 @@ app.Diary = {
 
       if (entry) {
         entry.items.splice(item.index, 1, item);
-        delete item.index; // Array index is not stored in the db
+        delete item.index; // Do not store array index in the DB
+        delete item.unit; // Do not store item unit in the DB
+        delete item.archived; // Do not store archived status in the DB
 
         dbHandler.put(entry, "diary").onsuccess = function() {
           resolve();

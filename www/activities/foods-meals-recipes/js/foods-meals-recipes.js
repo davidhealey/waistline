@@ -364,8 +364,10 @@ app.FoodsMealsRecipes = {
 
       if (data.name == undefined && data.nutrition == undefined) {
         item = await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
-        if (item !== undefined)
+        if (item !== undefined) {
+          delete data.unit; // Always use item unit from database
           item = app.Utils.concatObjects(item, data);
+        }
       } else {
         item = data;
       }
