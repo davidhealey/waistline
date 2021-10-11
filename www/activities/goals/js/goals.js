@@ -45,6 +45,7 @@ app.Goals = {
       if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
 
       let unit = app.Goals.getGoalUnit(x);
+      let unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
       let li = document.createElement("li");
       app.Goals.el.list.appendChild(li);
@@ -53,7 +54,7 @@ app.Goals = {
       a.href = "#";
 
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      a.innerHTML = app.Utils.tidyText(text, 50) + " (" + unit + ")";
+      a.innerHTML = app.Utils.tidyText(text, 50) + " (" + unitSymbol + ")";
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {

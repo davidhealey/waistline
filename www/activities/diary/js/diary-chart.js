@@ -128,7 +128,7 @@ app.DiaryChart = {
         if (!nutrition[x]) return;
 
         let name = app.strings.nutriments[x] || x;
-        let unit = nutrimentUnits[x] || "g";
+        let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || "g";
 
         let entry = {
           name: app.Utils.tidyText(name, 50),

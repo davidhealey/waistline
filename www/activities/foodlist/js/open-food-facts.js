@@ -106,7 +106,8 @@ app.OpenFoodFacts = {
     let perTag = "";
     if (item.serving_size) {
       result.portion = parseInt(item.serving_size);
-      result.unit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/[^a-z]+|\s+/gmi, "");
+      let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/[^a-z]+|\s+/gmi, "");
+      result.unit = app.strings["unit-symbols"][itemUnit] || itemUnit;
       if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
@@ -122,7 +123,7 @@ app.OpenFoodFacts = {
       }
     } else if (item.nutrition_data_per == "100g") {
       result.portion = "100";
-      result.unit = "g";
+      result.unit = app.strings["unit-symbols"]["g"] || "g";
       if (item.nutriments.energy_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
           item.nutriments["energy-kcal_100g"] :

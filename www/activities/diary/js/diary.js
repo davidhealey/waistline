@@ -266,7 +266,7 @@ app.Diary = {
 
       // Unit
       if (app.Settings.get("diary", "show-nutrition-units")) {
-        let unit = nutrimentUnits[x];
+        let unit = app.strings["unit-symbols"][nutrimentUnits[x]];
         if (unit !== undefined)
           t.nodeValue += unit;
       }
@@ -472,6 +472,7 @@ app.Diary = {
       }
 
       let name = app.strings.statistics[x] || x;
+      let unitSymbol = app.strings["unit-symbols"][unit] || "";
 
       let li = document.createElement("li");
       li.className = "item-content item-input";
@@ -484,7 +485,7 @@ app.Diary = {
       let title = document.createElement("div");
       title.className = "item-title item-label";
       title.innerHTML = app.Utils.tidyText(name, 50);
-      title.innerHTML += " (" + unit + ")";
+      title.innerHTML += " (" + unitSymbol + ")";
       inner.appendChild(title);
 
       let inputWrap = document.createElement("div");
@@ -584,7 +585,7 @@ app.Diary = {
 
       // Get name, unit and value
       let name = app.strings.nutriments[x] || x;
-      let unit = nutrimentUnits[x] || "g";
+      let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || "g";
       let value = 0;
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {

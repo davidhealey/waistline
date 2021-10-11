@@ -267,9 +267,9 @@ app.FoodEditor = {
         li.className = "item-content item-input";
 
         let name = app.strings.nutriments[k] || k;
-        let unit = units[k] || "g";
+        let unit = app.strings["unit-symbols"][units[k]] || "g";
 
-        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && unit !== energyUnit)
+        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && units[k] !== energyUnit)
           li.style.display = "none";
 
         ul.appendChild(li);

@@ -452,13 +452,14 @@ app.FoodsMealsRecipes = {
           if (energy !== undefined && !isNaN(energy)) {
             let units = app.nutrimentUnits;
             let energyUnit = app.Settings.get("units", "energy");
+            let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || "";
 
             if (energyUnit == units.kilojoules)
               energy = item.nutrition.kilojoules || app.Utils.convertUnit(energy, units.calories, units.kilojoules);
 
             let after = document.createElement("div");
             after.className = "item-after";
-            after.innerHTML = Math.round(energy).toFixed(0) + " " + energyUnit;
+            after.innerHTML = Math.round(energy).toFixed(0) + " " + energyUnitSymbol;
             row.appendChild(after);
           }
         }
@@ -482,15 +483,14 @@ app.FoodsMealsRecipes = {
           text = parseFloat(item.portion);
 
           if (item.unit !== undefined) {
-            let units = app.standardUnits;
-            if (units.includes(item.unit))
+            if (app.standardUnits.includes(item.unit))
               text += item.unit;
             else
               text += " " + item.unit;
           }
 
           if (item.quantity !== undefined && item.quantity != 1)
-            text += " x" + item.quantity;
+            text += " &times;" + item.quantity;
         }
 
         if (timestamp == true && item.dateTime !== undefined) {

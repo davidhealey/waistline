@@ -244,12 +244,13 @@ app.Stats = {
     return new Promise(async function(resolve, reject) {
 
       let unit = app.Goals.getGoalUnit(field, false);
+      let unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
       let result = {
         dates: [],
         dataset: {
           values: [],
-          unit: unit
+          unit: unitSymbol
         },
         average: 0
       };
@@ -288,7 +289,7 @@ app.Stats = {
 
       let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
 
-      result.dataset.label = app.Utils.tidyText(title, 50) + " (" + unit + ")";
+      result.dataset.label = app.Utils.tidyText(title, 50) + " (" + unitSymbol + ")";
       result.average = result.average / result.dates.length || 0;
       result.goal = await app.Goals.get(field, new Date());
 

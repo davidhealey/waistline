@@ -175,9 +175,7 @@ app.MealEditor = {
         if ((n == "calories" || n == "kilojoules") && nutrimentUnits[n] != energyUnit) continue;
         if (nutrimentVisibility[n] !== true && !["calories", "kilojoules"].includes(n)) continue;
 
-        let unit = "g";
-        if (nutrimentUnits[n] !== undefined)
-          unit = nutrimentUnits[n];
+        let unit = app.strings["unit-symbols"][nutrimentUnits[n]] || "g";
 
         let li = document.createElement("li");
         li.className = "item-content item-input";
@@ -190,7 +188,7 @@ app.MealEditor = {
         let title = document.createElement("div");
         title.className = "item-title item-label";
         let text = app.strings.nutriments[n] || n;
-        title.innerHTML = app.Utils.tidyText(text, 30) + " (" + unit + ")";
+        title.innerHTML = app.Utils.tidyText(text, 25) + " (" + unit + ")";
         innerDiv.appendChild(title);
 
         let after = document.createElement("div");
