@@ -604,7 +604,7 @@ app.Diary = {
       // List item
       let li = document.createElement("li");
       let div = document.createElement("div");
-      div.className = "item-inner";
+      div.className = "item-content item-inner";
 
       // Name
       let title = document.createElement("div");

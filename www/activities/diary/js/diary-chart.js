@@ -172,7 +172,7 @@ app.DiaryChart = {
     // Macros
     data.macros.forEach((x) => {
       let li = document.createElement("li");
-      li.className = "item-inner";
+      li.className = "item-content item-inner";
 
       let name = document.createElement("div");
       name.className = "item-title";
@@ -192,7 +192,7 @@ app.DiaryChart = {
     // Totals
     data.totals.forEach((x) => {
       let li = document.createElement("li");
-      li.className = "item-inner";
+      li.className = "item-content item-inner";
 
       let name = document.createElement("div");
       name.className = "item-title";
