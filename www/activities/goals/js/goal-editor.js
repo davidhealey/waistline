@@ -49,7 +49,7 @@ app.GoalEditor = {
     else if (percentGoalState === true)
       unit = "%";
 
-    const text = title + ": " + app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
+    const text = title + ": " + app.Utils.tidyText(name, 50) + " (" + unit + ")";
     app.GoalEditor.el.title.innerText = text;
   },
 

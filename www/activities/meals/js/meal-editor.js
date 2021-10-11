@@ -190,7 +190,7 @@ app.MealEditor = {
         let title = document.createElement("div");
         title.className = "item-title item-label";
         let text = app.strings.nutriments[n] || n;
-        title.innerHTML = app.Utils.tidyText(text, 30, true) + " (" + unit + ")";
+        title.innerHTML = app.Utils.tidyText(text, 30) + " (" + unit + ")";
         innerDiv.appendChild(title);
 
         let after = document.createElement("div");

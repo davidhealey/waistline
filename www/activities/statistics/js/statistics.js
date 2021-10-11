@@ -135,7 +135,7 @@ app.Stats = {
       let option = document.createElement("option");
       option.value = x;
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      option.innerHTML = app.Utils.tidyText(text, 50, true);
+      option.innerHTML = app.Utils.tidyText(text, 50);
       app.Stats.el.stat.appendChild(option);
     });
 
@@ -215,6 +215,7 @@ app.Stats = {
   },
 
   renderAverage: function(average, unit) {
+    let roundedAverage = Math.round(average * 100) / 100;
 
     let li = document.createElement("li");
 
@@ -233,7 +234,7 @@ app.Stats = {
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerHTML = Math.round(average) + " " + unit;
+    after.innerHTML = roundedAverage + " " + unit;
     inner.appendChild(after);
 
     return li;
@@ -287,7 +288,7 @@ app.Stats = {
 
       let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
 
-      result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
+      result.dataset.label = app.Utils.tidyText(title, 50) + " (" + unit + ")";
       result.average = result.average / result.dates.length || 0;
       result.goal = await app.Goals.get(field, new Date());
 

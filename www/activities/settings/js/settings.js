@@ -342,7 +342,7 @@ app.Settings = {
       let text = app.strings.nutriments[n] || n;
       let title = document.createElement("div");
       title.className = "item-title";
-      title.innerHTML = app.Utils.tidyText(text, 50, true);
+      title.innerHTML = app.Utils.tidyText(text, 50);
       inner.appendChild(title);
 
       let after = document.createElement("div");

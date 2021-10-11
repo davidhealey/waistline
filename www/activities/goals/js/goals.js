@@ -53,7 +53,7 @@ app.Goals = {
       a.href = "#";
 
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      a.innerHTML = app.Utils.tidyText(text, 50, true) + " (" + unit + ")";
+      a.innerHTML = app.Utils.tidyText(text, 50) + " (" + unit + ")";
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {

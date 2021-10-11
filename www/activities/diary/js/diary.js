@@ -231,7 +231,7 @@ app.Diary = {
       title.id = x + "-title";
 
       let text = app.strings.nutriments[x] || x;
-      let t = document.createTextNode(app.Utils.tidyText(text, 50, true));
+      let t = document.createTextNode(app.Utils.tidyText(text, 50));
       title.appendChild(t);
       rows[0].appendChild(title);
 
@@ -471,6 +471,8 @@ app.Diary = {
         }
       }
 
+      let name = app.strings.statistics[x] || x;
+
       let li = document.createElement("li");
       li.className = "item-content item-input";
       ul.appendChild(li);
@@ -481,7 +483,7 @@ app.Diary = {
 
       let title = document.createElement("div");
       title.className = "item-title item-label";
-      title.innerHTML = app.strings.statistics[x] || app.Utils.tidyText(x, 50, true);
+      title.innerHTML = app.Utils.tidyText(name, 50);
       title.innerHTML += " (" + unit + ")";
       inner.appendChild(title);
 
@@ -556,7 +558,7 @@ app.Diary = {
   showCategoryNutriments: function(category, nutrition) {
     const mealNames = app.Settings.get("diary", "meal-names");
     const mealName = mealNames[category];
-    const title = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+    const dialogTitle = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const visible = app.Settings.getField("nutrimentVisibility");
@@ -581,7 +583,7 @@ app.Diary = {
       }
 
       // Get name, unit and value
-      let nutriment = app.strings.nutriments[x] || x;
+      let name = app.strings.nutriments[x] || x;
       let unit = nutrimentUnits[x] || "g";
       let value = 0;
 
@@ -600,11 +602,11 @@ app.Diary = {
       div.className = "item-inner";
 
       // Name
-      let name = document.createElement("div");
-      name.className = "item-title";
-      let text = app.Utils.tidyText(nutriment, 50, true);
+      let title = document.createElement("div");
+      title.className = "item-title";
+      let text = app.Utils.tidyText(name, 50);
       let t = document.createTextNode(text);
-      name.appendChild(t);
+      title.appendChild(t);
 
       // Value and Unit
       let content = document.createElement("div");
@@ -613,7 +615,7 @@ app.Diary = {
       t = document.createTextNode(text);
       content.appendChild(t);
 
-      div.appendChild(name);
+      div.appendChild(title);
       div.appendChild(content);
       li.appendChild(div);
       ul.appendChild(li);
@@ -621,7 +623,7 @@ app.Diary = {
 
     if (ul.childElementCount > 0) {
       let dialog = app.f7.dialog.create({
-        title: title,
+        title: dialogTitle,
         content: div.outerHTML,
         buttons: [{
             text: "Ok",
