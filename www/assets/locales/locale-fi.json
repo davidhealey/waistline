@@ -172,6 +172,7 @@
     "serving-size": "Annoskoko",
     "serving-unit": "Annosyksikkö",
     "number-of-servings": "Annosten määrä",
+    "notes": "Muistiinpanot",
     "nutrition": "Ravintosisältö",
     "per-100": "100 g / 100 ml kohden",
     "per-serving": "Annosta kohden",
@@ -181,7 +182,7 @@
     "edit-meal": "Muokkaa ateriaa",
     "edit-recipe": "Muokkaa reseptiä",
     "required-field-message": "Täytä tämä kenttä.",
-    "negative-value-message": "No negative values."
+    "invalid-value-message": "Invalid Value."
   },
   "goals": {
     "title": "Tavoitteet"
@@ -217,6 +218,7 @@
     },
     "units": {
       "title": "Yksiköt",
+      "energy": "Energy",
       "weight": "Paino",
       "length": "Pituus",
       "kilograms": "Kilogrammaa",
@@ -268,6 +270,9 @@
       "country": "Hae maa",
       "upload-country": "Lähetettävän sisällön maa",
       "language": "Ensisijainen hakukieli",
+      "all-countries": "All",
+      "default": "Default",
+      "auto": "Tunnista Automaattisesti",
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
       "usda-login-title": "USDA - Yhdysvaltojen maatalousministeriö",
