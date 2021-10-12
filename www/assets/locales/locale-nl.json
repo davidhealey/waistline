@@ -172,6 +172,7 @@
     "serving-size": "Portiegrootte",
     "serving-unit": "Portie-eenheid",
     "number-of-servings": "Aantal porties",
+    "notes": "Notities",
     "nutrition": "Voedingswaarde",
     "per-100": "Per 100g/100ml",
     "per-serving": "Per portie",
@@ -181,7 +182,7 @@
     "edit-meal": "Bewerk maaltijd",
     "edit-recipe": "Bewerk recept",
     "required-field-message": "Vul alsjeblieft dit veld in.",
-    "negative-value-message": "Negatieve waarden niet toegestaan."
+    "invalid-value-message": "Invalid Value."
   },
   "goals": {
     "title": "Doelen"
@@ -217,6 +218,7 @@
     },
     "units": {
       "title": "Eenheden",
+      "energy": "Energy",
       "weight": "Gewicht",
       "length": "Lengte",
       "kilograms": "Kilogrammen",
@@ -268,6 +270,9 @@
       "country": "Zoek land",
       "upload-country": "Upload land",
       "language": "Voorkeurszoektaal",
+      "all-countries": "All",
+      "default": "Default",
+      "auto": "Automatisch detecteren",
       "usda-title": "VS Ministerie van Landbouw (USDA)",
       "usda": "USDA-zoeken inschakelen",
       "usda-login-title": "USDA",
