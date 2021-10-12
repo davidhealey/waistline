@@ -182,7 +182,7 @@
     "edit-meal": "Bewerk maaltijd",
     "edit-recipe": "Bewerk recept",
     "required-field-message": "Vul alsjeblieft dit veld in.",
-    "invalid-value-message": "Invalid Value."
+    "invalid-value-message": "Ongeldige waarde."
   },
   "goals": {
     "title": "Doelen"
@@ -218,7 +218,7 @@
     },
     "units": {
       "title": "Eenheden",
-      "energy": "Energy",
+      "energy": "Energie",
       "weight": "Gewicht",
       "length": "Lengte",
       "kilograms": "Kilogrammen",
@@ -270,8 +270,8 @@
       "country": "Zoek land",
       "upload-country": "Upload land",
       "language": "Voorkeurszoektaal",
-      "all-countries": "All",
-      "default": "Default",
+      "all-countries": "Alle",
+      "default": "Standaard",
       "auto": "Automatisch detecteren",
       "usda-title": "VS Ministerie van Landbouw (USDA)",
       "usda": "USDA-zoeken inschakelen",
