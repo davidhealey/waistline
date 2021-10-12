@@ -172,6 +172,7 @@
     "serving-size": "גודל הגשה",
     "serving-unit": "יחידת הגשה",
     "number-of-servings": "מספר המנות",
+    "notes": "הערות",
     "nutrition": "תזונה",
     "per-100": "ל־100ג׳/100מ״ל",
     "per-serving": "להגשה",
@@ -181,7 +182,7 @@
     "edit-meal": "עריכת פריט ארוחה",
     "edit-recipe": "עריכת פריט מתכון",
     "required-field-message": "נא למלא את השדה הזה.",
-    "negative-value-message": "אין ערכים שליליים."
+    "invalid-value-message": "Invalid Value."
   },
   "goals": {
     "title": "יעדים"
@@ -217,6 +218,7 @@
     },
     "units": {
       "title": "יחידות",
+      "energy": "Energy",
       "weight": "משקל",
       "length": "אורך",
       "kilograms": "קילוגרמים",
@@ -268,6 +270,9 @@
       "country": "מדינת חיפוש",
       "upload-country": "מדינת ההעלאה",
       "language": "שפת החיפוש המועדפת",
+      "all-countries": "All",
+      "default": "Default",
+      "auto": "זיהוי אוטומטי",
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
       "usda-login-title": "USDA",
