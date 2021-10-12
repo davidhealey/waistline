@@ -172,6 +172,7 @@
     "serving-size": "Porción",
     "serving-unit": "Unidad de la porción",
     "number-of-servings": "Número de porciones",
+    "notes": "Notas",
     "nutrition": "Nutrición",
     "per-100": "Por 100g/100ml",
     "per-serving": "Por porción",
@@ -181,7 +182,7 @@
     "edit-meal": "Editar comida del día",
     "edit-recipe": "Editar receta",
     "required-field-message": "Please fill out this field.",
-    "negative-value-message": "No negative values."
+    "invalid-value-message": "Invalid Value."
   },
   "goals": {
     "title": "Objetivos"
@@ -217,6 +218,7 @@
     },
     "units": {
       "title": "Unidades",
+      "energy": "Energy",
       "weight": "Peso",
       "length": "Largo",
       "kilograms": "Kilogramos",
@@ -268,6 +270,9 @@
       "country": "Buscar país",
       "upload-country": "Subir País",
       "language": "Idioma de búsqueda preferido",
+      "all-countries": "All",
+      "default": "Default",
+      "auto": "Detectar automáticamente",
       "usda-title": "Departamento de Agricultura de EE.UU. (USDA)",
       "usda": "Habilitar búsqueda USDA",
       "usda-login-title": "USDA",
