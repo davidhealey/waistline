@@ -172,6 +172,7 @@
     "serving-size": "Serving Size",
     "serving-unit": "Serving Unit",
     "number-of-servings": "Number of Servings",
+    "notes": "Notes",
     "nutrition": "Nutrition",
     "per-100": "Per 100g/100ml",
     "per-serving": "Per Serving",
@@ -181,7 +182,7 @@
     "edit-meal": "Edit Meal Item",
     "edit-recipe": "Edit Recipe Item",
     "required-field-message": "Please fill out this field.",
-    "negative-value-message": "No negative values."
+    "invalid-value-message": "Invalid Value."
   },
   "goals": {
     "title": "Goals"
@@ -217,6 +218,7 @@
     },
     "units": {
       "title": "Units",
+      "energy": "Energy",
       "weight": "Weight",
       "length": "Length",
       "kilograms": "Kilograms",
@@ -268,6 +270,9 @@
       "country": "Search Country",
       "upload-country": "Upload Country",
       "language": "Preferred Search Language",
+      "all-countries": "All",
+      "default": "Default",
+      "auto": "Detect Automatically",
       "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
       "usda": "Enable USDA search",
       "usda-login-title": "USDA",
