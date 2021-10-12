@@ -295,7 +295,7 @@ app.FoodEditor = {
         input.placeholder = "0";
         input.name = k;
 
-        const errorMessage = app.strings["food-editor"]["negative-value-message"] || "No negative values.";
+        const errorMessage = app.strings["food-editor"]["invalid-value-message"] || "Invalid Value.";
         if (k != "calories" && k != "kilojoules") {
           input.min = "0";
           input.setAttribute("validate", "");

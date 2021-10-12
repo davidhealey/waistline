@@ -439,7 +439,10 @@ app.FoodsMealsRecipes = {
         //Title
         let title = document.createElement("div");
         title.className = "item-title";
-        title.innerHTML = app.Utils.tidyText(item.name, 50);
+        if (item.name === "Quick Add")
+          title.innerHTML = app.strings.diary["quick-add"] || "Quick Add";
+        else
+          title.innerHTML = app.Utils.tidyText(item.name, 50);
         row.appendChild(title);
 
         //Energy
