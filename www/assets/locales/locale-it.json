@@ -148,8 +148,8 @@
   },
   "diary-chart": {
     "title": "Panoramica",
-    "including-saturated-fat": "including sat fat",
-    "including-sugars": "including sugars",
+    "including-saturated-fat": "compresi i grassi saturi",
+    "including-sugars": "inclusi zuccheri",
     "no-data": "Nessun dato"
   },
   "foods-meals-recipes": {
@@ -182,20 +182,20 @@
     "edit-meal": "Modifica elemento del pasto",
     "edit-recipe": "Modifica elemento della ricetta",
     "required-field-message": "Per favore, compila questo campo.",
-    "invalid-value-message": "Invalid Value."
+    "invalid-value-message": "Valore non valido."
   },
   "goals": {
     "title": "Obiettivi"
   },
   "goal-editor": {
     "title": "Imposta Obiettivi",
-    "goal": "Goal",
+    "goal": "Obiettivo",
     "show-in-diary": "Mostra nel diario",
     "show-in-stats": "Mostra nelle statistiche",
     "shared-goal": "Stesso obiettivo ogni giorno",
-    "auto-adjust": "Auto adjust to meet weekly goal",
+    "auto-adjust": "Auto regolazione per soddisfare l'obiettivo settimanale",
     "minimum-goal": "È un obiettivo minimo",
-    "percent-goal": "Goal as percentage of energy intake"
+    "percent-goal": "Obiettivo in percentuale del consumo di energia"
   },
   "meal-editor": {
     "title": "Modifica pasto",
@@ -218,7 +218,7 @@
     },
     "units": {
       "title": "Unità",
-      "energy": "Energy",
+      "energy": "Energia",
       "weight": "Peso",
       "length": "Lunghezza",
       "kilograms": "Kilogrammi",
@@ -270,8 +270,8 @@
       "country": "Cerca per Nazione",
       "upload-country": "Carica nazione",
       "language": "Lingua di ricerca preferita",
-      "all-countries": "All",
-      "default": "Default",
+      "all-countries": "Tutti",
+      "default": "Predefinito",
       "auto": "Rileva automaticamente",
       "usda-title": "U.S. DIPARTIMENTO DELL' AGRICOLTURA",
       "usda": "Attiva la ricerca USDA",
