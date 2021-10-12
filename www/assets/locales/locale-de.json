@@ -182,7 +182,7 @@
     "edit-meal": "Mahlzeit-Eintrag bearbeiten",
     "edit-recipe": "Rezept-Eintrag bearbeiten",
     "required-field-message": "Bitte fülle dieses Feld aus.",
-    "invalid-value-message": "Invalid Value."
+    "invalid-value-message": "Ungültiger Wert."
   },
   "goals": {
     "title": "Ziele"
@@ -218,7 +218,7 @@
     },
     "units": {
       "title": "Einheiten",
-      "energy": "Energy",
+      "energy": "Energie",
       "weight": "Gewicht",
       "length": "Länge",
       "kilograms": "Kilogramm",
@@ -270,8 +270,8 @@
       "country": "Land für Suche",
       "upload-country": "Land für hochgeladene Inhalte",
       "language": "Bevorzugte Sprache für Suche",
-      "all-countries": "All",
-      "default": "Default",
+      "all-countries": "Alle",
+      "default": "Standard",
       "auto": "Automatisch erkennen",
       "usda-title": "U.S. Landwirtschaftsministerium",
       "usda": "USDA Suche aktivieren",
