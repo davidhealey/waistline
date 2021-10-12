@@ -182,7 +182,7 @@
     "edit-meal": "עריכת פריט ארוחה",
     "edit-recipe": "עריכת פריט מתכון",
     "required-field-message": "נא למלא את השדה הזה.",
-    "invalid-value-message": "Invalid Value."
+    "invalid-value-message": "ערך שגוי."
   },
   "goals": {
     "title": "יעדים"
@@ -218,7 +218,7 @@
     },
     "units": {
       "title": "יחידות",
-      "energy": "Energy",
+      "energy": "אנרגיה",
       "weight": "משקל",
       "length": "אורך",
       "kilograms": "קילוגרמים",
@@ -270,8 +270,8 @@
       "country": "מדינת חיפוש",
       "upload-country": "מדינת ההעלאה",
       "language": "שפת החיפוש המועדפת",
-      "all-countries": "All",
-      "default": "Default",
+      "all-countries": "הכול",
+      "default": "בררת מחדל",
       "auto": "זיהוי אוטומטי",
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
