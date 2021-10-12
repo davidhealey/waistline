@@ -261,14 +261,14 @@ app.Diary = {
         else
           span.style.color = "green";
 
-        t.nodeValue += " / " + goal + " ";
+        t.nodeValue += " / " + goal;
       }
 
       // Unit
       if (app.Settings.get("diary", "show-nutrition-units")) {
         let unit = app.strings["unit-symbols"][nutrimentUnits[x]];
         if (unit !== undefined)
-          t.nodeValue += unit;
+          t.nodeValue += " " + unit;
       }
 
       span.appendChild(t);
