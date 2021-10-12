@@ -182,7 +182,7 @@
     "edit-meal": "Modifier Repas",
     "edit-recipe": "Modifier Recette",
     "required-field-message": "Veuillez remplir ce champ.",
-    "invalid-value-message": "Invalid Value."
+    "invalid-value-message": "Valeur non valide."
   },
   "goals": {
     "title": "Objectifs"
@@ -218,7 +218,7 @@
     },
     "units": {
       "title": "Unités",
-      "energy": "Energy",
+      "energy": "Énergie",
       "weight": "Masse",
       "length": "Longueur",
       "kilograms": "Kilograms",
@@ -270,8 +270,8 @@
       "country": "Chercher un pays",
       "upload-country": "Indiquer un pays",
       "language": "Langue de recherche",
-      "all-countries": "All",
-      "default": "Default",
+      "all-countries": "Tous",
+      "default": "Défault",
       "auto": "Détection automatique",
       "usda-title": "Département d’Agriculture des États-Unis d’Amérique (USDA)",
       "usda": "Activer la recherche USDA",
