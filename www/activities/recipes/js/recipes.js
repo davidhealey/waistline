@@ -112,10 +112,27 @@ app.Recipes = {
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
-    let dialog = app.f7.dialog.confirm(text, title, async () => {
-      await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
-      app.f7.views.main.router.refreshPage();
-    });
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: async () => {
+            await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
+            app.f7.views.main.router.refreshPage();
+          }
+        }
+      ]
+    }).open();
   },
 
   submitButtonAction: function(selection) {

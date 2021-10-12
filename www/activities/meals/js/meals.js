@@ -165,13 +165,30 @@ app.Meals = {
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
-    let dialog = app.f7.dialog.confirm(text, title, async () => {
-      let request = dbHandler.deleteItem(item.id, "meals");
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
 
-      request.onsuccess = function(e) {
-        app.f7.views.main.router.refreshPage();
-      };
-    });
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: async () => {
+            let request = dbHandler.deleteItem(item.id, "meals");
+
+            request.onsuccess = function(e) {
+              app.f7.views.main.router.refreshPage();
+            };
+          }
+        }
+      ]
+    }).open();
   },
 
   submitButtonAction: function(selection) {

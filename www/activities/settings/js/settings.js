@@ -302,20 +302,37 @@ app.Settings = {
 
   importDatabase: function() {
     let title = app.strings.settings.integration.import || "Import";
-    let msg = app.strings.settings.integration["confirm-import"] || "Are you sure? This will overwrite your current database.";
+    let text = app.strings.settings.integration["confirm-import"] || "Are you sure? This will overwrite your current database.";
 
-    let dialog = app.f7.dialog.confirm(msg, title, async () => {
-      let filename = "waistline_export.json";
-      let data = JSON.parse(await app.Utils.readFile(filename));
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
 
-      await dbHandler.import(data);
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.ok || "OK",
+          keyCodes: [13],
+          onClick: async () => {
+            let filename = "waistline_export.json";
+            let data = JSON.parse(await app.Utils.readFile(filename));
 
-      if (data.settings) {
-        let settings = app.Settings.migrateSettings(data.settings, false);
-        window.localStorage.setItem("settings", JSON.stringify(settings));
-        this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
-      }
-    });
+            await dbHandler.import(data);
+
+            if (data.settings) {
+              let settings = app.Settings.migrateSettings(data.settings, false);
+              window.localStorage.setItem("settings", JSON.stringify(settings));
+              this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+            }
+          }
+        }
+      ]
+    }).open();
   },
 
   populateNutrimentList: function() {

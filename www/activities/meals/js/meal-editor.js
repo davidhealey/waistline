@@ -115,15 +115,31 @@ app.MealEditor = {
   },
 
   removeItem: function(item, li) {
-    let title = app.strings.dialogs.delete || "Delete";
+    let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
-    let dialog = app.f7.dialog.confirm(text, title, callbackOk);
 
-    function callbackOk() {
-      app.MealEditor.meal.items.splice(item.index, 1);
-      li.parentNode.removeChild(li);
-      app.MealEditor.renderNutrition();
-    }
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: () => {
+            app.MealEditor.meal.items.splice(item.index, 1);
+            li.parentNode.removeChild(li);
+            app.MealEditor.renderNutrition();
+          }
+        }
+      ]
+    }).open();
   },
 
   save: function() {

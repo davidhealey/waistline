@@ -381,20 +381,36 @@ app.Diary = {
   },
 
   deleteItem: function(item) {
-    let title = app.strings.dialogs.delete || "Delete";
+    let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
-    let dialog = app.f7.dialog.confirm(text, title, async () => {
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
 
-      let entry = await app.Diary.getEntryFromDB();
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: async () => {
+            let entry = await app.Diary.getEntryFromDB();
 
-      if (entry !== undefined)
-        entry.items.splice(item.index, 1);
+            if (entry !== undefined)
+              entry.items.splice(item.index, 1);
 
-      dbHandler.put(entry, "diary").onsuccess = function(e) {
-        app.f7.views.main.router.refreshPage();
-      };
-    });
+            dbHandler.put(entry, "diary").onsuccess = function(e) {
+              app.f7.views.main.router.refreshPage();
+            };
+          }
+        }
+      ]
+    }).open();
   },
 
   quickAdd: function(category) {
@@ -408,30 +424,59 @@ app.Diary = {
     else
       text = app.strings.nutriments["kilojoules"] || "Kilojoules";
 
-    let dialog = app.f7.dialog.prompt(text, title, async function(value) {
-      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+    // Create dialog content
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
 
-      let quantity = value;
+    let field = document.createElement("div");
+    field.className = "dialog-input-field input";
 
-      if (energyUnit == units.kilojoules)
-        quantity = app.Utils.convertUnit(value, units.kilojoules, units.calories);
+    let input = document.createElement("input");
+    input.className = "dialog-input";
+    input.id = "energy";
+    input.name = "energy";
+    input.type = "number";
+    field.appendChild(input);
 
-      if (!isNaN(quantity)) {
-        let item = await app.Foodlist.getQuickAddItem(); // Get food item
+    // Open dialog
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML + field.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.ok || "OK",
+          keyCodes: [13],
+          onClick: async function(dialog) {
+            let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-        if (item !== undefined) {
-          item.dateTime = new Date();
-          item.category = category;
-          item.quantity = parseFloat(quantity);
+            let quantity = Array.from(dialog.el.getElementsByTagName("input"))[0].value;
 
-          entry.items.push(item);
+            if (energyUnit == units.kilojoules)
+              quantity = app.Utils.convertUnit(quantity, units.kilojoules, units.calories);
 
-          dbHandler.put(entry, "diary").onsuccess = function(e) {
-            app.f7.views.main.router.refreshPage();
-          };
+            if (!isNaN(quantity)) {
+              let item = await app.Foodlist.getQuickAddItem(); // Get food item
+
+              if (item !== undefined) {
+                item.dateTime = new Date();
+                item.category = category;
+                item.quantity = parseFloat(quantity);
+
+                entry.items.push(item);
+
+                dbHandler.put(entry, "diary").onsuccess = function(e) {
+                  app.f7.views.main.router.refreshPage();
+                };
+              }
+            }
+          }
         }
-      }
-    });
+      ]
+    }).open();
 
     dialog.$el.find('input').attr('type', 'number');
   },
@@ -511,11 +556,11 @@ app.Diary = {
       title: title,
       content: div.outerHTML,
       buttons: [{
-          text: "Cancel",
+          text: app.strings.dialogs.cancel || "Cancel",
           keyCodes: [27]
         },
         {
-          text: "Ok",
+          text: app.strings.dialogs.ok || "OK",
           keyCodes: [13],
           onClick: function(dialog, e) {
             app.Diary.saveStats(dialog, e);
@@ -527,7 +572,7 @@ app.Diary = {
 
   saveStats: async function(dialog) {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
-    let inputs = Array.from(dialog.el.getElementsByTagName('input'));
+    let inputs = Array.from(dialog.el.getElementsByTagName("input"));
     let units = app.Settings.getField("units");
 
     let stats = {};
@@ -631,7 +676,7 @@ app.Diary = {
         title: dialogTitle,
         content: div.outerHTML,
         buttons: [{
-            text: "Ok",
+            text: app.strings.dialogs.ok || "OK",
             keyCodes: [13]
           }
         ]
