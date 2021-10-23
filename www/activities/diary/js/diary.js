@@ -199,15 +199,17 @@ app.Diary = {
     if (app.Settings.get("diary", "show-nutrition-units"))
       columnsToShow--;
 
-    for (i = 0; i < nutriments.length; i++) {
+    // Determine which nutriments need to be shown and calculate the goals
+    nutrimentsToShow = [];
+    nutriments.forEach((x) => {
+      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) return;
+      if (!app.Goals.showInDiary(x)) return;
+      nutrimentsToShow.push(x);
+    });
+    let goals = await app.Goals.getGoals(nutrimentsToShow, date);
 
-      let x = nutriments[i];
-
-      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
-
-      if (!app.Goals.showInDiary(x)) continue;
-
-      let goal = await app.Goals.get(x, date);
+    nutrimentsToShow.forEach((x) => {
+      let goal = goals[x];
 
       // Show n nutriments at a time
       if (count % columnsToShow == 0) {
@@ -276,7 +278,7 @@ app.Diary = {
       rows[1].appendChild(values);
 
       count++;
-    }
+    });
   },
 
   createMealGroups: function() {
