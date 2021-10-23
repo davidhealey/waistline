@@ -95,7 +95,7 @@ app.Group = {
 
     //Add button 
     let left = document.createElement("div");
-    left.className = "col-10 add-button";
+    left.className = "add-button";
     row.appendChild(left);
 
     let a = document.createElement("a");
@@ -119,14 +119,15 @@ app.Group = {
     const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
 
     let right = document.createElement("div");
-    right.className = "col-25 energy link icon-only";
+    right.className = "margin-horizontal energy link icon-only";
     let value = nutrition[energyName] || 0;
+    let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || "";
 
     right.addEventListener("click", function(e) {
       app.Diary.showCategoryNutriments(id, nutrition);
     });
 
-    right.innerHTML = "<strong>" + value.toFixed(0) + " " + energyUnit + "</strong>";
+    right.innerHTML = "<strong>" + value.toFixed(0) + " " + energyUnitSymbol + "</strong>";
     row.appendChild(right);
   },
 

@@ -48,8 +48,9 @@ app.GoalEditor = {
       unit = app.Goals.getGoalUnit(stat, false);
     else if (percentGoalState === true)
       unit = "%";
+    let unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
-    const text = title + ": " + app.Utils.tidyText(name, 50, true) + " (" + unit + ")";
+    const text = title + ": " + app.Utils.tidyText(name, 50) + " (" + unitSymbol + ")";
     app.GoalEditor.el.title.innerText = text;
   },
 

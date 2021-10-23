@@ -718,9 +718,22 @@ var dbHandler = {
       t.oncomplete = async (e) => {
         console.log("Database import successful");
         const title = app.strings.settings.integration["import-success-title"] || "The backup has been restored";
-        const msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
+        const text = app.strings.settings.integration["import-success-message"] || "Import Complete";
+
+        let div = document.createElement("div");
+        div.className = "dialog-text";
+        div.innerText = text;
+
         app.f7.preloader.hide();
-        app.f7.dialog.alert(title, msg);
+        app.f7.dialog.create({
+          title: title,
+          content: div.outerHTML,
+          buttons: [{
+              text: app.strings.dialogs.ok || "OK",
+              keyCodes: [13]
+            }
+          ]
+        }).open();
         resolve(e);
       };
 

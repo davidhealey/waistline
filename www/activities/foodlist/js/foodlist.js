@@ -195,13 +195,30 @@ app.Foodlist = {
   removeItem: function(item) {
     return new Promise(function(resolve, reject) {
       let title = app.strings.dialogs.delete || "Delete";
-      let msg = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
+      let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
-      let dialog = app.f7.dialog.confirm(msg, title, async () => {
-        await app.FoodsMealsRecipes.removeItem(item.id, "food");
-        app.Foodlist.list = [];
-        app.f7.views.main.router.refreshPage();
-      });
+      let div = document.createElement("div");
+      div.className = "dialog-text";
+      div.innerText = text;
+
+      let dialog = app.f7.dialog.create({
+        title: title,
+        content: div.outerHTML,
+        buttons: [{
+            text: app.strings.dialogs.cancel || "Cancel",
+            keyCodes: [27]
+          },
+          {
+            text: app.strings.dialogs.delete || "Delete",
+            keyCodes: [13],
+            onClick: async () => {
+              await app.FoodsMealsRecipes.removeItem(item.id, "food");
+              app.Foodlist.list = [];
+              app.f7.views.main.router.refreshPage();
+            }
+          }
+        ]
+      }).open();
     }).catch(err => {
       throw (err);
     });
@@ -390,6 +407,10 @@ app.Foodlist = {
     let title = app.strings.dialogs["no-results"] || "No matching results";
     let text = app.strings.dialogs["add-to-off"] || "Would you like to add this product to the Open Food Facts database?";
 
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
     app.data.context = {
       origin: "foodlist",
       scan: true,
@@ -397,11 +418,24 @@ app.Foodlist = {
       barcode: code
     };
 
-    let callbackOk = function() {
+    let callbackYes = function() {
       app.f7.views.main.router.navigate("/foods-meals-recipes/food-editor/");
     };
 
-    let dialog = app.f7.dialog.confirm(text, title, callbackOk);
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.no || "No",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.yes || "Yes",
+          keyCodes: [13],
+          onClick: callbackYes
+        }
+      ]
+    }).open();
   }
 };
 

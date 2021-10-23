@@ -91,7 +91,7 @@ app.DiaryChart = {
 
         if (value > 0) {
           let name = app.strings.nutriments[x] || x;
-          result.labels.push(app.Utils.tidyText(name, 50, true));
+          result.labels.push(app.Utils.tidyText(name, 50));
           result.values.push(Math.round(value * 100) / 100);
           result.colours.push(app.DiaryChart.chartColours[i]);
         }
@@ -115,7 +115,7 @@ app.DiaryChart = {
         }
 
         let entry = {
-          name: app.Utils.tidyText(name, 50, true),
+          name: app.Utils.tidyText(name, 50),
           value: (Math.round(percent * 100) / 100) + "%"
         }
         result.macros.push(entry);
@@ -128,10 +128,10 @@ app.DiaryChart = {
         if (!nutrition[x]) return;
 
         let name = app.strings.nutriments[x] || x;
-        let unit = nutrimentUnits[x] || "g";
+        let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || "g";
 
         let entry = {
-          name: app.Utils.tidyText(name, 50, true),
+          name: app.Utils.tidyText(name, 50),
           value: (Math.round(nutrition[x] * 100) / 100) + " " + unit
         }
         result.totals.push(entry);
@@ -172,7 +172,7 @@ app.DiaryChart = {
     // Macros
     data.macros.forEach((x) => {
       let li = document.createElement("li");
-      li.className = "item-inner";
+      li.className = "item-content item-inner";
 
       let name = document.createElement("div");
       name.className = "item-title";
@@ -192,7 +192,7 @@ app.DiaryChart = {
     // Totals
     data.totals.forEach((x) => {
       let li = document.createElement("li");
-      li.className = "item-inner";
+      li.className = "item-content item-inner";
 
       let name = document.createElement("div");
       name.className = "item-title";

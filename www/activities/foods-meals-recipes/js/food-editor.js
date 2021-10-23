@@ -267,9 +267,9 @@ app.FoodEditor = {
         li.className = "item-content item-input";
 
         let name = app.strings.nutriments[k] || k;
-        let unit = units[k] || "g";
+        let unit = app.strings["unit-symbols"][units[k]] || "g";
 
-        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && unit !== energyUnit)
+        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && units[k] !== energyUnit)
           li.style.display = "none";
 
         ul.appendChild(li);
@@ -280,7 +280,7 @@ app.FoodEditor = {
 
         let titleDiv = document.createElement("div");
         titleDiv.className = "item-title item-label";
-        titleDiv.innerText = app.Utils.tidyText(name, 25, true) + " (" + unit + ")";
+        titleDiv.innerText = app.Utils.tidyText(name, 25) + " (" + unit + ")";
         innerDiv.appendChild(titleDiv);
 
         let inputWrapper = document.createElement("div");
@@ -289,7 +289,7 @@ app.FoodEditor = {
 
         let input = document.createElement("input");
         input.id = k;
-        input.className = "align-right";
+        input.className = "align-end";
         input.type = "number";
         input.step = "0.01";
         input.placeholder = "0";
@@ -471,11 +471,28 @@ app.FoodEditor = {
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
-    let dialog = app.f7.dialog.confirm(text, title, () => {
-      app.FoodEditor.el.photoHolder[index].innerHTML = "";
-      app.FoodEditor.el.addPhoto[index].style.display = "block";
-      app.FoodEditor.images[index] = undefined;
-    });
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: () => {
+            app.FoodEditor.el.photoHolder[index].innerHTML = "";
+            app.FoodEditor.el.addPhoto[index].style.display = "block";
+            app.FoodEditor.images[index] = undefined;
+          }
+        }
+      ]
+    }).open();
   },
 
   gatherFormData: function(data, origin) {

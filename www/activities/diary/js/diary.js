@@ -233,13 +233,13 @@ app.Diary = {
       title.id = x + "-title";
 
       let text = app.strings.nutriments[x] || x;
-      let t = document.createTextNode(app.Utils.tidyText(text, 50, true));
+      let t = document.createTextNode(app.Utils.tidyText(text, 50));
       title.appendChild(t);
       rows[0].appendChild(title);
 
       // Values and goal text
       let values = document.createElement("div");
-      values.className = "col";
+      values.className = "col keep-ltr";
       values.id = x + "-value";
 
       let span = document.createElement("span");
@@ -263,14 +263,14 @@ app.Diary = {
         else
           span.style.color = "green";
 
-        t.nodeValue += " / " + goal + " ";
+        t.nodeValue += " / " + goal;
       }
 
       // Unit
       if (app.Settings.get("diary", "show-nutrition-units")) {
-        let unit = nutrimentUnits[x];
+        let unit = app.strings["unit-symbols"][nutrimentUnits[x]];
         if (unit !== undefined)
-          t.nodeValue += unit;
+          t.nodeValue += " " + unit;
       }
 
       span.appendChild(t);
@@ -343,6 +343,8 @@ app.Diary = {
 
         items.forEach((x) => {
           let item = x;
+          delete item.unit; // Do not store item unit in the DB
+          delete item.archived; // Do not store archived status in the DB
           item.dateTime = new Date();
           item.category = category;
           item.quantity = x.quantity || 1;
@@ -365,7 +367,9 @@ app.Diary = {
 
       if (entry) {
         entry.items.splice(item.index, 1, item);
-        delete item.index; // Array index is not stored in the db
+        delete item.index; // Do not store array index in the DB
+        delete item.unit; // Do not store item unit in the DB
+        delete item.archived; // Do not store archived status in the DB
 
         dbHandler.put(entry, "diary").onsuccess = function() {
           resolve();
@@ -379,20 +383,36 @@ app.Diary = {
   },
 
   deleteItem: function(item) {
-    let title = app.strings.dialogs.delete || "Delete";
+    let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
 
-    let dialog = app.f7.dialog.confirm(text, title, async () => {
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
 
-      let entry = await app.Diary.getEntryFromDB();
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: async () => {
+            let entry = await app.Diary.getEntryFromDB();
 
-      if (entry !== undefined)
-        entry.items.splice(item.index, 1);
+            if (entry !== undefined)
+              entry.items.splice(item.index, 1);
 
-      dbHandler.put(entry, "diary").onsuccess = function(e) {
-        app.f7.views.main.router.refreshPage();
-      };
-    });
+            dbHandler.put(entry, "diary").onsuccess = function(e) {
+              app.f7.views.main.router.refreshPage();
+            };
+          }
+        }
+      ]
+    }).open();
   },
 
   quickAdd: function(category) {
@@ -406,30 +426,59 @@ app.Diary = {
     else
       text = app.strings.nutriments["kilojoules"] || "Kilojoules";
 
-    let dialog = app.f7.dialog.prompt(text, title, async function(value) {
-      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+    // Create dialog content
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
 
-      let quantity = value;
+    let field = document.createElement("div");
+    field.className = "dialog-input-field input";
 
-      if (energyUnit == units.kilojoules)
-        quantity = app.Utils.convertUnit(value, units.kilojoules, units.calories);
+    let input = document.createElement("input");
+    input.className = "dialog-input";
+    input.id = "energy";
+    input.name = "energy";
+    input.type = "number";
+    field.appendChild(input);
 
-      if (!isNaN(quantity)) {
-        let item = await app.Foodlist.getQuickAddItem(); // Get food item
+    // Open dialog
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML + field.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.ok || "OK",
+          keyCodes: [13],
+          onClick: async function(dialog) {
+            let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-        if (item !== undefined) {
-          item.dateTime = new Date();
-          item.category = category;
-          item.quantity = parseFloat(quantity);
+            let quantity = Array.from(dialog.el.getElementsByTagName("input"))[0].value;
 
-          entry.items.push(item);
+            if (energyUnit == units.kilojoules)
+              quantity = app.Utils.convertUnit(quantity, units.kilojoules, units.calories);
 
-          dbHandler.put(entry, "diary").onsuccess = function(e) {
-            app.f7.views.main.router.refreshPage();
-          };
+            if (!isNaN(quantity)) {
+              let item = await app.Foodlist.getQuickAddItem(); // Get food item
+
+              if (item !== undefined) {
+                item.dateTime = new Date();
+                item.category = category;
+                item.quantity = parseFloat(quantity);
+
+                entry.items.push(item);
+
+                dbHandler.put(entry, "diary").onsuccess = function(e) {
+                  app.f7.views.main.router.refreshPage();
+                };
+              }
+            }
+          }
         }
-      }
-    });
+      ]
+    }).open();
 
     dialog.$el.find('input').attr('type', 'number');
   },
@@ -473,6 +522,9 @@ app.Diary = {
         }
       }
 
+      let name = app.strings.statistics[x] || x;
+      let unitSymbol = app.strings["unit-symbols"][unit] || "";
+
       let li = document.createElement("li");
       li.className = "item-content item-input";
       ul.appendChild(li);
@@ -483,8 +535,8 @@ app.Diary = {
 
       let title = document.createElement("div");
       title.className = "item-title item-label";
-      title.innerHTML = app.strings.statistics[x] || app.Utils.tidyText(x, 50, true);
-      title.innerHTML += " (" + unit + ")";
+      title.innerHTML = app.Utils.tidyText(name, 50);
+      title.innerHTML += " (" + unitSymbol + ")";
       inner.appendChild(title);
 
       let inputWrap = document.createElement("div");
@@ -506,11 +558,11 @@ app.Diary = {
       title: title,
       content: div.outerHTML,
       buttons: [{
-          text: "Cancel",
+          text: app.strings.dialogs.cancel || "Cancel",
           keyCodes: [27]
         },
         {
-          text: "Ok",
+          text: app.strings.dialogs.ok || "OK",
           keyCodes: [13],
           onClick: function(dialog, e) {
             app.Diary.saveStats(dialog, e);
@@ -522,7 +574,7 @@ app.Diary = {
 
   saveStats: async function(dialog) {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
-    let inputs = Array.from(dialog.el.getElementsByTagName('input'));
+    let inputs = Array.from(dialog.el.getElementsByTagName("input"));
     let units = app.Settings.getField("units");
 
     let stats = {};
@@ -558,7 +610,7 @@ app.Diary = {
   showCategoryNutriments: function(category, nutrition) {
     const mealNames = app.Settings.get("diary", "meal-names");
     const mealName = mealNames[category];
-    const title = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+    const dialogTitle = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const visible = app.Settings.getField("nutrimentVisibility");
@@ -583,8 +635,8 @@ app.Diary = {
       }
 
       // Get name, unit and value
-      let nutriment = app.strings.nutriments[x] || x;
-      let unit = nutrimentUnits[x] || "g";
+      let name = app.strings.nutriments[x] || x;
+      let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || "g";
       let value = 0;
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {
@@ -599,14 +651,14 @@ app.Diary = {
       // List item
       let li = document.createElement("li");
       let div = document.createElement("div");
-      div.className = "item-inner";
+      div.className = "item-content item-inner";
 
       // Name
-      let name = document.createElement("div");
-      name.className = "item-title";
-      let text = app.Utils.tidyText(nutriment, 50, true);
+      let title = document.createElement("div");
+      title.className = "item-title";
+      let text = app.Utils.tidyText(name, 50);
       let t = document.createTextNode(text);
-      name.appendChild(t);
+      title.appendChild(t);
 
       // Value and Unit
       let content = document.createElement("div");
@@ -615,7 +667,7 @@ app.Diary = {
       t = document.createTextNode(text);
       content.appendChild(t);
 
-      div.appendChild(name);
+      div.appendChild(title);
       div.appendChild(content);
       li.appendChild(div);
       ul.appendChild(li);
@@ -623,10 +675,10 @@ app.Diary = {
 
     if (ul.childElementCount > 0) {
       let dialog = app.f7.dialog.create({
-        title: title,
+        title: dialogTitle,
         content: div.outerHTML,
         buttons: [{
-            text: "Ok",
+            text: app.strings.dialogs.ok || "OK",
             keyCodes: [13]
           }
         ]

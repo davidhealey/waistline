@@ -118,15 +118,31 @@ app.RecipeEditor = {
   },
 
   removeItem: function(item, li) {
-    let title = app.strings.dialogs.delete || "Delete";
+    let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
-    let dialog = app.f7.dialog.confirm(text, title, callbackOk);
 
-    function callbackOk() {
-      app.RecipeEditor.recipe.items.splice(item.index, 1);
-      li.parentNode.removeChild(li);
-      app.RecipeEditor.renderNutrition();
-    }
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: () => {
+            app.RecipeEditor.recipe.items.splice(item.index, 1);
+            li.parentNode.removeChild(li);
+            app.RecipeEditor.renderNutrition();
+          }
+        }
+      ]
+    }).open();
   },
 
   save: async function() {
@@ -181,9 +197,7 @@ app.RecipeEditor = {
       if ((n == "calories" || n == "kilojoules") && nutrimentUnits[n] != energyUnit) continue;
       if (nutrimentVisibility[n] !== true && !["calories", "kilojoules"].includes(n)) continue;
 
-      let unit = "g";
-      if (nutrimentUnits[n] !== undefined)
-        unit = nutrimentUnits[n];
+      let unit = app.strings["unit-symbols"][nutrimentUnits[n]] || "g";
 
       let li = document.createElement("li");
       li.className = "item-content item-input";
@@ -196,7 +210,7 @@ app.RecipeEditor = {
       let title = document.createElement("div");
       title.className = "item-title item-label";
       let text = app.strings.nutriments[n] || n;
-      title.innerHTML = app.Utils.tidyText(text, 30, true) + " (" + unit + ")";
+      title.innerHTML = app.Utils.tidyText(text, 25) + " (" + unit + ")";
       innerDiv.appendChild(title);
 
       let after = document.createElement("div");
