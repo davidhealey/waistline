@@ -286,10 +286,11 @@ app.Stats = {
       }
 
       let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
+      let goal = await app.Goals.getGoals([field], new Date());
 
       result.dataset.label = app.Utils.tidyText(title, 50, true) + " (" + unit + ")";
       result.average = result.average / result.dates.length || 0;
-      result.goal = await app.Goals.get(field, new Date());
+      result.goal = goal[field];
 
       resolve(result);
     }).catch(err => {
