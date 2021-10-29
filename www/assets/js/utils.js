@@ -78,6 +78,11 @@ app.Utils = {
     if (unit2 !== undefined && typeof unit2.toLowerCase === "function")
       unit2 = unit2.toLowerCase();
 
+    if (unit1 == "ug")
+      unit1 = "µg";
+    if (unit2 == "ug")
+      unit2 = "µg";
+
     let result;
 
     if (unit1 == unit2)
@@ -119,17 +124,17 @@ app.Utils = {
       result = value / 0.001;
 
     // µg/g
-    else if ((unit1 == "µg" || unit1 == "ug") && unit2 == "g")
+    else if (unit1 == "µg" && unit2 == "g")
       result = value * 0.000001;
 
-    else if (unit1 == "g" && (unit2 == "µg" || unit2 == "ug"))
+    else if (unit1 == "g" && unit2 == "µg")
       result = value / 0.000001;
 
     // µg/mg
-    else if ((unit1 == "µg" || unit1 == "ug") && unit2 == "mg")
+    else if (unit1 == "µg" && unit2 == "mg")
       result = value * 0.001;
 
-    else if (unit1 == "mg" && (unit2 == "µg" || unit2 == "ug"))
+    else if (unit1 == "mg" && unit2 == "µg")
       result = value / 0.001;
 
     if (result !== undefined && round === true)
