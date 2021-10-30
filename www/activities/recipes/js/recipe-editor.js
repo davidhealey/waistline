@@ -137,7 +137,7 @@ app.RecipeEditor = {
           keyCodes: [13],
           onClick: () => {
             app.RecipeEditor.recipe.items.splice(item.index, 1);
-            li.parentNode.removeChild(li);
+            app.RecipeEditor.renderItems();
             app.RecipeEditor.renderNutrition();
           }
         }

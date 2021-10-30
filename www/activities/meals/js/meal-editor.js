@@ -134,7 +134,7 @@ app.MealEditor = {
           keyCodes: [13],
           onClick: () => {
             app.MealEditor.meal.items.splice(item.index, 1);
-            li.parentNode.removeChild(li);
+            app.MealEditor.renderItems();
             app.MealEditor.renderNutrition();
           }
         }
