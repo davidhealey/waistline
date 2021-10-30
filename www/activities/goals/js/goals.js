@@ -191,6 +191,31 @@ app.Goals = {
     return goal;
   },
 
+  getAverageGoal: function(stat) {
+    let goals = app.Settings.get("goals", stat);
+    let averageGoal;
+
+    if (app.Goals.sharedGoal(stat) || app.measurements.includes(stat)) {
+      averageGoal = goals[0];
+    } else {
+      let goalSum = goals.reduce((a, b) => Number(a) + Number(b));
+      averageGoal = goalSum / 7;
+    }
+
+    if (app.Goals.isPercentGoal(stat)) {
+      const energyUnit = app.Settings.get("units", "energy");
+      const energyName = app.Utils.getEnergyUnitName(energyUnit);
+      let averageEnergyGoal = app.Goals.getAverageGoal(energyName);
+
+      if (energyUnit == app.nutrimentUnits.kilojoules)
+        averageEnergyGoal = app.Utils.convertUnit(averageEnergyGoal, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
+
+      averageGoal = app.Goals.getEnergyPercentGoal(stat, averageGoal, averageEnergyGoal);
+    }
+
+    return averageGoal;
+  },
+
   getEnergyPercentGoal: function(stat, percentGoal, energyGoal) {
     let caloriesPerUnit = app.Goals.getMacroNutrimentCalories(stat);
     let result = Math.round(percentGoal / 100 * energyGoal / caloriesPerUnit);
