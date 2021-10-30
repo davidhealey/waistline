@@ -149,8 +149,7 @@ app.MealEditor = {
       if (app.MealEditor.meal.id !== undefined) data.id = app.MealEditor.meal.id;
       if (app.MealEditor.meal.items !== undefined) data.items = app.MealEditor.meal.items;
 
-      let now = new Date();
-      data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      data.dateTime = new Date();
 
       let inputs = document.querySelectorAll(".page[data-name='meal-editor'] input");
 
