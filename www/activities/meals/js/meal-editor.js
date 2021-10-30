@@ -18,6 +18,7 @@
 */
 
 app.MealEditor = {
+
   meal: {},
   el: {},
 
@@ -25,6 +26,7 @@ app.MealEditor = {
     app.MealEditor.getComponents();
 
     if (context) {
+
       // From meal list or food list
       if (context.meal) {
         app.MealEditor.meal = context.meal;
@@ -144,6 +146,7 @@ app.MealEditor = {
 
   save: function() {
     if (app.f7.input.validateInputs("#meal-edit-form") == true) {
+
       let data = {};
 
       if (app.MealEditor.meal.id !== undefined) data.id = app.MealEditor.meal.id;

@@ -87,6 +87,7 @@ app.Recipes = {
         if (i >= app.Recipes.list.length) break; //Exit after all items in list
 
         let item = app.Recipes.list[i];
+
         // Don't show item that is being edited, otherwise endless loop will ensue
         if (app.Recipes.recipe !== undefined && app.Recipes.recipe.id == item.id) continue;
 
