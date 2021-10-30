@@ -170,7 +170,7 @@ app.RecipeEditor = {
         });
       }
 
-      if (app.RecipeEditor.recipe.items.length > 0)
+      if (app.RecipeEditor.recipe.items !== undefined)
         data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
 
       dbHandler.put(data, "recipes").onsuccess = () => {
