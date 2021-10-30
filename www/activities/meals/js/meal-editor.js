@@ -219,11 +219,10 @@ app.MealEditor = {
       app.MealEditor.el.foodlist.innerHTML = "";
       app.FoodsMealsRecipes.disableEdit = false;
 
-      for (let i = 0; i < app.MealEditor.meal.items.length; i++) {
-        let x = app.MealEditor.meal.items[i];
+      app.MealEditor.meal.items.forEach(async (x, i) => {
         x.index = i;
         app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, undefined, app.MealEditor.removeItem);
-      }
+      });
 
       resolve();
     });
