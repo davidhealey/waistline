@@ -101,9 +101,6 @@ app.USDA = {
       "nutrition": {}
     };
 
-    let now = new Date();
-    result.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-
     result.name = item.description;
     result.brand = item.brandOwner;
     result.barcode = "fdcId_" + item.fdcId; // Use fdcId as barcode

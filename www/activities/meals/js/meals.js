@@ -74,7 +74,6 @@ app.Meals = {
   },
 
   renderList: async function(clear) {
-
     if (clear) app.Utils.deleteChildNodes(app.Meals.el.list);
 
     //List settings 
@@ -210,7 +209,6 @@ app.Meals = {
       origin: "/foods-meals-recipes/",
       allNutriments: true
     };
-
     app.f7.views.main.router.navigate("./meal-editor/");
   },
 

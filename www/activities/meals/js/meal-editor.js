@@ -18,6 +18,7 @@
 */
 
 app.MealEditor = {
+
   meal: {},
   el: {},
 
@@ -25,6 +26,7 @@ app.MealEditor = {
     app.MealEditor.getComponents();
 
     if (context) {
+
       // From meal list or food list
       if (context.meal) {
         app.MealEditor.meal = context.meal;
@@ -134,7 +136,7 @@ app.MealEditor = {
           keyCodes: [13],
           onClick: () => {
             app.MealEditor.meal.items.splice(item.index, 1);
-            li.parentNode.removeChild(li);
+            app.MealEditor.renderItems();
             app.MealEditor.renderNutrition();
           }
         }
@@ -144,13 +146,13 @@ app.MealEditor = {
 
   save: function() {
     if (app.f7.input.validateInputs("#meal-edit-form") == true) {
+
       let data = {};
 
       if (app.MealEditor.meal.id !== undefined) data.id = app.MealEditor.meal.id;
       if (app.MealEditor.meal.items !== undefined) data.items = app.MealEditor.meal.items;
 
-      let now = new Date();
-      data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      data.dateTime = new Date();
 
       let inputs = document.querySelectorAll(".page[data-name='meal-editor'] input");
 
@@ -220,11 +222,10 @@ app.MealEditor = {
       app.MealEditor.el.foodlist.innerHTML = "";
       app.FoodsMealsRecipes.disableEdit = false;
 
-      for (let i = 0; i < app.MealEditor.meal.items.length; i++) {
-        let x = app.MealEditor.meal.items[i];
+      app.MealEditor.meal.items.forEach(async (x, i) => {
         x.index = i;
         app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, undefined, app.MealEditor.removeItem);
-      }
+      });
 
       resolve();
     });

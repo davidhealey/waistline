@@ -137,7 +137,7 @@ app.RecipeEditor = {
           keyCodes: [13],
           onClick: () => {
             app.RecipeEditor.recipe.items.splice(item.index, 1);
-            li.parentNode.removeChild(li);
+            app.RecipeEditor.renderItems();
             app.RecipeEditor.renderNutrition();
           }
         }
@@ -153,8 +153,7 @@ app.RecipeEditor = {
       if (app.RecipeEditor.recipe.id !== undefined) data.id = app.RecipeEditor.recipe.id;
       if (app.RecipeEditor.recipe.items !== undefined) data.items = app.RecipeEditor.recipe.items;
 
-      let now = new Date();
-      data.dateTime = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      data.dateTime = new Date();
 
       let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input, .page[data-name='recipe-editor'] textarea");
 
@@ -171,7 +170,7 @@ app.RecipeEditor = {
         });
       }
 
-      if (app.RecipeEditor.recipe.items.length > 0)
+      if (app.RecipeEditor.recipe.items !== undefined)
         data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
 
       dbHandler.put(data, "recipes").onsuccess = () => {
