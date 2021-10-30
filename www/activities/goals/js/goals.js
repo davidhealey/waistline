@@ -86,7 +86,7 @@ app.Goals = {
 
   getGoals: async function(stats, date) {
     const energyUnit = app.Settings.get("units", "energy");
-    const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
+    const energyName = app.Utils.getEnergyUnitName(energyUnit);
     const day = date.getDay();
 
     // Check if some goals are defined to auto adjust or defined as percentage of energy

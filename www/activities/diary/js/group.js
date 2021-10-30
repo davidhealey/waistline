@@ -116,7 +116,7 @@ app.Group = {
 
     //Energy 
     const energyUnit = app.Settings.get("units", "energy");
-    const energyName = Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
+    const energyName = app.Utils.getEnergyUnitName(energyUnit);
 
     let right = document.createElement("div");
     right.className = "margin-horizontal energy link icon-only";

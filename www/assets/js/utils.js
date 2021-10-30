@@ -143,6 +143,10 @@ app.Utils = {
     return result;
   },
 
+  getEnergyUnitName: function(energyUnit) {
+    return Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
+  },
+
   writeFile: function(data, filename) {
     return new Promise(function(resolve, reject) {
       if (app.mode !== "development" && device.platform !== "browser") {
