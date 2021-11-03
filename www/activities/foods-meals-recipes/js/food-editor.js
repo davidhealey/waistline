@@ -388,7 +388,8 @@ app.FoodEditor = {
           if (item.image_url !== undefined && item.image_url != "" && item.image_url !== "undefined") {
             let img = document.createElement("img");
             img.src = unescape(item.image_url);
-            img.style["width"] = "50%";
+            img.style["max-width"] = "80vw";
+            img.style["max-height"] = "50vh";
 
             app.FoodEditor.el.mainPhoto.style.display = "block";
             app.FoodEditor.el.mainPhoto.appendChild(img);
@@ -426,7 +427,7 @@ app.FoodEditor = {
         for (let k of nutriments) {
           if (k != field) {
             let input = document.querySelector("#food-edit-form #" + k);
-            if (input) {
+            if (input && input.value !== "") {
               input.value = Math.round(input.oldValue * multiplier * 100) / 100 || 0;
             }
           }
