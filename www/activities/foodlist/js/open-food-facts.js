@@ -151,8 +151,7 @@ app.OpenFoodFacts = {
       let x = nutriments[i];
       if (x != "calories" && x != "kilojoules") {
         let value = item.nutriments[x + perTag];
-        let unit = item.nutriments[x + "_unit"];
-        result.nutrition[x] = app.Utils.convertUnit(value, unit, units[x]);
+        result.nutrition[x] = app.Utils.convertUnit(value, "g", units[x]);
       }
     }
 
