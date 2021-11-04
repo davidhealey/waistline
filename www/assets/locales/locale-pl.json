@@ -23,41 +23,41 @@
     "vitamin-b1": "Witamina B1 (Tiamina)",
     "vitamin-b2": "Witamina B2 (Ryboflawina)",
     "vitamin-pp": "Witamina B3 (Niacyna)",
-    "pantothenic-acid": "Vitamin B5 (Pantothenic acid)",
-    "vitamin-b6": "Vitamin B6 (Pyridoxine)",
-    "biotin": "Vitamin B7 (Biotin)",
-    "vitamin-b9": "Vitamin B9 (Folate)",
-    "vitamin-b12": "Vitamin B12 (Cobalamin)",
-    "potassium": "Potassium",
-    "chloride": "Chloride",
-    "calcium": "Calcium",
-    "phosphorus": "Phosphorus",
-    "iron": "Iron",
-    "magnesium": "Magnesium",
-    "zinc": "Zinc",
-    "copper": "Copper",
-    "manganese": "Manganese",
-    "fluoride": "Fluoride",
-    "selenium": "Selenium",
-    "iodine": "Iodine",
-    "caffeine": "Caffeine",
-    "alcohol": "Alcohol",
-    "sucrose": "Sucrose",
-    "glucose": "Glucose",
-    "fructose": "Fructose",
-    "lactose": "Lactose"
+    "pantothenic-acid": "Witamina B5 (kwas pentanonowy)",
+    "vitamin-b6": "Witamina B6 (Pirydoksyna)",
+    "biotin": "Witamina B7 (Biotyna)",
+    "vitamin-b9": "Witamina B9 (kwas foliowy)",
+    "vitamin-b12": "Witamina B12 (Kobalamina)",
+    "potassium": "Potas",
+    "chloride": "Chlorek",
+    "calcium": "Wapń",
+    "phosphorus": "Fosfor",
+    "iron": "Żelazo",
+    "magnesium": "Magnez",
+    "zinc": "Cynk",
+    "copper": "Miedź",
+    "manganese": "Mangan",
+    "fluoride": "Fluorek",
+    "selenium": "Selen",
+    "iodine": "Jod",
+    "caffeine": "Kofeina",
+    "alcohol": "Alkohol",
+    "sucrose": "Sacharoza",
+    "glucose": "Glukoza",
+    "fructose": "Fruktoza",
+    "lactose": "Laktoza"
   },
   "unit-symbols": {
-    "kcal": "kcal",
+    "kcal": "kCal",
     "kJ": "kJ",
     "g": "g",
     "mg": "mg",
-    "µg": "µg",
+    "µg": "μg",
     "kg": "kg",
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "cal"
   },
   "dialogs": {
     "delete": "Usuń",
@@ -131,25 +131,25 @@
     "waist": "Talia",
     "hips": "Biodra",
     "body fat": "Tłuszcz",
-    "average": "Average"
+    "average": "Średnia"
   },
   "diary": {
     "title": "Dziennik",
     "quick-add": "Szybkie dodanie",
-    "yesterdays-meal": "Yesterday's %s",
+    "yesterdays-meal": "Wczoraj %s",
     "log-title": "Dzisiejsza statystyka",
-    "no-data": "No Data",
+    "no-data": "Brak danych",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
-      "dinner": "Dinner",
-      "snacks": "Snacks"
+      "breakfast": "Śniadanie",
+      "lunch": "Obiad",
+      "dinner": "Kolacja",
+      "snacks": "Przekąski"
     }
   },
   "diary-chart": {
     "title": "Podsumowanie",
-    "including-saturated-fat": "including sat fat",
-    "including-sugars": "including sugars",
+    "including-saturated-fat": "włacznie z tłuszczami nasyconymi",
+    "including-sugars": "włącznie z cukrami",
     "no-data": "Brak danych"
   },
   "foods-meals-recipes": {
@@ -159,7 +159,7 @@
     "recipes": "Przepisy",
     "selected": "Wybrane",
     "search": "Szukaj",
-    "scan-prompt": "Place a barcode inside the scan area"
+    "scan-prompt": "Umieść kod kreskowy w obrębie pola skanowania"
   },
   "food-editor": {
     "edit-item": "Edytuj element",
@@ -181,21 +181,21 @@
     "edit-food": "Edytuj element żywności",
     "edit-meal": "Edytuj posiłek",
     "edit-recipe": "Edytuj przepis",
-    "required-field-message": "Please fill out this field.",
-    "invalid-value-message": "Invalid Value."
+    "required-field-message": "Prosze wypełnić to pole.",
+    "invalid-value-message": "Nieprawidłowa wartość."
   },
   "goals": {
     "title": "Cele"
   },
   "goal-editor": {
     "title": "Ustal cel",
-    "goal": "Goal",
+    "goal": "Cel",
     "show-in-diary": "Pokaż w dzienniku",
-    "show-in-stats": "Show in Statistics",
+    "show-in-stats": "Pokaż w statystykach",
     "shared-goal": "Ten sam cel każdego dnia",
-    "auto-adjust": "Auto adjust to meet weekly goal",
+    "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu tygodniowego",
     "minimum-goal": "Jest celem minimalnym",
-    "percent-goal": "Goal as percentage of energy intake"
+    "percent-goal": "Cel jako procent pobranej energii"
   },
   "meal-editor": {
     "title": "Edytuj posiłek",
@@ -209,16 +209,16 @@
     "title": "Ustawienia",
     "needs-restart": "Zresetuj aplikację, aby zastosować zmiany.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Wygląd",
       "dark": "Ciemny motyw",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Motyw kolorów",
       "animations": "Wyłączenie animacji",
       "start-page": "Strona startowa",
       "language": "Preferowany język"
     },
     "units": {
       "title": "Jednostki",
-      "energy": "Energy",
+      "energy": "Energia",
       "weight": "Waga",
       "length": "Długości",
       "kilograms": "Kilogramy",
@@ -232,11 +232,11 @@
       "categories": "Kategorie",
       "timestamps": "Pokaż znaczniki czasu",
       "thumbnails": "Pokaż miniatury",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Pokazuj zdjęcia tylko przez Wi-Fi",
       "show-units": "Pokaż jednostki odżywcze"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Wartości odżywcze"
     },
     "diary-categories": {
       "title": "Kategorie",
@@ -244,43 +244,43 @@
     },
     "foods": {
       "title": "Żywność, posiłki, przepisy",
-      "sort": "Sort Foods",
-      "sort-date": "By last used",
-      "sort-alpha": "Alphabetically",
+      "sort": "Sortuj żywność",
+      "sort-date": "Po ostatnim użyciu",
+      "sort-alpha": "Alfabetycznie",
       "images": "Pokaż zdjęcia jedzenia",
       "wifi-images": "Pokazuj zdjęcia tylko przez Wi-Fi",
-      "show-notes": "Show Food Notes"
+      "show-notes": "Pokaż notatki o żywności"
     },
     "statistics": {
       "title": "Statystyki",
-      "y-zero": "Begin Y Axis at Zero",
-      "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "y-zero": "Rozpocznij oś Y od Zera",
+      "average-line": "Pokaż linie średnich",
+      "goal-line": "Pokaż linię celu"
     },
     "import-export": {
       "title": "Import/eksport",
       "backup": "Wykonaj kopie",
       "import": "Importuj z kopii zapasowej",
-      "auto-backup": "Automatic Backup"
+      "auto-backup": "Automatyczna kopia zapasowa"
     },
     "integration": {
       "title": "Integracja",
       "off": "Open Food Facts",
       "off-account": "Konto Open Food Facts",
       "country": "Wyszukaj Kraj",
-      "upload-country": "Upload Country",
-      "language": "Preferred Search Language",
-      "all-countries": "All",
-      "default": "Default",
+      "upload-country": "Kraj wysłania",
+      "language": "Preferowany język wyszukiwania",
+      "all-countries": "Wszystkie",
+      "default": "Domyślne",
       "auto": "Wykrywaj automatycznie",
       "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
       "usda": "Włącz wyszukiwanie w USDA",
       "usda-login-title": "USDA",
       "usda-api": "USDA API",
       "usda-api-key": "Klucz API dla USDA",
-      "usda-click-here": "Click here",
+      "usda-click-here": "Naciśnij tu",
       "usda-note-0": "Musisz wprowadzić swój osobisty klucz API, aby wyszukać żywność w bazie danych USDA.",
-      "usda-note-1": "to request a free API Key.",
+      "usda-note-1": "aby poprosić o darmowy klucz API.",
       "username": "Nazwa użytkownika",
       "password": "Hasło",
       "off-account-note": "To jest całkowicie opcjonalne. Nie potrzebujesz konta OFF aby używać aplikacji.",
@@ -288,24 +288,24 @@
       "exit": "Wyjście",
       "save": "Zapisz",
       "invalid-credentials": "Błędne dane",
-      "invalid-api-key": "API Key Invalid",
-      "export-success": "Database Exported",
+      "invalid-api-key": "Niepoprawny klucz API",
+      "export-success": "Baza danych wyeksportowana",
       "export-fail": "Eksport nie powiódł się",
       "import": "Importuj",
       "confirm-import": "Jesteś pewien? To nadpisze Twoją obecną bazę danych.",
-      "import-success-title": "The backup has been restored",
-      "import-success-message": "Import Complete",
-      "barcode-sound": "Barcode Scan Beep",
-      "edit-images": "Edit Images Before Upload",
-      "login-success": "Login Successful"
+      "import-success-title": "Kopia zapasowa została przywrócona",
+      "import-success-message": "Import Zakończony",
+      "barcode-sound": "Sygnał skanera kodu kreskowego",
+      "edit-images": "Edycja zdjęć do przesłania",
+      "login-success": "Zalogowano pomyślnie"
     }
   },
   "about": {
     "title": "O aplikacji",
     "p0": "Waistline został utworzony przez Davida Healey z sugestiami i wkładami użytkowników.",
     "p1": "Waistline został zbudowany przy użyciu Cordova dostępnej na licencji Apache. Zawiera również Framework7, jQuery, jQuery localize i ChartJS, które są na licencji MIT. HTML, CSS i inne javascript stanowiące główny element aplikacji są na licencji GPLv3.",
-    "p2": "The source code for Waistline can be found at",
-    "p3": "Current version:"
+    "p2": "Kod źródłowy dla Waistline można znaleźć na",
+    "p3": "Bieżąca wersja:"
   },
   "locale": {
     "auto": "Wykrywaj automatycznie",
@@ -319,7 +319,7 @@
     "bulgarian": "Bułgarski",
     "hebrew": "Hebrajski",
     "finnish": "Fiński",
-    "spanish": "Spanish",
-    "dutch": "Dutch"
+    "spanish": "Hiszpański",
+    "dutch": "Holenderski"
   }
 }
