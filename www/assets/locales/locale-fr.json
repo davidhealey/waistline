@@ -65,7 +65,9 @@
     "ok": "Ok",
     "yes": "Oui",
     "no": "Non",
-    "confirm-delete": "Souhaitez-vous supprimer cet élément ?",
+    "add": "Add",
+    "skip": "Skip",
+    "confirm-delete": "Are you sure you want to delete this?",
     "delete-title": "Supprimer élément",
     "required-fields": "Veuillez remplir les champs requis.",
     "camera-problem": "Une erreur est survenue en essayant d’accéder à l’appareil photo.",
@@ -233,7 +235,8 @@
       "timestamps": "Afficher les dates",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
-      "show-units": "Afficher les unités nutritionnelles"
+      "show-units": "Afficher les unités nutritionnelles",
+      "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
       "title": "Nutriments"
