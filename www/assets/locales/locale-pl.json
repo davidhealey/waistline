@@ -65,7 +65,9 @@
     "ok": "OK",
     "yes": "Tak",
     "no": "Nie",
-    "confirm-delete": "Czy na pewno chcesz usunąć ten element?",
+    "add": "Dodaj",
+    "skip": "Pomiń",
+    "confirm-delete": "Czy na pewno chcesz to usunąć?",
     "delete-title": "Usuń wpis",
     "required-fields": "Wypełnij wszystkie wymagane pola.",
     "camera-problem": "Wystąpił problem z dostępem do aparatu.",
@@ -233,7 +235,8 @@
       "timestamps": "Pokaż znaczniki czasu",
       "thumbnails": "Pokaż miniatury",
       "wifi-thumbnails": "Pokazuj zdjęcia tylko przez Wi-Fi",
-      "show-units": "Pokaż jednostki odżywcze"
+      "show-units": "Pokaż jednostki odżywcze",
+      "prompt-add-items": "Pytaj o ilość podczas dodawania produktów"
     },
     "nutriments": {
       "title": "Wartości odżywcze"
@@ -315,7 +318,7 @@
     "french": "Francuski",
     "swedish": "Szwedzki",
     "russian": "Rosyjski",
-    "polish": "Polish",
+    "polish": "Polski",
     "portuguese": "Portugalski",
     "bulgarian": "Bułgarski",
     "hebrew": "Hebrajski",
