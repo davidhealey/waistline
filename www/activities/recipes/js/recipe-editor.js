@@ -106,12 +106,7 @@ app.RecipeEditor = {
     let result = app.RecipeEditor.recipe.items;
 
     data.forEach((x) => {
-      let item = {
-        id: x.id,
-        portion: x.portion,
-        quantity: 1,
-        type: x.type
-      };
+      let item = app.FoodsMealsRecipes.flattenItem(x);
       result.push(item);
     });
     app.RecipeEditor.recipe.items = result;
@@ -180,7 +175,8 @@ app.RecipeEditor = {
   },
 
   replaceListItem: function(item) {
-    app.RecipeEditor.recipe.items.splice(item.index, 1, item);
+    let updatedItem = app.FoodsMealsRecipes.flattenItem(item);
+    app.RecipeEditor.recipe.items.splice(item.index, 1, updatedItem);
   },
 
   renderNutrition: async function() {

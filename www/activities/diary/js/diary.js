@@ -342,12 +342,9 @@ app.Diary = {
         let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
         items.forEach((x) => {
-          let item = x;
-          delete item.unit; // Do not store item unit in the DB
-          delete item.archived; // Do not store archived status in the DB
+          let item = app.FoodsMealsRecipes.flattenItem(x);
           item.dateTime = new Date();
           item.category = category;
-          item.quantity = x.quantity || 1;
           entry.items.push(item);
         });
 
@@ -366,10 +363,10 @@ app.Diary = {
       let entry = await app.Diary.getEntryFromDB();
 
       if (entry) {
-        entry.items.splice(item.index, 1, item);
-        delete item.index; // Do not store array index in the DB
-        delete item.unit; // Do not store item unit in the DB
-        delete item.archived; // Do not store archived status in the DB
+        let updatedItem = app.FoodsMealsRecipes.flattenItem(item);
+        updatedItem.dateTime = item.dateTime;
+        updatedItem.category = item.category;
+        entry.items.splice(item.index, 1, updatedItem);
 
         dbHandler.put(entry, "diary").onsuccess = function() {
           resolve();

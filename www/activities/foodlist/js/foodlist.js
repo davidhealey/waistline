@@ -289,15 +289,8 @@ app.Foodlist = {
             data.id = await app.Foodlist.putItem(data);
         }
 
-        let item = {
-          id: data.id,
-          portion: data.portion,
-          unit: data.unit,
-          type: data.type,
-        };
-
-        result.items.push(item);
-        result.ids.push(item.id);
+        result.items.push(data);
+        result.ids.push(data.id);
       }
 
       resolve(result);

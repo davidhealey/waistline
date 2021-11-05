@@ -141,20 +141,11 @@ app.Recipes = {
 
     selection.forEach((x) => {
       let recipe = JSON.parse(x);
-      result.push(app.Recipes.flattenRecipe(recipe));
+      recipe.type = "recipe";
+      result.push(recipe);
     });
 
     app.FoodsMealsRecipes.returnItems(result);
-  },
-
-  flattenRecipe: function(recipe) {
-    let item = {
-      id: recipe.id,
-      portion: recipe.portion,
-      type: "recipe"
-    };
-
-    return item;
   },
 
   gotoEditor: function(recipe) {
