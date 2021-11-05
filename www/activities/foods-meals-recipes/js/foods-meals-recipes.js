@@ -528,8 +528,7 @@ app.FoodsMealsRecipes = {
         if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
           let img = document.createElement("img");
           img.src = unescape(url);
-          img.style.width = "20%";
-          img.style["padding-right"] = "1em";
+          img.className = "food-thumbnail";
 
           return img;
         }

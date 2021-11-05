@@ -18,6 +18,9 @@ i.searchbar-icon {margin: -12px 12px;}
 #quantity-container .item-title {width:65% !important;}
 #nutrition .item-title {width:65% !important;}
 
+img.food-thumbnail {width: 20%; margin: 0.2em 1em 0.2em 0;}
+html[dir="rtl"] img.food-thumbnail {margin: 0.2em 0 0.2em 1em;}
+
 /* Custom color themes */
 .color-theme-pink {
   --f7-theme-color: #f6b0ba;
