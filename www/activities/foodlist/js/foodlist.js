@@ -195,7 +195,7 @@ app.Foodlist = {
   removeItem: function(item) {
     return new Promise(function(resolve, reject) {
       let title = app.strings.dialogs.delete || "Delete";
-      let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
+      let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
       let div = document.createElement("div");
       div.className = "dialog-text";
@@ -289,15 +289,8 @@ app.Foodlist = {
             data.id = await app.Foodlist.putItem(data);
         }
 
-        let item = {
-          id: data.id,
-          portion: data.portion,
-          unit: data.unit,
-          type: data.type,
-        };
-
-        result.items.push(item);
-        result.ids.push(item.id);
+        result.items.push(data);
+        result.ids.push(data.id);
       }
 
       resolve(result);

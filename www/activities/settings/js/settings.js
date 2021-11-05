@@ -395,10 +395,11 @@ app.Settings = {
       },
       diary: {
         "meal-names": ["Breakfast", "Lunch", "Dinner", "Snacks", "", "", ""],
-        "show-nutrition-units": false,
-        "show-thumbnails": false,
         timestamps: false,
-        "wifi-thumbnails": true
+        "show-thumbnails": false,
+        "wifi-thumbnails": true,
+        "show-nutrition-units": false,
+        "prompt-add-items": false
       },
       foodlist: {
         "show-images": true,

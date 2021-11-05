@@ -443,6 +443,14 @@ window.addEventListener("contextmenu", (e) => {
     e.preventDefault();
 });
 
+// Auto-select text in input fields on focus
+let focusedElement;
+$(document).on("focus", "input.auto-select", function() {
+  if (focusedElement == this) return;
+  focusedElement = this;
+  setTimeout(function() { focusedElement.select(); }, 50);
+});
+
 // Android back button 
 document.addEventListener("backbutton", (e) => {
 

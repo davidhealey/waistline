@@ -111,7 +111,7 @@ app.Recipes = {
 
   removeItem: function(item) {
     let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
     let div = document.createElement("div");
     div.className = "dialog-text";
@@ -141,20 +141,11 @@ app.Recipes = {
 
     selection.forEach((x) => {
       let recipe = JSON.parse(x);
-      result.push(app.Recipes.flattenRecipe(recipe));
+      recipe.type = "recipe";
+      result.push(recipe);
     });
 
     app.FoodsMealsRecipes.returnItems(result);
-  },
-
-  flattenRecipe: function(recipe) {
-    let item = {
-      id: recipe.id,
-      portion: recipe.portion,
-      type: "recipe"
-    };
-
-    return item;
   },
 
   gotoEditor: function(recipe) {

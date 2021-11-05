@@ -105,12 +105,7 @@ app.MealEditor = {
     let result = app.MealEditor.meal.items;
 
     data.forEach((x) => {
-      let item = {
-        id: x.id,
-        portion: x.portion,
-        quantity: 1,
-        type: x.type
-      };
+      let item = app.FoodsMealsRecipes.flattenItem(x);
       result.push(item);
     });
     app.MealEditor.meal.items = result;
@@ -118,7 +113,7 @@ app.MealEditor = {
 
   removeItem: function(item, li) {
     let title = app.strings.dialogs["delete-title"] || "Delete Entry";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
     let div = document.createElement("div");
     div.className = "dialog-text";
@@ -176,7 +171,8 @@ app.MealEditor = {
   },
 
   replaceListItem: function(item) {
-    app.MealEditor.meal.items.splice(item.index, 1, item);
+    let updatedItem = app.FoodsMealsRecipes.flattenItem(item);
+    app.MealEditor.meal.items.splice(item.index, 1, updatedItem);
   },
 
   renderNutrition: async function() {

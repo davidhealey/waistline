@@ -162,7 +162,7 @@ app.Meals = {
 
   deleteMeal: function(item) {
     let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
     let div = document.createElement("div");
     div.className = "dialog-text";

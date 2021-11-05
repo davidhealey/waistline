@@ -345,8 +345,6 @@ app.FoodsMealsRecipes = {
   },
 
   updateDateTimes: function(items) {
-    let result = [];
-
     if (items[0].type == "food") {
       items.forEach(async (x, i) => {
         let data = await dbHandler.getByKey(x.id, "foodList");
@@ -354,6 +352,15 @@ app.FoodsMealsRecipes = {
           app.Foodlist.putItem(data);
       });
     }
+  },
+
+  flattenItem: function(item) {
+    return {
+      id: item.id,
+      portion: item.portion,
+      quantity: item.quantity || "1",
+      type: item.type
+    };
   },
 
   renderItem: async function(data, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback, timestamp) {
