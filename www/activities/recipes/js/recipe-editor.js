@@ -114,7 +114,7 @@ app.RecipeEditor = {
 
   removeItem: function(item, li) {
     let title = app.strings.dialogs["delete-title"] || "Delete Entry";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this item?";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
     let div = document.createElement("div");
     div.className = "dialog-text";
