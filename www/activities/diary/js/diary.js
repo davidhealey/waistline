@@ -428,9 +428,9 @@ app.Diary = {
               let portion = inputs[0].value;
               let quantity = inputs[1].value;
 
-              if (!isNaN(portion))
+              if (portion !== "" && portion >= 0 && !isNaN(portion))
                 item.portion = portion;
-              if (!isNaN(quantity))
+              if (quantity !== "" && quantity >= 0 && !isNaN(quantity))
                 item.quantity = quantity;
 
               app.Diary.addItemToEntry(item, category, entry);
