@@ -341,14 +341,14 @@ app.Diary = {
         // Get current entry or create a new one
         let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-        items.forEach((x) => {
-          let item = app.FoodsMealsRecipes.flattenItem(x);
-          item.dateTime = new Date();
-          item.category = category;
-          entry.items.push(item);
-        });
-
-        await dbHandler.put(entry, "diary");
+        if (app.Settings.get("diary", "prompt-add-items") == true) {
+          app.Diary.promptAddItems(items, category, entry, 0);
+        } else {
+          items.forEach((x) => {
+            app.Diary.addItemToEntry(x, category, entry);
+          });
+          await dbHandler.put(entry, "diary");
+        }
 
         resolve();
       }
@@ -356,6 +356,107 @@ app.Diary = {
     }).catch(err => {
       throw (err);
     });
+  },
+
+  promptAddItems: async function(items, category, entry, index) {
+    let item = items[index];
+
+    if (item !== undefined) {
+      if (item.name !== undefined && item.unit !== undefined) {
+
+        // Create dialog content
+        let title = app.Utils.tidyText(item.name, 50);
+
+        let div = document.createElement("div");
+        div.className = "dialog-text";
+
+        if (item.notes && app.Settings.get("foodlist", "show-notes") == true)
+          div.innerText = app.Utils.tidyText(item.notes, 50);
+
+        // Input fields
+        let inputs = document.createElement("div");
+        inputs.className = "list scroll-dialog";
+        let ul = document.createElement("ul");
+        inputs.appendChild(ul);
+
+        ["serving-size", "number-of-servings"].forEach((field) => {
+          let li = document.createElement("li");
+          li.className = "item-content item-input";
+          ul.appendChild(li);
+
+          let inner = document.createElement("div");
+          inner.className = "item-inner";
+          li.appendChild(inner);
+
+          let fieldTitle = document.createElement("div");
+          fieldTitle.className = "item-title item-label";
+          fieldTitle.innerHTML = app.strings["food-editor"][field] || field;
+          if (field == "serving-size")
+            fieldTitle.innerHTML += " (" + item.unit + ")";
+          inner.appendChild(fieldTitle);
+
+          let inputWrap = document.createElement("div");
+          inputWrap.className = "item-input-wrap";
+          inner.appendChild(inputWrap);
+
+          let input = document.createElement("input");
+          input.className = "dialog-input auto-select";
+          input.type = "number";
+          if (field == "serving-size")
+            input.setAttribute("value", item.portion || "");
+          else
+            input.setAttribute("value", "1");
+          inputWrap.appendChild(input);
+        });
+
+        // Open dialog
+        let dialog = app.f7.dialog.create({
+          title: title,
+          content: div.outerHTML + inputs.outerHTML,
+          buttons: [{
+            text: app.strings.dialogs.skip || "Skip",
+            keyCodes: [27],
+            onClick: async function(dialog) {
+              app.Diary.promptAddItems(items, category, entry, index + 1);
+            }
+          },
+          {
+            text: app.strings.dialogs.add || "Add",
+            keyCodes: [13],
+            onClick: async function(dialog) {
+              let inputs = Array.from(dialog.el.getElementsByTagName("input"));
+              let portion = inputs[0].value;
+              let quantity = inputs[1].value;
+
+              if (!isNaN(portion))
+                item.portion = portion;
+              if (!isNaN(quantity))
+                item.quantity = quantity;
+
+              app.Diary.addItemToEntry(item, category, entry);
+              app.Diary.promptAddItems(items, category, entry, index + 1);
+            }
+          }
+          ]
+        }).open();
+
+      } else {
+        // Item has no name (is a meal item) -> add it as is without prompt
+        app.Diary.addItemToEntry(item, category, entry);
+        app.Diary.promptAddItems(items, category, entry, index + 1);
+      }
+    } else {
+      // No more items to process -> write entry to DB and refresh page
+      await dbHandler.put(entry, "diary");
+      app.Diary.render();
+    }
+  },
+
+  addItemToEntry: function(item, category, entry) {
+    let newItem = app.FoodsMealsRecipes.flattenItem(item);
+    newItem.dateTime = new Date();
+    newItem.category = category;
+    entry.items.push(newItem);
   },
 
   updateItem: function(item) {
@@ -476,8 +577,6 @@ app.Diary = {
         }
       ]
     }).open();
-
-    dialog.$el.find('input').attr('type', 'number');
   },
 
   log: function() {
