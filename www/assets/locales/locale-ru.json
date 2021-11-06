@@ -250,6 +250,8 @@
       "sort": "Сортировка еды",
       "sort-date": "По последнему использованию",
       "sort-alpha": "В алфавитном порядке",
+      "thumbnails": "Показывать миниатюры",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Показать изображения еды",
       "wifi-images": "Показывать изображения только через Wi-Fi",
       "show-notes": "Показать заметки о еде"
