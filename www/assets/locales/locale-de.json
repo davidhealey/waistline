@@ -250,6 +250,8 @@
       "sort": "Lebensmittel sortieren",
       "sort-date": "Zuletzt verwendet",
       "sort-alpha": "Alphabetisch",
+      "thumbnails": "Vorschaubilder anzeigen",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Lebensmittelbilder anzeigen",
       "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen",
       "show-notes": "Notizen für Lebensmittel anzeigen"
