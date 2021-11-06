@@ -250,6 +250,8 @@
       "sort": "Trier les aliments",
       "sort-date": "Dernière utilisation",
       "sort-alpha": "Ordre alphabétique",
+      "thumbnails": "Afficher les vignettes",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Afficher les images des aliments",
       "wifi-images": "Afficher les images en WiFi seulement",
       "show-notes": "Afficher les notes"
