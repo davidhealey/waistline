@@ -402,10 +402,12 @@ app.Settings = {
         "prompt-add-items": false
       },
       foodlist: {
-        "show-images": true,
         sort: "alpha",
-        "show-notes": false,
-        "wifi-images": true
+        "show-thumbnails": false,
+        "wifi-thumbnails": true,
+        "show-images": true,
+        "wifi-images": true,
+        "show-notes": false
       },
       integration: {
         "barcode-sound": false,
@@ -416,17 +418,16 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        animations: false,
         "dark-mode": false,
-        "start-page": "/settings/",
         theme: "color-theme-red",
+        animations: false,
         locale: "auto",
-        direction: "ltr"
+        "start-page": "/settings/"
       },
       units: {
         energy: "kcal",
-        length: "cm",
         weight: "kg",
+        length: "cm"
       },
       goals: {
         calories: ["2000", "", "", "", "", "", ""],
