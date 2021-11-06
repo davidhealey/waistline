@@ -234,7 +234,7 @@
       "categories": "Kategorie",
       "timestamps": "Pokaż znaczniki czasu",
       "thumbnails": "Pokaż miniatury",
-      "wifi-thumbnails": "Pokazuj zdjęcia tylko przez Wi-Fi",
+      "wifi-thumbnails": "Pokazuj miniatury tylko przez Wi-Fi",
       "show-units": "Pokaż jednostki odżywcze",
       "prompt-add-items": "Pytaj o ilość podczas dodawania produktów"
     },
@@ -251,7 +251,7 @@
       "sort-date": "Po ostatnim użyciu",
       "sort-alpha": "Alfabetycznie",
       "thumbnails": "Pokaż miniatury",
-      "wifi-thumbnails": "Pokazuj zdjęcia tylko przez Wi-Fi",
+      "wifi-thumbnails": "Pokazuj miniatury tylko przez Wi-Fi",
       "images": "Pokaż zdjęcia jedzenia",
       "wifi-images": "Pokazuj zdjęcia tylko przez Wi-Fi",
       "show-notes": "Pokaż notatki o żywności"
