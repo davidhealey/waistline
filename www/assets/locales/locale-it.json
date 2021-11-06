@@ -250,6 +250,8 @@
       "sort": "Ordina Alimenti",
       "sort-date": "Ultimo utilizzato",
       "sort-alpha": "Alfabetico",
+      "thumbnails": "Mostra le anteprime",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Mostra l' immagine dei cibi",
       "wifi-images": "Mostra le immagini solo con la Wi-Fi",
       "show-notes": "Mostra le note dei cibi"
