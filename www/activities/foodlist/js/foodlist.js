@@ -148,7 +148,8 @@ app.Foodlist = {
 
         if (item != undefined) {
           item.type = "food";
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem);
+          let showThumbnail = app.Utils.showThumbnails("foodlist");
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem, undefined, false, showThumbnail);
         }
       }
     }

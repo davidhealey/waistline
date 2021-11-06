@@ -363,7 +363,7 @@ app.FoodsMealsRecipes = {
     };
   },
 
-  renderItem: async function(data, el, checkboxes, clickCallback, tapholdCallback, checkboxCallback, timestamp) {
+  renderItem: async function(data, el, checkbox, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
 
     if (data !== undefined) {
 
@@ -390,7 +390,7 @@ app.FoodsMealsRecipes = {
         li.appendChild(label);
 
         //Checkbox
-        if (checkboxes) {
+        if (checkbox) {
           let input = document.createElement("input");
           input.type = "checkbox";
           input.name = "food-item-checkbox";
@@ -408,14 +408,14 @@ app.FoodsMealsRecipes = {
           let icon = document.createElement("i");
           icon.className = "icon icon-checkbox";
           label.appendChild(icon);
-        } else {
-          // Image 
-          if (item.image_url !== undefined) {
-            let img = app.FoodsMealsRecipes.getItemImage(item.image_url);
+        }
 
-            if (img !== undefined)
-              label.appendChild(img);
-          }
+        //Thumbnail
+        if (thumbnail == true) {
+          let img = app.FoodsMealsRecipes.getItemThumbnail(item.image_url);
+
+          if (img !== undefined)
+            label.appendChild(img);
         }
 
         //Inner container
@@ -517,22 +517,12 @@ app.FoodsMealsRecipes = {
     }
   },
 
-  getItemImage: function(url) {
-    if (app.Settings.get("diary", "show-thumbnails")) {
-
-      let wifiOnly = app.Settings.get("diary", "wifi-images");
-
-      if (app.mode == "development") wifiOnly = false;
-
-      if (navigator.connection.type !== "none") {
-        if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-          let img = document.createElement("img");
-          img.src = unescape(url);
-          img.className = "food-thumbnail";
-
-          return img;
-        }
-      }
+  getItemThumbnail: function(url) {
+    if (url !== undefined && url !== "" && url !== "undefined") {
+      let img = document.createElement("img");
+      img.src = unescape(url);
+      img.className = "food-thumbnail";
+      return img;
     }
     return undefined;
   },
