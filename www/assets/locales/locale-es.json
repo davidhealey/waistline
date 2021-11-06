@@ -250,6 +250,8 @@
       "sort": "Sort Foods",
       "sort-date": "Por última vez usado",
       "sort-alpha": "Alfabético",
+      "thumbnails": "Mostrar miniaturas",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Mostrar imágenes de alimentos",
       "wifi-images": "Mostrar solo imágenes por Wi-Fi",
       "show-notes": "Show Food Notes"
