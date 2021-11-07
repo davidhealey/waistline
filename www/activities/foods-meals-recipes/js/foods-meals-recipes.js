@@ -234,6 +234,7 @@ app.FoodsMealsRecipes = {
           }
         });
       }
+      
       resolve(result);
     });
   },
@@ -540,7 +541,7 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.updateSelectionCount();
   },
 
-  updateSelectionCount: function() {
+  updateSelectionCount: async function() {
     if (!app.FoodsMealsRecipes.selection.length) {
       if (app.FoodsMealsRecipes.tab == "foodlist")
         app.FoodsMealsRecipes.el.scan.style.display = "block";
@@ -550,8 +551,32 @@ app.FoodsMealsRecipes = {
     } else {
       app.FoodsMealsRecipes.el.scan.style.display = "none";
       app.FoodsMealsRecipes.el.submit.style.display = "block";
+      
+      // Get energy for selection
+      const energyUnit = app.Settings.get("units", "energy");
+      const units = app.nutrimentUnits;
+      let items = [];
+      
+      this.selection.forEach((x) => {
+        let item = JSON.parse(x);
+        item.quantity = 1;
+        items.push(item);
+      });
+      
+      const nutrition = await this.getTotalNutrition(items);
+      
+      let energy = 0;      
+      if (nutrition["calories"] != 0)
+        energyUnit == units.calories ? energy = nutrition["calories"] : energy = nutrition["kilojoules"];
+
+      // Title bar text 
       let text = app.strings["foods-meals-recipes"].selected || "Selected";
+      
+      if (energy != 0)
+        text += " | " + Math.round(energy) + energyUnit;
+
       app.FoodsMealsRecipes.el.title.innerHTML = app.FoodsMealsRecipes.selection.length + " " + text;
+      
     }
   },
 
