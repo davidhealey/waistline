@@ -328,10 +328,10 @@ app.FoodEditor = {
     app.FoodEditor.el.category.innerHTML = "";
 
     mealNames.forEach((x, i) => {
-      if (x != "" && x != undefined) {
+      if (x != "") {
         let option = document.createElement("option");
         option.value = i;
-        option.text = x;
+        option.text = app.strings.diary["default-meals"][x.toLowerCase()] || x;
         if (i == item.category) option.setAttribute("selected", "");
         app.FoodEditor.el.category.append(option);
       }
