@@ -65,7 +65,9 @@
     "ok": "OK",
     "yes": "Sí",
     "no": "No",
-    "confirm-delete": "¿Está seguro que desea borrar este elemento?",
+    "add": "Add",
+    "skip": "Skip",
+    "confirm-delete": "Are you sure you want to delete this?",
     "delete-title": "Borrar registro",
     "required-fields": "Por favor, complete todos los campos obligatorios.",
     "camera-problem": "Hubo un problema al acceder a tu cámara.",
@@ -172,6 +174,7 @@
     "serving-size": "Porción",
     "serving-unit": "Unidad de la porción",
     "number-of-servings": "Número de porciones",
+    "notes": "Notas",
     "nutrition": "Nutrición",
     "per-100": "Por 100g/100ml",
     "per-serving": "Por porción",
@@ -181,17 +184,20 @@
     "edit-meal": "Editar comida del día",
     "edit-recipe": "Editar receta",
     "required-field-message": "Please fill out this field.",
-    "negative-value-message": "No negative values."
+    "invalid-value-message": "Invalid Value."
   },
   "goals": {
     "title": "Objetivos"
   },
   "goal-editor": {
     "title": "Establecer objetivos",
+    "goal": "Goal",
     "show-in-diary": "Mostrar en Diario",
     "show-in-stats": "Mostrar en Estadísticas",
     "shared-goal": "Mismo objetivo todos los días",
-    "minimum-goal": "Es un objetivo mínimo"
+    "auto-adjust": "Auto adjust to meet weekly goal",
+    "minimum-goal": "Es un objetivo mínimo",
+    "percent-goal": "Goal as percentage of energy intake"
   },
   "meal-editor": {
     "title": "Editar comida",
@@ -214,6 +220,7 @@
     },
     "units": {
       "title": "Unidades",
+      "energy": "Energy",
       "weight": "Peso",
       "length": "Largo",
       "kilograms": "Kilogramos",
@@ -228,7 +235,8 @@
       "timestamps": "Mostrar fecha y hora",
       "thumbnails": "Mostrar miniaturas",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
-      "show-units": "Mostrar unidades nutricionales"
+      "show-units": "Mostrar unidades nutricionales",
+      "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
       "title": "Nutriments"
@@ -242,6 +250,8 @@
       "sort": "Sort Foods",
       "sort-date": "Por última vez usado",
       "sort-alpha": "Alfabético",
+      "thumbnails": "Mostrar miniaturas",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Mostrar imágenes de alimentos",
       "wifi-images": "Mostrar solo imágenes por Wi-Fi",
       "show-notes": "Show Food Notes"
@@ -265,6 +275,9 @@
       "country": "Buscar país",
       "upload-country": "Subir País",
       "language": "Idioma de búsqueda preferido",
+      "all-countries": "All",
+      "default": "Default",
+      "auto": "Detectar automáticamente",
       "usda-title": "Departamento de Agricultura de EE.UU. (USDA)",
       "usda": "Habilitar búsqueda USDA",
       "usda-login-title": "USDA",
@@ -307,6 +320,7 @@
     "french": "Francés",
     "swedish": "Sueco",
     "russian": "Ruso",
+    "polish": "Polish",
     "portuguese": "Portugués",
     "bulgarian": "Búlgaro",
     "hebrew": "Hebreo",

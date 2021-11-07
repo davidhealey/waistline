@@ -65,7 +65,9 @@
     "ok": "OK",
     "yes": "Kyllä",
     "no": "Ei",
-    "confirm-delete": "Haluatko varmasti poistaa tämän kohteen?",
+    "add": "Add",
+    "skip": "Skip",
+    "confirm-delete": "Are you sure you want to delete this?",
     "delete-title": "Poista merkintä",
     "required-fields": "Täytä kaikki tarvittavat kohdat.",
     "camera-problem": "Ongelma kameraan pääsyssä.",
@@ -172,6 +174,7 @@
     "serving-size": "Annoskoko",
     "serving-unit": "Annosyksikkö",
     "number-of-servings": "Annosten määrä",
+    "notes": "Muistiinpanot",
     "nutrition": "Ravintosisältö",
     "per-100": "100 g / 100 ml kohden",
     "per-serving": "Annosta kohden",
@@ -181,17 +184,20 @@
     "edit-meal": "Muokkaa ateriaa",
     "edit-recipe": "Muokkaa reseptiä",
     "required-field-message": "Täytä tämä kenttä.",
-    "negative-value-message": "No negative values."
+    "invalid-value-message": "Invalid Value."
   },
   "goals": {
     "title": "Tavoitteet"
   },
   "goal-editor": {
     "title": "Aseta tavoitteet",
+    "goal": "Goal",
     "show-in-diary": "Näytä päiväkirjassa",
     "show-in-stats": "Näytä tilastoissa",
     "shared-goal": "Sama tavoite joka päivä",
-    "minimum-goal": "On vähimmäistavoite"
+    "auto-adjust": "Auto adjust to meet weekly goal",
+    "minimum-goal": "On vähimmäistavoite",
+    "percent-goal": "Goal as percentage of energy intake"
   },
   "meal-editor": {
     "title": "Muokkaa ateriaa",
@@ -214,6 +220,7 @@
     },
     "units": {
       "title": "Yksiköt",
+      "energy": "Energy",
       "weight": "Paino",
       "length": "Pituus",
       "kilograms": "Kilogrammaa",
@@ -228,7 +235,8 @@
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä tuotekuvat",
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
-      "show-units": "Näytä ravintoyksiköt"
+      "show-units": "Näytä ravintoyksiköt",
+      "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
       "title": "Ravinteet"
@@ -242,6 +250,8 @@
       "sort": "Järjestä ruoat",
       "sort-date": "Viimeksi käytetty",
       "sort-alpha": "Aakkosellinen",
+      "thumbnails": "Näytä tuotekuvat",
+      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä",
       "show-notes": "Näytä ateriamerkinnät"
@@ -265,6 +275,9 @@
       "country": "Hae maa",
       "upload-country": "Lähetettävän sisällön maa",
       "language": "Ensisijainen hakukieli",
+      "all-countries": "All",
+      "default": "Default",
+      "auto": "Tunnista Automaattisesti",
       "usda-title": "YHDYSVALTOJEN MAATALOUSMINISTERIÖ",
       "usda": "Ota USDA-haku käyttöön",
       "usda-login-title": "USDA - Yhdysvaltojen maatalousministeriö",
@@ -307,6 +320,7 @@
     "french": "Ranska",
     "swedish": "Ruotsi",
     "russian": "Venäjä",
+    "polish": "Polish",
     "portuguese": "Portugali",
     "bulgarian": "Bulgaria",
     "hebrew": "Hebrea",
