@@ -289,7 +289,7 @@ app.FoodEditor = {
 
         let input = document.createElement("input");
         input.id = k;
-        input.className = "align-end";
+        input.className = "align-end auto-select";
         input.type = "number";
         input.step = "0.01";
         input.placeholder = "0";
@@ -328,10 +328,10 @@ app.FoodEditor = {
     app.FoodEditor.el.category.innerHTML = "";
 
     mealNames.forEach((x, i) => {
-      if (x != "" && x != undefined) {
+      if (x != "") {
         let option = document.createElement("option");
         option.value = i;
-        option.text = x;
+        option.text = app.strings.diary["default-meals"][x.toLowerCase()] || x;
         if (i == item.category) option.setAttribute("selected", "");
         app.FoodEditor.el.category.append(option);
       }

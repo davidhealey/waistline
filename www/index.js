@@ -445,10 +445,12 @@ window.addEventListener("contextmenu", (e) => {
 
 // Auto-select text in input fields on focus
 let focusedElement;
-$(document).on("focus", "input.auto-select", function() {
-  if (focusedElement == this) return;
-  focusedElement = this;
-  setTimeout(function() { focusedElement.select(); }, 50);
+$(document).on("focus", "input.auto-select", (e) => {
+  e.preventDefault();
+  let target = e.target;
+  if (focusedElement == target) return;
+  focusedElement = target;
+  focusedElement.select();
 });
 
 // Android back button 
