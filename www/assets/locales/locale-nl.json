@@ -79,6 +79,8 @@
     "number-of-calories": "Geef alsjeblieft de hoeveelheid calorieën op voor dit voedsel.",
     "add-to-off": "Wil je dit project aan de Open Food Facts-database toevoegen?",
     "main-image": "Voeg alsjeblieft een hoofdafbeelding toe",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Product succesvol toegevoegd aan Open Food Facts",
     "upload-failed": "Het uploaden is helaas mislukt. Probeer het opnieuw of neem contact op met de ontwikkelaar.",
     "what-meal": "Welke maaltijd is dit?"
