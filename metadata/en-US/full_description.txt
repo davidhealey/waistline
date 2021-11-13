@@ -1,0 +1,1 @@
+Waistline is a libre calorie counter and weight tracker that allows the user to keep a diary of the food they eat and variations in their weight. All data is kept on the user's device and can be exported or imported easily when needed. The app includes a barcode scanner that connects to the Open Food Facts database to pull in product information.
