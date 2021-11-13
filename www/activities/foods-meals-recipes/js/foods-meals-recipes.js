@@ -460,9 +460,9 @@ app.FoodsMealsRecipes = {
           let energy = item.nutrition.calories;
 
           if (energy !== undefined && !isNaN(energy)) {
-            let units = app.nutrimentUnits;
-            let energyUnit = app.Settings.get("units", "energy");
-            let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || "";
+            const units = app.nutrimentUnits;
+            const energyUnit = app.Settings.get("units", "energy");
+            const energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
 
             if (energyUnit == units.kilojoules)
               energy = item.nutrition.kilojoules || app.Utils.convertUnit(energy, units.calories, units.kilojoules);
