@@ -79,6 +79,8 @@
     "number-of-calories": "Por favor, forneça o número de calorias para esta comida.",
     "add-to-off": "Gostaria de adicionar este produto ao banco de dados Open Food Facts?",
     "main-image": "Por favor, adicione uma imagem principal",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Produto adicionado com sucesso ao Open Food Facts",
     "upload-failed": "Infelizmente o envio falhou. Tente novamente ou entre em contato com o desenvolvedor.",
     "what-meal": "Que refeição é essa?"
