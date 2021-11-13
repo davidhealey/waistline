@@ -70,10 +70,8 @@ app.Foodlist = {
     //Search form 
     app.Foodlist.el.searchForm.addEventListener("submit", (e) => {
       app.Utils.hideKeyboard();
-      if (navigator.connection.type !== "none")
+      if (app.Utils.isInternetConnected())
         this.search(app.Foodlist.el.search.value);
-      else
-        app.Utils.toast(app.strings.dialogs["no-internet"] || "No Internet Connection");
     });
 
     if (!app.Foodlist.el.scan.hasClickEvent) {
@@ -363,24 +361,24 @@ app.Foodlist = {
 
             // Not already in foodlist so search OFF 
             if (item === undefined || (item.archived !== undefined && item.archived == true)) {
-              if (navigator.connection.type == "none") {
-                app.Utils.toast(app.strings.dialogs["no-internet"] || "No Internet Connection");
+
+              if (!app.Utils.isInternetConnected()) {
                 resolve(undefined);
+              } else {
+                // Display loading image
+                app.f7.preloader.show();
+                let result = await app.OpenFoodFacts.search(code);
+                app.f7.preloader.hide();
+
+                // When downloading data for archived items reuse the same id
+                if (item !== undefined && item.id !== undefined)
+                  result[0].id = item.id;
+
+                if (result !== undefined && result[0] !== undefined)
+                  item = result[0];
+                else
+                  app.Foodlist.gotoUploadEditor(code);
               }
-
-              // Display loading image
-              app.f7.preloader.show();
-              let result = await app.OpenFoodFacts.search(code);
-              app.f7.preloader.hide();
-
-              // When downloading data for archived items reuse the same id
-              if (item !== undefined && item.id !== undefined)
-                result[0].id = item.id;
-
-              if (result !== undefined && result[0] !== undefined)
-                item = result[0];
-              else
-                app.Foodlist.gotoUploadEditor(code);
             }
             resolve(item);
           } else {

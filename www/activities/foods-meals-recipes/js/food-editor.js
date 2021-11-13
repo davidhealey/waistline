@@ -71,6 +71,7 @@ app.FoodEditor = {
     app.FoodEditor.el.title = document.querySelector(".page[data-name='food-editor'] #title");
     app.FoodEditor.el.link = document.querySelector(".page[data-name='food-editor'] #link");
     app.FoodEditor.el.linkIcon = document.querySelector(".page[data-name='food-editor'] #link-icon");
+    app.FoodEditor.el.download = document.querySelector(".page[data-name='food-editor'] #download");
     app.FoodEditor.el.upload = document.querySelector(".page[data-name='food-editor'] #upload");
     app.FoodEditor.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
     app.FoodEditor.el.barcodeContainer = document.querySelector(".page[data-name='food-editor'] #barcode-container");
@@ -117,7 +118,15 @@ app.FoodEditor = {
       app.FoodEditor.setLinkButtonIcon();
     });
 
-    //Upload
+    // Download
+    if (!app.FoodEditor.el.download.hasClickEvent) {
+      app.FoodEditor.el.download.addEventListener("click", async (e) => {
+        app.FoodEditor.download();
+      });
+      app.FoodEditor.el.download.hasClickEvent = true;
+    }
+
+    // Upload
     if (!app.FoodEditor.el.upload.hasClickEvent) {
       app.FoodEditor.el.upload.addEventListener("click", async (e) => {
         await app.FoodEditor.upload();
@@ -158,11 +167,15 @@ app.FoodEditor = {
     } else {
       app.FoodEditor.el.quantityContainer.style.display = "none";
 
-      if (app.FoodEditor.item !== undefined)
+      if (app.FoodEditor.item !== undefined) {
         app.FoodEditor.el.link.style.display = "block";
+
+        if (app.FoodEditor.item.barcode !== undefined)
+          app.FoodEditor.el.download.style.display = "block";
+      }
     }
 
-    if (app.Settings.get("foodlist", "show-notes") == true && app.FoodEditor.scan != true)
+    if (app.Settings.get("foodlist", "show-notes") == true)
       app.FoodEditor.el.notesContainer.style.display = "block";
     else
       app.FoodEditor.el.notesContainer.style.display = "none";
@@ -350,7 +363,7 @@ app.FoodEditor = {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = item.barcode;
 
-      if (navigator.connection.type != "none") {
+      if (navigator.connection.type !== "none") {
         let url = "https://world.openfoodfacts.org/product/" + item.barcode;
         if (!app.FoodEditor.el.barcode.hasClickEvent) {
           app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
@@ -377,15 +390,15 @@ app.FoodEditor = {
   },
 
   populateImage: function(item) {
+    app.FoodEditor.el.mainPhoto.innerHTML = "";
+
     if (app.Settings.get("foodlist", "show-images")) {
-
       let wifiOnly = app.Settings.get("foodlist", "wifi-images");
-
       if (app.mode == "development") wifiOnly = false;
 
       if (navigator.connection.type !== "none") {
         if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-          if (item.image_url !== undefined && item.image_url != "" && item.image_url !== "undefined") {
+          if (item.image_url !== undefined && item.image_url !== "" && item.image_url !== "undefined") {
             let img = document.createElement("img");
             img.src = unescape(item.image_url);
             img.style["max-width"] = "80vw";
@@ -585,6 +598,55 @@ app.FoodEditor = {
     }
   },
 
+  download: function() {
+    if (app.Utils.isInternetConnected()) {
+
+      let title = app.strings.dialogs["download-title"] || "Retrieve latest information";
+      let text = app.strings.dialogs["download-text"] || "Your local values will be replaced by the latest information available for this item";
+
+      let div = document.createElement("div");
+      div.className = "dialog-text";
+      div.innerText = text;
+
+      let dialog = app.f7.dialog.create({
+        title: title,
+        content: div.outerHTML,
+        buttons: [{
+            text: app.strings.dialogs.cancel || "Cancel",
+            keyCodes: [27]
+          },
+          {
+            text: app.strings.dialogs.ok || "OK",
+            keyCodes: [13],
+            onClick: async () => {
+              let barcode = app.FoodEditor.item.barcode;
+              let result;
+
+              app.f7.preloader.show();
+
+              if (barcode !== undefined) {
+                if (barcode.includes("fdcId_"))
+                  result = await app.USDA.search(barcode.replace("fdcId_", ""));
+                else
+                  result = await app.OpenFoodFacts.search(barcode);
+              }
+
+              app.f7.preloader.hide();
+
+              if (result !== undefined && result.length > 0) {
+                item = result[0];
+                item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
+                app.FoodEditor.populateFields(item);
+                app.FoodEditor.populateImage(item);
+                app.FoodEditor.renderNutritionFields(item);
+              }
+            }
+          }
+        ]
+      }).open();
+    }
+  },
+
   upload: function() {
     return new Promise(async function(resolve, reject) {
       if (app.Utils.isInternetConnected()) {
@@ -601,7 +663,8 @@ app.FoodEditor = {
                 app.Utils.toast(msg);
               });
 
-              app.Utils.toast("Upload Complete. Please rescan the barcode", 3500);
+              let msg = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
+              app.Utils.toast(msg, 2500);
 
               app.f7.preloader.hide();
 
