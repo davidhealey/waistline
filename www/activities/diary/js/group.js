@@ -122,13 +122,13 @@ app.Group = {
     let right = document.createElement("div");
     right.className = "margin-horizontal energy link icon-only";
     let value = nutrition[energyName] || 0;
-    let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || "";
+    let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
 
     right.addEventListener("click", function(e) {
       app.Diary.showCategoryNutriments(id, nutrition);
     });
 
-    right.innerHTML = "<strong>" + value.toFixed(0) + " " + energyUnitSymbol + "</strong>";
+    right.innerHTML = "<strong>" + Math.round(value) + " " + energyUnitSymbol + "</strong>";
     row.appendChild(right);
   },
 

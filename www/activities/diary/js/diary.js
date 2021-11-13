@@ -374,7 +374,7 @@ app.Diary = {
           div.innerText = app.Utils.tidyText(item.notes, 50);
 
         // Input fields
-        let inputs = document.createElement("div");
+        let inputs = document.createElement("form");
         inputs.className = "list scroll-dialog";
         let ul = document.createElement("ul");
         inputs.appendChild(ul);
@@ -586,11 +586,11 @@ app.Diary = {
     const fields = app.measurements;
 
     // Create dialog inputs
-    let div = document.createElement("div");
-    div.className = "list scroll-dialog";
+    let inputs = document.createElement("form");
+    inputs.className = "list scroll-dialog";
 
     let ul = document.createElement("ul");
-    div.appendChild(ul);
+    inputs.appendChild(ul);
 
     for (let i = 0; i < fields.length; i++) {
       let x = fields[i];
@@ -619,7 +619,7 @@ app.Diary = {
       }
 
       let name = app.strings.statistics[x] || x;
-      let unitSymbol = app.strings["unit-symbols"][unit] || "";
+      let unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
       let li = document.createElement("li");
       li.className = "item-content item-input";
@@ -652,7 +652,7 @@ app.Diary = {
 
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: inputs.outerHTML,
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
           keyCodes: [27]
