@@ -79,6 +79,8 @@
     "number-of-calories": "Anna kalorien määrä tälle ruoalle.",
     "add-to-off": "Haluatko lisätä tämän tuotteen Open Food Facts -tietokantaan?",
     "main-image": "Lisää tuotteen pääkuva",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Tuote lisätty Open Food Factsiin",
     "upload-failed": "Valitettavasti lataus epäonnistui. Yritä uudelleen tai ota yhteyttä kehittäjään.",
     "what-meal": "Mikä ateria tämä on?"
@@ -233,7 +235,7 @@
       "title": "Päiväkirja",
       "categories": "Kategoriat",
       "timestamps": "Näytä aikaleimat",
-      "thumbnails": "Näytä tuotekuvat",
+      "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
       "show-units": "Näytä ravintoyksiköt",
       "prompt-add-items": "Prompt for quantity when adding items"
@@ -250,7 +252,7 @@
       "sort": "Järjestä ruoat",
       "sort-date": "Viimeksi käytetty",
       "sort-alpha": "Aakkosellinen",
-      "thumbnails": "Näytä tuotekuvat",
+      "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä",
