@@ -79,8 +79,8 @@
     "number-of-calories": "Bitte gib die Anzahl der Kalorien für dieses Essen an.",
     "add-to-off": "Möchtest du dieses Produkt zur Open Food Facts Datenbank hinzufügen?",
     "main-image": "Bitte lade ein gültiges Bild hoch",
-    "download-title": "Retrieve latest information",
-    "download-text": "Your local values will be replaced by the latest information available for this item",
+    "download-title": "Neueste Daten abrufen",
+    "download-text": "Deine lokalen Werte werden mit den neuesten verfügbaren Daten für den Artikel überschrieben",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
     "what-meal": "Welche Mahlzeit ist das?"
