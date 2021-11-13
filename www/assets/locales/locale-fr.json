@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "kilocalories",
-    "kilojoules": "kilojoules",
+    "calories": "Kilocalories",
+    "kilojoules": "Kilojoules",
     "fat": "Matières grasses",
     "saturated-fat": "Acides gras saturés",
     "carbohydrates": "Glucides",
@@ -79,6 +79,8 @@
     "number-of-calories": "Veuillez indiquer le nombre de calories pour cet aliment.",
     "add-to-off": "Souhaitez-vous ajouter ce produit dans la base de données Open Food Facts ?",
     "main-image": "Veuillez ajouter une image principale",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Produit ajouté à Open Food Facts",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?"
