@@ -364,6 +364,21 @@ app.FoodsMealsRecipes = {
     };
   },
 
+  getItemEnergy: function(nutrition) {
+    let energy = nutrition.calories;
+
+    if (energy !== undefined && !isNaN(energy)) {
+      const units = app.nutrimentUnits;
+      const energyUnit = app.Settings.get("units", "energy");
+
+      if (energyUnit == units.kilojoules)
+        energy = nutrition.kilojoules || app.Utils.convertUnit(energy, units.calories, units.kilojoules);
+
+      return energy;
+    }
+    return 0;
+  },
+
   renderItem: async function(data, el, checkbox, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
 
     if (data !== undefined) {
@@ -457,21 +472,15 @@ app.FoodsMealsRecipes = {
 
         //Energy
         if (item.nutrition !== undefined) {
-          let energy = item.nutrition.calories;
+          let energy = app.FoodsMealsRecipes.getItemEnergy(item.nutrition);
 
-          if (energy !== undefined && !isNaN(energy)) {
-            const units = app.nutrimentUnits;
-            const energyUnit = app.Settings.get("units", "energy");
-            const energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
+          const energyUnit = app.Settings.get("units", "energy");
+          const energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
 
-            if (energyUnit == units.kilojoules)
-              energy = item.nutrition.kilojoules || app.Utils.convertUnit(energy, units.calories, units.kilojoules);
-
-            let after = document.createElement("div");
-            after.className = "item-after";
-            after.innerHTML = Math.round(energy).toFixed(0) + " " + energyUnitSymbol;
-            row.appendChild(after);
-          }
+          let after = document.createElement("div");
+          after.className = "item-after";
+          after.innerHTML = Math.round(energy) + " " + energyUnitSymbol;
+          row.appendChild(after);
         }
 
         //Brand 
