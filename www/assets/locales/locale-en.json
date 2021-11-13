@@ -79,6 +79,8 @@
     "number-of-calories": "Please provide the number of calories for this food.",
     "add-to-off": "Would you like to add this product to the Open Food Facts database?",
     "main-image": "Please add a main image",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Product successfully added to Open Food Facts",
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
     "what-meal": "What meal is this?"

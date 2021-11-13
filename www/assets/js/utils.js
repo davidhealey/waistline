@@ -21,11 +21,10 @@ app.Utils = {
 
   isInternetConnected: function() {
     if (navigator.connection.type == "none") {
-      let msg = app.strings["no-internet"] || "No Internet Connection";
-      app.Utils.notify(msg, "error");
+      let msg = app.strings.dialogs["no-internet"] || "No Internet Connection";
+      app.Utils.toast(msg);
       return false;
     }
-
     return true;
   },
 
