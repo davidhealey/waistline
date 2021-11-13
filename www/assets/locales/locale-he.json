@@ -79,6 +79,8 @@
     "number-of-calories": "נא לספק את מספר הקלוריות למאכל זה.",
     "add-to-off": "להוסיף את המוצר הזה למסד הנתונים Open Food Facts?",
     "main-image": "נא להוסיף תמונה ראשית",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "המוצר נוסף בהצלחה אל Open Food Facts",
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
     "what-meal": "איזו מנה זו?"
