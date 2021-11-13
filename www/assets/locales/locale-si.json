@@ -79,6 +79,8 @@
     "number-of-calories": "මෙම ආහාරය සඳහා කැලරි ගණන සපයන්න.",
     "add-to-off": "Would you like to add this product to the Open Food Facts database?",
     "main-image": "ප්‍රධාන පිටුවක් එකතුකරන්න",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Product successfully added to Open Food Facts",
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
     "what-meal": "What meal is this?"
