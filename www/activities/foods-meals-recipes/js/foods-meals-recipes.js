@@ -560,32 +560,25 @@ app.FoodsMealsRecipes = {
     } else {
       app.FoodsMealsRecipes.el.scan.style.display = "none";
       app.FoodsMealsRecipes.el.submit.style.display = "block";
-      
+
       // Get energy for selection
       const energyUnit = app.Settings.get("units", "energy");
-      const units = app.nutrimentUnits;
-      let items = [];
-      
+      const energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
+      let energySum = 0;
+
       this.selection.forEach((x) => {
         let item = JSON.parse(x);
-        item.quantity = 1;
-        items.push(item);
+        if (item.nutrition !== undefined)
+          energySum += app.FoodsMealsRecipes.getItemEnergy(item.nutrition);
       });
-      
-      const nutrition = await this.getTotalNutrition(items);
-      
-      let energy = 0;      
-      if (nutrition["calories"] != 0)
-        energyUnit == units.calories ? energy = nutrition["calories"] : energy = nutrition["kilojoules"];
 
-      // Title bar text 
+      // Title bar text
       let text = app.strings["foods-meals-recipes"].selected || "Selected";
-      
-      if (energy != 0)
-        text += " | " + Math.round(energy) + energyUnit;
+
+      if (energySum !== 0)
+        text += " | " + Math.round(energySum) + " " + energyUnitSymbol;
 
       app.FoodsMealsRecipes.el.title.innerHTML = app.FoodsMealsRecipes.selection.length + " " + text;
-      
     }
   },
 
