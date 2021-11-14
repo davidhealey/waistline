@@ -80,7 +80,7 @@
     "add-to-off": "Czy chcesz dodać ten produkt do bazy danych Open Food Facts?",
     "main-image": "Proszę dodać główny obrazek",
     "download-title": "Pobierz najnowsze informacje",
-    "download-text": "Your local values will be replaced by the latest information available for this item",
+    "download-text": "Twoje lokalne wartości zostaną zastąpione najnowszymi informacjami dostępnymi dla tego produktu",
     "upload-success": "Produkt pomyślnie dodany do Open Food Facts",
     "upload-failed": "Niestety przesłanie nie powiodło się, spróbuj ponownie lub skontaktuj się z programistą.",
     "what-meal": "Co to za posiłek?"
