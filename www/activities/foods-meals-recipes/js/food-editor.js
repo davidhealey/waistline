@@ -29,6 +29,7 @@ app.FoodEditor = {
   init: function(context) {
 
     app.FoodEditor.item = undefined;
+    app.FoodEditor.item_image_url = undefined;
     app.FoodEditor.scan = false;
     app.FoodEditor.images = [];
 
@@ -382,6 +383,7 @@ app.FoodEditor = {
   },
 
   populateImage: function(item) {
+    app.FoodEditor.item_image_url = item.image_url;
     app.FoodEditor.el.mainPhoto.innerHTML = "";
 
     if (app.Settings.get("foodlist", "show-images")) {
@@ -540,8 +542,8 @@ app.FoodEditor = {
         else
           item.unit = app.FoodEditor.el.uploadUnit.value;
 
-        if (data !== undefined && data.image_url !== undefined)
-          item.image_url = data.image_url;
+        if (app.FoodEditor.item_image_url !== undefined)
+          item.image_url = app.FoodEditor.item_image_url;
 
         item.nutrition = {};
 
