@@ -699,7 +699,8 @@ app.Diary = {
     window.localStorage.setItem("stats", JSON.stringify(stats));
 
     dbHandler.put(entry, "diary").onsuccess = function(e) {
-      app.Utils.toast("Saved");
+      let msg = app.strings.diary["log-saved"] || "Saved";
+      app.Utils.toast(msg);
     };
   },
 

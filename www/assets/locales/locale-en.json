@@ -57,7 +57,8 @@
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Delete",
@@ -142,6 +143,7 @@
     "quick-add": "Quick Add",
     "yesterdays-meal": "Yesterday's %s",
     "log-title": "Today's Stats",
+    "log-saved": "Saved",
     "no-data": "No Data",
     "default-meals": {
       "breakfast": "Breakfast",
