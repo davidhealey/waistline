@@ -107,7 +107,7 @@ app.OpenFoodFacts = {
     if (item.serving_size) {
       result.portion = parseInt(item.serving_size);
       let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/[^a-z]+|\s+/gmi, "");
-      result.unit = app.strings["unit-symbols"][itemUnit] || itemUnit;
+      result.unit = app.strings["unit-symbols"][itemUnit.toLowerCase()] || itemUnit;
       if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
