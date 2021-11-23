@@ -257,7 +257,8 @@ app.Settings = {
         this.put("integration", "off-username", username);
         this.put("integration", "off-password", password);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
+        let msg = app.strings.settings.integration["login-success"] || "Login Successful";
+        app.Utils.toast(msg);
       } else {
         let msg = app.strings.settings.integration["invalid-credentials"] || "Invalid Credentials";
         app.Utils.toast(msg);
@@ -271,7 +272,8 @@ app.Settings = {
       if (key == "" || await app.USDA.testApiKey(key)) {
         this.put("integration", "usda-key", key);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
+        let msg = app.strings.settings.integration["login-success"] || "Login Successful";
+        app.Utils.toast(msg);
       } else {
         let msg = app.strings.settings.integration["invalid-api-key"] || "API Key Invalid";
         app.Utils.toast(msg);

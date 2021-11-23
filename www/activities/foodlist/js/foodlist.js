@@ -120,7 +120,7 @@ app.Foodlist = {
         }
       } else {
         let msg = app.strings.dialogs["no-search-providers"] || "No search providers are enabled";
-        app.Utils.toast(msg, 2000);
+        app.Utils.toast(msg);
       }
     }
 

@@ -467,7 +467,7 @@ app.FoodEditor = {
       (err) => {
         if (err != "No Image Selected") {
           let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-          app.Utils.toast(msg, 2000);
+          app.Utils.toast(msg, 2500);
           console.error(err);
         }
       }, options);
