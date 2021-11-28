@@ -155,12 +155,6 @@ app.OpenFoodFacts = {
       }
     }
 
-    // Ingredients and traces
-    if (item.ingredients_text !== undefined)
-      result.ingredients_text = he.decode(item.ingredients_text);
-    if (item.traces !== undefined)
-      result.traces = he.decode(item.traces);
-
     if (result.name == "" || result.nutrition.calories == undefined || result.portion === undefined)
       result = undefined;
 
@@ -201,7 +195,7 @@ app.OpenFoodFacts = {
           if (data.images !== undefined) {
             let count = data.images.filter(x => x == undefined).length;
 
-            if (data.images.length > 0 && count < 3) {
+            if (data.images.length > 0 && count < 2) {
 
               await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
 
@@ -235,8 +229,6 @@ app.OpenFoodFacts = {
     if (data.brand !== undefined) string += "&brands=" + data.brand;
     string += data.nutrition_per;
     string += "&serving_size=" + data.portion + data.unit;
-    if (data.ingredients !== undefined) string += "&ingredients_text=" + data.ingredients;
-    if (data.traces !== undefined) string += "&traces=" + data.traces;
 
     // Energy
     if (data.nutrition.calories !== undefined && data.nutrition.kilojoules == undefined)
@@ -298,7 +290,7 @@ app.OpenFoodFacts = {
           fileEntry.file((file) => {
             console.log("Reading file");
 
-            const imagefields = ["front", "nutrition", "ingredients"];
+            const imagefields = ["front", "nutrition"];
             let reader = new FileReader();
 
             reader.onloadend = function() {

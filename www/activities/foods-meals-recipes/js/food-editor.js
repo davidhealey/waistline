@@ -88,8 +88,6 @@ app.FoodEditor = {
     app.FoodEditor.el.notes = document.querySelector(".page[data-name='food-editor'] #notes");
     app.FoodEditor.el.notesContainer = document.querySelector(".page[data-name='food-editor'] #notes-container");
     app.FoodEditor.el.nutrition = document.querySelector(".page[data-name='food-editor'] #nutrition");
-    app.FoodEditor.el.ingredients_text = document.querySelector(".page[data-name='food-editor'] #ingredients_text");
-    app.FoodEditor.el.traces = document.querySelector(".page[data-name='food-editor'] #traces");
     app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
     app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
     app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
@@ -151,8 +149,6 @@ app.FoodEditor = {
       app.FoodEditor.el.name.disabled = true;
       app.FoodEditor.el.brand.disabled = true;
       app.FoodEditor.el.unit.disabled = true;
-      app.FoodEditor.el.ingredients_text.disabled = true;
-      app.FoodEditor.el.traces.disabled = true;
       app.FoodEditor.el.link.style.display = "none";
       app.FoodEditor.linked = true;
       app.FoodEditor.el.quantityContainer.style.display = "block";
@@ -160,8 +156,6 @@ app.FoodEditor = {
       app.FoodEditor.el.name.style.color = "grey";
       app.FoodEditor.el.brand.style.color = "grey";
       app.FoodEditor.el.unit.style.color = "grey";
-      app.FoodEditor.el.ingredients_text.style.color = "grey";
-      app.FoodEditor.el.traces.style.color = "grey";
       app.FoodEditor.el.notes.disabled = true;
       app.FoodEditor.el.notes.style.color = "grey";
     } else {
@@ -356,8 +350,6 @@ app.FoodEditor = {
     app.FoodEditor.el.brand.value = app.Utils.tidyText(item.brand, 200);
     app.FoodEditor.el.unit.value = item.unit || "";
     app.FoodEditor.el.notes.value = item.notes || "";
-    app.FoodEditor.el.ingredients_text.value = item.ingredients_text || "";
-    app.FoodEditor.el.traces.value = item.traces || "";
 
     if (item.barcode !== undefined && !item.barcode.includes("fdcId_")) {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
