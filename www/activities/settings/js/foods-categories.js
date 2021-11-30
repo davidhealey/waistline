@@ -203,8 +203,9 @@ app.FoodsCategories = {
           app.Settings.put("foodlist", "labels", labels);
 
           // Update category label for all foods, meals and recipes
+          const condition = IDBKeyRange.only(oldLabel);
           for (let store of app.FoodsCategories.storeNames) {
-            await dbHandler.processAllItems(store, (cursor) => {
+            await dbHandler.processItems(store, "categories", condition, (cursor) => {
               let item = cursor.value;
               if (item.categories !== undefined) {
                 let index = item.categories.indexOf(oldLabel);
@@ -260,8 +261,9 @@ app.FoodsCategories = {
             app.Settings.put("foodlist", "categories", categories);
 
             // Delete this category from all foods, meals and recipes
+            const condition = IDBKeyRange.only(label);
             for (let store of app.FoodsCategories.storeNames) {
-              await dbHandler.processAllItems(store, (cursor) => {
+              await dbHandler.processItems(store, "categories", condition, (cursor) => {
                 let item = cursor.value;
                 if (item.categories !== undefined) {
                   let index = item.categories.indexOf(label);

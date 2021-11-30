@@ -548,11 +548,12 @@ var dbHandler = {
     return request;
   },
 
-  processAllItems: function(storeName, callbackAction) {
+  processItems: function(storeName, index, condition, callbackAction) {
     return new Promise(function(resolve, reject) {
-      var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName);
+      var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName).index(index);
+      var cursorRequest = objectStore.openCursor(condition);
 
-      objectStore.openCursor().onsuccess = function(event) {
+      cursorRequest.onsuccess = function(event) {
         var cursor = event.target.result;
         if (cursor) {
           callbackAction(cursor);
