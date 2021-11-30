@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 2;
+const currentSettingsSchemaVersion = 3;
 
 var s;
 app.Settings = {
@@ -204,6 +204,19 @@ app.Settings = {
           newOrder.push(li[i].id);
         }
         app.Settings.put("nutriments", "order", newOrder);
+      });
+    }
+
+    // Food labels/categories list
+    let categoriesList = document.getElementById("food-categories-list");
+    if (categoriesList != undefined) {
+      app.f7.on("sortableSort", (e, data) => {
+        let li = categoriesList.getElementsByTagName("li");
+        let newOrder = [];
+        for (let i = 0; i < li.length; i++) {
+          newOrder.push(li[i].id);
+        }
+        app.Settings.put("foodlist", "labels", newOrder);
       });
     }
   },
@@ -404,6 +417,8 @@ app.Settings = {
         "prompt-add-items": false
       },
       foodlist: {
+        labels: app.FoodsCategories.defaultLabels,
+        categories: app.FoodsCategories.defaultCategories,
         sort: "alpha",
         "show-thumbnails": false,
         "wifi-thumbnails": true,
@@ -488,6 +503,12 @@ app.Settings = {
         });
       }
 
+      // Default food labels and categories must be added
+      if (settings.foodlist !== undefined && settings.foodlist.labels === undefined && settings.foodlist.categories === undefined) {
+        settings.foodlist.labels = app.FoodsCategories.defaultLabels;
+        settings.foodlist.categories = app.FoodsCategories.defaultCategories;
+      }
+
       settings.schemaVersion = currentSettingsSchemaVersion;
 
       if (saveChanges)
@@ -503,6 +524,9 @@ document.addEventListener("page:init", async function(e) {
 
   if (pageName == "settings-nutriments")
     app.Settings.populateNutrimentList();
+  
+  if (pageName == "settings-foods-categories")
+    app.FoodsCategories.populateFoodCategoriesList();
 
   //Settings and all settings subpages
   if (pageName.indexOf("settings") != -1) {

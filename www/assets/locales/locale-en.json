@@ -260,6 +260,9 @@
       "wifi-images": "Only show images over Wi-Fi",
       "show-notes": "Show Food Notes"
     },
+    "foods-categories": {
+      "title": "Labels and Categories"
+    },
     "statistics": {
       "title": "Statistics",
       "y-zero": "Begin Y Axis at Zero",
