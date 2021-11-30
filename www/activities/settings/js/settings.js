@@ -213,7 +213,7 @@ app.Settings = {
       app.f7.on("sortableSort", (e, data) => {
         let li = categoriesList.getElementsByTagName("li");
         let newOrder = [];
-        for (let i = 0; i < li.length; i++) {
+        for (let i = 0; i < li.length - 1; i++) {
           newOrder.push(li[i].id);
         }
         app.Settings.put("foodlist", "labels", newOrder);

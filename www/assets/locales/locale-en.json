@@ -261,7 +261,11 @@
       "show-notes": "Show Food Notes"
     },
     "foods-categories": {
-      "title": "Labels and Categories"
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Statistics",

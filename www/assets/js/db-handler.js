@@ -576,6 +576,22 @@ var dbHandler = {
     return request;
   },
 
+  processAllItems: function(storeName, callbackAction) {
+    return new Promise(function(resolve, reject) {
+      var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName);
+
+      objectStore.openCursor().onsuccess = function(event) {
+        var cursor = event.target.result;
+        if (cursor) {
+          callbackAction(cursor);
+          cursor.continue();
+        } else {
+          resolve();
+        }
+      };
+    });
+  },
+
   getAllItems: function(storeName) {
     return new Promise(function(resolve, reject) {
       var results = [];
