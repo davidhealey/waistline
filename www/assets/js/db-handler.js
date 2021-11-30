@@ -24,7 +24,7 @@ var dbHandler = {
     return new Promise(async function(resolve, reject) {
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 31;
+      var databaseVersion = 32;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -72,6 +72,11 @@ var dbHandler = {
           unique: false
         });
 
+        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+          unique: false,
+          multiEntry: true
+        });
+
         //Diary Store - one entry per day
         if (!DB.objectStoreNames.contains("diary")) {
           store = DB.createObjectStore('diary', {
@@ -104,6 +109,11 @@ var dbHandler = {
           unique: false
         });
 
+        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+          unique: false,
+          multiEntry: true
+        });
+
         //Recipes store
         if (!DB.objectStoreNames.contains("recipes")) {
           store = DB.createObjectStore("recipes", {
@@ -120,6 +130,11 @@ var dbHandler = {
 
         if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
           unique: false
+        });
+
+        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+          unique: false,
+          multiEntry: true
         });
 
         await dbHandler.upgradeDatabase(e.oldVersion, upgradeTransaction);
