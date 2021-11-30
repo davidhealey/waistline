@@ -56,7 +56,6 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('foodList');
         }
 
-        // Date object, the last time this item was referenced (edited or added to the diary)
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
@@ -73,25 +72,6 @@ var dbHandler = {
           unique: false
         });
 
-        if (!store.indexNames.contains("image_url")) store.createIndex('image_url', 'image_url', {
-          unique: false
-        });
-
-        // Portion - including unit
-        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {
-          unique: false
-        });
-
-        // Nutrition - per portion
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
-          unique: false
-        });
-
-        // Deleted foods are marked as archived
-        if (!store.indexNames.contains("archived")) store.createIndex('archived', 'archived', {
-          unique: false
-        });
-
         //Diary Store - one entry per day
         if (!DB.objectStoreNames.contains("diary")) {
           store = DB.createObjectStore('diary', {
@@ -102,18 +82,7 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('diary');
         }
 
-        // Date object
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
-          unique: false
-        });
-
-        // Stats - weight, etc.
-        if (!store.indexNames.contains("stats")) store.createIndex('stats', 'stats', {
-          unique: false
-        });
-
-        // Items array -- foods, recipes, quick-add, etc.
-        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
           unique: false
         });
 
@@ -127,22 +96,15 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('meals');
         }
 
-        // Datetime
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
 
-        // Name
         if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
           unique: false
         });
 
-        // Items
-        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
-          unique: false
-        });
-
-        // Recipes store
+        //Recipes store
         if (!DB.objectStoreNames.contains("recipes")) {
           store = DB.createObjectStore("recipes", {
             keyPath: 'id',
@@ -157,11 +119,6 @@ var dbHandler = {
         });
 
         if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
-          unique: false
-        });
-
-        // Items
-        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
           unique: false
         });
 
