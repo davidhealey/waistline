@@ -135,7 +135,7 @@ app.FoodsCategories = {
       input.type = "text";
       if (field == "label") {
         input.setAttribute("value", label || "");
-        input.setAttribute("maxlength", "4");
+        input.setAttribute("maxlength", "8");
       } else {
         input.setAttribute("value", description || "");
       }
