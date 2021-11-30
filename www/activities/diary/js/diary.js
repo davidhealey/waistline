@@ -375,7 +375,7 @@ app.Diary = {
 
         // Input fields
         let inputs = document.createElement("form");
-        inputs.className = "list scroll-dialog";
+        inputs.className = "list no-hairlines scroll-dialog";
         let ul = document.createElement("ul");
         inputs.appendChild(ul);
 
@@ -587,7 +587,7 @@ app.Diary = {
 
     // Create dialog inputs
     let inputs = document.createElement("form");
-    inputs.className = "list scroll-dialog";
+    inputs.className = "list no-hairlines scroll-dialog";
 
     let ul = document.createElement("ul");
     inputs.appendChild(ul);
