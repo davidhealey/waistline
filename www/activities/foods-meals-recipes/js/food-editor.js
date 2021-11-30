@@ -414,18 +414,20 @@ app.FoodEditor = {
       let oldValue;
 
       if (field == "portion" || field == "quantity")
-        oldValue = item[field];
+        oldValue = app.FoodEditor.el[field].oldValue;
       else
         oldValue = document.querySelector("#food-edit-form #" + field).oldValue;
 
       if (oldValue > 0 && newValue > 0) {
+        let oldQuantity = app.FoodEditor.el.quantity.oldValue;
         let newQuantity = app.FoodEditor.el.quantity.value;
 
         if (field == "portion" || field == "quantity") {
+          let oldPortion = app.FoodEditor.el.portion.oldValue;
           let newPortion = app.FoodEditor.el.portion.value;
-          multiplier = (newPortion / item.portion) * (newQuantity / (item.quantity || 1));
+          multiplier = (newPortion / oldPortion) * (newQuantity / (oldQuantity || 1));
         } else {
-          multiplier = (newValue / oldValue) / (newQuantity / (item.quantity || 1));
+          multiplier = (newValue / oldValue) / (newQuantity / (oldQuantity || 1));
           app.FoodEditor.el.portion.value = Math.round(item.portion * multiplier * 100) / 100;
         }
 
