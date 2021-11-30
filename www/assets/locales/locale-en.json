@@ -254,6 +254,7 @@
       "sort": "Sort Foods",
       "sort-date": "By last used",
       "sort-alpha": "Alphabetically",
+      "category-labels": "Show Category Labels",
       "thumbnails": "Show Thumbnails",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Show Food Images",

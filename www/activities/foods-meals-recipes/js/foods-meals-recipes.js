@@ -464,10 +464,15 @@ app.FoodsMealsRecipes = {
         //Title
         let title = document.createElement("div");
         title.className = "item-title";
-        if (item.name === "Quick Add")
+        if (item.name == "Quick Add") {
           title.innerHTML = app.strings.diary["quick-add"] || "Quick Add";
-        else
-          title.innerHTML = app.Utils.tidyText(item.name, 50);
+        } else {
+          let text = "";
+          if (item.categories !== undefined && app.Settings.get("foodlist", "show-category-labels") == true)
+            text += item.categories.join("") + " ";
+          text += item.name;
+          title.innerHTML = app.Utils.tidyText(text, 50);
+        }
         row.appendChild(title);
 
         //Energy

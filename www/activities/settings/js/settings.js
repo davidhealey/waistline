@@ -420,6 +420,7 @@ app.Settings = {
         labels: app.FoodsCategories.defaultLabels,
         categories: app.FoodsCategories.defaultCategories,
         sort: "alpha",
+        "show-category-labels": false,
         "show-thumbnails": false,
         "wifi-thumbnails": true,
         "show-images": true,
