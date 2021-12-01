@@ -609,6 +609,39 @@ app.FoodsMealsRecipes = {
     return app.FoodsMealsRecipes.selection;
   },
 
+  populateCategoriesField: function(element, item, categoriesEditable) {
+    const labels = app.Settings.get("foodlist", "labels");
+    const categories = app.Settings.get("foodlist", "categories");
+
+    if (categoriesEditable) {
+      let select = document.createElement("select");
+      select.setAttribute("multiple", "");
+      element.firstElementChild.append(select);
+
+      labels.forEach((label) => {
+        let option = document.createElement("option");
+        option.value = label;
+        option.setAttribute("data-display-as", label);
+        option.text = label + " " + categories[label] || "";
+        if (item !== undefined && item.categories !== undefined && item.categories.includes(label))
+          option.setAttribute("selected", "");
+        select.append(option);
+      });
+
+      element.className = "item-link smart-select";
+  
+      app.f7.smartSelect.create({
+        el: element,
+        openIn: "popover"
+      });
+    } else {
+      let field = element.querySelector("#categories-list");
+      field.setAttribute("disabled", "");
+      if (item !== undefined && item.categories !== undefined)
+        field.innerText = item.categories.join(", ");
+    }
+  },
+
   gotoEditor: function(item) {
     let origin;
     if (app.FoodsMealsRecipes.tab !== undefined)

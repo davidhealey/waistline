@@ -10,6 +10,9 @@ html[dir="rtl"] option {direction: rtl;}
 
 .keep-ltr {direction: ltr;}
 
+#categories { width: 100%; }
+#categories-list:not([disabled]) { color: inherit; }
+
 i.searchbar-icon {margin: -12px 12px;}
 
 .item-content.item-inner {column-gap: 0.8em;}

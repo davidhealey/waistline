@@ -57,6 +57,9 @@ app.FoodEditor = {
     this.setRequiredFieldErrorMessage();
     this.setLinkButtonIcon();
 
+    const categoriesEditable = (app.FoodEditor.origin == "foodlist");
+    app.FoodsMealsRecipes.populateCategoriesField(app.FoodEditor.el.categories, app.FoodEditor.item, categoriesEditable);
+
     if (app.FoodEditor.item) {
       this.populateFields(app.FoodEditor.item);
       this.populateImage(app.FoodEditor.item);
@@ -78,6 +81,8 @@ app.FoodEditor = {
     app.FoodEditor.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
     app.FoodEditor.el.barcodeContainer = document.querySelector(".page[data-name='food-editor'] #barcode-container");
     app.FoodEditor.el.barcode = document.querySelector(".page[data-name='food-editor'] #barcode");
+    app.FoodEditor.el.categoriesContainer = document.querySelector(".page[data-name='food-editor'] #categories-container");
+    app.FoodEditor.el.categories = document.querySelector(".page[data-name='food-editor'] #categories");
     app.FoodEditor.el.name = document.querySelector(".page[data-name='food-editor'] #name");
     app.FoodEditor.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
     app.FoodEditor.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
@@ -160,6 +165,10 @@ app.FoodEditor = {
       app.FoodEditor.el.unit.style.color = "grey";
       app.FoodEditor.el.notes.disabled = true;
       app.FoodEditor.el.notes.style.color = "grey";
+
+      if (app.Settings.get("foodlist", "show-category-labels") !== true)
+        app.FoodEditor.el.categoriesContainer.style.display = "none";
+
     } else {
       app.FoodEditor.el.quantityContainer.style.display = "none";
 

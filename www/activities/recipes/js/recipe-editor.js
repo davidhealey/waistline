@@ -31,6 +31,7 @@ app.RecipeEditor = {
       if (context.recipe) {
         app.RecipeEditor.recipe = context.recipe;
         app.RecipeEditor.populateInputs(context.recipe);
+        app.FoodsMealsRecipes.populateCategoriesField(app.RecipeEditor.el.categories, app.RecipeEditor.recipe, true);
       }
 
       // From food list
@@ -51,6 +52,7 @@ app.RecipeEditor = {
 
   getComponents: function() {
     app.RecipeEditor.el.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
+    app.RecipeEditor.el.categories = document.querySelector(".page[data-name='recipe-editor'] #categories");
     app.RecipeEditor.el.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
     app.RecipeEditor.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
     app.RecipeEditor.el.add = document.querySelector(".page[data-name='recipe-editor'] #add-food");
