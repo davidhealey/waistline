@@ -190,7 +190,7 @@ app.FoodsCategories = {
     let title = app.strings.settings["foods-categories"]["edit"] || "Edit Category";
 
     app.FoodsCategories.showFoodCategoryDialog(title, oldLabel, oldDescription, async (newLabel, newDescription) => {
-      if (newLabel !== "" && !labels.includes(newLabel)) {
+      if (newLabel !== "" && (newLabel == oldLabel || !labels.includes(newLabel))) {
 
         if (newLabel !== oldLabel) {
           app.f7.preloader.show();
