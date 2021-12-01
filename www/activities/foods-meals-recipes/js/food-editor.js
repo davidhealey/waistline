@@ -20,6 +20,7 @@
 app.FoodEditor = {
 
   item: undefined,
+  item_image_url: undefined,
   scan: false,
   origin: undefined,
   linked: true,
@@ -193,9 +194,7 @@ app.FoodEditor = {
     let fields = Array.from(document.getElementsByClassName("upload-field"));
 
     fields.forEach((x) => {
-      if (app.FoodEditor.scan == true) {
-        x.style.display = "block";
-      } else {
+      if (app.FoodEditor.scan != true) {
         x.style.display = "none";
         x.required = false;
         x.validate = false;
@@ -209,8 +208,6 @@ app.FoodEditor = {
         x.style.display = "none";
         x.required = false;
         x.validate = false;
-      } else {
-        x.style.display = "block";
       }
     });
 
@@ -539,10 +536,10 @@ app.FoodEditor = {
         if (data !== undefined && data.barcode !== undefined)
           item.barcode = data.barcode;
 
-        if (app.FoodEditor.scan == false)
-          item.unit = app.FoodEditor.el.unit.value;
-        else
+        if (app.FoodEditor.scan == true)
           item.unit = app.FoodEditor.el.uploadUnit.value;
+        else
+          item.unit = app.FoodEditor.el.unit.value;
 
         if (app.FoodEditor.item_image_url !== undefined)
           item.image_url = app.FoodEditor.item_image_url;
