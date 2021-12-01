@@ -468,8 +468,12 @@ app.FoodsMealsRecipes = {
           title.innerHTML = app.strings.diary["quick-add"] || "Quick Add";
         } else {
           let text = "";
-          if (item.categories !== undefined && app.Settings.get("foodlist", "show-category-labels") == true)
-            text += item.categories.join("") + " ";
+          if (item.categories !== undefined && app.Settings.get("foodlist", "show-category-labels") == true) {
+            const labels = app.Settings.get("foodlist", "labels");
+            text += labels.filter((label) => {
+              return item.categories.includes(label);
+            }).join("") + " ";
+          }
           text += item.name;
           title.innerHTML = app.Utils.tidyText(text, 50);
         }
