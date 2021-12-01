@@ -159,6 +159,10 @@ app.RecipeEditor = {
           data[x.name] = x.value;
       });
 
+      let categories = app.FoodsMealsRecipes.getSelectedCategories();
+      if (categories !== undefined)
+        data.categories = categories;
+
       // Array index should not be saved with items
       if (data.items !== undefined) {
         data.items.forEach((x) => {

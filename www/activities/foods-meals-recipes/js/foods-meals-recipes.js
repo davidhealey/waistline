@@ -642,6 +642,15 @@ app.FoodsMealsRecipes = {
     }
   },
 
+  getSelectedCategories: function() {
+    let smartSelect = app.f7.smartSelect.get("#categories");
+    let select = smartSelect.selectEl;
+    let categories = [...select.options].filter((option) => option.selected).map((option) => option.value);
+    if (categories.length > 0)
+      return categories;
+    return undefined;
+  },
+
   gotoEditor: function(item) {
     let origin;
     if (app.FoodsMealsRecipes.tab !== undefined)
