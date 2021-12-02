@@ -47,15 +47,21 @@ app.MealEditor = {
 
     app.MealEditor.setRequiredFieldErrorMessage();
     app.MealEditor.bindUIActions();
+    app.MealEditor.setComponentVisibility();
   },
 
   getComponents: function() {
     app.MealEditor.el.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
+    app.MealEditor.el.categoriesContainer = document.querySelector(".page[data-name='meal-editor'] #categories-container");
     app.MealEditor.el.categories = document.querySelector(".page[data-name='meal-editor'] #categories");
     app.MealEditor.el.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
     app.MealEditor.el.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
     app.MealEditor.el.add = document.querySelector(".page[data-name='meal-editor'] #add-food");
     app.MealEditor.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #nutrition");
+  },
+
+  setComponentVisibility: function() {
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.MealEditor.el.categoriesContainer);
   },
 
   bindUIActions: function() {

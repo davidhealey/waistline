@@ -48,15 +48,21 @@ app.RecipeEditor = {
 
     app.RecipeEditor.setRequiredFieldErrorMessage();
     app.RecipeEditor.bindUIActions();
+    app.RecipeEditor.setComponentVisibility();
   },
 
   getComponents: function() {
     app.RecipeEditor.el.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
+    app.RecipeEditor.el.categoriesContainer = document.querySelector(".page[data-name='recipe-editor'] #categories-container");
     app.RecipeEditor.el.categories = document.querySelector(".page[data-name='recipe-editor'] #categories");
     app.RecipeEditor.el.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
     app.RecipeEditor.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
     app.RecipeEditor.el.add = document.querySelector(".page[data-name='recipe-editor'] #add-food");
     app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #nutrition");
+  },
+
+  setComponentVisibility: function() {
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.RecipeEditor.el.categoriesContainer);
   },
 
   bindUIActions: function() {

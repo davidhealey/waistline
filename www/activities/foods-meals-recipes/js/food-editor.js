@@ -180,6 +180,8 @@ app.FoodEditor = {
       }
     }
 
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.FoodEditor.el.categoriesContainer);
+
     if (app.Settings.get("foodlist", "show-notes") == true)
       app.FoodEditor.el.notesContainer.style.display = "block";
     else

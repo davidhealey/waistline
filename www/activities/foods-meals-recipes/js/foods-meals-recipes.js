@@ -469,7 +469,7 @@ app.FoodsMealsRecipes = {
         } else {
           let text = "";
           if (item.categories !== undefined && app.Settings.get("foodlist", "show-category-labels") == true) {
-            const labels = app.Settings.get("foodlist", "labels");
+            const labels = app.Settings.get("foodlist", "labels") || [];
             text += labels.filter((label) => {
               return item.categories.includes(label);
             }).join("") + " ";
@@ -610,8 +610,8 @@ app.FoodsMealsRecipes = {
   },
 
   populateCategoriesField: function(element, item, categoriesEditable) {
-    const labels = app.Settings.get("foodlist", "labels");
-    const categories = app.Settings.get("foodlist", "categories");
+    const labels = app.Settings.get("foodlist", "labels") || [];
+    const categories = app.Settings.get("foodlist", "categories") || {};
 
     if (categoriesEditable) {
       let select = document.createElement("select");
@@ -649,6 +649,12 @@ app.FoodsMealsRecipes = {
     if (categories.length > 0)
       return categories;
     return undefined;
+  },
+
+  setCategoriesVisibility: function(container) {
+    const labels = app.Settings.get("foodlist", "labels") || [];
+    if (labels.length == 0)
+      container.style.display = "none";
   },
 
   gotoEditor: function(item) {
