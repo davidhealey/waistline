@@ -642,8 +642,8 @@ app.FoodsMealsRecipes = {
     }
   },
 
-  getSelectedCategories: function() {
-    let smartSelect = app.f7.smartSelect.get("#categories");
+  getSelectedCategories: function(element) {
+    let smartSelect = app.f7.smartSelect.get(element);
     let select = smartSelect.selectEl;
     let categories = [...select.options].filter((option) => option.selected).map((option) => option.value);
     if (categories.length > 0)

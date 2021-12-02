@@ -158,7 +158,7 @@ app.MealEditor = {
           data[x.name] = x.value;
       });
 
-      let categories = app.FoodsMealsRecipes.getSelectedCategories();
+      let categories = app.FoodsMealsRecipes.getSelectedCategories(app.MealEditor.el.categories);
       if (categories !== undefined)
         data.categories = categories;
 

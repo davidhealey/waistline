@@ -576,7 +576,7 @@ app.FoodEditor = {
           }
         }
 
-        let categories = app.FoodsMealsRecipes.getSelectedCategories();
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.FoodEditor.el.categories);
         if (categories !== undefined)
           item.categories = categories;
       }
