@@ -637,8 +637,11 @@ app.FoodsMealsRecipes = {
     } else {
       let field = element.querySelector("#categories-list");
       field.setAttribute("disabled", "");
-      if (item !== undefined && item.categories !== undefined)
-        field.innerText = item.categories.join(", ");
+      if (item !== undefined && item.categories !== undefined) {
+        field.innerText = labels.filter((label) => {
+          return item.categories.includes(label);
+        }).join(", ");
+      }
     }
   },
 
