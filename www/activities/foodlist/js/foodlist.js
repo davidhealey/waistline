@@ -93,6 +93,8 @@ app.Foodlist = {
     if (query != "") {
       app.f7.preloader.show();
 
+      app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
+
       let offList = [];
       let usdaList = [];
 
