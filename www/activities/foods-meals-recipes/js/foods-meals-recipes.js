@@ -239,19 +239,32 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  filterList: function(term, list) {
+  filterList: function(query, categories, list) {
     let result = list;
 
-    if (term != "") {
-      let exp = new RegExp(term, "i");
+    if (query !== "" || categories !== undefined) {
+      let queryRegExp = new RegExp(query, "i");
+      let categoriesFilter = categories || [];
 
-      //Filter by name and brand
-      result = result.filter(function(el) {
-        if (el) {
-          if (el.name && el.brand)
-            return el.name.match(exp) || el.brand.match(exp);
-          else if (el.name)
-            return el.name.match(exp);
+      // Filter by name, brand and categories
+      result = result.filter((item) => {
+        if (item) {
+          if (item.name && item.brand) {
+            if (!item.name.match(queryRegExp) && !item.brand.match(queryRegExp))
+              return false;
+          } else if (item.name) {
+            if (!item.name.match(queryRegExp))
+              return false;
+          }
+          for (let category of categoriesFilter) {
+            if (item.categories) {
+              if (!item.categories.includes(category))
+                return false;
+            } else {
+              return false;
+            }
+          }
+          return true;
         }
         return false;
       });

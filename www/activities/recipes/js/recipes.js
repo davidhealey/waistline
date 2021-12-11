@@ -162,13 +162,10 @@ app.Recipes = {
       backdrop: false,
       customSearch: true,
       on: {
-        async search(sb, query, previousQuery) {
-          if (query != "") {
-            app.Recipes.list = app.FoodsMealsRecipes.filterList(query, app.Recipes.filterList);
-          } else {
-            app.Recipes.list = await app.Recipes.getListFromDB();
-            app.Recipes.filterList = app.Recipes.list;
-          }
+        async search(searchbar, query, previousQuery) {
+          if (query == "")
+            app.Recipes.filterList = await app.Recipes.getListFromDB();
+          app.Recipes.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Recipes.filterList);
           app.Recipes.renderList(true);
         },
       }

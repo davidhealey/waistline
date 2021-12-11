@@ -217,13 +217,10 @@ app.Meals = {
       backdrop: false,
       customSearch: true,
       on: {
-        async search(sb, query, previousQuery) {
-          if (query != "") {
-            app.Meals.list = app.FoodsMealsRecipes.filterList(query, app.Meals.filterList);
-          } else {
-            app.Meals.list = await app.Meals.getListFromDB();
-            app.Meals.filterList = app.Meals.list;
-          }
+        async search(searchbar, query, previousQuery) {
+          if (query == "")
+            app.Meals.filterList = await app.Meals.getListFromDB();
+          app.Meals.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Meals.filterList);
           app.Meals.renderList(true);
         },
       }
