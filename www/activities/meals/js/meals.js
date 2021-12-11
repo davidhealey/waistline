@@ -59,7 +59,6 @@ app.Meals = {
     app.Meals.el.fab = document.querySelector("#add-meal");
     app.Meals.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
     app.Meals.el.list = document.querySelector("#meal-list-container ul"); //Infinite list
-    app.Meals.el.spinner = document.querySelector("#meals-tab #spinner");
   },
 
   bindUIActions: function() {
