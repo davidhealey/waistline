@@ -157,18 +157,13 @@ app.Recipes = {
   },
 
   createSearchBar: function() {
-    const searchBar = app.f7.searchbar.create({
-      el: app.Recipes.el.searchForm,
-      backdrop: false,
-      customSearch: true,
-      on: {
-        async search(searchbar, query, previousQuery) {
-          if (query == "")
-            app.Recipes.filterList = await app.Recipes.getListFromDB();
-          app.Recipes.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Recipes.filterList);
-          app.Recipes.renderList(true);
-        },
-      }
+    app.FoodsMealsRecipes.initializeSearchBar(app.Recipes.el.searchForm, {
+      searchbarSearch: async (searchbar, query, previousQuery) => {
+        if (query == "")
+          app.Recipes.filterList = await app.Recipes.getListFromDB();
+        app.Recipes.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Recipes.filterList);
+        app.Recipes.renderList(true);
+      },
     });
   },
 };

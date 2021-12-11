@@ -212,18 +212,13 @@ app.Meals = {
   },
 
   createSearchBar: function() {
-    const searchBar = app.f7.searchbar.create({
-      el: app.Meals.el.searchForm,
-      backdrop: false,
-      customSearch: true,
-      on: {
-        async search(searchbar, query, previousQuery) {
-          if (query == "")
-            app.Meals.filterList = await app.Meals.getListFromDB();
-          app.Meals.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Meals.filterList);
-          app.Meals.renderList(true);
-        },
-      }
+    app.FoodsMealsRecipes.initializeSearchBar(app.Meals.el.searchForm, {
+      searchbarSearch: async (searchbar, query, previousQuery) => {
+        if (query == "")
+          app.Meals.filterList = await app.Meals.getListFromDB();
+        app.Meals.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Meals.filterList);
+        app.Meals.renderList(true);
+      },
     });
   },
 };

@@ -622,6 +622,15 @@ app.FoodsMealsRecipes = {
     return app.FoodsMealsRecipes.selection;
   },
 
+  initializeSearchBar: function(element, eventHandlers) {
+    app.f7.searchbar.create({
+      el: element,
+      backdrop: false,
+      customSearch: true,
+      on: eventHandlers
+    });
+  },
+
   populateCategoriesField: function(element, item, enablePicker, enableRipple, pickerEventHandlers) {
     const labels = app.Settings.get("foodlist", "labels") || [];
     const categories = app.Settings.get("foodlist", "categories") || {};

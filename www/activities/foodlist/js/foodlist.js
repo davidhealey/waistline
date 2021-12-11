@@ -224,18 +224,13 @@ app.Foodlist = {
   },
 
   createSearchBar: function() {
-    const searchBar = app.f7.searchbar.create({
-      el: app.Foodlist.el.searchForm,
-      backdrop: false,
-      customSearch: true,
-      on: {
-        async search(searchbar, query, previousQuery) {
-          if (query == "")
-            app.Foodlist.filterList = await app.Foodlist.getListFromDB();
-          app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Foodlist.filterList);
-          app.Foodlist.renderList(true);
-        },
-      }
+    app.FoodsMealsRecipes.initializeSearchBar(app.Foodlist.el.searchForm, {
+      searchbarSearch: async (searchbar, query, previousQuery) => {
+        if (query == "")
+          app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+        app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Foodlist.filterList);
+        app.Foodlist.renderList(true);
+      },
     });
   },
 
