@@ -58,7 +58,7 @@ app.FoodEditor = {
     this.setLinkButtonIcon();
 
     const categoriesEditable = (app.FoodEditor.origin == "foodlist");
-    app.FoodsMealsRecipes.populateCategoriesField(app.FoodEditor.el.categories, app.FoodEditor.item, categoriesEditable);
+    app.FoodsMealsRecipes.populateCategoriesField(app.FoodEditor.el.categories, app.FoodEditor.item, categoriesEditable, true);
 
     if (app.FoodEditor.item) {
       this.populateFields(app.FoodEditor.item);

@@ -609,11 +609,11 @@ app.FoodsMealsRecipes = {
     return app.FoodsMealsRecipes.selection;
   },
 
-  populateCategoriesField: function(element, item, categoriesEditable) {
+  populateCategoriesField: function(element, item, enablePicker, enableRipple, pickerEventHandlers) {
     const labels = app.Settings.get("foodlist", "labels") || [];
     const categories = app.Settings.get("foodlist", "categories") || {};
 
-    if (categoriesEditable) {
+    if (enablePicker) {
       let select = document.createElement("select");
       select.setAttribute("multiple", "");
       element.firstElementChild.append(select);
@@ -628,11 +628,15 @@ app.FoodsMealsRecipes = {
         select.append(option);
       });
 
-      element.className = "item-link smart-select";
-  
+      if (enableRipple)
+        element.className = "item-link smart-select";
+      else
+        element.className = "item-link no-ripple smart-select";
+
       app.f7.smartSelect.create({
         el: element,
-        openIn: "popover"
+        openIn: "popover",
+        on: pickerEventHandlers
       });
     } else {
       let field = element.querySelector("#categories-list");

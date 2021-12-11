@@ -31,7 +31,7 @@ app.MealEditor = {
       if (context.meal) {
         app.MealEditor.meal = context.meal;
         app.MealEditor.populateInputs(context.meal);
-        app.FoodsMealsRecipes.populateCategoriesField(app.MealEditor.el.categories, app.MealEditor.meal, true);
+        app.FoodsMealsRecipes.populateCategoriesField(app.MealEditor.el.categories, app.MealEditor.meal, true, true);
       }
 
       if (context.items)
