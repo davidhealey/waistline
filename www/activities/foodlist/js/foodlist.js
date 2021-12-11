@@ -56,6 +56,9 @@ app.Foodlist = {
     app.Foodlist.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
     app.Foodlist.el.search = document.querySelector("#foods-tab #food-search");
     app.Foodlist.el.searchForm = document.querySelector("#foods-tab #food-search-form");
+    app.Foodlist.el.searchFilter = document.querySelector("#foods-tab #food-search-filter");
+    app.Foodlist.el.searchFilterIcon = document.querySelector("#foods-tab #food-search-filter-icon");
+    app.Foodlist.el.searchFilterContainer = document.querySelector("#foods-tab #food-search-filter-container");
     app.Foodlist.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist"); //Infinite list container
     app.Foodlist.el.list = document.querySelector(".page[data-name='foods-meals-recipes'] #foodlist ul"); //Infinite list
   },
@@ -228,10 +231,27 @@ app.Foodlist = {
       searchbarSearch: async (searchbar, query, previousQuery) => {
         if (query == "")
           app.Foodlist.filterList = await app.Foodlist.getListFromDB();
-        app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Foodlist.filterList);
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
+        app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, categories, app.Foodlist.filterList);
         app.Foodlist.renderList(true);
       },
     });
+    app.FoodsMealsRecipes.populateCategoriesField(app.Foodlist.el.searchFilter, undefined, true, false, {
+      beforeOpen: (smartSelect, prevent) => {
+        smartSelect.selectEl.selectedIndex = -1;
+      },
+      close: (smartSelect) => {
+        let query = app.Foodlist.el.search.value;
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
+        if (categories !== undefined)
+          app.Foodlist.el.searchFilterIcon.classList.add(".color-theme");
+        else
+          app.Foodlist.el.searchFilterIcon.classList.remove(".color-theme")
+        app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, categories, app.Foodlist.filterList);
+        app.Foodlist.renderList(true);
+      }
+    });
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.Foodlist.el.searchFilterContainer);
   },
 
   searchByBarcode: function(code) {

@@ -56,6 +56,9 @@ app.Meals = {
     app.Meals.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.Meals.el.search = document.querySelector("#meals-tab #meal-search");
     app.Meals.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
+    app.Meals.el.searchFilter = document.querySelector("#meals-tab #meal-search-filter");
+    app.Meals.el.searchFilterIcon = document.querySelector("#meals-tab #meal-search-filter-icon");
+    app.Meals.el.searchFilterContainer = document.querySelector("#meals-tab #meal-search-filter-container");
     app.Meals.el.fab = document.querySelector("#add-meal");
     app.Meals.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
     app.Meals.el.list = document.querySelector("#meal-list-container ul"); //Infinite list
@@ -216,10 +219,27 @@ app.Meals = {
       searchbarSearch: async (searchbar, query, previousQuery) => {
         if (query == "")
           app.Meals.filterList = await app.Meals.getListFromDB();
-        app.Meals.list = app.FoodsMealsRecipes.filterList(query, undefined, app.Meals.filterList);
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Meals.el.searchFilter);
+        app.Meals.list = app.FoodsMealsRecipes.filterList(query, categories, app.Meals.filterList);
         app.Meals.renderList(true);
       },
     });
+    app.FoodsMealsRecipes.populateCategoriesField(app.Meals.el.searchFilter, undefined, true, false, {
+      beforeOpen: (smartSelect, prevent) => {
+        smartSelect.selectEl.selectedIndex = -1;
+      },
+      close: (smartSelect) => {
+        let query = app.Meals.el.search.value;
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Meals.el.searchFilter);
+        if (categories !== undefined)
+          app.Meals.el.searchFilterIcon.classList.add(".color-theme");
+        else
+          app.Meals.el.searchFilterIcon.classList.remove(".color-theme");
+        app.Meals.list = app.FoodsMealsRecipes.filterList(query, categories, app.Meals.filterList);
+        app.Meals.renderList(true);
+      }
+    });
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.Meals.el.searchFilterContainer);
   },
 };
 
