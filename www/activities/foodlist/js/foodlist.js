@@ -237,6 +237,12 @@ app.Foodlist = {
         app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, categories, app.Foodlist.filterList);
         app.Foodlist.renderList(true);
       },
+      searchbarDisable: async (searchbar) => {
+        app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
+        app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+        app.Foodlist.list = app.Foodlist.filterList;
+        app.Foodlist.renderList(true);
+      }
     });
     app.FoodsMealsRecipes.populateCategoriesField(app.Foodlist.el.searchFilter, undefined, true, false, {
       beforeOpen: (smartSelect, prevent) => {
@@ -248,7 +254,7 @@ app.Foodlist = {
         if (categories !== undefined)
           app.Foodlist.el.searchFilterIcon.classList.add(".color-theme");
         else
-          app.Foodlist.el.searchFilterIcon.classList.remove(".color-theme")
+          app.Foodlist.el.searchFilterIcon.classList.remove(".color-theme");
         app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, categories, app.Foodlist.filterList);
         app.Foodlist.renderList(true);
       }

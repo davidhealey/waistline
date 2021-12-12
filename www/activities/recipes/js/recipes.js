@@ -168,6 +168,12 @@ app.Recipes = {
         app.Recipes.list = app.FoodsMealsRecipes.filterList(query, categories, app.Recipes.filterList);
         app.Recipes.renderList(true);
       },
+      searchbarDisable: async (searchbar) => {
+        app.FoodsMealsRecipes.clearSelectedCategories(app.Recipes.el.searchFilter, app.Recipes.el.searchFilterIcon);
+        app.Recipes.filterList = await app.Recipes.getListFromDB();
+        app.Recipes.list = app.Recipes.filterList;
+        app.Recipes.renderList(true);
+      }
     });
     app.FoodsMealsRecipes.populateCategoriesField(app.Recipes.el.searchFilter, undefined, true, false, {
       beforeOpen: (smartSelect, prevent) => {

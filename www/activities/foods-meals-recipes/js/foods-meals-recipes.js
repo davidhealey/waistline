@@ -683,7 +683,7 @@ app.FoodsMealsRecipes = {
   clearSelectedCategories: function(element, filterIcon) {
     let smartSelect = app.f7.smartSelect.get(element);
     smartSelect.selectEl.selectedIndex = -1;
-    filterIcon.classList.remove(".color-theme")
+    filterIcon.classList.remove(".color-theme");
   },
 
   setCategoriesVisibility: function(container) {
