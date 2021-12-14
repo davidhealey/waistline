@@ -93,9 +93,9 @@ app.USDA = {
 
   parseItem: function(item) {
 
-    const offNutriments = app.nutriments; //Array of OFF nutriment names
-    const usdaNutriments = app.USDA.nutriments; //Array of USDA nutriment names
-    const units = app.nutrimentUnits;
+    const offNutriments = app.nutriments; // Array of OFF nutriment names
+    const usdaNutriments = app.USDA.nutriments; // Mapping of USDA nutriment names
+    const nutrimentUnits = app.nutrimentUnits;
 
     let result = {
       "nutrition": {}
@@ -110,7 +110,7 @@ app.USDA = {
     //Energy     
     for (let n of item.foodNutrients) {
       if (n.nutrientName == "Energy") {
-        if (n.unitName.toLowerCase() == units.calories)
+        if (n.unitName.toLowerCase() == nutrimentUnits.calories)
           result.nutrition.calories = Math.round(n.value);
         else
           result.nutrition.kilojoules = Math.round(n.value);
@@ -120,10 +120,10 @@ app.USDA = {
     if (result.nutrition.calories || result.nutrition.kilojoules) {
 
       if (result.nutrition.calories == undefined)
-        result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, true);
+        result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, nutrimentUnits.kilojoules, nutrimentUnits.calories, true);
 
       if (result.nutrition.kilojoules == undefined)
-        result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, true);
+        result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, nutrimentUnits.calories, nutrimentUnits.kilojoules, true);
 
       // Nutriments
       offNutriments.forEach((x, i) => {
@@ -135,7 +135,7 @@ app.USDA = {
 
             if (n.nutrientName.includes(nutriment)) {
 
-              result.nutrition[x] = app.Utils.convertUnit(n.value, n.unitName, units[x]);
+              result.nutrition[x] = app.Utils.convertUnit(n.value, n.unitName, nutrimentUnits[x]);
 
               if (x == "sodium")
                 result.nutrition.salt = result.nutrition.sodium * 0.0025;

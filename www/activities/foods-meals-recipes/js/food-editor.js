@@ -265,13 +265,14 @@ app.FoodEditor = {
   /* Nutrition fields are dynamically created for the nutriments of the item */
   renderNutritionFields: function(item) {
 
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const units = app.nutrimentUnits;
-    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const customUnits = app.Settings.get("nutriments", "units") || {};
+    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits);
     const energyUnit = app.Settings.get("units", "energy");
+    const visible = app.Settings.getField("nutrimentVisibility");
 
     if (item !== undefined && item.nutrition.kilojoules == undefined)
-      item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules);
+      item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, nutrimentUnits.calories, nutrimentUnits.kilojoules);
 
     let ul = app.FoodEditor.el.nutrition;
     ul.innerHTML = ""; //Clear old form 
@@ -283,9 +284,9 @@ app.FoodEditor = {
         li.className = "item-content item-input";
 
         let name = app.strings.nutriments[k] || k;
-        let unit = app.strings["unit-symbols"][units[k]] || "g";
+        let unit = app.strings["unit-symbols"][nutrimentUnits[k]] || nutrimentUnits[k];
 
-        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && units[k] !== energyUnit)
+        if (visible[k] !== true && nutrimentUnits[k] !== energyUnit)
           li.style.display = "none";
 
         ul.appendChild(li);
@@ -296,7 +297,9 @@ app.FoodEditor = {
 
         let titleDiv = document.createElement("div");
         titleDiv.className = "item-title item-label";
-        titleDiv.innerText = app.Utils.tidyText(name, 25) + " (" + unit + ")";
+        titleDiv.innerText = app.Utils.tidyText(name, 25);
+        if (unit !== undefined)
+          titleDiv.innerText += " (" + unit + ")";
         innerDiv.appendChild(titleDiv);
 
         let inputWrapper = document.createElement("div");
@@ -440,7 +443,7 @@ app.FoodEditor = {
         }
 
         //Nutrition 
-        const nutriments = app.nutriments;
+        const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
         for (let k of nutriments) {
           if (k != field) {
             let input = document.querySelector("#food-edit-form #" + k);
@@ -538,8 +541,9 @@ app.FoodEditor = {
       }
 
       if (origin == "foodlist") {
-        const units = app.nutrimentUnits;
-        let energyUnit = app.Settings.get("units", "energy");
+        const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+        const nutrimentUnits = app.nutrimentUnits;
+        const energyUnit = app.Settings.get("units", "energy");
         const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
         const caloriesEl = document.getElementById("calories");
         const kilojoulesEl = document.getElementById("kilojoules");
@@ -558,8 +562,8 @@ app.FoodEditor = {
         item.nutrition = {};
 
         // Always store a calorie value
-        if (energyUnit == units.kilojoules)
-          caloriesEl.value = app.Utils.convertUnit(kilojoulesEl.value, units.kilojoules, units.calories);
+        if (energyUnit == nutrimentUnits.kilojoules)
+          caloriesEl.value = app.Utils.convertUnit(kilojoulesEl.value, nutrimentUnits.kilojoules, nutrimentUnits.calories);
 
         for (let i = 0; i < inputs.length; i++) {
           let x = inputs[i];
@@ -567,7 +571,7 @@ app.FoodEditor = {
           let value = x.value;
 
           if (id !== "" && value) {
-            if (app.nutriments.includes(id)) {
+            if (nutriments.includes(id)) {
               item.nutrition[id] = parseFloat(value);
             } else if (x.type == "radio") {
               if (item[x.name] == undefined && x.checked)

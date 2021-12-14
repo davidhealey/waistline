@@ -33,11 +33,11 @@ app.Goals = {
   populateGoalList: function() {
     app.Goals.el.list.innerHTML = "";
 
-    const measurements = app.measurements;
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const stats = measurements.concat(nutriments);
     const nutrimentUnits = app.nutrimentUnits;
     const energyUnit = app.Settings.get("units", "energy");
+    const measurements = app.measurements;
+    const stats = measurements.concat(nutriments);
 
     for (let i in stats) {
       let x = stats[i];
@@ -54,7 +54,9 @@ app.Goals = {
       a.href = "#";
 
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      a.innerHTML = app.Utils.tidyText(text, 50) + " (" + unitSymbol + ")";
+      a.innerHTML = app.Utils.tidyText(text, 50);
+      if (unitSymbol !== undefined)
+        a.innerHTML += " (" + unitSymbol + ")";
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {
@@ -72,16 +74,18 @@ app.Goals = {
   },
 
   getGoalUnit(stat, checkPercentGoal=true) {
-    const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);
+    const userUnits = app.Settings.getField("units") || {};
+    const customUnits = app.Settings.get("nutriments", "units") || {};
+    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits, userUnits);
 
     if (stat == "body fat")
       return "%";
     if (app.measurements.includes(stat))
-      return (stat == "weight") ? units.weight : units.length;
+      return (stat == "weight") ? nutrimentUnits.weight : nutrimentUnits.length;
     if (checkPercentGoal && app.Goals.isPercentGoal(stat))
       return "%"
     else
-      return units[stat] || "g";
+      return nutrimentUnits[stat];
   },
 
   getGoals: async function(stats, date) {

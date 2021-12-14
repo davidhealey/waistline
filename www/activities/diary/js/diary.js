@@ -181,9 +181,11 @@ app.Diary = {
   },
 
   renderNutritionCard: async function(nutrition, date, swiper) {
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    let nutrimentUnits = app.nutrimentUnits;
-    let energyUnit = app.Settings.get("units", "energy");
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const customUnits = app.Settings.get("nutriments", "units") || {};
+    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits);
+    const energyUnit = app.Settings.get("units", "energy");
+
     let rows = [];
     let count = 0;
 
@@ -268,7 +270,7 @@ app.Diary = {
 
       // Unit
       if (app.Settings.get("diary", "show-nutrition-units")) {
-        let unit = app.strings["unit-symbols"][nutrimentUnits[x]];
+        let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || nutrimentUnits[x];
         if (unit !== undefined)
           t.nodeValue += " " + unit;
       }
@@ -515,11 +517,10 @@ app.Diary = {
 
   quickAdd: function(category) {
     let title = app.strings.diary["quick-add"] || "Quick Add";
-    let units = app.nutrimentUnits;
     let energyUnit = app.Settings.get("units", "energy");
 
     let text;
-    if (energyUnit == units.calories)
+    if (energyUnit == app.nutrimentUnits.calories)
       text = app.strings.nutriments["calories"] || "Calories";
     else
       text = app.strings.nutriments["kilojoules"] || "Kilojoules";
@@ -555,8 +556,8 @@ app.Diary = {
 
             let quantity = Array.from(dialog.el.getElementsByTagName("input"))[0].value;
 
-            if (energyUnit == units.kilojoules)
-              quantity = app.Utils.convertUnit(quantity, units.kilojoules, units.calories);
+            if (energyUnit == app.nutrimentUnits.kilojoules)
+              quantity = app.Utils.convertUnit(quantity, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
 
             if (!isNaN(quantity)) {
               let item = await app.Foodlist.getQuickAddItem(); // Get food item
@@ -710,9 +711,10 @@ app.Diary = {
     const dialogTitle = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const visible = app.Settings.getField("nutrimentVisibility");
-    const nutrimentUnits = app.nutrimentUnits;
+    const customUnits = app.Settings.get("nutriments", "units") || {};
+    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits);
     const energyUnit = app.Settings.get("units", "energy");
+    const visible = app.Settings.getField("nutrimentVisibility");
 
     // Create dialog
     let div = document.createElement("div");
@@ -733,7 +735,7 @@ app.Diary = {
 
       // Get name, unit and value
       let name = app.strings.nutriments[x] || x;
-      let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || "g";
+      let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || nutrimentUnits[x];
       let value = 0;
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {
@@ -760,7 +762,9 @@ app.Diary = {
       // Value and Unit
       let content = document.createElement("div");
       content.className = "flex-shrink-0";
-      text = value + " " + unit;
+      text = value;
+      if (unit !== undefined)
+        text += " " + unit;
       t = document.createTextNode(text);
       content.appendChild(t);
 

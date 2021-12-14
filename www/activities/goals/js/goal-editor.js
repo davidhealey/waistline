@@ -50,7 +50,9 @@ app.GoalEditor = {
       unit = "%";
     let unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
-    const text = title + ": " + app.Utils.tidyText(name, 50) + " (" + unitSymbol + ")";
+    let text = title + ": " + app.Utils.tidyText(name, 50);
+    if (unitSymbol !== undefined)
+      text += " (" + unitSymbol + ")";
     app.GoalEditor.el.title.innerText = text;
   },
 
