@@ -21,11 +21,9 @@ app.Meals = {
 
   list: [], //Main list of foods
   filterList: [], //Copy of the list for filtering
-  selection: [], //Items that have been checked, even if list has been changed
   el: {}, //UI elements
 
   init: async function(context) {
-    app.Meals.selection = []; //Clear out selection when page is reloaded
 
     if (context !== undefined) {
       if (context.meal)
@@ -66,13 +64,20 @@ app.Meals = {
 
   bindUIActions: function() {
 
-    //Infinite list 
+    // Infinite list - render more items
     if (!app.Meals.el.infinite.hasInfiniteEvent) {
       app.Meals.el.infinite.addEventListener("infinite", (e) => {
         this.renderList();
       });
       app.Meals.el.infinite.hasInfiniteEvent = true;
     }
+
+    // Search filter - reset category filter on long press
+    app.Meals.el.searchFilter.addEventListener("taphold", async (e) => {
+      app.FoodsMealsRecipes.clearSelectedCategories(app.Meals.el.searchFilter, app.Meals.el.searchFilterIcon);
+      app.Meals.list = app.FoodsMealsRecipes.filterList(app.Meals.el.search.value, undefined, app.Meals.filterList);
+      app.Meals.renderList(true);
+    });
   },
 
   renderList: async function(clear) {
@@ -221,12 +226,6 @@ app.Meals = {
           app.Meals.filterList = await app.Meals.getListFromDB();
         let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Meals.el.searchFilter);
         app.Meals.list = app.FoodsMealsRecipes.filterList(query, categories, app.Meals.filterList);
-        app.Meals.renderList(true);
-      },
-      searchbarDisable: async (searchbar) => {
-        app.FoodsMealsRecipes.clearSelectedCategories(app.Meals.el.searchFilter, app.Meals.el.searchFilterIcon);
-        app.Meals.filterList = await app.Meals.getListFromDB();
-        app.Meals.list = app.Meals.filterList;
         app.Meals.renderList(true);
       }
     });
