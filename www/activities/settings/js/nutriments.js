@@ -284,10 +284,9 @@ app.Nutriments = {
             for (let store of app.Nutriments.storeNames) {
               await dbHandler.processItems(store, undefined, undefined, (cursor) => {
                 let item = cursor.value;
-                if (item.nutriments !== undefined) {
-                  let index = item.nutriments.indexOf(field);
-                  if (index != -1) {
-                    item.nutriments.splice(index, 1);
+                if (item.nutrition !== undefined) {
+                  if (field in item.nutrition) {
+                    delete item.nutrition[field];
                     cursor.update(item);
                   }
                 }
