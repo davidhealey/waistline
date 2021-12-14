@@ -178,7 +178,8 @@ app.Nutriments = {
     app.Nutriments.showNutrimentDialog(title, "", "", (field, unit) => {
       if (field !== "" && !nutriments.includes(field)) {
         nutriments.push(field);
-        units[field] = unit;
+        if (unit !== "")
+          units[field] = unit;
         visibility[field] = true;
 
         app.Settings.put("nutriments", "order", nutriments);
@@ -233,7 +234,10 @@ app.Nutriments = {
           app.f7.preloader.hide();
         }
 
-        units[newField] = newUnit;
+        if (newUnit !== "")
+          units[newField] = newUnit;
+        else
+          delete units[newField];
         app.Settings.put("nutriments", "units", units);
 
         app.f7.views.main.router.refreshPage();
