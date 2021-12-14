@@ -60,7 +60,7 @@ app.Settings = {
     return undefined;
   },
 
-  putField: function(field) {
+  putField: function(field, value) {
     let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
     settings[field] = settings[field] || {};
     settings[field] = value;
