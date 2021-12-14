@@ -550,8 +550,18 @@ var dbHandler = {
 
   processItems: function(storeName, index, condition, callbackAction) {
     return new Promise(function(resolve, reject) {
-      var objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName).index(index);
-      var cursorRequest = objectStore.openCursor(condition);
+      var objectStore;
+      var cursorRequest;
+
+      if (index !== undefined)
+        objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName).index(index);
+      else
+        objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName)
+
+      if (condition !== undefined)
+        cursorRequest = objectStore.openCursor(condition);
+      else
+        cursorRequest = objectStore.openCursor();
 
       cursorRequest.onsuccess = function(event) {
         var cursor = event.target.result;
