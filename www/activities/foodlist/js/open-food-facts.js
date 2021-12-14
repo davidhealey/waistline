@@ -94,6 +94,9 @@ app.OpenFoodFacts = {
       }
     }
 
+    if (result.name == undefined || result.name == "")
+      result.name = item.code;
+
     result.image_url = escape(item.image_url);
     result.barcode = item.code;
 
@@ -108,13 +111,13 @@ app.OpenFoodFacts = {
       result.portion = parseInt(item.serving_size);
       let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/[^a-z]+|\s+/gmi, "");
       result.unit = app.strings["unit-symbols"][itemUnit.toLowerCase()] || itemUnit;
-      if (item.nutriments.energy_serving) {
+      if (item.nutriments.energy_serving !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
           app.Utils.convertUnit(item.nutriments.energy_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_serving;
         perTag = "_serving";
-      } else if (item.nutriments.energy_prepared_serving) {
+      } else if (item.nutriments.energy_prepared_serving !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_serving"]) ?
           parseInt(item.nutriments["energy-kcal_prepared_serving"]) :
           app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, true);
@@ -124,13 +127,13 @@ app.OpenFoodFacts = {
     } else if (item.nutrition_data_per == "100g") {
       result.portion = "100";
       result.unit = app.strings["unit-symbols"]["g"] || "g";
-      if (item.nutriments.energy_100g) {
+      if (item.nutriments.energy_100g !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
           item.nutriments["energy-kcal_100g"] :
           app.Utils.convertUnit(item.nutriments.energy_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_100g;
         perTag = "_100g";
-      } else if (item.nutriments.energy_prepared_100g) {
+      } else if (item.nutriments.energy_prepared_100g !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_100g"]) ?
           item.nutriments["energy-kcal_prepared_100g"] :
           app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, true);
@@ -155,7 +158,7 @@ app.OpenFoodFacts = {
       }
     }
 
-    if (result.name == "" || result.nutrition.calories == undefined || result.portion === undefined)
+    if (result.portion == undefined)
       result = undefined;
 
     return result;

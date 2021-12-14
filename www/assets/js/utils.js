@@ -98,7 +98,10 @@ app.Utils = {
 
     let result;
 
-    if (unit1 == unit2)
+    if (value == undefined)
+      result = undefined;
+
+    else if (unit1 == unit2)
       result = value;
 
     // lb/kg
