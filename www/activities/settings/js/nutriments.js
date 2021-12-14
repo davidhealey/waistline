@@ -177,7 +177,7 @@ app.Nutriments = {
 
     app.Nutriments.showNutrimentDialog(title, "", "", (field, unit) => {
       if (field !== "" && !nutriments.includes(field)) {
-        nutriments.push(field);
+        nutriments.splice(2, 0, field);
         if (unit !== "")
           units[field] = unit;
         visibility[field] = true;
