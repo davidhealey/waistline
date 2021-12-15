@@ -182,8 +182,7 @@ app.Diary = {
 
   renderNutritionCard: async function(nutrition, date, swiper) {
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const customUnits = app.Settings.get("nutriments", "units") || {};
-    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits);
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
 
     let rows = [];
@@ -204,7 +203,7 @@ app.Diary = {
     // Determine which nutriments need to be shown and calculate the goals
     nutrimentsToShow = [];
     nutriments.forEach((x) => {
-      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) return;
+      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) return;
       if (!app.Goals.showInDiary(x)) return;
       nutrimentsToShow.push(x);
     });
@@ -270,7 +269,7 @@ app.Diary = {
 
       // Unit
       if (app.Settings.get("diary", "show-nutrition-units")) {
-        let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || nutrimentUnits[x];
+        let unit = app.strings["unit-symbols"][units[x]] || units[x];
         if (unit !== undefined)
           t.nodeValue += " " + unit;
       }
@@ -711,8 +710,7 @@ app.Diary = {
     const dialogTitle = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const customUnits = app.Settings.get("nutriments", "units") || {};
-    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits);
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const visible = app.Settings.getField("nutrimentVisibility");
 
@@ -728,14 +726,14 @@ app.Diary = {
       let x = nutriments[i];
 
       if (x == "calories" || x == "kilojoules") {
-        if (nutrimentUnits[x] != energyUnit) continue;
+        if (units[x] != energyUnit) continue;
       } else {
         if (!visible[x]) continue;
       }
 
       // Get name, unit and value
       let name = app.strings.nutriments[x] || x;
-      let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || nutrimentUnits[x];
+      let unit = app.strings["unit-symbols"][units[x]] || units[x];
       let value = 0;
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {

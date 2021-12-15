@@ -266,13 +266,12 @@ app.FoodEditor = {
   renderNutritionFields: function(item) {
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const customUnits = app.Settings.get("nutriments", "units") || {};
-    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits);
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const visible = app.Settings.getField("nutrimentVisibility");
 
     if (item !== undefined && item.nutrition.kilojoules == undefined)
-      item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, nutrimentUnits.calories, nutrimentUnits.kilojoules);
+      item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules);
 
     let ul = app.FoodEditor.el.nutrition;
     ul.innerHTML = ""; //Clear old form 
@@ -284,9 +283,9 @@ app.FoodEditor = {
         li.className = "item-content item-input";
 
         let name = app.strings.nutriments[k] || k;
-        let unit = app.strings["unit-symbols"][nutrimentUnits[k]] || nutrimentUnits[k];
+        let unit = app.strings["unit-symbols"][units[k]] || units[k];
 
-        if (visible[k] !== true && nutrimentUnits[k] !== energyUnit)
+        if (visible[k] !== true && units[k] !== energyUnit)
           li.style.display = "none";
 
         ul.appendChild(li);
@@ -542,7 +541,7 @@ app.FoodEditor = {
 
       if (origin == "foodlist") {
         const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-        const nutrimentUnits = app.nutrimentUnits;
+        const units = app.Nutriments.getNutrimentUnits();
         const energyUnit = app.Settings.get("units", "energy");
         const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
         const caloriesEl = document.getElementById("calories");
@@ -562,8 +561,8 @@ app.FoodEditor = {
         item.nutrition = {};
 
         // Always store a calorie value
-        if (energyUnit == nutrimentUnits.kilojoules)
-          caloriesEl.value = app.Utils.convertUnit(kilojoulesEl.value, nutrimentUnits.kilojoules, nutrimentUnits.calories);
+        if (energyUnit == units.kilojoules)
+          caloriesEl.value = app.Utils.convertUnit(kilojoulesEl.value, units.kilojoules, units.calories);
 
         for (let i = 0; i < inputs.length; i++) {
           let x = inputs[i];

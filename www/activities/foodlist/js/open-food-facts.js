@@ -80,7 +80,7 @@ app.OpenFoodFacts = {
 
   parseItem: function(item) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
-    const nutrimentUnits = app.nutrimentUnits;
+    const units = app.nutrimentUnits;
 
     let result = {
       "nutrition": {}
@@ -114,13 +114,13 @@ app.OpenFoodFacts = {
       if (item.nutriments.energy_serving !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
-          app.Utils.convertUnit(item.nutriments.energy_serving, nutrimentUnits.kilojoules, nutrimentUnits.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_serving;
         perTag = "_serving";
       } else if (item.nutriments.energy_prepared_serving !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_serving"]) ?
           parseInt(item.nutriments["energy-kcal_prepared_serving"]) :
-          app.Utils.convertUnit(item.nutriments.energy_prepared_serving, nutrimentUnits.kilojoules, nutrimentUnits.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_serving;
         perTag = "_prepared_serving";
       }
@@ -130,13 +130,13 @@ app.OpenFoodFacts = {
       if (item.nutriments.energy_100g !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
           item.nutriments["energy-kcal_100g"] :
-          app.Utils.convertUnit(item.nutriments.energy_100g, nutrimentUnits.kilojoules, nutrimentUnits.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_100g;
         perTag = "_100g";
       } else if (item.nutriments.energy_prepared_100g !== undefined) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_100g"]) ?
           item.nutriments["energy-kcal_prepared_100g"] :
-          app.Utils.convertUnit(item.nutriments.energy_prepared_100g, nutrimentUnits.kilojoules, nutrimentUnits.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_100g;
         perTag = "_prepared_100g";
       }
@@ -154,7 +154,7 @@ app.OpenFoodFacts = {
       let x = nutriments[i];
       if (x != "calories" && x != "kilojoules") {
         let value = item.nutriments[x + perTag];
-        result.nutrition[x] = app.Utils.convertUnit(value, "g", nutrimentUnits[x]);
+        result.nutrition[x] = app.Utils.convertUnit(value, "g", units[x]);
       }
     }
 
@@ -217,7 +217,7 @@ app.OpenFoodFacts = {
 
   getUploadString: function(data) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
-    const nutrimentUnits = app.nutrimentUnits;
+    const units = app.nutrimentUnits;
 
     let string = "";
 
@@ -236,9 +236,9 @@ app.OpenFoodFacts = {
 
     // Energy
     if (data.nutrition.calories !== undefined && data.nutrition.kilojoules == undefined)
-      data.nutrition.kilojoules = app.Utils.convertUnit(data.nutrition.calories, nutrimentUnits.calories, nutrimentUnits.kilojoules, true);
+      data.nutrition.kilojoules = app.Utils.convertUnit(data.nutrition.calories, units.calories, units.kilojoules, true);
     else if (data.nutrition.calories == undefined && data.nutrition.kilojoules !== undefined)
-      data.nutrition.calories = app.Utils.convertUnit(data.nutrition.kilojoules, nutrimentUnits.kilojoules, nutrimentUnits.calories, true);
+      data.nutrition.calories = app.Utils.convertUnit(data.nutrition.kilojoules, units.kilojoules, units.calories, true);
 
     data.nutrition["energy-kcal"] = data.nutrition.calories;
     data.nutrition["energy-kj"] = data.nutrition.kilojoules;

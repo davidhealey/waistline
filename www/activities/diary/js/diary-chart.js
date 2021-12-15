@@ -57,8 +57,7 @@ app.DiaryChart = {
     return new Promise(async function(resolve, reject) {
 
       const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-      const customUnits = app.Settings.get("nutriments", "units") || {};
-      const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits);
+      const units = app.Nutriments.getNutrimentUnits();
       const visible = app.Settings.getField("nutrimentVisibility");
 
       let result = {
@@ -131,7 +130,7 @@ app.DiaryChart = {
         if (!nutrition[x]) return;
 
         let name = app.strings.nutriments[x] || x;
-        let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || nutrimentUnits[x];
+        let unit = app.strings["unit-symbols"][units[x]] || units[x];
 
         let value = (Math.round(nutrition[x] * 100) / 100);
         if (unit !== undefined)

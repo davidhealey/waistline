@@ -212,7 +212,7 @@ app.FoodsMealsRecipes = {
         data.push(match);
       });
 
-      const nutrimentUnits = app.nutrimentUnits;
+      const units = app.nutrimentUnits;
       if (data.length > 0) {
         // Sum item nutrition
         data.forEach((x, i) => {
@@ -226,7 +226,7 @@ app.FoodsMealsRecipes = {
               result[n] = result[n] || 0;
               result[n] += Math.round(x.nutrition[n] * multiplier * 100) / 100;
               if (n === "calories" && x.nutrition["kilojoules"] === undefined) {
-                let kilojoules = app.Utils.convertUnit(x.nutrition.calories, nutrimentUnits.calories, nutrimentUnits.kilojoules);
+                let kilojoules = app.Utils.convertUnit(x.nutrition.calories, units.calories, units.kilojoules);
                 result["kilojoules"] = result["kilojoules"] || 0;
                 result["kilojoules"] += Math.round(kilojoules * multiplier * 100) / 100;
               }
@@ -381,11 +381,11 @@ app.FoodsMealsRecipes = {
     let energy = nutrition.calories;
 
     if (energy !== undefined && !isNaN(energy)) {
-      const nutrimentUnits = app.nutrimentUnits;
+      const units = app.nutrimentUnits;
       const energyUnit = app.Settings.get("units", "energy");
 
-      if (energyUnit == nutrimentUnits.kilojoules)
-        energy = nutrition.kilojoules || app.Utils.convertUnit(energy, nutrimentUnits.calories, nutrimentUnits.kilojoules);
+      if (energyUnit == units.kilojoules)
+        energy = nutrition.kilojoules || app.Utils.convertUnit(energy, units.calories, units.kilojoules);
 
       return energy;
     }

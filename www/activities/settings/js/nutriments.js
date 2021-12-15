@@ -21,6 +21,11 @@ app.Nutriments = {
 
   storeNames: ["foodList", "recipes"],
 
+  getNutrimentUnits: function() {
+    const units = app.Settings.get("nutriments", "units") || {};
+    return app.Utils.concatObjects(app.nutrimentUnits, units);
+  },
+
   populateNutrimentList: function() {
     let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     let ul = document.querySelector("#nutriment-list");

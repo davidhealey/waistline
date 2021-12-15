@@ -34,7 +34,7 @@ app.Goals = {
     app.Goals.el.list.innerHTML = "";
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const nutrimentUnits = app.nutrimentUnits;
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const measurements = app.measurements;
     const stats = measurements.concat(nutriments);
@@ -42,7 +42,7 @@ app.Goals = {
     for (let i in stats) {
       let x = stats[i];
 
-      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
+      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) continue;
 
       let unit = app.Goals.getGoalUnit(x);
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -74,18 +74,17 @@ app.Goals = {
   },
 
   getGoalUnit(stat, checkPercentGoal=true) {
-    const userUnits = app.Settings.getField("units") || {};
-    const customUnits = app.Settings.get("nutriments", "units") || {};
-    const nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits, customUnits, userUnits);
+    const preferredUnits = app.Settings.getField("units") || {};
+    const units = app.Utils.concatObjects(app.Nutriments.getNutrimentUnits(), preferredUnits);
 
     if (stat == "body fat")
       return "%";
     if (app.measurements.includes(stat))
-      return (stat == "weight") ? nutrimentUnits.weight : nutrimentUnits.length;
+      return (stat == "weight") ? units.weight : units.length;
     if (checkPercentGoal && app.Goals.isPercentGoal(stat))
       return "%"
     else
-      return nutrimentUnits[stat];
+      return units[stat];
   },
 
   getGoals: async function(stats, date) {
