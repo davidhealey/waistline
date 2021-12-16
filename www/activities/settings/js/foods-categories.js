@@ -133,12 +133,10 @@ app.FoodsCategories = {
       let input = document.createElement("input");
       input.className = "dialog-input";
       input.type = "text";
-      if (field == "label") {
+      if (field == "label")
         input.setAttribute("value", label || "");
-        input.setAttribute("maxlength", "8");
-      } else {
+      else
         input.setAttribute("value", description || "");
-      }
       inputWrap.appendChild(input);
     });
 
