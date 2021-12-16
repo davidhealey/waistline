@@ -222,6 +222,9 @@ app.Nutriments = {
           delete visibility[oldField];
           app.Settings.putField("nutrimentVisibility", visibility);
 
+          // Migrate goals
+          app.Goals.migrateStatGoalSettings(oldField, newField);
+
           // Update field name for all foods and recipes
           for (let store of app.Nutriments.storeNames) {
             await dbHandler.processItems(store, undefined, undefined, (cursor) => {
@@ -284,6 +287,9 @@ app.Nutriments = {
             app.Settings.put("nutriments", "order", nutriments);
             app.Settings.put("nutriments", "units", units);
             app.Settings.putField("nutrimentVisibility", visibility);
+
+            // Delete goals
+            app.Goals.migrateStatGoalSettings(field);
 
             // Delete this field from all foods and recipes
             for (let store of app.Nutriments.storeNames) {

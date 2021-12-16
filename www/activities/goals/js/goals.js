@@ -270,6 +270,20 @@ app.Goals = {
 
   isPercentGoal: function(stat) {
     return app.Settings.get("goals", stat + "-percent-goal");
+  },
+
+  migrateStatGoalSettings: function(oldStat, newStat) {
+    let goals = app.Settings.getField("goals");
+
+    ["", "-show-in-diary", "-show-in-stats", "-shared-goal", "-auto-adjust", "-minimum-goal", "-percent-goal"].forEach((setting) => {
+      if (oldStat + setting in goals) {
+        if (newStat !== undefined)
+          goals[newStat + setting] = goals[oldStat + setting];
+        delete goals[oldStat + setting];
+      }
+    });
+
+    app.Settings.putField("goals", goals);
   }
 };
 
