@@ -485,7 +485,7 @@ app.FoodsMealsRecipes = {
             const labels = app.Settings.get("foodlist", "labels") || [];
             text += labels.filter((label) => {
               return item.categories.includes(label);
-            }).join("") + " ";
+            }).join(" ") + " ";
           }
           text += item.name;
           title.innerHTML = app.Utils.tidyText(text, 50);
