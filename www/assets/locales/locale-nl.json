@@ -13,8 +13,8 @@
     "polyunsaturated-fat": "Meervoudig onverzadigd vet",
     "trans-fat": "Transvet",
     "omega-3-fat": "Omega 3-vetzuren",
-    "omega-6-fat": "Omega-6 fat",
-    "omega-9-fat": "Omega-9 fat",
+    "omega-6-fat": "Omega 6-vetzuren",
+    "omega-9-fat": "Omega 9-vetzuren",
     "cholesterol": "Cholesterol",
     "sodium": "Sodium",
     "vitamin-a": "Vitamine A",
@@ -62,7 +62,7 @@
     "st": "st",
     "cm": "cm",
     "inch": "in",
-    "feet/inches": "ft/in"
+    "feet/inches": "voet/in"
   },
   "dialogs": {
     "delete": "Verwijder",
@@ -147,7 +147,7 @@
     "quick-add": "Snel toevoegen",
     "yesterdays-meal": "%s van gisteren",
     "log-title": "Huidige gegevens",
-    "log-saved": "Saved",
+    "log-saved": "Opgeslagen",
     "no-data": "Geen gegevens",
     "default-meals": {
       "breakfast": "Ontbijt",
@@ -248,9 +248,9 @@
     "nutriments": {
       "title": "Voedingsstoffen",
       "field": "Naam",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Eenheid",
+      "add": "Veld toevoegen",
+      "edit": "Veld bewerken"
     },
     "diary-categories": {
       "title": "Categorieën",
@@ -261,7 +261,7 @@
       "sort": "Sorteer voedsel",
       "sort-date": "Op laatst gebruikt",
       "sort-alpha": "Alfabetisch",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Categorielabels tonen",
       "thumbnails": "Toon voorvertoning",
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
       "images": "Toon voedselfafbeeldingen",
@@ -269,11 +269,11 @@
       "show-notes": "Toon voedselnotities"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Labels en categorieën",
+      "label": "Label / pictogram",
+      "description": "Omschrijving",
+      "add": "Categorie toevoegen",
+      "edit": "Bewerk categorie"
     },
     "statistics": {
       "title": "Statistieken",
