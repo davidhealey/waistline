@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "Polyunsat fat",
     "trans-fat": "Trans fat",
     "omega-3-fat": "Omega-3 fat",
+    "omega-6-fat": "Omega-6 fat",
+    "omega-9-fat": "Omega-9 fat",
     "cholesterol": "Cholesterol",
     "sodium": "Sodium",
     "vitamin-a": "Vitamin A",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "g",
     "mg": "mg",
     "µg": "µg",
@@ -57,7 +61,8 @@
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Poista",
@@ -142,6 +147,7 @@
     "quick-add": "Nopea lisäys",
     "yesterdays-meal": "Yesterday's %s",
     "log-title": "Päivän tilastot",
+    "log-saved": "Saved",
     "no-data": "Ei tietoja",
     "default-meals": {
       "breakfast": "Aamiainen",
@@ -170,6 +176,7 @@
     "add-new-item": "Lisää uusi tuote",
     "details": "Tarkat tiedot",
     "barcode": "Viivakoodi",
+    "categories": "Kategoriat",
     "name": "Nimi",
     "brand": "Tuotemerkki",
     "category": "Kategoria",
@@ -239,7 +246,11 @@
       "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
-      "title": "Ravinteet"
+      "title": "Ravinteet",
+      "field": "Nimi",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "Kategoriat",
@@ -250,11 +261,19 @@
       "sort": "Järjestä ruoat",
       "sort-date": "Viimeksi käytetty",
       "sort-alpha": "Aakkosellinen",
+      "category-labels": "Show Category Labels",
       "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä",
       "show-notes": "Näytä ateriamerkinnät"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Tilastot",
