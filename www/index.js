@@ -24,7 +24,7 @@ const app = {
   standardUnits: ["ug", "μg", "mg", "g", "kg", "ul", "μl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
   measurements: ["weight", "neck", "waist", "hips", "body fat"],
   energyMacroNutriments: ["fat", "saturated-fat", "carbohydrates", "sugars", "proteins"],
-  nutriments: ["calories", "kilojoules", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "cholesterol", "sodium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
+  nutriments: ["calories", "kilojoules", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "omega-6-fat", "omega-9-fat", "cholesterol", "sodium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
   nutrimentUnits: {
     "calories": "kcal",
     "kilojoules": "kJ",
@@ -39,6 +39,8 @@ const app = {
     "polyunsaturated-fat": "g",
     "trans-fat": "g",
     "omega-3-fat": "g",
+    "omega-6-fat": "g",
+    "omega-9-fat": "g",
     "cholesterol": "mg",
     "sodium": "mg",
     "vitamin-a": "µg",
