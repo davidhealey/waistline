@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "Полиненасыщенные жиры",
     "trans-fat": "Трансжиры",
     "omega-3-fat": "Омега-3 жиры",
+    "omega-6-fat": "Omega-6 fat",
+    "omega-9-fat": "Omega-9 fat",
     "cholesterol": "Холестерин",
     "sodium": "Натрий",
     "vitamin-a": "Витамин А",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "ккал",
     "kJ": "кДж",
+    "l": "l",
+    "ml": "ml",
     "g": "г",
     "mg": "мг",
     "µg": "мкг",
@@ -57,7 +61,8 @@
     "lb": "фунт",
     "st": "стоун",
     "cm": "см",
-    "inch": "дюйм"
+    "inch": "дюйм",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Удалить",
@@ -142,6 +147,7 @@
     "quick-add": "Быстрое добавление",
     "yesterdays-meal": "Вчерашний %s",
     "log-title": "Статистика на сегодня",
+    "log-saved": "Saved",
     "no-data": "Нет данных",
     "default-meals": {
       "breakfast": "Завтрак",
@@ -170,6 +176,7 @@
     "add-new-item": "Добавить новый элемент",
     "details": "Сведения",
     "barcode": "Штрих-код",
+    "categories": "Категории",
     "name": "Название",
     "brand": "Производитель",
     "category": "Категория",
@@ -239,7 +246,11 @@
       "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
-      "title": "Питательные вещества"
+      "title": "Питательные вещества",
+      "field": "Название",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "Категории",
@@ -250,11 +261,19 @@
       "sort": "Сортировка еды",
       "sort-date": "По последнему использованию",
       "sort-alpha": "В алфавитном порядке",
+      "category-labels": "Show Category Labels",
       "thumbnails": "Показывать миниатюры",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Показать изображения еды",
       "wifi-images": "Показывать изображения только через Wi-Fi",
       "show-notes": "Показать заметки о еде"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Статистика",
