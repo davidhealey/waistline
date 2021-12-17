@@ -13,8 +13,8 @@
     "polyunsaturated-fat": "Mehrfach ungesättigte Fettsäuren",
     "trans-fat": "Transfette",
     "omega-3-fat": "Omega-3-Fettsäuren",
-    "omega-6-fat": "Omega-6 fat",
-    "omega-9-fat": "Omega-9 fat",
+    "omega-6-fat": "Omega-6-Fettsäuren",
+    "omega-9-fat": "Omega-9-Fettsäuren",
     "cholesterol": "Cholesterin",
     "sodium": "Natrium",
     "vitamin-a": "Vitamin A",
@@ -147,7 +147,7 @@
     "quick-add": "Schnelles Hinzufügen",
     "yesterdays-meal": "%s von gestern",
     "log-title": "Heutige Werte",
-    "log-saved": "Saved",
+    "log-saved": "Gespeichert",
     "no-data": "Keine Daten",
     "default-meals": {
       "breakfast": "Frühstück",
@@ -248,9 +248,9 @@
     "nutriments": {
       "title": "Nährstoffe",
       "field": "Name",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Einheit",
+      "add": "Feld hinzufügen",
+      "edit": "Feld bearbeiten"
     },
     "diary-categories": {
       "title": "Kategorien",
@@ -261,7 +261,7 @@
       "sort": "Lebensmittel sortieren",
       "sort-date": "Zuletzt verwendet",
       "sort-alpha": "Alphabetisch",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Kategorie-Kennzeichnungen anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
       "images": "Lebensmittelbilder anzeigen",
@@ -269,11 +269,11 @@
       "show-notes": "Notizen für Lebensmittel anzeigen"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Kennzeichnungen und Kategorien",
+      "label": "Kennzeichnung / Icon",
+      "description": "Beschreibung",
+      "add": "Kategorie hinzufügen",
+      "edit": "Kategorie bearbeiten"
     },
     "statistics": {
       "title": "Statistik",
