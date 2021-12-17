@@ -1,5 +1,5 @@
 /*
-  Copyright 2018, 2021 David Healey
+  Copyright 2018, 2019, 2020, 2021 David Healey
 
   This file is part of Waistline.
 
@@ -24,7 +24,7 @@ var dbHandler = {
     return new Promise(async function(resolve, reject) {
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 31;
+      var databaseVersion = 32;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -56,7 +56,6 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('foodList');
         }
 
-        // Date object, the last time this item was referenced (edited or added to the diary)
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
@@ -73,23 +72,9 @@ var dbHandler = {
           unique: false
         });
 
-        if (!store.indexNames.contains("image_url")) store.createIndex('image_url', 'image_url', {
-          unique: false
-        });
-
-        // Portion - including unit
-        if (!store.indexNames.contains("portion")) store.createIndex('portion', 'portion', {
-          unique: false
-        });
-
-        // Nutrition - per portion
-        if (!store.indexNames.contains("nutrition")) store.createIndex('nutrition', 'nutrition', {
-          unique: false
-        });
-
-        // Deleted foods are marked as archived
-        if (!store.indexNames.contains("archived")) store.createIndex('archived', 'archived', {
-          unique: false
+        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+          unique: false,
+          multiEntry: true
         });
 
         //Diary Store - one entry per day
@@ -102,18 +87,7 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('diary');
         }
 
-        // Date object
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
-          unique: false
-        });
-
-        // Stats - weight, etc.
-        if (!store.indexNames.contains("stats")) store.createIndex('stats', 'stats', {
-          unique: false
-        });
-
-        // Items array -- foods, recipes, quick-add, etc.
-        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
           unique: false
         });
 
@@ -127,22 +101,20 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('meals');
         }
 
-        // Datetime
         if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
 
-        // Name
         if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
           unique: false
         });
 
-        // Items
-        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
-          unique: false
+        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+          unique: false,
+          multiEntry: true
         });
 
-        // Recipes store
+        //Recipes store
         if (!DB.objectStoreNames.contains("recipes")) {
           store = DB.createObjectStore("recipes", {
             keyPath: 'id',
@@ -160,9 +132,9 @@ var dbHandler = {
           unique: false
         });
 
-        // Items
-        if (!store.indexNames.contains("items")) store.createIndex('items', 'items', {
-          unique: false
+        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+          unique: false,
+          multiEntry: true
         });
 
         await dbHandler.upgradeDatabase(e.oldVersion, upgradeTransaction);
@@ -574,6 +546,33 @@ var dbHandler = {
     };
 
     return request;
+  },
+
+  processItems: function(storeName, index, condition, callbackAction) {
+    return new Promise(function(resolve, reject) {
+      var objectStore;
+      var cursorRequest;
+
+      if (index !== undefined)
+        objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName).index(index);
+      else
+        objectStore = DB.transaction(storeName, "readwrite").objectStore(storeName)
+
+      if (condition !== undefined)
+        cursorRequest = objectStore.openCursor(condition);
+      else
+        cursorRequest = objectStore.openCursor();
+
+      cursorRequest.onsuccess = function(event) {
+        var cursor = event.target.result;
+        if (cursor) {
+          callbackAction(cursor);
+          cursor.continue();
+        } else {
+          resolve();
+        }
+      };
+    });
   },
 
   getAllItems: function(storeName) {

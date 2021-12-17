@@ -57,8 +57,8 @@ app.DiaryChart = {
     return new Promise(async function(resolve, reject) {
 
       const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+      const units = app.Nutriments.getNutrimentUnits();
       const visible = app.Settings.getField("nutrimentVisibility");
-      const nutrimentUnits = app.nutrimentUnits;
 
       let result = {
         "labels": [],
@@ -114,9 +114,11 @@ app.DiaryChart = {
           name += " (" + including + ")";
         }
 
+        let value = (Math.round(percent * 100) / 100) + "%";
+
         let entry = {
           name: app.Utils.tidyText(name, 50),
-          value: (Math.round(percent * 100) / 100) + "%"
+          value: value
         }
         result.macros.push(entry);
       });
@@ -128,11 +130,15 @@ app.DiaryChart = {
         if (!nutrition[x]) return;
 
         let name = app.strings.nutriments[x] || x;
-        let unit = app.strings["unit-symbols"][nutrimentUnits[x]] || "g";
+        let unit = app.strings["unit-symbols"][units[x]] || units[x];
+
+        let value = (Math.round(nutrition[x] * 100) / 100);
+        if (unit !== undefined)
+          value += " " + unit;
 
         let entry = {
           name: app.Utils.tidyText(name, 50),
-          value: (Math.round(nutrition[x] * 100) / 100) + " " + unit
+          value: value
         }
         result.totals.push(entry);
       });

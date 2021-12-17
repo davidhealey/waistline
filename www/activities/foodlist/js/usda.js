@@ -93,8 +93,8 @@ app.USDA = {
 
   parseItem: function(item) {
 
-    const offNutriments = app.nutriments; //Array of OFF nutriment names
-    const usdaNutriments = app.USDA.nutriments; //Array of USDA nutriment names
+    const offNutriments = app.nutriments; // Array of OFF nutriment names
+    const usdaNutriments = app.USDA.nutriments; // Mapping of USDA nutriment names
     const units = app.nutrimentUnits;
 
     let result = {

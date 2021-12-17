@@ -29,8 +29,16 @@
   </div>
 
   <div class="page-content">
+
     <div class="list">
       <ul>
+
+        <li>
+          <a href="/settings/foods/categories/" class="item-link item-content">
+            <div class="item-inner" data-localize="settings.foods-categories.title">Labels and Categories</div>
+          </a>
+        </li>
+
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
@@ -40,6 +48,20 @@
                   <option value="date" selected data-localize="settings.foods.sort-date">By last used</option>
                   <option value="alpha" selected data-localize="settings.foods.sort-alpha">Alphabetically</option>
                 </select>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.foods.category-labels">Show Category Labels</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" field="foodlist" name="show-category-labels" />
+                  <span class="toggle-icon"></span>
+                </label>
               </div>
             </div>
           </div>
@@ -117,5 +139,6 @@
 
       </ul>
     </div>
+
   </div>
 </div>

@@ -20,6 +20,7 @@
 app.FoodEditor = {
 
   item: undefined,
+  item_image_url: undefined,
   scan: false,
   origin: undefined,
   linked: true,
@@ -29,6 +30,7 @@ app.FoodEditor = {
   init: function(context) {
 
     app.FoodEditor.item = undefined;
+    app.FoodEditor.item_image_url = undefined;
     app.FoodEditor.scan = false;
     app.FoodEditor.images = [];
 
@@ -55,6 +57,9 @@ app.FoodEditor = {
     this.setRequiredFieldErrorMessage();
     this.setLinkButtonIcon();
 
+    const categoriesEditable = (app.FoodEditor.origin == "foodlist");
+    app.FoodsMealsRecipes.populateCategoriesField(app.FoodEditor.el.categories, app.FoodEditor.item, categoriesEditable, true);
+
     if (app.FoodEditor.item) {
       this.populateFields(app.FoodEditor.item);
       this.populateImage(app.FoodEditor.item);
@@ -76,6 +81,8 @@ app.FoodEditor = {
     app.FoodEditor.el.submit = document.querySelector(".page[data-name='food-editor'] #submit");
     app.FoodEditor.el.barcodeContainer = document.querySelector(".page[data-name='food-editor'] #barcode-container");
     app.FoodEditor.el.barcode = document.querySelector(".page[data-name='food-editor'] #barcode");
+    app.FoodEditor.el.categoriesContainer = document.querySelector(".page[data-name='food-editor'] #categories-container");
+    app.FoodEditor.el.categories = document.querySelector(".page[data-name='food-editor'] #categories");
     app.FoodEditor.el.name = document.querySelector(".page[data-name='food-editor'] #name");
     app.FoodEditor.el.brand = document.querySelector(".page[data-name='food-editor'] #brand");
     app.FoodEditor.el.categoryContainer = document.querySelector(".page[data-name='food-editor'] #category-container");
@@ -158,6 +165,10 @@ app.FoodEditor = {
       app.FoodEditor.el.unit.style.color = "grey";
       app.FoodEditor.el.notes.disabled = true;
       app.FoodEditor.el.notes.style.color = "grey";
+
+      if (app.Settings.get("foodlist", "show-category-labels") !== true)
+        app.FoodEditor.el.categoriesContainer.style.display = "none";
+
     } else {
       app.FoodEditor.el.quantityContainer.style.display = "none";
 
@@ -168,6 +179,8 @@ app.FoodEditor = {
           app.FoodEditor.el.download.style.display = "block";
       }
     }
+
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.FoodEditor.el.categoriesContainer);
 
     if (app.Settings.get("foodlist", "show-notes") == true)
       app.FoodEditor.el.notesContainer.style.display = "block";
@@ -192,9 +205,7 @@ app.FoodEditor = {
     let fields = Array.from(document.getElementsByClassName("upload-field"));
 
     fields.forEach((x) => {
-      if (app.FoodEditor.scan == true) {
-        x.style.display = "block";
-      } else {
+      if (app.FoodEditor.scan != true) {
         x.style.display = "none";
         x.required = false;
         x.validate = false;
@@ -208,8 +219,6 @@ app.FoodEditor = {
         x.style.display = "none";
         x.required = false;
         x.validate = false;
-      } else {
-        x.style.display = "block";
       }
     });
 
@@ -256,10 +265,10 @@ app.FoodEditor = {
   /* Nutrition fields are dynamically created for the nutriments of the item */
   renderNutritionFields: function(item) {
 
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const units = app.nutrimentUnits;
-    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
+    const visible = app.Settings.getField("nutrimentVisibility");
 
     if (item !== undefined && item.nutrition.kilojoules == undefined)
       item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules);
@@ -274,9 +283,9 @@ app.FoodEditor = {
         li.className = "item-content item-input";
 
         let name = app.strings.nutriments[k] || k;
-        let unit = app.strings["unit-symbols"][units[k]] || "g";
+        let unit = app.strings["unit-symbols"][units[k]] || units[k];
 
-        if (nutrimentVisibility !== undefined && nutrimentVisibility[k] !== true && units[k] !== energyUnit)
+        if (visible[k] !== true && units[k] !== energyUnit)
           li.style.display = "none";
 
         ul.appendChild(li);
@@ -287,7 +296,9 @@ app.FoodEditor = {
 
         let titleDiv = document.createElement("div");
         titleDiv.className = "item-title item-label";
-        titleDiv.innerText = app.Utils.tidyText(name, 25) + " (" + unit + ")";
+        titleDiv.innerText = app.Utils.tidyText(name, 25);
+        if (unit !== undefined)
+          titleDiv.innerText += " (" + unit + ")";
         innerDiv.appendChild(titleDiv);
 
         let inputWrapper = document.createElement("div");
@@ -382,6 +393,7 @@ app.FoodEditor = {
   },
 
   populateImage: function(item) {
+    app.FoodEditor.item_image_url = item.image_url;
     app.FoodEditor.el.mainPhoto.innerHTML = "";
 
     if (app.Settings.get("foodlist", "show-images")) {
@@ -412,23 +424,25 @@ app.FoodEditor = {
       let oldValue;
 
       if (field == "portion" || field == "quantity")
-        oldValue = item[field];
+        oldValue = app.FoodEditor.el[field].oldValue;
       else
         oldValue = document.querySelector("#food-edit-form #" + field).oldValue;
 
       if (oldValue > 0 && newValue > 0) {
+        let oldQuantity = app.FoodEditor.el.quantity.oldValue;
         let newQuantity = app.FoodEditor.el.quantity.value;
 
         if (field == "portion" || field == "quantity") {
+          let oldPortion = app.FoodEditor.el.portion.oldValue;
           let newPortion = app.FoodEditor.el.portion.value;
-          multiplier = (newPortion / item.portion) * (newQuantity / (item.quantity || 1));
+          multiplier = (newPortion / oldPortion) * (newQuantity / (oldQuantity || 1));
         } else {
-          multiplier = (newValue / oldValue) / (newQuantity / (item.quantity || 1));
+          multiplier = (newValue / oldValue) / (newQuantity / (oldQuantity || 1));
           app.FoodEditor.el.portion.value = Math.round(item.portion * multiplier * 100) / 100;
         }
 
         //Nutrition 
-        const nutriments = app.nutriments;
+        const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
         for (let k of nutriments) {
           if (k != field) {
             let input = document.querySelector("#food-edit-form #" + k);
@@ -467,7 +481,7 @@ app.FoodEditor = {
       (err) => {
         if (err != "No Image Selected") {
           let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-          app.Utils.toast(msg, 2000);
+          app.Utils.toast(msg, 2500);
           console.error(err);
         }
       }, options);
@@ -526,8 +540,9 @@ app.FoodEditor = {
       }
 
       if (origin == "foodlist") {
-        const units = app.nutrimentUnits;
-        let energyUnit = app.Settings.get("units", "energy");
+        const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+        const units = app.Nutriments.getNutrimentUnits();
+        const energyUnit = app.Settings.get("units", "energy");
         const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
         const caloriesEl = document.getElementById("calories");
         const kilojoulesEl = document.getElementById("kilojoules");
@@ -535,13 +550,13 @@ app.FoodEditor = {
         if (data !== undefined && data.barcode !== undefined)
           item.barcode = data.barcode;
 
-        if (app.FoodEditor.scan == false)
-          item.unit = app.FoodEditor.el.unit.value;
-        else
+        if (app.FoodEditor.scan == true)
           item.unit = app.FoodEditor.el.uploadUnit.value;
+        else
+          item.unit = app.FoodEditor.el.unit.value;
 
-        if (data !== undefined && data.image_url !== undefined)
-          item.image_url = data.image_url;
+        if (app.FoodEditor.item_image_url !== undefined)
+          item.image_url = app.FoodEditor.item_image_url;
 
         item.nutrition = {};
 
@@ -555,7 +570,7 @@ app.FoodEditor = {
           let value = x.value;
 
           if (id !== "" && value) {
-            if (app.nutriments.includes(id)) {
+            if (nutriments.includes(id)) {
               item.nutrition[id] = parseFloat(value);
             } else if (x.type == "radio") {
               if (item[x.name] == undefined && x.checked)
@@ -565,6 +580,10 @@ app.FoodEditor = {
             }
           }
         }
+
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.FoodEditor.el.categories);
+        if (categories !== undefined)
+          item.categories = categories;
       }
 
       return item;

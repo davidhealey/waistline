@@ -52,6 +52,8 @@
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "g",
     "mg": "mg",
     "µg": "µg",
@@ -59,7 +61,8 @@
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Delete",
@@ -144,6 +147,7 @@
     "quick-add": "Quick Add",
     "yesterdays-meal": "Yesterday's %s",
     "log-title": "Today's Stats",
+    "log-saved": "Saved",
     "no-data": "No Data",
     "default-meals": {
       "breakfast": "Breakfast",
@@ -172,6 +176,7 @@
     "add-new-item": "Add New Item",
     "details": "Details",
     "barcode": "Barcode",
+    "categories": "Categories",
     "name": "Name",
     "brand": "Brand",
     "category": "Category",
@@ -241,7 +246,11 @@
       "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Nutriments",
+      "field": "Name",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "Categories",
@@ -252,11 +261,19 @@
       "sort": "Sort Foods",
       "sort-date": "By last used",
       "sort-alpha": "Alphabetically",
+      "category-labels": "Show Category Labels",
       "thumbnails": "Show Thumbnails",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Show Food Images",
       "wifi-images": "Only show images over Wi-Fi",
       "show-notes": "Show Food Notes"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Statistics",

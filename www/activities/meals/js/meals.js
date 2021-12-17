@@ -21,11 +21,9 @@ app.Meals = {
 
   list: [], //Main list of foods
   filterList: [], //Copy of the list for filtering
-  selection: [], //Items that have been checked, even if list has been changed
   el: {}, //UI elements
 
   init: async function(context) {
-    app.Meals.selection = []; //Clear out selection when page is reloaded
 
     if (context !== undefined) {
       if (context.meal)
@@ -56,21 +54,30 @@ app.Meals = {
     app.Meals.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.Meals.el.search = document.querySelector("#meals-tab #meal-search");
     app.Meals.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
+    app.Meals.el.searchFilter = document.querySelector("#meals-tab #meal-search-filter");
+    app.Meals.el.searchFilterIcon = document.querySelector("#meals-tab #meal-search-filter-icon");
+    app.Meals.el.searchFilterContainer = document.querySelector("#meals-tab #meal-search-filter-container");
     app.Meals.el.fab = document.querySelector("#add-meal");
     app.Meals.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
     app.Meals.el.list = document.querySelector("#meal-list-container ul"); //Infinite list
-    app.Meals.el.spinner = document.querySelector("#meals-tab #spinner");
   },
 
   bindUIActions: function() {
 
-    //Infinite list 
+    // Infinite list - render more items
     if (!app.Meals.el.infinite.hasInfiniteEvent) {
       app.Meals.el.infinite.addEventListener("infinite", (e) => {
         this.renderList();
       });
       app.Meals.el.infinite.hasInfiniteEvent = true;
     }
+
+    // Search filter - reset category filter on long press
+    app.Meals.el.searchFilter.addEventListener("taphold", async (e) => {
+      app.FoodsMealsRecipes.clearSelectedCategories(app.Meals.el.searchFilter, app.Meals.el.searchFilterIcon);
+      app.Meals.list = app.FoodsMealsRecipes.filterList(app.Meals.el.search.value, undefined, app.Meals.filterList);
+      app.Meals.renderList(true);
+    });
   },
 
   renderList: async function(clear) {
@@ -213,22 +220,31 @@ app.Meals = {
   },
 
   createSearchBar: function() {
-    const searchBar = app.f7.searchbar.create({
-      el: app.Meals.el.searchForm,
-      backdrop: false,
-      customSearch: true,
-      on: {
-        async search(sb, query, previousQuery) {
-          if (query != "") {
-            app.Meals.list = app.FoodsMealsRecipes.filterList(query, app.Meals.filterList);
-          } else {
-            app.Meals.list = await app.Meals.getListFromDB();
-            app.Meals.filterList = app.Meals.list;
-          }
-          app.Meals.renderList(true);
-        },
+    app.FoodsMealsRecipes.initializeSearchBar(app.Meals.el.searchForm, {
+      searchbarSearch: async (searchbar, query, previousQuery) => {
+        if (query == "")
+          app.Meals.filterList = await app.Meals.getListFromDB();
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Meals.el.searchFilter);
+        app.Meals.list = app.FoodsMealsRecipes.filterList(query, categories, app.Meals.filterList);
+        app.Meals.renderList(true);
       }
     });
+    app.FoodsMealsRecipes.populateCategoriesField(app.Meals.el.searchFilter, undefined, true, false, {
+      beforeOpen: (smartSelect, prevent) => {
+        smartSelect.selectEl.selectedIndex = -1;
+      },
+      close: (smartSelect) => {
+        let query = app.Meals.el.search.value;
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Meals.el.searchFilter);
+        if (categories !== undefined)
+          app.Meals.el.searchFilterIcon.classList.add(".color-theme");
+        else
+          app.Meals.el.searchFilterIcon.classList.remove(".color-theme");
+        app.Meals.list = app.FoodsMealsRecipes.filterList(query, categories, app.Meals.filterList);
+        app.Meals.renderList(true);
+      }
+    });
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.Meals.el.searchFilterContainer);
   },
 };
 

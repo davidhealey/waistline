@@ -123,13 +123,12 @@ app.Stats = {
 
   populateDropdownOptions: function() {
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const nutrimentUnits = app.nutrimentUnits;
     const energyUnit = app.Settings.get("units", "energy");
     const measurements = app.measurements;
     const stats = measurements.concat(nutriments);
 
     stats.forEach((x, i) => {
-      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) return;
+      if ((x == "calories" || x == "kilojoules") && app.nutrimentUnits[x] != energyUnit) return;
       if (!app.Goals.showInStats(x)) return;
 
       let option = document.createElement("option");
@@ -209,7 +208,9 @@ app.Stats = {
 
       let after = document.createElement("div");
       after.className = "item-after";
-      after.innerHTML = app.Stats.data.dataset.values[i] + " " + app.Stats.data.dataset.unit;
+      after.innerHTML = app.Stats.data.dataset.values[i];
+      if (app.Stats.data.dataset.unit !== undefined)
+        after.innerHTML += " " + app.Stats.data.dataset.unit;
       inner.appendChild(after);
     }
   },
@@ -234,7 +235,9 @@ app.Stats = {
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerHTML = roundedAverage + " " + unit;
+    after.innerHTML = roundedAverage;
+    if (unit !== undefined)
+      after.innerHTML += " " + unit;
     inner.appendChild(after);
 
     return li;
@@ -258,7 +261,7 @@ app.Stats = {
       for (let i = 0; i < data.timestamps.length; i++) {
         let value;
 
-        if (app.nutriments.indexOf(field) == -1) {
+        if (app.measurements.includes(field)) {
           value = parseFloat(data.stats[i][field]);
 
           if (value != undefined) {
@@ -290,7 +293,9 @@ app.Stats = {
       let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
       let goal = app.Goals.getAverageGoal(field);
 
-      result.dataset.label = app.Utils.tidyText(title, 50) + " (" + unitSymbol + ")";
+      result.dataset.label = app.Utils.tidyText(title, 50);
+      if (unitSymbol !== undefined)
+        result.dataset.label += " (" + unitSymbol + ")";
       result.average = result.average / result.dates.length || 0;
       result.goal = goal;
 

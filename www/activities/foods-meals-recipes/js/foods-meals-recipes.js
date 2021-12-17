@@ -234,24 +234,37 @@ app.FoodsMealsRecipes = {
           }
         });
       }
-      
+
       resolve(result);
     });
   },
 
-  filterList: function(term, list) {
+  filterList: function(query, categories, list) {
     let result = list;
 
-    if (term != "") {
-      let exp = new RegExp(term, "i");
+    if (query !== "" || categories !== undefined) {
+      let queryRegExp = new RegExp(query, "i");
+      let categoriesFilter = categories || [];
 
-      //Filter by name and brand
-      result = result.filter(function(el) {
-        if (el) {
-          if (el.name && el.brand)
-            return el.name.match(exp) || el.brand.match(exp);
-          else if (el.name)
-            return el.name.match(exp);
+      // Filter by name, brand and categories
+      result = result.filter((item) => {
+        if (item) {
+          if (item.name && item.brand) {
+            if (!item.name.match(queryRegExp) && !item.brand.match(queryRegExp))
+              return false;
+          } else if (item.name) {
+            if (!item.name.match(queryRegExp))
+              return false;
+          }
+          for (let category of categoriesFilter) {
+            if (item.categories) {
+              if (!item.categories.includes(category))
+                return false;
+            } else {
+              return false;
+            }
+          }
+          return true;
         }
         return false;
       });
@@ -464,10 +477,19 @@ app.FoodsMealsRecipes = {
         //Title
         let title = document.createElement("div");
         title.className = "item-title";
-        if (item.name === "Quick Add")
+        if (item.name == "Quick Add") {
           title.innerHTML = app.strings.diary["quick-add"] || "Quick Add";
-        else
-          title.innerHTML = app.Utils.tidyText(item.name, 50);
+        } else {
+          let text = "";
+          if (item.categories !== undefined && app.Settings.get("foodlist", "show-category-labels") == true) {
+            const labels = app.Settings.get("foodlist", "labels") || [];
+            text += labels.filter((label) => {
+              return item.categories.includes(label);
+            }).join(" ") + " ";
+          }
+          text += item.name;
+          title.innerHTML = app.Utils.tidyText(text, 50);
+        }
         row.appendChild(title);
 
         //Energy
@@ -598,6 +620,76 @@ app.FoodsMealsRecipes = {
 
   getSelection: function() {
     return app.FoodsMealsRecipes.selection;
+  },
+
+  initializeSearchBar: function(element, eventHandlers) {
+    app.f7.searchbar.create({
+      el: element,
+      backdrop: false,
+      customSearch: true,
+      on: eventHandlers
+    });
+  },
+
+  populateCategoriesField: function(element, item, enablePicker, enableRipple, pickerEventHandlers) {
+    const labels = app.Settings.get("foodlist", "labels") || [];
+    const categories = app.Settings.get("foodlist", "categories") || {};
+
+    if (enablePicker) {
+      let select = document.createElement("select");
+      select.setAttribute("multiple", "");
+      element.firstElementChild.append(select);
+
+      labels.forEach((label) => {
+        let option = document.createElement("option");
+        option.value = label;
+        option.setAttribute("data-display-as", label);
+        option.text = label + " " + categories[label] || "";
+        if (item !== undefined && item.categories !== undefined && item.categories.includes(label))
+          option.setAttribute("selected", "");
+        select.append(option);
+      });
+
+      if (enableRipple)
+        element.className = "item-link smart-select";
+      else
+        element.className = "item-link no-ripple smart-select";
+
+      app.f7.smartSelect.create({
+        el: element,
+        openIn: "popover",
+        on: pickerEventHandlers
+      });
+    } else {
+      let field = element.querySelector("#categories-list");
+      field.setAttribute("disabled", "");
+      if (item !== undefined && item.categories !== undefined) {
+        field.innerText = labels.filter((label) => {
+          return item.categories.includes(label);
+        }).join(", ");
+      }
+    }
+  },
+
+  getSelectedCategories: function(element) {
+    let smartSelect = app.f7.smartSelect.get(element);
+    let select = smartSelect.selectEl;
+    let categories = [...select.options].filter((option) => option.selected).map((option) => option.value);
+    if (categories.length > 0)
+      return categories;
+    return undefined;
+  },
+
+  clearSelectedCategories: function(element, filterIcon) {
+    let smartSelect = app.f7.smartSelect.get(element);
+    smartSelect.selectEl.selectedIndex = -1;
+    filterIcon.classList.remove(".color-theme");
+  },
+
+  setCategoriesVisibility: function(container) {
+    const labels = app.Settings.get("foodlist", "labels") || [];
+    if (labels.length == 0)
+      container.style.display = "none";
   },
 
   gotoEditor: function(item) {

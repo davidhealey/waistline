@@ -25,7 +25,6 @@ var s;
 app.Settings = {
 
   settings: {},
-  nutrimentSortLock: 1,
 
   init: function() {
     s = this.settings; //Assign settings object
@@ -61,7 +60,7 @@ app.Settings = {
     return undefined;
   },
 
-  putField: function(field) {
+  putField: function(field, value) {
     let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
     settings[field] = settings[field] || {};
     settings[field] = value;
@@ -200,10 +199,23 @@ app.Settings = {
       app.f7.on("sortableSort", (e, data) => {
         let li = nutrimentList.getElementsByTagName("li");
         let newOrder = [];
-        for (let i = 0; i < li.length; i++) {
+        for (let i = 0; i < li.length - 1; i++) {
           newOrder.push(li[i].id);
         }
         app.Settings.put("nutriments", "order", newOrder);
+      });
+    }
+
+    // Food labels/categories list
+    let categoriesList = document.getElementById("food-categories-list");
+    if (categoriesList != undefined) {
+      app.f7.on("sortableSort", (e, data) => {
+        let li = categoriesList.getElementsByTagName("li");
+        let newOrder = [];
+        for (let i = 0; i < li.length - 1; i++) {
+          newOrder.push(li[i].id);
+        }
+        app.Settings.put("foodlist", "labels", newOrder);
       });
     }
   },
@@ -257,7 +269,8 @@ app.Settings = {
         this.put("integration", "off-username", username);
         this.put("integration", "off-password", password);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
+        let msg = app.strings.settings.integration["login-success"] || "Login Successful";
+        app.Utils.toast(msg);
       } else {
         let msg = app.strings.settings.integration["invalid-credentials"] || "Invalid Credentials";
         app.Utils.toast(msg);
@@ -271,7 +284,8 @@ app.Settings = {
       if (key == "" || await app.USDA.testApiKey(key)) {
         this.put("integration", "usda-key", key);
         app.f7.loginScreen.close(screen);
-        app.Utils.toast(app.strings.settings.integration["login-success"] || "Login Successful");
+        let msg = app.strings.settings.integration["login-success"] || "Login Successful";
+        app.Utils.toast(msg);
       } else {
         let msg = app.strings.settings.integration["invalid-api-key"] || "API Key Invalid";
         app.Utils.toast(msg);
@@ -335,57 +349,6 @@ app.Settings = {
     }).open();
   },
 
-  populateNutrimentList: function() {
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    let ul = document.querySelector("#nutriment-list");
-
-    for (let i in nutriments) {
-      let n = nutriments[i];
-
-      if (n == "calories" || n == "kilojoules") continue;
-
-      let li = document.createElement("li");
-      li.id = n;
-      ul.appendChild(li);
-
-      let content = document.createElement("div");
-      content.className = "item-content";
-      li.appendChild(content);
-
-      let inner = document.createElement("div");
-      inner.className = "item-inner";
-      content.appendChild(inner);
-
-      let text = app.strings.nutriments[n] || n;
-      let title = document.createElement("div");
-      title.className = "item-title";
-      title.innerHTML = app.Utils.tidyText(text, 50);
-      inner.appendChild(title);
-
-      let after = document.createElement("div");
-      after.className = "item-after";
-      inner.appendChild(after);
-
-      let label = document.createElement("label");
-      label.className = "toggle toggle-init";
-      after.appendChild(label);
-
-      let input = document.createElement("input");
-      input.type = "checkbox";
-      input.name = n;
-      input.setAttribute('field', 'nutrimentVisibility');
-      label.appendChild(input);
-
-      let span = document.createElement("span");
-      span.className = "toggle-icon";
-      label.appendChild(span);
-
-      let sortHandler = document.createElement("div");
-      sortHandler.className = "sortable-handler";
-      li.appendChild(sortHandler);
-    }
-  },
-
   firstTimeSetup: function() {
     let defaults = {
       statistics: {
@@ -402,7 +365,10 @@ app.Settings = {
         "prompt-add-items": false
       },
       foodlist: {
+        labels: app.FoodsCategories.defaultLabels,
+        categories: app.FoodsCategories.defaultCategories,
         sort: "alpha",
+        "show-category-labels": false,
         "show-thumbnails": false,
         "wifi-thumbnails": true,
         "show-images": true,
@@ -453,6 +419,7 @@ app.Settings = {
       },
       nutriments: {
         order: ["calories", "kilojoules", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "monounsaturated-fat", "polyunsaturated-fat", "trans-fat", "omega-3-fat", "omega-6-fat", "omega-9-fat", "cholesterol", "sodium", "vitamin-a", "vitamin-d", "vitamin-e", "vitamin-k", "vitamin-c", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"]
+        units: {}
       },
       nutrimentVisibility: {
         "fat": true,
@@ -486,6 +453,12 @@ app.Settings = {
         });
       }
 
+      // Default food labels and categories must be added
+      if (settings.foodlist !== undefined && settings.foodlist.labels === undefined && settings.foodlist.categories === undefined) {
+        settings.foodlist.labels = app.FoodsCategories.defaultLabels;
+        settings.foodlist.categories = app.FoodsCategories.defaultCategories;
+      }
+
       settings.schemaVersion = currentSettingsSchemaVersion;
 
       if (saveChanges)
@@ -500,7 +473,10 @@ document.addEventListener("page:init", async function(e) {
   const pageName = e.target.attributes["data-name"].value;
 
   if (pageName == "settings-nutriments")
-    app.Settings.populateNutrimentList();
+    app.Nutriments.populateNutrimentList();
+  
+  if (pageName == "settings-foods-categories")
+    app.FoodsCategories.populateFoodCategoriesList();
 
   //Settings and all settings subpages
   if (pageName.indexOf("settings") != -1) {

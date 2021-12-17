@@ -21,11 +21,9 @@ app.Recipes = {
 
   list: [], //Main list of foods
   filterList: [], //Copy of the list for filtering
-  selection: [], //Items that have been checked, even if list has been changed
   el: {}, //UI elements
 
   init: async function(context) {
-    app.Recipes.selection = []; //Clear out selection when page is reloaded
 
     if (context !== undefined) {
       if (context.recipe)
@@ -56,21 +54,30 @@ app.Recipes = {
     app.Recipes.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.Recipes.el.search = document.querySelector("#recipes-tab #recipe-search");
     app.Recipes.el.searchForm = document.querySelector("#recipes-tab #recipe-search-form");
+    app.Recipes.el.searchFilter = document.querySelector("#recipes-tab #recipe-search-filter");
+    app.Recipes.el.searchFilterIcon = document.querySelector("#recipes-tab #recipe-search-filter-icon");
+    app.Recipes.el.searchFilterContainer = document.querySelector("#recipes-tab #recipe-search-filter-container");
     app.Recipes.el.fab = document.querySelector("#add-recipe");
     app.Recipes.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #recipes"); //Infinite list container
     app.Recipes.el.list = document.querySelector("#recipe-list-container ul"); //Infinite list
-    app.Recipes.el.spinner = document.querySelector("#recipes-tab #spinner");
   },
 
   bindUIActions: function() {
 
-    //Infinite list 
+    // Infinite list - render more items
     if (!app.Recipes.el.infinite.hasInfiniteEvent) {
       app.Recipes.el.infinite.addEventListener("infinite", (e) => {
         app.Recipes.renderList();
       });
       app.Recipes.el.infinite.hasInfiniteEvent = true;
     }
+
+    // Search filter - reset category filter on long press
+    app.Recipes.el.searchFilter.addEventListener("taphold", async (e) => {
+      app.FoodsMealsRecipes.clearSelectedCategories(app.Recipes.el.searchFilter, app.Recipes.el.searchFilterIcon);
+      app.Recipes.list = app.FoodsMealsRecipes.filterList(app.Recipes.el.search.value, undefined, app.Recipes.filterList);
+      app.Recipes.renderList(true);
+    });
   },
 
   renderList: async function(clear) {
@@ -158,22 +165,31 @@ app.Recipes = {
   },
 
   createSearchBar: function() {
-    const searchBar = app.f7.searchbar.create({
-      el: app.Recipes.el.searchForm,
-      backdrop: false,
-      customSearch: true,
-      on: {
-        async search(sb, query, previousQuery) {
-          if (query != "") {
-            app.Recipes.list = app.FoodsMealsRecipes.filterList(query, app.Recipes.filterList);
-          } else {
-            app.Recipes.list = await app.Recipes.getListFromDB();
-            app.Recipes.filterList = app.Recipes.list;
-          }
-          app.Recipes.renderList(true);
-        },
+    app.FoodsMealsRecipes.initializeSearchBar(app.Recipes.el.searchForm, {
+      searchbarSearch: async (searchbar, query, previousQuery) => {
+        if (query == "")
+          app.Recipes.filterList = await app.Recipes.getListFromDB();
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Recipes.el.searchFilter);
+        app.Recipes.list = app.FoodsMealsRecipes.filterList(query, categories, app.Recipes.filterList);
+        app.Recipes.renderList(true);
       }
     });
+    app.FoodsMealsRecipes.populateCategoriesField(app.Recipes.el.searchFilter, undefined, true, false, {
+      beforeOpen: (smartSelect, prevent) => {
+        smartSelect.selectEl.selectedIndex = -1;
+      },
+      close: (smartSelect) => {
+        let query = app.Recipes.el.search.value;
+        let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Recipes.el.searchFilter);
+        if (categories !== undefined)
+          app.Recipes.el.searchFilterIcon.classList.add(".color-theme");
+        else
+          app.Recipes.el.searchFilterIcon.classList.remove(".color-theme");
+        app.Recipes.list = app.FoodsMealsRecipes.filterList(query, categories, app.Recipes.filterList);
+        app.Recipes.renderList(true);
+      }
+    });
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.Recipes.el.searchFilterContainer);
   },
 };
 

@@ -31,6 +31,7 @@ app.MealEditor = {
       if (context.meal) {
         app.MealEditor.meal = context.meal;
         app.MealEditor.populateInputs(context.meal);
+        app.FoodsMealsRecipes.populateCategoriesField(app.MealEditor.el.categories, app.MealEditor.meal, true, true);
       }
 
       if (context.items)
@@ -46,14 +47,21 @@ app.MealEditor = {
 
     app.MealEditor.setRequiredFieldErrorMessage();
     app.MealEditor.bindUIActions();
+    app.MealEditor.setComponentVisibility();
   },
 
   getComponents: function() {
     app.MealEditor.el.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
+    app.MealEditor.el.categoriesContainer = document.querySelector(".page[data-name='meal-editor'] #categories-container");
+    app.MealEditor.el.categories = document.querySelector(".page[data-name='meal-editor'] #categories");
     app.MealEditor.el.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
     app.MealEditor.el.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
     app.MealEditor.el.add = document.querySelector(".page[data-name='meal-editor'] #add-food");
     app.MealEditor.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #nutrition");
+  },
+
+  setComponentVisibility: function() {
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.MealEditor.el.categoriesContainer);
   },
 
   bindUIActions: function() {
@@ -156,6 +164,10 @@ app.MealEditor = {
           data[x.name] = x.value;
       });
 
+      let categories = app.FoodsMealsRecipes.getSelectedCategories(app.MealEditor.el.categories);
+      if (categories !== undefined)
+        data.categories = categories;
+
       // Array index should not be saved with items
       if (data.items !== undefined) {
         data.items.forEach((x) => {
@@ -177,40 +189,44 @@ app.MealEditor = {
 
   renderNutrition: async function() {
     const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.MealEditor.meal.items);
-    const nutrimentUnits = app.nutrimentUnits;
+
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
-    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+    const visible = app.Settings.getField("nutrimentVisibility");
+
     const ul = app.MealEditor.el.nutrition;
     ul.innerHTML = "";
 
-    for (let n in nutrition) {
-      if (nutrition[n] !== 0) {
+    nutriments.forEach((x) => {
 
-        if ((n == "calories" || n == "kilojoules") && nutrimentUnits[n] != energyUnit) continue;
-        if (nutrimentVisibility[n] !== true && !["calories", "kilojoules"].includes(n)) continue;
+      if (nutrition[x] == undefined || nutrition[x] == 0) return;
+      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) return;
+      if (visible[x] !== true && !["calories", "kilojoules"].includes(x)) return;
 
-        let unit = app.strings["unit-symbols"][nutrimentUnits[n]] || "g";
+      let unit = app.strings["unit-symbols"][units[x]] || units[x];
 
-        let li = document.createElement("li");
-        li.className = "item-content item-input";
-        ul.appendChild(li);
+      let li = document.createElement("li");
+      li.className = "item-content item-input";
+      ul.appendChild(li);
 
-        let innerDiv = document.createElement("div");
-        innerDiv.className = "item-inner";
-        li.appendChild(innerDiv);
+      let innerDiv = document.createElement("div");
+      innerDiv.className = "item-inner";
+      li.appendChild(innerDiv);
 
-        let title = document.createElement("div");
-        title.className = "item-title item-label";
-        let text = app.strings.nutriments[n] || n;
-        title.innerHTML = app.Utils.tidyText(text, 25) + " (" + unit + ")";
-        innerDiv.appendChild(title);
+      let title = document.createElement("div");
+      title.className = "item-title item-label";
+      let text = app.strings.nutriments[x] || x;
+      title.innerHTML = app.Utils.tidyText(text, 25);
+      if (unit !== undefined)
+        title.innerHTML += " (" + unit + ")";
+      innerDiv.appendChild(title);
 
-        let after = document.createElement("div");
-        after.className = "item-after";
-        after.innerHTML = Math.round(nutrition[n] * 100) / 100;
-        innerDiv.appendChild(after);
-      }
-    }
+      let after = document.createElement("div");
+      after.className = "item-after";
+      after.innerHTML = Math.round(nutrition[x] * 100) / 100;
+      innerDiv.appendChild(after);
+    });
   },
 
   renderItems: function() {

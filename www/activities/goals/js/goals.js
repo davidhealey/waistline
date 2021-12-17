@@ -33,16 +33,16 @@ app.Goals = {
   populateGoalList: function() {
     app.Goals.el.list.innerHTML = "";
 
-    const measurements = app.measurements;
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const stats = measurements.concat(nutriments);
-    const nutrimentUnits = app.nutrimentUnits;
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
+    const measurements = app.measurements;
+    const stats = measurements.concat(nutriments);
 
     for (let i in stats) {
       let x = stats[i];
 
-      if ((x == "calories" || x == "kilojoules") && nutrimentUnits[x] != energyUnit) continue;
+      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) continue;
 
       let unit = app.Goals.getGoalUnit(x);
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -54,7 +54,9 @@ app.Goals = {
       a.href = "#";
 
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      a.innerHTML = app.Utils.tidyText(text, 50) + " (" + unitSymbol + ")";
+      a.innerHTML = app.Utils.tidyText(text, 50);
+      if (unitSymbol !== undefined)
+        a.innerHTML += " (" + unitSymbol + ")";
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {
@@ -72,7 +74,8 @@ app.Goals = {
   },
 
   getGoalUnit(stat, checkPercentGoal=true) {
-    const units = Object.assign(app.Settings.getField("units"), app.nutrimentUnits);
+    const preferredUnits = app.Settings.getField("units") || {};
+    const units = app.Utils.concatObjects(app.Nutriments.getNutrimentUnits(), preferredUnits);
 
     if (stat == "body fat")
       return "%";
@@ -81,7 +84,7 @@ app.Goals = {
     if (checkPercentGoal && app.Goals.isPercentGoal(stat))
       return "%"
     else
-      return units[stat] || "g";
+      return units[stat];
   },
 
   getGoals: async function(stats, date) {
@@ -267,6 +270,20 @@ app.Goals = {
 
   isPercentGoal: function(stat) {
     return app.Settings.get("goals", stat + "-percent-goal");
+  },
+
+  migrateStatGoalSettings: function(oldStat, newStat) {
+    let goals = app.Settings.getField("goals");
+
+    ["", "-show-in-diary", "-show-in-stats", "-shared-goal", "-auto-adjust", "-minimum-goal", "-percent-goal"].forEach((setting) => {
+      if (oldStat + setting in goals) {
+        if (newStat !== undefined)
+          goals[newStat + setting] = goals[oldStat + setting];
+        delete goals[oldStat + setting];
+      }
+    });
+
+    app.Settings.putField("goals", goals);
   }
 };
 

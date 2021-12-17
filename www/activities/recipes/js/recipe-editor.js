@@ -31,6 +31,7 @@ app.RecipeEditor = {
       if (context.recipe) {
         app.RecipeEditor.recipe = context.recipe;
         app.RecipeEditor.populateInputs(context.recipe);
+        app.FoodsMealsRecipes.populateCategoriesField(app.RecipeEditor.el.categories, app.RecipeEditor.recipe, true, true);
       }
 
       // From food list
@@ -47,14 +48,21 @@ app.RecipeEditor = {
 
     app.RecipeEditor.setRequiredFieldErrorMessage();
     app.RecipeEditor.bindUIActions();
+    app.RecipeEditor.setComponentVisibility();
   },
 
   getComponents: function() {
     app.RecipeEditor.el.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
+    app.RecipeEditor.el.categoriesContainer = document.querySelector(".page[data-name='recipe-editor'] #categories-container");
+    app.RecipeEditor.el.categories = document.querySelector(".page[data-name='recipe-editor'] #categories");
     app.RecipeEditor.el.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
     app.RecipeEditor.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
     app.RecipeEditor.el.add = document.querySelector(".page[data-name='recipe-editor'] #add-food");
     app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #nutrition");
+  },
+
+  setComponentVisibility: function() {
+    app.FoodsMealsRecipes.setCategoriesVisibility(app.RecipeEditor.el.categoriesContainer);
   },
 
   bindUIActions: function() {
@@ -157,6 +165,10 @@ app.RecipeEditor = {
           data[x.name] = x.value;
       });
 
+      let categories = app.FoodsMealsRecipes.getSelectedCategories(app.RecipeEditor.el.categories);
+      if (categories !== undefined)
+        data.categories = categories;
+
       // Array index should not be saved with items
       if (data.items !== undefined) {
         data.items.forEach((x) => {
@@ -181,18 +193,22 @@ app.RecipeEditor = {
 
   renderNutrition: async function() {
     const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
-    const nutrimentUnits = app.nutrimentUnits;
+
+    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
-    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+    const visible = app.Settings.getField("nutrimentVisibility");
+
     const ul = app.RecipeEditor.el.nutrition;
     ul.innerHTML = "";
 
-    for (let n in nutrition) {
+    nutriments.forEach((x) => {
 
-      if ((n == "calories" || n == "kilojoules") && nutrimentUnits[n] != energyUnit) continue;
-      if (nutrimentVisibility[n] !== true && !["calories", "kilojoules"].includes(n)) continue;
+      if (nutrition[x] == undefined || nutrition[x] == 0) return;
+      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) return;
+      if (visible[x] !== true && !["calories", "kilojoules"].includes(x)) return;
 
-      let unit = app.strings["unit-symbols"][nutrimentUnits[n]] || "g";
+      let unit = app.strings["unit-symbols"][units[x]] || units[x];
 
       let li = document.createElement("li");
       li.className = "item-content item-input";
@@ -204,15 +220,17 @@ app.RecipeEditor = {
 
       let title = document.createElement("div");
       title.className = "item-title item-label";
-      let text = app.strings.nutriments[n] || n;
-      title.innerHTML = app.Utils.tidyText(text, 25) + " (" + unit + ")";
+      let text = app.strings.nutriments[x] || x;
+      title.innerHTML = app.Utils.tidyText(text, 25);
+      if (unit !== undefined)
+        title.innerHTML += " (" + unit + ")";
       innerDiv.appendChild(title);
 
       let after = document.createElement("div");
       after.className = "item-after";
-      after.innerHTML = Math.round(nutrition[n] * 100) / 100;
+      after.innerHTML = Math.round(nutrition[x] * 100) / 100;
       innerDiv.appendChild(after);
-    }
+    });
   },
 
   renderItems: function() {

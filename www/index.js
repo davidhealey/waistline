@@ -240,7 +240,14 @@ const app = {
             url: "activities/settings/views/foods.html",
             options: {
               transition: "f7-parallax"
-            }
+            },
+            routes: [{
+              path: "categories/",
+              url: "activities/settings/views/foods-categories.html",
+              options: {
+                transition: "f7-parallax"
+              },
+            }]
           },
           {
             path: "units/",
