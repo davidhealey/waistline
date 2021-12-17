@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "Fleromättat fett",
     "trans-fat": "Transfett",
     "omega-3-fat": "Omega-3-fett",
+    "omega-6-fat": "Omega-6 fat",
+    "omega-9-fat": "Omega-9 fat",
     "cholesterol": "Kolesterol",
     "sodium": "Natrium",
     "vitamin-a": "A-vitamin",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "g",
     "mg": "mg",
     "µg": "µg",
@@ -57,7 +61,8 @@
     "lb": "lb",
     "st": "stone",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Radera",
@@ -142,6 +147,7 @@
     "quick-add": "Snabbtillägg",
     "yesterdays-meal": "Gårdagens %s",
     "log-title": "Dagens statistik",
+    "log-saved": "Saved",
     "no-data": "Ingen data",
     "default-meals": {
       "breakfast": "Frukost",
@@ -170,6 +176,7 @@
     "add-new-item": "Lägg till nytt objekt",
     "details": "Detaljer",
     "barcode": "Streckkod",
+    "categories": "Kategorier",
     "name": "Namn",
     "brand": "Varumärke",
     "category": "Kategori",
@@ -239,7 +246,11 @@
       "prompt-add-items": "Fråga efter kvantitet vid nytt inlägg"
     },
     "nutriments": {
-      "title": "Näringsämnen"
+      "title": "Näringsämnen",
+      "field": "Namn",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "Kategorier",
@@ -250,11 +261,19 @@
       "sort": "Sortering av livsmedel",
       "sort-date": "Senast använt",
       "sort-alpha": "Alfabetisk",
+      "category-labels": "Show Category Labels",
       "thumbnails": "Visa miniatyrbilder",
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",
       "images": "Visa bilder på livsmedel",
       "wifi-images": "Visa bilder på livsmedel endast över Wi-Fi",
       "show-notes": "Visa anteckningar om livsmedel"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Statistik",
