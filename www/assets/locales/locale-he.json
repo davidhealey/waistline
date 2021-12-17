@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "שומן רב בלתי רווי",
     "trans-fat": "שומן טרנס",
     "omega-3-fat": "שומן אומגה 3",
+    "omega-6-fat": "Omega-6 fat",
+    "omega-9-fat": "Omega-9 fat",
     "cholesterol": "כולסטרול",
     "sodium": "נתרן",
     "vitamin-a": "ויטמין A",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "קק״ל",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "גרם",
     "mg": "מ״ג",
     "µg": "מיקרוגרם",
@@ -57,7 +61,8 @@
     "lb": "פאונד",
     "st": "אבן",
     "cm": "ס״מ",
-    "inch": "אינטש"
+    "inch": "אינטש",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "מחיקה",
@@ -142,6 +147,7 @@
     "quick-add": "הוספה מהירה",
     "yesterdays-meal": "%s מאתמול",
     "log-title": "הסטטיסטיקה היומית",
+    "log-saved": "Saved",
     "no-data": "אין נתונים",
     "default-meals": {
       "breakfast": "ארוחת בוקר",
@@ -170,6 +176,7 @@
     "add-new-item": "הוספת פריט חדש",
     "details": "פרטים",
     "barcode": "ברקוד",
+    "categories": "קטגוריות",
     "name": "שם",
     "brand": "מותג",
     "category": "קטגוריה",
@@ -239,7 +246,11 @@
       "prompt-add-items": "לבקש כמות בהוספת פריטים"
     },
     "nutriments": {
-      "title": "חומרי הזנה"
+      "title": "חומרי הזנה",
+      "field": "שם",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "קטגוריות",
@@ -250,11 +261,19 @@
       "sort": "מיון מאכלים",
       "sort-date": "לפי השימוש האחרון",
       "sort-alpha": "בסדר אלפביתי",
+      "category-labels": "Show Category Labels",
       "thumbnails": "הצגת תמונות ממוזערות",
       "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
       "images": "הצגת תמונות מאכלים",
       "wifi-images": "הצגת תמונות בחיבור אלחוטי בלבד",
       "show-notes": "הצגת הערות מזון"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "סטטיסטיקה",
