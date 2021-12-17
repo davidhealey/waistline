@@ -13,8 +13,8 @@
     "polyunsaturated-fat": "Tłuszcz wielonienasycony",
     "trans-fat": "Tłuszcze trans",
     "omega-3-fat": "Tłuszcze omega 3",
-    "omega-6-fat": "Omega-6 fat",
-    "omega-9-fat": "Omega-9 fat",
+    "omega-6-fat": "Tłuszcze omega 6",
+    "omega-9-fat": "Tłuszcze omega 9",
     "cholesterol": "Cholesterol",
     "sodium": "Sód",
     "vitamin-a": "Witamina A",
@@ -147,7 +147,7 @@
     "quick-add": "Szybkie dodanie",
     "yesterdays-meal": "Wczoraj %s",
     "log-title": "Dzisiejsza statystyka",
-    "log-saved": "Saved",
+    "log-saved": "Zapisano",
     "no-data": "Brak danych",
     "default-meals": {
       "breakfast": "Śniadanie",
@@ -248,9 +248,9 @@
     "nutriments": {
       "title": "Wartości odżywcze",
       "field": "Nazwa",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Jednostka",
+      "add": "Dodaj pole",
+      "edit": "Edytuj pole"
     },
     "diary-categories": {
       "title": "Kategorie",
@@ -261,7 +261,7 @@
       "sort": "Sortuj żywność",
       "sort-date": "Po ostatnim użyciu",
       "sort-alpha": "Alfabetycznie",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Pokaż etykiety kategorii",
       "thumbnails": "Pokaż miniatury",
       "wifi-thumbnails": "Pokazuj miniatury tylko przez Wi-Fi",
       "images": "Pokaż zdjęcia jedzenia",
@@ -269,11 +269,11 @@
       "show-notes": "Pokaż notatki o żywności"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Etykiety i kategorie",
+      "label": "Etykieta / Ikona",
+      "description": "Opis",
+      "add": "Dodaj kategorię",
+      "edit": "Edytuj kategorię"
     },
     "statistics": {
       "title": "Statystyki",
