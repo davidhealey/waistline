@@ -13,8 +13,8 @@
     "polyunsaturated-fat": "Fleromättat fett",
     "trans-fat": "Transfett",
     "omega-3-fat": "Omega-3-fett",
-    "omega-6-fat": "Omega-6 fat",
-    "omega-9-fat": "Omega-9 fat",
+    "omega-6-fat": "Omega-6-fett",
+    "omega-9-fat": "Omega-9-fett",
     "cholesterol": "Kolesterol",
     "sodium": "Natrium",
     "vitamin-a": "A-vitamin",
@@ -147,7 +147,7 @@
     "quick-add": "Snabbtillägg",
     "yesterdays-meal": "Gårdagens %s",
     "log-title": "Dagens statistik",
-    "log-saved": "Saved",
+    "log-saved": "Sparad",
     "no-data": "Ingen data",
     "default-meals": {
       "breakfast": "Frukost",
@@ -248,9 +248,9 @@
     "nutriments": {
       "title": "Näringsämnen",
       "field": "Namn",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Enhet",
+      "add": "Lägg till fält",
+      "edit": "Redigera fält"
     },
     "diary-categories": {
       "title": "Kategorier",
@@ -261,7 +261,7 @@
       "sort": "Sortering av livsmedel",
       "sort-date": "Senast använt",
       "sort-alpha": "Alfabetisk",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Visa kategorietiketter",
       "thumbnails": "Visa miniatyrbilder",
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",
       "images": "Visa bilder på livsmedel",
@@ -269,11 +269,11 @@
       "show-notes": "Visa anteckningar om livsmedel"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Etiketter och kategorier",
+      "label": "Etikett / ikon",
+      "description": "Beskrivning",
+      "add": "Lägg till kategori",
+      "edit": "Redigera kategori"
     },
     "statistics": {
       "title": "Statistik",
