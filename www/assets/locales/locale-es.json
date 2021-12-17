@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "Polyunsat fat",
     "trans-fat": "Trans fat",
     "omega-3-fat": "Omega-3 fat",
+    "omega-6-fat": "Omega-6 fat",
+    "omega-9-fat": "Omega-9 fat",
     "cholesterol": "Cholesterol",
     "sodium": "Sodium",
     "vitamin-a": "Vitamin A",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "g",
     "mg": "mg",
     "µg": "µg",
@@ -57,7 +61,8 @@
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Borrar",
@@ -142,6 +147,7 @@
     "quick-add": "Añadir rapidamente",
     "yesterdays-meal": "Yesterday's %s",
     "log-title": "Estadísticas de hoy",
+    "log-saved": "Saved",
     "no-data": "Sin datos",
     "default-meals": {
       "breakfast": "Desayuno",
@@ -170,6 +176,7 @@
     "add-new-item": "Añadir nuevo ítem",
     "details": "Detalles",
     "barcode": "Código de barras",
+    "categories": "Categorías",
     "name": "Nombre",
     "brand": "Marca",
     "category": "Categoría",
@@ -239,7 +246,11 @@
       "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Nutriments",
+      "field": "Nombre",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "Categorías",
@@ -250,11 +261,19 @@
       "sort": "Sort Foods",
       "sort-date": "Por última vez usado",
       "sort-alpha": "Alfabético",
+      "category-labels": "Show Category Labels",
       "thumbnails": "Mostrar miniaturas",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Mostrar imágenes de alimentos",
       "wifi-images": "Mostrar solo imágenes por Wi-Fi",
       "show-notes": "Show Food Notes"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Estadísticas",
