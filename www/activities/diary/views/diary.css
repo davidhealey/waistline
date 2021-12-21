@@ -17,6 +17,10 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* Group title and total energy */
+.page[data-name="diary"] .group-title {font-weight: bold;}
+.page[data-name="diary"] .group-energy {font-weight: bold;}
+
 /* Nutrition/Goals display */
 .page[data-name="diary"] #diary-nutrition .swiper-container {width: 100%;}
 .page[data-name="diary"] #diary-nutrition .row {justify-content: space-around;}

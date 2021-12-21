@@ -54,9 +54,9 @@ app.Goals = {
       a.href = "#";
 
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      a.innerHTML = app.Utils.tidyText(text, 50);
+      a.innerText = app.Utils.tidyText(text, 50);
       if (unitSymbol !== undefined)
-        a.innerHTML += " (" + unitSymbol + ")";
+        a.innerText += " (" + unitSymbol + ")";
       li.appendChild(a);
 
       li.addEventListener("click", (e) => {

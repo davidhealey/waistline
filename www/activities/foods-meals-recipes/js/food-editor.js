@@ -240,14 +240,14 @@ app.FoodEditor = {
 
   setLinkButtonIcon: function() {
     if (app.FoodEditor.linked)
-      app.FoodEditor.el.linkIcon.innerHTML = "link";
+      app.FoodEditor.el.linkIcon.innerText = "link";
     else
-      app.FoodEditor.el.linkIcon.innerHTML = "link_off";
+      app.FoodEditor.el.linkIcon.innerText = "link_off";
   },
 
   updateTitle: function() {
     if (!app.FoodEditor.item || app.FoodEditor.item.id == undefined) {
-      app.FoodEditor.el.title.innerHTML = app.strings["food-editor"]["add-new-item"] || "Add New Item";
+      app.FoodEditor.el.title.innerText = app.strings["food-editor"]["add-new-item"] || "Add New Item";
     } else if (app.FoodEditor.origin != undefined) {
       const origins = ["diary", "foodlist", "meals", "recipes"];
       const titles = [
@@ -258,7 +258,7 @@ app.FoodEditor = {
       ];
 
       let title = titles[origins.indexOf(app.FoodEditor.origin)];
-      app.FoodEditor.el.title.innerHTML = title;
+      app.FoodEditor.el.title.innerText = title;
     }
   },
 
@@ -274,7 +274,7 @@ app.FoodEditor = {
       item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules);
 
     let ul = app.FoodEditor.el.nutrition;
-    ul.innerHTML = ""; //Clear old form 
+    ul.innerHTML = "";
 
     for (let k of nutriments) {
 
@@ -349,7 +349,7 @@ app.FoodEditor = {
       if (x != "") {
         let option = document.createElement("option");
         option.value = i;
-        option.text = app.strings.diary["default-meals"][x.toLowerCase()] || x;
+        option.innerText = app.strings.diary["default-meals"][x.toLowerCase()] || x;
         if (i == item.category) option.setAttribute("selected", "");
         app.FoodEditor.el.category.append(option);
       }

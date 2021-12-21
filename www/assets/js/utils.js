@@ -32,6 +32,12 @@ app.Utils = {
     return "";
   },
 
+  escapeHtml: function(text) {
+    var div = document.createElement("div");
+    div.appendChild(document.createTextNode(text));
+    return div.innerHTML;
+  },
+
   deleteChildNodes: function(parent) {
     while (parent.firstChild) {
       parent.removeChild(parent.firstChild);

@@ -70,7 +70,7 @@ app.FoodsMealsRecipes = {
   },
 
   tabInit: function() {
-    app.FoodsMealsRecipes.el.title.innerHTML = this.tabTitle;
+    app.FoodsMealsRecipes.el.title.innerText = this.tabTitle;
     app.FoodsMealsRecipes.el.submit.style.display = "none";
     app.FoodsMealsRecipes.localizeSearchPlaceholder();
   },
@@ -273,36 +273,28 @@ app.FoodsMealsRecipes = {
   },
 
   getItem: function(id, type, portion, quantity) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
 
       let store;
 
       if (type == "food") store = "foodList";
       if (type == "recipe") store = "recipes";
 
-      let request = dbHandler.getItem(id, store);
+      let data = await dbHandler.getByKey(id, store);
 
-      request.onsuccess = function(e) {
-        let result = e.target.result;
+      if (data !== undefined) {
+        // Get nutriments for given portion/quantity
+        let foodPortion = parseFloat(data.portion);
+        let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
 
-        if (result !== undefined) {
-          // Get nutriments for given portion/quantity
-          let foodPortion = parseFloat(result.portion);
-          let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
-
-          for (let n in result.nutrition) {
-            result.nutrition[n] = Math.round(result.nutrition[n] * multiplier * 100) / 100;
-          }
-
-          resolve(result);
-        } else {
-          resolve();
+        for (let n in data.nutrition) {
+          data.nutrition[n] = Math.round(data.nutrition[n] * multiplier * 100) / 100;
         }
-      };
 
-      request.onerror = function(e) {
-        reject(e);
-      };
+        resolve(data);
+      } else {
+        resolve();
+      }
     });
   },
 
@@ -478,7 +470,10 @@ app.FoodsMealsRecipes = {
         let title = document.createElement("div");
         title.className = "item-title";
         if (item.name == "Quick Add") {
-          title.innerHTML = app.strings.diary["quick-add"] || "Quick Add";
+          if (item.description !== undefined)
+            title.innerText = app.Utils.tidyText(item.description, 50);
+          else
+            title.innerText = app.strings.diary["quick-add"] || "Quick Add";
         } else {
           let text = "";
           if (item.categories !== undefined && app.Settings.get("foodlist", "show-category-labels") == true) {
@@ -488,7 +483,7 @@ app.FoodsMealsRecipes = {
             }).join(" ") + " ";
           }
           text += item.name;
-          title.innerHTML = app.Utils.tidyText(text, 50);
+          title.innerText = app.Utils.tidyText(text, 50);
         }
         row.appendChild(title);
 
@@ -501,19 +496,19 @@ app.FoodsMealsRecipes = {
 
           let after = document.createElement("div");
           after.className = "item-after";
-          after.innerHTML = Math.round(energy) + " " + energyUnitSymbol;
+          after.innerText = Math.round(energy) + " " + energyUnitSymbol;
           row.appendChild(after);
         }
 
-        //Brand 
+        //Brand
         if (item.brand && item.brand != "" && item.brand != "undefined") {
           let subtitle = document.createElement("div");
           subtitle.className = "item-subtitle";
-          subtitle.innerHTML = app.Utils.tidyText(item.brand, 50).italics();
+          subtitle.innerText = app.Utils.tidyText(item.brand, 50);
           inner.appendChild(subtitle);
         }
 
-        //Item details 
+        //Item details
         let details = document.createElement("div");
         details.className = "item-text";
 
@@ -527,11 +522,11 @@ app.FoodsMealsRecipes = {
             if (app.standardUnits.includes(item.unit))
               text += item.unit;
             else
-              text += " " + item.unit;
+              text += " " + app.Utils.escapeHtml(item.unit);
           }
 
           if (item.quantity !== undefined && item.quantity != 1)
-            text += " &times;" + item.quantity;
+            text += " &times;" + app.Utils.escapeHtml(item.quantity);
         }
 
         if (timestamp == true && item.dateTime !== undefined) {
@@ -578,7 +573,7 @@ app.FoodsMealsRecipes = {
         app.FoodsMealsRecipes.el.scan.style.display = "block";
 
       app.FoodsMealsRecipes.el.submit.style.display = "none";
-      app.FoodsMealsRecipes.el.title.innerHTML = app.FoodsMealsRecipes.tabTitle;
+      app.FoodsMealsRecipes.el.title.innerText = app.FoodsMealsRecipes.tabTitle;
     } else {
       app.FoodsMealsRecipes.el.scan.style.display = "none";
       app.FoodsMealsRecipes.el.submit.style.display = "block";
@@ -600,7 +595,7 @@ app.FoodsMealsRecipes = {
       if (energySum !== 0)
         text += " | " + Math.round(energySum) + " " + energyUnitSymbol;
 
-      app.FoodsMealsRecipes.el.title.innerHTML = app.FoodsMealsRecipes.selection.length + " " + text;
+      app.FoodsMealsRecipes.el.title.innerText = app.FoodsMealsRecipes.selection.length + " " + text;
     }
   },
 
@@ -644,7 +639,7 @@ app.FoodsMealsRecipes = {
         let option = document.createElement("option");
         option.value = label;
         option.setAttribute("data-display-as", label);
-        option.text = label + " " + categories[label] || "";
+        option.innerText = app.Utils.escapeHtml(label) + " " + app.Utils.escapeHtml(categories[label] || "");
         if (item !== undefined && item.categories !== undefined && item.categories.includes(label))
           option.setAttribute("selected", "");
         select.append(option);
