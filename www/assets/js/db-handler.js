@@ -619,11 +619,6 @@ var dbHandler = {
     });
   },
 
-  // Deprecated - use getByKey
-  getItem: function(key, storeName) {
-    return DB.transaction(storeName).objectStore(storeName).get(key);
-  },
-
   getByMultipleKeys: function(keys, storeName) {
     return new Promise(function(resolve, reject) {
 

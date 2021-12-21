@@ -273,36 +273,28 @@ app.FoodsMealsRecipes = {
   },
 
   getItem: function(id, type, portion, quantity) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
 
       let store;
 
       if (type == "food") store = "foodList";
       if (type == "recipe") store = "recipes";
 
-      let request = dbHandler.getItem(id, store);
+      let data = await dbHandler.getByKey(id, store);
 
-      request.onsuccess = function(e) {
-        let result = e.target.result;
+      if (data !== undefined) {
+        // Get nutriments for given portion/quantity
+        let foodPortion = parseFloat(data.portion);
+        let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
 
-        if (result !== undefined) {
-          // Get nutriments for given portion/quantity
-          let foodPortion = parseFloat(result.portion);
-          let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
-
-          for (let n in result.nutrition) {
-            result.nutrition[n] = Math.round(result.nutrition[n] * multiplier * 100) / 100;
-          }
-
-          resolve(result);
-        } else {
-          resolve();
+        for (let n in data.nutrition) {
+          data.nutrition[n] = Math.round(data.nutrition[n] * multiplier * 100) / 100;
         }
-      };
 
-      request.onerror = function(e) {
-        reject(e);
-      };
+        resolve(data);
+      } else {
+        resolve();
+      }
     });
   },
 
