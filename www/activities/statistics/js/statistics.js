@@ -106,11 +106,51 @@ app.Stats = {
 
           app.Stats.chart.destroy();
           app.Stats.chart = undefined;
-          this.updateChart(app.Stats.el.stat.value);
+          app.Stats.updateChart();
         });
         x.hasClickEvent = true;
       }
     });
+
+    // Dropdown swipe events
+    app.Stats.el.range.addEventListener("touchstart", (e) => {
+      touchstartX = e.changedTouches[0].screenX;
+    }, false);
+
+    app.Stats.el.stat.addEventListener("touchstart", (e) => {
+      touchstartX = e.changedTouches[0].screenX;
+    }, false);
+
+    app.Stats.el.range.addEventListener("touchend", (e) => {
+      touchendX = e.changedTouches[0].screenX;
+      app.Stats.handleSwipeGesture(app.Stats.el.range);
+    }, false);
+
+    app.Stats.el.stat.addEventListener("touchend", (e) => {
+      touchendX = e.changedTouches[0].screenX;
+      app.Stats.handleSwipeGesture(app.Stats.el.stat);
+    }, false);
+  },
+
+  handleSwipeGesture: function(select) {
+    const buffer = 50;
+    const event = new Event("change");
+
+    // Swiped right
+    if (touchendX > touchstartX + buffer) {
+      if (select.selectedIndex < select.length - 1) {
+        select.selectedIndex += 1;
+        select.dispatchEvent(event);
+      }
+    }
+
+    // Swiped left
+    if (touchendX + buffer < touchstartX) {
+      if (select.selectedIndex > 0) {
+        select.selectedIndex -= 1;
+        select.dispatchEvent(event);
+      }
+    }
   },
 
   setChartTypeButtonVisibility: function() {
