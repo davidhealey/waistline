@@ -134,7 +134,7 @@ app.Stats = {
       let option = document.createElement("option");
       option.value = x;
       let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      option.innerHTML = app.Utils.tidyText(text, 50);
+      option.innerText = app.Utils.tidyText(text, 50);
       app.Stats.el.stat.appendChild(option);
     });
 
@@ -203,14 +203,14 @@ app.Stats = {
 
       let title = document.createElement("div");
       title.className = "item-title";
-      title.innerHTML = app.Stats.data.dates[i];
+      title.innerText = app.Stats.data.dates[i];
       inner.appendChild(title);
 
       let after = document.createElement("div");
       after.className = "item-after";
-      after.innerHTML = app.Stats.data.dataset.values[i];
+      after.innerText = app.Stats.data.dataset.values[i];
       if (app.Stats.data.dataset.unit !== undefined)
-        after.innerHTML += " " + app.Stats.data.dataset.unit;
+        after.innerText += " " + app.Stats.data.dataset.unit;
       inner.appendChild(after);
     }
   },
@@ -230,14 +230,14 @@ app.Stats = {
 
     let title = document.createElement("div");
     title.className = "item-title";
-    title.innerHTML = app.strings.statistics["average"] || "Average";
+    title.innerText = app.strings.statistics["average"] || "Average";
     inner.appendChild(title);
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerHTML = roundedAverage;
+    after.innerText = roundedAverage;
     if (unit !== undefined)
-      after.innerHTML += " " + unit;
+      after.innerText += " " + unit;
     inner.appendChild(after);
 
     return li;

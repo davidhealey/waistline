@@ -391,9 +391,9 @@ app.Diary = {
 
           let fieldTitle = document.createElement("div");
           fieldTitle.className = "item-title item-label";
-          fieldTitle.innerHTML = app.strings["food-editor"][field] || field;
+          fieldTitle.innerText = app.strings["food-editor"][field] || field;
           if (field == "serving-size")
-            fieldTitle.innerHTML += " (" + item.unit + ")";
+            fieldTitle.innerText += " (" + item.unit + ")";
           inner.appendChild(fieldTitle);
 
           let inputWrap = document.createElement("div");
@@ -631,8 +631,8 @@ app.Diary = {
 
       let title = document.createElement("div");
       title.className = "item-title item-label";
-      title.innerHTML = app.Utils.tidyText(name, 50);
-      title.innerHTML += " (" + unitSymbol + ")";
+      title.innerText = app.Utils.tidyText(name, 50);
+      title.innerText += " (" + unitSymbol + ")";
       inner.appendChild(title);
 
       let inputWrap = document.createElement("div");

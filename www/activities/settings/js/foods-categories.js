@@ -44,7 +44,7 @@ app.FoodsCategories = {
       content.appendChild(media);
 
       let icon = document.createElement("span");
-      icon.innerHTML = label;
+      icon.innerText = label;
       media.appendChild(icon);
 
       let inner = document.createElement("div");
@@ -54,7 +54,7 @@ app.FoodsCategories = {
       let text = categories[label] || "";
       let title = document.createElement("div");
       title.className = "item-title";
-      title.innerHTML = app.Utils.tidyText(text, 50);
+      title.innerText = app.Utils.tidyText(text, 50);
       inner.appendChild(title);
 
       let after = document.createElement("div");
@@ -70,7 +70,7 @@ app.FoodsCategories = {
 
       let editIcon = document.createElement("i");
       editIcon.className = "icon material-icons";
-      editIcon.innerHTML = "edit";
+      editIcon.innerText = "edit";
       editHandler.appendChild(editIcon);
 
       let deleteHandler = document.createElement("a");
@@ -82,7 +82,7 @@ app.FoodsCategories = {
 
       let deleteIcon = document.createElement("i");
       deleteIcon.className = "icon material-icons";
-      deleteIcon.innerHTML = "delete";
+      deleteIcon.innerText = "delete";
       deleteHandler.appendChild(deleteIcon);
 
       let sortHandler = document.createElement("div");
@@ -96,7 +96,7 @@ app.FoodsCategories = {
 
     let button = document.createElement("a");
     button.className = "list-button";
-    button.innerHTML = app.strings.settings["foods-categories"]["add"] || "Add Category";
+    button.innerText = app.strings.settings["foods-categories"]["add"] || "Add Category";
     button.addEventListener("click", function(e) {
       app.FoodsCategories.addFoodCategory();
     });
@@ -123,7 +123,7 @@ app.FoodsCategories = {
 
       let fieldTitle = document.createElement("div");
       fieldTitle.className = "item-title item-label";
-      fieldTitle.innerHTML = app.strings.settings["foods-categories"][field] || field;
+      fieldTitle.innerText = app.strings.settings["foods-categories"][field] || field;
       inner.appendChild(fieldTitle);
 
       let inputWrap = document.createElement("div");
@@ -227,7 +227,7 @@ app.FoodsCategories = {
   },
 
   deleteFoodCategory: function(label) {
-    let title = (app.strings.dialogs.delete || "Delete") + ": " + label;
+    let title = (app.strings.dialogs.delete || "Delete") + ": " + app.Utils.escapeHtml(label);
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
     let div = document.createElement("div");

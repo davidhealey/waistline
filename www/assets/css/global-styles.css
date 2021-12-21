@@ -23,6 +23,8 @@ i.searchbar-icon {margin: -12px 12px;}
 img.food-thumbnail {width: 20%; margin: 0.2em 1em 0.2em 0;}
 html[dir="rtl"] img.food-thumbnail {margin: 0.2em 0 0.2em 1em;}
 
+.item-subtitle {font-style: italic;}
+
 /* Custom color themes */
 .color-theme-pink {
   --f7-theme-color: #f6b0ba;

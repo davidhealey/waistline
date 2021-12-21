@@ -221,14 +221,14 @@ app.RecipeEditor = {
       let title = document.createElement("div");
       title.className = "item-title item-label";
       let text = app.strings.nutriments[x] || x;
-      title.innerHTML = app.Utils.tidyText(text, 25);
+      title.innerText = app.Utils.tidyText(text, 25);
       if (unit !== undefined)
-        title.innerHTML += " (" + unit + ")";
+        title.innerText += " (" + unit + ")";
       innerDiv.appendChild(title);
 
       let after = document.createElement("div");
       after.className = "item-after";
-      after.innerHTML = Math.round(nutrition[x] * 100) / 100;
+      after.innerText = Math.round(nutrition[x] * 100) / 100;
       innerDiv.appendChild(after);
     });
   },

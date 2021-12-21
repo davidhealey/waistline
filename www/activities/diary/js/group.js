@@ -56,8 +56,8 @@ app.Group = {
     a.appendChild(div);
 
     let innerDiv = document.createElement("div");
-    innerDiv.className = "item-title";
-    innerDiv.innerHTML = "<strong>" + this.name + "</strong>";
+    innerDiv.className = "item-title group-title";
+    innerDiv.innerText = this.name;
     div.appendChild(innerDiv);
 
     let content = document.createElement("div");
@@ -112,7 +112,7 @@ app.Group = {
 
     let icon = document.createElement("i");
     icon.className = "icon material-icons ripple";
-    icon.innerHTML = "add";
+    icon.innerText = "add";
     a.appendChild(icon);
 
     //Energy 
@@ -120,7 +120,7 @@ app.Group = {
     const energyName = app.Utils.getEnergyUnitName(energyUnit);
 
     let right = document.createElement("div");
-    right.className = "margin-horizontal energy link icon-only";
+    right.className = "margin-horizontal group-energy link icon-only";
     let value = nutrition[energyName] || 0;
     let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
 
@@ -128,7 +128,7 @@ app.Group = {
       app.Diary.showCategoryNutriments(id, nutrition);
     });
 
-    right.innerHTML = "<strong>" + Math.round(value) + " " + energyUnitSymbol + "</strong>";
+    right.innerText = Math.round(value) + " " + energyUnitSymbol;
     row.appendChild(right);
   },
 

@@ -50,7 +50,7 @@ app.Nutriments = {
       let text = app.strings.nutriments[n] || n;
       let title = document.createElement("div");
       title.className = "item-title";
-      title.innerHTML = app.Utils.tidyText(text, 50);
+      title.innerText = app.Utils.tidyText(text, 50);
       inner.appendChild(title);
 
       let after = document.createElement("div");
@@ -67,7 +67,7 @@ app.Nutriments = {
 
         let editIcon = document.createElement("i");
         editIcon.className = "icon material-icons";
-        editIcon.innerHTML = "edit";
+        editIcon.innerText = "edit";
         editHandler.appendChild(editIcon);
 
         let deleteHandler = document.createElement("a");
@@ -79,7 +79,7 @@ app.Nutriments = {
 
         let deleteIcon = document.createElement("i");
         deleteIcon.className = "icon material-icons";
-        deleteIcon.innerHTML = "delete";
+        deleteIcon.innerText = "delete";
         deleteHandler.appendChild(deleteIcon);
       }
 
@@ -108,7 +108,7 @@ app.Nutriments = {
 
     let button = document.createElement("a");
     button.className = "list-button";
-    button.innerHTML = app.strings.settings.nutriments["add"] || "Add Field";
+    button.innerText = app.strings.settings.nutriments["add"] || "Add Field";
     button.addEventListener("click", function(e) {
       app.Nutriments.addNutrimentField();
     });
@@ -135,7 +135,7 @@ app.Nutriments = {
 
       let fieldTitle = document.createElement("div");
       fieldTitle.className = "item-title item-label";
-      fieldTitle.innerHTML = app.strings.settings.nutriments[field] || field;
+      fieldTitle.innerText = app.strings.settings.nutriments[field] || field;
       inner.appendChild(fieldTitle);
 
       let inputWrap = document.createElement("div");
@@ -254,7 +254,7 @@ app.Nutriments = {
   },
 
   deleteNutrimentField: function(field) {
-    let title = (app.strings.dialogs.delete || "Delete") + ": " + field;
+    let title = (app.strings.dialogs.delete || "Delete") + ": " + app.Utils.escapeHtml(field);
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
     let div = document.createElement("div");
