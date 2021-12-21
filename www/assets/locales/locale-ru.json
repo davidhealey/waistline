@@ -13,8 +13,8 @@
     "polyunsaturated-fat": "Полиненасыщенные жиры",
     "trans-fat": "Трансжиры",
     "omega-3-fat": "Омега-3 жиры",
-    "omega-6-fat": "Omega-6 fat",
-    "omega-9-fat": "Omega-9 fat",
+    "omega-6-fat": "Омега-6 жиры",
+    "omega-9-fat": "Омега-9 жиры",
     "cholesterol": "Холестерин",
     "sodium": "Натрий",
     "vitamin-a": "Витамин А",
@@ -52,8 +52,8 @@
   "unit-symbols": {
     "kcal": "ккал",
     "kJ": "кДж",
-    "l": "l",
-    "ml": "ml",
+    "l": "л",
+    "ml": "мл",
     "g": "г",
     "mg": "мг",
     "µg": "мкг",
@@ -70,9 +70,9 @@
     "ok": "ОК",
     "yes": "Да",
     "no": "Нет",
-    "add": "Add",
-    "skip": "Skip",
-    "confirm-delete": "Are you sure you want to delete this?",
+    "add": "Добавить",
+    "skip": "Пропустить",
+    "confirm-delete": "Вы уверены, что хотите удалить это?",
     "delete-title": "Удалить запись",
     "required-fields": "Пожалуйста, заполните все необходимые поля.",
     "camera-problem": "Произошла ошибка при доступе к вашей камере.",
@@ -145,9 +145,10 @@
   "diary": {
     "title": "Дневник",
     "quick-add": "Быстрое добавление",
+    "quick-add-description": "Описание (необязательно)",
     "yesterdays-meal": "Вчерашний %s",
     "log-title": "Статистика на сегодня",
-    "log-saved": "Saved",
+    "log-saved": "Сохранено",
     "no-data": "Нет данных",
     "default-meals": {
       "breakfast": "Завтрак",
@@ -248,9 +249,9 @@
     "nutriments": {
       "title": "Питательные вещества",
       "field": "Название",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Единица измерения",
+      "add": "Добавить поле",
+      "edit": "Редактировать поле"
     },
     "diary-categories": {
       "title": "Категории",
