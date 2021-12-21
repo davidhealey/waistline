@@ -145,6 +145,7 @@
   "diary": {
     "title": "Journal",
     "quick-add": "Ajout rapide",
+    "quick-add-description": "Description (optional)",
     "yesterdays-meal": "Hier %s",
     "log-title": "Statistiques du jour",
     "log-saved": "Saved",
