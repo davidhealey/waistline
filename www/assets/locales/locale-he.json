@@ -145,6 +145,7 @@
   "diary": {
     "title": "יומן",
     "quick-add": "הוספה מהירה",
+    "quick-add-description": "Description (optional)",
     "yesterdays-meal": "%s מאתמול",
     "log-title": "הסטטיסטיקה היומית",
     "log-saved": "שמור",
