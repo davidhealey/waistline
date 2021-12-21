@@ -145,6 +145,7 @@
   "diary": {
     "title": "Päiväkirja",
     "quick-add": "Nopea lisäys",
+    "quick-add-description": "Description (optional)",
     "yesterdays-meal": "Yesterday's %s",
     "log-title": "Päivän tilastot",
     "log-saved": "Saved",
