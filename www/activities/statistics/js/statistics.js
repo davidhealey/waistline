@@ -134,22 +134,35 @@ app.Stats = {
 
   handleSwipeGesture: function(select) {
     const buffer = 50;
-    const event = new Event("change");
 
     // Swiped right
     if (touchendX > touchstartX + buffer) {
-      if (select.selectedIndex < select.length - 1) {
-        select.selectedIndex += 1;
-        select.dispatchEvent(event);
-      }
+      if ($("html").get(0).getAttribute("dir") === "rtl")
+        app.Stats.selectNext(select);
+      else
+        app.Stats.selectPrevious(select);
     }
 
     // Swiped left
     if (touchendX + buffer < touchstartX) {
-      if (select.selectedIndex > 0) {
-        select.selectedIndex -= 1;
-        select.dispatchEvent(event);
-      }
+      if ($("html").get(0).getAttribute("dir") === "rtl")
+        app.Stats.selectPrevious(select);
+      else
+        app.Stats.selectNext(select);
+    }
+  },
+
+  selectNext: function(select) {
+    if (select.selectedIndex < select.length - 1) {
+      select.selectedIndex += 1;
+      select.dispatchEvent(new Event("change"));
+    }
+  },
+
+  selectPrevious: function(select) {
+    if (select.selectedIndex > 0) {
+      select.selectedIndex -= 1;
+      select.dispatchEvent(new Event("change"));
     }
   },
 
