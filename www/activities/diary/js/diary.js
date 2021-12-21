@@ -518,31 +518,52 @@ app.Diary = {
     let title = app.strings.diary["quick-add"] || "Quick Add";
     let energyUnit = app.Settings.get("units", "energy");
 
-    let text;
+    let energyUnitText;
     if (energyUnit == app.nutrimentUnits.calories)
-      text = app.strings.nutriments["calories"] || "Calories";
+      energyUnitText = app.strings.nutriments["calories"] || "Calories";
     else
-      text = app.strings.nutriments["kilojoules"] || "Kilojoules";
+      energyUnitText = app.strings.nutriments["kilojoules"] || "Kilojoules";
 
     // Create dialog content
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
+    let inputs = document.createElement("form");
+    inputs.className = "list no-hairlines scroll-dialog";
+    let ul = document.createElement("ul");
+    inputs.appendChild(ul);
 
-    let field = document.createElement("div");
-    field.className = "dialog-input-field input";
+    ["energy", "description"].forEach((field) => {
+      let li = document.createElement("li");
+      li.className = "item-content item-input";
+      ul.appendChild(li);
 
-    let input = document.createElement("input");
-    input.className = "dialog-input";
-    input.id = "energy";
-    input.name = "energy";
-    input.type = "number";
-    field.appendChild(input);
+      let inner = document.createElement("div");
+      inner.className = "item-inner";
+      li.appendChild(inner);
+
+      let fieldTitle = document.createElement("div");
+      fieldTitle.className = "item-title item-label";
+      if (field == "energy")
+        fieldTitle.innerText = energyUnitText;
+      else
+        fieldTitle.innerText = app.strings.diary["quick-add-description"] || "Description";
+      inner.appendChild(fieldTitle);
+
+      let inputWrap = document.createElement("div");
+      inputWrap.className = "item-input-wrap";
+      inner.appendChild(inputWrap);
+
+      let input = document.createElement("input");
+      input.className = "dialog-input";
+      if (field == "energy")
+        input.type = "number";
+      else
+        input.type = "text";
+      inputWrap.appendChild(input);
+    });
 
     // Open dialog
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML + field.outerHTML,
+      content: inputs.outerHTML,
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
           keyCodes: [27]
@@ -551,20 +572,24 @@ app.Diary = {
           text: app.strings.dialogs.ok || "OK",
           keyCodes: [13],
           onClick: async function(dialog) {
+            let inputs = Array.from(dialog.el.getElementsByTagName("input"));
+            let energy = inputs[0].value;
+            let description = inputs[1].value;
+
             let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-            let quantity = Array.from(dialog.el.getElementsByTagName("input"))[0].value;
-
             if (energyUnit == app.nutrimentUnits.kilojoules)
-              quantity = app.Utils.convertUnit(quantity, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
+              energy = app.Utils.convertUnit(energy, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
 
-            if (!isNaN(quantity)) {
+            if (!isNaN(energy)) {
               let item = await app.Foodlist.getQuickAddItem(); // Get food item
 
               if (item !== undefined) {
                 item.dateTime = new Date();
                 item.category = category;
-                item.quantity = parseFloat(quantity);
+                item.quantity = parseFloat(energy);
+                if (description !== "")
+                  item.description = description;
 
                 entry.items.push(item);
 
