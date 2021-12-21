@@ -106,11 +106,64 @@ app.Stats = {
 
           app.Stats.chart.destroy();
           app.Stats.chart = undefined;
-          this.updateChart(app.Stats.el.stat.value);
+          app.Stats.updateChart();
         });
         x.hasClickEvent = true;
       }
     });
+
+    // Dropdown swipe events
+    app.Stats.el.range.addEventListener("touchstart", (e) => {
+      touchstartX = e.changedTouches[0].screenX;
+    }, false);
+
+    app.Stats.el.stat.addEventListener("touchstart", (e) => {
+      touchstartX = e.changedTouches[0].screenX;
+    }, false);
+
+    app.Stats.el.range.addEventListener("touchend", (e) => {
+      touchendX = e.changedTouches[0].screenX;
+      app.Stats.handleSwipeGesture(app.Stats.el.range);
+    }, false);
+
+    app.Stats.el.stat.addEventListener("touchend", (e) => {
+      touchendX = e.changedTouches[0].screenX;
+      app.Stats.handleSwipeGesture(app.Stats.el.stat);
+    }, false);
+  },
+
+  handleSwipeGesture: function(select) {
+    const buffer = 50;
+
+    // Swiped right
+    if (touchendX > touchstartX + buffer) {
+      if ($("html").get(0).getAttribute("dir") === "rtl")
+        app.Stats.selectNext(select);
+      else
+        app.Stats.selectPrevious(select);
+    }
+
+    // Swiped left
+    if (touchendX + buffer < touchstartX) {
+      if ($("html").get(0).getAttribute("dir") === "rtl")
+        app.Stats.selectPrevious(select);
+      else
+        app.Stats.selectNext(select);
+    }
+  },
+
+  selectNext: function(select) {
+    if (select.selectedIndex < select.length - 1) {
+      select.selectedIndex += 1;
+      select.dispatchEvent(new Event("change"));
+    }
+  },
+
+  selectPrevious: function(select) {
+    if (select.selectedIndex > 0) {
+      select.selectedIndex -= 1;
+      select.dispatchEvent(new Event("change"));
+    }
   },
 
   setChartTypeButtonVisibility: function() {
