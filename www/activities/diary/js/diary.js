@@ -544,7 +544,7 @@ app.Diary = {
       if (field == "energy")
         fieldTitle.innerText = energyUnitText;
       else
-        fieldTitle.innerText = app.strings.diary["quick-add-description"] || "Description";
+        fieldTitle.innerText = app.strings.diary["quick-add-description"] || "Description (optional)";
       inner.appendChild(fieldTitle);
 
       let inputWrap = document.createElement("div");
