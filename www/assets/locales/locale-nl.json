@@ -145,7 +145,7 @@
   "diary": {
     "title": "Dagboek",
     "quick-add": "Snel toevoegen",
-    "quick-add-description": "Description (optional)",
+    "quick-add-description": "Omschrijving (optioneel)",
     "yesterdays-meal": "%s van gisteren",
     "log-title": "Huidige gegevens",
     "log-saved": "Opgeslagen",
