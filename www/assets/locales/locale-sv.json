@@ -145,6 +145,7 @@
   "diary": {
     "title": "Dagbok",
     "quick-add": "Snabbtillägg",
+    "quick-add-description": "Description (optional)",
     "yesterdays-meal": "Gårdagens %s",
     "log-title": "Dagens statistik",
     "log-saved": "Sparad",
