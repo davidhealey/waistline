@@ -62,7 +62,7 @@
     "st": "стоун",
     "cm": "см",
     "inch": "дюйм",
-    "feet/inches": "ft/in"
+    "feet/inches": "футы/дюймы"
   },
   "dialogs": {
     "delete": "Удалить",
@@ -84,8 +84,8 @@
     "number-of-calories": "Пожалуйста, укажите количество калорий для этой еды.",
     "add-to-off": "Вы хотите добавить этот продукт в базу данных Open Food Facts?",
     "main-image": "Пожалуйста, добавьте основное изображение",
-    "download-title": "Retrieve latest information",
-    "download-text": "Your local values will be replaced by the latest information available for this item",
+    "download-title": "Получить последнюю информацию",
+    "download-text": "Ваши локальные значения будут заменены самой последней информацией, доступной для этого элемента",
     "upload-success": "Продукт успешно добавлен в Open Food Facts",
     "upload-failed": "К сожалению, загрузка не удалась. Пожалуйста, попробуйте еще раз или свяжитесь с разработчиком.",
     "what-meal": "Что это за блюдо?"
@@ -244,7 +244,7 @@
       "thumbnails": "Показывать миниатюры",
       "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
       "show-units": "Показать единицы питания",
-      "prompt-add-items": "Prompt for quantity when adding items"
+      "prompt-add-items": "Спрашивать количество при добавлении элемента"
     },
     "nutriments": {
       "title": "Питательные вещества",
@@ -262,19 +262,19 @@
       "sort": "Сортировка еды",
       "sort-date": "По последнему использованию",
       "sort-alpha": "В алфавитном порядке",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Показывать метки категорий",
       "thumbnails": "Показывать миниатюры",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
       "images": "Показать изображения еды",
       "wifi-images": "Показывать изображения только через Wi-Fi",
       "show-notes": "Показать заметки о еде"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Метки и категории",
+      "label": "Метка / Иконка",
+      "description": "Описание",
+      "add": "Добавить категорию",
+      "edit": "Изменить категорию"
     },
     "statistics": {
       "title": "Статистика",
@@ -340,7 +340,7 @@
     "french": "Французский",
     "swedish": "Шведский",
     "russian": "Русский",
-    "polish": "Polish",
+    "polish": "Польский",
     "portuguese": "Португальский",
     "bulgarian": "Болгарский",
     "hebrew": "Иврит",
