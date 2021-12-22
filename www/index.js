@@ -473,6 +473,14 @@ document.addEventListener("backbutton", (e) => {
     return false;
   }
 
+  let smartSelects = document.getElementsByClassName("smart-select-popover");
+
+  if (smartSelects.length) {
+    document.querySelectorAll(".smart-select").forEach((el) => { app.f7.smartSelect.close(el) });
+    e.preventDefault();
+    return false;
+  }
+
   let activeSearch = document.getElementsByClassName("searchbar-focused");
 
   if (activeSearch.length) {
