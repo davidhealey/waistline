@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Kalorie",
     "kilojoules": "Kilodżule",
+    "calories": "Kalorie",
     "fat": "Tłuszcze",
     "saturated-fat": "Tłuszcze nasycone",
     "carbohydrates": "Węglowodany",
