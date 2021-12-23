@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Kalorier",
     "kilojoules": "Kilojoule",
+    "calories": "Kalorier",
     "fat": "Fett",
     "saturated-fat": "Mättat fett",
     "carbohydrates": "Kolhydrater",
