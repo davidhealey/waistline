@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Kaloreita",
     "kilojoules": "Kilojouleja",
+    "calories": "Kaloreita",
     "fat": "Fat",
     "saturated-fat": "Sat fat",
     "carbohydrates": "Carbs",
