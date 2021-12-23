@@ -13,8 +13,8 @@
     "polyunsaturated-fat": "Grassi poliinsaturi",
     "trans-fat": "Grassi idrogenati",
     "omega-3-fat": "Grassi omega 3",
-    "omega-6-fat": "Omega-6 fat",
-    "omega-9-fat": "Omega-9 fat",
+    "omega-6-fat": "Grassi omega 6",
+    "omega-9-fat": "Grassi omega 9",
     "cholesterol": "Colesterolo",
     "sodium": "Sodio",
     "vitamin-a": "Vitamina A",
@@ -145,10 +145,10 @@
   "diary": {
     "title": "Diario",
     "quick-add": "Aggiungi velocemente",
-    "quick-add-description": "Description (optional)",
+    "quick-add-description": "Descrizione (opzionale)",
     "yesterdays-meal": "Ieri %s",
     "log-title": "Statistiche di oggi",
-    "log-saved": "Saved",
+    "log-saved": "Salvato",
     "no-data": "Nessun dato",
     "default-meals": {
       "breakfast": "Colazione",
@@ -249,9 +249,9 @@
     "nutriments": {
       "title": "Nutrimenti",
       "field": "Nome",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Unità",
+      "add": "Aggiungi campo",
+      "edit": "Modifica campo"
     },
     "diary-categories": {
       "title": "Categorie",
@@ -262,7 +262,7 @@
       "sort": "Ordina Alimenti",
       "sort-date": "Ultimo utilizzato",
       "sort-alpha": "Alfabetico",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Mostra Etichette Categoria",
       "thumbnails": "Mostra le anteprime",
       "wifi-thumbnails": "Mostra le anteprime solo con la Wi-Fi",
       "images": "Mostra l' immagine dei cibi",
@@ -270,11 +270,11 @@
       "show-notes": "Mostra le note dei cibi"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Etichette e Categorie",
+      "label": "Etichetta / Icona",
+      "description": "Descrizione",
+      "add": "Aggiungi categoria",
+      "edit": "Modifica Categoria"
     },
     "statistics": {
       "title": "Statistiche",
