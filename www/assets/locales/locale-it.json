@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Calorie",
     "kilojoules": "Kilojoules",
+    "calories": "Calorie",
     "fat": "Grasso",
     "saturated-fat": "Grassi saturi",
     "carbohydrates": "Carboidrati",
