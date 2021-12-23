@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Kilocalories",
     "kilojoules": "Kilojoules",
+    "calories": "Kilocalories",
     "fat": "Matières grasses",
     "saturated-fat": "Acides gras saturés",
     "carbohydrates": "Glucides",
