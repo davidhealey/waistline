@@ -245,7 +245,7 @@ app.OpenFoodFacts = {
 
     // Nutrition
     for (let n in data.nutrition) {
-      if (data.nutrition[n] == 0 || n == "kilojoules" || n == "calories") continue;
+      if (data.nutrition[n] == 0 || n == "calories" || n == "kilojoules") continue;
       if (!nutriments.includes(n)) continue;
 
       if (data.nutrition_per == "&nutrition_data_per=100g")

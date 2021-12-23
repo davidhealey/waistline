@@ -316,7 +316,7 @@ app.FoodsMealsRecipes = {
       mealNames.forEach((x, i) => {
         if (x != "") {
           let choice = {
-            text: app.strings.diary["default-meals"][x.toLowerCase()] || x,
+            text: app.Utils.escapeHtml(app.strings.diary["default-meals"][x.toLowerCase()] || x),
             onClick: function(action, e) {
               app.FoodsMealsRecipes.updateDateTimes(items);
               app.data.context.items = items;

@@ -366,7 +366,7 @@ app.Diary = {
       if (item.name !== undefined && item.unit !== undefined) {
 
         // Create dialog content
-        let title = app.Utils.tidyText(item.name, 50);
+        let title = app.Utils.escapeHtml(app.Utils.tidyText(item.name, 50));
 
         let div = document.createElement("div");
         div.className = "dialog-text";
@@ -732,7 +732,7 @@ app.Diary = {
   showCategoryNutriments: function(category, nutrition) {
     const mealNames = app.Settings.get("diary", "meal-names");
     const mealName = mealNames[category];
-    const dialogTitle = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+    const dialogTitle = app.Utils.escapeHtml(app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName);
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();
