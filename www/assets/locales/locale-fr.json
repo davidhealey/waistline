@@ -13,8 +13,8 @@
     "polyunsaturated-fat": "Acides gras poly-insaturés",
     "trans-fat": "Acides gras transaturés",
     "omega-3-fat": "Acides gras oméga-3",
-    "omega-6-fat": "Omega-6 fat",
-    "omega-9-fat": "Omega-9 fat",
+    "omega-6-fat": "Acides gras oméga-6",
+    "omega-9-fat": "Acides gras oméga-9",
     "cholesterol": "Cholestérol",
     "sodium": "Sodium",
     "vitamin-a": "Vitamine A",
@@ -244,12 +244,12 @@
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
       "show-units": "Afficher les unités nutritionnelles",
-      "prompt-add-items": "Prompt for quantity when adding items"
+      "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments"
     },
     "nutriments": {
       "title": "Nutriments",
       "field": "Nom",
-      "unit": "Unit",
+      "unit": "Unité",
       "add": "Add Field",
       "edit": "Edit Field"
     },
