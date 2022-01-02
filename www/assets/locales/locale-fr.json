@@ -146,7 +146,7 @@
     "title": "Journal",
     "quick-add": "Ajout rapide",
     "quick-add-description": "Description (facultatif)",
-    "yesterdays-meal": "Hier %s",
+    "yesterdays-meal": "%s d'hier",
     "log-title": "Statistiques du jour",
     "log-saved": "Enregistré",
     "no-data": "Pas de données",
