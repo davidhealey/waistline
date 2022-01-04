@@ -332,9 +332,11 @@ app.FoodEditor = {
         }
 
         input.addEventListener("change", function() {
-          if (this.oldValue == 0) this.oldValue = this.value;
-          if (this.value == 0) this.oldValue = 0;
           app.FoodEditor.changeServing(item, k, this.value);
+          if (this.oldValue == 0)
+            this.oldValue = this.value / (app.FoodEditor.el.portion.value / app.FoodEditor.el.portion.oldValue);
+          if (this.value == 0)
+            this.oldValue = 0;
         });
         inputWrapper.appendChild(input);
       }
