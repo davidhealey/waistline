@@ -243,7 +243,7 @@ app.FoodsMealsRecipes = {
     let result = list;
 
     if (query !== "" || categories !== undefined) {
-      let queryRegExp = new RegExp(query, "i");
+      let queryRegExp = new RegExp(query.trim(), "i");
       let categoriesFilter = categories || [];
 
       // Filter by name, brand and categories
