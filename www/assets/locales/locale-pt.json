@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Calorias",
     "kilojoules": "Quilojoules",
+    "calories": "Calorias",
     "fat": "Fat",
     "saturated-fat": "Sat fat",
     "carbohydrates": "Carbs",
@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "Polyunsat fat",
     "trans-fat": "Trans fat",
     "omega-3-fat": "Omega-3 fat",
+    "omega-6-fat": "Omega-6 fat",
+    "omega-9-fat": "Omega-9 fat",
     "cholesterol": "Cholesterol",
     "sodium": "Sodium",
     "vitamin-a": "Vitamin A",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "g",
     "mg": "mg",
     "µg": "µg",
@@ -57,7 +61,8 @@
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Apagar",
@@ -79,6 +84,8 @@
     "number-of-calories": "Por favor, forneça o número de calorias para esta comida.",
     "add-to-off": "Gostaria de adicionar este produto ao banco de dados Open Food Facts?",
     "main-image": "Por favor, adicione uma imagem principal",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Produto adicionado com sucesso ao Open Food Facts",
     "upload-failed": "Infelizmente o envio falhou. Tente novamente ou entre em contato com o desenvolvedor.",
     "what-meal": "Que refeição é essa?"
@@ -138,8 +145,10 @@
   "diary": {
     "title": "Diário",
     "quick-add": "Adição rápida",
+    "quick-add-description": "Description (optional)",
     "yesterdays-meal": "Yesterday's %s",
     "log-title": "Estatísticas de hoje",
+    "log-saved": "Saved",
     "no-data": "Não há dados disponíveis",
     "default-meals": {
       "breakfast": "Café da manhã",
@@ -168,6 +177,7 @@
     "add-new-item": "Adicionar Novo Item",
     "details": "Detalhes",
     "barcode": "Código de barras",
+    "categories": "Categorias",
     "name": "Nome",
     "brand": "Marca",
     "category": "Categoria",
@@ -178,8 +188,6 @@
     "nutrition": "Fatos nutricionais",
     "per-100": "Por 100g/100ml",
     "per-serving": "Por porção",
-    "ingredients": "Ingredientes",
-    "traces": "Vestígios",
     "edit-food": "Editar alimento",
     "edit-meal": "Editar refeição",
     "edit-recipe": "Editar receita",
@@ -239,7 +247,11 @@
       "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
-      "title": "Nutriments"
+      "title": "Nutriments",
+      "field": "Nome",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "Categorias",
@@ -250,11 +262,19 @@
       "sort": "Sort Foods",
       "sort-date": "Por último uso",
       "sort-alpha": "Ordem alfabética",
+      "category-labels": "Show Category Labels",
       "thumbnails": "Mostrar miniaturas",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Mostrar Imagens dos Alimentos",
       "wifi-images": "Mostrar imagens apenas por Wi-Fi",
       "show-notes": "Show Food Notes"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Estatísticas",

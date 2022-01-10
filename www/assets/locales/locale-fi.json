@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Kaloreita",
     "kilojoules": "Kilojouleja",
+    "calories": "Kaloreita",
     "fat": "Fat",
     "saturated-fat": "Sat fat",
     "carbohydrates": "Carbs",
@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "Polyunsat fat",
     "trans-fat": "Trans fat",
     "omega-3-fat": "Omega-3 fat",
+    "omega-6-fat": "Omega-6 fat",
+    "omega-9-fat": "Omega-9 fat",
     "cholesterol": "Cholesterol",
     "sodium": "Sodium",
     "vitamin-a": "Vitamin A",
@@ -45,11 +47,13 @@
     "sucrose": "Sucrose",
     "glucose": "Glucose",
     "fructose": "Fructose",
-    "lactose": "Lactose"
+    "lactose": "Laktoosi"
   },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "g",
     "mg": "mg",
     "µg": "µg",
@@ -57,7 +61,8 @@
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Poista",
@@ -65,7 +70,7 @@
     "ok": "OK",
     "yes": "Kyllä",
     "no": "Ei",
-    "add": "Add",
+    "add": "Lisää",
     "skip": "Skip",
     "confirm-delete": "Are you sure you want to delete this?",
     "delete-title": "Poista merkintä",
@@ -79,6 +84,8 @@
     "number-of-calories": "Anna kalorien määrä tälle ruoalle.",
     "add-to-off": "Haluatko lisätä tämän tuotteen Open Food Facts -tietokantaan?",
     "main-image": "Lisää tuotteen pääkuva",
+    "download-title": "Retrieve latest information",
+    "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Tuote lisätty Open Food Factsiin",
     "upload-failed": "Valitettavasti lataus epäonnistui. Yritä uudelleen tai ota yhteyttä kehittäjään.",
     "what-meal": "Mikä ateria tämä on?"
@@ -138,8 +145,10 @@
   "diary": {
     "title": "Päiväkirja",
     "quick-add": "Nopea lisäys",
+    "quick-add-description": "Description (optional)",
     "yesterdays-meal": "Yesterday's %s",
     "log-title": "Päivän tilastot",
+    "log-saved": "Saved",
     "no-data": "Ei tietoja",
     "default-meals": {
       "breakfast": "Aamiainen",
@@ -168,6 +177,7 @@
     "add-new-item": "Lisää uusi tuote",
     "details": "Tarkat tiedot",
     "barcode": "Viivakoodi",
+    "categories": "Kategoriat",
     "name": "Nimi",
     "brand": "Tuotemerkki",
     "category": "Kategoria",
@@ -178,8 +188,6 @@
     "nutrition": "Ravintosisältö",
     "per-100": "100 g / 100 ml kohden",
     "per-serving": "Annosta kohden",
-    "ingredients": "Ainesosat",
-    "traces": "Jäämät",
     "edit-food": "Muokkaa ruokaa",
     "edit-meal": "Muokkaa ateriaa",
     "edit-recipe": "Muokkaa reseptiä",
@@ -233,13 +241,17 @@
       "title": "Päiväkirja",
       "categories": "Kategoriat",
       "timestamps": "Näytä aikaleimat",
-      "thumbnails": "Näytä tuotekuvat",
+      "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
       "show-units": "Näytä ravintoyksiköt",
       "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
-      "title": "Ravinteet"
+      "title": "Ravinteet",
+      "field": "Nimi",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
     },
     "diary-categories": {
       "title": "Kategoriat",
@@ -250,11 +262,19 @@
       "sort": "Järjestä ruoat",
       "sort-date": "Viimeksi käytetty",
       "sort-alpha": "Aakkosellinen",
-      "thumbnails": "Näytä tuotekuvat",
+      "category-labels": "Show Category Labels",
+      "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä",
       "show-notes": "Näytä ateriamerkinnät"
+    },
+    "foods-categories": {
+      "title": "Labels and Categories",
+      "label": "Label / Icon",
+      "description": "Description",
+      "add": "Add Category",
+      "edit": "Edit Category"
     },
     "statistics": {
       "title": "Tilastot",

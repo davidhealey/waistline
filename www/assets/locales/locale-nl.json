@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "Calorieën",
     "kilojoules": "Kilojoules",
+    "calories": "Calorieën",
     "fat": "Vet",
     "saturated-fat": "Verzadigd vet",
     "carbohydrates": "Koolhydraten",
@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "Meervoudig onverzadigd vet",
     "trans-fat": "Transvet",
     "omega-3-fat": "Omega 3-vetzuren",
+    "omega-6-fat": "Omega 6-vetzuren",
+    "omega-9-fat": "Omega 9-vetzuren",
     "cholesterol": "Cholesterol",
     "sodium": "Sodium",
     "vitamin-a": "Vitamine A",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
+    "l": "l",
+    "ml": "ml",
     "g": "g",
     "mg": "mg",
     "µg": "μg",
@@ -57,7 +61,8 @@
     "lb": "lb",
     "st": "st",
     "cm": "cm",
-    "inch": "in"
+    "inch": "in",
+    "feet/inches": "voet/in"
   },
   "dialogs": {
     "delete": "Verwijder",
@@ -79,6 +84,8 @@
     "number-of-calories": "Geef alsjeblieft de hoeveelheid calorieën op voor dit voedsel.",
     "add-to-off": "Wil je dit project aan de Open Food Facts-database toevoegen?",
     "main-image": "Voeg alsjeblieft een hoofdafbeelding toe",
+    "download-title": "Meest recente informatie ophalen",
+    "download-text": "Lokaal opgeslagen waarden zullen worden vervangen met de meest recente informatie voor dit artikel",
     "upload-success": "Product succesvol toegevoegd aan Open Food Facts",
     "upload-failed": "Het uploaden is helaas mislukt. Probeer het opnieuw of neem contact op met de ontwikkelaar.",
     "what-meal": "Welke maaltijd is dit?"
@@ -138,8 +145,10 @@
   "diary": {
     "title": "Dagboek",
     "quick-add": "Snel toevoegen",
+    "quick-add-description": "Omschrijving (optioneel)",
     "yesterdays-meal": "%s van gisteren",
     "log-title": "Huidige gegevens",
+    "log-saved": "Opgeslagen",
     "no-data": "Geen gegevens",
     "default-meals": {
       "breakfast": "Ontbijt",
@@ -168,6 +177,7 @@
     "add-new-item": "Nieuwe opvoer",
     "details": "Details",
     "barcode": "Streepjescode",
+    "categories": "Categorieën",
     "name": "Naam",
     "brand": "Merk",
     "category": "Categorie",
@@ -178,8 +188,6 @@
     "nutrition": "Voedingswaarde",
     "per-100": "Per 100g/100ml",
     "per-serving": "Per portie",
-    "ingredients": "Ingrediënten",
-    "traces": "Sporen",
     "edit-food": "Bewerk voeding",
     "edit-meal": "Bewerk maaltijd",
     "edit-recipe": "Bewerk recept",
@@ -239,7 +247,11 @@
       "prompt-add-items": "Hoeveelheid vragen bij het toevoegen van items"
     },
     "nutriments": {
-      "title": "Voedingsstoffen"
+      "title": "Voedingsstoffen",
+      "field": "Naam",
+      "unit": "Eenheid",
+      "add": "Veld toevoegen",
+      "edit": "Veld bewerken"
     },
     "diary-categories": {
       "title": "Categorieën",
@@ -250,11 +262,19 @@
       "sort": "Sorteer voedsel",
       "sort-date": "Op laatst gebruikt",
       "sort-alpha": "Alfabetisch",
+      "category-labels": "Categorielabels tonen",
       "thumbnails": "Toon voorvertoning",
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
       "images": "Toon voedselfafbeeldingen",
       "wifi-images": "Toon afbeeldingen enkel over Wi-Fi",
       "show-notes": "Toon voedselnotities"
+    },
+    "foods-categories": {
+      "title": "Labels en categorieën",
+      "label": "Label / pictogram",
+      "description": "Omschrijving",
+      "add": "Categorie toevoegen",
+      "edit": "Bewerk categorie"
     },
     "statistics": {
       "title": "Statistieken",

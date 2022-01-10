@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "calories": "קלוריות",
     "kilojoules": "קילוג׳ולים",
+    "calories": "קלוריות",
     "fat": "שומן",
     "saturated-fat": "שומן רווי",
     "carbohydrates": "פחמימות",
@@ -13,6 +13,8 @@
     "polyunsaturated-fat": "שומן רב בלתי רווי",
     "trans-fat": "שומן טרנס",
     "omega-3-fat": "שומן אומגה 3",
+    "omega-6-fat": "שומן אומגה 6",
+    "omega-9-fat": "שומן אומגה 9",
     "cholesterol": "כולסטרול",
     "sodium": "נתרן",
     "vitamin-a": "ויטמין A",
@@ -50,6 +52,8 @@
   "unit-symbols": {
     "kcal": "קק״ל",
     "kJ": "kJ",
+    "l": "ליטר",
+    "ml": "מ״ל",
     "g": "גרם",
     "mg": "מ״ג",
     "µg": "מיקרוגרם",
@@ -57,7 +61,8 @@
     "lb": "פאונד",
     "st": "אבן",
     "cm": "ס״מ",
-    "inch": "אינטש"
+    "inch": "אינטש",
+    "feet/inches": "רגל/אינטש"
   },
   "dialogs": {
     "delete": "מחיקה",
@@ -79,6 +84,8 @@
     "number-of-calories": "נא לספק את מספר הקלוריות למאכל זה.",
     "add-to-off": "להוסיף את המוצר הזה למסד הנתונים Open Food Facts?",
     "main-image": "נא להוסיף תמונה ראשית",
+    "download-title": "משיכת הפרטים הכי עדכניים",
+    "download-text": "הערכים המקומיים שלך יוחלפו בפרטים העדכניים ביותר לפריט הזה",
     "upload-success": "המוצר נוסף בהצלחה אל Open Food Facts",
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
     "what-meal": "איזו מנה זו?"
@@ -138,8 +145,10 @@
   "diary": {
     "title": "יומן",
     "quick-add": "הוספה מהירה",
+    "quick-add-description": "תיאור (רשות)",
     "yesterdays-meal": "%s מאתמול",
     "log-title": "הסטטיסטיקה היומית",
+    "log-saved": "שמור",
     "no-data": "אין נתונים",
     "default-meals": {
       "breakfast": "ארוחת בוקר",
@@ -168,6 +177,7 @@
     "add-new-item": "הוספת פריט חדש",
     "details": "פרטים",
     "barcode": "ברקוד",
+    "categories": "קטגוריות",
     "name": "שם",
     "brand": "מותג",
     "category": "קטגוריה",
@@ -178,8 +188,6 @@
     "nutrition": "תזונה",
     "per-100": "ל־100ג׳/100מ״ל",
     "per-serving": "להגשה",
-    "ingredients": "רכיבים",
-    "traces": "עקבות",
     "edit-food": "עריכת פריט מזון",
     "edit-meal": "עריכת פריט ארוחה",
     "edit-recipe": "עריכת פריט מתכון",
@@ -239,7 +247,11 @@
       "prompt-add-items": "לבקש כמות בהוספת פריטים"
     },
     "nutriments": {
-      "title": "חומרי הזנה"
+      "title": "חומרי הזנה",
+      "field": "שם",
+      "unit": "יחידה",
+      "add": "הוספת שדה",
+      "edit": "עריכת שדה"
     },
     "diary-categories": {
       "title": "קטגוריות",
@@ -250,11 +262,19 @@
       "sort": "מיון מאכלים",
       "sort-date": "לפי השימוש האחרון",
       "sort-alpha": "בסדר אלפביתי",
+      "category-labels": "הצגת תוויות קטגוריה",
       "thumbnails": "הצגת תמונות ממוזערות",
       "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
       "images": "הצגת תמונות מאכלים",
       "wifi-images": "הצגת תמונות בחיבור אלחוטי בלבד",
       "show-notes": "הצגת הערות מזון"
+    },
+    "foods-categories": {
+      "title": "תוויות וקטגוריות",
+      "label": "תווית / סמל",
+      "description": "תיאור",
+      "add": "הוספת קטגוריה",
+      "edit": "עריכת קטגוריה"
     },
     "statistics": {
       "title": "סטטיסטיקה",
