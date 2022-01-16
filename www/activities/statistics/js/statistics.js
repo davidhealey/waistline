@@ -235,16 +235,12 @@ app.Stats = {
   },
 
   renderStatLog: function() {
-
     this.el.timeline.innerHTML = "";
 
-    let avg = this.renderAverage(this.data.average, this.data.dataset.unit);
-    this.el.timeline.appendChild(avg);
-
+    // Build list from bottom to top
     for (let i = 0; i < app.Stats.data.dates.length; i++) {
-
       let li = document.createElement("li");
-      app.Stats.el.timeline.appendChild(li);
+      app.Stats.el.timeline.prepend(li);
 
       let content = document.createElement("div");
       content.className = "item-content";
@@ -266,6 +262,9 @@ app.Stats = {
         after.innerText += " " + app.Stats.data.dataset.unit;
       inner.appendChild(after);
     }
+
+    let avg = this.renderAverage(this.data.average, this.data.dataset.unit);
+    this.el.timeline.prepend(avg);
   },
 
   renderAverage: function(average, unit) {
