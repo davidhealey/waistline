@@ -170,7 +170,9 @@
     "recipes": "מתכונים",
     "selected": "נבחרו",
     "search": "חיפוש",
-    "scan-prompt": "נא להציב ברקוד בתוך אזור הסריקה"
+    "scan-prompt": "נא להציב ברקוד בתוך אזור הסריקה",
+    "show-more-nutriments": "הצגת חומרי הזנה נוספים",
+    "show-less-nutriments": "הצגת פחות חומרי הזנה"
   },
   "food-editor": {
     "edit-item": "עריכת פריט",
@@ -243,6 +245,7 @@
       "timestamps": "הצגת חותמות זמן",
       "thumbnails": "הצגת תמונות ממוזערות",
       "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
+      "show-all-nutriments": "הצגת כל חומרי ההזנה בעמוד הסקירה",
       "show-units": "הצגת יחידות תזונה",
       "prompt-add-items": "לבקש כמות בהוספת פריטים"
     },
