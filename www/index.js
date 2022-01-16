@@ -461,6 +461,9 @@ $(document).on("focus", "input.auto-select", (e) => {
   focusedElement = target;
   focusedElement.select();
 });
+$(document).on("blur", "input.auto-select", (e) => {
+  focusedElement = undefined;
+});
 
 // Android back button 
 document.addEventListener("backbutton", (e) => {
