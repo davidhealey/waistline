@@ -170,7 +170,9 @@
     "recipes": "Recept",
     "selected": "Valda",
     "search": "Sök",
-    "scan-prompt": "Placera en streckkod innanför skanningsområdet"
+    "scan-prompt": "Placera en streckkod innanför skanningsområdet",
+    "show-more-nutriments": "Show more nutriments",
+    "show-less-nutriments": "Show less nutriments"
   },
   "food-editor": {
     "edit-item": "Redigera objekt",
@@ -243,6 +245,7 @@
       "timestamps": "Visa tidsstämplar",
       "thumbnails": "Visa miniatyrbilder",
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",
+      "show-all-nutriments": "Show all nutriments on Overview page",
       "show-units": "Visa enheter för näringsämnen",
       "prompt-add-items": "Fråga efter kvantitet vid nytt inlägg"
     },
