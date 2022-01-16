@@ -17,8 +17,11 @@ i.searchbar-icon {margin: -12px 12px;}
 
 .item-content.item-inner {column-gap: 0.8em;}
 
-#quantity-container .item-title {width:65% !important;}
-#nutrition .item-title {width:65% !important;}
+#food-edit-form div.item-title {width:32vw;}
+#meal-edit-form div.item-title {width:32vw;}
+#recipe-edit-form div.item-title {width:32vw;}
+#quantity-container div.item-title {width:60vw;}
+#nutrition div.item-title {width:60vw;}
 
 img.food-thumbnail {width: 20%; margin: 0.2em 1em 0.2em 0;}
 html[dir="rtl"] img.food-thumbnail {margin: 0.2em 0 0.2em 1em;}
