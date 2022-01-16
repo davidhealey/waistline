@@ -59,6 +59,7 @@ app.MealEditor = {
     app.MealEditor.el.foodlist = document.querySelector(".page[data-name='meal-editor'] #meal-food-list");
     app.MealEditor.el.add = document.querySelector(".page[data-name='meal-editor'] #add-food");
     app.MealEditor.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #nutrition");
+    app.MealEditor.el.nutritionButton = document.querySelector(".page[data-name='meal-editor'] #nutrition-button");
   },
 
   setComponentVisibility: function() {
@@ -88,6 +89,14 @@ app.MealEditor = {
         });
       });
       app.MealEditor.el.add.hasClickEvent = true;
+    }
+
+    // Nutrition fields visibility toggle button
+    if (!app.MealEditor.el.nutritionButton.hasClickEvent) {
+      app.MealEditor.el.nutritionButton.addEventListener("click", async (e) => {
+        app.FoodsMealsRecipes.toggleNutritionFieldsVisibility(app.MealEditor.el.nutrition, app.MealEditor.el.nutritionButton);
+      });
+      app.MealEditor.el.nutritionButton.hasClickEvent = true;
     }
   },
 
@@ -193,8 +202,6 @@ app.MealEditor = {
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();
-    const energyUnit = app.Settings.get("units", "energy");
-    const visible = app.Settings.getField("nutrimentVisibility");
 
     const ul = app.MealEditor.el.nutrition;
     ul.innerHTML = "";
@@ -202,8 +209,6 @@ app.MealEditor = {
     nutriments.forEach((x) => {
 
       if (nutrition[x] == undefined || nutrition[x] == 0) return;
-      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) return;
-      if (visible[x] !== true && !["calories", "kilojoules"].includes(x)) return;
 
       let unit = app.strings["unit-symbols"][units[x]] || units[x];
 
@@ -224,10 +229,13 @@ app.MealEditor = {
       innerDiv.appendChild(title);
 
       let after = document.createElement("div");
-      after.className = "item-after";
+      after.className = "item-after nutrition-field";
+      after.id = x;
       after.innerText = Math.round(nutrition[x] * 100) / 100;
       innerDiv.appendChild(after);
     });
+
+    app.FoodsMealsRecipes.setNutritionFieldsVisibility(ul, app.MealEditor.el.nutritionButton, false);
   },
 
   renderItems: function() {

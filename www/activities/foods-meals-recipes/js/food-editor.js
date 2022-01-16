@@ -95,6 +95,7 @@ app.FoodEditor = {
     app.FoodEditor.el.notes = document.querySelector(".page[data-name='food-editor'] #notes");
     app.FoodEditor.el.notesContainer = document.querySelector(".page[data-name='food-editor'] #notes-container");
     app.FoodEditor.el.nutrition = document.querySelector(".page[data-name='food-editor'] #nutrition");
+    app.FoodEditor.el.nutritionButton = document.querySelector(".page[data-name='food-editor'] #nutrition-button");
     app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
     app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
     app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
@@ -138,6 +139,14 @@ app.FoodEditor = {
         app.f7.views.main.router.navigate("/foods-meals-recipes/");
       });
       app.FoodEditor.el.upload.hasClickEvent = true;
+    }
+
+    // Nutrition fields visibility toggle button
+    if (!app.FoodEditor.el.nutritionButton.hasClickEvent) {
+      app.FoodEditor.el.nutritionButton.addEventListener("click", async (e) => {
+        app.FoodsMealsRecipes.toggleNutritionFieldsVisibility(app.FoodEditor.el.nutrition, app.FoodEditor.el.nutritionButton);
+      });
+      app.FoodEditor.el.nutritionButton.hasClickEvent = true;
     }
 
     // Add-photo
@@ -267,8 +276,6 @@ app.FoodEditor = {
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();
-    const energyUnit = app.Settings.get("units", "energy");
-    const visible = app.Settings.getField("nutrimentVisibility");
 
     if (item !== undefined && item.nutrition.kilojoules == undefined)
       item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules);
@@ -284,9 +291,6 @@ app.FoodEditor = {
 
         let name = app.strings.nutriments[k] || k;
         let unit = app.strings["unit-symbols"][units[k]] || units[k];
-
-        if (visible[k] !== true && units[k] !== energyUnit)
-          li.style.display = "none";
 
         ul.appendChild(li);
 
@@ -307,7 +311,7 @@ app.FoodEditor = {
 
         let input = document.createElement("input");
         input.id = k;
-        input.className = "align-end auto-select";
+        input.className = "nutrition-field align-end auto-select";
         input.type = "number";
         input.step = "0.01";
         input.placeholder = "0";
@@ -341,6 +345,8 @@ app.FoodEditor = {
         inputWrapper.appendChild(input);
       }
     }
+
+    app.FoodsMealsRecipes.setNutritionFieldsVisibility(app.FoodEditor.el.nutrition, app.FoodEditor.el.nutritionButton, false);
   },
 
   populateCategoryField: function(item) {

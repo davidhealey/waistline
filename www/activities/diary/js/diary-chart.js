@@ -59,6 +59,7 @@ app.DiaryChart = {
       const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
       const units = app.Nutriments.getNutrimentUnits();
       const visible = app.Settings.getField("nutrimentVisibility");
+      const showAll = app.Settings.get("diary", "show-all-nutriments");
 
       let result = {
         "labels": [],
@@ -126,7 +127,7 @@ app.DiaryChart = {
       // Totals
       nutriments.forEach((x) => {
         if (x == "calories" || x == "kilojoules") return;
-        if (!visible[x]) return;
+        if (showAll !== true && visible[x] !== true) return;
         if (!nutrition[x]) return;
 
         let name = app.strings.nutriments[x] || x;
