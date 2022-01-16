@@ -171,8 +171,8 @@
     "selected": "Selezionato",
     "search": "Ricerca",
     "scan-prompt": "Posiziona il codice Qr all'interno dell'area di scansione",
-    "show-more-nutriments": "Show more nutriments",
-    "show-less-nutriments": "Show less nutriments"
+    "show-more-nutriments": "Mostra più nutrimenti",
+    "show-less-nutriments": "Mostra meno nutrimenti"
   },
   "food-editor": {
     "edit-item": "Modifica elementi",
@@ -245,7 +245,7 @@
       "timestamps": "Mostra i marcatori temporali",
       "thumbnails": "Mostra le anteprime",
       "wifi-thumbnails": "Mostra le anteprime solo con la Wi-Fi",
-      "show-all-nutriments": "Show all nutriments on Overview page",
+      "show-all-nutriments": "Visualizza tutti i nutrienti nella pagina Panoramica",
       "show-units": "Mostra le unità nutrizionali",
       "prompt-add-items": "Chiede la quantità quando aggiungi articoli"
     },
