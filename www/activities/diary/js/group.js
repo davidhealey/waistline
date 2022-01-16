@@ -73,10 +73,10 @@ app.Group = {
     innerList.appendChild(innerUl);
 
     // Render items
-    let showTimestamp = app.Settings.get("diary", "timestamps");
-    let showThumbnail = app.Utils.showThumbnails("diary");
+    let showTimestamps = app.Settings.get("diary", "timestamps");
+    let showThumbnails = app.Utils.showThumbnails("diary");
     this.items.forEach((x) => {
-      app.FoodsMealsRecipes.renderItem(x, innerUl, false, undefined, self.removeItem, undefined, showTimestamp, showThumbnail);
+      app.FoodsMealsRecipes.renderItem(x, innerUl, false, undefined, self.removeItem, undefined, showTimestamps, showThumbnails);
     });
 
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items);

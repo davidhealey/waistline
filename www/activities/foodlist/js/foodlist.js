@@ -148,6 +148,7 @@ app.Foodlist = {
     let maxItems = 300; // Max items to load
     let itemsPerLoad = 20; // Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
+    let showThumbnails = app.Utils.showThumbnails("foodlist");
 
     if (lastIndex <= app.Foodlist.list.length) {
       //Render next set of items to list
@@ -158,8 +159,7 @@ app.Foodlist = {
 
         if (item != undefined) {
           item.type = "food";
-          let showThumbnail = app.Utils.showThumbnails("foodlist");
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem, undefined, false, showThumbnail);
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem, undefined, false, showThumbnails);
         }
       }
     }

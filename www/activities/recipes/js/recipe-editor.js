@@ -239,9 +239,11 @@ app.RecipeEditor = {
       app.RecipeEditor.el.foodlist.innerHTML = "";
       app.FoodsMealsRecipes.disableEdit = false;
 
+      let showThumbnails = app.Utils.showThumbnails("foodlist");
+
       app.RecipeEditor.recipe.items.forEach(async (x, i) => {
         x.index = i;
-        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, undefined, app.RecipeEditor.removeItem);
+        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, undefined, app.RecipeEditor.removeItem, undefined, false, showThumbnails);
       });
 
       resolve();
