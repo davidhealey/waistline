@@ -71,7 +71,7 @@
     "yes": "Oui",
     "no": "Non",
     "add": "Ajouter",
-    "skip": "Skip",
+    "skip": "Ignorer",
     "confirm-delete": "Souhaitez-vous supprimer cet élément ?",
     "delete-title": "Supprimer élément",
     "required-fields": "Veuillez remplir les champs requis.",
@@ -170,7 +170,9 @@
     "recipes": "Recettes",
     "selected": "Sélectionnées",
     "search": "Recherche",
-    "scan-prompt": "Placez un code barre devant le scanner"
+    "scan-prompt": "Placez un code barre devant le scanner",
+    "show-more-nutriments": "Afficher plus de nutriments",
+    "show-less-nutriments": "Afficher moins de nutriments"
   },
   "food-editor": {
     "edit-item": "Modifier élément",
@@ -243,6 +245,7 @@
       "timestamps": "Afficher les dates",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
+      "show-all-nutriments": "Afficher tous les nutriments dans la vue d'ensemble",
       "show-units": "Afficher les unités nutritionnelles",
       "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments"
     },
@@ -250,8 +253,8 @@
       "title": "Nutriments",
       "field": "Nom",
       "unit": "Unité",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "add": "Ajouter un champ",
+      "edit": "Modifier le champ"
     },
     "diary-categories": {
       "title": "Catégories",
