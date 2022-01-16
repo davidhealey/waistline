@@ -170,7 +170,9 @@
     "recipes": "Rezepte",
     "selected": "Ausgewählt",
     "search": "Suchen",
-    "scan-prompt": "Platziere einen Strichcode im Scanbereich"
+    "scan-prompt": "Platziere einen Strichcode im Scanbereich",
+    "show-more-nutriments": "Mehr Nährstoffe anzeigen",
+    "show-less-nutriments": "Weniger Nährstoffe anzeigen"
   },
   "food-editor": {
     "edit-item": "Eintrag bearbeiten",
@@ -243,6 +245,7 @@
       "timestamps": "Zeitstempel anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
+      "show-all-nutriments": "Alle Nährstoffe auf Übersichtsseite anzeigen",
       "show-units": "Nährstoffeinheiten anzeigen",
       "prompt-add-items": "Beim Hinzufügen von Einträgen Menge abfragen"
     },
