@@ -447,10 +447,12 @@ app.FoodEditor = {
         const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
         for (let k of nutriments) {
           if (k != field) {
-            let input = document.querySelector("#food-edit-form #" + k);
-            if (input && input.value !== "") {
-              input.value = Math.round(input.oldValue * multiplier * 100) / 100 || 0;
-            }
+            try {
+              let input = document.querySelector("#food-edit-form #" + k);
+              if (input && input.value !== "") {
+                input.value = Math.round(input.oldValue * multiplier * 100) / 100 || 0;
+              }
+            } catch (e) { }
           }
         }
       }
