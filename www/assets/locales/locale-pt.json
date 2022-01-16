@@ -170,7 +170,9 @@
     "recipes": "Receitas",
     "selected": "Selecionado",
     "search": "Procurar",
-    "scan-prompt": "Place a barcode inside the scan area"
+    "scan-prompt": "Place a barcode inside the scan area",
+    "show-more-nutriments": "Show more nutriments",
+    "show-less-nutriments": "Show less nutriments"
   },
   "food-editor": {
     "edit-item": "Editar item",
@@ -243,6 +245,7 @@
       "timestamps": "Mostrar Horários",
       "thumbnails": "Mostrar miniaturas",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "show-all-nutriments": "Show all nutriments on Overview page",
       "show-units": "Mostrar informação nutricional",
       "prompt-add-items": "Prompt for quantity when adding items"
     },
