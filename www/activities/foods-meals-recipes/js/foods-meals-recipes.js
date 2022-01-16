@@ -731,6 +731,45 @@ app.FoodsMealsRecipes = {
       default:
     }
   },
+
+  toggleNutritionFieldsVisibility: function(listEl, button) {
+    if (button.state === "show-less") {
+      app.FoodsMealsRecipes.setNutritionFieldsVisibility(listEl, button, false);
+      button.state = "show-more";
+      button.innerText = app.strings["foods-meals-recipes"]["show-more-nutriments"] || "Show more nutriments";
+    } else {
+      app.FoodsMealsRecipes.setNutritionFieldsVisibility(listEl, button, true);
+      button.state = "show-less";
+      button.innerText = app.strings["foods-meals-recipes"]["show-less-nutriments"] || "Show less nutriments";
+    }
+  },
+
+  setNutritionFieldsVisibility: function(listEl, button, showAll) {
+    const units = app.Nutriments.getNutrimentUnits();
+    const energyUnit = app.Settings.get("units", "energy");
+    const visible = app.Settings.getField("nutrimentVisibility");
+
+    let allFieldsVisible = true;
+
+    listEl.childNodes.forEach((li) => {
+      let field = li.querySelectorAll(".nutrition-field")[0];
+
+      if (field !== undefined && field.id !== undefined) {
+        let nutriment = field.id;
+
+        if (visible[nutriment] !== true && units[nutriment] !== energyUnit)
+          allFieldsVisible = false;
+
+        if (showAll === true || visible[nutriment] === true || units[nutriment] === energyUnit)
+          li.style.display = "block";
+        else
+          li.style.display = "none";
+      }
+    });
+
+    if (allFieldsVisible)
+      button.style.display = "none";
+  }
 };
 
 document.addEventListener("page:init", function(e) {

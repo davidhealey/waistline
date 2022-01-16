@@ -60,6 +60,7 @@ app.RecipeEditor = {
     app.RecipeEditor.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
     app.RecipeEditor.el.add = document.querySelector(".page[data-name='recipe-editor'] #add-food");
     app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #nutrition");
+    app.RecipeEditor.el.nutritionButton = document.querySelector(".page[data-name='recipe-editor'] #nutrition-button");
   },
 
   setComponentVisibility: function() {
@@ -89,6 +90,14 @@ app.RecipeEditor = {
         });
       });
       app.RecipeEditor.el.add.hasClickEvent = true;
+    }
+
+    // Nutrition fields visibility toggle button
+    if (!app.RecipeEditor.el.nutritionButton.hasClickEvent) {
+      app.RecipeEditor.el.nutritionButton.addEventListener("click", async (e) => {
+        app.FoodsMealsRecipes.toggleNutritionFieldsVisibility(app.RecipeEditor.el.nutrition, app.RecipeEditor.el.nutritionButton);
+      });
+      app.RecipeEditor.el.nutritionButton.hasClickEvent = true;
     }
   },
 
@@ -197,8 +206,6 @@ app.RecipeEditor = {
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();
-    const energyUnit = app.Settings.get("units", "energy");
-    const visible = app.Settings.getField("nutrimentVisibility");
 
     const ul = app.RecipeEditor.el.nutrition;
     ul.innerHTML = "";
@@ -206,8 +213,6 @@ app.RecipeEditor = {
     nutriments.forEach((x) => {
 
       if (nutrition[x] == undefined || nutrition[x] == 0) return;
-      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) return;
-      if (visible[x] !== true && !["calories", "kilojoules"].includes(x)) return;
 
       let unit = app.strings["unit-symbols"][units[x]] || units[x];
 
@@ -228,10 +233,13 @@ app.RecipeEditor = {
       innerDiv.appendChild(title);
 
       let after = document.createElement("div");
-      after.className = "item-after";
+      after.className = "item-after nutrition-field";
+      after.id = x;
       after.innerText = Math.round(nutrition[x] * 100) / 100;
       innerDiv.appendChild(after);
     });
+
+    app.FoodsMealsRecipes.setNutritionFieldsVisibility(ul, app.RecipeEditor.el.nutritionButton, false);
   },
 
   renderItems: function() {
