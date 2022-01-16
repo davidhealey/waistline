@@ -170,7 +170,9 @@
     "recipes": "Recepten",
     "selected": "Geselecteerd",
     "search": "Zoeken",
-    "scan-prompt": "Plaats een streepjescode in het scangebied"
+    "scan-prompt": "Plaats een streepjescode in het scangebied",
+    "show-more-nutriments": "Show more nutriments",
+    "show-less-nutriments": "Show less nutriments"
   },
   "food-editor": {
     "edit-item": "Bewerk opvoer",
@@ -243,6 +245,7 @@
       "timestamps": "Toon tijdstempel",
       "thumbnails": "Toon voorvertoning",
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
+      "show-all-nutriments": "Show all nutriments on Overview page",
       "show-units": "Toon voedingswaarde-eenheden",
       "prompt-add-items": "Hoeveelheid vragen bij het toevoegen van items"
     },
