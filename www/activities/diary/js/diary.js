@@ -738,6 +738,7 @@ app.Diary = {
     const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const visible = app.Settings.getField("nutrimentVisibility");
+    const showAll = app.Settings.get("diary", "show-all-nutriments");
 
     // Create dialog
     let div = document.createElement("div");
@@ -753,7 +754,7 @@ app.Diary = {
       if (x == "calories" || x == "kilojoules") {
         if (units[x] != energyUnit) continue;
       } else {
-        if (!visible[x]) continue;
+        if (showAll !== true && visible[x] !== true) continue;
       }
 
       // Get name, unit and value

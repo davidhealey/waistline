@@ -361,6 +361,7 @@ app.Settings = {
         timestamps: false,
         "show-thumbnails": false,
         "wifi-thumbnails": true,
+        "show-all-nutriments": false,
         "show-nutrition-units": false,
         "prompt-add-items": false
       },
