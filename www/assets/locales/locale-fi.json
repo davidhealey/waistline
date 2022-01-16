@@ -170,7 +170,9 @@
     "recipes": "Reseptit",
     "selected": "Valitut",
     "search": "Etsi",
-    "scan-prompt": "Aseta viivakoodi kuvausalueen sisälle"
+    "scan-prompt": "Aseta viivakoodi kuvausalueen sisälle",
+    "show-more-nutriments": "Show more nutriments",
+    "show-less-nutriments": "Show less nutriments"
   },
   "food-editor": {
     "edit-item": "Muokkaa tuotetta",
@@ -243,6 +245,7 @@
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
+      "show-all-nutriments": "Show all nutriments on Overview page",
       "show-units": "Näytä ravintoyksiköt",
       "prompt-add-items": "Prompt for quantity when adding items"
     },
