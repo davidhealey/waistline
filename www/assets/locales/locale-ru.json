@@ -171,8 +171,8 @@
     "selected": "Выбрано",
     "search": "Поиск",
     "scan-prompt": "Поместите штрих-код в область сканирования",
-    "show-more-nutriments": "Show more nutriments",
-    "show-less-nutriments": "Show less nutriments"
+    "show-more-nutriments": "Показать больше питательных веществ",
+    "show-less-nutriments": "Показать меньше питательных веществ"
   },
   "food-editor": {
     "edit-item": "Редактировать элемент",
@@ -245,7 +245,7 @@
       "timestamps": "Показать метки времени",
       "thumbnails": "Показывать миниатюры",
       "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
-      "show-all-nutriments": "Show all nutriments on Overview page",
+      "show-all-nutriments": "Показать все питательные вещества на странице обзора",
       "show-units": "Показать единицы питания",
       "prompt-add-items": "Спрашивать количество при добавлении элемента"
     },
