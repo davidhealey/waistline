@@ -88,7 +88,8 @@
     "download-text": "הערכים המקומיים שלך יוחלפו בפרטים העדכניים ביותר לפריט הזה",
     "upload-success": "המוצר נוסף בהצלחה אל Open Food Facts",
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
-    "what-meal": "איזו מנה זו?"
+    "what-meal": "איזו מנה זו?",
+    "press-back-again": "Press Back again to exit the app"
   },
   "days": {
     "0": "יום ראשון",
