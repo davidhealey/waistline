@@ -100,20 +100,6 @@
     "5": "Vendredi",
     "6": "Samedi"
   },
-  "months": {
-    "0": "Janvier",
-    "1": "Février",
-    "2": "Mars",
-    "3": "Avril",
-    "4": "Mai",
-    "5": "Juin",
-    "6": "Juillet",
-    "7": "Août",
-    "8": "Septembre",
-    "9": "Octobre",
-    "10": "Novembre",
-    "11": "Décembre"
-  },
   "colours": {
     "red": "Rouge",
     "blue": "Bleu",
@@ -206,7 +192,7 @@
     "show-in-diary": "Afficher dans le journal",
     "show-in-stats": "Montrer les statistiques",
     "shared-goal": "Objectif quotidien",
-    "auto-adjust": "Ajuster automatiquement selon l'objectif hebdomadaire",
+    "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Objectif minimum",
     "percent-goal": "Objectif en pourcentage de l'apport énergétique"
   },
@@ -260,6 +246,16 @@
     "diary-categories": {
       "title": "Catégories",
       "category": "Catégorie"
+    },
+    "goals": {
+      "title": "Objectifs",
+      "first-day-of-week": "First day of the week",
+      "average-goal-base": "Compute average goals based on",
+      "current-week": "Current Week",
+      "last-3-days": "Last 3 Days",
+      "last-5-days": "Last 5 Days",
+      "last-7-days": "Last 7 Days",
+      "last-10-days": "Last 10 Days"
     },
     "foods": {
       "title": "Aliments, Repas, Recettes",
