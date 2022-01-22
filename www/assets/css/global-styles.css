@@ -1,3 +1,22 @@
+/*
+  Copyright 2018, 2019, 2020, 2021 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 .align-end {text-align: end; padding: 0 0.4em !important;}
 * {-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 input {-webkit-touch-callout: default !important; -webkit-user-select: auto !important; -khtml-user-select: auto !important; -moz-user-select: auto !important; -ms-user-select: auto !important; user-select: auto !important;}
@@ -17,11 +36,11 @@ i.searchbar-icon {margin: -12px 12px;}
 
 .item-content.item-inner {column-gap: 0.8em;}
 
-#food-edit-form div.item-title {width:32vw;}
-#meal-edit-form div.item-title {width:32vw;}
-#recipe-edit-form div.item-title {width:32vw;}
-#quantity-container div.item-title {width:60vw;}
-#nutrition div.item-title {width:60vw;}
+#food-edit-form .item-input .item-title {width: 32vw;}
+#meal-edit-form .item-input .item-title {width: 32vw;}
+#recipe-edit-form .item-input .item-title {width: 32vw;}
+#quantity-container.item-input .item-title {width: 60vw;}
+#nutrition .item-input .item-title {width: 60vw;}
 
 img.food-thumbnail {width: 20%; margin: 0.2em 1em 0.2em 0;}
 html[dir="rtl"] img.food-thumbnail {margin: 0.2em 0 0.2em 1em;}
