@@ -100,20 +100,6 @@
     "5": "Пятница",
     "6": "Суббота"
   },
-  "months": {
-    "0": "Январь",
-    "1": "Февраль",
-    "2": "Март",
-    "3": "Апрель",
-    "4": "Май",
-    "5": "Июнь",
-    "6": "Июль",
-    "7": "Август",
-    "8": "Сентябрь",
-    "9": "Октябрь",
-    "10": "Ноябрь",
-    "11": "Декабрь"
-  },
   "colours": {
     "red": "Красный",
     "blue": "Синий",
@@ -206,7 +192,7 @@
     "show-in-diary": "Показать в дневнике",
     "show-in-stats": "Показать в статистике",
     "shared-goal": "Одинаковая цель каждый день",
-    "auto-adjust": "Автоматическая настройка для достижения еженедельной цели",
+    "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Минимальная цель",
     "percent-goal": "Цель в процентах от потребляемой энергии"
   },
@@ -260,6 +246,16 @@
     "diary-categories": {
       "title": "Категории",
       "category": "Категория"
+    },
+    "goals": {
+      "title": "Цели",
+      "first-day-of-week": "First day of the week",
+      "average-goal-base": "Compute average goals based on",
+      "current-week": "Current Week",
+      "last-3-days": "Last 3 Days",
+      "last-5-days": "Last 5 Days",
+      "last-7-days": "Last 7 Days",
+      "last-10-days": "Last 10 Days"
     },
     "foods": {
       "title": "Еда, Блюда, Рецепты",
