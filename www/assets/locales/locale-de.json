@@ -88,7 +88,8 @@
     "download-text": "Deine lokalen Werte werden mit den neuesten verfügbaren Daten für den Artikel überschrieben",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
-    "what-meal": "Welche Mahlzeit ist das?"
+    "what-meal": "Welche Mahlzeit ist das?",
+    "press-back-again": "Press Back again to exit the app"
   },
   "days": {
     "0": "Sonntag",
