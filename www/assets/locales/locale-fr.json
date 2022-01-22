@@ -89,7 +89,7 @@
     "upload-success": "Produit ajouté à Open Food Facts",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?",
-    "press-back-again": "Press Back again to exit the app"
+    "press-back-again": "Appuyez à nouveau sur le bouton Retour pour quitter l'application"
   },
   "days": {
     "0": "Dimanche",
@@ -192,7 +192,7 @@
     "show-in-diary": "Afficher dans le journal",
     "show-in-stats": "Montrer les statistiques",
     "shared-goal": "Objectif quotidien",
-    "auto-adjust": "Auto adjust to meet average goal",
+    "auto-adjust": "Ajuster automatiquement pour atteindre l'objectif moyen",
     "minimum-goal": "Objectif minimum",
     "percent-goal": "Objectif en pourcentage de l'apport énergétique"
   },
@@ -249,13 +249,13 @@
     },
     "goals": {
       "title": "Objectifs",
-      "first-day-of-week": "First day of the week",
-      "average-goal-base": "Compute average goals based on",
-      "current-week": "Current Week",
-      "last-3-days": "Last 3 Days",
-      "last-5-days": "Last 5 Days",
-      "last-7-days": "Last 7 Days",
-      "last-10-days": "Last 10 Days"
+      "first-day-of-week": "Premier jour de la semaine",
+      "average-goal-base": "Calculer la moyenne des objectifs en fonction",
+      "current-week": "De la semaine en cours",
+      "last-3-days": "Des 3 derniers jours",
+      "last-5-days": "Des 5 dernniers jours",
+      "last-7-days": "Des 7 derniers jours",
+      "last-10-days": "Des 10 derniers jours"
     },
     "foods": {
       "title": "Aliments, Repas, Recettes",
