@@ -205,7 +205,7 @@
     "show-in-diary": "Show in Diary",
     "show-in-stats": "Show in Statistics",
     "shared-goal": "Same goal every day",
-    "auto-adjust": "Auto adjust to meet weekly goal",
+    "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Is minimum goal",
     "percent-goal": "Goal as percentage of energy intake"
   },

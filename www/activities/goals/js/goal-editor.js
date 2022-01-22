@@ -68,7 +68,6 @@ app.GoalEditor = {
     app.GoalEditor.el.autoAdjust = document.querySelector(".page[data-name='goal-editor'] #auto-adjust");
     app.GoalEditor.el.minimumGoal = document.querySelector(".page[data-name='goal-editor'] #minimum-goal");
     app.GoalEditor.el.percentGoal = document.querySelector(".page[data-name='goal-editor'] #percent-goal");
-    app.GoalEditor.el.primaryGoal = document.querySelector(".page[data-name='goal-editor'] #primary-goal");
   },
 
   bindUIActions: function() {
@@ -134,13 +133,17 @@ app.GoalEditor = {
       app.GoalEditor.el.autoAdjustOption.style.display = "none";
       app.GoalEditor.el.minimumGoalOption.style.display = "none";
       app.GoalEditor.el.percentGoalOption.style.display = "none";
-      app.GoalEditor.el.primaryGoal.innerText = app.strings["goal-editor"]["goal"] || "Goal";
+      document.querySelector(".page[data-name='goal-editor'] #goal-0").innerText = app.strings["goal-editor"]["goal"] || "Goal";
       const extraGoals = Array.from(document.querySelectorAll("li.extra-goal"));
       extraGoals.forEach((x) => {
         x.style.display = "none";
       });
     } else {
-      app.GoalEditor.el.primaryGoal.innerText = app.strings["days"]["0"] || "Sunday";
+      const firstDayOfWeek = app.Settings.get("goals", "first-day-of-week") || 0;
+      for (let i = 0; i < 7; i++) {
+        const d = (Number(firstDayOfWeek) + i) % 7;
+        document.querySelector(".page[data-name='goal-editor'] #goal-" + i).innerText = app.strings["days"][d] || d;
+      }
       if (!app.energyMacroNutriments.includes(app.GoalEditor.stat))
         app.GoalEditor.el.percentGoalOption.style.display = "none";
     }
