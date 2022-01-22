@@ -689,10 +689,12 @@ app.FoodsMealsRecipes = {
 
   gotoEditor: function(item) {
     let origin;
-    if (app.FoodsMealsRecipes.tab !== undefined)
+    if (app.FoodsMealsRecipes.tab !== undefined) {
       origin = app.FoodsMealsRecipes.tab;
-    else
+    } else {
       origin = "diary";
+      app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
+    }
 
     app.data.context = {
       item: item,

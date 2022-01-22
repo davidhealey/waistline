@@ -21,6 +21,7 @@ app.Diary = {
 
   ready: false,
   calendar: undefined,
+  lastScrollPosition: 0,
   el: {},
   groups: [],
 
@@ -45,6 +46,8 @@ app.Diary = {
       app.Diary.groups = this.createMealGroups(); //Create meal groups
       this.render();
       app.Diary.ready = true;
+    } else {
+      app.Diary.lastScrollPosition = 0; // Reset last scroll position
     }
   },
 
@@ -178,6 +181,11 @@ app.Diary = {
     swiperWrapper.innerHTML = "";
 
     await app.Diary.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
+
+    if (app.Diary.lastScrollPosition !== 0) {
+      $(".page-content").scrollTop(app.Diary.lastScrollPosition); // Restore last scroll position
+      app.Diary.lastScrollPosition = 0;
+    }
   },
 
   renderNutritionCard: async function(nutrition, date, swiper) {
@@ -449,6 +457,7 @@ app.Diary = {
     } else {
       // No more items to process -> write entry to DB and refresh page
       await dbHandler.put(entry, "diary");
+      app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
       app.Diary.render();
     }
   },
@@ -505,9 +514,9 @@ app.Diary = {
             if (entry !== undefined)
               entry.items.splice(item.index, 1);
 
-            dbHandler.put(entry, "diary").onsuccess = function(e) {
-              app.f7.views.main.router.refreshPage();
-            };
+            await dbHandler.put(entry, "diary");
+            app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
+            app.Diary.render();
           }
         }
       ]
@@ -593,9 +602,9 @@ app.Diary = {
 
                 entry.items.push(item);
 
-                dbHandler.put(entry, "diary").onsuccess = function(e) {
-                  app.f7.views.main.router.refreshPage();
-                };
+                await dbHandler.put(entry, "diary");
+                app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
+                app.Diary.render();
               }
             }
           }
@@ -818,6 +827,7 @@ app.Diary = {
       date: new Date(app.Diary.calendar.getValue())
     };
 
+    app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
     app.f7.views.main.router.navigate("/foods-meals-recipes/");
   },
 
