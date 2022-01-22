@@ -313,7 +313,7 @@ app.FoodEditor = {
         input.id = k;
         input.className = "nutrition-field align-end auto-select";
         input.type = "number";
-        input.step = "0.01";
+        input.step = "0.001";
         input.placeholder = "0";
         input.name = k;
 
@@ -326,7 +326,7 @@ app.FoodEditor = {
 
         if (item) {
           if (item.nutrition[k] !== 0)
-            input.value = Math.round(item.nutrition[k] * 100) / 100 || "";
+            input.value = Math.round(item.nutrition[k] * 1000) / 1000 || "";
           else
             input.value = 0;
 
