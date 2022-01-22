@@ -109,12 +109,12 @@ app.FoodEditor = {
     });
 
     // Portion
-    app.FoodEditor.el.portion.addEventListener("change", (e) => {
+    app.FoodEditor.el.portion.addEventListener("input", (e) => {
       app.FoodEditor.changeServing(app.FoodEditor.item, "portion", e.target.value);
     });
 
     // Quantity
-    app.FoodEditor.el.quantity.addEventListener("change", (e) => {
+    app.FoodEditor.el.quantity.addEventListener("input", (e) => {
       app.FoodEditor.changeServing(app.FoodEditor.item, "quantity", e.target.value);
     });
 
@@ -335,12 +335,14 @@ app.FoodEditor = {
           input.value = "";
         }
 
-        input.addEventListener("change", function() {
-          app.FoodEditor.changeServing(item, k, this.value);
-          if (this.oldValue == 0)
-            this.oldValue = this.value / (app.FoodEditor.el.portion.value / app.FoodEditor.el.portion.oldValue);
-          if (this.value == 0)
-            this.oldValue = 0;
+        input.addEventListener("input", (e) => {
+          app.FoodEditor.changeServing(item, k, e.target.value);
+        });
+        input.addEventListener("change", (e) => {
+          if (e.target.oldValue == 0)
+            e.target.oldValue = e.target.value / (app.FoodEditor.el.portion.value / app.FoodEditor.el.portion.oldValue);
+          if (e.target.value == 0)
+            e.target.oldValue = 0;
         });
         inputWrapper.appendChild(input);
       }
