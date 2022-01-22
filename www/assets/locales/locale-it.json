@@ -100,20 +100,6 @@
     "5": "Venerdì",
     "6": "Sabato"
   },
-  "months": {
-    "0": "Gennaio",
-    "1": "Febbraio",
-    "2": "Marzo",
-    "3": "Aprile",
-    "4": "Maggio",
-    "5": "Giugno",
-    "6": "Luglio",
-    "7": "Agosto",
-    "8": "Settembre",
-    "9": "Ottobre",
-    "10": "Novembre",
-    "11": "Dicembre"
-  },
   "colours": {
     "red": "Rosso",
     "blue": "Blu",
@@ -206,7 +192,7 @@
     "show-in-diary": "Mostra nel diario",
     "show-in-stats": "Mostra nelle statistiche",
     "shared-goal": "Stesso obiettivo ogni giorno",
-    "auto-adjust": "Auto regolazione per soddisfare l'obiettivo settimanale",
+    "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "È un obiettivo minimo",
     "percent-goal": "Obiettivo in percentuale del consumo di energia"
   },
@@ -260,6 +246,16 @@
     "diary-categories": {
       "title": "Categorie",
       "category": "Categoria"
+    },
+    "goals": {
+      "title": "Obiettivi",
+      "first-day-of-week": "First day of the week",
+      "average-goal-base": "Compute average goals based on",
+      "current-week": "Current Week",
+      "last-3-days": "Last 3 Days",
+      "last-5-days": "Last 5 Days",
+      "last-7-days": "Last 7 Days",
+      "last-10-days": "Last 10 Days"
     },
     "foods": {
       "title": "Cibi, Pasti, Ricette",
