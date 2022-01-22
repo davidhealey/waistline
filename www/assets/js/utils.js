@@ -81,11 +81,14 @@ app.Utils = {
     notification.open();
   },
 
-  toast: function(text, timeout, position) {
+  toast: function(text, timeout, position, closeCallback) {
     let toast = app.f7.toast.create({
       text: text,
       position: position || 'center',
       closeTimeout: timeout || 2000,
+      on: {
+        close: closeCallback
+      }
     });
 
     toast.open();

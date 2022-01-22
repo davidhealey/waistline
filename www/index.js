@@ -432,9 +432,8 @@ document.addEventListener('deviceready', async function() {
     app.f7.views.main.router.navigate(settings.appearance["start-page"]);
   }
 
-  // Backup database 
+  // Backup database
   setTimeout(async () => {
-
     let autoBackup = app.Settings.get("import-export", "auto-backup");
 
     if (settings != undefined && settings.firstTimeSetup != undefined && autoBackup == true && device.platform !== "browser") {
@@ -465,32 +464,49 @@ $(document).on("blur", "input.auto-select", (e) => {
   focusedElement = undefined;
 });
 
-// Android back button 
+// Android back button
+let backButtonExitApp = false;
 document.addEventListener("backbutton", (e) => {
 
-  let dialogs = document.getElementsByClassName("dialog");
-
+  let dialogs = document.querySelectorAll(".dialog");
   if (dialogs.length) {
     app.f7.dialog.close(".dialog");
-    e.preventDefault();
     return false;
   }
 
-  let smartSelects = document.getElementsByClassName("smart-select-popover");
-
+  let smartSelects = document.querySelectorAll(".smart-select-popover");
   if (smartSelects.length) {
     document.querySelectorAll(".smart-select").forEach((el) => { app.f7.smartSelect.close(el) });
-    e.preventDefault();
     return false;
   }
 
-  let activeSearch = document.getElementsByClassName("searchbar-focused");
-
+  let activeSearch = document.querySelectorAll(".searchbar-focused");
   if (activeSearch.length) {
-    app.f7.searchbar.clear(".searchbar-focused");
+    app.f7.searchbar.disable(".searchbar-focused");
     return false;
   }
 
-  if (app.f7.views.main.history.length > 1)
+  let calendar = document.querySelectorAll(".calendar");
+  if (calendar.length) {
+    app.f7.calendar.close(".calendar");
+    return false;
+  }
+
+  let loginScreen = document.querySelectorAll(".login-screen.modal-in");
+  if (loginScreen.length) {
+    app.f7.loginScreen.close(".login-screen");
+    return false;
+  }
+
+  if (app.f7.views.main.history.length > 1) {
     app.f7.views.main.router.back();
+  } else if (backButtonExitApp === true) {
+    navigator.app.exitApp();
+  } else {
+    backButtonExitApp = true;
+    let msg = app.strings.dialogs["press-back-again"] || "Press Back again to exit the app";
+    app.Utils.toast(msg, 2500, "bottom", () => {
+      backButtonExitApp = false;
+    });
+  }
 });
