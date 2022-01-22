@@ -192,7 +192,7 @@
     "show-in-diary": "Toon in dagboek",
     "show-in-stats": "Toon in statistieken",
     "shared-goal": "Dagelijks doel",
-    "auto-adjust": "Auto adjust to meet average goal",
+    "auto-adjust": "Automatisch aanpassen om doelgemiddelde te bereiken",
     "minimum-goal": "Is minimumdoel",
     "percent-goal": "Doelstelling als percentage van de energie-inname"
   },
@@ -249,13 +249,13 @@
     },
     "goals": {
       "title": "Doelen",
-      "first-day-of-week": "First day of the week",
-      "average-goal-base": "Compute average goals based on",
-      "current-week": "Current Week",
-      "last-3-days": "Last 3 Days",
-      "last-5-days": "Last 5 Days",
-      "last-7-days": "Last 7 Days",
-      "last-10-days": "Last 10 Days"
+      "first-day-of-week": "Eerste dag van de week",
+      "average-goal-base": "Bereken doelgemiddelde op basis van",
+      "current-week": "Huidige week",
+      "last-3-days": "Afgelopen 3 dagen",
+      "last-5-days": "Afgelopen 5 dagen",
+      "last-7-days": "Afgelopen 7 dagen",
+      "last-10-days": "Afgelopen 10 dagen"
     },
     "foods": {
       "title": "Voedsel, maaltijden, recepten",
