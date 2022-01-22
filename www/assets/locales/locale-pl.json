@@ -89,7 +89,7 @@
     "upload-success": "Produkt pomyślnie dodany do Open Food Facts",
     "upload-failed": "Niestety przesłanie nie powiodło się, spróbuj ponownie lub skontaktuj się z programistą.",
     "what-meal": "Co to za posiłek?",
-    "press-back-again": "Press Back again to exit the app"
+    "press-back-again": "Dotknij ponownie 'Wstecz', aby wyjść z aplikacji"
   },
   "days": {
     "0": "Niedziela",
@@ -99,20 +99,6 @@
     "4": "Czwartek",
     "5": "Piątek",
     "6": "Sobota"
-  },
-  "months": {
-    "0": "Styczeń",
-    "1": "Luty",
-    "2": "Marzec",
-    "3": "Kwiecień",
-    "4": "Maj",
-    "5": "Czerwiec",
-    "6": "Lipiec",
-    "7": "Sierpień",
-    "8": "Wrzesień",
-    "9": "Pazdziernik",
-    "10": "Listopad",
-    "11": "Grudzień"
   },
   "colours": {
     "red": "Czerwony",
@@ -206,7 +192,7 @@
     "show-in-diary": "Pokaż w dzienniku",
     "show-in-stats": "Pokaż w statystykach",
     "shared-goal": "Ten sam cel każdego dnia",
-    "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu tygodniowego",
+    "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu średniego",
     "minimum-goal": "Jest celem minimalnym",
     "percent-goal": "Cel jako procent pobranej energii"
   },
@@ -260,6 +246,16 @@
     "diary-categories": {
       "title": "Kategorie",
       "category": "Kategoria"
+    },
+    "goals": {
+      "title": "Cele",
+      "first-day-of-week": "Pierwszy dzień tygodnia",
+      "average-goal-base": "Oblicz średnie cele na podstawie",
+      "current-week": "Obeny Tydzień",
+      "last-3-days": "Ostatnie 3 dni",
+      "last-5-days": "Ostatnie 5 dni",
+      "last-7-days": "Ostatnie 7 dni",
+      "last-10-days": "Ostatnie 10 dni"
     },
     "foods": {
       "title": "Żywność, posiłki, przepisy",
