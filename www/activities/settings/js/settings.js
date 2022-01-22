@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 3;
+const currentSettingsSchemaVersion = 4;
 
 var s;
 app.Settings = {
@@ -397,6 +397,8 @@ app.Settings = {
         length: "cm"
       },
       goals: {
+        "first-day-of-week": "0",
+        "average-goal-base": "week",
         calories: ["2000", "", "", "", "", "", ""],
         "calories-shared-goal": true,
         "calories-show-in-diary": true,
@@ -458,6 +460,12 @@ app.Settings = {
       if (settings.foodlist !== undefined && settings.foodlist.labels === undefined && settings.foodlist.categories === undefined) {
         settings.foodlist.labels = app.FoodsCategories.defaultLabels;
         settings.foodlist.categories = app.FoodsCategories.defaultCategories;
+      }
+
+      // First Day of Week and Average Base settings must be added
+      if (settings.goals !== undefined && settings.goals["first-day-of-week"] === undefined && settings.goals["average-goal-base"] === undefined) {
+        settings.goals["first-day-of-week"] = "0";
+        settings.goals["average-goal-base"] = "week";
       }
 
       settings.schemaVersion = currentSettingsSchemaVersion;

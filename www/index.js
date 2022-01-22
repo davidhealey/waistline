@@ -250,6 +250,13 @@ const app = {
             }]
           },
           {
+            path: "goals/",
+            url: "activities/settings/views/goals.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },,
+          {
             path: "units/",
             url: "activities/settings/views/units.html",
             options: {

@@ -260,6 +260,16 @@
       "title": "Categories",
       "category": "Category"
     },
+    "goals": {
+      "title": "Goals",
+      "first-day-of-week": "First day of the week",
+      "average-goal-base": "Compute average goals based on",
+      "current-week": "Current Week",
+      "last-3-days": "Last 3 Days",
+      "last-5-days": "Last 5 Days",
+      "last-7-days": "Last 7 Days",
+      "last-10-days": "Last 10 Days"
+    },
     "foods": {
       "title": "Foods, Meals, Recipes",
       "sort": "Sort Foods",
