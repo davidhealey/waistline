@@ -112,6 +112,10 @@ app.FoodEditor = {
     app.FoodEditor.el.portion.addEventListener("input", (e) => {
       app.FoodEditor.changeServing(app.FoodEditor.item, "portion", e.target.value);
     });
+    app.FoodEditor.el.portion.addEventListener("change", (e) => {
+      if (e.target.oldValue == undefined)
+        e.target.oldValue = e.target.value;
+    });
 
     // Quantity
     app.FoodEditor.el.quantity.addEventListener("input", (e) => {
@@ -180,13 +184,10 @@ app.FoodEditor = {
 
     } else {
       app.FoodEditor.el.quantityContainer.style.display = "none";
+      app.FoodEditor.el.link.style.display = "block";
 
-      if (app.FoodEditor.item !== undefined) {
-        app.FoodEditor.el.link.style.display = "block";
-
-        if (app.FoodEditor.item.barcode !== undefined)
-          app.FoodEditor.el.download.style.display = "block";
-      }
+      if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined)
+        app.FoodEditor.el.download.style.display = "block";
     }
 
     app.FoodsMealsRecipes.setCategoriesVisibility(app.FoodEditor.el.categoriesContainer);
@@ -333,6 +334,7 @@ app.FoodEditor = {
           input.oldValue = input.value;
         } else {
           input.value = "";
+          input.oldValue = "";
         }
 
         input.addEventListener("input", (e) => {
@@ -340,7 +342,7 @@ app.FoodEditor = {
         });
         input.addEventListener("change", (e) => {
           if (e.target.oldValue == 0)
-            e.target.oldValue = e.target.value / (app.FoodEditor.el.portion.value / app.FoodEditor.el.portion.oldValue);
+            e.target.oldValue = e.target.value / ((app.FoodEditor.el.portion.value / app.FoodEditor.el.portion.oldValue) || 1);
           if (e.target.value == 0)
             e.target.oldValue = 0;
         });
@@ -439,16 +441,16 @@ app.FoodEditor = {
         oldValue = document.querySelector("#food-edit-form #" + field).oldValue;
 
       if (oldValue > 0 && newValue > 0) {
-        let oldQuantity = app.FoodEditor.el.quantity.oldValue;
-        let newQuantity = app.FoodEditor.el.quantity.value;
+        let oldQuantity = app.FoodEditor.el.quantity.oldValue || 1;
+        let newQuantity = app.FoodEditor.el.quantity.value || 1;
+        let oldPortion = app.FoodEditor.el.portion.oldValue;
+        let newPortion = app.FoodEditor.el.portion.value;
 
         if (field == "portion" || field == "quantity") {
-          let oldPortion = app.FoodEditor.el.portion.oldValue;
-          let newPortion = app.FoodEditor.el.portion.value;
-          multiplier = (newPortion / oldPortion) * (newQuantity / (oldQuantity || 1));
+          multiplier = (newPortion / oldPortion) * (newQuantity / oldQuantity);
         } else {
-          multiplier = (newValue / oldValue) / (newQuantity / (oldQuantity || 1));
-          app.FoodEditor.el.portion.value = Math.round(item.portion * multiplier * 100) / 100;
+          multiplier = (newValue / oldValue) / (newQuantity / oldQuantity);
+          app.FoodEditor.el.portion.value = Math.round(oldPortion * multiplier * 100) / 100;
         }
 
         //Nutrition 
