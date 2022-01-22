@@ -100,20 +100,6 @@
     "5": "Vrijdag",
     "6": "Zaterdag"
   },
-  "months": {
-    "0": "Januari",
-    "1": "Februari",
-    "2": "Maart",
-    "3": "April",
-    "4": "Mei",
-    "5": "Juni",
-    "6": "Juli",
-    "7": "Augustus",
-    "8": "September",
-    "9": "Oktober",
-    "10": "November",
-    "11": "December"
-  },
   "colours": {
     "red": "Rood",
     "blue": "Blauw",
@@ -206,7 +192,7 @@
     "show-in-diary": "Toon in dagboek",
     "show-in-stats": "Toon in statistieken",
     "shared-goal": "Dagelijks doel",
-    "auto-adjust": "Automatisch aanpassen om wekelijks doel te bereiken",
+    "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Is minimumdoel",
     "percent-goal": "Doelstelling als percentage van de energie-inname"
   },
@@ -260,6 +246,16 @@
     "diary-categories": {
       "title": "Categorieën",
       "category": "Categorie"
+    },
+    "goals": {
+      "title": "Doelen",
+      "first-day-of-week": "First day of the week",
+      "average-goal-base": "Compute average goals based on",
+      "current-week": "Current Week",
+      "last-3-days": "Last 3 Days",
+      "last-5-days": "Last 5 Days",
+      "last-7-days": "Last 7 Days",
+      "last-10-days": "Last 10 Days"
     },
     "foods": {
       "title": "Voedsel, maaltijden, recepten",
