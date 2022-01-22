@@ -600,7 +600,12 @@ app.Diary = {
             }
           }
         }
-      ]
+      ],
+      on: {
+        opened: function (dialog) {
+          dialog.el.getElementsByTagName("input")[0].focus();
+        }
+      }
     }).open();
   },
 
