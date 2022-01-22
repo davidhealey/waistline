@@ -88,7 +88,8 @@
     "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Produto adicionado com sucesso ao Open Food Facts",
     "upload-failed": "Infelizmente o envio falhou. Tente novamente ou entre em contato com o desenvolvedor.",
-    "what-meal": "Que refeição é essa?"
+    "what-meal": "Que refeição é essa?",
+    "press-back-again": "Press Back again to exit the app"
   },
   "days": {
     "0": "Domingo",
