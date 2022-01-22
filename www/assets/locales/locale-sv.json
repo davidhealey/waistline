@@ -100,20 +100,6 @@
     "5": "Fredag",
     "6": "Lördag"
   },
-  "months": {
-    "0": "Januari",
-    "1": "Februari",
-    "2": "Mars",
-    "3": "April",
-    "4": "Maj",
-    "5": "Juni",
-    "6": "Juli",
-    "7": "Augusti",
-    "8": "September",
-    "9": "Oktober",
-    "10": "November",
-    "11": "December"
-  },
   "colours": {
     "red": "Röd",
     "blue": "Blå",
@@ -206,7 +192,7 @@
     "show-in-diary": "Visa i dagboken",
     "show-in-stats": "Visa i statistiken",
     "shared-goal": "Samma mål varje dag",
-    "auto-adjust": "Justera automatiskt för att uppfylla veckomål",
+    "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Är minimimål",
     "percent-goal": "Mål som procentandel av energiintag"
   },
@@ -260,6 +246,16 @@
     "diary-categories": {
       "title": "Kategorier",
       "category": "Kategori"
+    },
+    "goals": {
+      "title": "Målsättningar",
+      "first-day-of-week": "First day of the week",
+      "average-goal-base": "Compute average goals based on",
+      "current-week": "Current Week",
+      "last-3-days": "Last 3 Days",
+      "last-5-days": "Last 5 Days",
+      "last-7-days": "Last 7 Days",
+      "last-10-days": "Last 10 Days"
     },
     "foods": {
       "title": "Livsmedel, måltider, recept",
