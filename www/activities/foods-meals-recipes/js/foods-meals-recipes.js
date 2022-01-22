@@ -516,17 +516,21 @@ app.FoodsMealsRecipes = {
         let text = "";
 
         if (item.name != "Quick Add" && item.portion !== undefined && !isNaN(item.portion)) {
-          text = parseFloat(item.portion);
+          text = app.Utils.tidyNumber(parseFloat(item.portion));
 
           if (item.unit !== undefined) {
             if (app.standardUnits.includes(item.unit))
-              text += item.unit;
+              text += "&thinsp;" + item.unit;
             else
               text += " " + app.Utils.escapeHtml(item.unit);
           }
 
-          if (item.quantity !== undefined && item.quantity != 1)
-            text += " &times;" + app.Utils.escapeHtml(item.quantity);
+          if (item.quantity !== undefined && item.quantity != 1) {
+            if ($("html").get(0).getAttribute("dir") === "rtl")
+              text += " &#x202E;&times;&#x202C; " + app.Utils.tidyNumber(parseFloat(item.quantity));
+            else
+              text += " &times; " + app.Utils.tidyNumber(parseFloat(item.quantity));
+          }
         }
 
         if (timestamp == true && item.dateTime !== undefined) {

@@ -32,6 +32,10 @@ app.Utils = {
     return "";
   },
 
+  tidyNumber: function(number) {
+    return number.toLocaleString([], { useGrouping: false });
+  },
+
   escapeHtml: function(text) {
     var div = document.createElement("div");
     div.appendChild(document.createTextNode(text));
