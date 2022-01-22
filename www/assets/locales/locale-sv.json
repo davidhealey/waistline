@@ -88,7 +88,8 @@
     "download-text": "Dina lokala värden kommer att ersättas av den senaste informationen som finns tillgänglig för detta livsmedel",
     "upload-success": "Produkten har lagts till i Open Food Facts",
     "upload-failed": "Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
-    "what-meal": "Vilken måltid är detta?"
+    "what-meal": "Vilken måltid är detta?",
+    "press-back-again": "Press Back again to exit the app"
   },
   "days": {
     "0": "Söndag",
