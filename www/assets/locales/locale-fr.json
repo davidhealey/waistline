@@ -88,7 +88,8 @@
     "download-text": "Vos valeurs locales seront remplacées par les dernières informations disponibles pour cet élément",
     "upload-success": "Produit ajouté à Open Food Facts",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
-    "what-meal": "À quel repas ?"
+    "what-meal": "À quel repas ?",
+    "press-back-again": "Press Back again to exit the app"
   },
   "days": {
     "0": "Dimanche",
