@@ -335,7 +335,11 @@ app.Stats = {
 
         if (value != undefined && value != 0 && !isNaN(value)) {
           let timestamp = data.timestamps[i];
-          let date = new Intl.DateTimeFormat('en-GB').format(timestamp);
+          let date = timestamp.toLocaleDateString([], {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+          });
           result.dates.push(date);
           result.dataset.values.push(Math.round(value * 100) / 100);
           result.average = result.average + value;
