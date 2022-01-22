@@ -231,7 +231,7 @@ app.MealEditor = {
       let after = document.createElement("div");
       after.className = "item-after nutrition-field";
       after.id = x;
-      after.innerText = Math.round(nutrition[x] * 100) / 100;
+      after.innerText = app.Utils.tidyNumber(Math.round(nutrition[x] * 100) / 100);
       innerDiv.appendChild(after);
     });
 

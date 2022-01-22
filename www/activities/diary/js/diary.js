@@ -256,9 +256,9 @@ app.Diary = {
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {
         if (x !== "calories" && x !== "kilojoules")
-          t.nodeValue = parseFloat(nutrition[x].toFixed(2));
+          t.nodeValue = app.Utils.tidyNumber(Math.round(nutrition[x] * 100) / 100);
         else
-          t.nodeValue = nutrition[x].toFixed(0);
+          t.nodeValue = app.Utils.tidyNumber(Math.round(nutrition[x]));
       }
 
       // Set value text colour
@@ -778,9 +778,9 @@ app.Diary = {
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {
         if (x !== "calories" && x !== "kilojoules")
-          value = parseFloat(nutrition[x].toFixed(2));
+          value = app.Utils.tidyNumber(Math.round(nutrition[x] * 100) / 100);
         else
-          value = nutrition[x].toFixed(0);
+          value = app.Utils.tidyNumber(Math.round(nutrition[x]));
       }
 
       if (value == 0) continue;
