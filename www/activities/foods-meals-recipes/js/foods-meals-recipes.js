@@ -496,7 +496,7 @@ app.FoodsMealsRecipes = {
 
           let after = document.createElement("div");
           after.className = "item-after";
-          after.innerText = Math.round(energy) + " " + energyUnitSymbol;
+          after.innerText = app.Utils.tidyNumber(Math.round(energy), energyUnitSymbol);
           row.appendChild(after);
         }
 
@@ -516,33 +516,28 @@ app.FoodsMealsRecipes = {
         let text = "";
 
         if (item.name != "Quick Add" && item.portion !== undefined && !isNaN(item.portion)) {
-          text = app.Utils.tidyNumber(parseFloat(item.portion));
-
-          if (item.unit !== undefined) {
-            if (app.standardUnits.includes(item.unit))
-              text += "&thinsp;" + item.unit;
-            else
-              text += " " + app.Utils.escapeHtml(item.unit);
-          }
+          text = app.Utils.tidyNumber(parseFloat(item.portion), item.unit);
 
           if (item.quantity !== undefined && item.quantity != 1) {
             if ($("html").get(0).getAttribute("dir") === "rtl")
-              text += " &#x202E;&times;&#x202C; " + app.Utils.tidyNumber(parseFloat(item.quantity));
+              text += " \u202E\u00D7\u202C "; // times symbol with RTL override
             else
-              text += " &times; " + app.Utils.tidyNumber(parseFloat(item.quantity));
+              text += " \u00D7 "; // times symbol
+
+            text += app.Utils.tidyNumber(parseFloat(item.quantity));
           }
         }
 
         if (timestamp == true && item.dateTime !== undefined) {
           let dateTime = new Date(item.dateTime);
-          if (text != "") text += "<br>";
+          if (text != "") text += "\n";
           text += dateTime.toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit'
           });
         }
 
-        details.innerHTML = text;
+        details.innerText = text;
         inner.appendChild(details);
       }
     }
@@ -597,7 +592,7 @@ app.FoodsMealsRecipes = {
       let text = app.strings["foods-meals-recipes"].selected || "Selected";
 
       if (energySum !== 0)
-        text += " | " + Math.round(energySum) + " " + energyUnitSymbol;
+        text += " | " + app.Utils.tidyNumber(Math.round(energySum), energyUnitSymbol);
 
       app.FoodsMealsRecipes.el.title.innerText = app.FoodsMealsRecipes.selection.length + " " + text;
     }

@@ -133,9 +133,7 @@ app.DiaryChart = {
         let name = app.strings.nutriments[x] || x;
         let unit = app.strings["unit-symbols"][units[x]] || units[x];
 
-        let value = app.Utils.tidyNumber(Math.round(nutrition[x] * 100) / 100);
-        if (unit !== undefined)
-          value += " " + unit;
+        let value = app.Utils.tidyNumber((Math.round(nutrition[x] * 100) / 100), unit);
 
         let entry = {
           name: app.Utils.tidyText(name, 50),

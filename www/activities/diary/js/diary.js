@@ -272,14 +272,13 @@ app.Diary = {
         else
           span.style.color = "green";
 
-        t.nodeValue += " / " + goal;
+        t.nodeValue += " / " + app.Utils.tidyNumber(Math.round(goal * 100) / 100);
       }
 
       // Unit
       if (app.Settings.get("diary", "show-nutrition-units")) {
         let unit = app.strings["unit-symbols"][units[x]] || units[x];
-        if (unit !== undefined)
-          t.nodeValue += " " + unit;
+        t.nodeValue += app.Utils.tidyNumber(undefined, unit);
       }
 
       span.appendChild(t);
@@ -778,9 +777,9 @@ app.Diary = {
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {
         if (x !== "calories" && x !== "kilojoules")
-          value = app.Utils.tidyNumber(Math.round(nutrition[x] * 100) / 100);
+          value = Math.round(nutrition[x] * 100) / 100;
         else
-          value = app.Utils.tidyNumber(Math.round(nutrition[x]));
+          value = Math.round(nutrition[x]);
       }
 
       if (value == 0) continue;
@@ -800,9 +799,7 @@ app.Diary = {
       // Value and Unit
       let content = document.createElement("div");
       content.className = "flex-shrink-0";
-      text = value;
-      if (unit !== undefined)
-        text += " " + unit;
+      text = app.Utils.tidyNumber(value, unit);
       t = document.createTextNode(text);
       content.appendChild(t);
 
