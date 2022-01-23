@@ -257,9 +257,7 @@ app.Stats = {
 
       let after = document.createElement("div");
       after.className = "item-after";
-      after.innerText = app.Utils.tidyNumber(app.Stats.data.dataset.values[i]);
-      if (app.Stats.data.dataset.unit !== undefined)
-        after.innerText += " " + app.Stats.data.dataset.unit;
+      after.innerText = app.Utils.tidyNumber(app.Stats.data.dataset.values[i], app.Stats.data.dataset.unit);
       inner.appendChild(after);
     }
 
@@ -287,9 +285,7 @@ app.Stats = {
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerText = app.Utils.tidyNumber(roundedAverage);
-    if (unit !== undefined)
-      after.innerText += " " + unit;
+    after.innerText = app.Utils.tidyNumber(roundedAverage, unit);
     inner.appendChild(after);
 
     return li;

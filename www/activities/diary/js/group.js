@@ -128,7 +128,7 @@ app.Group = {
       app.Diary.showCategoryNutriments(id, nutrition);
     });
 
-    right.innerText = Math.round(value) + " " + energyUnitSymbol;
+    right.innerText = app.Utils.tidyNumber(Math.round(value), energyUnitSymbol);
     row.appendChild(right);
   },
 

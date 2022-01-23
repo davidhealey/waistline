@@ -20,7 +20,6 @@
 app.Utils = {
 
   tidyText: function(text, maxLength) {
-
     if (text) {
       let t = unescape(text);
 
@@ -32,12 +31,22 @@ app.Utils = {
     return "";
   },
 
-  tidyNumber: function(number) {
-    return number.toLocaleString([], { useGrouping: false });
+  tidyNumber: function(number, unit) {
+    let text = "";
+    if (number !== undefined) {
+      text += number.toLocaleString([], { useGrouping: false }).replace("-", "\u2212");
+    }
+    if (unit !== undefined) {
+      if (app.standardUnits.includes(unit))
+        text += "\u2009" + unit; // Thin Space
+      else
+        text += " " + unit;
+    }
+    return text;
   },
 
   escapeHtml: function(text) {
-    var div = document.createElement("div");
+    let div = document.createElement("div");
     div.appendChild(document.createTextNode(text));
     return div.innerHTML;
   },

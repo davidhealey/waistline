@@ -113,7 +113,7 @@ app.FoodEditor = {
       app.FoodEditor.changeServing(app.FoodEditor.item, "portion", e.target.value);
     });
     app.FoodEditor.el.portion.addEventListener("change", (e) => {
-      if (e.target.oldValue == undefined)
+      if (e.target.oldValue === undefined && e.target.value !== 0)
         e.target.oldValue = e.target.value;
     });
 
@@ -318,12 +318,12 @@ app.FoodEditor = {
         input.placeholder = "0";
         input.name = k;
 
-        const errorMessage = app.strings["food-editor"]["invalid-value-message"] || "Invalid Value.";
-        if (k != "calories" && k != "kilojoules") {
+        if (k != "calories" && k != "kilojoules")
           input.min = "0";
-          input.setAttribute("validate", "");
-          input.setAttribute("data-error-message", errorMessage);
-        }
+
+        const errorMessage = app.strings["food-editor"]["invalid-value-message"] || "Invalid Value.";
+        input.setAttribute("validate", "");
+        input.setAttribute("data-error-message", errorMessage);
 
         if (item) {
           if (item.nutrition[k] !== 0)
