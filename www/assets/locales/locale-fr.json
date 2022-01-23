@@ -262,7 +262,7 @@
       "sort": "Trier les aliments",
       "sort-date": "Dernière utilisation",
       "sort-alpha": "Ordre alphabétique",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Afficher les étiquettes de catégorie",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
       "images": "Afficher les images des aliments",
@@ -270,8 +270,8 @@
       "show-notes": "Afficher les notes"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
+      "title": "Étiquettes et catégories",
+      "label": "Étiquette / Icône",
       "description": "Description",
       "add": "Ajouter une catégorie",
       "edit": "Modifier cette catégorie"
@@ -340,7 +340,7 @@
     "french": "Français",
     "swedish": "Suédois",
     "russian": "Russe",
-    "polish": "Polish",
+    "polish": "Polonais",
     "portuguese": "Portuguais",
     "bulgarian": "Bulgare",
     "hebrew": "Hébreu",
