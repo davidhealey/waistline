@@ -89,7 +89,7 @@
     "upload-success": "Prodotto aggiunto con successo al database di Open Food Facts",
     "upload-failed": "Sfortunatamente l' upload è fallito.  Riprova o contatta lo sviluppatore per favore.",
     "what-meal": "Che pasto è questo?",
-    "press-back-again": "Press Back again to exit the app"
+    "press-back-again": "Premi di nuovo indietro per uscire dall'app"
   },
   "days": {
     "0": "Domenica",
@@ -192,7 +192,7 @@
     "show-in-diary": "Mostra nel diario",
     "show-in-stats": "Mostra nelle statistiche",
     "shared-goal": "Stesso obiettivo ogni giorno",
-    "auto-adjust": "Auto adjust to meet average goal",
+    "auto-adjust": "Auto regola per soddisfare l' obiettivo medio",
     "minimum-goal": "È un obiettivo minimo",
     "percent-goal": "Obiettivo in percentuale del consumo di energia"
   },
@@ -249,13 +249,13 @@
     },
     "goals": {
       "title": "Obiettivi",
-      "first-day-of-week": "First day of the week",
-      "average-goal-base": "Compute average goals based on",
-      "current-week": "Current Week",
-      "last-3-days": "Last 3 Days",
-      "last-5-days": "Last 5 Days",
-      "last-7-days": "Last 7 Days",
-      "last-10-days": "Last 10 Days"
+      "first-day-of-week": "Primo giorno della settimana",
+      "average-goal-base": "Calcola gli obiettivi medi sulla base di",
+      "current-week": "Settimana Corrente",
+      "last-3-days": "Ultimi 3 giorni",
+      "last-5-days": "Ultimi 5 giorni",
+      "last-7-days": "Ultimi 7 giorni",
+      "last-10-days": "Ultimi 10 giorni"
     },
     "foods": {
       "title": "Cibi, Pasti, Ricette",
