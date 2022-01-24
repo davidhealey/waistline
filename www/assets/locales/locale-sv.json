@@ -250,12 +250,12 @@
     "goals": {
       "title": "Målsättningar",
       "first-day-of-week": "Första veckodagen",
-      "average-goal-base": "Compute average goals based on",
-      "current-week": "Current Week",
-      "last-3-days": "Last 3 Days",
-      "last-5-days": "Last 5 Days",
-      "last-7-days": "Last 7 Days",
-      "last-10-days": "Last 10 Days"
+      "average-goal-base": "Beräkna genomsnittliga mål baserat på",
+      "current-week": "Nuvarande vecka",
+      "last-3-days": "Senaste 3 dagarna",
+      "last-5-days": "Senaste 5 dagarna",
+      "last-7-days": "Senaste 7 dagarna",
+      "last-10-days": "Senaste 10 dagarna"
     },
     "foods": {
       "title": "Livsmedel, måltider, recept",
