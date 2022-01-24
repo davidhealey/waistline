@@ -89,7 +89,7 @@
     "upload-success": "Produkten har lagts till i Open Food Facts",
     "upload-failed": "Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
     "what-meal": "Vilken måltid är detta?",
-    "press-back-again": "Press Back again to exit the app"
+    "press-back-again": "Tryck på \"bakåt\" igen för att stänga appen"
   },
   "days": {
     "0": "Söndag",
@@ -192,7 +192,7 @@
     "show-in-diary": "Visa i dagboken",
     "show-in-stats": "Visa i statistiken",
     "shared-goal": "Samma mål varje dag",
-    "auto-adjust": "Auto adjust to meet average goal",
+    "auto-adjust": "Justera automatiskt för att uppfylla genomsnittsmål",
     "minimum-goal": "Är minimimål",
     "percent-goal": "Mål som procentandel av energiintag"
   },
@@ -249,7 +249,7 @@
     },
     "goals": {
       "title": "Målsättningar",
-      "first-day-of-week": "First day of the week",
+      "first-day-of-week": "Första veckodagen",
       "average-goal-base": "Compute average goals based on",
       "current-week": "Current Week",
       "last-3-days": "Last 3 Days",
