@@ -391,30 +391,32 @@ if (rtl)
 
 const mainView = app.f7.views.create("#main-view", viewOptions);
 
-document.addEventListener("page:init", function(event) {
-  let page = event.detail;
+let enableDisableSwipe = function(panel) {
+  let pageName = app.f7.views.main.router.currentRoute.name || "";
+  let history = app.f7.views.main.router.history || [];
 
-  // Close panel when switching pages
-  let panel = app.f7.panel.get("#app-panel");
-  if (panel)
-    panel.close(animate);
-
-  let pageName = app.f7.views.main.router.currentRoute.name;
-
-  if (pageName !== undefined && pageName.includes("Editor"))
+  if (pageName.includes("Editor"))
+    panel.disableSwipe();
+  else if (pageName == "Chart")
+    panel.disableSwipe();
+  else if (pageName == "Foods, Meals, Recipes" && history.includes("/diary/"))
     panel.disableSwipe();
   else
     panel.enableSwipe();
+};
+
+document.addEventListener("page:init", function(event) {
+  let panel = app.f7.panel.get("#app-panel");
+  enableDisableSwipe(panel);
+
+  // Close panel when switching pages
+  if (panel)
+    panel.close(animate);
 });
 
 document.addEventListener("page:reinit", function(event) {
   let panel = app.f7.panel.get("#app-panel");
-  let pageName = app.f7.views.main.router.currentRoute.name;
-
-  if (pageName !== undefined && pageName.includes("Editor"))
-    panel.disableSwipe();
-  else
-    panel.enableSwipe();
+  enableDisableSwipe(panel);
 });
 
 app.f7.on("init", async function(event) {});
@@ -493,6 +495,12 @@ document.addEventListener("backbutton", (e) => {
     return false;
   }
 
+  let actions = document.querySelectorAll(".actions-modal");
+  if (actions.length) {
+    app.f7.actions.close(".actions-modal");
+    return false;
+  }
+
   let calendar = document.querySelectorAll(".calendar");
   if (calendar.length) {
     app.f7.calendar.close(".calendar");
@@ -505,7 +513,8 @@ document.addEventListener("backbutton", (e) => {
     return false;
   }
 
-  if (app.f7.views.main.history.length > 1) {
+  let history = new Set(app.f7.views.main.history);
+  if (history.size > 1) {
     app.f7.views.main.router.back();
   } else if (backButtonExitApp === true) {
     navigator.app.exitApp();
