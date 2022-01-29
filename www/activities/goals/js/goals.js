@@ -211,9 +211,9 @@ app.Goals = {
     let goal;
 
     if (app.Goals.sharedGoal(stat) || app.measurements.includes(stat))
-      goal = goals[0];
+      goal = parseFloat(goals[0]);
     else
-      goal = goals[day];
+      goal = parseFloat(goals[day]);
 
     if (app.Goals.isPercentGoal(stat))
       goal = app.Goals.getEnergyPercentGoal(stat, goal, energyGoal);
@@ -226,9 +226,9 @@ app.Goals = {
     let averageGoal;
 
     if (app.Goals.sharedGoal(stat) || app.measurements.includes(stat)) {
-      averageGoal = goals[0];
+      averageGoal = parseFloat(goals[0]);
     } else {
-      let goalSum = goals.reduce((a, b) => Number(a) + Number(b));
+      let goalSum = goals.reduce((a, b) => parseFloat(a) + parseFloat(b));
       averageGoal = goalSum / 7;
     }
 

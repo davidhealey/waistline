@@ -246,22 +246,23 @@ app.Diary = {
       values.id = x + "-value";
 
       let span = document.createElement("span");
-      t = document.createTextNode("0");
+      t = document.createTextNode("");
+      let value = 0;
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {
         if (x !== "calories" && x !== "kilojoules")
-          t.nodeValue = app.Utils.tidyNumber(Math.round(nutrition[x] * 100) / 100);
+          value = (Math.round(nutrition[x] * 100) / 100);
         else
-          t.nodeValue = app.Utils.tidyNumber(Math.round(nutrition[x]));
+          value = (Math.round(nutrition[x]));
       }
+      t.nodeValue = app.Utils.tidyNumber(value);
 
       // Set value text colour
-      if (goal !== undefined && goal !== "") {
+      if (goal !== undefined && goal !== "" && !isNaN(goal)) {
 
         let isMin = app.Goals.isMinimumGoal(x);
-        let v = parseFloat(t.nodeValue);
 
-        if ((!isMin && v > goal) || (isMin == true && v < goal))
+        if ((!isMin && value > goal) || (isMin == true && value < goal))
           span.style.color = "red";
         else
           span.style.color = "green";
