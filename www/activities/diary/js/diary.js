@@ -23,7 +23,7 @@ app.Diary = {
   calendar: undefined,
   lastScrollPosition: 0,
   el: {},
-  groups: [],
+  groups: {},
 
   init: async function(context) {
 
@@ -157,9 +157,9 @@ app.Diary = {
     let entry = await this.getEntryFromDB(); // Get diary entry from DB
     let totalNutrition;
 
-    //Clear groups
-    for (let i = 0; i < app.Diary.groups.length; i++)
-      app.Diary.groups[i].reset();
+    // Clear groups
+    for (group in app.Diary.groups)
+      app.Diary.groups[group].reset();
 
     // Populate groups and get overal nutrition
     if (entry) {
@@ -171,9 +171,8 @@ app.Diary = {
     let container = document.getElementById("diary-day");
     container.innerHTML = "";
 
-    app.Diary.groups.forEach((x) => {
-      x.render(container);
-    });
+    for (group in app.Diary.groups)
+      app.Diary.groups[group].render(container);
 
     // Render nutrition swiper card
     let swiper = app.f7.swiper.get('#diary-nutrition .swiper-container');
@@ -291,16 +290,21 @@ app.Diary = {
 
   createMealGroups: function() {
     const mealNames = app.Settings.get("diary", "meal-names");
-    let groups = [];
+    let groups = {};
 
     if (mealNames !== undefined) {
       mealNames.forEach((x, i) => {
         if (x != "") {
-          let t = app.strings.diary["default-meals"][x.toLowerCase()] || x;
-          let g = app.Group.create(t, i);
-          groups.push(g);
+          let text = app.strings.diary["default-meals"][x.toLowerCase()] || x;
+          let group = app.Group.create(text, i);
+          groups[i] = group;
         }
       });
+    }
+
+    if (Object.keys(groups).length == 0) {
+      let group = app.Group.create("", 0);
+      groups[0] = group;
     }
 
     return groups;
@@ -333,7 +337,8 @@ app.Diary = {
       entry.items.forEach(async (x, i) => {
         if (x.category !== undefined) {
           x.index = i; // Index in array, not stored in DB
-          app.Diary.groups[x.category].addItem(x);
+          if (app.Diary.groups[x.category] !== undefined)
+            app.Diary.groups[x.category].addItem(x);
         }
       });
 

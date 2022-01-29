@@ -113,7 +113,7 @@ app.FoodEditor = {
       app.FoodEditor.changeServing(app.FoodEditor.item, "portion", e.target.value);
     });
     app.FoodEditor.el.portion.addEventListener("change", (e) => {
-      if (e.target.oldValue === undefined && e.target.value !== 0)
+      if (e.target.oldValue == undefined && e.target.value != 0)
         e.target.oldValue = e.target.value;
     });
 
@@ -366,6 +366,17 @@ app.FoodEditor = {
         app.FoodEditor.el.category.append(option);
       }
     });
+
+    if (app.FoodEditor.el.category.childElementCount == 0) {
+      let option = document.createElement("option");
+      option.value = 0;
+      option.setAttribute("selected", "");
+      app.FoodEditor.el.category.append(option);
+    }
+
+    if (app.FoodEditor.el.category.childElementCount == 1) {
+      app.FoodEditor.el.categoryContainer.style.display = "none";
+    }
   },
 
   populateFields: function(item) {
