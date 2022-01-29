@@ -305,40 +305,47 @@ app.FoodsMealsRecipes = {
     app.data.context = {};
 
     if (origin == undefined) {
-
-      //Setup action sheet to ask user for category
+      // Setup action sheet to ask user for category
       const mealNames = app.Settings.get("diary", "meal-names");
       let options = [{
         text: app.strings.dialogs["what-meal"] || "What meal is this?",
         label: true
       }];
 
+      let category = 0;
+      let categorySelectAction = function(i) {
+        app.FoodsMealsRecipes.updateDateTimes(items);
+        app.data.context.items = items;
+        app.data.context.category = i;
+        app.f7.views.main.router.navigate("/diary/", {
+          reloadCurrent: true,
+          clearPreviousHistory: true
+        });
+      };
+
       mealNames.forEach((x, i) => {
         if (x != "") {
           let choice = {
             text: app.Utils.escapeHtml(app.strings.diary["default-meals"][x.toLowerCase()] || x),
-            onClick: function(action, e) {
-              app.FoodsMealsRecipes.updateDateTimes(items);
-              app.data.context.items = items;
-              app.data.context.category = i;
-              app.f7.views.main.router.navigate("/diary/", {
-                reloadCurrent: true,
-                clearPreviousHistory: true
-              });
-            }
+            onClick: () => { categorySelectAction(i) }
           };
+          category = i;
           options.push(choice);
         }
       });
 
-      //Create and show the action sheet
-      let ac = app.f7.actions.create({
-        buttons: options,
-        closeOnEscape: true,
-        animate: !app.Settings.get("appearance", "animations")
-      });
-
-      ac.open();
+      if (options.length > 2) {
+        // Create and show the action sheet
+        let ac = app.f7.actions.create({
+          buttons: options,
+          closeOnEscape: true,
+          animate: !app.Settings.get("appearance", "animations")
+        });
+        ac.open();
+      } else {
+        // Only one category is defined
+        categorySelectAction(category);
+      }
     } else {
       app.FoodsMealsRecipes.updateDateTimes(items);
 
@@ -692,7 +699,7 @@ app.FoodsMealsRecipes = {
       origin = app.FoodsMealsRecipes.tab;
     } else {
       origin = "diary";
-      app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
+      app.Diary.lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
     }
 
     app.data.context = {
