@@ -30,25 +30,22 @@ app.Diary = {
     this.getComponents();
     this.bindUIActions();
 
-    //If items have been passed, add them to the db
+    // If items have been passed, add them to the db
     if (context) {
       if (context.items || context.item) {
         if (context.items)
           await this.addItems(context.items, context.category);
         else
           await this.updateItem(context.item);
-
-        app.Diary.ready = false; //Trigger fresh render
       }
     }
 
     if (!app.Diary.ready) {
-      app.Diary.groups = this.createMealGroups(); //Create meal groups
-      this.render();
+      app.Diary.groups = this.createMealGroups(); // Create meal groups
+      app.Diary.render(app.Diary.lastScrollPosition);
       app.Diary.ready = true;
-    } else {
-      app.Diary.lastScrollPosition = 0; // Reset last scroll position
     }
+    app.Diary.lastScrollPosition = 0; // Reset last scroll position
   },
 
   getComponents: function() {
@@ -101,7 +98,7 @@ app.Diary = {
         change: function(c) {
           app.Diary.date = c.getValue();
           if (app.Diary.ready)
-            app.Diary.render();
+            app.Diary.render(0);
           c.close();
           app.Diary.updateDateDisplay();
         }
@@ -111,9 +108,9 @@ app.Diary = {
   },
 
   bindCalendarControls: function() {
-    //Bind actions for previous/next buttons
-    const buttons = document.getElementsByClassName("change-date");
-    Array.from(buttons).forEach((x, i) => {
+    // Bind actions for previous/next buttons
+    const buttons = document.querySelectorAll(".page[data-name='diary'] .change-date");
+    buttons.forEach((x, i) => {
       if (!x.hasClickEvent) {
         x.addEventListener("click", (e) => {
           let date = new Date(app.Diary.calendar.getValue());
@@ -124,8 +121,7 @@ app.Diary = {
       }
     });
 
-    let el = document.querySelector(".page[data-name='diary'] #diary-date");
-
+    const el = document.querySelector(".page[data-name='diary'] #diary-date");
     if (!el.hasClickEvent) {
       el.addEventListener("click", (e) => {
         app.Diary.calendar.open();
@@ -153,7 +149,7 @@ app.Diary = {
     el.innerText = dateString;
   },
 
-  render: async function() {
+  render: async function(scrollPosition) {
     let entry = await this.getEntryFromDB(); // Get diary entry from DB
     let totalNutrition;
 
@@ -168,22 +164,21 @@ app.Diary = {
     }
 
     // Render category groups
-    let container = document.getElementById("diary-day");
+    let container = document.querySelector("#diary-day");
     container.innerHTML = "";
 
     for (group in app.Diary.groups)
-      app.Diary.groups[group].render(container);
+      await app.Diary.groups[group].render(container);
 
     // Render nutrition swiper card
-    let swiper = app.f7.swiper.get('#diary-nutrition .swiper-container');
-    let swiperWrapper = document.querySelector('#diary-nutrition .swiper-wrapper');
+    let swiper = app.f7.swiper.get("#diary-nutrition .swiper-container");
+    let swiperWrapper = document.querySelector("#diary-nutrition .swiper-wrapper");
     swiperWrapper.innerHTML = "";
 
     await app.Diary.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
 
-    if (app.Diary.lastScrollPosition !== 0) {
-      $(".page-content").scrollTop(app.Diary.lastScrollPosition); // Restore last scroll position
-      app.Diary.lastScrollPosition = 0;
+    if (scrollPosition !== undefined) {
+      $(".page-current .page-content").scrollTop(scrollPosition); // Restore scroll position
     }
   },
 
@@ -355,12 +350,14 @@ app.Diary = {
         let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
         if (app.Settings.get("diary", "prompt-add-items") == true) {
-          app.Diary.promptAddItems(items, category, entry, 0);
+          let lastScrollPosition = app.Diary.lastScrollPosition;
+          app.Diary.promptAddItems(items, category, entry, 0, lastScrollPosition);
         } else {
           items.forEach((x) => {
             app.Diary.addItemToEntry(x, category, entry);
           });
           await dbHandler.put(entry, "diary");
+          app.Diary.ready = false; // Trigger fresh render
         }
 
         resolve();
@@ -371,7 +368,7 @@ app.Diary = {
     });
   },
 
-  promptAddItems: async function(items, category, entry, index) {
+  promptAddItems: async function(items, category, entry, index, lastScrollPosition) {
     let item = items[index];
 
     if (item !== undefined) {
@@ -430,7 +427,7 @@ app.Diary = {
             text: app.strings.dialogs.skip || "Skip",
             keyCodes: [27],
             onClick: async function(dialog) {
-              app.Diary.promptAddItems(items, category, entry, index + 1);
+              app.Diary.promptAddItems(items, category, entry, index + 1, lastScrollPosition);
             }
           },
           {
@@ -447,7 +444,7 @@ app.Diary = {
                 item.quantity = quantity;
 
               app.Diary.addItemToEntry(item, category, entry);
-              app.Diary.promptAddItems(items, category, entry, index + 1);
+              app.Diary.promptAddItems(items, category, entry, index + 1, lastScrollPosition);
             }
           }
           ]
@@ -456,13 +453,12 @@ app.Diary = {
       } else {
         // Item has no name (is a meal item) -> add it as is without prompt
         app.Diary.addItemToEntry(item, category, entry);
-        app.Diary.promptAddItems(items, category, entry, index + 1);
+        app.Diary.promptAddItems(items, category, entry, index + 1, lastScrollPosition);
       }
     } else {
       // No more items to process -> write entry to DB and refresh page
       await dbHandler.put(entry, "diary");
-      app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
-      app.Diary.render();
+      app.Diary.render(lastScrollPosition);
     }
   },
 
@@ -483,9 +479,10 @@ app.Diary = {
         updatedItem.category = item.category;
         entry.items.splice(item.index, 1, updatedItem);
 
-        dbHandler.put(entry, "diary").onsuccess = function() {
-          resolve();
-        };
+        await dbHandler.put(entry, "diary");
+        app.Diary.ready = false; // Trigger fresh render
+
+        resolve();
       } else {
         resolve();
       }
@@ -519,8 +516,8 @@ app.Diary = {
               entry.items.splice(item.index, 1);
 
             await dbHandler.put(entry, "diary");
-            app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
-            app.Diary.render();
+            let lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
+            app.Diary.render(lastScrollPosition);
           }
         }
       ]
@@ -607,8 +604,8 @@ app.Diary = {
                 entry.items.push(item);
 
                 await dbHandler.put(entry, "diary");
-                app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
-                app.Diary.render();
+                let lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
+                app.Diary.render(lastScrollPosition);
               }
             }
           }
@@ -834,7 +831,7 @@ app.Diary = {
       date: new Date(app.Diary.calendar.getValue())
     };
 
-    app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
+    app.Diary.lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
     app.f7.views.main.router.navigate("/foods-meals-recipes/");
   },
 

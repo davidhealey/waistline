@@ -699,7 +699,7 @@ app.FoodsMealsRecipes = {
       origin = app.FoodsMealsRecipes.tab;
     } else {
       origin = "diary";
-      app.Diary.lastScrollPosition = $(".page-content").scrollTop(); // Remember scroll position
+      app.Diary.lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
     }
 
     app.data.context = {
