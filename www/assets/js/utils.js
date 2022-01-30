@@ -228,25 +228,34 @@ app.Utils = {
                     fileWriter.write(blob);
 
                     fileWriter.onwriteend = () => {
-                      console.log("Successul file write.");
+                      console.log("Successul file write");
                       resolve(file.fullPath);
                     };
 
                     fileWriter.onerror = (e) => {
-                      console.warn("Failed to write file", e.toString());
-                      reject();
+                      console.warn("Failed to write file", e);
+                      resolve();
                     };
                   });
 
+                }, (e) => {
+                  resolve();
                 });
+              }, (e) => {
+                resolve();
               });
+            }, (e) => {
+              resolve();
             });
+          }, (e) => {
+            resolve();
           });
         }, (e) => {
-          console.warn(e);
+          resolve();
         });
       } else {
-        console.log("Write to file doesn't work in browser");
+        console.warn("Write to file doesn't work in browser");
+        resolve();
       }
     });
   },
@@ -277,28 +286,35 @@ app.Utils = {
                     };
 
                     fileReader.onerror = (e) => {
-                      console.log("File read error", e);
-                      reject({});
+                      console.warn("Failed to read file", e);
+                      resolve();
                     };
                   });
 
                 }, (e) => {
-                  console.log("FileSystem Error", e);
-
+                  console.warn("Failed to access file", e);
                   switch (e.code) {
                     case 1:
                       alert("File not found: " + path);
                       break;
                   }
+                  resolve();
                 });
+              }, (e) => {
+                resolve();
               });
+            }, (e) => {
+              resolve();
             });
+          }, (e) => {
+            resolve();
           });
         }, (e) => {
-          console.log(e);
+          resolve();
         });
       } else {
-        console.log("Read file doesn't work in browser");
+        console.warn("Read file doesn't work in browser");
+        resolve();
       }
     });
   },
