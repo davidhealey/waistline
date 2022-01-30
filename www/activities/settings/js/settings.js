@@ -334,14 +334,17 @@ app.Settings = {
           keyCodes: [13],
           onClick: async () => {
             let filename = "waistline_export.json";
-            let data = JSON.parse(await app.Utils.readFile(filename));
+            let json = await app.Utils.readFile(filename);
 
-            await dbHandler.import(data);
+            if (json !== undefined) {
+              let data = JSON.parse(json);
+              await dbHandler.import(data);
 
-            if (data.settings) {
-              let settings = app.Settings.migrateSettings(data.settings, false);
-              window.localStorage.setItem("settings", JSON.stringify(settings));
-              this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+              if (data.settings !== undefined) {
+                let settings = app.Settings.migrateSettings(data.settings, false);
+                window.localStorage.setItem("settings", JSON.stringify(settings));
+                this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+              }
             }
           }
         }
