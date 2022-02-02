@@ -690,23 +690,25 @@ app.FoodEditor = {
 
         if (data !== undefined) {
           if (app.FoodEditor.images[0] !== undefined) {
-            if (data.nutrition.calories !== 0 || data.nutrition.kilojoules !== 0) {
+            if (data.nutrition.calories || data.nutrition.kilojoules) {
               data.images = app.FoodEditor.images;
               app.f7.preloader.show();
 
               let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
-                let msg = app.dialogs["upload-failed"] || "Upload Failed";
+                let msg = app.strings.dialogs["upload-failed"] || "Upload Failed";
                 app.Utils.toast(msg);
               });
 
-              let msg = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
-              app.Utils.toast(msg, 2500);
+              if (imgUrl !== undefined) {
+                let msg = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
+                app.Utils.toast(msg, 2500);
+              }
 
               app.f7.preloader.hide();
 
               resolve();
             } else {
-              let msg = app.string.dialogs["number-of-calories"] || "Please provide the number of calories for this food.";
+              let msg = app.strings.dialogs["number-of-calories"] || "Please provide the number of calories for this food.";
               app.Utils.toast(msg, 2500);
             }
           } else {
