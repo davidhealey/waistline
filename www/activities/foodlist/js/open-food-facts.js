@@ -218,6 +218,8 @@ app.OpenFoodFacts = {
   getUploadString: function(data) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
     const units = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
+    const energyName = app.Utils.getEnergyUnitName(energyUnit);
 
     let string = "";
 
@@ -235,25 +237,18 @@ app.OpenFoodFacts = {
     string += "&serving_size=" + data.portion + data.unit;
 
     // Energy
-    if (data.nutrition.calories !== undefined && data.nutrition.kilojoules == undefined)
-      data.nutrition.kilojoules = app.Utils.convertUnit(data.nutrition.calories, units.calories, units.kilojoules, true);
-    else if (data.nutrition.calories == undefined && data.nutrition.kilojoules !== undefined)
-      data.nutrition.calories = app.Utils.convertUnit(data.nutrition.kilojoules, units.kilojoules, units.calories, true);
-
-    data.nutrition["energy-kcal"] = data.nutrition.calories;
-    data.nutrition["energy-kj"] = data.nutrition.kilojoules;
+    if (data.nutrition[energyName] !== undefined) {
+      string += "&nutriment_energy=" + data.nutrition[energyName];
+      string += "&nutriment_energy_unit=" + energyUnit;
+    }
 
     // Nutrition
     for (let n in data.nutrition) {
-      if (data.nutrition[n] == 0 || n == "calories" || n == "kilojoules") continue;
+      if (n == "calories" || n == "kilojoules") continue;
       if (!nutriments.includes(n)) continue;
 
-      if (data.nutrition_per == "&nutrition_data_per=100g")
-        string += "&nutriment_" + n + "_100g=" + data.nutrition[n];
-      else
-        string += "&nutriment_" + n + "_value=" + data.nutrition[n];
-
       string += "&nutriment_" + n + "=" + data.nutrition[n];
+      string += "&nutriment_" + n + "_unit=" + (units[n] || "g");
     }
 
     // Tags
