@@ -53,12 +53,14 @@ app.OpenFoodFacts = {
           let data = await response.json();
           let result = [];
 
-          // Multiple results
+          // Multiple results (hide results where all nutrition values are undefined)
           if (data.products !== undefined) {
             data.products.forEach((x) => {
               let item = app.OpenFoodFacts.parseItem(x);
-              if (item)
-                result.push(item);
+              if (item != undefined) {
+                let nutritionValues = Object.values(item.nutrition).filter((v) => {return v != undefined});
+                if (nutritionValues.length != 0) result.push(item);
+              }
             });
           }
 
