@@ -218,8 +218,6 @@ app.OpenFoodFacts = {
   getUploadString: function(data) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
     const units = app.nutrimentUnits;
-    const energyUnit = app.Settings.get("units", "energy");
-    const energyName = app.Utils.getEnergyUnitName(energyUnit);
 
     let string = "";
 
@@ -239,9 +237,12 @@ app.OpenFoodFacts = {
     string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
 
     // Energy
-    if (data.nutrition[energyName] !== undefined) {
-      string += "&nutriment_energy=" + data.nutrition[energyName];
-      string += "&nutriment_energy_unit=" + energyUnit;
+    if (data.nutrition.kilojoules !== undefined) {
+      string += "&nutriment_energy=" + data.nutrition.kilojoules;
+      string += "&nutriment_energy_unit=" + units.kilojoules;
+    } else if (data.nutrition.calories !== undefined) {
+      string += "&nutriment_energy=" + data.nutrition.calories;
+      string += "&nutriment_energy_unit=" + units.calories;
     }
 
     // Nutrition
