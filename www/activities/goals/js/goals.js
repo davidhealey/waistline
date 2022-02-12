@@ -268,7 +268,8 @@ app.Goals = {
 
   getDiaryEntryFromDB: function(date) {
     return new Promise(async function(resolve, reject) {
-      let entry = await dbHandler.get("diary", "dateTime", new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())));
+      let d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      let entry = await dbHandler.get("diary", "dateTime", d);
       resolve(entry);
     }).catch(err => {
       throw (err);
