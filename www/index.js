@@ -489,12 +489,6 @@ document.addEventListener("backbutton", (e) => {
     return false;
   }
 
-  let activeSearch = document.querySelectorAll(".searchbar-focused");
-  if (activeSearch.length) {
-    app.f7.searchbar.disable(".searchbar-focused");
-    return false;
-  }
-
   let actions = document.querySelectorAll(".actions-modal");
   if (actions.length) {
     app.f7.actions.close(".actions-modal");
@@ -513,6 +507,12 @@ document.addEventListener("backbutton", (e) => {
     return false;
   }
 
+  let searchField = document.querySelector(".page-current input[type='search']");
+  if (searchField && searchField.value) {
+    app.f7.searchbar.disable(".searchbar");
+    return false;
+  }
+
   let history = new Set(app.f7.views.main.history);
   if (history.size > 1) {
     app.f7.views.main.router.back();
@@ -524,5 +524,16 @@ document.addEventListener("backbutton", (e) => {
     app.Utils.toast(msg, 2500, "bottom", () => {
       backButtonExitApp = false;
     });
+  }
+});
+
+// Defocus search field when Android keyboard is hidden
+window.addEventListener("keyboardDidHide", (e) => {
+  let searchField = document.querySelector("input[type='search']");
+  if (searchField) {
+    if (searchField.value)
+      searchField.blur();
+    else
+      app.f7.searchbar.disable(".searchbar");
   }
 });

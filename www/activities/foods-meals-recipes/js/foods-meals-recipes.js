@@ -112,14 +112,11 @@ app.FoodsMealsRecipes = {
   },
 
   localizeSearchPlaceholder: function() {
-    const el = document.getElementsByClassName("searchbar-input-wrap");
     const text = app.strings["foods-meals-recipes"]["search"] || "Search";
 
-    if (el.length > 0) {
-      for (let x of el) {
-        x.children[0].placeholder = text;
-      }
-    }
+    document.querySelectorAll("input[type='search']").forEach((el) => {
+      el.placeholder = text;
+    });
   },
 
   submitButtonClickEventHandler: function(e) {
