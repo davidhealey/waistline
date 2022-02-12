@@ -620,11 +620,15 @@ app.Diary = {
     }).open();
   },
 
-  log: function() {
+  log: async function() {
     const title = app.strings.diary["log-title"] || "Today's Stats";
-    const stats = JSON.parse(window.localStorage.getItem("stats")) || {};
     const units = app.Settings.getField("units");
     const fields = app.measurements;
+
+    // Look for stats in the past 15 diary entries starting from the current date
+    const date = app.Diary.date;
+    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const stats = await app.Diary.getLastStats(d, 15);
 
     // Create dialog inputs
     let inputs = document.createElement("form");
@@ -709,6 +713,28 @@ app.Diary = {
     }).open();
   },
 
+  getLastStats: async function(date, limit) {
+    return new Promise(function(resolve, reject) {
+      let index = dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.upperBound(date), "prev");
+      let counter = 0;
+
+      index.onsuccess = function(e) {
+        let cursor = e.target.result;
+        if (cursor) {
+          counter++;
+          if (cursor.value && cursor.value.stats && Object.keys(cursor.value.stats).length != 0)
+            resolve(cursor.value.stats);
+          else if (counter < limit)
+            cursor.continue();
+          else
+            resolve({});
+        } else {
+          resolve({});
+        }
+      };
+    });
+  },
+
   saveStats: async function(dialog) {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
     let inputs = Array.from(dialog.el.getElementsByTagName("input"));
@@ -719,7 +745,7 @@ app.Diary = {
     for (let i = 0; i < inputs.length; i++) {
       let x = inputs[i];
 
-      let value = x.value;
+      let value = parseFloat(x.value);
 
       if (x.id !== "body fat") {
         if (x.id == "weight") {
@@ -733,11 +759,11 @@ app.Diary = {
         }
       }
 
-      stats[x.id] = parseFloat(value);
+      if (!isNaN(value))
+        stats[x.id] = value;
     }
 
     entry.stats = stats;
-    window.localStorage.setItem("stats", JSON.stringify(stats));
 
     dbHandler.put(entry, "diary").onsuccess = function(e) {
       let msg = app.strings.diary["log-saved"] || "Saved";
