@@ -91,12 +91,12 @@ app.Diary = {
             let now = new Date();
             let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             c.setValue([today]);
-            app.Diary.date = c.getValue();
+            app.Diary.date = new Date(c.getValue());
           }
           app.Diary.updateDateDisplay();
         },
         change: function(c) {
-          app.Diary.date = c.getValue();
+          app.Diary.date = new Date(c.getValue());
           if (app.Diary.ready)
             app.Diary.render(0);
           c.close();
@@ -139,8 +139,7 @@ app.Diary = {
 
   updateDateDisplay: function() {
     let el = document.querySelector(".page[data-name='diary'] #diary-date");
-    let date = new Date(app.Diary.date);
-    let dateString = date.toLocaleDateString([], {
+    let dateString = app.Diary.date.toLocaleDateString([], {
       weekday: "short",
       month: "long",
       day: "numeric",
@@ -309,8 +308,9 @@ app.Diary = {
   getEntryFromDB: function() {
     return new Promise(async function(resolve, reject) {
       if (app.Diary.date !== undefined) {
-        let date = new Date(app.Diary.date);
-        let entry = await dbHandler.get("diary", "dateTime", new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())));
+        let date = app.Diary.date;
+        let d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        let entry = await dbHandler.get("diary", "dateTime", d);
         resolve(entry);
       }
     }).catch(err => {
@@ -319,7 +319,7 @@ app.Diary = {
   },
 
   getNewEntry: function() {
-    let date = new Date(app.Diary.date);
+    let date = app.Diary.date;
     let entry = {
       dateTime: new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())),
       items: [],
@@ -829,7 +829,7 @@ app.Diary = {
     app.data.context = {
       origin: "/diary/",
       category: category,
-      date: new Date(app.Diary.calendar.getValue())
+      date: app.Diary.date
     };
 
     app.Diary.lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
@@ -841,7 +841,7 @@ app.Diary = {
 
     if (entry != undefined && entry.items.length > 0) {
       app.data.context = {
-        date: app.Diary.calendar.getValue()
+        date: app.Diary.date
       };
       app.f7.views.main.router.navigate("/diary/chart/");
     } else {

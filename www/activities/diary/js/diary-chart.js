@@ -35,7 +35,7 @@ app.DiaryChart = {
     this.getComponents();
     this.bindUIActions();
 
-    let date = new Date(context.date);
+    let date = context.date;
 
     this.dbData = await app.Stats.getDataFromDb(date, 0);
 
