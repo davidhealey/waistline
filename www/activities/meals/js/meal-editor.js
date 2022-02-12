@@ -115,7 +115,7 @@ app.MealEditor = {
 
     inputs.forEach((x) => {
       if (meal[x.name] !== undefined)
-        x.value = unescape(meal[x.name]);
+        x.value = meal[x.name];
     });
   },
 
