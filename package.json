@@ -1,6 +1,9 @@
 {
   "name": "com.waist.line",
   "displayName": "Waistline",
+  "dependencies": {
+    "cordova-plugin-ionic-keyboard": "2.2.0"
+  },
   "devDependencies": {
     "cordova-android": "^10.1.1",
     "cordova-browser": "^6.0.0",
@@ -26,7 +29,8 @@
       },
       "cordova-plugin-file": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
       "browser",
