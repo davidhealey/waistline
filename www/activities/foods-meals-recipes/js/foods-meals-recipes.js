@@ -794,6 +794,10 @@ document.addEventListener("page:reinit", function(e) {
       if (app.FoodsMealsRecipes.tab == "foodlist") {
         app.Foodlist.init(context);
       }
+    } else if (app.FoodsMealsRecipes.tab == "meals") {
+      app.Meals.init();
+    } else if (app.FoodsMealsRecipes.tab == "recipes") {
+      app.Recipes.init();
     }
   }
 });

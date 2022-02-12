@@ -66,23 +66,32 @@ app.Foodlist = {
   bindUIActions: function() {
 
     // Infinite list - render more items
-    app.Foodlist.el.infinite.addEventListener("infinite", (e) => {
-      this.renderList();
-    });
+    if (!app.Foodlist.el.infinite.hasInfiniteEvent) {
+      app.Foodlist.el.infinite.addEventListener("infinite", (e) => {
+        this.renderList();
+      });
+      app.Foodlist.el.infinite.hasInfiniteEvent = true;
+    }
 
     // Search form - search online
-    app.Foodlist.el.searchForm.addEventListener("submit", (e) => {
-      app.Utils.hideKeyboard();
-      if (app.Utils.isInternetConnected())
-        this.search(app.Foodlist.el.search.value);
-    });
+    if (!app.Foodlist.el.searchForm.hasSubmitEvent) {
+      app.Foodlist.el.searchForm.addEventListener("submit", (e) => {
+        app.Utils.hideKeyboard();
+        if (app.Utils.isInternetConnected())
+          this.search(app.Foodlist.el.search.value);
+      });
+      app.Foodlist.el.searchForm.hasSubmitEvent = true;
+    }
 
     // Search filter - reset category filter on long press
-    app.Foodlist.el.searchFilter.addEventListener("taphold", async (e) => {
-      app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
-      app.Foodlist.list = app.FoodsMealsRecipes.filterList(app.Foodlist.el.search.value, undefined, app.Foodlist.filterList);
-      app.Foodlist.renderList(true);
-    });
+    if (!app.Foodlist.el.searchFilter.hasTapholdEvent) {
+      app.Foodlist.el.searchFilter.addEventListener("taphold", async (e) => {
+        app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
+        app.Foodlist.list = app.FoodsMealsRecipes.filterList(app.Foodlist.el.search.value, undefined, app.Foodlist.filterList);
+        app.Foodlist.renderList(true);
+      });
+      app.Foodlist.el.searchFilter.hasTapholdEvent = true;
+    }
 
     if (!app.Foodlist.el.scan.hasClickEvent) {
       app.Foodlist.el.scan.addEventListener("click", async (e) => {
@@ -224,8 +233,7 @@ app.Foodlist = {
             keyCodes: [13],
             onClick: async () => {
               await app.FoodsMealsRecipes.removeItem(item.id, "food");
-              app.Foodlist.list = [];
-              app.f7.views.main.router.refreshPage();
+              app.Foodlist.init();
             }
           }
         ]

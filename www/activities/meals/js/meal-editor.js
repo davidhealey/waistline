@@ -187,7 +187,7 @@ app.MealEditor = {
       }
 
       dbHandler.put(data, "meals").onsuccess = () => {
-        app.f7.views.main.router.navigate("/foods-meals-recipes/meals/");
+        app.f7.views.main.router.back();
       };
     }
   },
