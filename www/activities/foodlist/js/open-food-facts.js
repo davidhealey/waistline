@@ -28,20 +28,20 @@ app.OpenFoodFacts = {
         if (isNaN(query))
           url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
         else
-          url = "https://world.openfoodfacts.org/api/v0/product/" + query + ".json";
+          url = "https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
 
         //Get country name
         let country = app.Settings.get("integration", "search-country") || undefined;
 
         //Limit search to selected country
         if (country && country != "All")
-          url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country);
+          url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + encodeURIComponent(country);
 
         //Get language
         let lang = app.Settings.get("integration", "search-language") || undefined;
 
         if (lang && lang != "Default")
-          url += "&lang=" + lang + "&lc=" + lang;
+          url += "&lang=" + encodeURIComponent(lang) + "&lc=" + encodeURIComponent(lang);
 
         let response = await fetch(url, {
           headers: {
@@ -224,17 +224,19 @@ app.OpenFoodFacts = {
     let string = "";
 
     // Gather additional data
-    let username = encodeURIComponent(app.Settings.get("integration", "off-username") || "waistline-app");
-    let password = encodeURIComponent(app.Settings.get("integration", "off-password") || "waistline");
+    let username = app.Settings.get("integration", "off-username") || "waistline-app";
+    let password = app.Settings.get("integration", "off-password") || "waistline";
 
     // Organise data for upload 
-    string += "code=" + data.barcode;
-    string += "&user_id=" + username;
-    string += "&password=" + password;
-    string += "&product_name=" + data.name;
-    if (data.brand !== undefined) string += "&brands=" + data.brand;
+    string += "code=" + encodeURIComponent(data.barcode);
+    string += "&user_id=" + encodeURIComponent(username);
+    string += "&password=" + encodeURIComponent(password);
+
+    // Product information
+    string += "&product_name=" + encodeURIComponent(data.name);
+    if (data.brand !== undefined) string += "&brands=" + encodeURIComponent(data.brand);
     string += data.nutrition_per;
-    string += "&serving_size=" + data.portion + data.unit;
+    string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
 
     // Energy
     if (data.nutrition[energyName] !== undefined) {

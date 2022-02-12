@@ -71,7 +71,7 @@ app.USDA = {
         apiKey = app.Settings.get("integration", "usda-key");
 
       if (apiKey != undefined) {
-        let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + apiKey + "&query=" + encodeURI(query) + "&pageSize=15";
+        let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(apiKey) + "&query=" + encodeURIComponent(query) + "&pageSize=15";
 
         let response = await fetch(url);
 
@@ -152,7 +152,7 @@ app.USDA = {
 
   testApiKey: function(key) {
     return new Promise(async function(resolve, reject) {
-      let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + key + "&query=cheese";
+      let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(key) + "&query=cheese";
 
       let response = await fetch(url);
 
