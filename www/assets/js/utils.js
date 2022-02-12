@@ -21,12 +21,9 @@ app.Utils = {
 
   tidyText: function(text, maxLength) {
     if (text) {
-      let t = unescape(text);
-
       if (text.length > maxLength)
-        t = t.substring(0, maxLength - 2) + "..";
-
-      return t;
+        text = text.substring(0, maxLength - 2) + "..";
+      return text;
     }
     return "";
   },

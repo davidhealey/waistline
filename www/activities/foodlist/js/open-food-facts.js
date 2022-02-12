@@ -28,20 +28,20 @@ app.OpenFoodFacts = {
         if (isNaN(query))
           url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
         else
-          url = "https://world.openfoodfacts.org/api/v0/product/" + query + ".json";
+          url = "https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
 
         //Get country name
         let country = app.Settings.get("integration", "search-country") || undefined;
 
         //Limit search to selected country
         if (country && country != "All")
-          url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + escape(country);
+          url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + encodeURIComponent(country);
 
         //Get language
-        let lang = app.Settings.get("integration", "search-language") || undefined;
+        let language = app.Settings.get("integration", "search-language") || undefined;
 
-        if (lang && lang != "Default")
-          url += "&lang=" + lang + "&lc=" + lang;
+        if (language != undefined && language != "Default")
+          url += "&lang=" + encodeURIComponent(language) + "&lc=" + encodeURIComponent(language);
 
         let response = await fetch(url, {
           headers: {
@@ -53,12 +53,14 @@ app.OpenFoodFacts = {
           let data = await response.json();
           let result = [];
 
-          // Multiple results
+          // Multiple results (hide results where all nutrition values are undefined)
           if (data.products !== undefined) {
             data.products.forEach((x) => {
               let item = app.OpenFoodFacts.parseItem(x);
-              if (item)
-                result.push(item);
+              if (item != undefined) {
+                let nutritionValues = Object.values(item.nutrition).filter((v) => {return v != undefined});
+                if (nutritionValues.length != 0) result.push(item);
+              }
             });
           }
 
@@ -107,33 +109,33 @@ app.OpenFoodFacts = {
     result.brand = he.decode(brand);
 
     let perTag = "";
-    if (item.serving_size) {
+    if (item.serving_size && (item.nutriments.energy_serving || item.nutriments.energy_prepared_serving)) {
       result.portion = parseInt(item.serving_size);
-      let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/[^a-z]+|\s+/gmi, "");
+      let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/\P{Letter}/gu, "");
       result.unit = app.strings["unit-symbols"][itemUnit.toLowerCase()] || itemUnit;
-      if (item.nutriments.energy_serving !== undefined) {
+      if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
           app.Utils.convertUnit(item.nutriments.energy_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_serving;
         perTag = "_serving";
-      } else if (item.nutriments.energy_prepared_serving !== undefined) {
+      } else if (item.nutriments.energy_prepared_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_serving"]) ?
           parseInt(item.nutriments["energy-kcal_prepared_serving"]) :
           app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_serving;
         perTag = "_prepared_serving";
       }
-    } else if (item.nutrition_data_per == "100g") {
+    } else if (item.nutrition_data_per == "100g" && (item.nutriments.energy_100g || item.nutriments.energy_prepared_100g)) {
       result.portion = "100";
       result.unit = app.strings["unit-symbols"]["g"] || "g";
-      if (item.nutriments.energy_100g !== undefined) {
+      if (item.nutriments.energy_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
           item.nutriments["energy-kcal_100g"] :
           app.Utils.convertUnit(item.nutriments.energy_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_100g;
         perTag = "_100g";
-      } else if (item.nutriments.energy_prepared_100g !== undefined) {
+      } else if (item.nutriments.energy_prepared_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_100g"]) ?
           item.nutriments["energy-kcal_prepared_100g"] :
           app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, true);
@@ -142,10 +144,10 @@ app.OpenFoodFacts = {
       }
     } else if (item.quantity) { // If all else fails
       result.portion = parseInt(item.quantity);
-      result.unit = item.quantity.replace(/[^a-z]/g, "");
+      result.unit = item.quantity.replace(/\P{Letter}/gu, "");
       result.nutrition.calories = (item.nutriments["energy-kcal"]) ?
         item.nutriments["energy-kcal"] :
-        item.nutriments.energy_value;
+        item.nutriments.energy;
       result.nutrition.kilojoules = item.nutriments.energy;
     }
 
@@ -171,7 +173,7 @@ app.OpenFoodFacts = {
       // Make request to OFF
       let endPoint;
       if (app.mode != "release")
-        endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
+        endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; // Testing server
       else
         endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
 
@@ -218,28 +220,42 @@ app.OpenFoodFacts = {
   getUploadString: function(data) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
     const units = app.nutrimentUnits;
-    const energyUnit = app.Settings.get("units", "energy");
-    const energyName = app.Utils.getEnergyUnitName(energyUnit);
 
     let string = "";
 
     // Gather additional data
-    let username = encodeURIComponent(app.Settings.get("integration", "off-username") || "waistline-app");
-    let password = encodeURIComponent(app.Settings.get("integration", "off-password") || "waistline");
+    let username = app.Settings.get("integration", "off-username") || "waistline-app";
+    let password = app.Settings.get("integration", "off-password") || "waistline";
 
     // Organise data for upload 
-    string += "code=" + data.barcode;
-    string += "&user_id=" + username;
-    string += "&password=" + password;
-    string += "&product_name=" + data.name;
-    if (data.brand !== undefined) string += "&brands=" + data.brand;
+    string += "code=" + encodeURIComponent(data.barcode);
+    string += "&user_id=" + encodeURIComponent(username);
+    string += "&password=" + encodeURIComponent(password);
+
+    // Product language
+    let language = app.Settings.get("integration", "search-language") || undefined;
+    let lang = "en";
+
+    if (language != undefined && language != "Default")
+      lang = language;
+    else
+      lang = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
+
+    string += "&lang=" + encodeURIComponent(lang);
+
+    // Product information
+    string += "&product_name_" + encodeURIComponent(lang) + "=" + encodeURIComponent(data.name);
+    if (data.brand !== undefined) string += "&brands=" + encodeURIComponent(data.brand);
     string += data.nutrition_per;
-    string += "&serving_size=" + data.portion + data.unit;
+    string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
 
     // Energy
-    if (data.nutrition[energyName] !== undefined) {
-      string += "&nutriment_energy=" + data.nutrition[energyName];
-      string += "&nutriment_energy_unit=" + energyUnit;
+    if (data.nutrition.kilojoules !== undefined) {
+      string += "&nutriment_energy=" + data.nutrition.kilojoules;
+      string += "&nutriment_energy_unit=" + units.kilojoules;
+    } else if (data.nutrition.calories !== undefined) {
+      string += "&nutriment_energy=" + data.nutrition.calories;
+      string += "&nutriment_energy_unit=" + units.calories;
     }
 
     // Nutrition
@@ -324,7 +340,7 @@ app.OpenFoodFacts = {
   postImage: function(data) {
     let endPoint;
     if (app.mode == "development")
-      endPoint = "https://world.openfoodfacts.net/cgi/product_image_upload.pl"; //Testing server
+      endPoint = "https://world.openfoodfacts.net/cgi/product_image_upload.pl"; // Testing server
     else
       endPoint = "https://world.openfoodfacts.org/cgi/product_image_upload.pl"; // Real server
 
@@ -354,7 +370,7 @@ app.OpenFoodFacts = {
       let response = await fetch(url, {
         method: "GET",
         headers: {
-          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
         },
       });
 

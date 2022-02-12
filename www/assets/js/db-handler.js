@@ -252,7 +252,7 @@ var dbHandler = {
                 item.type = "food";
                 item.quantity = value.nutrition.calories;
               } else {
-                item.unit = value.portion.replace(/[^a-z]/g, "");
+                item.unit = value.portion.replace(/\P{Letter}/gu, "");
                 item.portion = parseInt(value.portion);
                 item.quantity = value.quantity || "1";
               }
@@ -299,7 +299,7 @@ var dbHandler = {
               if (portion !== undefined) {
                 if (typeof portion == "string") {
                   item.portion = portion.replace(/\D/g, "");
-                  item.unit = portion.replace(/[^a-z]/g, "");
+                  item.unit = portion.replace(/\P{Letter}/gu, "");
                 } else {
                   item.portion = parseInt(portion);
                 }
@@ -373,7 +373,7 @@ var dbHandler = {
                   if (f.portion !== undefined) {
                     if (typeof f.portion == "string") {
                       item.portion = f.portion.replace(/\D/g, "");
-                      item.unit = f.portion.replace(/[^a-z]/g, "");
+                      item.unit = f.portion.replace(/\P{Letter}/gu, "");
                     } else {
                       item.portion = parseInt(f.portion);
                     }
@@ -422,7 +422,7 @@ var dbHandler = {
               };
 
               if (typeof value.portion == "string")
-                recipe.unit = value.portion.replace(/[^a-z]/g, "");
+                recipe.unit = value.portion.replace(/\P{Letter}/gu, "");
 
               if (value.foods !== undefined) {
                 for (let idx in value.foods) {
@@ -437,7 +437,7 @@ var dbHandler = {
                   if (f.portion !== undefined) {
                     if (typeof f.portion == "string") {
                       item.portion = f.portion.replace(/\D/g, "");
-                      item.unit = f.portion.replace(/[^a-z]/g, "");
+                      item.unit = f.portion.replace(/\P{Letter}/gu, "");
                     } else {
                       item.portion = parseInt(f.portion);
                     }

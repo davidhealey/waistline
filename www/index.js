@@ -19,6 +19,7 @@
 
 const app = {
   mode: "release",
+  version: "%%VERSION%%", // Will be set on build by Cordova hook
   data: {}, // App wide object that can be used to store stuff
   strings: {}, // Localization strings
   standardUnits: ["kcal", "kJ", "ug", "µg", "mg", "g", "kg", "ul", "µl", "ml", "dl", "dL", "cl", "cL", "l", "L"],

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var wwwFileToReplace = "activities/about/views/about.html";
+var wwwFilesToReplace = ["index.js", "activities/about/views/about.html"];
 
 var fs = require('fs');
 var path = require('path');
@@ -39,11 +39,13 @@ module.exports = function (context) {
                 default:
                     console.log("Warning: Unknown build platform: " + val);
             }
-            var fullfilename = path.join(rootdir, wwwPath + wwwFileToReplace);
-            if (fs.existsSync(fullfilename)) {
-                fileStringReplace(fullfilename, "%%VERSION%%", version);
-                console.log("Replaced version in file: " + fullfilename);
-            }
+            wwwFilesToReplace.forEach((wwwFile) => {
+                var fullfilename = path.join(rootdir, wwwPath + wwwFile);
+                if (fs.existsSync(fullfilename)) {
+                    fileStringReplace(fullfilename, "%%VERSION%%", version);
+                    console.log("Replaced version in file: " + fullfilename);
+                }
+            });
         });
     }
 }

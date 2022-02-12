@@ -116,7 +116,7 @@ app.RecipeEditor = {
 
     inputs.forEach((x) => {
       if (recipe[x.name] !== undefined)
-        x.value = unescape(recipe[x.name]);
+        x.value = recipe[x.name];
     });
   },
 
