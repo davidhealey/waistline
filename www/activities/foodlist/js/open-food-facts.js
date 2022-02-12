@@ -107,33 +107,33 @@ app.OpenFoodFacts = {
     result.brand = he.decode(brand);
 
     let perTag = "";
-    if (item.serving_size) {
+    if (item.serving_size && (item.nutriments.energy_serving || item.nutriments.energy_prepared_serving)) {
       result.portion = parseInt(item.serving_size);
       let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/\P{Letter}/gu, "");
       result.unit = app.strings["unit-symbols"][itemUnit.toLowerCase()] || itemUnit;
-      if (item.nutriments.energy_serving !== undefined) {
+      if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
           app.Utils.convertUnit(item.nutriments.energy_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_serving;
         perTag = "_serving";
-      } else if (item.nutriments.energy_prepared_serving !== undefined) {
+      } else if (item.nutriments.energy_prepared_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_serving"]) ?
           parseInt(item.nutriments["energy-kcal_prepared_serving"]) :
           app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_serving;
         perTag = "_prepared_serving";
       }
-    } else if (item.nutrition_data_per == "100g") {
+    } else if (item.nutrition_data_per == "100g" && (item.nutriments.energy_100g || item.nutriments.energy_prepared_100g)) {
       result.portion = "100";
       result.unit = app.strings["unit-symbols"]["g"] || "g";
-      if (item.nutriments.energy_100g !== undefined) {
+      if (item.nutriments.energy_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
           item.nutriments["energy-kcal_100g"] :
           app.Utils.convertUnit(item.nutriments.energy_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_100g;
         perTag = "_100g";
-      } else if (item.nutriments.energy_prepared_100g !== undefined) {
+      } else if (item.nutriments.energy_prepared_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_100g"]) ?
           item.nutriments["energy-kcal_prepared_100g"] :
           app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, true);
@@ -145,7 +145,7 @@ app.OpenFoodFacts = {
       result.unit = item.quantity.replace(/\P{Letter}/gu, "");
       result.nutrition.calories = (item.nutriments["energy-kcal"]) ?
         item.nutriments["energy-kcal"] :
-        item.nutriments.energy_value;
+        item.nutriments.energy;
       result.nutrition.kilojoules = item.nutriments.energy;
     }
 
