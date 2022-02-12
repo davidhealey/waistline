@@ -382,8 +382,8 @@ app.Settings = {
       integration: {
         "barcode-sound": false,
         "edit-images": false,
-        "search-country": "All",
         "search-language": "Default",
+        "search-country": "All",
         "upload-country": "Auto",
         usda: false
       },
@@ -486,7 +486,7 @@ document.addEventListener("page:init", async function(e) {
 
   if (pageName == "settings-nutriments")
     app.Nutriments.populateNutrimentList();
-  
+
   if (pageName == "settings-foods-categories")
     app.FoodsCategories.populateFoodCategoriesList();
 

@@ -38,10 +38,10 @@ app.OpenFoodFacts = {
           url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + encodeURIComponent(country);
 
         //Get language
-        let lang = app.Settings.get("integration", "search-language") || undefined;
+        let language = app.Settings.get("integration", "search-language") || undefined;
 
-        if (lang && lang != "Default")
-          url += "&lang=" + encodeURIComponent(lang) + "&lc=" + encodeURIComponent(lang);
+        if (language != undefined && language != "Default")
+          url += "&lang=" + encodeURIComponent(language) + "&lc=" + encodeURIComponent(language);
 
         let response = await fetch(url, {
           headers: {
@@ -230,8 +230,19 @@ app.OpenFoodFacts = {
     string += "&user_id=" + encodeURIComponent(username);
     string += "&password=" + encodeURIComponent(password);
 
+    // Product language
+    let language = app.Settings.get("integration", "search-language") || undefined;
+    let lang = "en";
+
+    if (language != undefined && language != "Default")
+      lang = language;
+    else
+      lang = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
+
+    string += "&lang=" + encodeURIComponent(lang);
+
     // Product information
-    string += "&product_name=" + encodeURIComponent(data.name);
+    string += "&product_name_" + encodeURIComponent(lang) + "=" + encodeURIComponent(data.name);
     if (data.brand !== undefined) string += "&brands=" + encodeURIComponent(data.brand);
     string += data.nutrition_per;
     string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
