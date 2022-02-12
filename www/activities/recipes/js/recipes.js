@@ -73,11 +73,14 @@ app.Recipes = {
     }
 
     // Search filter - reset category filter on long press
-    app.Recipes.el.searchFilter.addEventListener("taphold", async (e) => {
-      app.FoodsMealsRecipes.clearSelectedCategories(app.Recipes.el.searchFilter, app.Recipes.el.searchFilterIcon);
-      app.Recipes.list = app.FoodsMealsRecipes.filterList(app.Recipes.el.search.value, undefined, app.Recipes.filterList);
-      app.Recipes.renderList(true);
-    });
+    if (!app.Recipes.el.searchFilter.hasTapholdEvent) {
+      app.Recipes.el.searchFilter.addEventListener("taphold", async (e) => {
+        app.FoodsMealsRecipes.clearSelectedCategories(app.Recipes.el.searchFilter, app.Recipes.el.searchFilterIcon);
+        app.Recipes.list = app.FoodsMealsRecipes.filterList(app.Recipes.el.search.value, undefined, app.Recipes.filterList);
+        app.Recipes.renderList(true);
+      });
+      app.Recipes.el.searchFilter.hasTapholdEvent = true;
+    }
   },
 
   renderList: async function(clear) {
@@ -136,7 +139,7 @@ app.Recipes = {
           keyCodes: [13],
           onClick: async () => {
             await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
-            app.f7.views.main.router.refreshPage();
+            app.Recipes.init();
           }
         }
       ]

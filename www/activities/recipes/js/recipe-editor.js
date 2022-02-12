@@ -191,7 +191,7 @@ app.RecipeEditor = {
         data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
 
       dbHandler.put(data, "recipes").onsuccess = () => {
-        app.f7.views.main.router.navigate("/foods-meals-recipes/recipes/");
+        app.f7.views.main.router.back();
       };
     }
   },

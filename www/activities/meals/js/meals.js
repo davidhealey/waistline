@@ -73,11 +73,14 @@ app.Meals = {
     }
 
     // Search filter - reset category filter on long press
-    app.Meals.el.searchFilter.addEventListener("taphold", async (e) => {
-      app.FoodsMealsRecipes.clearSelectedCategories(app.Meals.el.searchFilter, app.Meals.el.searchFilterIcon);
-      app.Meals.list = app.FoodsMealsRecipes.filterList(app.Meals.el.search.value, undefined, app.Meals.filterList);
-      app.Meals.renderList(true);
-    });
+    if (!app.Meals.el.searchFilter.hasTapholdEvent) {
+      app.Meals.el.searchFilter.addEventListener("taphold", async (e) => {
+        app.FoodsMealsRecipes.clearSelectedCategories(app.Meals.el.searchFilter, app.Meals.el.searchFilterIcon);
+        app.Meals.list = app.FoodsMealsRecipes.filterList(app.Meals.el.search.value, undefined, app.Meals.filterList);
+        app.Meals.renderList(true);
+      });
+      app.Meals.el.searchFilter.hasTapholdEvent = true;
+    }
   },
 
   renderList: async function(clear) {
@@ -189,7 +192,7 @@ app.Meals = {
             let request = dbHandler.deleteItem(item.id, "meals");
 
             request.onsuccess = function(e) {
-              app.f7.views.main.router.refreshPage();
+              app.Meals.init();
             };
           }
         }
