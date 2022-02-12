@@ -402,7 +402,7 @@ app.FoodEditor = {
     }
 
     // Portion (serving size)
-    if (item.portion != +undefined) {
+    if (item.portion != undefined) {
       app.FoodEditor.el.portion.value = parseFloat(item.portion);
       app.FoodEditor.el.portion.oldValue = parseFloat(item.portion);
     } else {
@@ -411,7 +411,10 @@ app.FoodEditor = {
     }
 
     // Quantity (number of servings)
-    app.FoodEditor.el.quantity.value = item.quantity || 1;
+    if (item.quantity != undefined)
+      app.FoodEditor.el.quantity.value = parseFloat(item.quantity);
+    else
+      app.FoodEditor.el.quantity.value = 1;
     app.FoodEditor.el.quantity.oldValue = app.FoodEditor.el.quantity.value;
   },
 
