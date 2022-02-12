@@ -171,7 +171,7 @@ app.OpenFoodFacts = {
       // Make request to OFF
       let endPoint;
       if (app.mode != "release")
-        endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; //Testing server
+        endPoint = "https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; // Testing server
       else
         endPoint = "https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
 
@@ -324,7 +324,7 @@ app.OpenFoodFacts = {
   postImage: function(data) {
     let endPoint;
     if (app.mode == "development")
-      endPoint = "https://world.openfoodfacts.net/cgi/product_image_upload.pl"; //Testing server
+      endPoint = "https://world.openfoodfacts.net/cgi/product_image_upload.pl"; // Testing server
     else
       endPoint = "https://world.openfoodfacts.org/cgi/product_image_upload.pl"; // Real server
 
@@ -354,7 +354,7 @@ app.OpenFoodFacts = {
       let response = await fetch(url, {
         method: "GET",
         headers: {
-          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
         },
       });
 
