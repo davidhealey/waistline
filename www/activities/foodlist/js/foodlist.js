@@ -30,7 +30,7 @@ app.Foodlist = {
         await this.putItem(context.item);
 
       app.FoodsMealsRecipes.clearSearchSelection();
-      app.f7.searchbar.clear("#food-search-form");
+      app.f7.searchbar.disable("#food-search-form");
     }
 
     this.getComponents();
@@ -212,7 +212,7 @@ app.Foodlist = {
     });
   },
 
-  removeItem: function(item) {
+  removeItem: function(item, li) {
     return new Promise(function(resolve, reject) {
       let title = app.strings.dialogs.delete || "Delete";
       let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
@@ -233,7 +233,7 @@ app.Foodlist = {
             keyCodes: [13],
             onClick: async () => {
               await app.FoodsMealsRecipes.removeItem(item.id, "food");
-              app.Foodlist.init();
+              li.remove();
             }
           }
         ]

@@ -82,8 +82,6 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
     app.FoodsMealsRecipes.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.FoodsMealsRecipes.el.fab = document.querySelector(".page[data-name='foods-meals-recipes'] #add-item");
-    app.FoodsMealsRecipes.el.mealTabButton = document.querySelector(".page[data-name='foods-meals-recipes'] #meals-tab-button");
-    app.FoodsMealsRecipes.el.recipeTabButton = document.querySelector(".page[data-name='foods-meals-recipes'] #recipe-tab-button");
   },
 
   bindUIActions: function() {
@@ -407,7 +405,6 @@ app.FoodsMealsRecipes = {
       if (item !== undefined) {
 
         let li = document.createElement("li");
-        li.data = JSON.stringify(item);
         el.appendChild(li);
 
         let label = document.createElement("label");
@@ -425,9 +422,9 @@ app.FoodsMealsRecipes = {
 
           input.addEventListener("change", (e) => {
             if (checkboxCallback !== undefined)
-              checkboxCallback(input.checked, item);
+              checkboxCallback(e.target.checked, item);
             else
-              app.FoodsMealsRecipes.checkboxChanged(input.checked, item);
+              app.FoodsMealsRecipes.checkboxChanged(e.target.checked, item);
           });
 
           let icon = document.createElement("i");

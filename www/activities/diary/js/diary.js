@@ -45,7 +45,9 @@ app.Diary = {
       app.Diary.render(app.Diary.lastScrollPosition);
       app.Diary.ready = true;
     }
-    app.Diary.lastScrollPosition = 0; // Reset last scroll position
+
+    if (document.querySelector(".page-current[data-name='diary']") != null)
+      app.Diary.lastScrollPosition = 0; // Reset last scroll position
   },
 
   getComponents: function() {
@@ -98,7 +100,7 @@ app.Diary = {
         change: function(c) {
           app.Diary.date = new Date(c.getValue());
           if (app.Diary.ready)
-            app.Diary.render(0);
+            app.Diary.render();
           c.close();
           app.Diary.updateDateDisplay();
         }
@@ -492,7 +494,7 @@ app.Diary = {
     });
   },
 
-  deleteItem: function(item) {
+  deleteItem: function(item, li) {
     let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 

@@ -170,7 +170,7 @@ app.Meals = {
     });
   },
 
-  deleteMeal: function(item) {
+  deleteMeal: function(item, li) {
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
@@ -192,7 +192,7 @@ app.Meals = {
             let request = dbHandler.deleteItem(item.id, "meals");
 
             request.onsuccess = function(e) {
-              app.Meals.init();
+              li.remove();
             };
           }
         }
