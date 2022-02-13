@@ -119,7 +119,7 @@ app.Recipes = {
     });
   },
 
-  removeItem: function(item) {
+  removeItem: function(item, li) {
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
@@ -139,7 +139,7 @@ app.Recipes = {
           keyCodes: [13],
           onClick: async () => {
             await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
-            app.Recipes.init();
+            li.remove();
           }
         }
       ]

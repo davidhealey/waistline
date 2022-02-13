@@ -142,8 +142,8 @@ app.Group = {
     });
   },
 
-  removeItem: function(item) {
-    app.Diary.deleteItem(item);
+  removeItem: function(item, li) {
+    app.Diary.deleteItem(item, li);
   },
 
   reset: function() {
