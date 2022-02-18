@@ -21,6 +21,7 @@ app.FoodEditor = {
 
   item: undefined,
   item_image_url: undefined,
+  index: undefined,
   scan: false,
   origin: undefined,
   linked: true,
@@ -38,6 +39,9 @@ app.FoodEditor = {
 
       if (context.item !== undefined)
         app.FoodEditor.item = context.item;
+
+      if (context.index !== undefined)
+        app.FoodEditor.index = context.index;
 
       if (context.item == undefined || (context.item != undefined && context.item.id == undefined))
         app.FoodEditor.linked = false; //Unlinked by default for adding new items
@@ -105,7 +109,7 @@ app.FoodEditor = {
 
     // Submit
     app.FoodEditor.el.submit.addEventListener("click", (e) => {
-      app.FoodEditor.returnItem(app.FoodEditor.item, app.FoodEditor.origin);
+      app.FoodEditor.returnItem(app.FoodEditor.item, app.FoodEditor.index, app.FoodEditor.origin);
     });
 
     // Portion
@@ -619,7 +623,7 @@ app.FoodEditor = {
     return undefined;
   },
 
-  returnItem: function(data, origin) {
+  returnItem: function(data, index, origin) {
     let item = app.FoodEditor.gatherFormData(data, origin);
 
     if (item !== undefined) {
@@ -630,7 +634,8 @@ app.FoodEditor = {
       item.archived = false;
 
       app.data.context = {
-        item: item
+        item: item,
+        index: index
       };
 
       app.f7.views.main.router.back();

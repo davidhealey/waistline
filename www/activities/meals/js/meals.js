@@ -25,16 +25,11 @@ app.Meals = {
 
   init: async function(context) {
 
-    if (context !== undefined) {
-      if (context.meal)
-        app.Meals.meal = context.meal;
-    } else {
-      app.Meals.meal = undefined;
-    }
-
     app.Meals.getComponents();
     app.Meals.createSearchBar();
     app.Meals.bindUIActions();
+
+    app.Meals.el.scan.style.display = "none";
 
     if (!app.Meals.ready) {
       app.f7.infiniteScroll.create(app.Meals.el.infinite); //Setup infinite list
@@ -50,7 +45,6 @@ app.Meals = {
   getComponents: function() {
     app.Meals.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
     app.Meals.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
-    app.Meals.el.scan.style.display = "none";
     app.Meals.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.Meals.el.search = document.querySelector("#meals-tab #meal-search");
     app.Meals.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
@@ -67,7 +61,7 @@ app.Meals = {
     // Infinite list - render more items
     if (!app.Meals.el.infinite.hasInfiniteEvent) {
       app.Meals.el.infinite.addEventListener("infinite", (e) => {
-        this.renderList();
+        app.Meals.renderList();
       });
       app.Meals.el.infinite.hasInfiniteEvent = true;
     }
@@ -97,9 +91,6 @@ app.Meals = {
         if (i >= app.Meals.list.length) break; //Exit after all items in list
 
         let item = app.Meals.list[i];
-
-        // Don't show item that is being edited, otherwise endless loop will ensue
-        if (app.Meals.meal !== undefined && app.Meals.meal.id == item.id) continue;
 
         item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
         app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, app.Meals.gotoEditor, app.Meals.deleteMeal);
@@ -192,6 +183,12 @@ app.Meals = {
             let request = dbHandler.deleteItem(item.id, "meals");
 
             request.onsuccess = function(e) {
+              let index = app.Meals.filterList.indexOf(item);
+              if (index != -1)
+                app.Meals.filterList.splice(index, 1);
+              index = app.Meals.list.indexOf(item);
+              if (index != -1)
+                app.Meals.list.splice(index, 1);
               li.remove();
             };
           }

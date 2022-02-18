@@ -449,7 +449,7 @@ app.FoodsMealsRecipes = {
           inner.addEventListener("click", function(e) {
             e.preventDefault();
             if (clickCallback !== undefined)
-              clickCallback(item);
+              clickCallback(item, li);
             else
               app.FoodsMealsRecipes.gotoEditor(item);
           });
@@ -687,7 +687,7 @@ app.FoodsMealsRecipes = {
       container.style.display = "none";
   },
 
-  gotoEditor: function(item) {
+  gotoEditor: function(item, index) {
     let origin;
     if (app.FoodsMealsRecipes.tab !== undefined) {
       origin = app.FoodsMealsRecipes.tab;
@@ -698,6 +698,7 @@ app.FoodsMealsRecipes = {
 
     app.data.context = {
       item: item,
+      index: index,
       origin: origin
     };
 

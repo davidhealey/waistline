@@ -233,6 +233,12 @@ app.Foodlist = {
             keyCodes: [13],
             onClick: async () => {
               await app.FoodsMealsRecipes.removeItem(item.id, "food");
+              let index = app.Foodlist.filterList.indexOf(item);
+              if (index != -1)
+                app.Foodlist.filterList.splice(index, 1);
+              index = app.Foodlist.list.indexOf(item);
+              if (index != -1)
+                app.Foodlist.list.splice(index, 1);
               li.remove();
             }
           }

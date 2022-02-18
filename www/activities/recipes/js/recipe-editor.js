@@ -39,9 +39,9 @@ app.RecipeEditor = {
       if (context.items)
         app.RecipeEditor.addItems(context.items);
 
-      // From recipe editor
-      if (context.item)
-        app.RecipeEditor.replaceListItem(context.item);
+      // Returned from food editor
+      if (context.item && context.index != undefined)
+        app.RecipeEditor.replaceListItem(context.item, context.index);
 
       app.RecipeEditor.renderNutrition();
       await app.RecipeEditor.renderItems();
@@ -149,9 +149,10 @@ app.RecipeEditor = {
           text: app.strings.dialogs.delete || "Delete",
           keyCodes: [13],
           onClick: () => {
-            app.RecipeEditor.recipe.items.splice(item.index, 1);
-            app.RecipeEditor.renderItems();
+            let index = $(li).index();
+            app.RecipeEditor.recipe.items.splice(index, 1);
             app.RecipeEditor.renderNutrition();
+            li.remove();
           }
         }
       ]
@@ -179,14 +180,6 @@ app.RecipeEditor = {
       if (categories !== undefined)
         data.categories = categories;
 
-      // Array index should not be saved with items
-      if (data.items !== undefined) {
-        data.items.forEach((x) => {
-          if (x.index !== undefined)
-            delete x.index;
-        });
-      }
-
       if (app.RecipeEditor.recipe.items !== undefined)
         data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
 
@@ -196,9 +189,14 @@ app.RecipeEditor = {
     }
   },
 
-  replaceListItem: function(item) {
+  recipeItemClickHandler: function(item, li) {
+    let index = $(li).index();
+    app.FoodsMealsRecipes.gotoEditor(item, index);
+  },
+
+  replaceListItem: function(item, index) {
     let updatedItem = app.FoodsMealsRecipes.flattenItem(item);
-    app.RecipeEditor.recipe.items.splice(item.index, 1, updatedItem);
+    app.RecipeEditor.recipe.items.splice(index, 1, updatedItem);
   },
 
   renderNutrition: async function() {
@@ -250,8 +248,7 @@ app.RecipeEditor = {
       let showThumbnails = app.Utils.showThumbnails("foodlist");
 
       app.RecipeEditor.recipe.items.forEach(async (x, i) => {
-        x.index = i;
-        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, undefined, app.RecipeEditor.removeItem, undefined, false, showThumbnails);
+        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, app.RecipeEditor.recipeItemClickHandler, app.RecipeEditor.removeItem, undefined, false, showThumbnails);
       });
 
       resolve();
