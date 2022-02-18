@@ -1,6 +1,8 @@
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 import { getDocument } from 'ssr-window';
 import $ from '../../shared/dom7';
@@ -53,7 +55,8 @@ var Panel = /*#__PURE__*/function (_Framework7Class) {
         effect = _panel$params.effect,
         resizable = _panel$params.resizable;
     if (typeof side === 'undefined') side = $el.hasClass('panel-left') ? 'left' : 'right';
-    if (typeof effect === 'undefined') effect = $el.hasClass('panel-cover') ? 'cover' : 'reveal';
+    if (typeof effect === 'undefined') // eslint-disable-next-line
+      effect = $el.hasClass('panel-cover') ? 'cover' : $el.hasClass('panel-push') ? 'push' : 'reveal';
     if (typeof resizable === 'undefined') resizable = $el.hasClass('panel-resizable');
     var $backdropEl;
 
@@ -127,7 +130,7 @@ var Panel = /*#__PURE__*/function (_Framework7Class) {
     }
 
     if (state === 'closed') {
-      $targetEl.removeClass("with-panel-" + side + "-reveal with-panel-" + side + "-cover with-panel");
+      $targetEl.removeClass("with-panel-" + side + "-reveal with-panel-" + side + "-cover with-panel-" + side + "-push with-panel");
     }
   };
 
@@ -238,6 +241,10 @@ var Panel = /*#__PURE__*/function (_Framework7Class) {
   };
 
   _proto.setCollapsedBreakpoint = function setCollapsedBreakpoint(emitEvents) {
+    if (emitEvents === void 0) {
+      emitEvents = true;
+    }
+
     var panel = this;
     var app = panel.app;
 
@@ -465,7 +472,7 @@ var Panel = /*#__PURE__*/function (_Framework7Class) {
       $backdropEl[animate ? 'removeClass' : 'addClass']('not-animated');
     }
 
-    if (panel.effect === 'cover') {
+    if (panel.effect === 'cover' || panel.effect === 'push') {
       /* eslint no-underscore-dangle: ["error", { "allow": ["_clientLeft"] }] */
       panel._clientLeft = $el[0].clientLeft;
     } // Transitionend

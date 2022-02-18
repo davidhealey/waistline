@@ -43,7 +43,7 @@ var Progressbar = {
       $progressbarEl.append($progressbarLine);
     }
 
-    $progressbarLine.transition(typeof duration !== 'undefined' ? duration : '').transform("translate3d(" + (-100 + progressNormalized) + "%,0,0)");
+    $progressbarLine.transition(typeof duration !== 'undefined' ? duration : '').transform("translate3d(" + (-100 + progressNormalized) * (app.rtl ? -1 : 1) + "%,0,0)");
     return $progressbarEl[0];
   },
   show: function show() {

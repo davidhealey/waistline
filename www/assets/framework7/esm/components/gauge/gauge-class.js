@@ -1,6 +1,8 @@
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 /* eslint no-nested-ternary: off */
 import { getDocument } from 'ssr-window';
@@ -308,7 +310,7 @@ var Gauge = /*#__PURE__*/function (_Framework7Class) {
     var self = this;
     if (!self.$el || self.destroyed) return;
     self.$el.trigger('gauge:beforedestroy');
-    self.emit('local::beforeDestroy selfBeforeDestroy', self);
+    self.emit('local::beforeDestroy gaugeBeforeDestroy', self);
     self.$svgEl.remove();
     delete self.$el[0].f7Gauge;
     deleteProps(self);

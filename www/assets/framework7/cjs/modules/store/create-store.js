@@ -78,8 +78,12 @@ function createStore(storeParams) {
     removeGetterCallback(callback);
   };
 
-  var getterValue = function getterValue(getterKey) {
-    if (getterKey === 'constructor') return;
+  var getterValue = function getterValue(getterKey, addCallback) {
+    if (addCallback === void 0) {
+      addCallback = true;
+    }
+
+    if (getterKey === 'constructor') return undefined;
     propsQueue = [];
     var value = getGetterValue(getterKey);
     addGetterDependencies(getterKey, propsQueue);
@@ -92,6 +96,10 @@ function createStore(storeParams) {
       value: value,
       onUpdated: onUpdated
     };
+
+    if (!addCallback) {
+      return obj;
+    }
 
     var callback = function callback(v) {
       obj.value = v;
@@ -123,7 +131,19 @@ function createStore(storeParams) {
         return undefined;
       }
 
-      return getterValue(prop);
+      return getterValue(prop, true);
+    }
+  });
+  store._gettersPlain = new Proxy(getters, {
+    set: function set() {
+      return false;
+    },
+    get: function get(target, prop) {
+      if (!target[prop]) {
+        return undefined;
+      }
+
+      return getterValue(prop, false);
     }
   });
 

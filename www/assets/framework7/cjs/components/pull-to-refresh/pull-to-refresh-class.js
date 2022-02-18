@@ -17,7 +17,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
   _inheritsLoose(PullToRefresh, _Framework7Class);
@@ -45,11 +47,16 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
 
     ptr.done = function done() {
       var $transitionTarget = isMaterial ? $preloaderEl : $el;
-      $transitionTarget.transitionEnd(function () {
+
+      var onTranstionEnd = function onTranstionEnd(e) {
+        if ((0, _dom.default)(e.target).closest($preloaderEl).length) return;
         $el.removeClass('ptr-transitioning ptr-pull-up ptr-pull-down ptr-closing');
         $el.trigger('ptr:done');
         ptr.emit('local::done ptrDone', $el[0]);
-      });
+        $transitionTarget.off('transitionend', onTranstionEnd);
+      };
+
+      $transitionTarget.on('transitionend', onTranstionEnd);
       $el.removeClass('ptr-refreshing').addClass('ptr-transitioning ptr-closing');
       return ptr;
     };
@@ -117,6 +124,23 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
       triggerDistance = 38;
     }
 
+    function setPreloaderProgress(progress) {
+      if (progress === void 0) {
+        progress = 0;
+      }
+
+      var $bars = $preloaderEl.find('.preloader-inner-line');
+      var perBarProgress = 1 / $bars.length;
+      $bars.forEach(function (barEl, barIndex) {
+        var barProgress = (progress - barIndex * perBarProgress) / perBarProgress;
+        barEl.style.opacity = Math.max(Math.min(barProgress, 1), 0) * 0.27;
+      });
+    }
+
+    function unsetPreloaderProgress() {
+      $preloaderEl.find('.preloader-inner-line').css('opacity', '');
+    }
+
     function handleTouchStart(e) {
       if (isTouched) {
         if (device.os === 'android') {
@@ -177,6 +201,11 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
 
       if (!isMoved) {
         $el.removeClass('ptr-transitioning');
+
+        if (isIos) {
+          setPreloaderProgress(0);
+        }
+
         var targetIsScrollable;
         scrollHeight = $el[0].scrollHeight;
         offsetHeight = $el[0].offsetHeight;
@@ -252,17 +281,32 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
             $preloaderEl.transform("translate3d(0," + translate + "px,0)").find('.ptr-arrow').transform("rotate(" + (180 * (Math.abs(touchesDiff) / 66) + 100) + "deg)");
           } else {
             // eslint-disable-next-line
-            if (ptr.bottom) {
+            if (ptr.bottom || isIos) {
               $el.children().transform("translate3d(0," + translate + "px,0)");
             } else {
+              // eslint-disable-next-line
               $el.transform("translate3d(0," + translate + "px,0)");
             }
+
+            if (isIos) {
+              $preloaderEl.transform("translate3d(0,0px,0)");
+            }
           }
+        } else if (isIos && !ptr.bottom) {
+          $preloaderEl.transform("translate3d(0," + scrollTop + "px,0)");
+        }
+
+        var progress;
+
+        if (isIos && !refresh) {
+          progress = useTranslate || forceUseTranslate ? Math.pow(Math.abs(touchesDiff), 0.85) / triggerDistance : Math.abs(touchesDiff) / (triggerDistance * 2);
+          setPreloaderProgress(progress);
         }
 
         if ((useTranslate || forceUseTranslate) && Math.pow(Math.abs(touchesDiff), 0.85) > triggerDistance || !useTranslate && Math.abs(touchesDiff) >= triggerDistance * 2) {
           refresh = true;
           $el.addClass('ptr-pull-up').removeClass('ptr-pull-down');
+          unsetPreloaderProgress();
         } else {
           refresh = false;
           $el.removeClass('ptr-pull-up').addClass('ptr-pull-down');
@@ -318,8 +362,9 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
       if (isMaterial) {
         $preloaderEl.transform('').find('.ptr-arrow').transform('');
       } else {
-        // eslint-disable-next-line
-        if (ptr.bottom) {
+        $preloaderEl.transform('');
+
+        if (ptr.bottom || isIos) {
           $el.children().transform('');
         } else {
           $el.transform('');
@@ -365,7 +410,8 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
       if (isMaterial) {
         $preloaderEl.transform('').find('.ptr-arrow').transform('');
       } else {
-        // eslint-disable-next-line
+        $preloaderEl.transform('');
+
         if (ptr.bottom) {
           $el.children().transform('');
         } else {
@@ -403,6 +449,11 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
 
       if (!mousewheelMoved) {
         $el.removeClass('ptr-transitioning');
+
+        if (isIos) {
+          setPreloaderProgress(0);
+        }
+
         var targetIsScrollable;
         scrollHeight = $el[0].scrollHeight;
         offsetHeight = $el[0].offsetHeight;
@@ -466,12 +517,24 @@ var PullToRefresh = /*#__PURE__*/function (_Framework7Class) {
             $el.children().transform("translate3d(0," + translate + "px,0)");
           } else {
             $el.transform("translate3d(0," + translate + "px,0)");
+
+            if (isIos) {
+              $preloaderEl.transform("translate3d(0," + -translate + "px,0)");
+            }
           }
+        }
+
+        var progress;
+
+        if (isIos && !refresh) {
+          progress = Math.abs(translate) / triggerDistance;
+          setPreloaderProgress(progress);
         }
 
         if (Math.abs(translate) > triggerDistance) {
           refresh = true;
           $el.addClass('ptr-pull-up').removeClass('ptr-pull-down');
+          unsetPreloaderProgress();
         } else {
           refresh = false;
           $el.removeClass('ptr-pull-up').addClass('ptr-pull-down');

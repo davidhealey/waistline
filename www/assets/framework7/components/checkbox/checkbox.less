@@ -1,5 +1,5 @@
 /* === Checkbox === */
-@import url('./checkbox-vars.less');
+@import './checkbox-vars.less';
 
 .checkbox {
   position: relative;
@@ -66,7 +66,7 @@ label.item-checkbox input[type='checkbox']:indeterminate ~ * .icon-checkbox,
     position: absolute;
     top: 50%;
     width: 70%;
-    background: #fff;
+    background: var(--f7-checkbox-icon-color);
     height: 2px;
     border-radius: 2px;
     margin-top: -1px;
@@ -116,11 +116,11 @@ label.item-checkbox {
 }
 
 .if-ios-theme({
-  @import url('./checkbox-ios.less');
+  @import './checkbox-ios.less';
 });
 .if-md-theme({
-  @import url('./checkbox-md.less');
+  @import './checkbox-md.less';
 });
 .if-aurora-theme({
-  @import url('./checkbox-aurora.less');
+  @import './checkbox-aurora.less';
 });

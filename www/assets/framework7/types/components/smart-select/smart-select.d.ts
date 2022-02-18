@@ -20,7 +20,7 @@ export namespace SmartSelect {
   }
   interface Parameters {
     /** Smart Select element. Can be useful if you already have Smart Select element in your HTML and want to create new instance using this element */
-    el: HTMLElement | CSSSelector;
+    el?: HTMLElement | CSSSelector;
     /** Link to initialized View instance which is required for Smart Select to work. By default, if not specified, it will be opened in parent View. */
     view?: View.View;
     /** Visual element where to insert selected value. If not passed then it will look for <div class="item-after"> element */
@@ -39,6 +39,8 @@ export namespace SmartSelect {
     sheetPush?: boolean;
     /** Enables ability to close smart select sheet with swipe (default undefined) */
     sheetSwipeToClose?: boolean | undefined;
+    /** Enables smart select sheet backdrop (default false) */
+    sheetBackdrop?: boolean;
     /** Smart select page title. If not passed then it will be the <div class="item-title"> text */
     pageTitle?: string;
     /** Smart select Page back link text (default 'Back') */
@@ -148,7 +150,7 @@ export namespace SmartSelect {
   }
   interface DomEvents {
     /** Event will be triggered before Smart Select open. event.detail.prevent is a function that can be called to prevent Smart Select from opening */
-    'smartselect:before': () => void;
+    'smartselect:beforeopen': () => void;
     /** Event will be triggered when Smart Select starts its opening animation */
     'smartselect:open': () => void;
     /** Event will be triggered after Smart Select completes its opening animation */

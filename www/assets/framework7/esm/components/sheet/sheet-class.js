@@ -1,6 +1,8 @@
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 import { getWindow, getDocument } from 'ssr-window';
 import $ from '../../shared/dom7';
@@ -334,6 +336,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
           $el.removeClass('modal-in-swipe-step');
           $el.trigger('sheet:stepprogress', 1);
           sheet.emit('local::stepProgress sheetStepProgress', sheet, 1);
+          sheet.emit('local::_swipeStep', false);
           $el.trigger('sheet:stepopen');
           sheet.emit('local::stepOpen sheetStepOpen', sheet);
 
@@ -352,6 +355,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
             $el.addClass('modal-in-swipe-step');
             $el.trigger('sheet:stepprogress', 0);
             sheet.emit('local::stepProgress sheetStepProgress', sheet, 0);
+            sheet.emit('local::_swipeStep', true);
             $el.trigger('sheet:stepclose');
             sheet.emit('local::stepClose sheetStepClose', sheet);
 
@@ -367,6 +371,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
           $el.addClass('modal-in-swipe-step');
           $el.trigger('sheet:stepprogress', 0);
           sheet.emit('local::stepProgress sheetStepProgress', sheet, 0);
+          sheet.emit('local::_swipeStep', true);
           $el.trigger('sheet:stepclose');
           sheet.emit('local::stepClose sheetStepClose', sheet);
 
@@ -388,6 +393,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
             $el.removeClass('modal-in-swipe-step');
             $el.trigger('sheet:stepprogress', 1);
             sheet.emit('local::stepProgress sheetStepProgress', sheet, 1);
+            sheet.emit('local::_swipeStep', false);
             $el.trigger('sheet:stepopen');
             sheet.emit('local::stepOpen sheetStepOpen', sheet);
 
@@ -408,6 +414,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
             $el.addClass('modal-in-swipe-step');
             $el.trigger('sheet:stepprogress', 0);
             sheet.emit('local::stepProgress sheetStepProgress', sheet, 0);
+            sheet.emit('local::_swipeStep', true);
             $el.trigger('sheet:stepclose');
             sheet.emit('local::stepClose sheetStepClose', sheet);
 
@@ -438,6 +445,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
 
       if (!byResize) {
         $el.addClass('modal-in-swipe-step');
+        sheet.emit('local::_swipeStep', true);
       }
     };
 
@@ -502,6 +510,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
     sheet.on('close', function () {
       if (sheet.params.swipeToStep) {
         $el.removeClass('modal-in-swipe-step');
+        sheet.emit('local::_swipeStep', false);
         app.off('resize', onResize);
       }
 
@@ -533,6 +542,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
 
     sheet.stepOpen = function stepOpen() {
       $el.removeClass('modal-in-swipe-step');
+      sheet.emit('local::_swipeStep', false);
 
       if (sheet.push) {
         if (!pushOffset) {
@@ -548,6 +558,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
 
     sheet.stepClose = function stepClose() {
       $el.addClass('modal-in-swipe-step');
+      sheet.emit('local::_swipeStep', true);
 
       if (sheet.push) {
         sheet.$htmlEl[0].style.removeProperty('--f7-sheet-push-scale');
@@ -556,6 +567,7 @@ var Sheet = /*#__PURE__*/function (_Modal) {
 
     sheet.stepToggle = function stepToggle() {
       $el.toggleClass('modal-in-swipe-step');
+      sheet.emit('local::_swipeStep', $el.hasClass('modal-in-swipe-step'));
     };
 
     $el[0].f7Modal = sheet;

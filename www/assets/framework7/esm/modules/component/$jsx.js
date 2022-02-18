@@ -6,12 +6,18 @@ var $jsx = function $jsx(type, props) {
     children[_key - 2] = arguments[_key];
   }
 
+  var flatChildren = flattenArray((children || []).filter(function (child) {
+    return ignoreChildren.indexOf(child) < 0;
+  }));
+
+  if (type === 'Fragment') {
+    return flatChildren;
+  }
+
   return {
     type: type,
     props: props || {},
-    children: flattenArray((children || []).filter(function (child) {
-      return ignoreChildren.indexOf(child) < 0;
-    }))
+    children: flatChildren
   };
 };
 

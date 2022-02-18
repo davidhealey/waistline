@@ -129,18 +129,31 @@ var Sortable = {
         var currentElOffset = $currentEl[0].offsetTop;
         var currentElHeight = $currentEl.height();
         var sortingElOffset = sortingElOffsetLocal + translate;
+        var currentTranslate;
+        var prevTranslate = $currentEl[0].f7Translate;
 
         if (sortingElOffset >= currentElOffset - currentElHeight / 2 && $sortingEl.index() < $currentEl.index()) {
-          $currentEl.transform("translate3d(0, " + -sortingElHeight + "px,0)");
+          currentTranslate = -sortingElHeight;
+          $currentEl.transform("translate3d(0, " + currentTranslate + "px,0)");
           $insertAfterEl = $currentEl;
           $insertBeforeEl = undefined;
         } else if (sortingElOffset <= currentElOffset + currentElHeight / 2 && $sortingEl.index() > $currentEl.index()) {
-          $currentEl.transform("translate3d(0, " + sortingElHeight + "px,0)");
+          currentTranslate = sortingElHeight;
+          $currentEl[0].f7Translate = currentTranslate;
+          $currentEl.transform("translate3d(0, " + currentTranslate + "px,0)");
           $insertAfterEl = undefined;
           if (!$insertBeforeEl) $insertBeforeEl = $currentEl;
         } else {
+          currentTranslate = undefined;
           $currentEl.transform('translate3d(0, 0%,0)');
         }
+
+        if (prevTranslate !== currentTranslate) {
+          $currentEl.trigger('sortable:move');
+          app.emit('sortableMove', $currentEl[0], $sortableContainer[0]);
+        }
+
+        $currentEl[0].f7Translate = currentTranslate;
       });
     }
 

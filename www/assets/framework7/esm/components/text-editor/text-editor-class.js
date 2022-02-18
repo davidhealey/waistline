@@ -1,6 +1,8 @@
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 import { getWindow, getDocument } from 'ssr-window';
 import $ from '../../shared/dom7';
@@ -233,6 +235,10 @@ var TextEditor = /*#__PURE__*/function (_Framework7Class) {
       if (link && link.trim().length) {
         self.setSelectionRange(currentRange);
         document.execCommand('createLink', false, link.trim());
+        self.$el.trigger('texteditor:insertlink', {
+          url: link.trim()
+        });
+        self.emit('local:insertLink textEditorInsertLink', self, link.trim());
       }
     });
     dialog.$el.find('input').focus();
@@ -248,6 +254,10 @@ var TextEditor = /*#__PURE__*/function (_Framework7Class) {
       if (imageUrl && imageUrl.trim().length) {
         self.setSelectionRange(currentRange);
         document.execCommand('insertImage', false, imageUrl.trim());
+        self.$el.trigger('texteditor:insertimage', {
+          url: imageUrl.trim()
+        });
+        self.emit('local:insertImage textEditorInsertImage', self, imageUrl.trim());
       }
     });
     dialog.$el.find('input').focus();
@@ -489,16 +499,13 @@ var TextEditor = /*#__PURE__*/function (_Framework7Class) {
 
   _proto.createKeyboardToolbar = function createKeyboardToolbar() {
     var self = this;
-    var device = getDevice();
-    var isDark = self.$el.closest('.theme-dark').length > 0 || device.prefersColorScheme() === 'dark';
-    self.$keyboardToolbarEl = $("<div class=\"toolbar toolbar-bottom text-editor-keyboard-toolbar " + (isDark ? 'theme-dark' : '') + "\"><div class=\"toolbar-inner\">" + self.renderButtons() + "</div></div>");
+    self.$keyboardToolbarEl = $("<div class=\"toolbar toolbar-bottom text-editor-keyboard-toolbar\"><div class=\"toolbar-inner\">" + self.renderButtons() + "</div></div>");
   };
 
   _proto.createPopover = function createPopover() {
     var self = this;
-    var isDark = self.$el.closest('.theme-dark').length > 0;
     self.popover = self.app.popover.create({
-      content: "\n        <div class=\"popover " + (isDark ? 'theme-light' : 'theme-dark') + " text-editor-popover\">\n          <div class=\"popover-inner\">" + self.renderButtons() + "</div>\n        </div>\n      ",
+      content: "\n        <div class=\"popover theme-dark text-editor-popover\">\n          <div class=\"popover-inner\">" + self.renderButtons() + "</div>\n        </div>\n      ",
       closeByOutsideClick: false,
       backdrop: false
     });

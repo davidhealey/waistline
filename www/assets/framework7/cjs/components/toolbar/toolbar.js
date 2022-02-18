@@ -12,8 +12,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Toolbar = {
   setHighlight: function setHighlight(tabbarEl) {
     var app = this;
-    if (app.theme === 'ios') return;
     var $tabbarEl = (0, _dom.default)(tabbarEl);
+    if (app.theme === 'ios' && !$tabbarEl.hasClass('tabbar-highlight')) return;
     if ($tabbarEl.length === 0 || !($tabbarEl.hasClass('tabbar') || $tabbarEl.hasClass('tabbar-labels'))) return;
     var $highlightEl = $tabbarEl.find('.tab-link-highlight');
     var tabLinksCount = $tabbarEl.find('.tab-link').length;

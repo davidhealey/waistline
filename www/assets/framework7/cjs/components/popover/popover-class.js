@@ -17,7 +17,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var Popover = /*#__PURE__*/function (_Modal) {
   _inheritsLoose(Popover, _Modal);
@@ -131,6 +133,11 @@ var Popover = /*#__PURE__*/function (_Modal) {
         (0, _dom.default)(window).off('keyboardDidShow keyboardDidHide', handleResize);
       });
     });
+    var touchStartTarget = null;
+
+    function handleTouchStart(e) {
+      touchStartTarget = e.target;
+    }
 
     function handleClick(e) {
       var target = e.target;
@@ -139,9 +146,9 @@ var Popover = /*#__PURE__*/function (_Modal) {
       if (keyboardOpened) return;
 
       if ($target.closest(popover.el).length === 0) {
-        if (popover.params.closeByBackdropClick && popover.params.backdrop && popover.backdropEl && popover.backdropEl === target) {
+        if (popover.params.closeByBackdropClick && popover.params.backdrop && popover.backdropEl && popover.backdropEl === target && touchStartTarget === target) {
           popover.close();
-        } else if (popover.params.closeByOutsideClick) {
+        } else if (popover.params.closeByOutsideClick && touchStartTarget === target) {
           popover.close();
         }
       }
@@ -166,11 +173,13 @@ var Popover = /*#__PURE__*/function (_Modal) {
 
     popover.on('popoverOpened', function () {
       if (popover.params.closeByOutsideClick || popover.params.closeByBackdropClick) {
+        app.on('touchstart', handleTouchStart);
         app.on('click', handleClick);
       }
     });
     popover.on('popoverClose', function () {
       if (popover.params.closeByOutsideClick || popover.params.closeByBackdropClick) {
+        app.off('touchstart', handleTouchStart);
         app.off('click', handleClick);
       }
     });

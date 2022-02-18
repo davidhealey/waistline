@@ -3,8 +3,8 @@ import { nextFrame, bindMethods } from '../../shared/utils';
 var Toolbar = {
   setHighlight: function setHighlight(tabbarEl) {
     var app = this;
-    if (app.theme === 'ios') return;
     var $tabbarEl = $(tabbarEl);
+    if (app.theme === 'ios' && !$tabbarEl.hasClass('tabbar-highlight')) return;
     if ($tabbarEl.length === 0 || !($tabbarEl.hasClass('tabbar') || $tabbarEl.hasClass('tabbar-labels'))) return;
     var $highlightEl = $tabbarEl.find('.tab-link-highlight');
     var tabLinksCount = $tabbarEl.find('.tab-link').length;

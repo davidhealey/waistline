@@ -233,12 +233,11 @@ var Tab = {
       if ($tabLinkEl && $tabLinkEl.length > 0) {
         $tabLinkEl.addClass('tab-link-active'); // Material Highlight
 
-        if (app.theme !== 'ios' && app.toolbar) {
-          var $tabbarEl = $tabLinkEl.parents('.tabbar, .tabbar-labels');
+        var $tabbarEl = $tabLinkEl.parents('.tabbar, .tabbar-labels');
+        var hasHighlight = app.toolbar && $tabbarEl.length > 0 && ($tabbarEl.hasClass('tabbar-highlight') || app.theme !== 'ios');
 
-          if ($tabbarEl.length > 0) {
-            app.toolbar.setHighlight($tabbarEl);
-          }
+        if (hasHighlight) {
+          app.toolbar.setHighlight($tabbarEl);
         }
       }
     }

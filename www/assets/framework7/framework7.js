@@ -1,13 +1,13 @@
 /**
- * Framework7 6.0.12
+ * Framework7 6.3.16
  * Full featured mobile HTML framework for building iOS & Android apps
  * https://framework7.io/
  *
- * Copyright 2014-2021 Vladimir Kharlampidi
+ * Copyright 2014-2022 Vladimir Kharlampidi
  *
  * Released under the MIT License
  *
- * Released on: March 5, 2021
+ * Released on: February 10, 2022
  */
 
 (function (global, factory) {
@@ -29,11 +29,11 @@
      */
 
     /* eslint-disable no-param-reassign */
-    function isObject(obj) {
+    function isObject$1(obj) {
       return obj !== null && typeof obj === 'object' && 'constructor' in obj && obj.constructor === Object;
     }
 
-    function extend(target, src) {
+    function extend$1(target, src) {
       if (target === void 0) {
         target = {};
       }
@@ -43,8 +43,8 @@
       }
 
       Object.keys(src).forEach(function (key) {
-        if (typeof target[key] === 'undefined') target[key] = src[key];else if (isObject(src[key]) && isObject(target[key]) && Object.keys(src[key]).length > 0) {
-          extend(target[key], src[key]);
+        if (typeof target[key] === 'undefined') target[key] = src[key];else if (isObject$1(src[key]) && isObject$1(target[key]) && Object.keys(src[key]).length > 0) {
+          extend$1(target[key], src[key]);
         }
       });
     }
@@ -102,7 +102,7 @@
 
     function getDocument() {
       var doc = typeof document !== 'undefined' ? document : {};
-      extend(doc, ssrDocument);
+      extend$1(doc, ssrDocument);
       return doc;
     }
 
@@ -166,7 +166,7 @@
 
     function getWindow() {
       var win = typeof window !== 'undefined' ? window : {};
-      extend(win, ssrWindow);
+      extend$1(win, ssrWindow);
       return win;
     }
 
@@ -182,29 +182,29 @@
      * Released on: November 9, 2020
      */
 
-    function _inheritsLoose(subClass, superClass) {
+    function _inheritsLoose$1(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
       subClass.prototype.constructor = subClass;
       subClass.__proto__ = superClass;
     }
 
-    function _getPrototypeOf(o) {
-      _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    function _getPrototypeOf$1(o) {
+      _getPrototypeOf$1 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
         return o.__proto__ || Object.getPrototypeOf(o);
       };
-      return _getPrototypeOf(o);
+      return _getPrototypeOf$1(o);
     }
 
-    function _setPrototypeOf(o, p) {
-      _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    function _setPrototypeOf$1(o, p) {
+      _setPrototypeOf$1 = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
         o.__proto__ = p;
         return o;
       };
 
-      return _setPrototypeOf(o, p);
+      return _setPrototypeOf$1(o, p);
     }
 
-    function _isNativeReflectConstruct() {
+    function _isNativeReflectConstruct$1() {
       if (typeof Reflect === "undefined" || !Reflect.construct) return false;
       if (Reflect.construct.sham) return false;
       if (typeof Proxy === "function") return true;
@@ -217,32 +217,32 @@
       }
     }
 
-    function _construct(Parent, args, Class) {
-      if (_isNativeReflectConstruct()) {
-        _construct = Reflect.construct;
+    function _construct$1(Parent, args, Class) {
+      if (_isNativeReflectConstruct$1()) {
+        _construct$1 = Reflect.construct;
       } else {
-        _construct = function _construct(Parent, args, Class) {
+        _construct$1 = function _construct(Parent, args, Class) {
           var a = [null];
           a.push.apply(a, args);
           var Constructor = Function.bind.apply(Parent, a);
           var instance = new Constructor();
-          if (Class) _setPrototypeOf(instance, Class.prototype);
+          if (Class) _setPrototypeOf$1(instance, Class.prototype);
           return instance;
         };
       }
 
-      return _construct.apply(null, arguments);
+      return _construct$1.apply(null, arguments);
     }
 
-    function _isNativeFunction(fn) {
+    function _isNativeFunction$1(fn) {
       return Function.toString.call(fn).indexOf("[native code]") !== -1;
     }
 
-    function _wrapNativeSuper(Class) {
+    function _wrapNativeSuper$1(Class) {
       var _cache = typeof Map === "function" ? new Map() : undefined;
 
-      _wrapNativeSuper = function _wrapNativeSuper(Class) {
-        if (Class === null || !_isNativeFunction(Class)) return Class;
+      _wrapNativeSuper$1 = function _wrapNativeSuper(Class) {
+        if (Class === null || !_isNativeFunction$1(Class)) return Class;
 
         if (typeof Class !== "function") {
           throw new TypeError("Super expression must either be null or a function");
@@ -255,7 +255,7 @@
         }
 
         function Wrapper() {
-          return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+          return _construct$1(Class, arguments, _getPrototypeOf$1(this).constructor);
         }
 
         Wrapper.prototype = Object.create(Class.prototype, {
@@ -266,13 +266,13 @@
             configurable: true
           }
         });
-        return _setPrototypeOf(Wrapper, Class);
+        return _setPrototypeOf$1(Wrapper, Class);
       };
 
-      return _wrapNativeSuper(Class);
+      return _wrapNativeSuper$1(Class);
     }
 
-    function _assertThisInitialized(self) {
+    function _assertThisInitialized$1(self) {
       if (self === void 0) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
       }
@@ -295,18 +295,18 @@
     }
 
     var Dom7 = /*#__PURE__*/function (_Array) {
-      _inheritsLoose(Dom7, _Array);
+      _inheritsLoose$1(Dom7, _Array);
 
       function Dom7(items) {
         var _this;
 
         _this = _Array.call.apply(_Array, [this].concat(items)) || this;
-        makeReactive(_assertThisInitialized(_this));
+        makeReactive(_assertThisInitialized$1(_this));
         return _this;
       }
 
       return Dom7;
-    }( /*#__PURE__*/_wrapNativeSuper(Array));
+    }( /*#__PURE__*/_wrapNativeSuper$1(Array));
 
     function arrayFlat(arr) {
       if (arr === void 0) {
@@ -338,7 +338,7 @@
       return uniqueArray;
     }
 
-    function toCamelCase(string) {
+    function toCamelCase$1(string) {
       return string.toLowerCase().replace(/-(.)/g, function (match, group) {
         return group.toUpperCase();
       });
@@ -359,7 +359,7 @@
       return a;
     }
 
-    function $(selector, context) {
+    function $$1(selector, context) {
       var window = getWindow();
       var document = getDocument();
       var arr = [];
@@ -402,7 +402,7 @@
       return new Dom7(arrayUnique(arr));
     }
 
-    $.fn = Dom7.prototype;
+    $$1.fn = Dom7.prototype;
 
     function addClass() {
       for (var _len = arguments.length, classes = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -577,7 +577,7 @@
           var _attr = el.attributes[i];
 
           if (_attr.name.indexOf('data-') >= 0) {
-            dataset[toCamelCase(_attr.name.split('data-')[1])] = _attr.value;
+            dataset[toCamelCase$1(_attr.name.split('data-')[1])] = _attr.value;
           }
         }
       }
@@ -672,12 +672,12 @@
           eventData.unshift(e);
         }
 
-        if ($(target).is(targetSelector)) listener.apply(target, eventData);else {
-          var _parents = $(target).parents(); // eslint-disable-line
+        if ($$1(target).is(targetSelector)) listener.apply(target, eventData);else {
+          var _parents = $$1(target).parents(); // eslint-disable-line
 
 
           for (var k = 0; k < _parents.length; k += 1) {
-            if ($(_parents[k]).is(targetSelector)) listener.apply(_parents[k], eventData);
+            if ($$1(_parents[k]).is(targetSelector)) listener.apply(_parents[k], eventData);
           }
         }
       }
@@ -1038,7 +1038,7 @@
 
     function filter(callback) {
       var result = arrayFilter(this, callback);
-      return $(result);
+      return $$1(result);
     }
 
     function html(html) {
@@ -1077,7 +1077,7 @@
         if (el.matches) return el.matches(selector);
         if (el.webkitMatchesSelector) return el.webkitMatchesSelector(selector);
         if (el.msMatchesSelector) return el.msMatchesSelector(selector);
-        compareWith = $(selector);
+        compareWith = $$1(selector);
 
         for (i = 0; i < compareWith.length; i += 1) {
           if (compareWith[i] === el) return true;
@@ -1129,16 +1129,16 @@
       var length = this.length;
 
       if (index > length - 1) {
-        return $([]);
+        return $$1([]);
       }
 
       if (index < 0) {
         var returnIndex = length + index;
-        if (returnIndex < 0) return $([]);
-        return $([this[returnIndex]]);
+        if (returnIndex < 0) return $$1([]);
+        return $$1([this[returnIndex]]);
       }
 
-      return $([this[index]]);
+      return $$1([this[index]]);
     }
 
     function append() {
@@ -1170,7 +1170,7 @@
     }
 
     function appendTo(parent) {
-      $(parent).append(this);
+      $$1(parent).append(this);
       return this;
     }
 
@@ -1200,12 +1200,12 @@
     }
 
     function prependTo(parent) {
-      $(parent).prepend(this);
+      $$1(parent).prepend(this);
       return this;
     }
 
-    function insertBefore(selector) {
-      var before = $(selector);
+    function insertBefore$1(selector) {
+      var before = $$1(selector);
 
       for (var i = 0; i < this.length; i += 1) {
         if (before.length === 1) {
@@ -1219,7 +1219,7 @@
     }
 
     function insertAfter(selector) {
-      var after = $(selector);
+      var after = $$1(selector);
 
       for (var i = 0; i < this.length; i += 1) {
         if (after.length === 1) {
@@ -1235,36 +1235,36 @@
     function next(selector) {
       if (this.length > 0) {
         if (selector) {
-          if (this[0].nextElementSibling && $(this[0].nextElementSibling).is(selector)) {
-            return $([this[0].nextElementSibling]);
+          if (this[0].nextElementSibling && $$1(this[0].nextElementSibling).is(selector)) {
+            return $$1([this[0].nextElementSibling]);
           }
 
-          return $([]);
+          return $$1([]);
         }
 
-        if (this[0].nextElementSibling) return $([this[0].nextElementSibling]);
-        return $([]);
+        if (this[0].nextElementSibling) return $$1([this[0].nextElementSibling]);
+        return $$1([]);
       }
 
-      return $([]);
+      return $$1([]);
     }
 
     function nextAll(selector) {
       var nextEls = [];
       var el = this[0];
-      if (!el) return $([]);
+      if (!el) return $$1([]);
 
       while (el.nextElementSibling) {
         var _next = el.nextElementSibling; // eslint-disable-line
 
         if (selector) {
-          if ($(_next).is(selector)) nextEls.push(_next);
+          if ($$1(_next).is(selector)) nextEls.push(_next);
         } else nextEls.push(_next);
 
         el = _next;
       }
 
-      return $(nextEls);
+      return $$1(nextEls);
     }
 
     function prev(selector) {
@@ -1272,36 +1272,36 @@
         var el = this[0];
 
         if (selector) {
-          if (el.previousElementSibling && $(el.previousElementSibling).is(selector)) {
-            return $([el.previousElementSibling]);
+          if (el.previousElementSibling && $$1(el.previousElementSibling).is(selector)) {
+            return $$1([el.previousElementSibling]);
           }
 
-          return $([]);
+          return $$1([]);
         }
 
-        if (el.previousElementSibling) return $([el.previousElementSibling]);
-        return $([]);
+        if (el.previousElementSibling) return $$1([el.previousElementSibling]);
+        return $$1([]);
       }
 
-      return $([]);
+      return $$1([]);
     }
 
     function prevAll(selector) {
       var prevEls = [];
       var el = this[0];
-      if (!el) return $([]);
+      if (!el) return $$1([]);
 
       while (el.previousElementSibling) {
         var _prev = el.previousElementSibling; // eslint-disable-line
 
         if (selector) {
-          if ($(_prev).is(selector)) prevEls.push(_prev);
+          if ($$1(_prev).is(selector)) prevEls.push(_prev);
         } else prevEls.push(_prev);
 
         el = _prev;
       }
 
-      return $(prevEls);
+      return $$1(prevEls);
     }
 
     function siblings(selector) {
@@ -1314,14 +1314,14 @@
       for (var i = 0; i < this.length; i += 1) {
         if (this[i].parentNode !== null) {
           if (selector) {
-            if ($(this[i].parentNode).is(selector)) parents.push(this[i].parentNode);
+            if ($$1(this[i].parentNode).is(selector)) parents.push(this[i].parentNode);
           } else {
             parents.push(this[i].parentNode);
           }
         }
       }
 
-      return $(parents);
+      return $$1(parents);
     }
 
     function parents(selector) {
@@ -1332,7 +1332,7 @@
 
         while (_parent) {
           if (selector) {
-            if ($(_parent).is(selector)) parents.push(_parent);
+            if ($$1(_parent).is(selector)) parents.push(_parent);
           } else {
             parents.push(_parent);
           }
@@ -1341,14 +1341,14 @@
         }
       }
 
-      return $(parents);
+      return $$1(parents);
     }
 
     function closest(selector) {
       var closest = this; // eslint-disable-line
 
       if (typeof selector === 'undefined') {
-        return $([]);
+        return $$1([]);
       }
 
       if (!closest.is(selector)) {
@@ -1369,7 +1369,7 @@
         }
       }
 
-      return $(foundElements);
+      return $$1(foundElements);
     }
 
     function children(selector) {
@@ -1379,13 +1379,13 @@
         var childNodes = this[i].children;
 
         for (var j = 0; j < childNodes.length; j += 1) {
-          if (!selector || $(childNodes[j]).is(selector)) {
+          if (!selector || $$1(childNodes[j]).is(selector)) {
             children.push(childNodes[j]);
           }
         }
       }
 
-      return $(children);
+      return $$1(children);
     }
 
     function remove() {
@@ -1410,7 +1410,7 @@
       }
 
       for (i = 0; i < els.length; i += 1) {
-        var toAdd = $(els[i]);
+        var toAdd = $$1(els[i]);
 
         for (j = 0; j < toAdd.length; j += 1) {
           dom.push(toAdd[j]);
@@ -1825,7 +1825,7 @@
           for (var i = 0; i < this.length; i += 1) {
             if (noTrigger.indexOf(name) < 0) {
               if (name in this[i]) this[i][name]();else {
-                $(this[i]).trigger(name);
+                $$1(this[i]).trigger(name);
               }
             }
           }
@@ -1864,8 +1864,8 @@
 
     var methods = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        'default': $,
-        $: $,
+        'default': $$1,
+        $: $$1,
         add: add,
         addClass: addClass,
         animate: animate,
@@ -1896,7 +1896,7 @@
         html: html,
         index: index,
         insertAfter: insertAfter,
-        insertBefore: insertBefore,
+        insertBefore: insertBefore$1,
         is: is,
         keydown: keydown,
         keypress: keypress,
@@ -1953,9 +1953,9 @@
 
     Object.keys(methods).forEach(function (methodName) {
       if (methodName === '$') return;
-      $.fn[methodName] = methods[methodName];
+      $$1.fn[methodName] = methods[methodName];
     });
-    var $$1 = $;
+    var $ = $$1;
 
     function _defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
@@ -1991,67 +1991,68 @@
       return _extends.apply(this, arguments);
     }
 
-    function _inheritsLoose$1(subClass, superClass) {
+    function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
       subClass.prototype.constructor = subClass;
-      subClass.__proto__ = superClass;
+
+      _setPrototypeOf(subClass, superClass);
     }
 
-    function _getPrototypeOf$1(o) {
-      _getPrototypeOf$1 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    function _getPrototypeOf(o) {
+      _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
         return o.__proto__ || Object.getPrototypeOf(o);
       };
-      return _getPrototypeOf$1(o);
+      return _getPrototypeOf(o);
     }
 
-    function _setPrototypeOf$1(o, p) {
-      _setPrototypeOf$1 = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    function _setPrototypeOf(o, p) {
+      _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
         o.__proto__ = p;
         return o;
       };
 
-      return _setPrototypeOf$1(o, p);
+      return _setPrototypeOf(o, p);
     }
 
-    function _isNativeReflectConstruct$1() {
+    function _isNativeReflectConstruct() {
       if (typeof Reflect === "undefined" || !Reflect.construct) return false;
       if (Reflect.construct.sham) return false;
       if (typeof Proxy === "function") return true;
 
       try {
-        Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+        Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
         return true;
       } catch (e) {
         return false;
       }
     }
 
-    function _construct$1(Parent, args, Class) {
-      if (_isNativeReflectConstruct$1()) {
-        _construct$1 = Reflect.construct;
+    function _construct(Parent, args, Class) {
+      if (_isNativeReflectConstruct()) {
+        _construct = Reflect.construct;
       } else {
-        _construct$1 = function _construct(Parent, args, Class) {
+        _construct = function _construct(Parent, args, Class) {
           var a = [null];
           a.push.apply(a, args);
           var Constructor = Function.bind.apply(Parent, a);
           var instance = new Constructor();
-          if (Class) _setPrototypeOf$1(instance, Class.prototype);
+          if (Class) _setPrototypeOf(instance, Class.prototype);
           return instance;
         };
       }
 
-      return _construct$1.apply(null, arguments);
+      return _construct.apply(null, arguments);
     }
 
-    function _isNativeFunction$1(fn) {
+    function _isNativeFunction(fn) {
       return Function.toString.call(fn).indexOf("[native code]") !== -1;
     }
 
-    function _wrapNativeSuper$1(Class) {
+    function _wrapNativeSuper(Class) {
       var _cache = typeof Map === "function" ? new Map() : undefined;
 
-      _wrapNativeSuper$1 = function _wrapNativeSuper(Class) {
-        if (Class === null || !_isNativeFunction$1(Class)) return Class;
+      _wrapNativeSuper = function _wrapNativeSuper(Class) {
+        if (Class === null || !_isNativeFunction(Class)) return Class;
 
         if (typeof Class !== "function") {
           throw new TypeError("Super expression must either be null or a function");
@@ -2064,7 +2065,7 @@
         }
 
         function Wrapper() {
-          return _construct$1(Class, arguments, _getPrototypeOf$1(this).constructor);
+          return _construct(Class, arguments, _getPrototypeOf(this).constructor);
         }
 
         Wrapper.prototype = Object.create(Class.prototype, {
@@ -2075,13 +2076,13 @@
             configurable: true
           }
         });
-        return _setPrototypeOf$1(Wrapper, Class);
+        return _setPrototypeOf(Wrapper, Class);
       };
 
-      return _wrapNativeSuper$1(Class);
+      return _wrapNativeSuper(Class);
     }
 
-    function _assertThisInitialized$1(self) {
+    function _assertThisInitialized(self) {
       if (self === void 0) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
       }
@@ -2090,7 +2091,7 @@
     }
 
     function _readOnlyError(name) {
-      throw new Error("\"" + name + "\" is read-only");
+      throw new TypeError("\"" + name + "\" is read-only");
     }
 
     var uniqueNum = 0;
@@ -2157,7 +2158,7 @@
 
       return setTimeout(callback, delay);
     }
-    function nextFrame(callback) {
+    function nextFrame$1(callback) {
       return requestAnimationFrame(function () {
         requestAnimationFrame(callback);
       });
@@ -2294,7 +2295,7 @@
       });
       return resultArray.join(separator);
     }
-    function isObject$1(o) {
+    function isObject(o) {
       return typeof o === 'object' && o !== null && o.constructor && o.constructor === Object;
     }
     function merge() {
@@ -2325,7 +2326,7 @@
 
       return to;
     }
-    function extend$1() {
+    function extend() {
       var deep = true;
       var to;
       var from;
@@ -2358,11 +2359,11 @@
             if (desc !== undefined && desc.enumerable) {
               if (!deep) {
                 to[nextKey] = nextSource[nextKey];
-              } else if (isObject$1(to[nextKey]) && isObject$1(nextSource[nextKey])) {
-                extend$1(to[nextKey], nextSource[nextKey]);
-              } else if (!isObject$1(to[nextKey]) && isObject$1(nextSource[nextKey])) {
+              } else if (isObject(to[nextKey]) && isObject(nextSource[nextKey])) {
+                extend(to[nextKey], nextSource[nextKey]);
+              } else if (!isObject(to[nextKey]) && isObject(nextSource[nextKey])) {
                 to[nextKey] = {};
-                extend$1(to[nextKey], nextSource[nextKey]);
+                extend(to[nextKey], nextSource[nextKey]);
               } else {
                 to[nextKey] = nextSource[nextKey];
               }
@@ -2483,7 +2484,7 @@
     }
     function bindMethods(instance, obj) {
       Object.keys(obj).forEach(function (key) {
-        if (isObject$1(obj[key])) {
+        if (isObject(obj[key])) {
           Object.keys(obj[key]).forEach(function (subKey) {
             if (typeof obj[key][subKey] === 'function') {
               obj[key][subKey] = obj[key][subKey].bind(instance);
@@ -2519,14 +2520,14 @@
         requestAnimationFrame: requestAnimationFrame,
         cancelAnimationFrame: cancelAnimationFrame,
         nextTick: nextTick,
-        nextFrame: nextFrame,
+        nextFrame: nextFrame$1,
         now: now,
         parseUrlQuery: parseUrlQuery,
         getTranslate: getTranslate,
         serializeObject: serializeObject,
-        isObject: isObject$1,
+        isObject: isObject,
         merge: merge,
-        extend: extend$1,
+        extend: extend,
         colorHexToRgb: colorHexToRgb,
         colorRgbToHex: colorRgbToHex,
         colorRgbToHsl: colorRgbToHsl,
@@ -2611,7 +2612,7 @@
 
       var ipad = ua.match(/(iPad).*OS\s([\d_]+)/);
       var ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/);
-      var iphone = !ipad && ua.match(/(iPhone\sOS|iOS)\s([\d_]+)/);
+      var iphone = !ipad && ua.match(/(iPhone\sOS|iOS|iPhone;\sCPU\sOS)\s([\d_]+)/);
       var ie = ua.indexOf('MSIE ') >= 0 || ua.indexOf('Trident/') >= 0;
       var edge = ua.indexOf('Edge/') >= 0;
       var firefox = ua.indexOf('Gecko/') >= 0 && ua.indexOf('Firefox/') >= 0;
@@ -2632,7 +2633,7 @@
       device.edge = edge;
       device.firefox = firefox; // Android
 
-      if (android && !windows) {
+      if (android) {
         device.os = 'android';
         device.osVersion = android[2];
         device.android = true;
@@ -2844,7 +2845,7 @@
     }();
 
     var Framework7Class = /*#__PURE__*/function (_EventsClass) {
-      _inheritsLoose$1(Framework7Class, _EventsClass);
+      _inheritsLoose(Framework7Class, _EventsClass);
 
       function Framework7Class(params, parents) {
         var _this;
@@ -2859,7 +2860,7 @@
 
         _this = _EventsClass.call(this, parents) || this;
 
-        var self = _assertThisInitialized$1(_this);
+        var self = _assertThisInitialized(_this);
 
         self.params = params;
 
@@ -2880,11 +2881,11 @@
           var originalParams = {};
           Object.keys(module.params).forEach(function (paramKey) {
             if (typeof instanceParams[paramKey] === 'undefined') return;
-            originalParams[paramKey] = extend$1({}, instanceParams[paramKey]);
+            originalParams[paramKey] = extend({}, instanceParams[paramKey]);
           });
-          extend$1(instanceParams, module.params);
+          extend(instanceParams, module.params);
           Object.keys(originalParams).forEach(function (paramKey) {
-            extend$1(instanceParams[paramKey], originalParams[paramKey]);
+            extend(instanceParams[paramKey], originalParams[paramKey]);
           });
         }
       };
@@ -2896,7 +2897,7 @@
           var module = instance.modules[moduleName]; // Extend params
 
           if (module.params) {
-            extend$1(instanceParams, module.params);
+            extend(instanceParams, module.params);
           }
         });
       };
@@ -3043,8 +3044,8 @@
             args[_key] = arguments[_key];
           }
 
-          if (app) return _construct$1(Constructor, [app].concat(args));
-          return _construct$1(Constructor, args);
+          if (app) return _construct(Constructor, [app].concat(args));
+          return _construct(Constructor, args);
         },
         get: function get(el) {
           if (el === void 0) {
@@ -3052,7 +3053,7 @@
           }
 
           if (el instanceof Constructor) return el;
-          var $el = $$1(el);
+          var $el = $(el);
           if ($el.length === 0) return undefined;
           return $el[0][domProp];
         },
@@ -3094,22 +3095,22 @@
           defaultSelector = _parameters.defaultSelector,
           Constructor = _parameters.constructor,
           app = _parameters.app;
-      var methods = extend$1(ConstructorMethods({
+      var methods = extend(ConstructorMethods({
         defaultSelector: defaultSelector,
         constructor: Constructor,
         app: app,
         domProp: 'f7Modal'
       }), {
         open: function open(el, animate, targetEl) {
-          var $el = $$1(el);
+          var $el = $(el);
 
           if ($el.length > 1 && targetEl) {
             // check if same modal in other page
-            var $targetPage = $$1(targetEl).parents('.page');
+            var $targetPage = $(targetEl).parents('.page');
 
             if ($targetPage.length) {
               $el.each(function (modalEl) {
-                var $modalEl = $$1(modalEl);
+                var $modalEl = $(modalEl);
 
                 if ($modalEl.parents($targetPage)[0] === $targetPage[0]) {
                   $el = $modalEl;
@@ -3139,7 +3140,7 @@
             el = defaultSelector;
           }
 
-          var $el = $$1(el);
+          var $el = $(el);
           if (!$el.length) return undefined;
 
           if ($el.length > 1) {
@@ -3147,7 +3148,7 @@
             var $parentEl;
 
             if (targetEl) {
-              var $targetEl = $$1(targetEl);
+              var $targetEl = $(targetEl);
 
               if ($targetEl.length) {
                 $parentEl = $targetEl.parents($el);
@@ -3273,10 +3274,10 @@
               var callbackLoadName = "f7_component_loader_callback_" + callbackId;
               var scriptEl = document.createElement('script');
               scriptEl.innerHTML = "window." + callbackLoadName + " = function (Framework7, Framework7AutoInstallComponent) {return " + scriptContent.trim() + "}";
-              $$1('head').append(scriptEl);
+              $('head').append(scriptEl);
               var componentLoader = window[callbackLoadName];
               delete window[callbackLoadName];
-              $$1(scriptEl).remove();
+              $(scriptEl).remove();
               var module = componentLoader(Framework7, false);
 
               if (!module) {
@@ -3301,7 +3302,7 @@
             Framework7.request.get(modulePath.replace('.js', app.rtl ? '.rtl.css' : '.css'), function (styleContent) {
               var styleEl = document.createElement('style');
               styleEl.innerHTML = styleContent;
-              $$1('head').append(styleEl);
+              $('head').append(styleEl);
               resolveStyle();
             }, function () {
               resolveStyle();
@@ -3317,7 +3318,7 @@
     }
 
     var Framework7 = /*#__PURE__*/function (_Framework7Class) {
-      _inheritsLoose$1(Framework7, _Framework7Class);
+      _inheritsLoose(Framework7, _Framework7Class);
 
       function Framework7(params) {
         var _this;
@@ -3336,9 +3337,9 @@
           userAgent: params.userAgent || undefined
         });
         var support = getSupport();
-        var passedParams = extend$1({}, params); // App Instance
+        var passedParams = extend({}, params); // App Instance
 
-        var app = _assertThisInitialized$1(_this);
+        var app = _assertThisInitialized(_this);
 
         app.device = device;
         app.support = support;
@@ -3368,8 +3369,8 @@
 
         app.useModulesParams(defaults); // Extend defaults with passed params
 
-        app.params = extend$1(defaults, params);
-        extend$1(app, {
+        app.params = extend(defaults, params);
+        extend(app, {
           // App Id
           id: app.params.id,
           // App Name
@@ -3407,7 +3408,7 @@
 
         if (app.params.init) {
           if (device.cordova && app.params.initOnDeviceReady) {
-            $$1(d).on('deviceready', function () {
+            $(d).on('deviceready', function () {
               app.init();
             });
           } else {
@@ -3416,7 +3417,7 @@
         } // Return app instance
 
 
-        return app || _assertThisInitialized$1(_this);
+        return app || _assertThisInitialized(_this);
       }
 
       var _proto = Framework7.prototype;
@@ -3425,7 +3426,7 @@
         var app = this;
         var window = getWindow();
         var document = getDocument();
-        var $rootEl = $$1(rootEl || app.params.el).eq(0);
+        var $rootEl = $(rootEl || app.params.el).eq(0);
         app.$el = $rootEl;
 
         if (app.$el && app.$el[0]) {
@@ -3516,7 +3517,7 @@
             el: app.$el[0]
           }
         }, function (el) {
-          app.$el = $$1(el);
+          app.$el = $(el);
           app.$el[0].f7 = app;
           app.$elComponent = el.f7Component;
           app.el = app.$el[0];
@@ -3533,7 +3534,7 @@
           app.$el.addClass('framework7-initializing'); // RTL attr
 
           if (app.rtl) {
-            $$1('html').attr('dir', 'rtl');
+            $('html').attr('dir', 'rtl');
           } // Auto Dark Theme
 
 
@@ -3556,20 +3557,20 @@
 
           app.$el.addClass('framework7-root'); // Theme class
 
-          $$1('html').removeClass('ios md aurora').addClass(app.theme); // iOS Translucent
+          $('html').removeClass('ios md aurora').addClass(app.theme); // iOS Translucent
 
           var device = app.device;
 
           if (app.params.iosTranslucentBars && app.theme === 'ios' && device.ios) {
-            $$1('html').addClass('ios-translucent-bars');
+            $('html').addClass('ios-translucent-bars');
           }
 
           if (app.params.iosTranslucentModals && app.theme === 'ios' && device.ios) {
-            $$1('html').addClass('ios-translucent-modals');
+            $('html').addClass('ios-translucent-modals');
           } // Init class
 
 
-          nextFrame(function () {
+          nextFrame$1(function () {
             app.$el.removeClass('framework7-initializing');
           }); // Emit, init other modules
 
@@ -3608,17 +3609,17 @@
       _createClass(Framework7, [{
         key: "$",
         get: function get() {
-          return $$1;
+          return $;
         }
       }], [{
         key: "Dom7",
         get: function get() {
-          return $$1;
+          return $;
         }
       }, {
         key: "$",
         get: function get() {
-          return $$1;
+          return $;
         }
       }, {
         key: "device",
@@ -3790,28 +3791,28 @@
     };
 
     var RequestError = /*#__PURE__*/function (_Error) {
-      _inheritsLoose$1(RequestError, _Error);
+      _inheritsLoose(RequestError, _Error);
 
       function RequestError(obj) {
         var _this;
 
         _this = _Error.call(this) || this;
-        Object.assign(_assertThisInitialized$1(_this), obj);
+        Object.assign(_assertThisInitialized(_this), obj);
         return _this;
       }
 
       return RequestError;
-    }( /*#__PURE__*/_wrapNativeSuper$1(Error));
+    }( /*#__PURE__*/_wrapNativeSuper(Error));
 
     var request = function request(requestOptions) {
       return new Promise(function (resolve, reject) {
         var window = getWindow();
         var document = getDocument();
-        var globalsNoCallbacks = extend$1({}, globals);
+        var globalsNoCallbacks = extend({}, globals);
         'beforeCreate beforeOpen beforeSend error complete success statusCode'.split(' ').forEach(function (callbackName) {
           delete globalsNoCallbacks[callbackName];
         });
-        var defaults = extend$1({
+        var defaults = extend({
           url: window.location.toString(),
           method: 'GET',
           data: false,
@@ -3828,7 +3829,7 @@
           timeout: 0
         }, globalsNoCallbacks);
         var proceedRequest;
-        var options = extend$1({}, defaults, requestOptions);
+        var options = extend({}, defaults, requestOptions);
 
         if (requestOptions.abortController) {
           options.abortController = requestOptions.abortController;
@@ -4087,7 +4088,7 @@
         }
 
         if (options.xhrFields) {
-          extend$1(xhr, options.xhrFields);
+          extend(xhr, options.xhrFields);
         } // Handle XHR
 
 
@@ -4236,7 +4237,7 @@
       };
 
       if (method === 'postJSON') {
-        extend$1(requestOptions, {
+        extend(requestOptions, {
           contentType: 'application/json',
           processData: false,
           crossDomain: true,
@@ -4299,12 +4300,12 @@
 
     request.setup = function setup(options) {
       if (options.type && !options.method) {
-        extend$1(options, {
+        extend(options, {
           method: options.type
         });
       }
 
-      extend$1(globals, options);
+      extend(globals, options);
     };
 
     /* eslint no-param-reassign: "off" */
@@ -4348,7 +4349,7 @@
       var rippleTimeout;
 
       function findActivableElement(el) {
-        var target = $$1(el);
+        var target = $(el);
         var parents = target.parents(params.activeStateElements);
 
         if (target.closest('.no-active-state').length) {
@@ -4379,7 +4380,7 @@
             }
           }
 
-          activable = $$1(newActivable);
+          activable = $(newActivable);
         }
 
         return activable || target;
@@ -4404,7 +4405,7 @@
 
       function findRippleElement(el) {
         var rippleElements = params.touchRippleElements;
-        var $el = $$1(el);
+        var $el = $(el);
 
         if ($el.is(rippleElements)) {
           if ($el.hasClass('no-ripple')) {
@@ -4485,7 +4486,7 @@
 
           if ('which' in e && e.which === 3) {
             setTimeout(function () {
-              $$1('.active-state').removeClass('active-state');
+              $('.active-state').removeClass('active-state');
             }, 0);
           }
         }
@@ -4499,7 +4500,7 @@
 
       function handleMouseMove() {
         if (!params.activeStateOnMouseMove) {
-          $$1('.active-state').removeClass('active-state');
+          $('.active-state').removeClass('active-state');
         }
 
         if (useRipple) {
@@ -4508,7 +4509,7 @@
       }
 
       function handleMouseUp() {
-        $$1('.active-state').removeClass('active-state');
+        $('.active-state').removeClass('active-state');
 
         if (useRipple) {
           rippleTouchEnd();
@@ -4531,10 +4532,18 @@
         }
       }
 
+      var isScrolling;
+      var isSegmentedStrong = false;
+      var segmentedStrongEl = null;
+      var touchMoveActivableIos = '.dialog-button, .actions-button';
+      var isTouchMoveActivable = false;
+      var touchmoveActivableEl = null;
+
       function handleTouchStart(e) {
         isMoved = false;
         tapHoldFired = false;
         preventClick = false;
+        isScrolling = undefined;
 
         if (e.targetTouches.length > 1) {
           if (activableElement) removeActive();
@@ -4552,7 +4561,7 @@
             tapHoldFired = true;
             e.preventDefault();
             preventClick = true;
-            $$1(e.target).trigger('taphold', e);
+            $(e.target).trigger('taphold', e);
             app.emit('taphold', e);
           }, params.tapHoldDelay);
         }
@@ -4560,6 +4569,12 @@
         targetElement = e.target;
         touchStartX = e.targetTouches[0].pageX;
         touchStartY = e.targetTouches[0].pageY;
+        isSegmentedStrong = e.target.closest('.segmented-strong .button-active, .segmented-strong .tab-link-active');
+        isTouchMoveActivable = app.theme === 'ios' && e.target.closest(touchMoveActivableIos);
+
+        if (isSegmentedStrong) {
+          segmentedStrongEl = isSegmentedStrong.closest('.segmented-strong');
+        }
 
         if (params.activeState) {
           activableElement = findActivableElement(targetElement);
@@ -4581,10 +4596,32 @@
       function handleTouchMove(e) {
         var touch;
         var distance;
+        var shouldRemoveActive = true;
 
         if (e.type === 'touchmove') {
           touch = e.targetTouches[0];
           distance = params.touchClicksDistanceThreshold;
+        }
+
+        var touchCurrentX = e.targetTouches[0].pageX;
+        var touchCurrentY = e.targetTouches[0].pageY;
+
+        if (typeof isScrolling === 'undefined') {
+          isScrolling = !!(isScrolling || Math.abs(touchCurrentY - touchStartY) > Math.abs(touchCurrentX - touchStartX));
+        }
+
+        if (isTouchMoveActivable || !isScrolling && isSegmentedStrong && segmentedStrongEl) {
+          if (e.cancelable) e.preventDefault();
+        }
+
+        if (!isScrolling && isSegmentedStrong && segmentedStrongEl) {
+          var elementFromPoint = document.elementFromPoint(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+          var buttonEl = elementFromPoint.closest('.segmented-strong .button:not(.button-active):not(.tab-link-active)');
+
+          if (buttonEl && segmentedStrongEl.contains(buttonEl)) {
+            $(buttonEl).trigger('click', 'f7Segmented');
+            targetElement = buttonEl;
+          }
         }
 
         if (distance && touch) {
@@ -4599,13 +4636,28 @@
         }
 
         if (isMoved) {
-          preventClick = true;
+          preventClick = true; // Keep active state on touchMove (for dialog and actions buttons)
+
+          if (isTouchMoveActivable) {
+            var _elementFromPoint = document.elementFromPoint(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+
+            touchmoveActivableEl = _elementFromPoint.closest(touchMoveActivableIos);
+
+            if (touchmoveActivableEl && activableElement && activableElement[0] === touchmoveActivableEl) {
+              shouldRemoveActive = false;
+            } else if (touchmoveActivableEl) {
+              setTimeout(function () {
+                activableElement = findActivableElement(touchmoveActivableEl);
+                addActive();
+              });
+            }
+          }
 
           if (params.tapHold) {
             clearTimeout(tapHoldTimeout);
           }
 
-          if (params.activeState) {
+          if (params.activeState && shouldRemoveActive) {
             clearTimeout(activeTimeout);
             removeActive();
           }
@@ -4617,8 +4669,17 @@
       }
 
       function handleTouchEnd(e) {
+        isScrolling = undefined;
+        isSegmentedStrong = false;
+        segmentedStrongEl = null;
+        isTouchMoveActivable = false;
         clearTimeout(activeTimeout);
         clearTimeout(tapHoldTimeout);
+
+        if (touchmoveActivableEl) {
+          $(touchmoveActivableEl).trigger('click', 'f7TouchMoveActivable');
+          touchmoveActivableEl = null;
+        }
 
         if (document.activeElement === e.target) {
           if (params.activeState) removeActive();
@@ -4650,14 +4711,19 @@
 
       function handleClick(e) {
         var isOverswipe = e && e.detail && e.detail === 'f7Overswipe';
+        var isSegmented = e && e.detail && e.detail === 'f7Segmented'; // eslint-disable-next-line
+
+        var isTouchMoveActivable = e && e.detail && e.detail === 'f7TouchMoveActivable';
         var localPreventClick = preventClick;
 
         if (targetElement && e.target !== targetElement) {
-          if (isOverswipe) {
+          if (isOverswipe || isSegmented || isTouchMoveActivable) {
             localPreventClick = false;
           } else {
             localPreventClick = true;
           }
+        } else if (isTouchMoveActivable) {
+          localPreventClick = false;
         }
 
         if (params.tapHold && params.tapHoldPreventClicks && tapHoldFired) {
@@ -4809,7 +4875,7 @@
       create: function create() {
         var app = this;
         var support = getSupport();
-        extend$1(app, {
+        extend(app, {
           touchEvents: {
             start: support.touch ? 'touchstart' : support.pointerEvents ? 'pointerdown' : 'mousedown',
             move: support.touch ? 'touchmove' : support.pointerEvents ? 'pointermove' : 'mousemove',
@@ -5382,7 +5448,7 @@
         var _extend;
 
         var window = getWindow();
-        var newState = extend$1({}, History.state || {}, (_extend = {}, _extend[viewId] = viewState, _extend));
+        var newState = extend({}, History.state || {}, (_extend = {}, _extend[viewId] = viewState, _extend));
         History.state = newState;
         window.history.replaceState(newState, '');
       },
@@ -5404,7 +5470,7 @@
         }
 
         History.previousState = History.state;
-        var newState = extend$1({}, History.previousState || {}, (_extend2 = {}, _extend2[viewId] = viewState, _extend2));
+        var newState = extend({}, History.previousState || {}, (_extend2 = {}, _extend2[viewId] = viewState, _extend2));
         History.state = newState;
         window.history.pushState(newState, '', url);
       },
@@ -5426,7 +5492,7 @@
         }
 
         History.previousState = History.state;
-        var newState = extend$1({}, History.previousState || {}, (_extend3 = {}, _extend3[viewId] = viewState, _extend3));
+        var newState = extend({}, History.previousState || {}, (_extend3 = {}, _extend3[viewId] = viewState, _extend3));
         History.state = newState;
         window.history.replaceState(newState, '', url);
       },
@@ -5448,7 +5514,7 @@
         var window = getWindow();
         var document = getDocument();
         History.state = window.history.state;
-        $$1(window).on('load', function () {
+        $(window).on('load', function () {
           setTimeout(function () {
             History.blockPopstate = false;
           }, 0);
@@ -5458,7 +5524,7 @@
           History.blockPopstate = false;
         }
 
-        $$1(window).on('popstate', History.handle.bind(app));
+        $(window).on('popstate', History.handle.bind(app));
       }
     };
 
@@ -5526,14 +5592,14 @@
 
           if (activeNavBackIconText.length) {
             $previousNavElements.each(function (el) {
-              if (!$$1(el).hasClass('title')) return;
+              if (!$(el).hasClass('title')) return;
               el.f7NavbarLeftOffset += activeNavBackIconText.prev('.icon')[0].offsetWidth;
             });
           }
         }
 
         $currentNavElements.each(function (navEl) {
-          var $navEl = $$1(navEl);
+          var $navEl = $(navEl);
           var isSubnavbar = $navEl.hasClass('subnavbar');
           var isLeft = $navEl.hasClass('left');
           var isTitle = $navEl.hasClass('title');
@@ -5666,7 +5732,7 @@
           }
         });
         $previousNavElements.each(function (navEl) {
-          var $navEl = $$1(navEl);
+          var $navEl = $(navEl);
           var isSubnavbar = $navEl.hasClass('subnavbar');
           var isLeft = $navEl.hasClass('left');
           var isTitle = $navEl.hasClass('title');
@@ -5836,8 +5902,8 @@
       function handleTouchStart(e) {
         var swipeBackEnabled = params[app.theme + "SwipeBack"];
         if (!allowViewTouchMove || !swipeBackEnabled || isTouched || app.swipeout && app.swipeout.el || !router.allowPageChange) return;
-        if ($$1(e.target).closest('.range-slider, .calendar-months').length > 0) return;
-        if ($$1(e.target).closest('.page-master, .page-master-detail').length > 0 && params.masterDetailBreakpoint > 0 && app.width >= params.masterDetailBreakpoint) return;
+        if ($(e.target).closest('.range-slider, .calendar-months').length > 0) return;
+        if ($(e.target).closest('.page-master, .page-master-detail').length > 0 && params.masterDetailBreakpoint > 0 && app.width >= params.masterDetailBreakpoint) return;
         isMoved = false;
         isTouched = true;
         isScrolling = undefined;
@@ -5864,7 +5930,7 @@
         if (!isMoved) {
           // Calc values during first move fired
           var cancel = false;
-          var target = $$1(e.target);
+          var target = $(e.target);
           var swipeout = target.closest('.swipeout');
 
           if (swipeout.length > 0) {
@@ -5901,7 +5967,7 @@
             $pageShadowEl = $currentPageEl.find('.page-shadow-effect');
 
             if ($pageShadowEl.length === 0) {
-              $pageShadowEl = $$1('<div class="page-shadow-effect"></div>');
+              $pageShadowEl = $('<div class="page-shadow-effect"></div>');
               $currentPageEl.append($pageShadowEl);
             }
           }
@@ -5910,7 +5976,7 @@
             $pageOpacityEl = $previousPageEl.find('.page-opacity-effect');
 
             if ($pageOpacityEl.length === 0) {
-              $pageOpacityEl = $$1('<div class="page-opacity-effect"></div>');
+              $pageOpacityEl = $('<div class="page-opacity-effect"></div>');
               $previousPageEl.append($pageOpacityEl);
             }
           }
@@ -5927,8 +5993,8 @@
           } // Close/Hide Any Picker
 
 
-          if ($$1('.sheet.modal-in').length > 0 && app.sheet) {
-            app.sheet.close($$1('.sheet.modal-in'));
+          if ($('.sheet.modal-in').length > 0 && app.sheet) {
+            app.sheet.close($('.sheet.modal-in'));
           }
         }
 
@@ -5971,7 +6037,7 @@
         }
 
         router.swipeBackActive = true;
-        $$1([$currentPageEl[0], $previousPageEl[0]]).addClass('page-swipeback-active');
+        $([$currentPageEl[0], $previousPageEl[0]]).addClass('page-swipeback-active');
         $currentPageEl.transform("translate3d(" + currentPageTranslate + "px,0,0)");
         if (paramsSwipeBackAnimateShadow) $pageShadowEl[0].style.opacity = 1 - 1 * percentage;
 
@@ -5999,7 +6065,7 @@
         isTouched = false;
         isMoved = false;
         router.swipeBackActive = false;
-        var $pages = $$1([$currentPageEl[0], $previousPageEl[0]]);
+        var $pages = $([$currentPageEl[0], $previousPageEl[0]]);
         $pages.removeClass('page-swipeback-active');
 
         if (touchesDiff === 0) {
@@ -6195,7 +6261,7 @@
         }
 
         router.allowPageChange = true;
-        router[method](redirectUrl, extend$1({}, options, redirectOptions));
+        router[method](redirectUrl, extend({}, options, redirectOptions));
       }
 
       function redirectReject() {
@@ -6350,10 +6416,10 @@
       }
 
       var document = getDocument();
-      var $el = $$1(el);
+      var $el = $(el);
       var app = router.app;
       var view = router.view;
-      var options = extend$1(false, {
+      var options = extend(false, {
         animate: router.params.animate,
         browserHistory: true,
         replaceState: false,
@@ -6541,18 +6607,18 @@
           });
 
           if (dynamicNavbar) {
-            $oldNavbarEl = $$1($oldPage.map(function (pageEl) {
+            $oldNavbarEl = $($oldPage.map(function (pageEl) {
               return app.navbar.getElByPage(pageEl);
             }));
           }
 
           if ($oldPage.length > 1 && masterPageEl) {
             detailsInBetweenRemoved = $oldPage.length - 1;
-            $$1(masterPageEl).removeClass('page-master-stacked').trigger('page:masterunstack');
+            $(masterPageEl).removeClass('page-master-stacked').trigger('page:masterunstack');
             router.emit('pageMasterUnstack', masterPageEl);
 
             if (dynamicNavbar) {
-              $$1(app.navbar.getElByPage(masterPageEl)).removeClass('navbar-master-stacked');
+              $(app.navbar.getElByPage(masterPageEl)).removeClass('navbar-master-stacked');
               router.emit('navbarMasterUnstack', app.navbar.getElByPage(masterPageEl));
             }
           }
@@ -6560,7 +6626,7 @@
           $oldPage = $pagesInView.eq($pagesInView.length - 1);
 
           if (dynamicNavbar) {
-            $oldNavbarEl = $$1(app.navbar.getElByPage($oldPage));
+            $oldNavbarEl = $(app.navbar.getElByPage($oldPage));
           }
         }
       } else if (options.reloadPrevious) {
@@ -6568,7 +6634,7 @@
 
         if (dynamicNavbar) {
           // $oldNavbarEl = $navbarsInView.eq($pagesInView.length - 2);
-          $oldNavbarEl = $$1(app.navbar.getElByPage($oldPage));
+          $oldNavbarEl = $(app.navbar.getElByPage($oldPage));
         }
       } else if (options.reloadAll) {
         $oldPage = $pagesInView.filter(function (pageEl) {
@@ -6594,7 +6660,7 @@
               router.emit('pageMasterStack', $pagesInView[_i2]);
 
               if (dynamicNavbar) {
-                $$1(app.navbar.getElByPage(masterPageEl)).addClass('navbar-master-stacked');
+                $(app.navbar.getElByPage(masterPageEl)).addClass('navbar-master-stacked');
                 router.emit('navbarMasterStack', app.navbar.getElByPage(masterPageEl));
               }
 
@@ -6609,7 +6675,7 @@
               router.emit('pageStack', $pagesInView[_i2]);
 
               if (dynamicNavbar) {
-                $$1(oldNavbarEl).addClass('stacked');
+                $(oldNavbarEl).addClass('stacked');
               }
             } else {
               // Page remove event
@@ -6702,7 +6768,7 @@
       if (options.reloadPrevious) {
         if (f7Component && !newPageInDom) {
           f7Component.mount(function (componentEl) {
-            $$1(componentEl).insertBefore($oldPage);
+            $(componentEl).insertBefore($oldPage);
           });
         } else {
           $newPage.insertBefore($oldPage);
@@ -6777,8 +6843,8 @@
         }
       } else if (options.reloadAll) {
         $oldPage.each(function (pageEl, index) {
-          var $oldPageEl = $$1(pageEl);
-          var $oldNavbarElEl = $$1(app.navbar.getElByPage($oldPageEl));
+          var $oldPageEl = $(pageEl);
+          var $oldNavbarElEl = $(app.navbar.getElByPage($oldPageEl));
 
           if (router.params.stackPages && router.initialPages.indexOf($oldPageEl[0]) >= 0) {
             $oldPageEl.addClass('stacked');
@@ -6825,7 +6891,7 @@
 
 
       if (options.route.route.tab) {
-        router.tabLoad(options.route.route.tab, extend$1({}, options, {
+        router.tabLoad(options.route.route.tab, extend({}, options, {
           history: false,
           browserHistory: false
         }));
@@ -6852,10 +6918,10 @@
         if (options.reloadCurrent && options.clearPreviousHistory) router.clearPreviousHistory();
 
         if (reloadDetail) {
-          router.setPagePosition($$1(masterPageEl), 'previous');
+          router.setPagePosition($(masterPageEl), 'previous');
 
           if (masterPageEl.f7Page && masterPageEl.f7Page.navbarEl) {
-            router.setNavbarPosition($$1(masterPageEl.f7Page.navbarEl), 'previous');
+            router.setNavbarPosition($(masterPageEl.f7Page.navbarEl), 'previous');
           }
         }
 
@@ -7025,7 +7091,7 @@
 
       if (!options.route && url) {
         options.route = router.parseRouteUrl(url);
-        extend$1(options.route, {
+        extend(options.route, {
           route: {
             url: url,
             path: url
@@ -7035,7 +7101,7 @@
 
 
       function resolve(pageEl, newOptions) {
-        return forward(router, pageEl, extend$1(options, newOptions));
+        return forward(router, pageEl, extend(options, newOptions));
       }
 
       function reject() {
@@ -7190,8 +7256,8 @@
       }
 
       if (createRoute) {
-        route = extend$1(router.parseRouteUrl(navigateUrl), {
-          route: extend$1({}, createRoute)
+        route = extend(router.parseRouteUrl(navigateUrl), {
+          route: extend({}, createRoute)
         });
       } else {
         route = router.findMatchingRoute(navigateUrl);
@@ -7221,9 +7287,9 @@
       var options = {};
 
       if (route.route.options) {
-        extend$1(options, route.route.options, navigateOptions);
+        extend(options, route.route.options, navigateOptions);
       } else {
-        extend$1(options, navigateOptions);
+        extend(options, navigateOptions);
       }
 
       if (options.openIn && (!router.params.ignoreOpenIn || router.params.ignoreOpenIn && router.history.length > 0)) {
@@ -7264,15 +7330,15 @@
           'popup popover sheet loginScreen actions customModal panel'.split(' ').forEach(function (modalLoadProp) {
             if (resolveParams[modalLoadProp]) {
               resolvedAsModal = true;
-              var modalRoute = extend$1({}, route, {
+              var modalRoute = extend({}, route, {
                 route: resolveParams
               });
               router.allowPageChange = true;
-              router.modalLoad(modalLoadProp, modalRoute, extend$1(options, resolveOptions), 'forward');
+              router.modalLoad(modalLoadProp, modalRoute, extend(options, resolveOptions), 'forward');
             }
           });
           if (resolvedAsModal) return;
-          load(router, resolveParams, extend$1(options, resolveOptions), true);
+          load(router, resolveParams, extend(options, resolveOptions), true);
         }
 
         function asyncReject() {
@@ -7330,7 +7396,7 @@
             history: !navigateOptions.initial,
             once: {
               pageAfterIn: function pageAfterIn() {
-                router.navigate(navigateParams, extend$1({}, navigateOptions, {
+                router.navigate(navigateParams, extend({}, navigateOptions, {
                   animate: false,
                   reloadAll: false,
                   reloadCurrent: false,
@@ -7368,7 +7434,7 @@
       }
 
       var router = this;
-      var options = extend$1({
+      var options = extend({
         animate: router.params.animate,
         browserHistory: true,
         history: true,
@@ -7409,7 +7475,7 @@
       } // Show Tab
 
 
-      var $parentPageEl = $$1(options.parentPageEl || router.currentPageEl);
+      var $parentPageEl = $(options.parentPageEl || router.currentPageEl);
       var tabEl;
 
       if ($parentPageEl.length && $parentPageEl.find("#" + tabRoute.id).length) {
@@ -7443,7 +7509,7 @@
         // Remove theme elements
         router.removeThemeElements($newTabEl);
         var tabEventTarget = $newTabEl;
-        if (typeof contentEl !== 'string') tabEventTarget = $$1(contentEl);
+        if (typeof contentEl !== 'string') tabEventTarget = $(contentEl);
         tabEventTarget.trigger('tab:init tab:mounted', tabRoute);
         router.emit('tabInit tabMounted', $newTabEl[0], tabRoute);
 
@@ -7561,7 +7627,7 @@
       }); // Async
 
       function asyncResolve(resolveParams, resolveOptions) {
-        loadTab(resolveParams, extend$1(options, resolveOptions));
+        loadTab(resolveParams, extend(options, resolveOptions));
       }
 
       function asyncReject() {
@@ -7598,7 +7664,7 @@
       $oldTabEl.children().each(function (tabChild) {
         if (tabChild.f7Component) {
           hasTabComponentChild = true;
-          $$1(tabChild).trigger('tab:beforeremove', tabRoute);
+          $(tabChild).trigger('tab:beforeremove', tabRoute);
           tabChild.f7Component.destroy();
         }
       });
@@ -7620,14 +7686,14 @@
       var app = router.app;
       var isPanel = modalType === 'panel';
       var modalOrPanel = isPanel ? 'panel' : 'modal';
-      var options = extend$1({
+      var options = extend({
         animate: router.params.animate,
         browserHistory: true,
         history: true,
         on: {},
         once: {}
       }, loadOptions);
-      var modalParams = extend$1({}, route.route[modalType]);
+      var modalParams = extend({}, route.route[modalType]);
       var modalRoute = route.route;
 
       var routeCallback = function routeCallback(modal, name) {
@@ -7692,7 +7758,7 @@
           }
 
           nextTick(function () {
-            if (modalComponent || modalParams.component) {
+            if (modalComponent || modalParams.component || modalParams.asyncComponent) {
               router.removeModal(modal.el);
             }
 
@@ -7713,7 +7779,7 @@
 
 
           if (options.route !== router.currentRoute) {
-            modal.route = extend$1(options.route, {
+            modal.route = extend(options.route, {
               modal: modal
             });
             router.currentRoute = modal.route;
@@ -7819,7 +7885,7 @@
 
 
       function asyncResolve(resolveParams, resolveOptions) {
-        loadModal(resolveParams, extend$1(options, resolveOptions));
+        loadModal(resolveParams, extend(options, resolveOptions));
       }
 
       function asyncReject() {
@@ -7846,7 +7912,7 @@
     }
 
     function modalRemove(modal) {
-      extend$1(modal, {
+      extend(modal, {
         closeByRouter: true
       });
       modal.close();
@@ -7855,10 +7921,10 @@
     function backward(router, el, backwardOptions) {
       var device = getDevice();
       var document = getDocument();
-      var $el = $$1(el);
+      var $el = $(el);
       var app = router.app;
       var view = router.view;
-      var options = extend$1({
+      var options = extend(false, {
         animate: router.params.animate,
         browserHistory: true,
         replaceState: false
@@ -7987,12 +8053,12 @@
 
           if (backIndex && router.params.stackPages) {
             $oldPage.prevAll('.page-previous').each(function (pageToRemove) {
-              var $pageToRemove = $$1(pageToRemove);
+              var $pageToRemove = $(pageToRemove);
               var $navbarToRemove;
 
               if (dynamicNavbar) {
                 // $navbarToRemove = $oldNavbarEl.prevAll('.navbar-previous').eq(index);
-                $navbarToRemove = $$1(app.navbar.getElByPage($pageToRemove));
+                $navbarToRemove = $(app.navbar.getElByPage($pageToRemove));
               }
 
               if ($pageToRemove[0] !== $newPage[0] && $pageToRemove.index() > $newPage.index()) {
@@ -8025,7 +8091,7 @@
 
             if (dynamicNavbar) {
               // $navbarToRemove = $oldNavbarEl.prev('.navbar-inner:not(.stacked)');
-              $navbarToRemove = $$1(app.navbar.getElByPage($pageToRemove));
+              $navbarToRemove = $(app.navbar.getElByPage($pageToRemove));
             }
 
             if (router.params.stackPages && router.initialPages.indexOf($pageToRemove[0]) >= 0) {
@@ -8068,7 +8134,7 @@
         if ($newPage.next($oldPage).length === 0) {
           if (!newPageInDom && f7Component) {
             f7Component.mount(function (componentEl) {
-              $$1(componentEl).insertBefore($oldPage);
+              $(componentEl).insertBefore($oldPage);
             });
           } else {
             $newPage.insertBefore($oldPage);
@@ -8106,7 +8172,7 @@
         insertPage(); // Tab route
 
         if (options.route.route.tab) {
-          router.tabLoad(options.route.route.tab, extend$1({}, options, {
+          router.tabLoad(options.route.route.tab, extend({}, options, {
             history: false,
             browserHistory: false,
             preload: true
@@ -8118,7 +8184,7 @@
           router.emit('pageMasterUnstack', $newPage[0]);
 
           if (dynamicNavbar) {
-            $$1(app.navbar.getElByPage($newPage)).removeClass('navbar-master-stacked');
+            $(app.navbar.getElByPage($newPage)).removeClass('navbar-master-stacked');
             router.emit('navbarMasterUnstack', app.navbar.getElByPage($newPage));
           }
         } // Page init and before init events
@@ -8135,12 +8201,12 @@
 
         if ($previousPages.length > 0) {
           $previousPages.each(function (pageToRemove) {
-            var $pageToRemove = $$1(pageToRemove);
+            var $pageToRemove = $(pageToRemove);
             var $navbarToRemove;
 
             if (dynamicNavbar) {
               // $navbarToRemove = $newNavbarEl.prevAll('.navbar-previous:not(.stacked)').eq(index);
-              $navbarToRemove = $$1(app.navbar.getElByPage($pageToRemove));
+              $navbarToRemove = $(app.navbar.getElByPage($pageToRemove));
             }
 
             if (router.params.stackPages && router.initialPages.indexOf(pageToRemove) >= 0) {
@@ -8226,7 +8292,7 @@
       insertPage(); // Load Tab
 
       if (options.route.route.tab) {
-        router.tabLoad(options.route.route.tab, extend$1({}, options, {
+        router.tabLoad(options.route.route.tab, extend({}, options, {
           history: false,
           browserHistory: false
         }));
@@ -8350,7 +8416,7 @@
 
 
       function resolve(pageEl, newOptions) {
-        return backward(router, pageEl, extend$1(options, newOptions));
+        return backward(router, pageEl, extend(options, newOptions));
       }
 
       function reject() {
@@ -8431,7 +8497,7 @@
         });
 
         if (navigateUrl) {
-          return router.back(navigateUrl, extend$1({}, navigateOptions, {
+          return router.back(navigateUrl, extend({}, navigateOptions, {
             name: null,
             params: null,
             query: null
@@ -8559,17 +8625,27 @@
 
       if (!navigateOptions.force && $previousPage.length && !skipMaster) {
         if (router.params.browserHistory && $previousPage[0].f7Page && router.history[router.history.length - 2] !== $previousPage[0].f7Page.route.url) {
-          router.back(router.history[router.history.length - 2], extend$1(navigateOptions, {
+          router.back(router.history[router.history.length - 2], extend(navigateOptions, {
             force: true
           }));
           return router;
         }
 
         var previousPageRoute = $previousPage[0].f7Page.route;
+
+        if (navigateOptions.preload && $previousPage.hasClass('stacked')) {
+          loadBack(router, {
+            el: $previousPage
+          }, extend(navigateOptions, {
+            route: previousPageRoute
+          }));
+          return router;
+        }
+
         processRouteQueue.call(router, previousPageRoute, router.currentRoute, function () {
           loadBack(router, {
             el: $previousPage
-          }, extend$1(navigateOptions, {
+          }, extend(navigateOptions, {
             route: previousPageRoute
           }));
         }, function () {}, 'backward');
@@ -8590,7 +8666,7 @@
       }
 
       if (skipMaster && !navigateOptions.force && router.history[router.history.length - 3]) {
-        return router.back(router.history[router.history.length - 3], extend$1({}, navigateOptions || {}, {
+        return router.back(router.history[router.history.length - 3], extend({}, navigateOptions || {}, {
           force: true,
           animate: false
         }));
@@ -8628,9 +8704,9 @@
       var options = {};
 
       if (route.route.options) {
-        extend$1(options, route.route.options, navigateOptions);
+        extend(options, route.route.options, navigateOptions);
       } else {
-        extend$1(options, navigateOptions);
+        extend(options, navigateOptions);
       }
 
       options.route = route;
@@ -8673,7 +8749,7 @@
 
         function asyncResolve(resolveParams, resolveOptions) {
           router.allowPageChange = false;
-          loadBack(router, resolveParams, extend$1(options, resolveOptions), true);
+          loadBack(router, resolveParams, extend(options, resolveOptions), true);
         }
 
         function asyncReject() {
@@ -8733,8 +8809,8 @@
         return pageInView !== router.currentPageEl;
       });
       $pagesToRemove.each(function (pageEl) {
-        var $oldPageEl = $$1(pageEl);
-        var $oldNavbarEl = $$1(app.navbar.getElByPage($oldPageEl));
+        var $oldPageEl = $(pageEl);
+        var $oldNavbarEl = $(app.navbar.getElByPage($oldPageEl));
 
         if (router.params.stackPages && router.initialPages.indexOf($oldPageEl[0]) >= 0) {
           $oldPageEl.addClass('stacked');
@@ -8766,21 +8842,21 @@
      // eslint-disable-line
 
     var Router = /*#__PURE__*/function (_Framework7Class) {
-      _inheritsLoose$1(Router, _Framework7Class);
+      _inheritsLoose(Router, _Framework7Class);
 
       function Router(app, view) {
         var _this;
 
         _this = _Framework7Class.call(this, {}, [typeof view === 'undefined' ? app : view]) || this;
 
-        var router = _assertThisInitialized$1(_this); // Is App Router
+        var router = _assertThisInitialized(_this); // Is App Router
 
 
         router.isAppRouter = typeof view === 'undefined';
 
         if (router.isAppRouter) {
           // App Router
-          extend$1(false, router, {
+          extend(false, router, {
             app: app,
             params: app.params.view,
             routes: app.routes || [],
@@ -8788,7 +8864,7 @@
           });
         } else {
           // View Router
-          extend$1(false, router, {
+          extend(false, router, {
             app: app,
             view: view,
             viewId: view.id,
@@ -8819,7 +8895,7 @@
               newRoute = {};
             }
 
-            previousRoute = extend$1({}, currentRoute);
+            previousRoute = extend({}, currentRoute);
             currentRoute = newRoute;
             if (!currentRoute) return;
             router.url = currentRoute.url;
@@ -8839,7 +8915,7 @@
             previousRoute = newRoute;
           }
         });
-        return router || _assertThisInitialized$1(_this);
+        return router || _assertThisInitialized(_this);
       }
 
       var _proto = Router.prototype;
@@ -8848,7 +8924,7 @@
         var router = this;
         var view = router.view;
         var document = getDocument();
-        extend$1(false, router, {
+        extend(false, router, {
           tempDom: document.createElement('div'),
           $el: view.$el,
           el: view.el,
@@ -8893,7 +8969,7 @@
           newNavEls = [];
           oldNavEls = [];
           $newNavbarEl.children('.navbar-inner').children('.left, .right, .title, .subnavbar').each(function (navEl) {
-            var $navEl = $$1(navEl);
+            var $navEl = $(navEl);
             if ($navEl.hasClass('left') && fromLarge && direction === 'forward') return;
             if ($navEl.hasClass('title') && toLarge) return;
             newNavEls.push(animatableNavEl($navEl, $newNavbarEl.children('.navbar-inner')));
@@ -8901,7 +8977,7 @@
 
           if (!($oldNavbarEl.hasClass('navbar-master') && router.params.masterDetailBreakpoint > 0 && router.app.width >= router.params.masterDetailBreakpoint)) {
             $oldNavbarEl.children('.navbar-inner').children('.left, .right, .title, .subnavbar').each(function (navEl) {
-              var $navEl = $$1(navEl);
+              var $navEl = $(navEl);
               if ($navEl.hasClass('left') && toLarge && !fromLarge && direction === 'forward') return;
               if ($navEl.hasClass('left') && toLarge && direction === 'backward') return;
 
@@ -9060,7 +9136,7 @@
             if ($newNavbarEl) {
               $newNavbarEl.removeClass('router-navbar-transition-to-large router-navbar-transition-from-large');
               $newNavbarEl.addClass('navbar-no-title-large-transition');
-              nextFrame(function () {
+              nextFrame$1(function () {
                 $newNavbarEl.removeClass('navbar-no-title-large-transition');
               });
             }
@@ -9093,7 +9169,7 @@
         if (dynamicNavbar) {
           // Prepare Navbars
           animateNavbars(0);
-          nextFrame(function () {
+          nextFrame$1(function () {
             // Add class, start animation
             router.$el.addClass(routerTransitionClass);
 
@@ -9117,7 +9193,7 @@
       ;
 
       _proto.removeTabContent = function removeTabContent(tabEl) {
-        var $tabEl = $$1(tabEl);
+        var $tabEl = $(tabEl);
         $tabEl.html('');
       };
 
@@ -9127,7 +9203,7 @@
       };
 
       _proto.removePage = function removePage(el) {
-        var $el = $$1(el);
+        var $el = $(el);
         var f7Page = $el && $el[0] && $el[0].f7Page;
         var router = this;
 
@@ -9142,12 +9218,12 @@
       _proto.removeEl = function removeEl(el) {
         if (!el) return;
         var router = this;
-        var $el = $$1(el);
+        var $el = $(el);
         if ($el.length === 0) return;
         $el.find('.tab').each(function (tabEl) {
-          $$1(tabEl).children().each(function (tabChild) {
+          $(tabEl).children().each(function (tabChild) {
             if (tabChild.f7Component) {
-              $$1(tabChild).trigger('tab:beforeremove');
+              $(tabChild).trigger('tab:beforeremove');
               tabChild.f7Component.destroy();
             }
           });
@@ -9176,12 +9252,12 @@
         if (typeof content === 'string') {
           router.tempDom.innerHTML = content;
         } else {
-          if ($$1(content).hasClass('page')) {
+          if ($(content).hasClass('page')) {
             return content;
           }
 
           router.tempDom.innerHTML = '';
-          $$1(router.tempDom).append(content);
+          $(router.tempDom).append(content);
         }
 
         return router.findElement('.page', router.tempDom);
@@ -9193,11 +9269,11 @@
         var app = router.app; // Modals Selector
 
         var modalsSelector = '.popup, .dialog, .popover, .actions-modal, .sheet-modal, .login-screen, .page';
-        var $container = $$1(container);
+        var $container = $(container);
         var selector = stringSelector;
         if (notStacked) selector += ':not(.stacked)';
         var found = $container.find(selector).filter(function (el) {
-          return $$1(el).parents(modalsSelector).length === 0;
+          return $(el).parents(modalsSelector).length === 0;
         });
 
         if (found.length > 1) {
@@ -9216,7 +9292,7 @@
 
         if (!notStacked) found = router.findElement(selector, $container, true);
         if (found && found.length === 1) return found;
-        if (found && found.length > 1) return $$1(found[0]);
+        if (found && found.length > 1) return $(found[0]);
         return undefined;
       };
 
@@ -9232,7 +9308,7 @@
 
           if ('tabs' in route && route.tabs) {
             var mergedPathsRoutes = route.tabs.map(function (tabRoute) {
-              var tRoute = extend$1({}, route, {
+              var tRoute = extend({}, route, {
                 path: (route.path + "/" + tabRoute.path).replace('///', '/').replace('//', '/'),
                 parentPath: route.path,
                 tab: tabRoute
@@ -9247,7 +9323,7 @@
 
           if ('detailRoutes' in route) {
             var _mergedPathsRoutes = route.detailRoutes.map(function (detailRoute) {
-              var dRoute = extend$1({}, detailRoute);
+              var dRoute = extend({}, detailRoute);
               dRoute.masterRoute = route;
               dRoute.masterRoutePath = route.path;
               return dRoute;
@@ -9258,7 +9334,7 @@
 
           if ('routes' in route) {
             var _mergedPathsRoutes2 = route.routes.map(function (childRoute) {
-              var cRoute = extend$1({}, childRoute);
+              var cRoute = extend({}, childRoute);
               cRoute.path = (route.path + "/" + cRoute.path).replace('///', '/').replace('//', '/');
               return cRoute;
             });
@@ -9352,25 +9428,32 @@
         }
 
         if (query) {
-          if (typeof query === 'string') url += "?" + query;else url += "?" + serializeObject(query);
+          if (typeof query === 'string') url += "?" + query;else if (Object.keys(query).length) url += "?" + serializeObject(query);
         }
 
         return url;
       };
 
-      _proto.findTabRoute = function findTabRoute(tabEl) {
+      _proto.findTabRouteUrl = function findTabRouteUrl(tabEl) {
         var router = this;
-        var $tabEl = $$1(tabEl);
+        var $tabEl = $(tabEl);
         var parentPath = router.currentRoute.route.parentPath;
         var tabId = $tabEl.attr('id');
         var flattenedRoutes = router.flattenRoutes(router.routes);
-        var foundTabRoute;
+        var foundTabRouteUrl;
         flattenedRoutes.forEach(function (route) {
           if (route.parentPath === parentPath && route.tab && route.tab.id === tabId) {
-            foundTabRoute = route;
+            if (router.currentRoute.params && Object.keys(router.currentRoute.params).length > 0) {
+              foundTabRouteUrl = router.constructRouteUrl(route, {
+                params: router.currentRoute.params,
+                query: router.currentRoute.query
+              });
+            } else {
+              foundTabRouteUrl = route.path;
+            }
           }
         });
-        return foundTabRoute;
+        return foundTabRouteUrl;
       };
 
       _proto.findRouteByKey = function findRouteByKey(key, value) {
@@ -9615,7 +9698,7 @@
           toRemove = '.ios-only, .md-only, .if-ios, .if-md, .if-not-aurora, .not-aurora';
         }
 
-        $$1(el).find(toRemove).remove();
+        $(el).find(toRemove).remove();
       };
 
       _proto.getPageData = function getPageData(pageEl, navbarEl, from, to, route, pageFromEl) {
@@ -9624,8 +9707,8 @@
         }
 
         var router = this;
-        var $pageEl = $$1(pageEl).eq(0);
-        var $navbarEl = $$1(navbarEl).eq(0);
+        var $pageEl = $(pageEl).eq(0);
+        var $navbarEl = $(navbarEl).eq(0);
         var currentPage = $pageEl[0].f7Page || {};
         var direction;
         var pageFrom;
@@ -9633,7 +9716,7 @@
         if (from === 'current' && to === 'next' || from === 'previous' && to === 'current') direction = 'backward';
 
         if (currentPage && !currentPage.fromPage) {
-          var $pageFromEl = $$1(pageFromEl);
+          var $pageFromEl = $(pageFromEl);
 
           if ($pageFromEl.length) {
             pageFrom = $pageFromEl[0].f7Page;
@@ -9676,9 +9759,9 @@
 
         if (!pageEl) return;
         var router = this;
-        var $pageEl = $$1(pageEl);
+        var $pageEl = $(pageEl);
         if (!$pageEl.length) return;
-        var $navbarEl = $$1(navbarEl);
+        var $navbarEl = $(navbarEl);
         var _options = options,
             route = _options.route;
         var restoreScrollTopOnBack = router.params.restoreScrollTopOnBack && !(router.params.masterDetailBreakpoint > 0 && $pageEl.hasClass('page-master') && router.app.width >= router.params.masterDetailBreakpoint);
@@ -9693,7 +9776,7 @@
         var page = {};
 
         if (callback === 'beforeRemove' && $pageEl[0].f7Page) {
-          page = extend$1($pageEl[0].f7Page, {
+          page = extend($pageEl[0].f7Page, {
             from: from,
             to: to,
             position: from
@@ -9711,11 +9794,11 @@
             once = _ref2$once === void 0 ? {} : _ref2$once;
 
         if (options.on) {
-          extend$1(on, options.on);
+          extend(on, options.on);
         }
 
         if (options.once) {
-          extend$1(once, options.once);
+          extend(once, options.once);
         }
 
         function attachEvents() {
@@ -9773,7 +9856,7 @@
             if ($pageContent.length > 0) {
               // eslint-disable-next-line
               $pageContent = $pageContent.filter(function (pageContentEl) {
-                return $$1(pageContentEl).parents('.tab:not(.tab-active)').length === 0 && !$$1(pageContentEl).is('.tab:not(.tab-active)');
+                return $(pageContentEl).parents('.tab:not(.tab-active)').length === 0 && !$(pageContentEl).is('.tab:not(.tab-active)');
               });
             }
 
@@ -9798,7 +9881,7 @@
           if (_$pageContent.length > 0) {
             // eslint-disable-next-line
             _$pageContent = _$pageContent.filter(function (pageContentEl) {
-              return $$1(pageContentEl).parents('.tab:not(.tab-active)').length === 0 && !$$1(pageContentEl).is('.tab:not(.tab-active)');
+              return $(pageContentEl).parents('.tab:not(.tab-active)').length === 0 && !$(pageContentEl).is('.tab:not(.tab-active)');
             });
           }
 
@@ -9872,7 +9955,7 @@
             path = _router$parseRouteUrl2.path;
 
         if (router.currentRoute) {
-          extend$1(router.currentRoute, {
+          extend(router.currentRoute, {
             query: query,
             hash: hash,
             params: params,
@@ -10005,7 +10088,7 @@
           currentRoute = router.findMatchingRoute(initUrl);
 
           if (!currentRoute) {
-            currentRoute = extend$1(router.parseRouteUrl(initUrl), {
+            currentRoute = extend(router.parseRouteUrl(initUrl), {
               route: {
                 url: initUrl,
                 path: initUrl.split('?')[0]
@@ -10017,7 +10100,7 @@
           currentRoute = router.findMatchingRoute(initialUrl);
 
           if (!currentRoute) {
-            currentRoute = extend$1(router.parseRouteUrl(initialUrl), {
+            currentRoute = extend(router.parseRouteUrl(initialUrl), {
               route: {
                 url: initialUrl,
                 path: initialUrl.split('?')[0]
@@ -10028,7 +10111,7 @@
 
         if (router.params.stackPages) {
           router.$el.children('.page').each(function (pageEl) {
-            var $pageEl = $$1(pageEl);
+            var $pageEl = $(pageEl);
             router.initialPages.push($pageEl[0]);
 
             if (router.dynamicNavbar && $pageEl.children('.navbar').length > 0) {
@@ -10072,7 +10155,7 @@
           var hasTabRoute;
           router.currentRoute = currentRoute;
           router.$el.children('.page:not(.stacked)').each(function (pageEl) {
-            var $pageEl = $$1(pageEl);
+            var $pageEl = $(pageEl);
             var $navbarEl;
             router.setPagePosition($pageEl, 'current');
 
@@ -10119,7 +10202,7 @@
             };
 
             if (router.currentRoute && router.currentRoute.route && router.currentRoute.route.options) {
-              extend$1(initOptions, router.currentRoute.route.options);
+              extend(initOptions, router.currentRoute.route.options);
             }
 
             router.currentPageEl = $pageEl[0];
@@ -10136,7 +10219,7 @@
 
             if (initOptions.route.route.tab) {
               hasTabRoute = true;
-              router.tabLoad(initOptions.route.route.tab, extend$1({}, initOptions));
+              router.tabLoad(initOptions.route.route.tab, extend({}, initOptions));
             }
 
             router.pageCallback('init', $pageEl, $navbarEl, 'current', undefined, initOptions);
@@ -10248,12 +10331,12 @@
       var app = view.app;
       var support = getSupport();
       if (view.resizableInitialized) return;
-      extend$1(view, {
+      extend(view, {
         resizable: true,
         resizableWidth: null,
         resizableInitialized: true
       });
-      var $htmlEl = $$1('html');
+      var $htmlEl = $('html');
       var $el = view.$el;
       if (!$el) return;
       var $resizeHandlerEl;
@@ -10324,7 +10407,7 @@
       }
 
       function handleTouchEnd() {
-        $$1('html').css('cursor', '');
+        $('html').css('cursor', '');
 
         if (!isTouched || !isMoved) {
           isTouched = false;
@@ -10384,8 +10467,8 @@
       });
     }
 
-    var View = /*#__PURE__*/function (_Framework7Class) {
-      _inheritsLoose$1(View, _Framework7Class);
+    var View$1 = /*#__PURE__*/function (_Framework7Class) {
+      _inheritsLoose(View, _Framework7Class);
 
       function View(app, el, viewParams) {
         var _this;
@@ -10396,7 +10479,7 @@
 
         _this = _Framework7Class.call(this, viewParams, [app]) || this;
 
-        var view = _assertThisInitialized$1(_this);
+        var view = _assertThisInitialized(_this);
 
         var ssr = view.params.routerId;
         var defaults = {
@@ -10405,7 +10488,7 @@
         };
 
         if (!ssr) {
-          var $el = $$1(el);
+          var $el = $(el);
 
           if (!$el.length) {
             var message = "Framework7: can't create a View instance because ";
@@ -10415,7 +10498,7 @@
         } // Default View params
 
 
-        view.params = extend$1({
+        view.params = extend({
           el: el
         }, defaults, app.params.view, viewParams); // Routes
 
@@ -10426,7 +10509,7 @@
         } // View Props
 
 
-        extend$1(false, view, {
+        extend(false, view, {
           app: app,
           name: view.params.name,
           main: view.params.main,
@@ -10462,7 +10545,7 @@
         view.id = viewId;
 
         if (!view.params.init) {
-          return view || _assertThisInitialized$1(_this);
+          return view || _assertThisInitialized(_this);
         } // Init View
 
 
@@ -10474,7 +10557,7 @@
           });
         }
 
-        return view || _assertThisInitialized$1(_this);
+        return view || _assertThisInitialized(_this);
       }
 
       var _proto = View.prototype;
@@ -10551,7 +10634,7 @@
         var view = this;
         var app = view.app;
         var el = view.params.el || viewEl;
-        var $el = $$1(el); // Selector
+        var $el = $(el); // Selector
 
         var selector;
         if (typeof el === 'string') selector = el;else {
@@ -10565,11 +10648,11 @@
           $navbarsEl = $el.children('.navbars').eq(0);
 
           if ($navbarsEl.length === 0) {
-            $navbarsEl = $$1('<div class="navbars"></div>');
+            $navbarsEl = $('<div class="navbars"></div>');
           }
         }
 
-        extend$1(view, {
+        extend(view, {
           $el: $el,
           el: $el[0],
           main: view.main || $el.hasClass('view-main'),
@@ -10609,12 +10692,12 @@
     }(Framework7Class); // Use Router
 
 
-    View.use(RouterModule);
+    View$1.use(RouterModule);
 
     function initClicks(app) {
       function handleClicks(e) {
         var window = getWindow();
-        var $clickedEl = $$1(e.target);
+        var $clickedEl = $(e.target);
         var $clickedLinkEl = $clickedEl.closest('a');
         var isLink = $clickedLinkEl.length > 0;
         var url = isLink && $clickedLinkEl.attr('href'); // Check if link is external
@@ -10671,12 +10754,12 @@
           if (clickedLinkData.view && clickedLinkData.view === 'current') {
             view = app.views.current;
           } else if (clickedLinkData.view) {
-            view = $$1(clickedLinkData.view)[0].f7View;
+            view = $(clickedLinkData.view)[0].f7View;
           } else {
             view = $clickedEl.parents('.view')[0] && $clickedEl.parents('.view')[0].f7View;
 
             if (!$clickedLinkEl.hasClass('back') && view && view.params.linksView) {
-              if (typeof view.params.linksView === 'string') view = $$1(view.params.linksView)[0].f7View;else if (view.params.linksView instanceof View) view = view.params.linksView;
+              if (typeof view.params.linksView === 'string') view = $(view.params.linksView)[0].f7View;else if (view.params.linksView instanceof View$1) view = view.params.linksView;
             }
           }
 
@@ -10879,7 +10962,7 @@
 
     var ignoreChildren = [false, null, '', undefined];
 
-    var h = function h(type, props) {
+    var h$1 = function h(type, props) {
       for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
         children[_key - 2] = arguments[_key];
       }
@@ -10893,7 +10976,7 @@
       };
     };
 
-    var $h = htm.bind(h);
+    var $h = htm.bind(h$1);
 
     function vnode(sel, data, children, text, elm) {
       var key = data === undefined ? undefined : data.key;
@@ -10926,7 +11009,7 @@
       }
     }
 
-    function h$1(sel, b, c) {
+    function h(sel, b, c) {
       var data = {},
           children,
           text,
@@ -10977,7 +11060,7 @@
       return typeof treeNode.type === 'function' ? treeNode.type.name || 'CustomComponent' : treeNode.type;
     };
 
-    var toCamelCase$1 = function toCamelCase(name) {
+    var toCamelCase = function toCamelCase(name) {
       return name.split('-').map(function (word, index) {
         if (index === 0) return word.toLowerCase();
         return word[0].toUpperCase() + word.substr(1);
@@ -10997,7 +11080,7 @@
         }
 
         Object.keys(obj).forEach(function (key) {
-          context[toCamelCase$1(key)] = obj[key];
+          context[toCamelCase(key)] = obj[key];
         });
       });
       return context;
@@ -11069,7 +11152,7 @@
 
       if (data && data.attrs && data.attrs.component) {
         // eslint-disable-next-line
-        tagName = (_readOnlyError("tagName"), data.attrs.component);
+        data.attrs.component, _readOnlyError("tagName");
         delete data.attrs.component;
         isFakeElement = true;
       }
@@ -11323,7 +11406,7 @@
     };
 
     var isTreeNode = function isTreeNode(treeNode) {
-      return isObject$1(treeNode) && 'props' in treeNode && 'type' in treeNode && 'children' in treeNode;
+      return isObject(treeNode) && 'props' in treeNode && 'type' in treeNode && 'children' in treeNode;
     };
 
     var treeNodeToVNode = function treeNodeToVNode(treeNode, component, f7, initial, isRoot) {
@@ -11337,7 +11420,7 @@
 
       var data = getData(treeNode, component, f7, initial, isRoot);
       var children = isCustomComponent(treeNode.type) ? [] : getChildren(treeNode, component, f7, initial);
-      return h$1(getTagName(treeNode), data, children);
+      return h(getTagName(treeNode), data, children);
     };
 
     function vdom(tree, component, initial) {
@@ -11364,7 +11447,7 @@
       return document.createComment(text);
     }
 
-    function insertBefore$1(parentNode, newNode, referenceNode) {
+    function insertBefore(parentNode, newNode, referenceNode) {
       if (referenceNode && referenceNode.parentNode !== parentNode) {
         if (referenceNode.__component__) referenceNode = referenceNode.__component__.el;
       }
@@ -11418,7 +11501,7 @@
       createElementNS: createElementNS,
       createTextNode: createTextNode,
       createComment: createComment,
-      insertBefore: insertBefore$1,
+      insertBefore: insertBefore,
       removeChild: removeChild,
       appendChild: appendChild,
       parentNode: parentNode,
@@ -11869,14 +11952,14 @@
 
     var raf = typeof window !== 'undefined' && window.requestAnimationFrame || setTimeout;
 
-    var nextFrame$1 = function nextFrame(fn) {
+    var nextFrame = function nextFrame(fn) {
       raf(function () {
         raf(fn);
       });
     };
 
     function setNextFrame(obj, prop, val) {
-      nextFrame$1(function () {
+      nextFrame(function () {
         obj[prop] = val;
       });
     }
@@ -12019,12 +12102,12 @@
         // if element changed or deleted we remove all existing listeners unconditionally
         if (!on) {
           Object.keys(oldOn).forEach(function (name) {
-            $$1(oldElm).off(name, oldListener);
+            $(oldElm).off(name, oldListener);
           });
         } else {
           Object.keys(oldOn).forEach(function (name) {
             if (!on[name]) {
-              $$1(oldElm).off(name, oldListener);
+              $(oldElm).off(name, oldListener);
             }
           });
         }
@@ -12040,12 +12123,12 @@
 
         if (!oldOn) {
           Object.keys(on).forEach(function (name) {
-            $$1(elm).on(name, listener);
+            $(elm).on(name, listener);
           });
         } else {
           Object.keys(on).forEach(function (name) {
             if (!oldOn[name]) {
-              $$1(elm).on(name, listener);
+              $(elm).on(name, listener);
             }
           });
         }
@@ -12089,7 +12172,6 @@
             aurora: app.theme === 'aurora'
           },
           style: component.style,
-          __storeCallbacks: [],
           __updateQueue: [],
           __eventHandlers: [],
           __onceEventHandlers: [],
@@ -12139,7 +12221,7 @@
               _this.el = el;
               patch(_this.el, _this.vnode);
               _this.el = _this.vnode.elm;
-              _this.$el = $$1(_this.el);
+              _this.$el = $(_this.el);
 
               _this.attachEvents();
 
@@ -12156,7 +12238,7 @@
               _this.vnode = vdom(tree, _this, true);
               _this.el = document.createElement(_this.vnode.sel || 'div');
               patch(_this.el, _this.vnode);
-              _this.$el = $$1(_this.el);
+              _this.$el = $(_this.el);
             }
 
             if (_this.style) {
@@ -12197,29 +12279,46 @@
         });
       };
 
+      _proto.getComponentRef = function getComponentRef() {
+        var self = this;
+        return function (initialValue) {
+          var value = initialValue;
+          var obj = {};
+          Object.defineProperty(obj, 'value', {
+            get: function get() {
+              return value;
+            },
+            set: function set(v) {
+              value = v;
+              self.update();
+            }
+          });
+          return obj;
+        };
+      };
+
       _proto.getComponentStore = function getComponentStore() {
         var _this2 = this;
 
         var _this$f7$store = this.f7.store,
             state = _this$f7$store.state,
-            getters = _this$f7$store.getters,
+            _gettersPlain = _this$f7$store._gettersPlain,
             dispatch = _this$f7$store.dispatch;
         var $store = {
           state: state,
           dispatch: dispatch
         };
-        $store.getters = new Proxy(getters, {
+        $store.getters = new Proxy(_gettersPlain, {
           get: function get(target, prop) {
             var obj = target[prop];
 
-            var callback = function callback() {
+            var callback = function callback(v) {
+              obj.value = v;
+
               _this2.update();
             };
 
             obj.onUpdated(callback);
-
-            _this2.__storeCallbacks.push(callback, obj.__callback);
-
             return obj;
           }
         });
@@ -12233,7 +12332,7 @@
           $f7route: this.context.f7route,
           $f7router: this.context.f7router,
           $h: $h,
-          $: $$1,
+          $: $,
           $id: this.id,
           $f7: this.f7,
           $f7ready: this.f7ready.bind(this),
@@ -12242,6 +12341,7 @@
           $update: this.update.bind(this),
           $emit: this.emit.bind(this),
           $store: this.getComponentStore(),
+          $ref: this.getComponentRef(),
           $el: {}
         };
         Object.defineProperty(ctx.$el, 'value', {
@@ -12402,18 +12502,16 @@
 
       _proto.mount = function mount(mountMethod) {
         this.hook('onBeforeMount', this.$el);
-        if (this.styleEl) $$1('head').append(this.styleEl);
+        if (this.styleEl) $('head').append(this.styleEl);
         if (mountMethod) mountMethod(this.el);
         this.hook('onMounted', this.$el);
       };
 
       _proto.destroy = function destroy() {
-        var _this8 = this;
-
         if (this.__destroyed) return;
         var window = getWindow();
         this.hook('onBeforeUnmount');
-        if (this.styleEl) $$1(this.styleEl).remove();
+        if (this.styleEl) $(this.styleEl).remove();
         this.detachEvents();
         this.hook('onUnmounted'); // Delete component instance
 
@@ -12432,12 +12530,6 @@
 
 
         window.cancelAnimationFrame(this.__requestAnimationFrameId);
-
-        this.__storeCallbacks.forEach(function (callback) {
-          _this8.f7.store.__removeCallback(callback);
-        });
-
-        this.__storeCallbacks = [];
         this.__updateQueue = [];
         this.__eventHandlers = [];
         this.__onceEventHandlers = [];
@@ -12507,7 +12599,7 @@
       if (!scriptContent || !scriptContent.trim()) scriptContent = 'return () => {return $render}'; // Parse Template
 
       if (template) {
-        scriptContent = scriptContent.replace('$render', "function ($$ctx) {\n          var $ = $$ctx.$$;\n          var $h = $$ctx.$h;\n          var $root = $$ctx.$root;\n          var $f7 = $$ctx.$f7;\n          var $f7route = $$ctx.$f7route;\n          var $f7router = $$ctx.$f7router;\n          var $theme = $$ctx.$theme;\n          var $update = $$ctx.$update;\n          var $store = $$ctx.$store;\n\n          return $h`" + template + "`\n        }\n        ").replace(/export default/g, 'return');
+        scriptContent = scriptContent.replace('$render', "function ($$ctx) {\n          var $ = $$ctx.$$;\n          var $h = $$ctx.$h;\n          var $root = $$ctx.$root;\n          var $f7 = $$ctx.$f7;\n          var $f7route = $$ctx.$f7route;\n          var $f7router = $$ctx.$f7router;\n          var $theme = $$ctx.$theme;\n          var $update = $$ctx.$update;\n          var $store = $$ctx.$store;\n          var $ref = $$ctx.$ref;\n\n          return $h`" + template + "`\n        }\n        ").replace(/export default/g, 'return');
       } // Execute Script
 
 
@@ -12515,10 +12607,10 @@
 
       var scriptEl = document.createElement('script');
       scriptEl.innerHTML = scriptContent;
-      $$1('head').append(scriptEl);
+      $('head').append(scriptEl);
       var component = window[callbackCreateName](); // Remove Script El
 
-      $$1(scriptEl).remove();
+      $(scriptEl).remove();
       window[callbackCreateName] = null;
       delete window[callbackCreateName]; // Assign Style
 
@@ -12646,7 +12738,7 @@
       create: function create() {
         var app = this;
         var window = getWindow();
-        extend$1(app, {
+        extend(app, {
           serviceWorker: {
             container: 'serviceWorker' in window.navigator ? window.navigator.serviceWorker : undefined,
             registrations: SW.registrations,
@@ -12688,7 +12780,7 @@
 
       var getters = _extends({}, storeParams.getters || {});
 
-      var state = extend$1({}, originalState);
+      var state = extend({}, originalState);
       var propsQueue = [];
       var gettersDependencies = {};
       var gettersCallbacks = {};
@@ -12744,8 +12836,12 @@
         removeGetterCallback(callback);
       };
 
-      var getterValue = function getterValue(getterKey) {
-        if (getterKey === 'constructor') return;
+      var getterValue = function getterValue(getterKey, addCallback) {
+        if (addCallback === void 0) {
+          addCallback = true;
+        }
+
+        if (getterKey === 'constructor') return undefined;
         propsQueue = [];
         var value = getGetterValue(getterKey);
         addGetterDependencies(getterKey, propsQueue);
@@ -12758,6 +12854,10 @@
           value: value,
           onUpdated: onUpdated
         };
+
+        if (!addCallback) {
+          return obj;
+        }
 
         var callback = function callback(v) {
           obj.value = v;
@@ -12789,7 +12889,19 @@
             return undefined;
           }
 
-          return getterValue(prop);
+          return getterValue(prop, true);
+        }
+      });
+      store._gettersPlain = new Proxy(getters, {
+        set: function set() {
+          return false;
+        },
+        get: function get(target, prop) {
+          if (!target[prop]) {
+            return undefined;
+          }
+
+          return getterValue(prop, false);
         }
       });
 
@@ -12855,17 +12967,17 @@
         var app = this;
         var pageContent;
 
-        if ($$1('.popup.modal-in').length > 0) {
+        if ($('.popup.modal-in').length > 0) {
           // Check for opened popup
-          pageContent = $$1('.popup.modal-in').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
-        } else if ($$1('.panel.panel-in').length > 0) {
+          pageContent = $('.popup.modal-in').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
+        } else if ($('.panel.panel-in').length > 0) {
           // Check for opened panel
-          pageContent = $$1('.panel.panel-in').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
-        } else if ($$1('.views > .view.tab-active').length > 0) {
+          pageContent = $('.panel.panel-in').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
+        } else if ($('.views > .view.tab-active').length > 0) {
           // View in tab bar app layout
-          pageContent = $$1('.views > .view.tab-active').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
-        } else if ($$1('.views').length > 0) {
-          pageContent = $$1('.views').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
+          pageContent = $('.views > .view.tab-active').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
+        } else if ($('.views').length > 0) {
+          pageContent = $('.views').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
         } else {
           pageContent = app.$el.children('.view').find('.page:not(.page-previous):not(.page-next):not(.cached)').find('.page-content');
         }
@@ -12963,7 +13075,7 @@
 
         if (isCordova || isCap) {
           if (params.scrollTopOnClick) {
-            $$1(window).on('statusTap', Statusbar.onClick.bind(app));
+            $(window).on('statusTap', Statusbar.onClick.bind(app));
           }
 
           if (device.ios) {
@@ -13033,10 +13145,10 @@
     };
 
     function getCurrentView(app) {
-      var $popoverView = $$1('.popover.modal-in .view');
-      var $popupView = $$1('.popup.modal-in .view');
-      var $panelView = $$1('.panel.panel-in .view');
-      var $viewsEl = $$1('.views');
+      var $popoverView = $('.popover.modal-in .view');
+      var $popupView = $('.popup.modal-in .view');
+      var $panelView = $('.panel.panel-in .view');
+      var $viewsEl = $('.views');
       if ($viewsEl.length === 0) $viewsEl = app.$el; // Find active view as tab
 
       var $viewEl = $viewsEl.children('.view');
@@ -13072,7 +13184,7 @@
       return undefined;
     }
 
-    var View$1 = {
+    var View = {
       name: 'view',
       params: {
         view: {
@@ -13143,17 +13255,17 @@
         }
       },
       static: {
-        View: View
+        View: View$1
       },
       create: function create() {
         var app = this;
-        extend$1(app, {
-          views: extend$1([], {
+        extend(app, {
+          views: extend([], {
             create: function create(el, params) {
-              return new View(app, el, params);
+              return new View$1(app, el, params);
             },
             get: function get(viewEl) {
-              var $viewEl = $$1(viewEl);
+              var $viewEl = $(viewEl);
               if ($viewEl.length && $viewEl[0].f7View) return $viewEl[0].f7View;
               return undefined;
             }
@@ -13172,9 +13284,9 @@
       on: {
         init: function init() {
           var app = this;
-          $$1('.view-init').each(function (viewEl) {
+          $('.view-init').each(function (viewEl) {
             if (viewEl.f7View) return;
-            var viewParams = $$1(viewEl).dataset();
+            var viewParams = $(viewEl).dataset();
             app.views.create(viewEl, viewParams);
           });
         },
@@ -13182,7 +13294,7 @@
           var app = this;
           instance.$el.find('.view-init').each(function (viewEl) {
             if (viewEl.f7View) return;
-            var viewParams = $$1(viewEl).dataset();
+            var viewParams = $(viewEl).dataset();
             app.views.create(viewEl, viewParams);
           });
         },
@@ -13201,7 +13313,7 @@
             var app = this;
             var viewEl = vnode.elm;
             if (viewEl.f7View) return;
-            var viewParams = $$1(viewEl).dataset();
+            var viewParams = $(viewEl).dataset();
             app.views.create(viewEl, viewParams);
           },
           destroy: function destroy(vnode) {
@@ -13217,7 +13329,7 @@
     var Navbar = {
       size: function size(el) {
         var app = this;
-        var $el = $$1(el);
+        var $el = $(el);
 
         if ($el.hasClass('navbars')) {
           $el = $el.children('.navbar').each(function (navbarEl) {
@@ -13380,7 +13492,7 @@
         }
 
         var app = this;
-        var $el = $$1(el);
+        var $el = $(el);
         var isDynamic = $el.hasClass('navbar') && $el.parent('.navbars').length && !hideOnlyCurrent;
         if (isDynamic) $el = $el.parents('.navbars');
         if (!$el.length) return;
@@ -13403,7 +13515,7 @@
 
         if (isDynamic) {
           $el.children('.navbar').each(function (subEl) {
-            $$1(subEl).trigger('navbar:hide');
+            $(subEl).trigger('navbar:hide');
             app.emit('navbarHide', subEl);
           });
         } else {
@@ -13425,7 +13537,7 @@
         }
 
         var app = this;
-        var $el = $$1(el);
+        var $el = $(el);
         var isDynamic = $el.hasClass('navbar') && $el.parent('.navbars').length && !hideOnlyCurrent;
         if (isDynamic) $el = $el.parents('.navbars');
         if (!$el.length) return;
@@ -13442,7 +13554,7 @@
 
         if (isDynamic) {
           $el.children('.navbar').each(function (subEl) {
-            $$1(subEl).trigger('navbar:show');
+            $(subEl).trigger('navbar:show');
             app.emit('navbarShow', subEl);
           });
         } else {
@@ -13459,7 +13571,7 @@
           pageData = page;
           $pageEl = page.$el;
         } else {
-          $pageEl = $$1(page);
+          $pageEl = $(page);
           if ($pageEl.length > 0) pageData = $pageEl[0].f7Page;
         }
 
@@ -13473,7 +13585,7 @@
         return $navbarEl[0];
       },
       getPageByEl: function getPageByEl(navbarEl) {
-        var $navbarEl = $$1(navbarEl);
+        var $navbarEl = $(navbarEl);
 
         if ($navbarEl.parents('.page').length) {
           return $navbarEl.parents('.page')[0];
@@ -13489,13 +13601,13 @@
       },
       collapseLargeTitle: function collapseLargeTitle(navbarEl) {
         var app = this;
-        var $navbarEl = $$1(navbarEl);
+        var $navbarEl = $(navbarEl);
 
         if ($navbarEl.hasClass('navbars')) {
           $navbarEl = $navbarEl.find('.navbar');
 
           if ($navbarEl.length > 1) {
-            $navbarEl = $$1(navbarEl).find('.navbar-large.navbar-current');
+            $navbarEl = $(navbarEl).find('.navbar-large.navbar-current');
           }
 
           if ($navbarEl.length > 1 || !$navbarEl.length) {
@@ -13503,7 +13615,7 @@
           }
         }
 
-        var $pageEl = $$1(app.navbar.getPageByEl($navbarEl));
+        var $pageEl = $(app.navbar.getPageByEl($navbarEl));
         $navbarEl.addClass('navbar-large-collapsed');
         $pageEl.eq(0).addClass('page-with-navbar-large-collapsed').trigger('page:navbarlargecollapsed');
         app.emit('pageNavbarLargeCollapsed', $pageEl[0]);
@@ -13512,13 +13624,13 @@
       },
       expandLargeTitle: function expandLargeTitle(navbarEl) {
         var app = this;
-        var $navbarEl = $$1(navbarEl);
+        var $navbarEl = $(navbarEl);
 
         if ($navbarEl.hasClass('navbars')) {
           $navbarEl = $navbarEl.find('.navbar-large');
 
           if ($navbarEl.length > 1) {
-            $navbarEl = $$1(navbarEl).find('.navbar-large.navbar-current');
+            $navbarEl = $(navbarEl).find('.navbar-large.navbar-current');
           }
 
           if ($navbarEl.length > 1 || !$navbarEl.length) {
@@ -13526,7 +13638,7 @@
           }
         }
 
-        var $pageEl = $$1(app.navbar.getPageByEl($navbarEl));
+        var $pageEl = $(app.navbar.getPageByEl($navbarEl));
         $navbarEl.removeClass('navbar-large-collapsed');
         $pageEl.eq(0).removeClass('page-with-navbar-large-collapsed').trigger('page:navbarlargeexpanded');
         app.emit('pageNavbarLargeExpanded', $pageEl[0]);
@@ -13535,13 +13647,13 @@
       },
       toggleLargeTitle: function toggleLargeTitle(navbarEl) {
         var app = this;
-        var $navbarEl = $$1(navbarEl);
+        var $navbarEl = $(navbarEl);
 
         if ($navbarEl.hasClass('navbars')) {
           $navbarEl = $navbarEl.find('.navbar-large');
 
           if ($navbarEl.length > 1) {
-            $navbarEl = $$1(navbarEl).find('.navbar-large.navbar-current');
+            $navbarEl = $(navbarEl).find('.navbar-large.navbar-current');
           }
 
           if ($navbarEl.length > 1 || !$navbarEl.length) {
@@ -13558,8 +13670,8 @@
       initNavbarOnScroll: function initNavbarOnScroll(pageEl, navbarEl, needHide, needCollapse, needTransparent) {
         var app = this;
         var support = getSupport();
-        var $pageEl = $$1(pageEl);
-        var $navbarEl = $$1(navbarEl);
+        var $pageEl = $(pageEl);
+        var $navbarEl = $(navbarEl);
         var $titleLargeEl = $navbarEl.find('.title-large');
         var isLarge = $titleLargeEl.length || $navbarEl.hasClass('.navbar-large');
         var navbarHideHeight = 44;
@@ -13606,15 +13718,21 @@
         var touchSnapTimeout = 70;
         var desktopSnapTimeout = 300;
 
+        function calcScrollableDistance() {
+          $pageEl.find('.page-content').each(function (pageContentEl) {
+            pageContentEl.f7ScrollableDistance = pageContentEl.scrollHeight - pageContentEl.offsetHeight;
+          });
+        }
+
         function snapLargeNavbar() {
           var inSearchbarExpanded = $navbarEl.hasClass('with-searchbar-expandable-enabled');
           if (inSearchbarExpanded) return;
           if (!scrollContent || currentScrollTop < 0) return;
 
           if (currentScrollTop >= navbarTitleLargeHeight / 2 && currentScrollTop < navbarTitleLargeHeight) {
-            $$1(scrollContent).scrollTop(navbarTitleLargeHeight, 100);
+            $(scrollContent).scrollTop(navbarTitleLargeHeight, 100);
           } else if (currentScrollTop < navbarTitleLargeHeight) {
-            $$1(scrollContent).scrollTop(0, 200);
+            $(scrollContent).scrollTop(0, 200);
           }
         }
 
@@ -13624,9 +13742,9 @@
           if (!scrollContent || currentScrollTop < 0) return;
 
           if (currentScrollTop >= navbarOffsetHeight / 2 && currentScrollTop < navbarOffsetHeight) {
-            $$1(scrollContent).scrollTop(navbarOffsetHeight, 100);
+            $(scrollContent).scrollTop(navbarOffsetHeight, 100);
           } else if (currentScrollTop < navbarOffsetHeight) {
-            $$1(scrollContent).scrollTop(0, 200);
+            $(scrollContent).scrollTop(0, 200);
           }
         }
 
@@ -13687,12 +13805,13 @@
         var previousCollapseProgress = null;
         var collapseProgress = null;
 
-        function handleLargeNavbarCollapse() {
+        function handleLargeNavbarCollapse(pageContentEl) {
           var isHidden = $navbarEl.hasClass('navbar-hidden') || $navbarEl.parent('.navbars').hasClass('navbar-hidden');
           if (isHidden) return;
           var isLargeTransparent = $navbarEl.hasClass('navbar-large-transparent') || $navbarEl.hasClass('navbar-large') && $navbarEl.hasClass('navbar-transparent');
           previousCollapseProgress = collapseProgress;
-          collapseProgress = Math.min(Math.max(currentScrollTop / navbarTitleLargeHeight, 0), 1);
+          var scrollableDistance = Math.min(navbarTitleLargeHeight, pageContentEl.f7ScrollableDistance || navbarTitleLargeHeight);
+          collapseProgress = Math.min(Math.max(currentScrollTop / scrollableDistance, 0), 1);
           var previousCollapseWasInMiddle = previousCollapseProgress > 0 && previousCollapseProgress < 1;
           var inSearchbarExpanded = $navbarEl.hasClass('with-searchbar-expandable-enabled');
           if (inSearchbarExpanded) return;
@@ -13795,7 +13914,7 @@
           scrollChanged = currentScrollTop;
 
           if (needCollapse) {
-            handleLargeNavbarCollapse();
+            handleLargeNavbarCollapse(scrollContent);
           } else if (needTransparent) {
             handleNavbarTransparent();
           }
@@ -13835,17 +13954,18 @@
           app.on('touchend:passive', handleTouchEnd);
         }
 
-        if (needCollapse) {
-          $pageEl.find('.page-content').each(function (pageContentEl) {
-            if (pageContentEl.scrollTop > 0) handleScroll.call(pageContentEl);
-          });
-        } else if (needTransparent) {
+        calcScrollableDistance();
+
+        if (needCollapse || needTransparent) {
           $pageEl.find('.page-content').each(function (pageContentEl) {
             if (pageContentEl.scrollTop > 0) handleScroll.call(pageContentEl);
           });
         }
 
+        app.on('resize', calcScrollableDistance);
+
         $pageEl[0].f7DetachNavbarScrollHandlers = function f7DetachNavbarScrollHandlers() {
+          app.off('resize', calcScrollableDistance);
           delete $pageEl[0].f7DetachNavbarScrollHandlers;
           $pageEl.off('scroll', '.page-content', handleScroll, true);
 
@@ -13881,7 +14001,7 @@
       on: {
         'panelBreakpoint panelCollapsedBreakpoint panelResize viewResize resize viewMasterDetailBreakpoint': function onPanelResize() {
           var app = this;
-          $$1('.navbar').each(function (navbarEl) {
+          $('.navbar').each(function (navbarEl) {
             app.navbar.size(navbarEl);
           });
         },
@@ -13900,7 +14020,7 @@
           if (!navbarEl) {
             $navbarsEl = page.$el.parents('.view').children('.navbars');
           } else {
-            $navbarsEl = $$1(navbarEl).parents('.navbars');
+            $navbarsEl = $(navbarEl).parents('.navbars');
           }
 
           if (page.$el.hasClass('no-navbar') || view.router.dynamicNavbar && !navbarEl) {
@@ -13912,13 +14032,13 @@
         },
         pageReinit: function pageReinit(page) {
           var app = this;
-          var $navbarEl = $$1(app.navbar.getElByPage(page));
+          var $navbarEl = $(app.navbar.getElByPage(page));
           if (!$navbarEl || $navbarEl.length === 0) return;
           app.navbar.size($navbarEl);
         },
         pageInit: function pageInit(page) {
           var app = this;
-          var $navbarEl = $$1(app.navbar.getElByPage(page));
+          var $navbarEl = $(app.navbar.getElByPage(page));
           if (!$navbarEl || $navbarEl.length === 0) return; // Size
 
           app.navbar.size($navbarEl); // Need Collapse On Scroll
@@ -13964,17 +14084,17 @@
         },
         tabShow: function tabShow(tabEl) {
           var app = this;
-          $$1(tabEl).find('.navbar:not(.navbar-previous):not(.stacked)').each(function (navbarEl) {
+          $(tabEl).find('.navbar:not(.navbar-previous):not(.stacked)').each(function (navbarEl) {
             app.navbar.size(navbarEl);
           });
         }
       },
       clicks: {
-        '.navbar .title': function onTitleClick($clickedEl) {
+        '.navbar .title': function onTitleClick($clickedEl, clickedData, e) {
           var app = this;
           if (!app.params.navbar.scrollTopOnTitleClick) return;
 
-          if ($clickedEl.closest('a').length > 0) {
+          if ($(e.target).closest('a, button').length > 0) {
             return;
           }
 
@@ -14029,8 +14149,8 @@
     var Toolbar = {
       setHighlight: function setHighlight(tabbarEl) {
         var app = this;
-        if (app.theme === 'ios') return;
-        var $tabbarEl = $$1(tabbarEl);
+        var $tabbarEl = $(tabbarEl);
+        if (app.theme === 'ios' && !$tabbarEl.hasClass('tabbar-highlight')) return;
         if ($tabbarEl.length === 0 || !($tabbarEl.hasClass('tabbar') || $tabbarEl.hasClass('tabbar-labels'))) return;
         var $highlightEl = $tabbarEl.find('.tab-link-highlight');
         var tabLinksCount = $tabbarEl.find('.tab-link').length;
@@ -14060,7 +14180,7 @@
           highlightTranslate = (app.rtl ? -activeIndex : activeIndex) * 100 + "%";
         }
 
-        nextFrame(function () {
+        nextFrame$1(function () {
           $highlightEl.css('width', highlightWidth).transform("translate3d(" + highlightTranslate + ",0,0)");
         });
       },
@@ -14074,7 +14194,7 @@
         }
 
         var app = this;
-        var $el = $$1(el);
+        var $el = $(el);
         if ($el.hasClass('toolbar-hidden')) return;
         var className = "toolbar-hidden" + (animate ? ' toolbar-transitioning' : '');
         $el.transitionEnd(function () {
@@ -14090,7 +14210,7 @@
         }
 
         var app = this;
-        var $el = $$1(el);
+        var $el = $(el);
         if (!$el.hasClass('toolbar-hidden')) return;
 
         if (animate) {
@@ -14106,7 +14226,7 @@
       },
       initToolbarOnScroll: function initToolbarOnScroll(pageEl) {
         var app = this;
-        var $pageEl = $$1(pageEl);
+        var $pageEl = $(pageEl);
         var $toolbarEl = $pageEl.parents('.view').children('.toolbar');
 
         if ($toolbarEl.length === 0) {
@@ -14258,7 +14378,7 @@
           }
 
           var $innerSubnavbars = page.$el.find('.subnavbar').filter(function (subnavbarEl) {
-            return $$1(subnavbarEl).parents('.page')[0] === page.$el[0];
+            return $(subnavbarEl).parents('.page')[0] === page.$el[0];
           });
 
           if ($innerSubnavbars.length) {
@@ -14268,7 +14388,7 @@
       }
     };
 
-    var TouchRipple = /*#__PURE__*/function () {
+    var TouchRipple$1 = /*#__PURE__*/function () {
       function TouchRipple(app, $el, x, y) {
         var ripple = this;
         if (!$el) return undefined;
@@ -14308,7 +14428,7 @@
           $el.addClass('ripple-inset');
         }
 
-        ripple.$rippleWaveEl = $$1("<div class=\"ripple-wave\" style=\"width: " + diameter + "px; height: " + diameter + "px; margin-top:-" + diameter / 2 + "px; margin-left:-" + diameter / 2 + "px; left:" + center.x + "px; top:" + center.y + "px; --f7-ripple-transform: " + ripple.rippleTransform + "\"></div>");
+        ripple.$rippleWaveEl = $("<div class=\"ripple-wave\" style=\"width: " + diameter + "px; height: " + diameter + "px; margin-top:-" + diameter / 2 + "px; margin-left:-" + diameter / 2 + "px; left:" + center.x + "px; top:" + center.y + "px; --f7-ripple-transform: " + ripple.rippleTransform + "\"></div>");
         $el.prepend(ripple.$rippleWaveEl);
         ripple.$rippleWaveEl.animationEnd(function () {
           if (!ripple.$rippleWaveEl) return;
@@ -14368,10 +14488,10 @@
       return TouchRipple;
     }();
 
-    var TouchRipple$1 = {
+    var TouchRipple = {
       name: 'touch-ripple',
       static: {
-        TouchRipple: TouchRipple
+        TouchRipple: TouchRipple$1
       },
       create: function create() {
         var app = this;
@@ -14381,7 +14501,7 @@
               args[_key] = arguments[_key];
             }
 
-            return _construct$1(TouchRipple, args);
+            return _construct(TouchRipple$1, args);
           }
         };
       }
@@ -14396,28 +14516,28 @@
       dialog.open();
     }
 
-    var Modal = /*#__PURE__*/function (_Framework7Class) {
-      _inheritsLoose$1(Modal, _Framework7Class);
+    var Modal$1 = /*#__PURE__*/function (_Framework7Class) {
+      _inheritsLoose(Modal, _Framework7Class);
 
       function Modal(app, params) {
         var _this;
 
         _this = _Framework7Class.call(this, params, [app]) || this;
 
-        var modal = _assertThisInitialized$1(_this);
+        var modal = _assertThisInitialized(_this);
 
         var defaults = {}; // Extend defaults with modules params
 
         modal.useModulesParams(defaults);
-        modal.params = extend$1(defaults, params);
+        modal.params = extend(defaults, params);
         modal.opened = false;
-        var $containerEl = modal.params.containerEl ? $$1(modal.params.containerEl).eq(0) : app.$el;
+        var $containerEl = modal.params.containerEl ? $(modal.params.containerEl).eq(0) : app.$el;
         if (!$containerEl.length) $containerEl = app.$el;
         modal.$containerEl = $containerEl;
         modal.containerEl = $containerEl[0]; // Install Modules
 
         modal.useModules();
-        return _assertThisInitialized$1(_this) || _assertThisInitialized$1(_this);
+        return _assertThisInitialized(_this) || _assertThisInitialized(_this);
       }
 
       var _proto = Modal.prototype;
@@ -14426,7 +14546,7 @@
         var modal = this;
         modal.opened = true;
         openedModals.push(modal);
-        $$1('html').addClass("with-modal-" + modal.type.toLowerCase());
+        $('html').addClass("with-modal-" + modal.type.toLowerCase());
         modal.$el.trigger("modal:open " + modal.type.toLowerCase() + ":open");
         modal.emit("local::open modalOpen " + modal.type + "Open", modal);
       };
@@ -14442,7 +14562,7 @@
         modal.opened = false;
         if (!modal.type || !modal.$el) return;
         openedModals.splice(openedModals.indexOf(modal), 1);
-        $$1('html').removeClass("with-modal-" + modal.type.toLowerCase());
+        $('html').removeClass("with-modal-" + modal.type.toLowerCase());
         modal.$el.trigger("modal:close " + modal.type.toLowerCase() + ":close");
         modal.emit("local::close modalClose " + modal.type + "Close", modal);
       };
@@ -14469,13 +14589,17 @@
         }
 
         if (!$el || $el.hasClass('modal-in')) {
+          if (animateModal === false && $el[0] && type !== 'dialog') {
+            $el[0].style.display = 'block';
+          }
+
           return modal;
         }
 
         if (type === 'dialog' && app.params.modal.queueDialogs) {
           var pushToQueue;
 
-          if ($$1('.dialog.modal-in').length > 0) {
+          if ($('.dialog.modal-in').length > 0) {
             pushToQueue = true;
           } else if (openedModals.length > 0) {
             openedModals.forEach(function (openedModal) {
@@ -14638,12 +14762,12 @@
     }(Framework7Class);
 
     var CustomModal = /*#__PURE__*/function (_Modal) {
-      _inheritsLoose$1(CustomModal, _Modal);
+      _inheritsLoose(CustomModal, _Modal);
 
       function CustomModal(app, params) {
         var _this;
 
-        var extendedParams = extend$1({
+        var extendedParams = extend({
           backdrop: true,
           closeByBackdropClick: true,
           on: {}
@@ -14651,24 +14775,24 @@
 
         _this = _Modal.call(this, app, extendedParams) || this;
 
-        var customModal = _assertThisInitialized$1(_this);
+        var customModal = _assertThisInitialized(_this);
 
         customModal.params = extendedParams; // Find Element
 
         var $el;
 
         if (!customModal.params.el) {
-          $el = $$1(customModal.params.content);
+          $el = $(customModal.params.content);
         } else {
-          $el = $$1(customModal.params.el);
+          $el = $(customModal.params.el);
         }
 
         if ($el && $el.length > 0 && $el[0].f7Modal) {
-          return $el[0].f7Modal || _assertThisInitialized$1(_this);
+          return $el[0].f7Modal || _assertThisInitialized(_this);
         }
 
         if ($el.length === 0) {
-          return customModal.destroy() || _assertThisInitialized$1(_this);
+          return customModal.destroy() || _assertThisInitialized(_this);
         }
 
         var $backdropEl;
@@ -14677,7 +14801,7 @@
           $backdropEl = app.$el.children('.custom-modal-backdrop');
 
           if ($backdropEl.length === 0) {
-            $backdropEl = $$1('<div class="custom-modal-backdrop"></div>');
+            $backdropEl = $('<div class="custom-modal-backdrop"></div>');
             app.$el.append($backdropEl);
           }
         }
@@ -14700,7 +14824,7 @@
             app.off('click', handleClick);
           }
         });
-        extend$1(customModal, {
+        extend(customModal, {
           app: app,
           $el: $el,
           el: $el[0],
@@ -14709,16 +14833,16 @@
           type: 'customModal'
         });
         $el[0].f7Modal = customModal;
-        return customModal || _assertThisInitialized$1(_this);
+        return customModal || _assertThisInitialized(_this);
       }
 
       return CustomModal;
-    }(Modal);
+    }(Modal$1);
 
-    var Modal$1 = {
+    var Modal = {
       name: 'modal',
       static: {
-        Modal: Modal,
+        Modal: Modal$1,
         CustomModal: CustomModal
       },
       create: function create() {
@@ -14738,12 +14862,12 @@
 
     if (typeof window !== 'undefined') {
       // Dom7
-      if (!window.Dom7) window.Dom7 = $$1;
+      if (!window.Dom7) window.Dom7 = $;
     } // UMD_ONLY_END
 
 
     Router.use([RouterComponentLoaderModule]);
-    Framework7.use([DeviceModule, SupportModule, UtilsModule, ResizeModule, RequestModule, TouchModule, ClicksModule, RouterModule, HistoryModule, ComponentModule, ServiceWorkerModule, StoreModule, Statusbar$1, View$1, Navbar$1, Toolbar$1, Subnavbar, TouchRipple$1, Modal$1]);
+    Framework7.use([DeviceModule, SupportModule, UtilsModule, ResizeModule, RequestModule, TouchModule, ClicksModule, RouterModule, HistoryModule, ComponentModule, ServiceWorkerModule, StoreModule, Statusbar$1, View, Navbar$1, Toolbar$1, Subnavbar, TouchRipple, Modal]);
 
     return Framework7;
 

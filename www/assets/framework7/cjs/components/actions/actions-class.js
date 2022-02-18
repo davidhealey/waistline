@@ -19,7 +19,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var Actions = /*#__PURE__*/function (_Modal) {
   _inheritsLoose(Actions, _Modal);
@@ -130,6 +132,7 @@ var Actions = /*#__PURE__*/function (_Modal) {
 
       if (convertToPopover && actions.popoverHtml) {
         popover = app.popover.create({
+          containerEl: actions.params.containerEl,
           content: actions.popoverHtml,
           backdrop: actions.params.backdrop,
           targetEl: targetEl,

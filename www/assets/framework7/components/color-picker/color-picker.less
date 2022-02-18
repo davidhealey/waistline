@@ -1,5 +1,5 @@
 /* === Color Picker === */
-@import url('./color-picker-vars.less');
+@import './color-picker-vars.less';
 .color-picker {
   overflow: hidden;
   width: 100%;
@@ -177,8 +177,8 @@
     height: auto;
   }
   .color-picker-wheel-handle {
-    width: calc(100% / 6);
-    height: calc(100% / 6);
+    width: (100% / 6);
+    height: (100% / 6);
     position: absolute;
     box-sizing: border-box;
     border: 2px solid #fff;
@@ -531,11 +531,11 @@
 }
 
 .if-ios-theme({
-  @import url('./color-picker-ios.less');
+  @import './color-picker-ios.less';
 });
 .if-md-theme({
-  @import url('./color-picker-md.less');
+  @import './color-picker-md.less';
 });
 .if-aurora-theme({
-  @import url('./color-picker-aurora.less');
+  @import './color-picker-aurora.less';
 });
