@@ -264,7 +264,7 @@ app.MealEditor = {
       app.MealEditor.meal.items.forEach(async (x, i) => {
         app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, true, app.MealEditor.mealItemClickHandler, app.MealEditor.removeItem, undefined, false, showThumbnails);
       });
-      app.f7.sortable.enable(app.MealEditor.el.foodlist);
+      app.f7.sortable.disable(app.MealEditor.el.foodlist);
 
       resolve();
     });
