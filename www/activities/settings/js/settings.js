@@ -113,10 +113,13 @@ app.Settings = {
     const inputs = Array.from(document.querySelectorAll("input:not(.manual-bind), select"));
 
     inputs.forEach((x, i) => {
-      x.addEventListener("change", (e) => {
-        app.Settings.saveInputs(inputs);
-        app.Settings.resetModuleReadyStates(); //Reset modules for changes to take effect
-      });
+      if (x.hasAttribute("field") && x.hasAttribute("name") && !x.hasChangeEvent) {
+        x.addEventListener("change", (e) => {
+          app.Settings.saveInputs(inputs);
+          app.Settings.resetModuleReadyStates(); //Reset modules for changes to take effect
+        });
+        x.hasChangeEvent = true;
+      }
     });
 
     // Open food facts credentials login button
