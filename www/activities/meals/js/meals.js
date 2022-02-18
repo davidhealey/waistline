@@ -93,7 +93,7 @@ app.Meals = {
         let item = app.Meals.list[i];
 
         item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, app.Meals.gotoEditor, app.Meals.deleteMeal);
+        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, false, app.Meals.gotoEditor, app.Meals.deleteMeal);
       }
     }
   },

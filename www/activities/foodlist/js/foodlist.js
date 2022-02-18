@@ -168,7 +168,7 @@ app.Foodlist = {
 
         if (item != undefined) {
           item.type = "food";
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, undefined, this.removeItem, undefined, false, showThumbnails);
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, undefined, this.removeItem, undefined, false, showThumbnails);
         }
       }
     }

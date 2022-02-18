@@ -94,7 +94,7 @@ app.Recipes = {
 
         if (item.archived !== true) {
           item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-          app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, app.Recipes.gotoEditor, app.Recipes.removeItem);
+          app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, app.Recipes.gotoEditor, app.Recipes.removeItem);
         }
       }
     }

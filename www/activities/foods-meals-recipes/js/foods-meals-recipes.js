@@ -386,7 +386,7 @@ app.FoodsMealsRecipes = {
     return 0;
   },
 
-  renderItem: async function(data, el, checkbox, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
+  renderItem: async function(data, el, checkbox, sortable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
 
     if (data !== undefined) {
 
@@ -405,6 +405,7 @@ app.FoodsMealsRecipes = {
       if (item !== undefined) {
 
         let li = document.createElement("li");
+        li.data = JSON.stringify(item);
         el.appendChild(li);
 
         let label = document.createElement("label");
@@ -430,6 +431,12 @@ app.FoodsMealsRecipes = {
           let icon = document.createElement("i");
           icon.className = "icon icon-checkbox";
           label.appendChild(icon);
+        }
+        //Sortable handler
+        else if (sortable) {
+          let sortHandler = document.createElement("div");
+          sortHandler.className = "sortable-handler";
+          li.appendChild(sortHandler);
         }
 
         //Thumbnail

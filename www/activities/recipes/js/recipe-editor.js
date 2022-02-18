@@ -99,6 +99,19 @@ app.RecipeEditor = {
       });
       app.RecipeEditor.el.nutritionButton.hasClickEvent = true;
     }
+
+    // Item list sort
+    if (!app.RecipeEditor.el.foodlist.hasSortableEvent) {
+      app.RecipeEditor.el.foodlist.addEventListener("sortable:sort", (li) => {
+        let items = app.RecipeEditor.el.foodlist.getElementsByTagName("li");
+        app.RecipeEditor.recipe.items = [];
+        for (let i = 0; i < items.length; i++) {
+          let item = app.FoodsMealsRecipes.flattenItem(JSON.parse(items[i].data));
+          app.RecipeEditor.recipe.items.push(item);
+        }
+      });
+      app.RecipeEditor.el.foodlist.hasSortableEvent = true;
+    }
   },
 
   setRequiredFieldErrorMessage: function() {
@@ -248,8 +261,9 @@ app.RecipeEditor = {
       let showThumbnails = app.Utils.showThumbnails("foodlist");
 
       app.RecipeEditor.recipe.items.forEach(async (x, i) => {
-        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, app.RecipeEditor.recipeItemClickHandler, app.RecipeEditor.removeItem, undefined, false, showThumbnails);
+        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, true, app.RecipeEditor.recipeItemClickHandler, app.RecipeEditor.removeItem, undefined, false, showThumbnails);
       });
+      app.f7.sortable.enable(app.RecipeEditor.el.foodlist);
 
       resolve();
     });
