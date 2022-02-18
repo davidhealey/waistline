@@ -196,6 +196,10 @@ app.RecipeEditor = {
       if (app.RecipeEditor.recipe.items !== undefined)
         data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
 
+      app.data.context = {
+        recipe: data
+      };
+
       dbHandler.put(data, "recipes").onsuccess = () => {
         app.f7.views.main.router.back();
       };

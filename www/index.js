@@ -510,6 +510,7 @@ document.addEventListener("backbutton", (e) => {
 
   let searchField = document.querySelector(".page-current input[type='search']");
   if (searchField && searchField.value) {
+    $(".page-current .page-content").scrollTop(0);
     app.f7.searchbar.disable(".searchbar");
     return false;
   }

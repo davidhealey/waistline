@@ -19,11 +19,14 @@
 
 app.Meals = {
 
-  list: [], //Main list of foods
+  list: [], //Main list of meals
   filterList: [], //Copy of the list for filtering
   el: {}, //UI elements
 
   init: async function(context) {
+
+    if (context)
+      app.FoodsMealsRecipes.clearSearchSelection();
 
     app.Meals.getComponents();
     app.Meals.createSearchBar();
@@ -39,7 +42,10 @@ app.Meals = {
     app.Meals.list = await app.Meals.getListFromDB();
     app.Meals.filterList = app.Meals.list;
 
-    app.Meals.renderList(true);
+    await app.Meals.renderList(true);
+
+    if (context)
+      app.FoodsMealsRecipes.resetSearchForm(app.Meals.el.searchForm, app.Meals.el.searchFilter, app.Meals.el.searchFilterIcon);
   },
 
   getComponents: function() {

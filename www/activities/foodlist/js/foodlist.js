@@ -25,17 +25,16 @@ app.Foodlist = {
 
   init: async function(context) {
 
-    if (context) {
-      if (context.item)
-        await this.putItem(context.item);
-
+    if (context && context.item) {
+      await this.putItem(context.item);
       app.FoodsMealsRecipes.clearSearchSelection();
-      app.f7.searchbar.disable("#food-search-form");
     }
 
     this.getComponents();
     this.createSearchBar();
     this.bindUIActions();
+
+    app.Foodlist.el.scan.style.display = "block";
 
     if (!app.Foodlist.ready) {
       app.f7.infiniteScroll.create(app.Foodlist.el.infinite); //Setup infinite list
@@ -45,10 +44,10 @@ app.Foodlist = {
     app.Foodlist.list = await this.getListFromDB();
     app.Foodlist.filterList = app.Foodlist.list;
 
-    // Set scan button visibility
-    app.Foodlist.el.scan.style.display = "block";
+    await this.renderList(true);
 
-    this.renderList(true);
+    if (context)
+      app.FoodsMealsRecipes.resetSearchForm(app.Foodlist.el.searchForm, app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
   },
 
   getComponents: function() {

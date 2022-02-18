@@ -620,6 +620,12 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.updateSelectionCount();
   },
 
+  resetSearchForm: function(searchForm, searchFilter, searchFilterIcon) {
+    $(".page-content").scrollTop(0);
+    app.f7.searchbar.disable(searchForm);
+    app.FoodsMealsRecipes.clearSelectedCategories(searchFilter, searchFilterIcon);
+  },
+
   getSelection: function() {
     return app.FoodsMealsRecipes.selection;
   },
@@ -795,14 +801,13 @@ document.addEventListener("page:reinit", function(e) {
     let context = app.data.context;
     app.data.context = undefined;
 
-    if (context !== undefined && context.item !== undefined) {
-      if (app.FoodsMealsRecipes.tab == "foodlist") {
+    if (context !== undefined) {
+      if (context.item !== undefined && app.FoodsMealsRecipes.tab == "foodlist")
         app.Foodlist.init(context);
-      }
-    } else if (app.FoodsMealsRecipes.tab == "meals") {
-      app.Meals.init();
-    } else if (app.FoodsMealsRecipes.tab == "recipes") {
-      app.Recipes.init();
+      else if (context.meal !== undefined && app.FoodsMealsRecipes.tab == "meals")
+        app.Meals.init(context);
+      else if (context.recipe !== undefined && app.FoodsMealsRecipes.tab == "recipes")
+        app.Recipes.init(context);
     }
   }
 });

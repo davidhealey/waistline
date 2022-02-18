@@ -193,6 +193,10 @@ app.MealEditor = {
       if (categories !== undefined)
         data.categories = categories;
 
+      app.data.context = {
+        meal: data
+      };
+
       dbHandler.put(data, "meals").onsuccess = () => {
         app.f7.views.main.router.back();
       };
