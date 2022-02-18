@@ -11,7 +11,7 @@ var _utils = require("../../shared/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
 
 var SELF_CLOSING = 'area base br col command embed hr img input keygen link menuitem meta param source track wbr'.split(' ');
 var PROPS_ATTRS = 'hidden checked disabled readonly selected autofocus autoplay required multiple value indeterminate routeProps innerHTML'.split(' ');
@@ -113,7 +113,7 @@ function getHooks(treeNode, data, f7, initial, isRoot) {
 
   if (data && data.attrs && data.attrs.component) {
     // eslint-disable-next-line
-    tagName = (_readOnlyError("tagName"), data.attrs.component);
+    data.attrs.component, _readOnlyError("tagName");
     delete data.attrs.component;
     isFakeElement = true;
   }

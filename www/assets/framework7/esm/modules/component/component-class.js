@@ -32,7 +32,6 @@ var Component = /*#__PURE__*/function () {
         aurora: app.theme === 'aurora'
       },
       style: component.style,
-      __storeCallbacks: [],
       __updateQueue: [],
       __eventHandlers: [],
       __onceEventHandlers: [],
@@ -140,29 +139,46 @@ var Component = /*#__PURE__*/function () {
     });
   };
 
+  _proto.getComponentRef = function getComponentRef() {
+    var self = this;
+    return function (initialValue) {
+      var value = initialValue;
+      var obj = {};
+      Object.defineProperty(obj, 'value', {
+        get: function get() {
+          return value;
+        },
+        set: function set(v) {
+          value = v;
+          self.update();
+        }
+      });
+      return obj;
+    };
+  };
+
   _proto.getComponentStore = function getComponentStore() {
     var _this2 = this;
 
     var _this$f7$store = this.f7.store,
         state = _this$f7$store.state,
-        getters = _this$f7$store.getters,
+        _gettersPlain = _this$f7$store._gettersPlain,
         dispatch = _this$f7$store.dispatch;
     var $store = {
       state: state,
       dispatch: dispatch
     };
-    $store.getters = new Proxy(getters, {
+    $store.getters = new Proxy(_gettersPlain, {
       get: function get(target, prop) {
         var obj = target[prop];
 
-        var callback = function callback() {
+        var callback = function callback(v) {
+          obj.value = v;
+
           _this2.update();
         };
 
         obj.onUpdated(callback);
-
-        _this2.__storeCallbacks.push(callback, obj.__callback);
-
         return obj;
       }
     });
@@ -185,6 +201,7 @@ var Component = /*#__PURE__*/function () {
       $update: this.update.bind(this),
       $emit: this.emit.bind(this),
       $store: this.getComponentStore(),
+      $ref: this.getComponentRef(),
       $el: {}
     };
     Object.defineProperty(ctx.$el, 'value', {
@@ -351,8 +368,6 @@ var Component = /*#__PURE__*/function () {
   };
 
   _proto.destroy = function destroy() {
-    var _this8 = this;
-
     if (this.__destroyed) return;
     var window = getWindow();
     this.hook('onBeforeUnmount');
@@ -375,12 +390,6 @@ var Component = /*#__PURE__*/function () {
 
 
     window.cancelAnimationFrame(this.__requestAnimationFrameId);
-
-    this.__storeCallbacks.forEach(function (callback) {
-      _this8.f7.store.__removeCallback(callback);
-    });
-
-    this.__storeCallbacks = [];
     this.__updateQueue = [];
     this.__eventHandlers = [];
     this.__onceEventHandlers = [];

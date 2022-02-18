@@ -52,7 +52,7 @@ function parseComponent(componentString) {
   if (!scriptContent || !scriptContent.trim()) scriptContent = 'return () => {return $render}'; // Parse Template
 
   if (template) {
-    scriptContent = scriptContent.replace('$render', "function ($$ctx) {\n          var $ = $$ctx.$$;\n          var $h = $$ctx.$h;\n          var $root = $$ctx.$root;\n          var $f7 = $$ctx.$f7;\n          var $f7route = $$ctx.$f7route;\n          var $f7router = $$ctx.$f7router;\n          var $theme = $$ctx.$theme;\n          var $update = $$ctx.$update;\n          var $store = $$ctx.$store;\n\n          return $h`" + template + "`\n        }\n        ").replace(/export default/g, 'return');
+    scriptContent = scriptContent.replace('$render', "function ($$ctx) {\n          var $ = $$ctx.$$;\n          var $h = $$ctx.$h;\n          var $root = $$ctx.$root;\n          var $f7 = $$ctx.$f7;\n          var $f7route = $$ctx.$f7route;\n          var $f7router = $$ctx.$f7router;\n          var $theme = $$ctx.$theme;\n          var $update = $$ctx.$update;\n          var $store = $$ctx.$store;\n          var $ref = $$ctx.$ref;\n\n          return $h`" + template + "`\n        }\n        ").replace(/export default/g, 'return');
   } // Execute Script
 
 

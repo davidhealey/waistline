@@ -29,7 +29,7 @@ function backward(router, el, backwardOptions) {
   var $el = (0, _dom.default)(el);
   var app = router.app;
   var view = router.view;
-  var options = (0, _utils.extend)({
+  var options = (0, _utils.extend)(false, {
     animate: router.params.animate,
     browserHistory: true,
     replaceState: false
@@ -738,6 +738,15 @@ function back() {
     }
 
     var previousPageRoute = $previousPage[0].f7Page.route;
+
+    if (navigateOptions.preload && $previousPage.hasClass('stacked')) {
+      loadBack(router, {
+        el: $previousPage
+      }, (0, _utils.extend)(navigateOptions, {
+        route: previousPageRoute
+      }));
+      return router;
+    }
 
     _processRouteQueue.default.call(router, previousPageRoute, router.currentRoute, function () {
       loadBack(router, {

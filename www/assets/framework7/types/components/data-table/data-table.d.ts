@@ -13,7 +13,7 @@ export namespace DataTable {
 
   interface Parameters {
     /** Data Table element. Can be useful if you already have Data Table element in your HTML and want to create new instance using this element */
-    el: HTMLElement;
+    el: HTMLElement | CSSSelector;
 
     on?: {
       [event in keyof Events]?: Events[event];
@@ -38,6 +38,12 @@ export namespace DataTable {
     };
   }
   interface AppParams {}
+  interface DomEvents {
+    /** Event will be triggered data table sort changed */
+    'datatable:sort': () => void;
+    /** Event will be triggered right before Data Table instance will be destroyed */
+    'datatable:beforedestroy': () => void;
+  }
   interface AppEvents {
     /** Event will be triggered data table sort changed. As an argument event handler receives data table instance and new sort order (asc or desc) */
     dataTableSort: (dataTable: DataTable, sort: string) => void;

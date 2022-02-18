@@ -23,7 +23,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var Calendar = /*#__PURE__*/function (_Framework7Class) {
   _inheritsLoose(Calendar, _Framework7Class);
@@ -76,17 +78,34 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
       allowTouchMove: true,
       hasTimePicker: calendar.params.timePicker && !calendar.params.rangePicker && !calendar.params.multiple
     });
-    calendar.dayFormatter = new Intl.DateTimeFormat(calendar.params.locale, {
-      day: 'numeric'
-    });
-    calendar.monthFormatter = new Intl.DateTimeFormat(calendar.params.locale, {
-      month: 'long'
-    });
-    calendar.yearFormatter = new Intl.DateTimeFormat(calendar.params.locale, {
-      year: 'numeric'
-    });
-    calendar.timeSelectorFormatter = new Intl.DateTimeFormat(calendar.params.locale, calendar.params.timePickerFormat);
-    var timeFormatCheckDate = calendar.timeSelectorFormatter.format(new Date()).toLowerCase();
+
+    calendar.dayFormatter = function (date) {
+      var formatter = new Intl.DateTimeFormat(calendar.params.locale, {
+        day: 'numeric'
+      });
+      return formatter.format(date).replace(/日/, '');
+    };
+
+    calendar.monthFormatter = function (date) {
+      var formatter = new Intl.DateTimeFormat(calendar.params.locale, {
+        month: 'long'
+      });
+      return formatter.format(date);
+    };
+
+    calendar.yearFormatter = function (date) {
+      var formatter = new Intl.DateTimeFormat(calendar.params.locale, {
+        year: 'numeric'
+      });
+      return formatter.format(date);
+    };
+
+    calendar.timeSelectorFormatter = function (date) {
+      var formatter = new Intl.DateTimeFormat(calendar.params.locale, calendar.params.timePickerFormat);
+      return formatter.format(date);
+    };
+
+    var timeFormatCheckDate = calendar.timeSelectorFormatter(new Date()).toLowerCase();
     calendar.is12HoursFormat = timeFormatCheckDate.indexOf('pm') >= 0 || timeFormatCheckDate.indexOf('am') >= 0; // Auto names
 
     var _calendar$params = calendar.params,
@@ -491,7 +510,7 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
 
     for (var i = 0; i < 24; i += 1) {
       var date = new Date().setMonth(i, 1);
-      var currentYear = calendar.yearFormatter.format(date);
+      var currentYear = calendar.yearFormatter(date);
 
       if (year && currentYear !== year) {
         if (yearStarted) yearEnded = true;
@@ -790,7 +809,7 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
     }
 
     if ($el && $el.length > 0 && calendar.hasTimePicker) {
-      $el.find('.calendar-time-selector a').text(value && value.length ? calendar.timeSelectorFormatter.format(value[0]) : calendar.params.timePickerPlaceholder);
+      $el.find('.calendar-time-selector a').text(value && value.length ? calendar.timeSelectorFormatter(value[0]) : calendar.params.timePickerPlaceholder);
     }
 
     if ($inputEl && $inputEl.length || params.header) {
@@ -1221,9 +1240,9 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
     var date = new Date(d);
     var year = date.getFullYear();
     var month = date.getMonth();
-    var localeMonth = calendar.monthNames.indexOf(calendar.monthFormatter.format(date));
+    var localeMonth = calendar.monthNames.indexOf(calendar.monthFormatter(date));
     if (localeMonth < 0) localeMonth = month;
-    var localeYear = calendar.yearFormatter.format(date);
+    var localeYear = calendar.yearFormatter(date);
 
     if (offset === 'next') {
       if (month === 11) date = new Date(year + 1, 0);else date = new Date(year, month + 1, 1);
@@ -1236,9 +1255,9 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
     if (offset === 'next' || offset === 'prev') {
       month = date.getMonth();
       year = date.getFullYear();
-      localeMonth = calendar.monthNames.indexOf(calendar.monthFormatter.format(date));
+      localeMonth = calendar.monthNames.indexOf(calendar.monthFormatter(date));
       if (localeMonth < 0) localeMonth = month;
-      localeYear = calendar.yearFormatter.format(date);
+      localeYear = calendar.yearFormatter(date);
     }
 
     var currentValues = [];
@@ -1383,7 +1402,7 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
         dayDate = new Date(dayDate);
         var dayYear = dayDate.getFullYear();
         var dayMonth = dayDate.getMonth();
-        var dayNumberDisplay = calendar.dayFormatter.format(dayDate); // prettier-ignore
+        var dayNumberDisplay = calendar.dayFormatter(dayDate); // prettier-ignore
 
         rowHtml += ("\n          <div data-year=\"" + dayYear + "\" data-month=\"" + dayMonth + "\" data-day=\"" + dayNumber + "\" class=\"calendar-day" + addClass + "\" data-date=\"" + dayYear + "-" + dayMonth + "-" + dayNumber + "\">\n            <span class=\"calendar-day-number\">" + dayNumberDisplay + eventsHtml + "</span>\n          </div>").trim();
       };
@@ -1507,7 +1526,7 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
       return (0, _$jsx.default)("div", {
         "data-year": year,
         class: "calendar-year-picker-item " + (year === currentYear ? 'calendar-year-picker-item-current' : '')
-      }, (0, _$jsx.default)("span", null, calendar.yearFormatter.format(new Date().setFullYear(year))));
+      }, (0, _$jsx.default)("span", null, calendar.yearFormatter(new Date().setFullYear(year))));
     }));
   } // eslint-disable-next-line
   ;
@@ -1516,7 +1535,7 @@ var Calendar = /*#__PURE__*/function (_Framework7Class) {
     var calendar = this;
     var value = calendar.value && calendar.value[0];
     var timeString;
-    if (value) timeString = calendar.timeSelectorFormatter.format(value);
+    if (value) timeString = calendar.timeSelectorFormatter(value);
     return (0, _$jsx.default)("div", {
       class: "calendar-time-selector"
     }, (0, _$jsx.default)("a", {

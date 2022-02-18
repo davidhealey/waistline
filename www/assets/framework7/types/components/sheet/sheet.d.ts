@@ -3,6 +3,12 @@ import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from
 
 export namespace Sheet {
   interface Events {
+    /** Event will be triggered on Sheet swipe step open/expand */
+    stepOpen: (sheet: Sheet) => void;
+    /** Event will be triggered on Sheet swipe step close/collapse */
+    stepClose: (sheet: Sheet) => void;
+    /** Event will be triggered on Sheet swipe step between step opened and closed state. As `progress` it receives step open progress number (from 0 to 1) */
+    stepProgress: (sheet: Sheet, progress: number) => void;
     /** Event will be triggered when Sheet Modal starts its opening animation. As an argument event handler receives sheet instance */
     open: (sheet: Sheet) => void;
     /** Event will be triggered when Sheet Modal completes its opening animation. As an argument event handler receives sheet instance */
@@ -29,6 +35,8 @@ export namespace Sheet {
     closeByBackdropClick?: boolean;
     /** When enabled, sheet will be closed on when click outside of it */
     closeByOutsideClick?: boolean;
+    /** When enabled, sheet will be closed on ESC keyboard key press (default false) */
+    closeOnEscape?: boolean;
     /** Whether the Sheet Modal should be opened/closed with animation or not. Can be overwritten in .open() and .close() methods. (default true) */
     animate?: boolean;
     /** When enabled it will be possible to close sheet with swipe, can be false or true (default false) */
@@ -67,6 +75,14 @@ export namespace Sheet {
     open(animate?: boolean): Sheet;
     /** Close sheet. */
     close(animate?: boolean): Sheet;
+    /** Open/expand sheet swipe step */
+    stepOpen(): void;
+    /** Close/collapse sheet swipe step */
+    stepClose(): void;
+    /** Toggle (open or close) sheet swipe step */
+    stepToggle(): void;
+    /** Update step position. Required to call after content of sheet modal has been modified manually when it is opened */
+    setSwipeStep(): void;
     /** Destroy sheet */
     destroy(): void;
   }
@@ -79,6 +95,12 @@ export namespace Sheet {
     'sheet:close': () => void;
     /** Event will be triggered after Sheet Modal completes its closing animation */
     'sheet:closed': () => void;
+    /** Event will be triggered on Sheet swipe step open/expand */
+    'sheet:stepopen': () => void;
+    /** Event will be triggered on Sheet swipe step close/collapse */
+    'sheet:stepclose': () => void;
+    /** Event will be triggered on Sheet swipe step between step opened and closed state. As `event.detail` it receives step open progress number (from 0 to 1) */
+    'sheet:stepprogress': () => void;
   }
 
   interface AppMethods {
@@ -93,12 +115,24 @@ export namespace Sheet {
       open(el?: HTMLElement | CSSSelector, animate?: boolean): Sheet;
       /** closes Sheet Modal */
       close(el?: HTMLElement | CSSSelector, animate?: boolean): Sheet;
+      /** open/expand Sheet swipe step */
+      stepOpen(el?: HTMLElement | CSSSelector): Sheet;
+      /** close/collapse Sheet swipe step */
+      stepClose(el?: HTMLElement | CSSSelector): Sheet;
+      /** toggle (open or close) Sheet swipe step */
+      stepToggle(el?: HTMLElement | CSSSelector): Sheet;
     };
   }
   interface AppParams {
     sheet?: Parameters | undefined;
   }
   interface AppEvents {
+    /** Event will be triggered on Sheet swipe step open/expand */
+    sheetStepOpen: (sheet: Sheet) => void;
+    /** Event will be triggered on Sheet swipe step close/collapse */
+    sheetStepClose: (sheet: Sheet) => void;
+    /** Event will be triggered on Sheet swipe step between step opened and closed state. As `progress` it receives step open progress number (from 0 to 1) */
+    sheetStepProgress: (sheet: Sheet, progress: number) => void;
     /** Event will be triggered when Sheet Modal starts its opening animation. As an argument event handler receives sheet instance */
     sheetOpen: (sheet: Sheet) => void;
     /** Event will be triggered when Sheet Modal completes its opening animation. As an argument event handler receives sheet instance */

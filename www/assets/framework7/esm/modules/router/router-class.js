@@ -1,6 +1,8 @@
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 import { getWindow, getDocument } from 'ssr-window';
 import { pathToRegexp, compile } from 'path-to-regexp';
@@ -603,25 +605,32 @@ var Router = /*#__PURE__*/function (_Framework7Class) {
     }
 
     if (query) {
-      if (typeof query === 'string') url += "?" + query;else url += "?" + serializeObject(query);
+      if (typeof query === 'string') url += "?" + query;else if (Object.keys(query).length) url += "?" + serializeObject(query);
     }
 
     return url;
   };
 
-  _proto.findTabRoute = function findTabRoute(tabEl) {
+  _proto.findTabRouteUrl = function findTabRouteUrl(tabEl) {
     var router = this;
     var $tabEl = $(tabEl);
     var parentPath = router.currentRoute.route.parentPath;
     var tabId = $tabEl.attr('id');
     var flattenedRoutes = router.flattenRoutes(router.routes);
-    var foundTabRoute;
+    var foundTabRouteUrl;
     flattenedRoutes.forEach(function (route) {
       if (route.parentPath === parentPath && route.tab && route.tab.id === tabId) {
-        foundTabRoute = route;
+        if (router.currentRoute.params && Object.keys(router.currentRoute.params).length > 0) {
+          foundTabRouteUrl = router.constructRouteUrl(route, {
+            params: router.currentRoute.params,
+            query: router.currentRoute.query
+          });
+        } else {
+          foundTabRouteUrl = route.path;
+        }
       }
     });
-    return foundTabRoute;
+    return foundTabRouteUrl;
   };
 
   _proto.findRouteByKey = function findRouteByKey(key, value) {

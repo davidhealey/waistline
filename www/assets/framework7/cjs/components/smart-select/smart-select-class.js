@@ -19,7 +19,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var SmartSelect = /*#__PURE__*/function (_Framework7Class) {
   _inheritsLoose(SmartSelect, _Framework7Class);
@@ -638,8 +640,9 @@ var SmartSelect = /*#__PURE__*/function (_Framework7Class) {
     } else {
       var $selectedItemEl = $containerEl.find('input:checked').parents('li');
       if (!$selectedItemEl.length) return ss;
-      var $pageContentEl = $containerEl.find('.page-content');
-      $pageContentEl.scrollTop($selectedItemEl.offset().top - $pageContentEl.offset().top - parseInt($pageContentEl.css('padding-top'), 10));
+      var $scrollableEl = $containerEl.find('.page-content, .popover-inner');
+      if (!$scrollableEl.length) return ss;
+      $scrollableEl.scrollTop($selectedItemEl.offset().top - $scrollableEl.offset().top - parseInt($scrollableEl.css('padding-top'), 10));
     }
 
     return ss;
@@ -836,7 +839,7 @@ var SmartSelect = /*#__PURE__*/function (_Framework7Class) {
     var sheetHtml = ss.renderSheet(ss.items);
     var sheetParams = {
       content: sheetHtml,
-      backdrop: false,
+      backdrop: ss.params.sheetBackdrop,
       scrollToEl: ss.$el,
       closeByOutsideClick: true,
       push: ss.params.sheetPush,

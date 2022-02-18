@@ -17,7 +17,9 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var Messages = /*#__PURE__*/function (_Framework7Class) {
   _inheritsLoose(Messages, _Framework7Class);
@@ -139,12 +141,9 @@ var Messages = /*#__PURE__*/function (_Framework7Class) {
       return "<div class=\"messages-title\">" + message.text + "</div>";
     }
 
-    var attrs = Object.keys(message.attrs).map(function (attr) {
-      return attr + "=\"" + message.attrs[attr] + "\"";
-    }).join(' ');
     return (0, _$jsx.default)("div", _extends({
       class: "message message-" + message.type + " " + (message.isTyping ? 'message-typing' : '') + " " + (message.cssClass || '')
-    }, attrs), message.avatar && (0, _$jsx.default)("div", {
+    }, message.attrs), message.avatar && (0, _$jsx.default)("div", {
       class: "message-avatar",
       style: "background-image:url(" + message.avatar + ")"
     }), (0, _$jsx.default)("div", {
@@ -408,6 +407,24 @@ var Messages = /*#__PURE__*/function (_Framework7Class) {
     return m.addMessages([messageToAdd], animate, method);
   };
 
+  _proto.setScrollData = function setScrollData() {
+    var m = this; // Define scroll positions before new messages added
+
+    var scrollHeightBefore = m.pageContentEl.scrollHeight;
+    var heightBefore = m.pageContentEl.offsetHeight;
+    var scrollBefore = m.pageContentEl.scrollTop;
+    m.scrollData = {
+      scrollHeightBefore: scrollHeightBefore,
+      heightBefore: heightBefore,
+      scrollBefore: scrollBefore
+    };
+    return {
+      scrollHeightBefore: scrollHeightBefore,
+      heightBefore: heightBefore,
+      scrollBefore: scrollBefore
+    };
+  };
+
   _proto.addMessages = function addMessages() {
     var m = this;
     var messagesToAdd;
@@ -434,12 +451,12 @@ var Messages = /*#__PURE__*/function (_Framework7Class) {
 
     if (typeof method === 'undefined') {
       method = m.params.newMessagesFirst ? 'prepend' : 'append';
-    } // Define scroll positions before new messages added
+    }
 
+    var _m$setScrollData = m.setScrollData(),
+        scrollHeightBefore = _m$setScrollData.scrollHeightBefore,
+        scrollBefore = _m$setScrollData.scrollBefore; // Add message to DOM and data
 
-    var scrollHeightBefore = m.pageContentEl.scrollHeight;
-    var heightBefore = m.pageContentEl.offsetHeight;
-    var scrollBefore = m.pageContentEl.scrollTop; // Add message to DOM and data
 
     var messagesHTML = '';
     var typingMessage = m.messages.filter(function (el) {
@@ -488,21 +505,7 @@ var Messages = /*#__PURE__*/function (_Framework7Class) {
     }
 
     if (m.params.scrollMessages && (method === 'append' && !m.params.newMessagesFirst || method === 'prepend' && m.params.newMessagesFirst && !typingMessage)) {
-      if (m.params.scrollMessagesOnEdge) {
-        var onEdge = false;
-
-        if (m.params.newMessagesFirst && scrollBefore === 0) {
-          onEdge = true;
-        }
-
-        if (!m.params.newMessagesFirst && scrollBefore - (scrollHeightBefore - heightBefore) >= -10) {
-          onEdge = true;
-        }
-
-        if (onEdge) m.scroll(animate ? undefined : 0);
-      } else {
-        m.scroll(animate ? undefined : 0);
-      }
+      m.scrollWithEdgeCheck(animate);
     }
 
     return m;
@@ -553,6 +556,30 @@ var Messages = /*#__PURE__*/function (_Framework7Class) {
     }
 
     return m;
+  };
+
+  _proto.scrollWithEdgeCheck = function scrollWithEdgeCheck(animate) {
+    var m = this;
+    var _m$scrollData = m.scrollData,
+        scrollBefore = _m$scrollData.scrollBefore,
+        scrollHeightBefore = _m$scrollData.scrollHeightBefore,
+        heightBefore = _m$scrollData.heightBefore;
+
+    if (m.params.scrollMessagesOnEdge) {
+      var onEdge = false;
+
+      if (m.params.newMessagesFirst && scrollBefore === 0) {
+        onEdge = true;
+      }
+
+      if (!m.params.newMessagesFirst && scrollBefore - (scrollHeightBefore - heightBefore) >= -10) {
+        onEdge = true;
+      }
+
+      if (onEdge) m.scroll(animate ? undefined : 0);
+    } else {
+      m.scroll(animate ? undefined : 0);
+    }
   };
 
   _proto.scroll = function scroll(duration, scrollTop) {

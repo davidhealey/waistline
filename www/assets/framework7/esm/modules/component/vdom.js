@@ -1,4 +1,4 @@
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
 
 /* eslint no-use-before-define: "off" */
 
@@ -106,7 +106,7 @@ function getHooks(treeNode, data, f7, initial, isRoot) {
 
   if (data && data.attrs && data.attrs.component) {
     // eslint-disable-next-line
-    tagName = (_readOnlyError("tagName"), data.attrs.component);
+    data.attrs.component, _readOnlyError("tagName");
     delete data.attrs.component;
     isFakeElement = true;
   }

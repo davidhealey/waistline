@@ -1,5 +1,5 @@
 /* === Popup === */
-@import url('./popup-vars.less');
+@import './popup-vars.less';
 
 .popup-backdrop {
   z-index: 10500;
@@ -66,6 +66,7 @@
     }
     &.popup-behind {
       transform: translate3d(0, 0, 0) scale(0.9);
+      pointer-events: none;
       &.modal-out {
         transform: translate3d(0, 100vh, 0) scale(0.9);
       }
@@ -220,11 +221,11 @@ html.with-modal-popup-push {
 });
 
 .if-ios-theme({
-  @import url('./popup-ios.less');
+  @import './popup-ios.less';
 });
 .if-md-theme({
-  @import url('./popup-md.less');
+  @import './popup-md.less';
 });
 .if-aurora-theme({
-  @import url('./popup-aurora.less');
+  @import './popup-aurora.less';
 });

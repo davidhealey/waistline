@@ -25,7 +25,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var Picker = /*#__PURE__*/function (_Framework7Class) {
   _inheritsLoose(Picker, _Framework7Class);
@@ -94,6 +96,12 @@ var Picker = /*#__PURE__*/function (_Framework7Class) {
       e.preventDefault();
     }
 
+    var htmlTouchStartTarget = null;
+
+    function onHtmlTouchStart(e) {
+      htmlTouchStartTarget = e.target;
+    }
+
     function onHtmlClick(e) {
       if (picker.destroyed || !picker.params) return;
       var $targetEl = (0, _dom.default)(e.target);
@@ -102,7 +110,7 @@ var Picker = /*#__PURE__*/function (_Framework7Class) {
       if ($targetEl.closest('[class*="backdrop"]').length) return;
 
       if ($inputEl && $inputEl.length > 0) {
-        if ($targetEl[0] !== $inputEl[0] && $targetEl.closest('.sheet-modal').length === 0) {
+        if (htmlTouchStartTarget === e.target && $targetEl[0] !== $inputEl[0] && $targetEl.closest('.sheet-modal').length === 0) {
           picker.close();
         }
       } else if ((0, _dom.default)(e.target).closest('.sheet-modal').length === 0) {
@@ -142,9 +150,11 @@ var Picker = /*#__PURE__*/function (_Framework7Class) {
       },
       attachHtmlEvents: function attachHtmlEvents() {
         app.on('click', onHtmlClick);
+        app.on('touchstart', onHtmlTouchStart);
       },
       detachHtmlEvents: function detachHtmlEvents() {
         app.off('click', onHtmlClick);
+        app.off('touchstart', onHtmlTouchStart);
       }
     });
     picker.init();

@@ -403,6 +403,12 @@ var Navbar = {
     var touchSnapTimeout = 70;
     var desktopSnapTimeout = 300;
 
+    function calcScrollableDistance() {
+      $pageEl.find('.page-content').each(function (pageContentEl) {
+        pageContentEl.f7ScrollableDistance = pageContentEl.scrollHeight - pageContentEl.offsetHeight;
+      });
+    }
+
     function snapLargeNavbar() {
       var inSearchbarExpanded = $navbarEl.hasClass('with-searchbar-expandable-enabled');
       if (inSearchbarExpanded) return;
@@ -484,12 +490,13 @@ var Navbar = {
     var previousCollapseProgress = null;
     var collapseProgress = null;
 
-    function handleLargeNavbarCollapse() {
+    function handleLargeNavbarCollapse(pageContentEl) {
       var isHidden = $navbarEl.hasClass('navbar-hidden') || $navbarEl.parent('.navbars').hasClass('navbar-hidden');
       if (isHidden) return;
       var isLargeTransparent = $navbarEl.hasClass('navbar-large-transparent') || $navbarEl.hasClass('navbar-large') && $navbarEl.hasClass('navbar-transparent');
       previousCollapseProgress = collapseProgress;
-      collapseProgress = Math.min(Math.max(currentScrollTop / navbarTitleLargeHeight, 0), 1);
+      var scrollableDistance = Math.min(navbarTitleLargeHeight, pageContentEl.f7ScrollableDistance || navbarTitleLargeHeight);
+      collapseProgress = Math.min(Math.max(currentScrollTop / scrollableDistance, 0), 1);
       var previousCollapseWasInMiddle = previousCollapseProgress > 0 && previousCollapseProgress < 1;
       var inSearchbarExpanded = $navbarEl.hasClass('with-searchbar-expandable-enabled');
       if (inSearchbarExpanded) return;
@@ -592,7 +599,7 @@ var Navbar = {
       scrollChanged = currentScrollTop;
 
       if (needCollapse) {
-        handleLargeNavbarCollapse();
+        handleLargeNavbarCollapse(scrollContent);
       } else if (needTransparent) {
         handleNavbarTransparent();
       }
@@ -632,17 +639,18 @@ var Navbar = {
       app.on('touchend:passive', handleTouchEnd);
     }
 
-    if (needCollapse) {
-      $pageEl.find('.page-content').each(function (pageContentEl) {
-        if (pageContentEl.scrollTop > 0) handleScroll.call(pageContentEl);
-      });
-    } else if (needTransparent) {
+    calcScrollableDistance();
+
+    if (needCollapse || needTransparent) {
       $pageEl.find('.page-content').each(function (pageContentEl) {
         if (pageContentEl.scrollTop > 0) handleScroll.call(pageContentEl);
       });
     }
 
+    app.on('resize', calcScrollableDistance);
+
     $pageEl[0].f7DetachNavbarScrollHandlers = function f7DetachNavbarScrollHandlers() {
+      app.off('resize', calcScrollableDistance);
       delete $pageEl[0].f7DetachNavbarScrollHandlers;
       $pageEl.off('scroll', '.page-content', handleScroll, true);
 
@@ -767,11 +775,11 @@ var _default = {
     }
   },
   clicks: {
-    '.navbar .title': function onTitleClick($clickedEl) {
+    '.navbar .title': function onTitleClick($clickedEl, clickedData, e) {
       var app = this;
       if (!app.params.navbar.scrollTopOnTitleClick) return;
 
-      if ($clickedEl.closest('a').length > 0) {
+      if ((0, _dom.default)(e.target).closest('a, button').length > 0) {
         return;
       }
 

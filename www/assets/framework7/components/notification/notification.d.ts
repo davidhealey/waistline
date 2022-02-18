@@ -13,14 +13,14 @@ export namespace Notification {
     params: Parameters;
 
     /** Open notification */
-    open(): Notification;
+    open(animate?: boolean): Notification;
     /** Close notification */
-    close(): Notification;
+    close(animate?: boolean): Notification;
   }
 
   interface Parameters {
     /** Notification element. Can be useful if you already have Notification element in your HTML and want to create new instance using this element. */
-    el?: HTMLElement;
+    el?: HTMLElement | CSSSelector;
     /** Notification icon HTML layout, e.g. <i class="f7-icons">house</i> or image <img src="path/to/icon.png">. */
     icon?: string;
     /** Notification title. */
@@ -88,10 +88,10 @@ export namespace Notification {
       get(el: HTMLElement | CSSSelector): Notification;
 
       /** open Notification */
-      open(el: HTMLElement | CSSSelector): Notification;
+      open(el: HTMLElement | CSSSelector, animate?: boolean): Notification;
 
       /** closes Notification */
-      close(el: HTMLElement | CSSSelector): Notification;
+      close(el: HTMLElement | CSSSelector, animate?: boolean): Notification;
     };
   }
   interface AppParams {

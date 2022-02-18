@@ -1,5 +1,5 @@
 /* === Toolbar === */
-@import url('./toolbar-vars.less');
+@import './toolbar-vars.less';
 
 .toolbar {
   width: 100%;
@@ -152,6 +152,19 @@
     font-size: var(--f7-tabbar-icon-size);
     height: var(--f7-tabbar-icon-size);
     line-height: var(--f7-tabbar-icon-size);
+  }
+  .tab-link-highlight {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    background: var(--f7-tabbar-link-active-border-color, var(--f7-theme-color));
+    transition-duration: 300ms;
+    .ltr({
+      left: 0;
+    });
+    .rtl({
+      right: 0;
+    });
   }
 }
 .tabbar-labels {
@@ -307,11 +320,11 @@
 }
 
 .if-ios-theme({
-  @import url('./toolbar-ios.less');
+  @import './toolbar-ios.less';
 });
 .if-md-theme({
-  @import url('./toolbar-md.less');
+  @import './toolbar-md.less';
 });
 .if-aurora-theme({
-  @import url('./toolbar-aurora.less');
+  @import './toolbar-aurora.less';
 });

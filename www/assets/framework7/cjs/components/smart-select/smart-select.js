@@ -29,6 +29,7 @@ var _default = {
       sheetPush: false,
       sheetSwipeToClose: undefined,
       // defaults to app
+      sheetBackdrop: false,
       pageTitle: undefined,
       pageBackLinkText: 'Back',
       popupCloseLinkText: 'Close',

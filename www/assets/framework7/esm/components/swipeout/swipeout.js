@@ -93,7 +93,11 @@ var Swipeout = {
       }
 
       isMoved = true;
-      e.preventDefault();
+
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
       touchesDiff = pageX - touchesStart.x;
       translate = touchesDiff;
 

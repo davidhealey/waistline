@@ -33,6 +33,8 @@ export namespace Popup {
     backdropEl?: HTMLElement | CSSSelector;
     /** When enabled, popup will be closed on backdrop click. (default true) */
     closeByBackdropClick?: boolean;
+    /** When enabled, popup will be closed on ESC keyboard key press (default false) */
+    closeOnEscape?: boolean;
     /** Whether the Popup should be opened/closed with animation or not. Can be overwritten in .open() and .close() methods. (default true) */
     animate?: boolean;
     /** When enabled it will be possible to close popup with swipe, can be false, true, 'to-bottom', 'to-top' (default false) */
@@ -41,6 +43,8 @@ export namespace Popup {
     swipeHandler?: HTMLElement | CSSSelector;
     /** When enabled it will push view behind on open. Works only when top safe area is in place. It can also be enabled by adding `popup-push` class to Popup element. (default false) */
     push?: boolean;
+    /** Element to mount modal to. (default app.el) */
+    containerEl?: HTMLElement | CSSSelector;
 
     /** Object with events handlers.. */
     on?: {
