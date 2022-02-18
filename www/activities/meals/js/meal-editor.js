@@ -27,7 +27,7 @@ app.MealEditor = {
 
     if (context) {
 
-      // From meal list or food list
+      // From meal list
       if (context.meal) {
         app.MealEditor.meal = context.meal;
         app.MealEditor.populateInputs(context.meal);
@@ -35,12 +35,13 @@ app.MealEditor = {
 
       app.FoodsMealsRecipes.populateCategoriesField(app.MealEditor.el.categories, app.MealEditor.meal, true, true);
 
+      // From food list
       if (context.items)
         app.MealEditor.addItems(context.items);
 
-      // Returned from meal editor
-      if (context.item)
-        app.MealEditor.replaceListItem(context.item);
+      // Returned from food editor
+      if (context.item && context.index != undefined)
+        app.MealEditor.replaceListItem(context.item, context.index);
 
       app.MealEditor.renderNutrition();
       await app.MealEditor.renderItems();
@@ -98,6 +99,19 @@ app.MealEditor = {
       });
       app.MealEditor.el.nutritionButton.hasClickEvent = true;
     }
+
+    // Item list sort
+    if (!app.MealEditor.el.foodlist.hasSortableEvent) {
+      app.MealEditor.el.foodlist.addEventListener("sortable:sort", (li) => {
+        let items = app.MealEditor.el.foodlist.getElementsByTagName("li");
+        app.MealEditor.meal.items = [];
+        for (let i = 0; i < items.length; i++) {
+          let item = app.FoodsMealsRecipes.flattenItem(JSON.parse(items[i].data));
+          app.MealEditor.meal.items.push(item);
+        }
+      });
+      app.MealEditor.el.foodlist.hasSortableEvent = true;
+    }
   },
 
   setRequiredFieldErrorMessage: function() {
@@ -148,9 +162,10 @@ app.MealEditor = {
           text: app.strings.dialogs.delete || "Delete",
           keyCodes: [13],
           onClick: () => {
-            app.MealEditor.meal.items.splice(item.index, 1);
-            app.MealEditor.renderItems();
+            let index = $(li).index();
+            app.MealEditor.meal.items.splice(index, 1);
             app.MealEditor.renderNutrition();
+            li.remove();
           }
         }
       ]
@@ -178,13 +193,9 @@ app.MealEditor = {
       if (categories !== undefined)
         data.categories = categories;
 
-      // Array index should not be saved with items
-      if (data.items !== undefined) {
-        data.items.forEach((x) => {
-          if (x.index !== undefined)
-            delete x.index;
-        });
-      }
+      app.data.context = {
+        meal: data
+      };
 
       dbHandler.put(data, "meals").onsuccess = () => {
         app.f7.views.main.router.back();
@@ -192,9 +203,14 @@ app.MealEditor = {
     }
   },
 
-  replaceListItem: function(item) {
+  mealItemClickHandler: function(item, li) {
+    let index = $(li).index();
+    app.FoodsMealsRecipes.gotoEditor(item, index);
+  },
+
+  replaceListItem: function(item, index) {
     let updatedItem = app.FoodsMealsRecipes.flattenItem(item);
-    app.MealEditor.meal.items.splice(item.index, 1, updatedItem);
+    app.MealEditor.meal.items.splice(index, 1, updatedItem);
   },
 
   renderNutrition: async function() {
@@ -246,9 +262,9 @@ app.MealEditor = {
       let showThumbnails = app.Utils.showThumbnails("foodlist");
 
       app.MealEditor.meal.items.forEach(async (x, i) => {
-        x.index = i;
-        app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, undefined, app.MealEditor.removeItem, undefined, false, showThumbnails);
+        app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, true, app.MealEditor.mealItemClickHandler, app.MealEditor.removeItem, undefined, false, showThumbnails);
       });
+      app.f7.sortable.disable(app.MealEditor.el.foodlist);
 
       resolve();
     });

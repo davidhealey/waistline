@@ -19,22 +19,20 @@
 
 app.Recipes = {
 
-  list: [], //Main list of foods
+  list: [], //Main list of recipes
   filterList: [], //Copy of the list for filtering
   el: {}, //UI elements
 
   init: async function(context) {
 
-    if (context !== undefined) {
-      if (context.recipe)
-        app.Recipes.recipe = context.recipe;
-    } else {
-      app.Recipes.recipe = undefined;
-    }
+    if (context)
+      app.FoodsMealsRecipes.clearSearchSelection();
 
     app.Recipes.getComponents();
     app.Recipes.createSearchBar();
     app.Recipes.bindUIActions();
+
+    app.Recipes.el.scan.style.display = "none";
 
     if (!app.Recipes.ready) {
       app.f7.infiniteScroll.create(app.Recipes.el.infinite); //Setup infinite list
@@ -44,13 +42,15 @@ app.Recipes = {
     app.Recipes.list = await app.Recipes.getListFromDB();
     app.Recipes.filterList = app.Recipes.list;
 
-    app.Recipes.renderList(true);
+    await app.Recipes.renderList(true);
+
+    if (context)
+      app.FoodsMealsRecipes.resetSearchForm(app.Recipes.el.searchForm, app.Recipes.el.searchFilter, app.Recipes.el.searchFilterIcon);
   },
 
   getComponents: function() {
     app.Recipes.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
     app.Recipes.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
-    app.Recipes.el.scan.style.display = "none";
     app.Recipes.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.Recipes.el.search = document.querySelector("#recipes-tab #recipe-search");
     app.Recipes.el.searchForm = document.querySelector("#recipes-tab #recipe-search-form");
@@ -98,12 +98,9 @@ app.Recipes = {
 
         let item = app.Recipes.list[i];
 
-        // Don't show item that is being edited, otherwise endless loop will ensue
-        if (app.Recipes.recipe !== undefined && app.Recipes.recipe.id == item.id) continue;
-
         if (item.archived !== true) {
           item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-          app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, app.Recipes.gotoEditor, app.Recipes.removeItem);
+          app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, app.Recipes.gotoEditor, app.Recipes.removeItem);
         }
       }
     }
@@ -139,6 +136,12 @@ app.Recipes = {
           keyCodes: [13],
           onClick: async () => {
             await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
+            let index = app.Recipes.filterList.indexOf(item);
+            if (index != -1)
+              app.Recipes.filterList.splice(index, 1);
+            index = app.Recipes.list.indexOf(item);
+            if (index != -1)
+              app.Recipes.list.splice(index, 1);
             li.remove();
           }
         }

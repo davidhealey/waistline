@@ -75,7 +75,7 @@ app.GoalEditor = {
     const inputs = Array.from(document.querySelectorAll("input:not(.manual-bind)"));
 
     inputs.forEach((x, i) => {
-      if (!x.hasChangeEvent) {
+      if (x.hasAttribute("field") && x.hasAttribute("name") && !x.hasChangeEvent) {
         x.addEventListener("change", (e) => {
           app.Settings.saveInputs(inputs);
         });

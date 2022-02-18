@@ -390,7 +390,7 @@ app.FoodsMealsRecipes = {
     return 0;
   },
 
-  renderItem: async function(data, el, checkbox, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
+  renderItem: async function(data, el, checkbox, sortable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
 
     if (data !== undefined) {
 
@@ -409,6 +409,7 @@ app.FoodsMealsRecipes = {
       if (item !== undefined) {
 
         let li = document.createElement("li");
+        li.data = JSON.stringify(item);
         el.appendChild(li);
 
         let label = document.createElement("label");
@@ -435,6 +436,12 @@ app.FoodsMealsRecipes = {
           icon.className = "icon icon-checkbox";
           label.appendChild(icon);
         }
+        //Sortable handler
+        else if (sortable) {
+          let sortHandler = document.createElement("div");
+          sortHandler.className = "sortable-handler";
+          li.appendChild(sortHandler);
+        }
 
         //Thumbnail
         if (thumbnail == true) {
@@ -453,7 +460,7 @@ app.FoodsMealsRecipes = {
           inner.addEventListener("click", function(e) {
             e.preventDefault();
             if (clickCallback !== undefined)
-              clickCallback(item);
+              clickCallback(item, li);
             else
               app.FoodsMealsRecipes.gotoEditor(item);
           });
@@ -617,6 +624,12 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.updateSelectionCount();
   },
 
+  resetSearchForm: function(searchForm, searchFilter, searchFilterIcon) {
+    $(".page-content").scrollTop(0);
+    app.f7.searchbar.disable(searchForm);
+    app.FoodsMealsRecipes.clearSelectedCategories(searchFilter, searchFilterIcon);
+  },
+
   getSelection: function() {
     return app.FoodsMealsRecipes.selection;
   },
@@ -691,7 +704,7 @@ app.FoodsMealsRecipes = {
       container.style.display = "none";
   },
 
-  gotoEditor: function(item) {
+  gotoEditor: function(item, index) {
     let origin;
     if (app.FoodsMealsRecipes.tab !== undefined) {
       origin = app.FoodsMealsRecipes.tab;
@@ -702,6 +715,7 @@ app.FoodsMealsRecipes = {
 
     app.data.context = {
       item: item,
+      index: index,
       origin: origin
     };
 
@@ -791,14 +805,13 @@ document.addEventListener("page:reinit", function(e) {
     let context = app.data.context;
     app.data.context = undefined;
 
-    if (context !== undefined && context.item !== undefined) {
-      if (app.FoodsMealsRecipes.tab == "foodlist") {
+    if (context !== undefined) {
+      if (context.item !== undefined && app.FoodsMealsRecipes.tab == "foodlist")
         app.Foodlist.init(context);
-      }
-    } else if (app.FoodsMealsRecipes.tab == "meals") {
-      app.Meals.init();
-    } else if (app.FoodsMealsRecipes.tab == "recipes") {
-      app.Recipes.init();
+      else if (context.meal !== undefined && app.FoodsMealsRecipes.tab == "meals")
+        app.Meals.init(context);
+      else if (context.recipe !== undefined && app.FoodsMealsRecipes.tab == "recipes")
+        app.Recipes.init(context);
     }
   }
 });

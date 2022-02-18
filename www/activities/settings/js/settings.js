@@ -113,10 +113,13 @@ app.Settings = {
     const inputs = Array.from(document.querySelectorAll("input:not(.manual-bind), select"));
 
     inputs.forEach((x, i) => {
-      x.addEventListener("change", (e) => {
-        app.Settings.saveInputs(inputs);
-        app.Settings.resetModuleReadyStates(); //Reset modules for changes to take effect
-      });
+      if (x.hasAttribute("field") && x.hasAttribute("name") && !x.hasChangeEvent) {
+        x.addEventListener("change", (e) => {
+          app.Settings.saveInputs(inputs);
+          app.Settings.resetModuleReadyStates(); //Reset modules for changes to take effect
+        });
+        x.hasChangeEvent = true;
+      }
     });
 
     // Open food facts credentials login button
@@ -196,11 +199,11 @@ app.Settings = {
     // Nutriment list 
     let nutrimentList = document.getElementById("nutriment-list");
     if (nutrimentList != undefined) {
-      app.f7.on("sortableSort", (e, data) => {
-        let li = nutrimentList.getElementsByTagName("li");
+      nutrimentList.addEventListener("sortable:sort", (li) => {
+        let items = nutrimentList.getElementsByTagName("li");
         let newOrder = [];
-        for (let i = 0; i < li.length - 1; i++) {
-          newOrder.push(li[i].id);
+        for (let i = 0; i < items.length - 1; i++) {
+          newOrder.push(items[i].id);
         }
         app.Settings.put("nutriments", "order", newOrder);
       });
@@ -209,11 +212,11 @@ app.Settings = {
     // Food labels/categories list
     let categoriesList = document.getElementById("food-categories-list");
     if (categoriesList != undefined) {
-      app.f7.on("sortableSort", (e, data) => {
-        let li = categoriesList.getElementsByTagName("li");
+      categoriesList.addEventListener("sortable:sort", (li) => {
+        let items = categoriesList.getElementsByTagName("li");
         let newOrder = [];
-        for (let i = 0; i < li.length - 1; i++) {
-          newOrder.push(li[i].id);
+        for (let i = 0; i < items.length - 1; i++) {
+          newOrder.push(items[i].id);
         }
         app.Settings.put("foodlist", "labels", newOrder);
       });
