@@ -238,18 +238,22 @@ app.FoodsMealsRecipes = {
     let result = list;
 
     if (query !== "" || categories !== undefined) {
-      let queryRegExp = new RegExp(query.trim(), "i");
+      let queryRegExp = query.trim().split(/\s+/).map((w) => {return new RegExp(w, "i")});
       let categoriesFilter = categories || [];
 
       // Filter by name, brand and categories
       result = result.filter((item) => {
         if (item) {
           if (item.name && item.brand) {
-            if (!item.name.match(queryRegExp) && !item.brand.match(queryRegExp))
-              return false;
+            for (let regExp of queryRegExp) {
+              if (!item.name.match(regExp) && !item.brand.match(regExp))
+                return false;
+            }
           } else if (item.name) {
-            if (!item.name.match(queryRegExp))
-              return false;
+            for (let regExp of queryRegExp) {
+              if (!item.name.match(regExp))
+                return false;
+            }
           }
           for (let category of categoriesFilter) {
             if (item.categories) {
