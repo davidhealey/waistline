@@ -81,14 +81,14 @@
     "no-search-providers": "No search providers are enabled",
     "scan-failed": "Scan Failed",
     "search": "සොයන්න",
-    "number-of-calories": "මෙම ආහාරය සඳහා කැලරි ගණන සපයන්න.",
     "add-to-off": "Would you like to add this product to the Open Food Facts database?",
     "main-image": "ප්‍රධාන පිටුවක් එකතුකරන්න",
     "download-title": "Retrieve latest information",
     "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Product successfully added to Open Food Facts",
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
-    "what-meal": "What meal is this?"
+    "what-meal": "What meal is this?",
+    "press-back-again": "Press Back again to exit the app"
   },
   "days": {
     "0": "ඉරිදා",
@@ -98,20 +98,6 @@
     "4": "බ්‍රහස්පතින්දා",
     "5": "සිකුරාදා",
     "6": "සෙනසුරාදා"
-  },
-  "months": {
-    "0": "දුරුතු",
-    "1": "නවම්",
-    "2": "මැදින්",
-    "3": "බක්",
-    "4": "වෙසක්",
-    "5": "පොසොන්",
-    "6": "ඇසළ",
-    "7": "නිකිණි",
-    "8": "බිනර",
-    "9": "වප්",
-    "10": "ඉල්",
-    "11": "උඳුවප්"
   },
   "colours": {
     "red": "රතු",
@@ -170,7 +156,9 @@
     "recipes": "Recipes",
     "selected": "Selected",
     "search": "සොයන්න",
-    "scan-prompt": "Place a barcode inside the scan area"
+    "scan-prompt": "Place a barcode inside the scan area",
+    "show-more-nutriments": "Show more nutriments",
+    "show-less-nutriments": "Show less nutriments"
   },
   "food-editor": {
     "edit-item": "Edit Item",
@@ -203,7 +191,7 @@
     "show-in-diary": "Show in Diary",
     "show-in-stats": "සංඛ්‍යාලේඛන පෙන්වන්න",
     "shared-goal": "Same goal every day",
-    "auto-adjust": "Auto adjust to meet weekly goal",
+    "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Is minimum goal",
     "percent-goal": "Goal as percentage of energy intake"
   },
@@ -243,6 +231,7 @@
       "timestamps": "Show Timestamps",
       "thumbnails": "Show Thumbnails",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
+      "show-all-nutriments": "Show all nutriments on Overview page",
       "show-units": "Show nutrition units",
       "prompt-add-items": "Prompt for quantity when adding items"
     },
@@ -256,6 +245,16 @@
     "diary-categories": {
       "title": "ප්‍රවර්ග",
       "category": "ප්‍රවර්ගය"
+    },
+    "goals": {
+      "title": "Goals",
+      "first-day-of-week": "First day of the week",
+      "average-goal-base": "Compute average goals based on",
+      "current-week": "Current Week",
+      "last-3-days": "Last 3 Days",
+      "last-5-days": "Last 5 Days",
+      "last-7-days": "Last 7 Days",
+      "last-10-days": "Last 10 Days"
     },
     "foods": {
       "title": "Foods, Meals, Recipes",
@@ -292,9 +291,9 @@
       "title": "Integration",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts Account",
+      "language": "ප්‍රියතම භාෂාව",
       "country": "රට සොයන්න",
       "upload-country": "රට උඩුගත කරන්න",
-      "language": "ප්‍රියතම සෙවුම් භාෂාව",
       "all-countries": "සියල්ල",
       "default": "පෙරනිමි",
       "auto": "ස්වයංක්‍රීයව අනාවරණය",

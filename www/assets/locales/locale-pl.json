@@ -56,7 +56,7 @@
     "ml": "ml",
     "g": "g",
     "mg": "mg",
-    "µg": "μg",
+    "µg": "µg",
     "kg": "kg",
     "lb": "lb",
     "st": "st",
@@ -81,14 +81,14 @@
     "no-search-providers": "Żaden dostawca wyszukiwania nie jest włączony",
     "scan-failed": "Skanowanie nie powiodło się",
     "search": "Szukaj",
-    "number-of-calories": "Proszę podać liczbę kalorii dla tej żywności.",
     "add-to-off": "Czy chcesz dodać ten produkt do bazy danych Open Food Facts?",
     "main-image": "Proszę dodać główny obrazek",
     "download-title": "Pobierz najnowsze informacje",
     "download-text": "Twoje lokalne wartości zostaną zastąpione najnowszymi informacjami dostępnymi dla tego produktu",
     "upload-success": "Produkt pomyślnie dodany do Open Food Facts",
     "upload-failed": "Niestety przesłanie nie powiodło się, spróbuj ponownie lub skontaktuj się z programistą.",
-    "what-meal": "Co to za posiłek?"
+    "what-meal": "Co to za posiłek?",
+    "press-back-again": "Dotknij ponownie 'Wstecz', aby wyjść z aplikacji"
   },
   "days": {
     "0": "Niedziela",
@@ -98,20 +98,6 @@
     "4": "Czwartek",
     "5": "Piątek",
     "6": "Sobota"
-  },
-  "months": {
-    "0": "Styczeń",
-    "1": "Luty",
-    "2": "Marzec",
-    "3": "Kwiecień",
-    "4": "Maj",
-    "5": "Czerwiec",
-    "6": "Lipiec",
-    "7": "Sierpień",
-    "8": "Wrzesień",
-    "9": "Pazdziernik",
-    "10": "Listopad",
-    "11": "Grudzień"
   },
   "colours": {
     "red": "Czerwony",
@@ -170,7 +156,9 @@
     "recipes": "Przepisy",
     "selected": "Wybrane",
     "search": "Szukaj",
-    "scan-prompt": "Umieść kod kreskowy w obrębie pola skanowania"
+    "scan-prompt": "Umieść kod kreskowy w obrębie pola skanowania",
+    "show-more-nutriments": "Pokaż więcej składników odżywczych",
+    "show-less-nutriments": "Pokaż mniej składników odżywczych"
   },
   "food-editor": {
     "edit-item": "Edytuj element",
@@ -203,7 +191,7 @@
     "show-in-diary": "Pokaż w dzienniku",
     "show-in-stats": "Pokaż w statystykach",
     "shared-goal": "Ten sam cel każdego dnia",
-    "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu tygodniowego",
+    "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu średniego",
     "minimum-goal": "Jest celem minimalnym",
     "percent-goal": "Cel jako procent pobranej energii"
   },
@@ -243,6 +231,7 @@
       "timestamps": "Pokaż znaczniki czasu",
       "thumbnails": "Pokaż miniatury",
       "wifi-thumbnails": "Pokazuj miniatury tylko przez Wi-Fi",
+      "show-all-nutriments": "Pokaż wszystkie składniki odżywcze na stronie podglądu",
       "show-units": "Pokaż jednostki odżywcze",
       "prompt-add-items": "Pytaj o ilość podczas dodawania produktów"
     },
@@ -256,6 +245,16 @@
     "diary-categories": {
       "title": "Kategorie",
       "category": "Kategoria"
+    },
+    "goals": {
+      "title": "Cele",
+      "first-day-of-week": "Pierwszy dzień tygodnia",
+      "average-goal-base": "Oblicz średnie cele na podstawie",
+      "current-week": "Obeny Tydzień",
+      "last-3-days": "Ostatnie 3 dni",
+      "last-5-days": "Ostatnie 5 dni",
+      "last-7-days": "Ostatnie 7 dni",
+      "last-10-days": "Ostatnie 10 dni"
     },
     "foods": {
       "title": "Żywność, posiłki, przepisy",
@@ -292,9 +291,9 @@
       "title": "Integracja",
       "off": "Open Food Facts",
       "off-account": "Konto Open Food Facts",
+      "language": "Preferowany język",
       "country": "Wyszukaj Kraj",
       "upload-country": "Kraj wysłania",
-      "language": "Preferowany język wyszukiwania",
       "all-countries": "Wszystkie",
       "default": "Domyślne",
       "auto": "Wykrywaj automatycznie",

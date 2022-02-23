@@ -56,7 +56,7 @@
     "ml": "ml",
     "g": "g",
     "mg": "mg",
-    "µg": "μg",
+    "µg": "µg",
     "kg": "kg",
     "lb": "lb",
     "st": "st",
@@ -81,14 +81,14 @@
     "no-search-providers": "Keine Suchanbieter aktiviert",
     "scan-failed": "Scan fehlgeschlagen",
     "search": "Suchen",
-    "number-of-calories": "Bitte gib die Anzahl der Kalorien für dieses Essen an.",
     "add-to-off": "Möchtest du dieses Produkt zur Open Food Facts Datenbank hinzufügen?",
     "main-image": "Bitte lade ein gültiges Bild hoch",
     "download-title": "Neueste Daten abrufen",
     "download-text": "Deine lokalen Werte werden mit den neuesten verfügbaren Daten für den Artikel überschrieben",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
-    "what-meal": "Welche Mahlzeit ist das?"
+    "what-meal": "Welche Mahlzeit ist das?",
+    "press-back-again": "Drücke erneut Zurück, um die App zu beenden"
   },
   "days": {
     "0": "Sonntag",
@@ -98,20 +98,6 @@
     "4": "Donnerstag",
     "5": "Freitag",
     "6": "Samstag"
-  },
-  "months": {
-    "0": "Januar",
-    "1": "Februar",
-    "2": "März",
-    "3": "April",
-    "4": "Mai",
-    "5": "Juni",
-    "6": "Juli",
-    "7": "August",
-    "8": "September",
-    "9": "Oktober",
-    "10": "November",
-    "11": "Dezember"
   },
   "colours": {
     "red": "Rot",
@@ -170,7 +156,9 @@
     "recipes": "Rezepte",
     "selected": "Ausgewählt",
     "search": "Suchen",
-    "scan-prompt": "Platziere einen Strichcode im Scanbereich"
+    "scan-prompt": "Platziere einen Strichcode im Scanbereich",
+    "show-more-nutriments": "Mehr Nährstoffe anzeigen",
+    "show-less-nutriments": "Weniger Nährstoffe anzeigen"
   },
   "food-editor": {
     "edit-item": "Eintrag bearbeiten",
@@ -203,7 +191,7 @@
     "show-in-diary": "Im Tagebuch anzeigen",
     "show-in-stats": "In Statistik anzeigen",
     "shared-goal": "Gleiches Ziel für jeden Tag",
-    "auto-adjust": "Automatische Anpassung für Wochenziel",
+    "auto-adjust": "Automatische Anpassung für Durchschnittsziel",
     "minimum-goal": "Ist Mindestziel",
     "percent-goal": "Ziel als Prozentsatz der Energiezufuhr"
   },
@@ -243,6 +231,7 @@
       "timestamps": "Zeitstempel anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
+      "show-all-nutriments": "Alle Nährstoffe auf Übersichtsseite anzeigen",
       "show-units": "Nährstoffeinheiten anzeigen",
       "prompt-add-items": "Beim Hinzufügen von Einträgen Menge abfragen"
     },
@@ -256,6 +245,16 @@
     "diary-categories": {
       "title": "Kategorien",
       "category": "Kategorie"
+    },
+    "goals": {
+      "title": "Ziele",
+      "first-day-of-week": "Erster Tag der Woche",
+      "average-goal-base": "Basis zur Berechnung von Durchschnittszielen",
+      "current-week": "Aktuelle Woche",
+      "last-3-days": "Letzte 3 Tage",
+      "last-5-days": "Letzte 5 Tage",
+      "last-7-days": "Letzte 7 Tage",
+      "last-10-days": "Letzte 10 Tage"
     },
     "foods": {
       "title": "Lebensmittel, Mahlzeiten, Rezepte",
@@ -292,9 +291,9 @@
       "title": "Integrationen",
       "off": "Open Food Facts",
       "off-account": "Open Food Facts Konto",
+      "language": "Bevorzugte Sprache",
       "country": "Land für Suche",
       "upload-country": "Land für hochgeladene Inhalte",
-      "language": "Bevorzugte Sprache für Suche",
       "all-countries": "Alle",
       "default": "Standard",
       "auto": "Automatisch erkennen",

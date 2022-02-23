@@ -81,14 +81,14 @@
     "no-search-providers": "Nessun provider di ricerca è attivo",
     "scan-failed": "Scansione fallita",
     "search": "Ricerca",
-    "number-of-calories": "Inserisci il numero di calorie per questo cibo per favore.",
     "add-to-off": "Ti andrebbe di aggiungere questo prodotto al database Open Food Facts?",
     "main-image": "Aggiungi l' immagine principale per favore",
     "download-title": "Recupera le ultime informazioni",
     "download-text": "I tuoi valori locali saranno sostituiti dalle ultime informazioni disponibili per questo elemento",
     "upload-success": "Prodotto aggiunto con successo al database di Open Food Facts",
     "upload-failed": "Sfortunatamente l' upload è fallito.  Riprova o contatta lo sviluppatore per favore.",
-    "what-meal": "Che pasto è questo?"
+    "what-meal": "Che pasto è questo?",
+    "press-back-again": "Premi di nuovo indietro per uscire dall'app"
   },
   "days": {
     "0": "Domenica",
@@ -98,20 +98,6 @@
     "4": "Giovedì",
     "5": "Venerdì",
     "6": "Sabato"
-  },
-  "months": {
-    "0": "Gennaio",
-    "1": "Febbraio",
-    "2": "Marzo",
-    "3": "Aprile",
-    "4": "Maggio",
-    "5": "Giugno",
-    "6": "Luglio",
-    "7": "Agosto",
-    "8": "Settembre",
-    "9": "Ottobre",
-    "10": "Novembre",
-    "11": "Dicembre"
   },
   "colours": {
     "red": "Rosso",
@@ -170,7 +156,9 @@
     "recipes": "Ricette",
     "selected": "Selezionato",
     "search": "Ricerca",
-    "scan-prompt": "Posiziona il codice Qr all'interno dell'area di scansione"
+    "scan-prompt": "Posiziona il codice Qr all'interno dell'area di scansione",
+    "show-more-nutriments": "Mostra più nutrimenti",
+    "show-less-nutriments": "Mostra meno nutrimenti"
   },
   "food-editor": {
     "edit-item": "Modifica elementi",
@@ -203,7 +191,7 @@
     "show-in-diary": "Mostra nel diario",
     "show-in-stats": "Mostra nelle statistiche",
     "shared-goal": "Stesso obiettivo ogni giorno",
-    "auto-adjust": "Auto regolazione per soddisfare l'obiettivo settimanale",
+    "auto-adjust": "Auto regola per soddisfare l' obiettivo medio",
     "minimum-goal": "È un obiettivo minimo",
     "percent-goal": "Obiettivo in percentuale del consumo di energia"
   },
@@ -243,6 +231,7 @@
       "timestamps": "Mostra i marcatori temporali",
       "thumbnails": "Mostra le anteprime",
       "wifi-thumbnails": "Mostra le anteprime solo con la Wi-Fi",
+      "show-all-nutriments": "Visualizza tutti i nutrienti nella pagina Panoramica",
       "show-units": "Mostra le unità nutrizionali",
       "prompt-add-items": "Chiede la quantità quando aggiungi articoli"
     },
@@ -256,6 +245,16 @@
     "diary-categories": {
       "title": "Categorie",
       "category": "Categoria"
+    },
+    "goals": {
+      "title": "Obiettivi",
+      "first-day-of-week": "Primo giorno della settimana",
+      "average-goal-base": "Calcola gli obiettivi medi sulla base di",
+      "current-week": "Settimana Corrente",
+      "last-3-days": "Ultimi 3 giorni",
+      "last-5-days": "Ultimi 5 giorni",
+      "last-7-days": "Ultimi 7 giorni",
+      "last-10-days": "Ultimi 10 giorni"
     },
     "foods": {
       "title": "Cibi, Pasti, Ricette",
@@ -292,9 +291,9 @@
       "title": "Integrazione",
       "off": "Open Food Facts",
       "off-account": "Apri l' account di Food Facts",
+      "language": "Lingua Preferita",
       "country": "Cerca per Nazione",
       "upload-country": "Carica nazione",
-      "language": "Lingua di ricerca preferita",
       "all-countries": "Tutti",
       "default": "Predefinito",
       "auto": "Rileva automaticamente",

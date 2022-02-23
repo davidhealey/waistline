@@ -71,7 +71,7 @@
     "yes": "Oui",
     "no": "Non",
     "add": "Ajouter",
-    "skip": "Skip",
+    "skip": "Ignorer",
     "confirm-delete": "Souhaitez-vous supprimer cet élément ?",
     "delete-title": "Supprimer élément",
     "required-fields": "Veuillez remplir les champs requis.",
@@ -81,14 +81,14 @@
     "no-search-providers": "Pas de moteur de recherche activé",
     "scan-failed": "Code non reconnu",
     "search": "Recherche",
-    "number-of-calories": "Veuillez indiquer le nombre de calories pour cet aliment.",
     "add-to-off": "Souhaitez-vous ajouter ce produit dans la base de données Open Food Facts ?",
     "main-image": "Veuillez ajouter une image principale",
     "download-title": "Récupérer les dernières infos",
     "download-text": "Vos valeurs locales seront remplacées par les dernières informations disponibles pour cet élément",
     "upload-success": "Produit ajouté à Open Food Facts",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
-    "what-meal": "À quel repas ?"
+    "what-meal": "À quel repas ?",
+    "press-back-again": "Appuyez à nouveau sur le bouton Retour pour quitter l'application"
   },
   "days": {
     "0": "Dimanche",
@@ -98,20 +98,6 @@
     "4": "Jeudi",
     "5": "Vendredi",
     "6": "Samedi"
-  },
-  "months": {
-    "0": "Janvier",
-    "1": "Février",
-    "2": "Mars",
-    "3": "Avril",
-    "4": "Mai",
-    "5": "Juin",
-    "6": "Juillet",
-    "7": "Août",
-    "8": "Septembre",
-    "9": "Octobre",
-    "10": "Novembre",
-    "11": "Décembre"
   },
   "colours": {
     "red": "Rouge",
@@ -170,7 +156,9 @@
     "recipes": "Recettes",
     "selected": "Sélectionnées",
     "search": "Recherche",
-    "scan-prompt": "Placez un code barre devant le scanner"
+    "scan-prompt": "Placez un code barre devant le scanner",
+    "show-more-nutriments": "Afficher plus de nutriments",
+    "show-less-nutriments": "Afficher moins de nutriments"
   },
   "food-editor": {
     "edit-item": "Modifier élément",
@@ -203,7 +191,7 @@
     "show-in-diary": "Afficher dans le journal",
     "show-in-stats": "Montrer les statistiques",
     "shared-goal": "Objectif quotidien",
-    "auto-adjust": "Ajuster automatiquement selon l'objectif hebdomadaire",
+    "auto-adjust": "Ajuster automatiquement pour atteindre l'objectif moyen",
     "minimum-goal": "Objectif minimum",
     "percent-goal": "Objectif en pourcentage de l'apport énergétique"
   },
@@ -243,6 +231,7 @@
       "timestamps": "Afficher les dates",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
+      "show-all-nutriments": "Afficher tous les nutriments dans la vue d'ensemble",
       "show-units": "Afficher les unités nutritionnelles",
       "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments"
     },
@@ -250,19 +239,29 @@
       "title": "Nutriments",
       "field": "Nom",
       "unit": "Unité",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "add": "Ajouter un champ",
+      "edit": "Modifier le champ"
     },
     "diary-categories": {
       "title": "Catégories",
       "category": "Catégorie"
+    },
+    "goals": {
+      "title": "Objectifs",
+      "first-day-of-week": "Premier jour de la semaine",
+      "average-goal-base": "Calculer la moyenne des objectifs en fonction",
+      "current-week": "De la semaine en cours",
+      "last-3-days": "Des 3 derniers jours",
+      "last-5-days": "Des 5 dernniers jours",
+      "last-7-days": "Des 7 derniers jours",
+      "last-10-days": "Des 10 derniers jours"
     },
     "foods": {
       "title": "Aliments, Repas, Recettes",
       "sort": "Trier les aliments",
       "sort-date": "Dernière utilisation",
       "sort-alpha": "Ordre alphabétique",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Afficher les étiquettes de catégorie",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
       "images": "Afficher les images des aliments",
@@ -270,8 +269,8 @@
       "show-notes": "Afficher les notes"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
+      "title": "Étiquettes et catégories",
+      "label": "Étiquette / Icône",
       "description": "Description",
       "add": "Ajouter une catégorie",
       "edit": "Modifier cette catégorie"
@@ -292,9 +291,9 @@
       "title": "Intégration",
       "off": "Open Food Facts",
       "off-account": "Compte Open Food Facts",
+      "language": "Langage préféré",
       "country": "Chercher un pays",
       "upload-country": "Indiquer un pays",
-      "language": "Langue de recherche",
       "all-countries": "Tous",
       "default": "Défault",
       "auto": "Détection automatique",
@@ -340,7 +339,7 @@
     "french": "Français",
     "swedish": "Suédois",
     "russian": "Russe",
-    "polish": "Polish",
+    "polish": "Polonais",
     "portuguese": "Portuguais",
     "bulgarian": "Bulgare",
     "hebrew": "Hébreu",
