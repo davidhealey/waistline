@@ -24,7 +24,6 @@ app.GoalEditor = {
 
   init: function(context) {
     this.getComponents();
-    this.bindUIActions();
 
     if (context.stat !== undefined) {
       const inputs = Array.from(document.querySelectorAll("input"));
@@ -35,6 +34,7 @@ app.GoalEditor = {
       this.stat = context.stat;
     }
 
+    this.bindUIActions();
     this.hideShowComponents();
   },
 
