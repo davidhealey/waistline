@@ -451,7 +451,8 @@ document.addEventListener('deviceready', async function() {
       data.settings = settings;
       let json = JSON.stringify(data);
 
-      let filename = "waistline_auto_backup.json";
+      let weekday = (new Date()).toLocaleDateString("en", {weekday: "long"}).toLowerCase();
+      let filename = "waistline_backup_" + weekday + ".json";
       let path = await app.Utils.writeFile(json, filename);
     }
   }, 2000);
