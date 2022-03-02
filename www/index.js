@@ -448,8 +448,11 @@ document.addEventListener('deviceready', async function() {
 
     if (settings != undefined && settings.firstTimeSetup != undefined && autoBackup == true && device.platform !== "browser") {
       let data = await dbHandler.export();
+      data.settings = settings;
+      let json = JSON.stringify(data);
+
       let filename = "waistline_auto_backup.json";
-      let path = await app.Utils.writeFile(data, filename);
+      let path = await app.Utils.writeFile(json, filename);
     }
   }, 2000);
 }, false);
