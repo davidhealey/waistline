@@ -427,9 +427,9 @@ app.FoodsMealsRecipes = {
 
           input.addEventListener("change", (e) => {
             if (checkboxCallback !== undefined)
-              checkboxCallback(e.target.checked, item);
+              checkboxCallback(input.checked, input.data);
             else
-              app.FoodsMealsRecipes.checkboxChanged(e.target.checked, item);
+              app.FoodsMealsRecipes.checkboxChanged(input.checked, input.data);
           });
 
           let icon = document.createElement("i");
@@ -568,9 +568,9 @@ app.FoodsMealsRecipes = {
   checkboxChanged: function(state, item) {
 
     if (state === true) {
-      app.FoodsMealsRecipes.selection.push(JSON.stringify(item));
+      app.FoodsMealsRecipes.selection.push(item);
     } else {
-      let itemIndex = app.FoodsMealsRecipes.selection.indexOf(JSON.stringify(item));
+      let itemIndex = app.FoodsMealsRecipes.selection.indexOf(item);
       if (itemIndex != -1)
         app.FoodsMealsRecipes.selection.splice(itemIndex, 1);
     }
