@@ -487,15 +487,13 @@ app.FoodsMealsRecipes = {
           else
             title.innerText = app.strings.diary["quick-add"] || "Quick Add";
         } else {
-          let text = "";
           if (item.categories !== undefined && app.Settings.get("foodlist", "show-category-labels") == true) {
             const labels = app.Settings.get("foodlist", "labels") || [];
-            text += labels.filter((label) => {
+            title.innerText += labels.filter((label) => {
               return item.categories.includes(label);
             }).join(" ") + " ";
           }
-          text += item.name;
-          title.innerText = app.Utils.tidyText(text, 50);
+          title.innerText += item.name || "";
         }
         row.appendChild(title);
 
@@ -516,7 +514,7 @@ app.FoodsMealsRecipes = {
         if (item.brand && item.brand != "" && item.brand != "undefined") {
           let subtitle = document.createElement("div");
           subtitle.className = "item-subtitle";
-          subtitle.innerText = app.Utils.tidyText(item.brand, 50);
+          subtitle.innerText = item.brand || "";
           inner.appendChild(subtitle);
         }
 
