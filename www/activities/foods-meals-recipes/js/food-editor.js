@@ -281,6 +281,10 @@ app.FoodEditor = {
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();
+    const energyUnit = app.Settings.get("units", "energy");
+
+    if (item !== undefined && item.nutrition.kilojoules == undefined && energyUnit == units.kilojoules)
+      item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules);
 
     let ul = app.FoodEditor.el.nutrition;
     ul.innerHTML = "";

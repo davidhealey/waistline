@@ -45,7 +45,9 @@ i.searchbar-icon {margin: -12px 12px;}
 img.food-thumbnail {width: 20%; margin: 0.2em 1em 0.2em 0;}
 html[dir="rtl"] img.food-thumbnail {margin: 0.2em 0 0.2em 1em;}
 
-.item-subtitle {font-style: italic;}
+.list.multi-line-titles .item-title {white-space: normal; -webkit-line-clamp: 2; -webkit-box-orient: vertical; display: -webkit-box;}
+.list .item-title-row .item-after {align-self: flex-start;}
+.list .item-subtitle {font-style: italic;}
 
 /* Custom color themes */
 .color-theme-pink {
