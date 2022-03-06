@@ -317,42 +317,48 @@ app.Settings = {
     }
   },
 
-  importDatabase: function() {
-    let title = app.strings.settings.integration.import || "Import";
-    let text = app.strings.settings.integration["confirm-import"] || "Are you sure? This will overwrite your current database.";
+  importDatabase: async function() {
+    let file = await chooser.getFile("application/json");
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
+    if (file !== undefined && file.data !== undefined) {
+      let data;
+      try {
+        let content = new TextDecoder("utf-8").decode(file.data);
+        data = JSON.parse(content);
+      } catch (e) { }
 
-    let dialog = app.f7.dialog.create({
-      title: title,
-      content: div.outerHTML,
-      buttons: [{
-          text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
-        },
-        {
-          text: app.strings.dialogs.ok || "OK",
-          keyCodes: [13],
-          onClick: async () => {
-            let filename = "waistline_export.json";
-            let json = await app.Utils.readFile(filename);
+      if (data !== undefined) {
+        let title = app.strings.settings.integration.import || "Import";
+        let text = app.strings.settings.integration["confirm-import"] || "Are you sure? This will overwrite your current database.";
 
-            if (json !== undefined) {
-              let data = JSON.parse(json);
-              await dbHandler.import(data);
+        let div = document.createElement("div");
+        div.className = "dialog-text";
+        div.innerText = text;
 
-              if (data.settings !== undefined) {
-                let settings = app.Settings.migrateSettings(data.settings, false);
-                window.localStorage.setItem("settings", JSON.stringify(settings));
-                this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+        let dialog = app.f7.dialog.create({
+          title: title,
+          content: div.outerHTML,
+          buttons: [{
+              text: app.strings.dialogs.cancel || "Cancel",
+              keyCodes: [27]
+            },
+            {
+              text: app.strings.dialogs.ok || "OK",
+              keyCodes: [13],
+              onClick: async () => {
+                await dbHandler.import(data);
+
+                if (data.settings !== undefined) {
+                  let settings = app.Settings.migrateSettings(data.settings, false);
+                  window.localStorage.setItem("settings", JSON.stringify(settings));
+                  this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+                }
               }
             }
-          }
-        }
-      ]
-    }).open();
+          ]
+        }).open();
+      }
+    }
   },
 
   firstTimeSetup: function() {
