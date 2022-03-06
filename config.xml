@@ -28,6 +28,7 @@
           <application android:usesCleartextTraffic="true" />
           <application android:requestLegacyExternalStorage="true" />
           <application android:extractNativeLibs="true" />
+          <application android:largeHeap="true" />
         </edit-config>
         <icon density="ldpi" background="res/icon/android/ldpi-background.png" foreground="res/icon/android/ldpi-foreground.png" src="res/android/ldpi.png" />
         <icon density="mdpi" background="res/icon/android/mdpi-background.png" foreground="res/icon/android/mdpi-foreground.png" src="res/android/mdpi.png" />
