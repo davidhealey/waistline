@@ -156,6 +156,7 @@ app.Foodlist = {
     let maxItems = 300; // Max items to load
     let itemsPerLoad = 20; // Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
+    let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
     let showThumbnails = app.Utils.showThumbnails("foodlist");
 
     if (lastIndex <= app.Foodlist.list.length) {
@@ -167,7 +168,7 @@ app.Foodlist = {
 
         if (item != undefined) {
           item.type = "food";
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, undefined, this.removeItem, undefined, false, showThumbnails);
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, showThumbnails);
         }
       }
     }

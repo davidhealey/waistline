@@ -91,6 +91,8 @@ app.Meals = {
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll("#meal-list-container li").length;
 
+    let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
+
     if (lastIndex <= app.Meals.list.length) {
       //Render next set of items to list
       for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
@@ -99,7 +101,7 @@ app.Meals = {
         let item = app.Meals.list[i];
 
         item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, false, app.Meals.gotoEditor, app.Meals.deleteMeal);
+        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, false, clickable, app.Meals.gotoEditor, app.Meals.deleteMeal);
       }
     }
   },

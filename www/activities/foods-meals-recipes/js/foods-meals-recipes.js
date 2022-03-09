@@ -23,10 +23,10 @@ app.FoodsMealsRecipes = {
   el: {},
   selection: [],
   origin: undefined,
-  disableEdit: false,
+  editItems: "enabled",
 
   init: function(context) {
-    this.disableEdit = false;
+    this.editItems = "enabled";
 
     this.getComponents();
     this.bindUIActions();
@@ -40,17 +40,18 @@ app.FoodsMealsRecipes = {
 
         switch (app.FoodsMealsRecipes.origin) {
           case "/diary/":
+            this.editItems = "partial"; //Allow to open meals and recipes, but not edit their ingredients
             this.date = context.date; //Date from diary
             break;
 
           case "./meal-editor/":
-            this.disableEdit = true;
+            this.editItems = "disabled";
             this.el.fab.style.display = "none";
             this.el.scan.style.display = "none";
             break;
 
           case "./recipe-editor/":
-            this.disableEdit = true;
+            this.editItems = "disabled";
             this.el.fab.style.display = "none";
             this.el.scan.style.display = "none";
             break;
@@ -390,7 +391,7 @@ app.FoodsMealsRecipes = {
     return 0;
   },
 
-  renderItem: async function(data, el, checkbox, sortable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
+  renderItem: async function(data, el, checkbox, sortable, clickable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
 
     if (data !== undefined) {
 
@@ -456,7 +457,7 @@ app.FoodsMealsRecipes = {
         inner.className = "item-inner food-item-inner noselect";
         label.appendChild(inner);
 
-        if (app.FoodsMealsRecipes.disableEdit == false && item.name !== "Quick Add") {
+        if (clickable !== false && item.name !== "Quick Add") {
           inner.addEventListener("click", function(e) {
             e.preventDefault();
             if (clickCallback !== undefined)
