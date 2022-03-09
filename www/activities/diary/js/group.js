@@ -97,6 +97,7 @@ app.Group = {
     //Add button 
     let left = document.createElement("div");
     left.className = "add-button";
+    left.id = "add-button-" + id;
     row.appendChild(left);
 
     let a = document.createElement("a");

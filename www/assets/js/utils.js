@@ -54,6 +54,17 @@ app.Utils = {
     }
   },
 
+  getElementOffsetTop: function(element) {
+    var offsetTop = 0;
+    if (element) {
+      do {
+        if (!isNaN(element.offsetTop))
+          offsetTop += element.offsetTop;
+      } while (element = element.offsetParent);
+    }
+    return offsetTop;
+  },
+
   isInternetConnected: function() {
     if (navigator.connection.type == "none") {
       let msg = app.strings.dialogs["no-internet"] || "No Internet Connection";

@@ -30,19 +30,24 @@ app.Diary = {
     this.getComponents();
     this.bindUIActions();
 
+    let scrollPosition;
+
     // If items have been passed, add them to the db
     if (context) {
       if (context.items || context.item) {
-        if (context.items)
+        if (context.items) {
           await this.addItems(context.items, context.category);
-        else
+          scrollPosition = { category: context.category };
+        } else {
           await this.updateItem(context.item);
+          scrollPosition = { position: app.Diary.lastScrollPosition };
+        }
       }
     }
 
     if (!app.Diary.ready) {
       app.Diary.groups = this.createMealGroups(); // Create meal groups
-      app.Diary.render(app.Diary.lastScrollPosition);
+      app.Diary.render(scrollPosition);
       app.Diary.ready = true;
     }
 
@@ -154,6 +159,10 @@ app.Diary = {
     let entry = await this.getEntryFromDB(); // Get diary entry from DB
     let totalNutrition;
 
+    // Remember page height and scroll position
+    let pageHeight = $(".page[data-name='diary'] .page-content").height();
+    let pagePosition = $(".page[data-name='diary'] .page-content").scrollTop();
+
     // Clear groups
     for (group in app.Diary.groups)
       app.Diary.groups[group].reset();
@@ -178,8 +187,23 @@ app.Diary = {
 
     await app.Diary.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
 
+    // Automatically scroll to requested position
+    let requestedScrollPosition;
     if (scrollPosition !== undefined) {
-      $(".page-current .page-content").scrollTop(scrollPosition); // Restore scroll position
+      if (scrollPosition.category !== undefined) {
+        let buffer = 50;
+        let addButton = document.querySelector(".page[data-name='diary'] #add-button-" + scrollPosition.category);
+        let addButtonPosition = app.Utils.getElementOffsetTop(addButton);
+        if (addButtonPosition > pagePosition + pageHeight + buffer)
+          requestedScrollPosition = addButtonPosition - pageHeight - buffer; // Scroll category add button back into view
+        else
+          requestedScrollPosition = pagePosition; // Category add button is already visible from page position
+      } else if (scrollPosition.position !== undefined) {
+        requestedScrollPosition = scrollPosition.position; // Scroll to specified position
+      }
+    }
+    if (requestedScrollPosition !== undefined) {
+      $(".page[data-name='diary'] .page-content").scrollTop(requestedScrollPosition);
     }
   },
 
@@ -353,8 +377,7 @@ app.Diary = {
         let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
         if (app.Settings.get("diary", "prompt-add-items") == true) {
-          let lastScrollPosition = app.Diary.lastScrollPosition;
-          app.Diary.promptAddItems(items, category, entry, 0, lastScrollPosition);
+          app.Diary.promptAddItems(items, category, entry, 0);
         } else {
           items.forEach((x) => {
             app.Diary.addItemToEntry(x, category, entry);
@@ -371,7 +394,7 @@ app.Diary = {
     });
   },
 
-  promptAddItems: async function(items, category, entry, index, lastScrollPosition) {
+  promptAddItems: async function(items, category, entry, index) {
     let item = items[index];
 
     if (item !== undefined) {
@@ -430,7 +453,7 @@ app.Diary = {
             text: app.strings.dialogs.skip || "Skip",
             keyCodes: [27],
             onClick: async function(dialog) {
-              app.Diary.promptAddItems(items, category, entry, index + 1, lastScrollPosition);
+              app.Diary.promptAddItems(items, category, entry, index + 1);
             }
           },
           {
@@ -447,7 +470,7 @@ app.Diary = {
                 item.quantity = quantity;
 
               app.Diary.addItemToEntry(item, category, entry);
-              app.Diary.promptAddItems(items, category, entry, index + 1, lastScrollPosition);
+              app.Diary.promptAddItems(items, category, entry, index + 1);
             }
           }
           ]
@@ -456,12 +479,13 @@ app.Diary = {
       } else {
         // Item has no name (is a meal item) -> add it as is without prompt
         app.Diary.addItemToEntry(item, category, entry);
-        app.Diary.promptAddItems(items, category, entry, index + 1, lastScrollPosition);
+        app.Diary.promptAddItems(items, category, entry, index + 1);
       }
     } else {
       // No more items to process -> write entry to DB and refresh page
       await dbHandler.put(entry, "diary");
-      app.Diary.render(lastScrollPosition);
+      let scrollPosition = { category: category };
+      app.Diary.render(scrollPosition);
     }
   },
 
@@ -519,8 +543,8 @@ app.Diary = {
               entry.items.splice(item.index, 1);
 
             await dbHandler.put(entry, "diary");
-            let lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
-            app.Diary.render(lastScrollPosition);
+            let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+            app.Diary.render(scrollPosition);
           }
         }
       ]
@@ -607,8 +631,8 @@ app.Diary = {
                 entry.items.push(item);
 
                 await dbHandler.put(entry, "diary");
-                let lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
-                app.Diary.render(lastScrollPosition);
+                let scrollPosition = { category: category };
+                app.Diary.render(scrollPosition);
               }
             }
           }
@@ -860,7 +884,6 @@ app.Diary = {
       date: app.Diary.date
     };
 
-    app.Diary.lastScrollPosition = $(".page-current .page-content").scrollTop(); // Remember scroll position
     app.f7.views.main.router.navigate("/foods-meals-recipes/");
   },
 
