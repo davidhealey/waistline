@@ -65,6 +65,9 @@ app.MealEditor = {
 
   setComponentVisibility: function() {
     app.FoodsMealsRecipes.setCategoriesVisibility(app.MealEditor.el.categoriesContainer);
+
+    if (app.FoodsMealsRecipes.editItems == "partial")
+      app.MealEditor.el.add.style.display = "none";
   },
 
   bindUIActions: function() {
@@ -257,12 +260,12 @@ app.MealEditor = {
   renderItems: function() {
     return new Promise(function(resolve, reject) {
       app.MealEditor.el.foodlist.innerHTML = "";
-      app.FoodsMealsRecipes.disableEdit = false;
 
+      let clickable = (app.FoodsMealsRecipes.editItems == "enabled");
       let showThumbnails = app.Utils.showThumbnails("foodlist");
 
       app.MealEditor.meal.items.forEach(async (x, i) => {
-        app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, true, app.MealEditor.mealItemClickHandler, app.MealEditor.removeItem, undefined, false, showThumbnails);
+        app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, true, clickable, app.MealEditor.mealItemClickHandler, app.MealEditor.removeItem, undefined, false, showThumbnails);
       });
       app.f7.sortable.disable(app.MealEditor.el.foodlist);
 
