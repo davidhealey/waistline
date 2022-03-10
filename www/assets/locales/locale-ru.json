@@ -88,7 +88,7 @@
     "upload-success": "Продукт успешно добавлен в Open Food Facts",
     "upload-failed": "К сожалению, загрузка не удалась. Пожалуйста, попробуйте еще раз или свяжитесь с разработчиком.",
     "what-meal": "Что это за блюдо?",
-    "press-back-again": "Press Back again to exit the app"
+    "press-back-again": "Чтобы выйти из приложения, снова нажмите Назад"
   },
   "days": {
     "0": "Воскресенье",
