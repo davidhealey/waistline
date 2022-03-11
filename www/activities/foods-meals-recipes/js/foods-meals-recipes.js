@@ -284,8 +284,10 @@ app.FoodsMealsRecipes = {
 
       if (data !== undefined) {
         // Get nutriments for given portion/quantity
-        let foodPortion = parseFloat(data.portion);
-        let multiplier = (parseFloat(portion) / foodPortion) * (quantity || 1);
+        let dataPortion = parseFloat(data.portion);
+        let itemPortion = parseFloat(portion);
+        let itemQuantity = parseFloat(quantity) || 0;
+        let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
         for (let n in data.nutrition) {
           data.nutrition[n] = Math.round(data.nutrition[n] * multiplier * 100) / 100;
