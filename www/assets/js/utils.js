@@ -212,20 +212,32 @@ app.Utils = {
     return Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
   },
 
+  getBackupDirectoryName: function() {
+    let dirname = window.localStorage.getItem("backup-dir");
+
+    if (dirname == undefined) {
+      dirname = Math.floor(Date.now() / 1000).toString();
+      window.localStorage.setItem("backup-dir", dirname);
+    }
+
+    return dirname;
+  },
+
   writeFile: function(data, filename) {
     return new Promise(function(resolve, reject) {
       if (app.mode !== "development" && device.platform !== "browser") {
 
         let base = cordova.file.externalRootDirectory;
-        let path = base + "Android/media/com.waist.line/" + filename;
+        let dirname = app.Utils.getBackupDirectoryName();
+        let path = base + `Documents/Waistline/${dirname}/${filename}`;
 
         console.log("Writing data to file: " + path);
 
         window.resolveLocalFileSystemURL(base, (baseDir) => {
-          baseDir.getDirectory("Android", { create: true }, function (androidDir) {
-            androidDir.getDirectory("media", { create: true }, function (mediaDir) {
-              mediaDir.getDirectory("com.waist.line", { create: true }, function (appDir) {
-                appDir.getFile(filename, { create: true }, (file) => {
+          baseDir.getDirectory("Documents", { create: true }, function (documentsDir) {
+            documentsDir.getDirectory("Waistline", { create: true }, function (waistlineDir) {
+              waistlineDir.getDirectory(dirname, { create: true }, function (backupDir) {
+                backupDir.getFile(filename, { create: true }, (file) => {
 
                   // Write to the file, overwriting existing content
                   file.createWriter((fileWriter) => {
@@ -273,15 +285,16 @@ app.Utils = {
       if (app.mode !== "development" && device.platform !== "browser") {
 
         let base = cordova.file.externalRootDirectory;
-        let path = base + "Android/media/com.waist.line/" + filename;
+        let dirname = app.Utils.getBackupDirectoryName();
+        let path = base + `Documents/Waistline/${dirname}/${filename}`;
 
         console.log("Reading file: " + path);
 
         window.resolveLocalFileSystemURL(base, (baseDir) => {
-          baseDir.getDirectory("Android", { create: true }, function (androidDir) {
-            androidDir.getDirectory("media", { create: true }, function (mediaDir) {
-              mediaDir.getDirectory("com.waist.line", { create: true }, function (appDir) {
-                appDir.getFile(filename, {}, (file) => {
+          baseDir.getDirectory("Documents", { create: true }, function (documentsDir) {
+            documentsDir.getDirectory("Waistline", { create: true }, function (waistlineDir) {
+              waistlineDir.getDirectory(dirname, { create: true }, function (backupDir) {
+                backupDir.getFile(filename, {}, (file) => {
 
                   file.file((file) => {
                     let fileReader = new FileReader();

@@ -49,6 +49,8 @@ html[dir="rtl"] img.food-thumbnail {margin: 0.2em 0 0.2em 1em;}
 .list .item-title-row .item-after {align-self: flex-start;}
 .list .item-subtitle {font-style: italic;}
 
+.notification-text {overflow-wrap: break-word;}
+
 /* Custom color themes */
 .color-theme-pink {
   --f7-theme-color: #f6b0ba;
