@@ -219,10 +219,11 @@ app.FoodsMealsRecipes = {
             let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
             for (let n in x.nutrition) {
+              let value = x.nutrition[n] || 0;
               result[n] = result[n] || 0;
-              result[n] += Math.round(x.nutrition[n] * multiplier * 100) / 100;
+              result[n] += Math.round(value * multiplier * 100) / 100;
               if (n === "calories" && x.nutrition["kilojoules"] === undefined) {
-                let kilojoules = app.Utils.convertUnit(x.nutrition.calories, units.calories, units.kilojoules);
+                let kilojoules = app.Utils.convertUnit(value, units.calories, units.kilojoules);
                 result["kilojoules"] = result["kilojoules"] || 0;
                 result["kilojoules"] += Math.round(kilojoules * multiplier * 100) / 100;
               }
@@ -290,7 +291,8 @@ app.FoodsMealsRecipes = {
         let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
         for (let n in data.nutrition) {
-          data.nutrition[n] = Math.round(data.nutrition[n] * multiplier * 100) / 100;
+          let value = data.nutrition[n] || 0;
+          data.nutrition[n] = Math.round(value * multiplier * 100) / 100;
         }
 
         resolve(data);
@@ -381,7 +383,7 @@ app.FoodsMealsRecipes = {
   getItemEnergy: function(nutrition) {
     let energy = nutrition.calories;
 
-    if (energy !== undefined && !isNaN(energy)) {
+    if (energy !== undefined) {
       const units = app.nutrimentUnits;
       const energyUnit = app.Settings.get("units", "energy");
 
