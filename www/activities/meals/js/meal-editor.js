@@ -19,6 +19,7 @@
 
 app.MealEditor = {
 
+  editingEnabled: undefined,
   meal: {},
   el: {},
 
@@ -54,6 +55,7 @@ app.MealEditor = {
 
   getComponents: function() {
     app.MealEditor.el.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
+    app.MealEditor.el.sort = document.querySelector(".page[data-name='meal-editor'] #sort");
     app.MealEditor.el.categoriesContainer = document.querySelector(".page[data-name='meal-editor'] #categories-container");
     app.MealEditor.el.categories = document.querySelector(".page[data-name='meal-editor'] #categories");
     app.MealEditor.el.nameInput = document.querySelector(".page[data-name='meal-editor'] #name");
@@ -66,8 +68,10 @@ app.MealEditor = {
   setComponentVisibility: function() {
     app.FoodsMealsRecipes.setCategoriesVisibility(app.MealEditor.el.categoriesContainer);
 
-    if (app.FoodsMealsRecipes.editItems == "partial")
+    if (app.MealEditor.editingEnabled == false) {
+      app.MealEditor.el.sort.style.display = "none";
       app.MealEditor.el.add.style.display = "none";
+    }
   },
 
   bindUIActions: function() {
@@ -261,7 +265,7 @@ app.MealEditor = {
     return new Promise(function(resolve, reject) {
       app.MealEditor.el.foodlist.innerHTML = "";
 
-      let clickable = (app.FoodsMealsRecipes.editItems == "enabled");
+      let clickable = (app.MealEditor.editingEnabled == true);
       let showThumbnails = app.Utils.showThumbnails("foodlist");
 
       app.MealEditor.meal.items.forEach(async (x, i) => {
@@ -278,6 +282,8 @@ document.addEventListener("page:init", function(event) {
   if (event.detail.name == "meal-editor") {
     let context = app.data.context;
     app.data.context = undefined;
+
+    app.MealEditor.editingEnabled = (app.FoodsMealsRecipes.editItems == "enabled");
 
     // Clear old meal
     app.MealEditor.meal = {
