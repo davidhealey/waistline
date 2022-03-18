@@ -66,7 +66,7 @@ app.Group = {
     li.appendChild(content);
 
     let innerList = document.createElement("div");
-    innerList.className = "list media-list";
+    innerList.className = "list media-list multi-line-titles";
     content.appendChild(innerList);
 
     let innerUl = document.createElement("ul");
