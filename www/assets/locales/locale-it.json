@@ -315,6 +315,7 @@
       "invalid-api-key": "Chiave API non valida",
       "export-success": "Database esportato",
       "export-fail": "Esportazione fallita",
+      "import-fail": "Import Failed",
       "import": "Importa",
       "confirm-import": "Sei sicuro? Questo sovrascriverà il database corrente.",
       "import-success-title": "Il tuo backup è stato ripristinato",
