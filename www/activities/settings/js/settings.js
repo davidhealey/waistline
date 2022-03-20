@@ -318,14 +318,17 @@ app.Settings = {
   },
 
   importDatabase: async function() {
-    let file = await chooser.getFile("application/json");
+    let file = await chooser.getFile();
 
     if (file !== undefined && file.data !== undefined) {
       let data;
       try {
         let content = new TextDecoder("utf-8").decode(file.data);
         data = JSON.parse(content);
-      } catch (e) { }
+      } catch (e) {
+        let msg = app.strings.settings.integration["import-fail"] || "Import Failed";
+        app.Utils.toast(msg);
+      }
 
       if (data !== undefined) {
         let title = app.strings.settings.integration.import || "Import";
