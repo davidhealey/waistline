@@ -315,6 +315,7 @@
       "invalid-api-key": "Clé API invalide",
       "export-success": "Données expportées",
       "export-fail": "Erreur d’exportation",
+      "import-fail": "Import Failed",
       "import": "Importation",
       "confirm-import": "Cette opération écrasera la base de données actuelle, continuer ?",
       "import-success-title": "La sauvegarde a été restaurée",
