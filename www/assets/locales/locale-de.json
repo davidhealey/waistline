@@ -228,7 +228,7 @@
     "diary": {
       "title": "Tagebuch",
       "categories": "Kategorien",
-      "timestamps": "Zeitstempel anzeigen",
+      "timestamps": "Uhrzeiten anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
       "show-all-nutriments": "Alle Nährstoffe auf Übersichtsseite anzeigen",
@@ -315,6 +315,7 @@
       "invalid-api-key": "API-Schlüssel ungültig",
       "export-success": "Datenbank wurde exportiert",
       "export-fail": "Fehler beim Export",
+      "import-fail": "Import Failed",
       "import": "Importieren",
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
