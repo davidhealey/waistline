@@ -315,6 +315,7 @@
       "invalid-api-key": "Ogiltig API-nyckel",
       "export-success": "Databasen har exporterats",
       "export-fail": "Exporteringen misslyckades",
+      "import-fail": "Import Failed",
       "import": "Import",
       "confirm-import": "Är du säker? Din nuvarande databas kommer att skrivas över.",
       "import-success-title": "Säkerhetskopian har återställts",
