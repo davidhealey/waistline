@@ -315,6 +315,7 @@
       "invalid-api-key": "Неправильный API-ключ",
       "export-success": "База данных экспортирована",
       "export-fail": "Экспорт не удался",
+      "import-fail": "Import Failed",
       "import": "Импорт",
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
       "import-success-title": "Резервная копия была восстановлена",
