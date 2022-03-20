@@ -315,6 +315,7 @@
       "invalid-api-key": "Niepoprawny klucz API",
       "export-success": "Baza danych wyeksportowana",
       "export-fail": "Eksport nie powiódł się",
+      "import-fail": "Import Failed",
       "import": "Importuj",
       "confirm-import": "Jesteś pewien? To nadpisze Twoją obecną bazę danych.",
       "import-success-title": "Kopia zapasowa została przywrócona",
