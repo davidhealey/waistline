@@ -111,7 +111,7 @@ app.OpenFoodFacts = {
     let perTag = "";
     if (item.serving_size && (item.nutriments.energy_serving || item.nutriments.energy_prepared_serving)) {
       result.portion = parseInt(item.serving_size);
-      let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(/\P{Letter}/gu, "");
+      let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(app.Utils.nonLettersRegExp(), "");
       result.unit = app.strings["unit-symbols"][itemUnit.toLowerCase()] || itemUnit;
       if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
@@ -144,7 +144,7 @@ app.OpenFoodFacts = {
       }
     } else if (item.quantity) { // If all else fails
       result.portion = parseInt(item.quantity);
-      result.unit = item.quantity.replace(/\P{Letter}/gu, "");
+      result.unit = item.quantity.replace(app.Utils.nonLettersRegExp(), "");
       result.nutrition.calories = (item.nutriments["energy-kcal"]) ?
         item.nutriments["energy-kcal"] :
         item.nutriments.energy;

@@ -65,6 +65,14 @@ app.Utils = {
     return offsetTop;
   },
 
+  nonLettersRegExp: function() {
+    try {
+      return new RegExp(/\P{Letter}/, "gu");
+    } catch (e) {
+      return new RegExp(/[^a-z]/, "gi");
+    }
+  },
+
   isInternetConnected: function() {
     if (navigator.connection.type == "none") {
       let msg = app.strings.dialogs["no-internet"] || "No Internet Connection";
