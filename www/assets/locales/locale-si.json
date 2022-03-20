@@ -315,6 +315,7 @@
       "invalid-api-key": "යෙ.ක්‍ර.මු. යතුර වලංගු නොවේ",
       "export-success": "දත්තසමුදාය නිර්යාත විය",
       "export-fail": "නිර්යාත වීමට අසමත්!",
+      "import-fail": "Import Failed",
       "import": "ආයාත කරන්න",
       "confirm-import": "Are you sure? This will overwrite your current database.",
       "import-success-title": "The backup has been restored",
