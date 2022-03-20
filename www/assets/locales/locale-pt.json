@@ -315,6 +315,7 @@
       "invalid-api-key": "API Key Invalid",
       "export-success": "Database Exported",
       "export-fail": "Falha ao exportar",
+      "import-fail": "Import Failed",
       "import": "Importar",
       "confirm-import": "Tem certeza? Isto irá substituir o banco de dados atual.",
       "import-success-title": "O backup foi restaurado",
