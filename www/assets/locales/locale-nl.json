@@ -315,6 +315,7 @@
       "invalid-api-key": "API-sleutel is ongeldig",
       "export-success": "Database geëxporteerd",
       "export-fail": "Export mislukt",
+      "import-fail": "Import Failed",
       "import": "Importeren",
       "confirm-import": "Weet je het zeker? Dit overschrijft je huidige database.",
       "import-success-title": "De backup is hersteld",
