@@ -315,6 +315,7 @@
       "invalid-api-key": "API-avain on virheellinen",
       "export-success": "Tietokanta viety",
       "export-fail": "Vienti epäonnistui",
+      "import-fail": "Import Failed",
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
       "import-success-title": "Varmuuskopio on palautettu",
