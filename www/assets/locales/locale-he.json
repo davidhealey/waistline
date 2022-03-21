@@ -315,7 +315,7 @@
       "invalid-api-key": "מפתח ה־API שגוי",
       "export-success": "מסד הנתונים ייוצא",
       "export-fail": "הייצוא נכשל",
-      "import-fail": "Import Failed",
+      "import-fail": "הייבוא נכשל",
       "import": "ייבוא",
       "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
       "import-success-title": "הגיבוי שוחזר",
