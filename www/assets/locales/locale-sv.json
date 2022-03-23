@@ -322,7 +322,7 @@
       "import": "Import",
       "confirm-import": "Är du säker? Din nuvarande databas kommer att skrivas över.",
       "confirm-import-foods": "Är du säker? Åtgärden kan inte ångras. Säkerhetskopiera din databas först.",
-      "import-foods-category-fail": "Please select at least one category",
+      "import-foods-category-fail": "Välj minst en kategori",
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
       "barcode-sound": "Ljudsignal vid streckkodsskanning",
