@@ -159,6 +159,12 @@ app.Foodlist = {
     let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
     let showThumbnails = app.Utils.showThumbnails("foodlist");
 
+    let showHiddenItems = false;
+    let query = app.Foodlist.el.search.value;
+    let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
+    if (query.trim() !== "" || categories !== undefined) // Only show hidden items when searching
+      showHiddenItems = true;
+
     if (lastIndex <= app.Foodlist.list.length) {
       //Render next set of items to list
       for (let i = lastIndex; i <= lastIndex + itemsPerLoad; i++) {
@@ -167,6 +173,7 @@ app.Foodlist = {
         let item = app.Foodlist.list[i];
 
         if (item != undefined) {
+          if (showHiddenItems == false && item.hidden == true) continue;
           item.type = "food";
           app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, showThumbnails);
         }
@@ -302,9 +309,9 @@ app.Foodlist = {
       for (let i = 0; i < selection.length; i++) {
         let data = JSON.parse(selection[i]);
 
-        if (data.id == undefined) { //No ID, must be a search result 
+        if (data.id == undefined || data.hidden == true) { //No ID or hidden, must be a search result 
 
-          if (data.barcode) { //If item has barcode it must be from online service
+          if (data.barcode) { //If item has barcode it must be from online service or imported from JSON
 
             //Check to see if item is already in DB 
             let dbData = await app.Foodlist.searchByBarcode(data.barcode);
@@ -313,6 +320,7 @@ app.Foodlist = {
             if (dbData) {
               data = dbData;
               data.archived = false; // Unarchive the food if it has been archived
+              if (data.hidden == true) data.hidden = false; // Unhide the food if it was imported from JSON
               await app.Foodlist.putItem(data);
             }
           }

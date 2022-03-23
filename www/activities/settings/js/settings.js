@@ -372,16 +372,20 @@ app.Settings = {
     }
   },
 
-
   putFoodItem: function(item) {
     return new Promise(async function(resolve, reject) {
       if (item.id == undefined && item.barcode !== undefined) {
         let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
 
-        if (dbRecord !== undefined)
+        if (dbRecord !== undefined) {
           item.id = dbRecord.id;
+          item.hidden = dbRecord.hidden;
+        } else {
+          item.hidden = true; // Hide newly imported items by default
+        }
       }
 
+      item.type = "food";
       item.dateTime = new Date();
 
       dbHandler.put(item, "foodList").onsuccess = (e) => {

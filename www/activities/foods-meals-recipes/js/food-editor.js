@@ -633,6 +633,7 @@ app.FoodEditor = {
         delete item.nutrition_per;
 
       item.archived = false;
+      if (item.hidden == true) item.hidden = false;
 
       app.data.context = {
         item: item,
