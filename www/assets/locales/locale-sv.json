@@ -283,9 +283,12 @@
     },
     "import-export": {
       "title": "Importera/Exportera",
+      "auto-backup": "Automatisk säkerhetskopiering",
       "backup": "Säkerhetskopiera databasen",
       "import": "Importera säkerhetskopia",
-      "auto-backup": "Automatisk säkerhetskopiering"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Integrationer",
@@ -318,6 +321,8 @@
       "import-fail": "Import Failed",
       "import": "Import",
       "confirm-import": "Är du säker? Din nuvarande databas kommer att skrivas över.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
       "barcode-sound": "Ljudsignal vid streckkodsskanning",
