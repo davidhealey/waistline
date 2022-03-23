@@ -197,7 +197,7 @@
   },
   "meal-editor": {
     "title": "Redigera måltid",
-    "foods-recipes": "Mat & recept"
+    "foods-recipes": "Livsmedel & recept"
   },
   "recipe-editor": {
     "title": "Redigera recept",
@@ -286,9 +286,9 @@
       "auto-backup": "Automatisk säkerhetskopiering",
       "backup": "Säkerhetskopiera databasen",
       "import": "Importera säkerhetskopia",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Importera livsmedel",
+      "import-foods": "Importera livsmedel från JSON",
+      "import-foods-categories": "Kategorier för importerade objekt"
     },
     "integration": {
       "title": "Integrationer",
@@ -318,10 +318,10 @@
       "invalid-api-key": "Ogiltig API-nyckel",
       "export-success": "Databasen har exporterats",
       "export-fail": "Exporteringen misslyckades",
-      "import-fail": "Import Failed",
+      "import-fail": "Importeringen misslyckades",
       "import": "Import",
       "confirm-import": "Är du säker? Din nuvarande databas kommer att skrivas över.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "confirm-import-foods": "Är du säker? Åtgärden kan inte ångras. Säkerhetskopiera din databas först.",
       "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
