@@ -286,9 +286,9 @@
       "auto-backup": "גיבוי אוטומטי",
       "backup": "גיבוי מסד נתונים",
       "import": "ייבוא מגיבוי",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "ייבוא מאכלים",
+      "import-foods": "ייבוא מאכלים מ־JSON",
+      "import-foods-categories": "קטגוריות לפריטים המיובאים"
     },
     "integration": {
       "title": "שילוב",
@@ -321,8 +321,8 @@
       "import-fail": "הייבוא נכשל",
       "import": "ייבוא",
       "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "להמשיך? זאת פעולה בלתי הפיסה. נא לגבות את מסד הנתונים שלך קודם.",
+      "import-foods-category-fail": "נא לבחור בקטגוריה אחת לפחות",
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
       "barcode-sound": "צפצוף סריקת ברקוד",
