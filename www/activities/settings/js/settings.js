@@ -156,6 +156,14 @@ app.Settings = {
       });
     }
 
+    let importFoods = document.getElementById("import-foods");
+    if (importFoods) {
+      importFoods.addEventListener("click", function(e) {
+        app.Settings.importFoods();
+      });
+      app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, true, true);
+    }
+
     // Dark mode
     let darkMode = document.querySelector(".page[data-name='settings-appearance'] #dark-mode");
 
@@ -356,6 +364,92 @@ app.Settings = {
                   window.localStorage.setItem("settings", JSON.stringify(settings));
                   this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
                 }
+              }
+            }
+          ]
+        }).open();
+      }
+    }
+  },
+
+
+  putFoodItem: function(item) {
+    return new Promise(async function(resolve, reject) {
+      if (item.id == undefined && item.barcode !== undefined) {
+        let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
+
+        if (dbRecord !== undefined)
+          item.id = dbRecord.id;
+      }
+
+      item.dateTime = new Date();
+
+      dbHandler.put(item, "foodList").onsuccess = (e) => {
+        resolve(e.target.result);
+      };
+    })
+  },
+
+  updateFoodItems: function(items) {
+    items.forEach((x) => {
+      this.putFoodItem(x);
+    });
+  },
+
+  importFoods: async function() {
+    let categories = app.FoodsMealsRecipes.getSelectedCategories(document.getElementById("categories"));
+    let file = await chooser.getFile();
+
+    if (file !== undefined && file.data !== undefined) {
+      let data;
+      try {
+        let content = new TextDecoder("utf-8").decode(file.data);
+        data = JSON.parse(content);
+        if (data.version !== 1)
+            throw "Wrong food list version";
+        for (let i = 0; i < data.foodList.length; i++) {
+          if (data.foodList[i].name === undefined) {
+            throw "Missing name";
+          }
+        }
+      } catch (e) {
+        console.log(e);
+        let msg = app.strings.settings.integration["import-fail"] || "Import Failed";
+        app.Utils.toast(msg);
+        return;
+      }
+
+      if (data !== undefined) {
+        if (categories !== undefined) {
+          for (let i = 0; i < data.foodList.length; i++)
+            data.foodList[i].categories = categories;
+        }
+        // Add a pseudo-barcode to prevent duplicate imports
+        for (let i = 0; i < data.foodList.length; i++) {
+          if (data.foodList[i].id === undefined && data.foodList[i].uniqueId !== undefined)
+            data.foodList[i].barcode = "custom_" + data.foodList[i].uniqueId.toString();
+
+        }
+
+        let title = app.strings.settings.integration.import || "Import";
+        let text = app.strings.settings["import-export"]["confirm-import-foods"] || "Are you sure? This action cannot be undone. Please backup your database first.";
+
+        let div = document.createElement("div");
+        div.className = "dialog-text";
+        div.innerText = text;
+
+        let dialog = app.f7.dialog.create({
+          title: title,
+          content: div.outerHTML,
+          buttons: [{
+              text: app.strings.dialogs.cancel || "Cancel",
+              keyCodes: [27]
+            },
+            {
+              text: app.strings.dialogs.ok || "OK",
+              keyCodes: [13],
+              onClick: async () => {
+                await this.updateFoodItems(data.foodList);
               }
             }
           ]

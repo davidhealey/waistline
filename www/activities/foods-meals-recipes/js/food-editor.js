@@ -190,7 +190,7 @@ app.FoodEditor = {
       app.FoodEditor.el.quantityContainer.style.display = "none";
       app.FoodEditor.el.link.style.display = "block";
 
-      if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined)
+      if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined && !app.FoodEditor.item.barcode.startsWith('custom_'))
         app.FoodEditor.el.download.style.display = "block";
     }
 
