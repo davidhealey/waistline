@@ -450,6 +450,8 @@ app.Settings = {
               keyCodes: [13],
               onClick: async () => {
                 await this.updateFoodItems(data.foodList);
+                let msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
+                app.Utils.toast(msg);
               }
             }
           ]
