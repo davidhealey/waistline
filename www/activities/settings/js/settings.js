@@ -432,7 +432,7 @@ app.Settings = {
         }
 
         let title = app.strings.settings.integration.import || "Import";
-        let text = app.strings.settings["import-export"]["confirm-import-foods"] || "Are you sure? This action cannot be undone. Please backup your database first.";
+        let text = app.strings.settings["integration"]["confirm-import-foods"] || "Are you sure? This action cannot be undone. Please backup your database first.";
 
         let div = document.createElement("div");
         div.className = "dialog-text";
