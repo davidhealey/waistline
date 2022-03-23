@@ -372,16 +372,20 @@ app.Settings = {
     }
   },
 
-
   putFoodItem: function(item) {
     return new Promise(async function(resolve, reject) {
       if (item.id == undefined && item.barcode !== undefined) {
         let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
 
-        if (dbRecord !== undefined)
+        if (dbRecord !== undefined) {
           item.id = dbRecord.id;
+          item.hidden = dbRecord.hidden;
+        } else {
+          item.hidden = true; // Hide newly imported items by default
+        }
       }
 
+      item.type = "food";
       item.dateTime = new Date();
 
       dbHandler.put(item, "foodList").onsuccess = (e) => {
@@ -398,6 +402,13 @@ app.Settings = {
 
   importFoods: async function() {
     let categories = app.FoodsMealsRecipes.getSelectedCategories(document.getElementById("categories"));
+
+    if (categories == undefined) {
+      let msg = app.strings.settings.integration["import-foods-category-fail"] || "Please select at least one category";
+      app.Utils.toast(msg);
+      return;
+    }
+
     let file = await chooser.getFile();
 
     if (file !== undefined && file.data !== undefined) {
@@ -420,19 +431,16 @@ app.Settings = {
       }
 
       if (data !== undefined) {
-        if (categories !== undefined) {
-          for (let i = 0; i < data.foodList.length; i++)
-            data.foodList[i].categories = categories;
-        }
-        // Add a pseudo-barcode to prevent duplicate imports
         for (let i = 0; i < data.foodList.length; i++) {
+          // Add selected catogories
+          data.foodList[i].categories = categories;
+          // Add a pseudo-barcode to prevent duplicate imports
           if (data.foodList[i].id === undefined && data.foodList[i].uniqueId !== undefined)
             data.foodList[i].barcode = "custom_" + data.foodList[i].uniqueId.toString();
-
         }
 
         let title = app.strings.settings.integration.import || "Import";
-        let text = app.strings.settings["import-export"]["confirm-import-foods"] || "Are you sure? This action cannot be undone. Please backup your database first.";
+        let text = app.strings.settings["integration"]["confirm-import-foods"] || "Are you sure? This action cannot be undone. Please backup your database first.";
 
         let div = document.createElement("div");
         div.className = "dialog-text";
@@ -450,6 +458,8 @@ app.Settings = {
               keyCodes: [13],
               onClick: async () => {
                 await this.updateFoodItems(data.foodList);
+                let msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
+                app.Utils.toast(msg);
               }
             }
           ]

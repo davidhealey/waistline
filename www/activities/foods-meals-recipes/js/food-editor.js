@@ -390,7 +390,7 @@ app.FoodEditor = {
     app.FoodEditor.el.unit.value = item.unit || "";
     app.FoodEditor.el.notes.value = item.notes || "";
 
-    if (item.barcode !== undefined && !item.barcode.includes("fdcId_")) {
+    if (item.barcode !== undefined && !item.barcode.startsWith("fdcId_") && !item.barcode.startsWith("custom_")) {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = item.barcode;
 
@@ -633,6 +633,7 @@ app.FoodEditor = {
         delete item.nutrition_per;
 
       item.archived = false;
+      if (item.hidden == true) item.hidden = false;
 
       app.data.context = {
         item: item,
