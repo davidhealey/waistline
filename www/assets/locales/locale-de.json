@@ -283,9 +283,12 @@
     },
     "import-export": {
       "title": "Importieren/Exportieren",
+      "auto-backup": "Automatische Sicherung",
       "backup": "Datenbanksicherung",
       "import": "Aus Datenbanksicherung importieren",
-      "auto-backup": "Automatische Sicherung"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Integrationen",
@@ -318,6 +321,8 @@
       "import-fail": "Import fehlgeschlagen",
       "import": "Importieren",
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
       "barcode-sound": "Ton wenn Strichcode gescannt wird",
