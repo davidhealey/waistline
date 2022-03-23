@@ -286,9 +286,9 @@
       "auto-backup": "Automatische Sicherung",
       "backup": "Datenbanksicherung",
       "import": "Aus Datenbanksicherung importieren",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Lebensmittel importieren",
+      "import-foods": "Lebensmittel aus JSON importieren",
+      "import-foods-categories": "Kategorien für importierte Einträge"
     },
     "integration": {
       "title": "Integrationen",
@@ -321,8 +321,8 @@
       "import-fail": "Import fehlgeschlagen",
       "import": "Importieren",
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "Bist du sicher? Dies kann nicht rückgängig gemacht werden. Bitte sichere zuerst deine Datenbank.",
+      "import-foods-category-fail": "Bitte wähle mindestens eine Kategorie aus",
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
       "barcode-sound": "Ton wenn Strichcode gescannt wird",
