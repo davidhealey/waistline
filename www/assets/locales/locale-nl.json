@@ -283,9 +283,12 @@
     },
     "import-export": {
       "title": "Importeren/exporten",
+      "auto-backup": "Automatische backup",
       "backup": "Backup database",
       "import": "Importeer uit backup",
-      "auto-backup": "Automatische backup"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Integratie",
@@ -318,6 +321,8 @@
       "import-fail": "Import Failed",
       "import": "Importeren",
       "confirm-import": "Weet je het zeker? Dit overschrijft je huidige database.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "De backup is hersteld",
       "import-success-message": "Import afgerond",
       "barcode-sound": "Geluid bij het scannen",
