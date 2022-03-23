@@ -283,9 +283,12 @@
     },
     "import-export": {
       "title": "ייבוא/ייצוא",
+      "auto-backup": "גיבוי אוטומטי",
       "backup": "גיבוי מסד נתונים",
       "import": "ייבוא מגיבוי",
-      "auto-backup": "גיבוי אוטומטי"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "שילוב",
@@ -318,6 +321,8 @@
       "import-fail": "הייבוא נכשל",
       "import": "ייבוא",
       "confirm-import": "להמשיך? פעולה זו תשכתב את מסד הנתונים הנוכחי שלך.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
       "barcode-sound": "צפצוף סריקת ברקוד",
