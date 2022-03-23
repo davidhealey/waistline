@@ -160,9 +160,8 @@ app.Foodlist = {
     let showThumbnails = app.Utils.showThumbnails("foodlist");
 
     let showHiddenItems = false;
-    let query = app.Foodlist.el.search.value;
     let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
-    if (query.trim() !== "" || categories !== undefined) // Only show hidden items when searching
+    if (categories !== undefined) // Only show hidden items when the category filter is active
       showHiddenItems = true;
 
     if (lastIndex <= app.Foodlist.list.length) {
