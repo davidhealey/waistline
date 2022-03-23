@@ -44,7 +44,7 @@ app.Foodlist = {
     app.Foodlist.list = await this.getListFromDB();
     app.Foodlist.filterList = app.Foodlist.list;
 
-    await this.renderList(true);
+    await this.renderList(true, true);
 
     if (context)
       app.FoodsMealsRecipes.resetSearchForm(app.Foodlist.el.searchForm, app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
@@ -149,7 +149,7 @@ app.Foodlist = {
     this.renderList(true);
   },
 
-  renderList: async function(clear) {
+  renderList: async function(clear, forceHideItems) {
     if (clear) app.Utils.deleteChildNodes(app.Foodlist.el.list);
 
     //List settings
@@ -173,7 +173,7 @@ app.Foodlist = {
         let item = app.Foodlist.list[i];
 
         if (item != undefined) {
-          if (showHiddenItems == false && item.hidden == true) continue;
+          if (item.hidden == true && (showHiddenItems == false || forceHideItems == true)) continue;
           item.type = "food";
           app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, showThumbnails);
         }
