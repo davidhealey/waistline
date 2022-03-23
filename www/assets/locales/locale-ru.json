@@ -283,9 +283,12 @@
     },
     "import-export": {
       "title": "Импорт/Экспорт",
+      "auto-backup": "Автоматическое резервное копирование",
       "backup": "Резервное копирование базы данных",
       "import": "Импорт из резервной копии",
-      "auto-backup": "Автоматическое резервное копирование"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Интеграция",
@@ -318,6 +321,8 @@
       "import-fail": "Import Failed",
       "import": "Импорт",
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
