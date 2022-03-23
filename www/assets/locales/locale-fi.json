@@ -283,9 +283,12 @@
     },
     "import-export": {
       "title": "Tuo / Vie",
+      "auto-backup": "Automaattinen varmuuskopiointi",
       "backup": "Varmuuskopioi tietokanta",
       "import": "Tuo varmuuskopiosta",
-      "auto-backup": "Automaattinen varmuuskopiointi"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Intergrointi",
@@ -318,6 +321,8 @@
       "import-fail": "Import Failed",
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Tuonti valmis",
       "barcode-sound": "Viivakoodin lukemisen äänimerkki",
