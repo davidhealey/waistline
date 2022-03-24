@@ -2,7 +2,7 @@
   "nutriments": {
     "kilojoules": "Kilojouleja",
     "calories": "Kaloreita",
-    "fat": "Rasvaa",
+    "fat": "Rasva",
     "saturated-fat": "Tyydyttynyt rasva",
     "carbohydrates": "Hiilihydraatit",
     "sugars": "Sokeri",
@@ -286,9 +286,9 @@
       "auto-backup": "Automaattinen varmuuskopiointi",
       "backup": "Varmuuskopioi tietokanta",
       "import": "Tuo varmuuskopiosta",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Tuo elintarvikkeita",
+      "import-foods": "Tuo elintarvikkeita JSONista",
+      "import-foods-categories": "Tuotujen kohteiden luokat"
     },
     "integration": {
       "title": "Intergrointi",
@@ -318,11 +318,11 @@
       "invalid-api-key": "API-avain on virheellinen",
       "export-success": "Tietokanta viety",
       "export-fail": "Vienti epäonnistui",
-      "import-fail": "Import Failed",
+      "import-fail": "Tuonti epäonnistui",
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "Oletko varma? Tätä toimintoa ei voi perua. Ole hyvä ja varmuuskopioi tietokantasi ensin.",
+      "import-foods-category-fail": "Valitse vähintään yksi kategoria",
       "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Tuonti valmis",
       "barcode-sound": "Viivakoodin lukemisen äänimerkki",
