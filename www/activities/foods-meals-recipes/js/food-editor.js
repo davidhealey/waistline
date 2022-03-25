@@ -657,39 +657,50 @@ app.FoodEditor = {
       let dialog = app.f7.dialog.create({
         title: title,
         content: div.outerHTML,
+        verticalButtons: true,
         buttons: [{
-            text: app.strings.dialogs.cancel || "Cancel",
-            keyCodes: [27]
-          },
-          {
-            text: app.strings.dialogs.ok || "OK",
+            text: app.strings["food-editor"]["per-serving"] || "Per Serving",
             keyCodes: [13],
             onClick: async () => {
-              let barcode = app.FoodEditor.item.barcode;
-              let result;
-
-              app.f7.preloader.show();
-
-              if (barcode !== undefined) {
-                if (barcode.includes("fdcId_"))
-                  result = await app.USDA.search(barcode.replace("fdcId_", ""));
-                else
-                  result = await app.OpenFoodFacts.search(barcode);
-              }
-
-              app.f7.preloader.hide();
-
-              if (result !== undefined && result.length > 0) {
-                item = result[0];
-                item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
-                app.FoodEditor.populateFields(item);
-                app.FoodEditor.populateImage(item);
-                app.FoodEditor.renderNutritionFields(item);
-              }
+              app.FoodEditor.downloadItemInfo(false);
             }
+          },
+          {
+            text: app.strings["food-editor"]["per-100"] || "Per 100g/100ml",
+            onClick: async () => {
+              app.FoodEditor.downloadItemInfo(true);
+            }
+          },
+          {
+            text: app.strings.dialogs.cancel || "Cancel",
+            keyCodes: [27]
           }
         ]
       }).open();
+    }
+  },
+
+  downloadItemInfo: async function(preferDataPer100g) {
+    let barcode = app.FoodEditor.item.barcode;
+    let result;
+
+    app.f7.preloader.show();
+
+    if (barcode !== undefined) {
+      if (barcode.includes("fdcId_"))
+        result = await app.USDA.search(barcode.replace("fdcId_", ""), preferDataPer100g);
+      else
+        result = await app.OpenFoodFacts.search(barcode, preferDataPer100g);
+    }
+
+    app.f7.preloader.hide();
+
+    if (result !== undefined && result.length > 0) {
+      item = result[0];
+      item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
+      app.FoodEditor.populateFields(item);
+      app.FoodEditor.populateImage(item);
+      app.FoodEditor.renderNutritionFields(item);
     }
   },
 
