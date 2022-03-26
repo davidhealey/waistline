@@ -193,7 +193,11 @@
     "shared-goal": "Sama tavoite joka päivä",
     "auto-adjust": "Säädä automaattisesti keskimääräisen tavoitteen saavuttamiseksi",
     "minimum-goal": "On vähimmäistavoite",
-    "percent-goal": "Tavoite prosentteina energian saannista"
+    "percent-goal": "Tavoite prosentteina energian saannista",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Muokkaa ateriaa",
