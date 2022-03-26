@@ -193,7 +193,11 @@
     "shared-goal": "Одинаковая цель каждый день",
     "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Минимальная цель",
-    "percent-goal": "Цель в процентах от потребляемой энергии"
+    "percent-goal": "Цель в процентах от потребляемой энергии",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Изменить блюдо",
