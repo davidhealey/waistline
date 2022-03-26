@@ -193,7 +193,11 @@
     "shared-goal": "Mesmo objetivo todos os dias",
     "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "É o objetivo mínimo",
-    "percent-goal": "Goal as percentage of energy intake"
+    "percent-goal": "Goal as percentage of energy intake",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Editar refeição",
