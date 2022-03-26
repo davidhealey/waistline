@@ -237,7 +237,7 @@ app.Diary = {
     let goals = await app.Goals.getGoals(nutrimentsToShow, date);
 
     nutrimentsToShow.forEach((x) => {
-      let goal = goals[x];
+      let nutrimentGoal = goals[x];
 
       // Show n nutriments at a time
       if (count % columnsToShow == 0) {
@@ -265,7 +265,7 @@ app.Diary = {
       title.appendChild(t);
       rows[0].appendChild(title);
 
-      // Values and goal text
+      // Value
       let values = document.createElement("div");
       values.className = "col keep-ltr";
       values.id = x + "-value";
@@ -282,12 +282,12 @@ app.Diary = {
       }
       t.nodeValue = app.Utils.tidyNumber(value);
 
-      // Set value text colour
-      if (goal !== undefined && goal !== "" && !isNaN(goal)) {
+      // Value colour and goal
+      let goal = nutrimentGoal.goal;
+      let isMin = nutrimentGoal.isMin;
 
-        let isMin = app.Goals.isMinimumGoal(x);
-
-        if ((!isMin && value > goal) || (isMin == true && value < goal))
+      if (goal !== undefined && !isNaN(goal)) {
+        if ((isMin !== true && value > goal) || (isMin === true && value < goal))
           span.style.color = "red";
         else
           span.style.color = "green";

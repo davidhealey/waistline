@@ -27,7 +27,7 @@ app.Goals = {
   },
 
   getComponents: function() {
-    app.Goals.el.list = document.getElementById("goal-list");
+    app.Goals.el.list = document.querySelector(".page[data-name='goals'] #goal-list");
   },
 
   populateGoalList: function() {
@@ -44,7 +44,7 @@ app.Goals = {
 
       if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) continue;
 
-      let unit = app.Goals.getGoalUnit(x);
+      let unit = app.Goals.getGoalUnit(x, true);
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
       let li = document.createElement("li");
@@ -73,7 +73,7 @@ app.Goals = {
     app.f7.views.main.router.navigate("./goal-editor/");
   },
 
-  getGoalUnit(stat, checkPercentGoal=true) {
+  getGoalUnit(stat, checkPercentGoal) {
     const preferredUnits = app.Settings.getField("units") || {};
     const units = app.Utils.concatObjects(app.Nutriments.getNutrimentUnits(), preferredUnits);
 
@@ -81,7 +81,7 @@ app.Goals = {
       return "%";
     if (app.measurements.includes(stat))
       return (stat == "weight") ? units.weight : units.length;
-    if (checkPercentGoal && app.Goals.isPercentGoal(stat))
+    if (checkPercentGoal == true && app.Goals.isPercentGoal(stat))
       return "%"
     else
       return units[stat];
@@ -109,14 +109,14 @@ app.Goals = {
     let includesAutoAdjustGoal = false;
     let includesPercentGoal = false;
     stats.forEach((stat) => {
-      if (app.Goals.autoAdjustGoal(stat))
+      let statDateGoal = app.Goals.getStatDateGoal(stat, date);
+      if (statDateGoal["auto-adjust"] == true)
         includesAutoAdjustGoal = true;
-      if (app.Goals.isPercentGoal(stat))
+      if (statDateGoal["percent-goal"] == true)
         includesPercentGoal = true;
     });
 
-    let nutritionTotals = [];
-    let daysWithDiaryEntries = [];
+    let averageBasePeriodInfo = [];
     let energyGoals = [];
 
     // If some goals are defined to auto adjust, fetch the nutrition totals for the current average base period
@@ -130,20 +130,28 @@ app.Goals = {
         let diaryEntry = await app.Goals.getDiaryEntryFromDB(currentDate);
 
         if (diaryEntry !== undefined && diaryEntry.items !== undefined && diaryEntry.items.length > 0) {
-          let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items);
-          nutritionTotals.push(nutrition);
-          daysWithDiaryEntries.push(currentDay);
+          let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items);
+          let info = {
+            nutrition: totalNutrition,
+            date: currentDate,
+            day: currentDay
+          };
+          averageBasePeriodInfo.push(info);
         }
 
         // If some goals are defined as percentage of energy, also get the energy goal for each day of the current average base period
-        if (includesPercentGoal)
-          energyGoals.push(app.Goals.getGoal(energyName, currentDay, averageGoalBase, nutritionTotals, daysWithDiaryEntries));
+        if (includesPercentGoal) {
+          let energyGoal = app.Goals.getGoal(energyName, currentDate, currentDay, averageGoalBase, averageBasePeriodInfo);
+          energyGoals.push(energyGoal.goal);
+        }
       }
     }
 
-    // If some goals are defined as percentage of energy, also get the energy goal for the requested day
-    if (includesPercentGoal)
-      energyGoals.push(app.Goals.getGoal(energyName, day, averageGoalBase, nutritionTotals, daysWithDiaryEntries));
+    // If some goals are defined as percentage of energy, also get the energy goal for the requested date
+    if (includesPercentGoal) {
+      let energyGoal = app.Goals.getGoal(energyName, date, day, averageGoalBase, averageBasePeriodInfo);
+      energyGoals.push(energyGoal.goal);
+    }
 
     // Convert the energy goals to calories, if necessary
     if (energyUnit == app.nutrimentUnits.kilojoules) {
@@ -155,37 +163,37 @@ app.Goals = {
     // Get goals for the requested stats
     let goals = {};
     stats.forEach((stat) => {
-      goals[stat] = app.Goals.getGoal(stat, day, averageGoalBase, nutritionTotals, daysWithDiaryEntries, energyGoals);
+      goals[stat] = app.Goals.getGoal(stat, date, day, averageGoalBase, averageBasePeriodInfo, energyGoals);
     });
 
     return goals;
   },
 
-  getGoal: function(stat, day, averageGoalBase, nutritionTotals, daysWithDiaryEntries, energyGoals) {
+  getGoal: function(stat, date, day, averageGoalBase, averageBasePeriodInfo, energyGoals) {
     let energyGoal;
     if (energyGoals !== undefined)
-      energyGoal = energyGoals[energyGoals.length - 1]; // Last item in the list is for the requested day
+      energyGoal = energyGoals[energyGoals.length - 1]; // Last item in the list is for the requested date
 
-    let goal = app.Goals.getDayGoal(stat, day, energyGoal);
+    let statDateGoal = app.Goals.getStatDateGoal(stat, date);
+    let goal = app.Goals.getDayGoal(stat, statDateGoal, day, energyGoal);
 
-    if (app.Goals.autoAdjustGoal(stat)) {
+    if (statDateGoal["auto-adjust"] == true) {
       let statSum = 0;
       let goalSum = 0;
 
-      // Compute the sum of the nutrition intake for the current average base period
-      nutritionTotals.forEach((nutrition) => {
-        let dayStat = nutrition[stat] || 0;
+      // Compute the sums of the nutrition intake and of the nutrition goals for the current average base period
+      averageBasePeriodInfo.forEach((info, i) => {
+        let dayStat = info.nutrition[stat] || 0;
         statSum += dayStat;
-      });
 
-      // Compute the sum of the nutrition goals for the current average base period
-      daysWithDiaryEntries.forEach((d, i) => {
         let dayEnergyGoal;
         if (energyGoals !== undefined)
           dayEnergyGoal = energyGoals[i];
-        let dayGoal = app.Goals.getDayGoal(stat, d, dayEnergyGoal);
-        if (dayGoal !== undefined && dayGoal !== "")
-          goalSum += parseFloat(dayGoal);
+
+        let dateGoal = app.Goals.getStatDateGoal(stat, info.date);
+        let dayGoal = app.Goals.getDayGoal(stat, dateGoal, info.day, dayEnergyGoal);
+        if (dayGoal !== undefined && !isNaN(dayGoal))
+          goalSum += dayGoal;
       });
 
       // Split the difference among the remaining days of the current average base period
@@ -203,36 +211,42 @@ app.Goals = {
         goal = 0;
     }
 
-    return goal;
+    return {
+      goal: goal,
+      isMin: statDateGoal["minimum-goal"]
+    }
   },
 
-  getDayGoal: function(stat, day, energyGoal) {
-    let goals = app.Settings.get("goals", stat);
+  getDayGoal: function(stat, statGoal, day, energyGoal) {
+    let statGoalValues = statGoal["goal"] || [];
     let goal;
 
-    if (app.Goals.sharedGoal(stat) || app.measurements.includes(stat))
-      goal = parseFloat(goals[0]);
+    if (statGoal["shared-goal"] == true || app.measurements.includes(stat))
+      goal = parseFloat(statGoalValues[0]);
     else
-      goal = parseFloat(goals[day]);
+      goal = parseFloat(statGoalValues[day]);
 
-    if (app.Goals.isPercentGoal(stat))
+    if (statGoal["percent-goal"] == true)
       goal = app.Goals.getEnergyPercentGoal(stat, goal, energyGoal);
 
     return goal;
   },
 
   getAverageGoal: function(stat) {
-    let goals = app.Settings.get("goals", stat);
+    let statGoal = app.Goals.getStatDateGoal(stat);
+    let statGoalValues = statGoal["goal"] || [];
     let averageGoal;
 
-    if (app.Goals.sharedGoal(stat) || app.measurements.includes(stat)) {
-      averageGoal = parseFloat(goals[0]);
-    } else {
-      let goalSum = goals.reduce((a, b) => parseFloat(a) + parseFloat(b));
-      averageGoal = goalSum / 7;
+    if (statGoalValues.length) {
+      if (statGoal["shared-goal"] == true || app.measurements.includes(stat)) {
+        averageGoal = parseFloat(statGoalValues[0]);
+      } else {
+        let goalSum = statGoalValues.reduce((a, b) => parseFloat(a) + parseFloat(b));
+        averageGoal = goalSum / 7;
+      }
     }
 
-    if (app.Goals.isPercentGoal(stat)) {
+    if (statGoal["percent-goal"] == true) {
       const energyUnit = app.Settings.get("units", "energy");
       const energyName = app.Utils.getEnergyUnitName(energyUnit);
       let averageEnergyGoal = app.Goals.getAverageGoal(energyName);
@@ -249,10 +263,7 @@ app.Goals = {
   getEnergyPercentGoal: function(stat, percentGoal, energyGoal) {
     let caloriesPerUnit = app.Goals.getMacroNutrimentCalories(stat);
     let result = Math.round(percentGoal / 100 * energyGoal / caloriesPerUnit);
-
-    if (!isNaN(result))
-      return result;
-    return undefined;
+    return result;
   },
 
   getMacroNutrimentCalories: function(nutriment) {
@@ -276,40 +287,72 @@ app.Goals = {
     });
   },
 
+  getStatGoalSettings: function(stat) {
+    return app.Settings.get("goals", stat) || {};
+  },
+
+  getStatDateGoal: function(stat, date) {
+    let statGoalSettings = app.Goals.getStatGoalSettings(stat);
+    let statGoalList = statGoalSettings["goal-list"] || [];
+    if (statGoalList.length) {
+      statGoalList.reverse(); // Reverse list so last (= most recent) goal comes first
+      for (let goal of statGoalList) {
+        if (goal != undefined) {
+          if (date == undefined)
+            return goal; // Immediately return last (= most recent) goal from the list
+
+          if (goal["effective-from"] != undefined) {
+            let effectiveFromDate = new Date(goal["effective-from"]);
+            let requestedDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            if (effectiveFromDate <= requestedDate)
+              return goal; // Return goal if it became effective before the requested date
+          } else {
+            return goal; // Goal has no effective-from date so just return it
+          }
+        }
+      }
+    }
+    return {};
+  },
+
   showInDiary: function(stat) {
-    return app.Settings.get("goals", stat + "-show-in-diary");
+    let statGoalSettings = app.Goals.getStatGoalSettings(stat);
+    return statGoalSettings["show-in-diary"];
   },
 
   showInStats: function(stat) {
-    return app.Settings.get("goals", stat + "-show-in-stats");
+    let statGoalSettings = app.Goals.getStatGoalSettings(stat);
+    return statGoalSettings["show-in-stats"];
   },
 
-  sharedGoal: function(stat) {
-    return app.Settings.get("goals", stat + "-shared-goal");
+  sharedGoal: function(stat, date) {
+    let statDateGoal = app.Goals.getStatDateGoal(stat, date);
+    return statDateGoal["shared-goal"];
   },
 
-  autoAdjustGoal: function(stat) {
-    return app.Settings.get("goals", stat + "-auto-adjust");
+  autoAdjustGoal: function(stat, date) {
+    let statDateGoal = app.Goals.getStatDateGoal(stat, date);
+    return statDateGoal["auto-adjust"];
   },
 
-  isMinimumGoal: function(stat) {
-    return app.Settings.get("goals", stat + "-minimum-goal");
+  isMinimumGoal: function(stat, date) {
+    let statDateGoal = app.Goals.getStatDateGoal(stat, date);
+    return statDateGoal["minimum-goal"];
   },
 
-  isPercentGoal: function(stat) {
-    return app.Settings.get("goals", stat + "-percent-goal");
+  isPercentGoal: function(stat, date) {
+    let statDateGoal = app.Goals.getStatDateGoal(stat, date);
+    return statDateGoal["percent-goal"];
   },
 
   migrateStatGoalSettings: function(oldStat, newStat) {
     let goals = app.Settings.getField("goals");
 
-    ["", "-show-in-diary", "-show-in-stats", "-shared-goal", "-auto-adjust", "-minimum-goal", "-percent-goal"].forEach((setting) => {
-      if (oldStat + setting in goals) {
-        if (newStat !== undefined)
-          goals[newStat + setting] = goals[oldStat + setting];
-        delete goals[oldStat + setting];
-      }
-    });
+    if (oldStat in goals) {
+      if (newStat !== undefined)
+        goals[newStat] = goals[oldStat];
+      delete goals[oldStat];
+    }
 
     app.Settings.putField("goals", goals);
   }

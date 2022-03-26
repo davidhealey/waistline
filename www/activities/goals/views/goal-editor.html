@@ -39,7 +39,7 @@
               <div class="item-title" data-localize="goal-editor.show-in-diary">Show in Diary</div>
               <div class="item-after">
                 <label class="toggle toggle-init">
-                  <input type="checkbox" class="manual-bind" id="show-in-diary" field="goals" />
+                  <input type="checkbox" id="show-in-diary" />
                   <span class="toggle-icon"></span>
                 </label>
               </div>
@@ -53,9 +53,24 @@
               <div class="item-title" data-localize="goal-editor.show-in-stats">Show in Statistics</div>
               <div class="item-after">
                 <label class="toggle toggle-init">
-                  <input type="checkbox" id="show-in-stats" field="goals" />
+                  <input type="checkbox" id="show-in-stats" />
                   <span class="toggle-icon"></span>
                 </label>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="list multi-line-titles">
+      <ul>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select id="select-goal">
+                </select>
               </div>
             </div>
           </div>
@@ -67,7 +82,7 @@
               <div class="item-title" data-localize="goal-editor.shared-goal">Same goal every day</div>
               <div class="item-after">
                 <label class="toggle toggle-init">
-                  <input type="checkbox" class="manual-bind" id="shared-goal" field="goals" />
+                  <input type="checkbox" id="shared-goal" />
                   <span class="toggle-icon"></span>
                 </label>
               </div>
@@ -81,7 +96,7 @@
               <div class="item-title" data-localize="goal-editor.auto-adjust">Auto adjust to meet average goal</div>
               <div class="item-after">
                 <label class="toggle toggle-init">
-                  <input type="checkbox" class="manual-bind" id="auto-adjust" field="goals" />
+                  <input type="checkbox" id="auto-adjust" />
                   <span class="toggle-icon"></span>
                 </label>
               </div>
@@ -95,7 +110,7 @@
               <div class="item-title" data-localize="goal-editor.minimum-goal">Is minimum goal</div>
               <div class="item-after">
                 <label class="toggle toggle-init">
-                  <input type="checkbox" class="manual-bind" id="minimum-goal" field="goals" />
+                  <input type="checkbox" id="minimum-goal" />
                   <span class="toggle-icon"></span>
                 </label>
               </div>
@@ -109,7 +124,7 @@
               <div class="item-title" data-localize="goal-editor.percent-goal">Goal as percentage of energy intake</div>
               <div class="item-after">
                 <label class="toggle toggle-init">
-                  <input type="checkbox" class="manual-bind" id="percent-goal" field="goals" />
+                  <input type="checkbox" id="percent-goal" />
                   <span class="toggle-icon"></span>
                 </label>
               </div>
@@ -123,7 +138,7 @@
             <div class="item-inner">
               <div class="item-title item-label" id="goal-0">Sunday</div>
               <div class="item-input-wrap">
-                <input type="number" min="0" step="any" field="goals">
+                <input type="number" min="0" step="any">
               </div>
             </div>
           </div>
@@ -134,7 +149,7 @@
             <div class="item-inner">
               <div class="item-title item-label" id="goal-1">Monday</div>
               <div class="item-input-wrap">
-                <input type="number" min="0" step="any" field="goals">
+                <input type="number" min="0" step="any">
               </div>
             </div>
           </div>
@@ -145,7 +160,7 @@
             <div class="item-inner">
               <div class="item-title item-label" id="goal-2">Tuesday</div>
               <div class="item-input-wrap">
-                <input type="number" min="0" step="any" field="goals">
+                <input type="number" min="0" step="any">
               </div>
             </div>
           </div>
@@ -156,7 +171,7 @@
             <div class="item-inner">
               <div class="item-title item-label" id="goal-3">Wednesday</div>
               <div class="item-input-wrap">
-                <input type="number" min="0" step="any" field="goals">
+                <input type="number" min="0" step="any">
               </div>
             </div>
           </div>
@@ -167,7 +182,7 @@
             <div class="item-inner">
               <div class="item-title item-label" id="goal-4">Thursday</div>
               <div class="item-input-wrap">
-                <input type="number" min="0" step="any" field="goals">
+                <input type="number" min="0" step="any">
               </div>
             </div>
           </div>
@@ -178,7 +193,7 @@
             <div class="item-inner">
               <div class="item-title item-label" id="goal-5">Friday</div>
               <div class="item-input-wrap">
-                <input type="number" min="0" step="any" field="goals">
+                <input type="number" min="0" step="any">
               </div>
             </div>
           </div>
@@ -189,10 +204,14 @@
             <div class="item-inner">
               <div class="item-title item-label" id="goal-6">Saturday</div>
               <div class="item-input-wrap">
-                <input type="number" min="0" step="any" field="goals">
+                <input type="number" min="0" step="any">
               </div>
             </div>
           </div>
+        </li>
+
+        <li>
+          <a class="list-button" id="delete-goal" data-localize="goal-editor.delete-goal">Delete Goal</a>
         </li>
       </ul>
     </div>

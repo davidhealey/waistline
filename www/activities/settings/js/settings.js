@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 4;
+const currentSettingsSchemaVersion = 5;
 
 var s;
 app.Settings = {
@@ -363,6 +363,7 @@ app.Settings = {
                   let settings = app.Settings.migrateSettings(data.settings, false);
                   window.localStorage.setItem("settings", JSON.stringify(settings));
                   this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+                  app.f7.views.main.router.refreshPage();
                 }
               }
             }
@@ -516,28 +517,49 @@ app.Settings = {
         length: "cm"
       },
       goals: {
+        migrated: true,
         "first-day-of-week": "0",
         "average-goal-base": "week",
-        calories: ["2000", "", "", "", "", "", ""],
-        "calories-shared-goal": true,
-        "calories-show-in-diary": true,
-        "calories-show-in-stats": true,
-        kilojoules: ["8400", "", "", "", "", "", ""],
-        "kilojoules-shared-goal": true,
-        "kilojoules-show-in-diary": true,
-        "kilojoules-show-in-stats": true,
-        proteins: ["50", "", "", "", "", "", ""],
-        "proteins-shared-goal": true,
-        "proteins-show-in-diary": true,
-        "proteins-show-in-stats": true,
-        carbohydrates: ["250", "", "", "", "", "", ""],
-        "carbohydrates-shared-goal": true,
-        "carbohydrates-show-in-diary": true,
-        "carbohydrates-show-in-stats": true,
-        fat: ["65", "", "", "", "", "", ""],
-        "fat-shared-goal": true,
-        "fat-show-in-diary": true,
-        "fat-show-in-stats": true,
+        kilojoules: {
+          "show-in-diary": true,
+          "show-in-stats": true,
+          "goal-list": [{
+            "shared-goal": true,
+            "goal": ["8400", "", "", "", "", "", ""]
+          }]
+        },
+        calories: {
+          "show-in-diary": true,
+          "show-in-stats": true,
+          "goal-list": [{
+            "shared-goal": true,
+            "goal": ["2000", "", "", "", "", "", ""]
+          }]
+        },
+        fat: {
+          "show-in-diary": true,
+          "show-in-stats": true,
+          "goal-list": [{
+            "shared-goal": true,
+            "goal": ["70", "", "", "", "", "", ""]
+          }]
+        },
+        carbohydrates: {
+          "show-in-diary": true,
+          "show-in-stats": true,
+          "goal-list": [{
+            "shared-goal": true,
+            "goal": ["260", "", "", "", "", "", ""]
+          }]
+        },
+        proteins: {
+          "show-in-diary": true,
+          "show-in-stats": true,
+          "goal-list": [{
+            "shared-goal": true,
+            "goal": ["50", "", "", "", "", "", ""]
+          }]
+        }
       },
       nutriments: {
         order: ["kilojoules", "calories", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "sodium", "cholesterol", "trans-fat", "monounsaturated-fat", "polyunsaturated-fat", "omega-3-fat", "omega-6-fat", "omega-9-fat", "vitamin-a", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "vitamin-c", "vitamin-d", "vitamin-e", "vitamin-k", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
@@ -587,6 +609,15 @@ app.Settings = {
         settings.goals["average-goal-base"] = "week";
       }
 
+      // Goals must be migrated to new format
+      if (settings.goals !== undefined && settings.goals.migrated === undefined) {
+        let oldGoals = settings.goals;
+        let nutriments = app.nutriments;
+        if (settings.nutriments !== undefined && settings.nutriments.order !== undefined)
+          nutriments = settings.nutriments.order;
+        settings.goals = app.Settings.migrateGoalSettings(oldGoals, nutriments);
+      }
+
       settings.schemaVersion = currentSettingsSchemaVersion;
 
       if (saveChanges)
@@ -594,6 +625,49 @@ app.Settings = {
     }
 
     return settings;
+  },
+
+  migrateGoalSettings: function (oldGoals, nutriments) {
+
+    let newGoals = {
+      migrated: true
+    };
+
+    for (let key in oldGoals) {
+      for (let setting of ["first-day-of-week", "average-goal-base"]) {
+        if (key == setting) {
+          newGoals[setting] = oldGoals[key];
+          continue;
+        }
+      }
+      for (let setting of ["-show-in-diary", "-show-in-stats"]) {
+        if (key.endsWith(setting)) {
+          let stat = key.replace(setting, "");
+          let settingName = setting.substring(1);
+          newGoals[stat] = newGoals[stat] || {};
+          newGoals[stat][settingName] = oldGoals[key];
+          continue;
+        }
+      }
+      for (let setting of ["-shared-goal", "-auto-adjust", "-minimum-goal", "-percent-goal"]) {
+        if (key.endsWith(setting)) {
+          let stat = key.replace(setting, "");
+          let settingName = setting.substring(1);
+          newGoals[stat] = newGoals[stat] || {};
+          newGoals[stat]["goal-list"] = newGoals[stat]["goal-list"] || [{}];
+          newGoals[stat]["goal-list"][0][settingName] = oldGoals[key];
+          continue;
+        }
+      }
+      if (nutriments.includes(key)) {
+        newGoals[key] = newGoals[key] || {};
+        newGoals[key]["goal-list"] = newGoals[key]["goal-list"] || [{}];
+        newGoals[key]["goal-list"][0]["goal"] = oldGoals[key];
+        continue;
+      }
+    }
+
+    return newGoals;
   }
 };
 
