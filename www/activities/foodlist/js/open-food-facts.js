@@ -255,6 +255,7 @@ app.OpenFoodFacts = {
   getUploadString: function(data) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
     const units = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
 
     let string = "";
 
@@ -282,12 +283,16 @@ app.OpenFoodFacts = {
     string += "&product_name_" + encodeURIComponent(lang) + "=" + encodeURIComponent(data.name);
     if (data.brand !== undefined) string += "&brands=" + encodeURIComponent(data.brand);
     string += data.nutrition_per;
-    string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
+
+    if (data.portion != "100" || data.unit != "g" || data.nutrition_per == "&nutrition_data_per=serving")
+      string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
 
     // Energy
     if (data.nutrition.kilojoules !== undefined) {
       string += "&nutriment_energy=" + data.nutrition.kilojoules;
       string += "&nutriment_energy_unit=" + units.kilojoules;
+      if (energyUnit == units.calories && data.nutrition.calories !== undefined)
+        string += "&nutriment_energy-kcal=" + data.nutrition.calories;
     } else if (data.nutrition.calories !== undefined) {
       string += "&nutriment_energy=" + data.nutrition.calories;
       string += "&nutriment_energy_unit=" + units.calories;
