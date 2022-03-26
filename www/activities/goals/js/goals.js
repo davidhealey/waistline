@@ -301,13 +301,13 @@ app.Goals = {
           if (date == undefined)
             return goal; // Immediately return last (= most recent) goal from the list
 
-          if (goal.effectiveFrom != undefined) {
-            let effectiveFromDate = new Date(goal.effectiveFrom);
+          if (goal["effective-from"] != undefined) {
+            let effectiveFromDate = new Date(goal["effective-from"]);
             let requestedDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
             if (effectiveFromDate <= requestedDate)
               return goal; // Return goal if it became effective before the requested date
           } else {
-            return goal; // Goal has no effectiveFrom date so just return it
+            return goal; // Goal has no effective-from date so just return it
           }
         }
       }

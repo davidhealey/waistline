@@ -263,7 +263,7 @@ app.GoalEditor = {
     let now = new Date();
     let today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
     let newGoal = {
-      effectiveFrom: today
+      "effective-from": today
     };
 
     // Add to goal list in settings
@@ -327,8 +327,8 @@ app.GoalEditor = {
       option.setAttribute("selected", "");
 
     let text = goalString + " " + (i + 1);
-    if (goal.effectiveFrom !== undefined) {
-      let date = new Date(goal.effectiveFrom);
+    if (goal["effective-from"] !== undefined) {
+      let date = new Date(goal["effective-from"]);
       let dateString = date.toLocaleDateString([], {
         year: "numeric",
         month: "2-digit",
