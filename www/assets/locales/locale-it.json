@@ -194,10 +194,10 @@
     "auto-adjust": "Auto regola per soddisfare l' obiettivo medio",
     "minimum-goal": "È un obiettivo minimo",
     "percent-goal": "Obiettivo in percentuale del consumo di energia",
-    "effective-from": "Effective from",
-    "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "effective-from": "In vigore dal",
+    "new-goal": "Nuovo obiettivo",
+    "delete-goal": "Elimina obiettivo",
+    "goal-deleted": "Obiettivo Eliminato"
   },
   "meal-editor": {
     "title": "Modifica pasto",
@@ -290,9 +290,9 @@
       "auto-backup": "Backup automatico",
       "backup": "Backup del Database",
       "import": "Importa dal Backup",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Importa Alimenti",
+      "import-foods": "Importa alimenti da JSON",
+      "import-foods-categories": "Categorie per articoli importati"
     },
     "integration": {
       "title": "Integrazione",
@@ -322,11 +322,11 @@
       "invalid-api-key": "Chiave API non valida",
       "export-success": "Database esportato",
       "export-fail": "Esportazione fallita",
-      "import-fail": "Import Failed",
+      "import-fail": "Importazione Fallita",
       "import": "Importa",
       "confirm-import": "Sei sicuro? Questo sovrascriverà il database corrente.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "Sei sicuro? Questa azione non può essere annullata. Si prega di eseguire il backup del database prima.",
+      "import-foods-category-fail": "Per favore seleziona almeno una categoria",
       "import-success-title": "Il tuo backup è stato ripristinato",
       "import-success-message": "Importazione completa",
       "barcode-sound": "Verifica codice a barre suono",
