@@ -193,7 +193,11 @@
     "shared-goal": "Objectif quotidien",
     "auto-adjust": "Ajuster automatiquement pour atteindre l'objectif moyen",
     "minimum-goal": "Objectif minimum",
-    "percent-goal": "Objectif en pourcentage de l'apport énergétique"
+    "percent-goal": "Objectif en pourcentage de l'apport énergétique",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Modifier Repas",
