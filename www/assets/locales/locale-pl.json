@@ -193,7 +193,11 @@
     "shared-goal": "Ten sam cel każdego dnia",
     "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu średniego",
     "minimum-goal": "Jest celem minimalnym",
-    "percent-goal": "Cel jako procent pobranej energii"
+    "percent-goal": "Cel jako procent pobranej energii",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Edytuj posiłek",
