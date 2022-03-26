@@ -163,36 +163,32 @@ app.USDA = {
       }
     }
 
-    if (result.nutrition.calories || result.nutrition.kilojoules) {
+    if (result.nutrition.calories && result.nutrition.kilojoules == undefined)
+      result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, true);
+    else if (result.nutrition.kilojoules && result.nutrition.calories == undefined)
+      result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, true);
 
-      if (result.nutrition.calories == undefined)
-        result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, true);
+    // Nutriments
+    offNutriments.forEach((x, i) => {
+      if (x != "calories" && x != "kilojoules") {
 
-      if (result.nutrition.kilojoules == undefined)
-        result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, true);
+        let nutriment = usdaNutriments[x];
 
-      // Nutriments
-      offNutriments.forEach((x, i) => {
-        if (x != "calories" && x != "kilojoules") {
+        for (let n of item.foodNutrients) {
 
-          let nutriment = usdaNutriments[x];
+          if (n.nutrientName.includes(nutriment)) {
 
-          for (let n of item.foodNutrients) {
+            let value = app.Utils.convertUnit(n.value, n.unitName, units[x]);
+            result.nutrition[x] = Math.round(value * multiplier * 100) / 100;
 
-            if (n.nutrientName.includes(nutriment)) {
+            if (x == "sodium")
+              result.nutrition.salt = result.nutrition.sodium * 0.0025;
 
-              let value = app.Utils.convertUnit(n.value, n.unitName, units[x]);
-              result.nutrition[x] = Math.round(value * multiplier * 100) / 100;
-
-              if (x == "sodium")
-                result.nutrition.salt = result.nutrition.sodium * 0.0025;
-
-              break;
-            }
+            break;
           }
         }
-      });
-    }
+      }
+    });
 
     return result;
   },
