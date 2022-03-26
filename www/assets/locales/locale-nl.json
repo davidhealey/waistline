@@ -193,7 +193,11 @@
     "shared-goal": "Dagelijks doel",
     "auto-adjust": "Automatisch aanpassen om doelgemiddelde te bereiken",
     "minimum-goal": "Is minimumdoel",
-    "percent-goal": "Doelstelling als percentage van de energie-inname"
+    "percent-goal": "Doelstelling als percentage van de energie-inname",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Bewerk maaltijd",
