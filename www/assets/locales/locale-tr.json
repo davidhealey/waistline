@@ -83,12 +83,12 @@
     "search": "Ara",
     "add-to-off": "Bu ürünü Open Food Facts veritabanına eklemek ister misiniz?",
     "main-image": "Lütfen bir ana görsel ekleyin",
-    "download-title": "Retrieve latest information",
-    "download-text": "Your local values will be replaced by the latest information available for this item",
+    "download-title": "En son bilgileri al",
+    "download-text": "Yerelde bulunan değerler, bu öğe için mevcut olan en son bilgilerle değiştirilecektir",
     "upload-success": "Ürün başarılı bir şekilde Open Food Facts veritabanına eklendi",
     "upload-failed": "Malesef yükleme başarısız oldu. Lütfen tekrar deneyin veya uygulama geliştiricisi ile iletişime geçin.",
     "what-meal": "Bu hangi yemek?",
-    "press-back-again": "Press Back again to exit the app"
+    "press-back-again": "Çıkmak için Geri Tuşuna tekrar basın"
   },
   "days": {
     "0": "Pazar",
@@ -108,7 +108,7 @@
     "gray": "Gri",
     "yellow": "Sarı",
     "purple": "Mor",
-    "eink": "E-ink",
+    "eink": "E-mürekkep",
     "camino": "Camino"
   },
   "statistics": {
@@ -126,27 +126,27 @@
     "waist": "Bel",
     "hips": "Kalça",
     "body fat": "Vücut Yağı",
-    "average": "Average"
+    "average": "Ortalama"
   },
   "diary": {
     "title": "Günlük",
     "quick-add": "Hızlı Ekle",
-    "quick-add-description": "Description (optional)",
-    "yesterdays-meal": "Yesterday's %s",
+    "quick-add-description": "Açıklama (isteğe bağlı)",
+    "yesterdays-meal": "Dünün %s",
     "log-title": "Günün İstatistikleri",
-    "log-saved": "Saved",
-    "no-data": "No Data",
+    "log-saved": "Kaydedildi",
+    "no-data": "Veri Yok",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
-      "dinner": "Dinner",
-      "snacks": "Snacks"
+      "breakfast": "Kahvaltı",
+      "lunch": "Öğle Yemeği",
+      "dinner": "Akşam Yemeği",
+      "snacks": "Atıştırmalık"
     }
   },
   "diary-chart": {
     "title": "Genel Bakış",
-    "including-saturated-fat": "including sat fat",
-    "including-sugars": "including sugars",
+    "including-saturated-fat": "doymuş yağ dahil",
+    "including-sugars": "şeker dahil",
     "no-data": "Veri yok"
   },
   "foods-meals-recipes": {
@@ -156,16 +156,16 @@
     "recipes": "Tarifler",
     "selected": "Seçildi",
     "search": "Ara",
-    "scan-prompt": "Place a barcode inside the scan area",
-    "show-more-nutriments": "Show more nutriments",
-    "show-less-nutriments": "Show less nutriments"
+    "scan-prompt": "Barkodu tarama alanına hizalayın",
+    "show-more-nutriments": "Daha fazla besin değeri göster",
+    "show-less-nutriments": "Daha az besin değeri göster"
   },
   "food-editor": {
     "edit-item": "Öğeyi Düzenle",
     "add-new-item": "Yeni Öğe Ekle",
     "details": "Ayrıntılar",
     "barcode": "Barkod",
-    "categories": "Categories",
+    "categories": "Kategoriler",
     "name": "İsim",
     "brand": "Marka",
     "category": "Kategori",
@@ -179,25 +179,25 @@
     "edit-food": "Gıdayı Düzenle",
     "edit-meal": "Öğünü Düzenle",
     "edit-recipe": "Tarifi Düzenle",
-    "required-field-message": "Please fill out this field.",
-    "invalid-value-message": "Invalid Value."
+    "required-field-message": "Lütfen bu alanı doldurun.",
+    "invalid-value-message": "Geçersiz Değer."
   },
   "goals": {
     "title": "Hedefler"
   },
   "goal-editor": {
     "title": "Hedef Belirle",
-    "goal": "Goal",
+    "goal": "Hedef",
     "show-in-diary": "Günlükte Göster",
-    "show-in-stats": "Show in Statistics",
+    "show-in-stats": "İstatistiklerde Göster",
     "shared-goal": "Her gün için aynı hedef",
-    "auto-adjust": "Auto adjust to meet average goal",
+    "auto-adjust": "Ortalama hedefe ulaşmayı otomatik olarak ayarla",
     "minimum-goal": "En düşük hedef",
-    "percent-goal": "Goal as percentage of energy intake",
-    "effective-from": "Effective from",
-    "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "percent-goal": "Enerji alımı yüzdesi olarak hedef",
+    "effective-from": "İtibaren geçerli",
+    "new-goal": "Yeni Hedef",
+    "delete-goal": "Hedefi Sil",
+    "goal-deleted": "Hedef Silindi"
   },
   "meal-editor": {
     "title": "Öğünü Düzenle",
@@ -211,49 +211,49 @@
     "title": "Ayarlar",
     "needs-restart": "Değişiklikleri uygulamak için uygulamayı yeniden başlatınız.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Görünüm",
       "dark": "Koyu Tema",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Renk Teması",
       "animations": "Animasyonları Devre Dışı Bırak",
       "start-page": "Başlangıç Sayfası",
       "language": "Tercih Edilen Dil"
     },
     "units": {
       "title": "Birimler",
-      "energy": "Energy",
+      "energy": "Enerji",
       "weight": "Kilo",
       "length": "Boy",
       "kilograms": "Kilogram",
       "pounds": "Pound",
-      "stones": "Stones",
-      "centimeters": "Centimeters",
-      "inches": "Inches"
+      "stones": "Taş",
+      "centimeters": "Santimetre",
+      "inches": "İnç"
     },
     "diary": {
-      "title": "Diary",
-      "categories": "Categories",
-      "timestamps": "Show Timestamps",
-      "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
-      "show-all-nutriments": "Show all nutriments on Overview page",
-      "show-units": "Show nutrition units",
-      "prompt-add-items": "Prompt for quantity when adding items"
+      "title": "Günlük",
+      "categories": "Kategoriler",
+      "timestamps": "Zaman Bilgisini Göster",
+      "thumbnails": "Küçük Resimleri Göster",
+      "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
+      "show-all-nutriments": "Genel Bakış sayfasında tüm besin değerlerini göster",
+      "show-units": "Besin değerlerinin birimlerini göster",
+      "prompt-add-items": "Öğe eklerken miktar sor"
     },
     "nutriments": {
-      "title": "Nutriments",
+      "title": "Besin Değerleri",
       "field": "İsim",
       "unit": "Birim",
       "add": "Alan Ekle",
       "edit": "Alanı Düzenle"
     },
     "diary-categories": {
-      "title": "Categories",
-      "category": "Category"
+      "title": "Kategoriler",
+      "category": "Kategori"
     },
     "goals": {
       "title": "Hedefler",
       "first-day-of-week": "Haftanın ilk günü",
-      "average-goal-base": "Compute average goals based on",
+      "average-goal-base": "Ortalama hedefi bu değerleri baz alarak hesapla;",
       "current-week": "Bu hafta",
       "last-3-days": "Son 3 Gün",
       "last-5-days": "Son 5 Gün",
@@ -261,15 +261,15 @@
       "last-10-days": "Son 10 Gün"
     },
     "foods": {
-      "title": "Foods, Meals, Recipes",
-      "sort": "Sort Foods",
+      "title": "Gıdalar, Öğünler, Tarifler",
+      "sort": "Gıdaları Sırala",
       "sort-date": "Son kullanıma göre",
       "sort-alpha": "Alfabetik",
       "category-labels": "Kategori Etiketlerini Göster",
-      "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
-      "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi",
+      "thumbnails": "Küçük Resimleri Göster",
+      "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
+      "images": "Gıda Resimlerini Göster",
+      "wifi-images": "Resimleri sadece Wi-Fi bağlıyken göster",
       "show-notes": "Yemek Notlarını Göster"
     },
     "foods-categories": {
@@ -286,42 +286,42 @@
       "goal-line": "Hedef Grafiğini Göster"
     },
     "import-export": {
-      "title": "Import/Export",
+      "title": "İçe Aktar/Dışa Aktar",
       "auto-backup": "Otomatik Yedekle",
-      "backup": "Backup Database",
-      "import": "Import From Backup",
+      "backup": "Veritabanını Yedekle",
+      "import": "Yedeklemeyi İçe Aktar",
       "import-foods-title": "Yemekleri İçe Aktar",
       "import-foods": "Yemekleri JSON'dan İçe Aktar",
       "import-foods-categories": "İçe aktarılan öğelerin kategorileri"
     },
     "integration": {
-      "title": "Integration",
+      "title": "Entegrasyon",
       "off": "Open Food Facts",
-      "off-account": "Open Food Facts Account",
+      "off-account": "Open Food Facts Hesabı",
       "language": "Tercih Edilen Dil",
-      "country": "Search Country",
+      "country": "Ülke Ara",
       "upload-country": "Yüklediğiniz Ülke",
       "all-countries": "Tümü",
       "default": "Varsayılan",
-      "auto": "Detect Automatically",
-      "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
-      "usda": "Enable USDA search",
-      "usda-login-title": "USDA",
+      "auto": "Otomatik Algıla",
+      "usda-title": "ABD TARIM BAKANLIĞI",
+      "usda": "USDA aramasını etkinleştir",
+      "usda-login-title": "ABD Tarım Bakanlığı",
       "usda-api": "USDA API",
-      "usda-api-key": "USDA API Key",
+      "usda-api-key": "USDA API Anahtarı",
       "usda-click-here": "Buraya tıklayın",
-      "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
+      "usda-note-0": "USDA veritabanında arama yapabilmek için kişisel API anahtarınızı girmeniz gerekiyor.",
       "usda-note-1": "ücretsiz API anahtarı için.",
-      "username": "Username",
-      "password": "Password",
-      "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
-      "sign-in": "Sign In",
-      "exit": "Exit",
-      "save": "Save",
-      "invalid-credentials": "Invalid Credentials",
+      "username": "Kullanıcı Adı",
+      "password": "Parola",
+      "off-account-note": "Bu tamamen isteğe bağlıdır. Uygulamayı kullanmanız için herhangi bir OFF hesabı gerekmez.",
+      "sign-in": "Giriş Yap",
+      "exit": "Çıkış",
+      "save": "Kaydet",
+      "invalid-credentials": "Geçersiz Giriş Bilgileri",
       "invalid-api-key": "Geçersiz API Anahtarı",
       "export-success": "Veritabanı Dışa Aktarıldı",
-      "export-fail": "Export Failed",
+      "export-fail": "Dışa Aktarma Başarısız",
       "import-fail": "İçe aktarma başarısız",
       "import": "İçe aktar",
       "confirm-import": "Emin misiniz? Bu işlem geçerli veritabanınızın üzerine yazılacaktır.",
@@ -335,22 +335,22 @@
     }
   },
   "about": {
-    "title": "About",
-    "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
-    "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
+    "title": "Hakkında",
+    "p0": "Waistline, kullanıcıların önerileri ve katkılarıyla birlikte David Healey tarafından oluşturuldu.",
+    "p1": "Waistline, Apache lisansı altında bulunan Cordova kullanılarak oluşturulmuştur. Ayrıca MIT lisansı altındaki Framework7, jQuery, jQuery localize ve ChartJS kullanılmıştır. Uygulamanın temel yapısını oluşturan HTML, CSS ve diğer javascript, GPLv3 lisansı altındadır.",
     "p2": "Waistline'in kaynak kodlarına bu adresten ulaşabilirsiniz",
     "p3": "Mevcut sürüm:"
   },
   "locale": {
-    "auto": "Detect Automatically",
-    "english": "English",
-    "german": "German",
-    "italian": "Italian",
-    "french": "French",
-    "swedish": "Swedish",
-    "russian": "Russian",
+    "auto": "Otomatik Algıla",
+    "english": "İngilizce",
+    "german": "Almanca",
+    "italian": "İtalyanca",
+    "french": "Fransızca",
+    "swedish": "İsveççe",
+    "russian": "Rusça",
     "polish": "Lehçe",
-    "portuguese": "Portuguese",
+    "portuguese": "Portekizce",
     "bulgarian": "Bulgarca",
     "hebrew": "İbranice",
     "finnish": "Fince",
