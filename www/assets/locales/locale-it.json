@@ -193,7 +193,11 @@
     "shared-goal": "Stesso obiettivo ogni giorno",
     "auto-adjust": "Auto regola per soddisfare l' obiettivo medio",
     "minimum-goal": "È un obiettivo minimo",
-    "percent-goal": "Obiettivo in percentuale del consumo di energia"
+    "percent-goal": "Obiettivo in percentuale del consumo di energia",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Modifica pasto",
