@@ -355,7 +355,7 @@ app.FoodEditor = {
       }
     }
 
-    app.FoodsMealsRecipes.setNutritionFieldsVisibility(app.FoodEditor.el.nutrition, app.FoodEditor.el.nutritionButton, false);
+    app.FoodsMealsRecipes.setNutritionFieldsVisibility(app.FoodEditor.el.nutrition, app.FoodEditor.el.nutritionButton);
   },
 
   populateCategoryField: function(item) {
