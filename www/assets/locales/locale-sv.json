@@ -193,7 +193,11 @@
     "shared-goal": "Samma mål varje dag",
     "auto-adjust": "Justera automatiskt för att uppfylla genomsnittsmål",
     "minimum-goal": "Är minimimål",
-    "percent-goal": "Mål som procentandel av energiintag"
+    "percent-goal": "Mål som procentandel av energiintag",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Redigera måltid",
