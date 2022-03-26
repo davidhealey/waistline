@@ -193,7 +193,11 @@
     "shared-goal": "Gleiches Ziel für jeden Tag",
     "auto-adjust": "Automatische Anpassung für Durchschnittsziel",
     "minimum-goal": "Ist Mindestziel",
-    "percent-goal": "Ziel als Prozentsatz der Energiezufuhr"
+    "percent-goal": "Ziel als Prozentsatz der Energiezufuhr",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Mahlzeit Bearbeiten",
