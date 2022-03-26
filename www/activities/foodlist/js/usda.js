@@ -28,14 +28,10 @@ app.USDA = {
     "proteins": "Protein",
     "monounsaturated-fat": "Fatty acids, total monounsaturated",
     "polyunsaturated-fat": "Fatty acids, total polyunsaturated",
-    "trans-fat": "Fatty acids, total trans",
-    "cholesterol": "Cholesterol",
     "sodium": "Sodium",
+    "cholesterol": "Cholesterol",
+    "trans-fat": "Fatty acids, total trans",
     "vitamin-a": "Vitamin A",
-    "vitamin-d": "Vitamin D",
-    "vitamin-e": "Vitamin E",
-    "vitamin-k": "Vitamin K",
-    "vitamin-c": "Vitamin C",
     "vitamin-b1": "Thiamin",
     "vitamin-b2": "Riboflavin",
     "vitamin-pp": "Niacin",
@@ -44,6 +40,10 @@ app.USDA = {
     "biotin": "Biotin",
     "vitamin-b9": "Folate, total",
     "vitamin-b12": "Vitamin B-12",
+    "vitamin-c": "Vitamin C",
+    "vitamin-d": "Vitamin D",
+    "vitamin-e": "Vitamin E",
+    "vitamin-k": "Vitamin K",
     "potassium": "Potassium",
     "calcium": "Calcium",
     "phosphorus": "Phosphorus",
@@ -60,9 +60,8 @@ app.USDA = {
     "sucrose": "Sucrose"
   },
 
-  search: function(query) {
+  search: function(query, preferDataPer100g) {
     return new Promise(async function(resolve, reject) {
-
       let apiKey;
 
       if (app.mode == "development")
@@ -79,11 +78,11 @@ app.USDA = {
           let data = await response.json();
 
           resolve(data.foods.map((x) => {
-            return app.USDA.parseItem(x);
+            return app.USDA.parseItem(x, preferDataPer100g);
           }));
         }
       } else {
-        return resolve(false);
+        resolve(false);
       }
       reject();
     }).catch(err => {
@@ -91,8 +90,7 @@ app.USDA = {
     });
   },
 
-  parseItem: function(item) {
-
+  parseItem: function(item, preferDataPer100g) {
     const offNutriments = app.nutriments; // Array of OFF nutriment names
     const usdaNutriments = app.USDA.nutriments; // Mapping of USDA nutriment names
     const units = app.nutrimentUnits;
@@ -107,45 +105,90 @@ app.USDA = {
     result.portion = "100";
     result.unit = app.strings["unit-symbols"]["g"] || "g";
 
-    //Energy     
-    for (let n of item.foodNutrients) {
-      if (n.nutrientName == "Energy") {
-        if (n.unitName.toLowerCase() == units.calories)
-          result.nutrition.calories = Math.round(n.value);
-        else
-          result.nutrition.kilojoules = Math.round(n.value);
-      }
-    }
+    let multiplier = 1;
+    if (preferDataPer100g !== true) {
+      if (item.servingSize !== undefined && !isNaN(item.servingSize) && item.servingSizeUnit === "g") {
+        multiplier = item.servingSize / 100;
+        result.portion = item.servingSize.toString();
+      } else if (item.foodMeasures !== undefined && item.foodMeasures.length >= 1) {
+        let portion = item.foodMeasures[item.foodMeasures.length - 1]; // Use last portion in the list (is usually the best guess)
+        let largestPortion = item.foodMeasures[0] // Keep track of largest portion found in the list
 
-    if (result.nutrition.calories || result.nutrition.kilojoules) {
-
-      if (result.nutrition.calories == undefined)
-        result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, true);
-
-      if (result.nutrition.kilojoules == undefined)
-        result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, true);
-
-      // Nutriments
-      offNutriments.forEach((x, i) => {
-        if (x != "calories" && x != "kilojoules") {
-
-          let nutriment = usdaNutriments[x];
-
-          for (let n of item.foodNutrients) {
-
-            if (n.nutrientName.includes(nutriment)) {
-
-              result.nutrition[x] = app.Utils.convertUnit(n.value, n.unitName, units[x]);
-
-              if (x == "sodium")
-                result.nutrition.salt = result.nutrition.sodium * 0.0025;
-
+        // See if there is an entry in the portion list with the same gramWeight as the last entry and a proper description
+        let foundProperDescription = false;
+        for (let m of item.foodMeasures) {
+          if (m.disseminationText != "Quantity not specified") {
+            if (m.gramWeight == portion.gramWeight) {
+              portion = m;
+              foundProperDescription = true;
               break;
+            }
+            if (m.gramWeight > largestPortion.gramWeight) {
+              largestPortion = m;
             }
           }
         }
-      });
+
+        // If no proper description was found, use the entry with the largest gramWeight
+        if (foundProperDescription === false)
+          portion = largestPortion;
+
+        multiplier = portion.gramWeight / 100;
+        result.portion = portion.gramWeight.toString();
+
+        let fractionMatch = portion.disseminationText.match(app.Utils.fractionRegExp());
+        let decimalMatch = portion.disseminationText.match(app.Utils.decimalRegExp());
+        let unitMatch = portion.disseminationText.match(app.Utils.unitTextRegExp());
+        if ((fractionMatch != undefined || decimalMatch != undefined) && unitMatch != undefined) {
+          if (fractionMatch != undefined && fractionMatch.length >= 3)
+            result.portion = Math.round(fractionMatch[1] / fractionMatch[2] * 1000) / 1000;
+          else if (decimalMatch != undefined && decimalMatch.length >= 1)
+            result.portion = parseFloat(decimalMatch[0].replace(",", "."));
+          if (unitMatch.length >= 2) {
+            let unitText = unitMatch[1].trim();
+            let unitSize = app.Utils.tidyNumber(portion.gramWeight, result.unit);
+            result.unit = unitText + " (" + unitSize + ")";
+          }
+        }
+      }
     }
+
+    // Energy
+    for (let n of item.foodNutrients) {
+      if (n.nutrientName == "Energy") {
+        if (n.unitName.toLowerCase() == units.calories)
+          result.nutrition.calories = Math.round(n.value * multiplier);
+        else
+          result.nutrition.kilojoules = Math.round(n.value * multiplier);
+      }
+    }
+
+    if (result.nutrition.calories && result.nutrition.kilojoules == undefined)
+      result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, true);
+    else if (result.nutrition.kilojoules && result.nutrition.calories == undefined)
+      result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, true);
+
+    // Nutriments
+    offNutriments.forEach((x, i) => {
+      if (x != "calories" && x != "kilojoules") {
+
+        let nutriment = usdaNutriments[x];
+
+        for (let n of item.foodNutrients) {
+
+          if (n.nutrientName.includes(nutriment)) {
+
+            let value = app.Utils.convertUnit(n.value, n.unitName, units[x]);
+            result.nutrition[x] = Math.round(value * multiplier * 100) / 100;
+
+            if (x == "sodium")
+              result.nutrition.salt = result.nutrition.sodium * 0.0025;
+
+            break;
+          }
+        }
+      }
+    });
 
     return result;
   },
@@ -159,7 +202,7 @@ app.USDA = {
       if (response) {
         let data = await response.json();
         if (data.error && data.error.code == "API_KEY_INVALID")
-          return resolve(false);
+          resolve(false);
       }
 
       resolve(true);

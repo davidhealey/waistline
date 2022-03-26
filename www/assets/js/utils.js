@@ -73,6 +73,22 @@ app.Utils = {
     }
   },
 
+  unitTextRegExp: function() {
+    try {
+      return new RegExp(/\d+\P{Letter}*(\p{Letter}[\p{Letter}'\-\s]*)/, "u");
+    } catch (e) {
+      return new RegExp(/\d+[^a-z]*([a-z][a-z'\-\s]*)/, "i");
+    }
+  },
+
+  decimalRegExp: function() {
+    return new RegExp(/[\d\.,]+/);
+  },
+
+  fractionRegExp: function() {
+    return new RegExp(/^\D*(\d+)\s*\/\s*(\d+)/);
+  },
+
   isInternetConnected: function() {
     if (navigator.connection.type == "none") {
       let msg = app.strings.dialogs["no-internet"] || "No Internet Connection";

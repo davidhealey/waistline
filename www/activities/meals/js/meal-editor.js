@@ -258,7 +258,7 @@ app.MealEditor = {
       innerDiv.appendChild(after);
     });
 
-    app.FoodsMealsRecipes.setNutritionFieldsVisibility(ul, app.MealEditor.el.nutritionButton, false);
+    app.FoodsMealsRecipes.setNutritionFieldsVisibility(ul, app.MealEditor.el.nutritionButton);
   },
 
   renderItems: function() {

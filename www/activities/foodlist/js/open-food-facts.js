@@ -18,7 +18,7 @@
 */
 
 app.OpenFoodFacts = {
-  search: function(query) {
+  search: function(query, preferDataPer100g) {
     return new Promise(async function(resolve, reject) {
       if (navigator.connection.type !== "none") {
         //Build search string
@@ -56,7 +56,7 @@ app.OpenFoodFacts = {
           // Multiple results (hide results where all nutrition values are undefined)
           if (data.products !== undefined) {
             data.products.forEach((x) => {
-              let item = app.OpenFoodFacts.parseItem(x);
+              let item = app.OpenFoodFacts.parseItem(x, preferDataPer100g);
               if (item != undefined) {
                 let nutritionValues = Object.values(item.nutrition).filter((v) => {return v != undefined});
                 if (nutritionValues.length != 0) result.push(item);
@@ -66,7 +66,7 @@ app.OpenFoodFacts = {
 
           // Single result (presumably from a barcode)
           if (data.product !== undefined) {
-            let item = app.OpenFoodFacts.parseItem(data.product);
+            let item = app.OpenFoodFacts.parseItem(data.product, preferDataPer100g);
             if (item != undefined) result.push(item);
           }
 
@@ -80,7 +80,7 @@ app.OpenFoodFacts = {
     });
   },
 
-  parseItem: function(item) {
+  parseItem: function(item, preferDataPer100g) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
     const units = app.nutrimentUnits;
 
@@ -108,11 +108,35 @@ app.OpenFoodFacts = {
     let brand = brands.substring(0, n != -1 ? n : brands.length);
     result.brand = he.decode(brand);
 
+    let dataAvailablePerServing = false;
+    let dataAvailablePer100g = false;
+
+    if (item.serving_size) {
+      for (let n in item.nutriments) {
+        if (n.endsWith("_serving")) {
+          dataAvailablePerServing = true;
+          break;
+        }
+      }
+    }
+    for (let n in item.nutriments) {
+      if (n.endsWith("_100g")) {
+        dataAvailablePer100g = true;
+        break;
+      }
+    }
+
     let perTag = "";
-    if (item.serving_size && (item.nutriments.energy_serving || item.nutriments.energy_prepared_serving)) {
-      result.portion = parseFloat(item.serving_size.replace(",", "."));
-      let itemUnit = item.serving_size.replace(/ *\([^)]*\) */g, "").replace(app.Utils.nonLettersRegExp(), "");
-      result.unit = app.strings["unit-symbols"][itemUnit.toLowerCase()] || itemUnit;
+    if (dataAvailablePerServing === true && (preferDataPer100g !== true || dataAvailablePer100g === false)) {
+      let fractionMatch = item.serving_size.match(app.Utils.fractionRegExp());
+      let decimalMatch = item.serving_size.match(app.Utils.decimalRegExp());
+      if (fractionMatch != undefined && fractionMatch.length >= 3)
+        result.portion = Math.round(fractionMatch[1] / fractionMatch[2] * 1000) / 1000;
+      else if (decimalMatch != undefined && decimalMatch.length >= 1)
+        result.portion = parseFloat(decimalMatch[0].replace(",", "."));
+      let unitMatch = item.serving_size.match(app.Utils.unitTextRegExp());
+      if (unitMatch != undefined && unitMatch.length >= 2)
+        result.unit = app.strings["unit-symbols"][unitMatch[1].trim().toLowerCase()] || unitMatch[1].trim();
       if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
@@ -125,8 +149,10 @@ app.OpenFoodFacts = {
           app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_serving;
         perTag = "_prepared_serving";
+      } else {
+        perTag = "_serving";
       }
-    } else if (item.nutrition_data_per == "100g" && (item.nutriments.energy_100g || item.nutriments.energy_prepared_100g)) {
+    } else if (dataAvailablePer100g === true) {
       result.portion = "100";
       result.unit = app.strings["unit-symbols"]["g"] || "g";
       if (item.nutriments.energy_100g) {
@@ -141,10 +167,16 @@ app.OpenFoodFacts = {
           app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, true);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_100g;
         perTag = "_prepared_100g";
+      } else {
+        perTag = "_100g";
       }
     } else if (item.quantity) { // If all else fails
-      result.portion = parseFloat(item.quantity.replace(",", "."));
-      result.unit = item.quantity.replace(app.Utils.nonLettersRegExp(), "");
+      let decimalMatch = item.quantity.match(app.Utils.decimalRegExp());
+      if (decimalMatch != undefined && decimalMatch.length >= 1)
+        result.portion = parseFloat(decimalMatch[0].replace(",", "."));
+      let unitMatch = item.quantity.match(app.Utils.unitTextRegExp());
+      if (unitMatch != undefined && unitMatch.length >= 2)
+        result.unit = app.strings["unit-symbols"][unitMatch[1].trim().toLowerCase()] || unitMatch[1].trim();
       result.nutrition.calories = (item.nutriments["energy-kcal"]) ?
         item.nutriments["energy-kcal"] :
         item.nutriments.energy;
@@ -159,6 +191,9 @@ app.OpenFoodFacts = {
         result.nutrition[x] = app.Utils.convertUnit(value, "g", units[x]);
       }
     }
+
+    if (result.unit == undefined)
+      result.unit = "";
 
     if (result.portion == undefined || isNaN(result.portion))
       result = undefined;
@@ -220,6 +255,7 @@ app.OpenFoodFacts = {
   getUploadString: function(data) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
     const units = app.nutrimentUnits;
+    const energyUnit = app.Settings.get("units", "energy");
 
     let string = "";
 
@@ -247,12 +283,16 @@ app.OpenFoodFacts = {
     string += "&product_name_" + encodeURIComponent(lang) + "=" + encodeURIComponent(data.name);
     if (data.brand !== undefined) string += "&brands=" + encodeURIComponent(data.brand);
     string += data.nutrition_per;
-    string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
+
+    if (data.portion != "100" || data.unit != "g" || data.nutrition_per == "&nutrition_data_per=serving")
+      string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
 
     // Energy
     if (data.nutrition.kilojoules !== undefined) {
       string += "&nutriment_energy=" + data.nutrition.kilojoules;
       string += "&nutriment_energy_unit=" + units.kilojoules;
+      if (energyUnit == units.calories && data.nutrition.calories !== undefined)
+        string += "&nutriment_energy-kcal=" + data.nutrition.calories;
     } else if (data.nutrition.calories !== undefined) {
       string += "&nutriment_energy=" + data.nutrition.calories;
       string += "&nutriment_energy_unit=" + units.calories;
