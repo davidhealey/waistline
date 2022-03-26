@@ -193,7 +193,11 @@
     "shared-goal": "אותו היעד כל יום",
     "auto-adjust": "התאמה אוטומטית להשגת היעד הממוצע",
     "minimum-goal": "הוא היעד הקטן ביותר",
-    "percent-goal": "יעד כאחוז תצרוכת האנרגיה"
+    "percent-goal": "יעד כאחוז תצרוכת האנרגיה",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "עריכת ארוחה",
