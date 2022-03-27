@@ -89,6 +89,25 @@ app.Utils = {
     return new RegExp(/^\D*(\d+)\s*\/\s*(\d+)/);
   },
 
+  timeoutFetch: function(url, options, ms) {
+    return new Promise((resolve, reject) => {
+      let timeout = ms || 10000;
+      let timeoutId = setTimeout(() => {
+        reject(new Error("timeout"))
+      }, timeout);
+
+      fetch(url, options)
+        .then((res) => {
+          clearTimeout(timeoutId);
+          resolve(res);
+        })
+        .catch((err) => {
+          clearTimeout(timeoutId);
+          reject(err);
+        });
+    });
+  },
+
   isInternetConnected: function() {
     if (navigator.connection.type == "none") {
       let msg = app.strings.dialogs["no-internet"] || "No Internet Connection";

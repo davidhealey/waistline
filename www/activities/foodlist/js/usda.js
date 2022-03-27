@@ -72,7 +72,9 @@ app.USDA = {
       if (apiKey != undefined) {
         let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(apiKey) + "&query=" + encodeURIComponent(query) + "&pageSize=15";
 
-        let response = await fetch(url);
+        let response = await app.Utils.timeoutFetch(url).catch((err) => {
+          resolve(undefined);
+        });
 
         if (response) {
           let data = await response.json();
@@ -81,12 +83,8 @@ app.USDA = {
             return app.USDA.parseItem(x, preferDataPer100g);
           }));
         }
-      } else {
-        resolve(false);
       }
-      reject();
-    }).catch(err => {
-      throw (err);
+      resolve(undefined);
     });
   },
 
@@ -197,17 +195,19 @@ app.USDA = {
     return new Promise(async function(resolve, reject) {
       let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(key) + "&query=cheese";
 
-      let response = await fetch(url);
+      let response = await app.Utils.timeoutFetch(url).catch((err) => {
+        resolve(false);
+      });
 
       if (response) {
         let data = await response.json();
         if (data.error && data.error.code == "API_KEY_INVALID")
           resolve(false);
+        else
+          resolve(true);
       }
 
-      resolve(true);
-    }).catch(err => {
-      throw (err);
+      resolve(false);
     });
   }
 };
