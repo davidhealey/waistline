@@ -194,10 +194,10 @@
     "auto-adjust": "Justera automatiskt för att uppfylla genomsnittsmål",
     "minimum-goal": "Är minimimål",
     "percent-goal": "Mål som procentandel av energiintag",
-    "effective-from": "Effective from",
-    "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "effective-from": "Gäller från",
+    "new-goal": "Nytt mål",
+    "delete-goal": "Ta bort mål",
+    "goal-deleted": "Mål borttaget"
   },
   "meal-editor": {
     "title": "Redigera måltid",
@@ -356,6 +356,6 @@
     "finnish": "Finska",
     "spanish": "Spanska",
     "dutch": "Nederländska",
-    "turkish": "Turkish"
+    "turkish": "Turkiska"
   }
 }
