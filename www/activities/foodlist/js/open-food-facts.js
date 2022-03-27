@@ -43,10 +43,12 @@ app.OpenFoodFacts = {
         if (language != undefined && language != "Default")
           url += "&lang=" + encodeURIComponent(language) + "&lc=" + encodeURIComponent(language);
 
-        let response = await fetch(url, {
+        let response = await app.Utils.timeoutFetch(url, {
           headers: {
             "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
           }
+        }).catch((err) => {
+          resolve(undefined);
         });
 
         if (response) {
@@ -72,11 +74,8 @@ app.OpenFoodFacts = {
 
           resolve(result);
         }
-      } else {
-        resolve(undefined);
       }
-    }).catch(err => {
-      throw (err);
+      resolve(undefined);
     });
   },
 
@@ -219,14 +218,12 @@ app.OpenFoodFacts = {
       if (app.mode != "release")
         headers.Authorization = "Basic " + btoa("off:off");
 
-      let response = await fetch(endPoint + s, {
-          credentials: 'include',
-          headers: headers
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          return reject();
-        });
+      let response = await app.Utils.timeoutFetch(endPoint + s, {
+        credentials: 'include',
+        headers: headers
+      }).catch((err) => {
+        reject();
+      });
 
       if (response) {
         let result = await response.json();
@@ -395,8 +392,8 @@ app.OpenFoodFacts = {
       credentials: 'include',
       headers: headers,
       body: data
-    }).catch((error) => {
-      console.error('Error:', error);
+    }).catch((err) => {
+      console.error(err);
     });
 
     return response;
@@ -404,25 +401,26 @@ app.OpenFoodFacts = {
 
   testCredentials: function(username, password) {
     return new Promise(async function(resolve, reject) {
-
       let url = "https://world.openfoodfacts.org/cgi/session.pl?user_id=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
 
-      let response = await fetch(url, {
+      let response = await app.Utils.timeoutFetch(url, {
         method: "GET",
         headers: {
           "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
         },
+      }).catch((err) => {
+        resolve(false);
       });
 
       if (response) {
         let html = await response.text();
-        if (html == null || html.includes("Incorrect user name or password.") || html.includes("See you soon!")) {
+        if (html == null || html.includes("Incorrect user name or password.") || html.includes("See you soon!"))
           resolve(false);
-        }
+        else
+          resolve(true);
       }
-      resolve(true);
-    }).catch(err => {
-      throw (err);
+
+      resolve(false);
     });
   }
 };

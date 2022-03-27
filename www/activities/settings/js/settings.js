@@ -659,7 +659,7 @@ app.Settings = {
           continue;
         }
       }
-      if (nutriments.includes(key)) {
+      if (nutriments.includes(key) || app.measurements.includes(key)) {
         newGoals[key] = newGoals[key] || {};
         newGoals[key]["goal-list"] = newGoals[key]["goal-list"] || [{}];
         newGoals[key]["goal-list"][0]["goal"] = oldGoals[key];
