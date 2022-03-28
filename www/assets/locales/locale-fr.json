@@ -194,10 +194,10 @@
     "auto-adjust": "Ajuster automatiquement pour atteindre l'objectif moyen",
     "minimum-goal": "Objectif minimum",
     "percent-goal": "Objectif en pourcentage de l'apport énergétique",
-    "effective-from": "Effective from",
-    "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "effective-from": "À partir de",
+    "new-goal": "Nouvel objectif",
+    "delete-goal": "Supprimer l'objectif",
+    "goal-deleted": "Objectif supprimé"
   },
   "meal-editor": {
     "title": "Modifier Repas",
@@ -290,9 +290,9 @@
       "auto-backup": "Sauvegarde automatique",
       "backup": "Sauvegarder la base de données",
       "import": "Importer à partir d’une sauvegarde",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Importer des Aliments",
+      "import-foods": "Importer des Aliments depuis un fichier JSON",
+      "import-foods-categories": "Catégories pour les éléments importés"
     },
     "integration": {
       "title": "Intégration",
@@ -325,8 +325,8 @@
       "import-fail": "Importation échouée",
       "import": "Importation",
       "confirm-import": "Cette opération écrasera la base de données actuelle, continuer ?",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "Êtes-vous sûr(e) ? Cette action ne peut pas être annulée. Pensez à sauvegarder votre base de données avant.",
+      "import-foods-category-fail": "Veuillez sélectionner au moins une catégorie",
       "import-success-title": "La sauvegarde a été restaurée",
       "import-success-message": "Importation réussie",
       "barcode-sound": "Son de scanner",
@@ -356,6 +356,6 @@
     "finnish": "Finnois",
     "spanish": "Espagnol",
     "dutch": "Néerlandais",
-    "turkish": "Turkish"
+    "turkish": "Turc"
   }
 }
