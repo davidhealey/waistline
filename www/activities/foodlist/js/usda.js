@@ -103,9 +103,12 @@ app.USDA = {
     result.portion = "100";
     result.unit = app.strings["unit-symbols"]["g"] || "g";
 
+    if (item.servingSizeUnit === "ml")
+      result.unit = app.strings["unit-symbols"]["ml"] || "ml";
+
     let multiplier = 1;
     if (preferDataPer100g !== true) {
-      if (item.servingSize !== undefined && !isNaN(item.servingSize) && item.servingSizeUnit === "g") {
+      if (item.servingSize !== undefined && !isNaN(item.servingSize) && (item.servingSizeUnit === "g" || item.servingSizeUnit === "ml")) {
         multiplier = item.servingSize / 100;
         result.portion = item.servingSize.toString();
       } else if (item.foodMeasures !== undefined && item.foodMeasures.length >= 1) {
