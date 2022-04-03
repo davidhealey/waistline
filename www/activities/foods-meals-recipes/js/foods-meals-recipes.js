@@ -46,18 +46,11 @@ app.FoodsMealsRecipes = {
 
           case "./meal-editor/":
             this.editItems = "disabled";
-            this.el.fab.style.display = "none";
-            this.el.scan.style.display = "none";
             break;
 
           case "./recipe-editor/":
             this.editItems = "disabled";
-            this.el.fab.style.display = "none";
-            this.el.scan.style.display = "none";
             break;
-
-          default:
-            this.el.fab.style.display = "block";
         }
       }
     } else {
