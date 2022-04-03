@@ -31,8 +31,7 @@ app.Meals = {
     app.Meals.getComponents();
     app.Meals.createSearchBar();
     app.Meals.bindUIActions();
-
-    app.Meals.el.scan.style.display = "none";
+    app.Meals.setComponentVisibility();
 
     if (!app.Meals.ready) {
       app.f7.infiniteScroll.create(app.Meals.el.infinite); //Setup infinite list
@@ -49,15 +48,12 @@ app.Meals = {
   },
 
   getComponents: function() {
-    app.Meals.el.submit = document.querySelector(".page[data-name='foods-meals-recipes'] #submit");
     app.Meals.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
-    app.Meals.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.Meals.el.search = document.querySelector("#meals-tab #meal-search");
     app.Meals.el.searchForm = document.querySelector("#meals-tab #meal-search-form");
     app.Meals.el.searchFilter = document.querySelector("#meals-tab #meal-search-filter");
     app.Meals.el.searchFilterIcon = document.querySelector("#meals-tab #meal-search-filter-icon");
     app.Meals.el.searchFilterContainer = document.querySelector("#meals-tab #meal-search-filter-container");
-    app.Meals.el.fab = document.querySelector("#add-meal");
     app.Meals.el.infinite = document.querySelector(".page[data-name='foods-meals-recipes'] #meals"); //Infinite list container
     app.Meals.el.list = document.querySelector("#meal-list-container ul"); //Infinite list
   },
@@ -81,6 +77,15 @@ app.Meals = {
       });
       app.Meals.el.searchFilter.hasTapholdEvent = true;
     }
+  },
+
+  setComponentVisibility: function() {
+    app.Meals.el.scan.style.display = "none";
+
+    if (app.FoodsMealsRecipes.editItems != "enabled")
+      app.FoodsMealsRecipes.el.fab.style.display = "none";
+    else
+      app.FoodsMealsRecipes.el.fab.style.display = "block";
   },
 
   renderList: async function(clear) {
