@@ -9,19 +9,15 @@
     "fiber": "Fibre",
     "proteins": "Proteine",
     "salt": "Sale",
+    "sodium": "Sodio",
+    "cholesterol": "Colesterolo",
+    "trans-fat": "Grassi idrogenati",
     "monounsaturated-fat": "Grassi monoinsaturi",
     "polyunsaturated-fat": "Grassi poliinsaturi",
-    "trans-fat": "Grassi idrogenati",
     "omega-3-fat": "Grassi omega 3",
     "omega-6-fat": "Grassi omega 6",
     "omega-9-fat": "Grassi omega 9",
-    "cholesterol": "Colesterolo",
-    "sodium": "Sodio",
     "vitamin-a": "Vitamina A",
-    "vitamin-d": "Vitamina D",
-    "vitamin-e": "Vitamina E",
-    "vitamin-k": "Vitamina K",
-    "vitamin-c": "Vitamina C",
     "vitamin-b1": "Vitamina B1 (tiamina)",
     "vitamin-b2": "Vitamina B2 (riboflavina)",
     "vitamin-pp": "Vitamina B3 ( Niacina)",
@@ -30,6 +26,10 @@
     "biotin": "Vitamina B7 (inositolo)",
     "vitamin-b9": "Vitamina B9 (acido folico)",
     "vitamin-b12": "Vitamina B12 (cobalamina)",
+    "vitamin-c": "Vitamina C",
+    "vitamin-d": "Vitamina D",
+    "vitamin-e": "Vitamina E",
+    "vitamin-k": "Vitamina K",
     "potassium": "Potassio",
     "chloride": "Cloruro",
     "calcium": "Calcio",
@@ -193,7 +193,11 @@
     "shared-goal": "Stesso obiettivo ogni giorno",
     "auto-adjust": "Auto regola per soddisfare l' obiettivo medio",
     "minimum-goal": "È un obiettivo minimo",
-    "percent-goal": "Obiettivo in percentuale del consumo di energia"
+    "percent-goal": "Obiettivo in percentuale del consumo di energia",
+    "effective-from": "In vigore dal",
+    "new-goal": "Nuovo obiettivo",
+    "delete-goal": "Elimina obiettivo",
+    "goal-deleted": "Obiettivo Eliminato"
   },
   "meal-editor": {
     "title": "Modifica pasto",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Importa/Esporta",
+      "auto-backup": "Backup automatico",
       "backup": "Backup del Database",
       "import": "Importa dal Backup",
-      "auto-backup": "Backup automatico"
+      "import-foods-title": "Importa Alimenti",
+      "import-foods": "Importa alimenti da JSON",
+      "import-foods-categories": "Categorie per articoli importati"
     },
     "integration": {
       "title": "Integrazione",
@@ -315,8 +322,11 @@
       "invalid-api-key": "Chiave API non valida",
       "export-success": "Database esportato",
       "export-fail": "Esportazione fallita",
+      "import-fail": "Importazione Fallita",
       "import": "Importa",
       "confirm-import": "Sei sicuro? Questo sovrascriverà il database corrente.",
+      "confirm-import-foods": "Sei sicuro? Questa azione non può essere annullata. Si prega di eseguire il backup del database prima.",
+      "import-foods-category-fail": "Per favore seleziona almeno una categoria",
       "import-success-title": "Il tuo backup è stato ripristinato",
       "import-success-message": "Importazione completa",
       "barcode-sound": "Verifica codice a barre suono",
@@ -345,6 +355,7 @@
     "hebrew": "Ebraico",
     "finnish": "Finlandese",
     "spanish": "Spagnolo",
-    "dutch": "Olandese"
+    "dutch": "Olandese",
+    "turkish": "Turkish"
   }
 }

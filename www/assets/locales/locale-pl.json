@@ -9,19 +9,15 @@
     "fiber": "Błonnik",
     "proteins": "Białko",
     "salt": "Sól",
+    "sodium": "Sód",
+    "cholesterol": "Cholesterol",
+    "trans-fat": "Tłuszcze trans",
     "monounsaturated-fat": "Tłuszcze jednonienasycone",
     "polyunsaturated-fat": "Tłuszcz wielonienasycony",
-    "trans-fat": "Tłuszcze trans",
     "omega-3-fat": "Tłuszcze omega 3",
     "omega-6-fat": "Tłuszcze omega 6",
     "omega-9-fat": "Tłuszcze omega 9",
-    "cholesterol": "Cholesterol",
-    "sodium": "Sód",
     "vitamin-a": "Witamina A",
-    "vitamin-d": "Witamina D",
-    "vitamin-e": "Witamina E",
-    "vitamin-k": "Witamina K",
-    "vitamin-c": "Witamina C",
     "vitamin-b1": "Witamina B1 (Tiamina)",
     "vitamin-b2": "Witamina B2 (Ryboflawina)",
     "vitamin-pp": "Witamina B3 (Niacyna)",
@@ -30,6 +26,10 @@
     "biotin": "Witamina B7 (Biotyna)",
     "vitamin-b9": "Witamina B9 (kwas foliowy)",
     "vitamin-b12": "Witamina B12 (Kobalamina)",
+    "vitamin-c": "Witamina C",
+    "vitamin-d": "Witamina D",
+    "vitamin-e": "Witamina E",
+    "vitamin-k": "Witamina K",
     "potassium": "Potas",
     "chloride": "Chlorek",
     "calcium": "Wapń",
@@ -193,7 +193,11 @@
     "shared-goal": "Ten sam cel każdego dnia",
     "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu średniego",
     "minimum-goal": "Jest celem minimalnym",
-    "percent-goal": "Cel jako procent pobranej energii"
+    "percent-goal": "Cel jako procent pobranej energii",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Usuń cel",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Edytuj posiłek",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Import/eksport",
+      "auto-backup": "Automatyczna kopia zapasowa",
       "backup": "Wykonaj kopie",
       "import": "Importuj z kopii zapasowej",
-      "auto-backup": "Automatyczna kopia zapasowa"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Integracja",
@@ -315,8 +322,11 @@
       "invalid-api-key": "Niepoprawny klucz API",
       "export-success": "Baza danych wyeksportowana",
       "export-fail": "Eksport nie powiódł się",
+      "import-fail": "Import Failed",
       "import": "Importuj",
       "confirm-import": "Jesteś pewien? To nadpisze Twoją obecną bazę danych.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "Kopia zapasowa została przywrócona",
       "import-success-message": "Import Zakończony",
       "barcode-sound": "Sygnał skanera kodu kreskowego",
@@ -345,6 +355,7 @@
     "hebrew": "Hebrajski",
     "finnish": "Fiński",
     "spanish": "Hiszpański",
-    "dutch": "Holenderski"
+    "dutch": "Holenderski",
+    "turkish": "Turkish"
   }
 }

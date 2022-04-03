@@ -9,19 +9,15 @@
     "fiber": "Vezels",
     "proteins": "Proteïne",
     "salt": "Zout",
+    "sodium": "Sodium",
+    "cholesterol": "Cholesterol",
+    "trans-fat": "Transvet",
     "monounsaturated-fat": "Enkelvoudig onverzadigd vet",
     "polyunsaturated-fat": "Meervoudig onverzadigd vet",
-    "trans-fat": "Transvet",
     "omega-3-fat": "Omega 3-vetzuren",
     "omega-6-fat": "Omega 6-vetzuren",
     "omega-9-fat": "Omega 9-vetzuren",
-    "cholesterol": "Cholesterol",
-    "sodium": "Sodium",
     "vitamin-a": "Vitamine A",
-    "vitamin-d": "Vitamine D",
-    "vitamin-e": "Vitamine E",
-    "vitamin-k": "Vitamine K",
-    "vitamin-c": "Vitamine C",
     "vitamin-b1": "Vitamine B1 (Thiamine)",
     "vitamin-b2": "Vitamine B2 (Riboflavine)",
     "vitamin-pp": "Vitamine B3 (Niacine)",
@@ -30,6 +26,10 @@
     "biotin": "Vitamine B7 (Biotine)",
     "vitamin-b9": "Vitamine B9 (Foliumzuur)",
     "vitamin-b12": "Vitamine B12 (Cobalamine)",
+    "vitamin-c": "Vitamine C",
+    "vitamin-d": "Vitamine D",
+    "vitamin-e": "Vitamine E",
+    "vitamin-k": "Vitamine K",
     "potassium": "Potassium",
     "chloride": "Chloride",
     "calcium": "Calcium",
@@ -193,7 +193,11 @@
     "shared-goal": "Dagelijks doel",
     "auto-adjust": "Automatisch aanpassen om doelgemiddelde te bereiken",
     "minimum-goal": "Is minimumdoel",
-    "percent-goal": "Doelstelling als percentage van de energie-inname"
+    "percent-goal": "Doelstelling als percentage van de energie-inname",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Bewerk maaltijd",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Importeren/exporten",
+      "auto-backup": "Automatische backup",
       "backup": "Backup database",
       "import": "Importeer uit backup",
-      "auto-backup": "Automatische backup"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Integratie",
@@ -315,8 +322,11 @@
       "invalid-api-key": "API-sleutel is ongeldig",
       "export-success": "Database geëxporteerd",
       "export-fail": "Export mislukt",
+      "import-fail": "Import Failed",
       "import": "Importeren",
       "confirm-import": "Weet je het zeker? Dit overschrijft je huidige database.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "De backup is hersteld",
       "import-success-message": "Import afgerond",
       "barcode-sound": "Geluid bij het scannen",
@@ -345,6 +355,7 @@
     "hebrew": "Hebreeuws",
     "finnish": "Fins",
     "spanish": "Spaans",
-    "dutch": "Nederlands"
+    "dutch": "Nederlands",
+    "turkish": "Turkish"
   }
 }

@@ -9,19 +9,15 @@
     "fiber": "Fibres",
     "proteins": "Protéines",
     "salt": "Sel",
+    "sodium": "Sodium",
+    "cholesterol": "Cholestérol",
+    "trans-fat": "Acides gras transaturés",
     "monounsaturated-fat": "Acides gras mono-insaturés",
     "polyunsaturated-fat": "Acides gras poly-insaturés",
-    "trans-fat": "Acides gras transaturés",
     "omega-3-fat": "Acides gras oméga-3",
     "omega-6-fat": "Acides gras oméga-6",
     "omega-9-fat": "Acides gras oméga-9",
-    "cholesterol": "Cholestérol",
-    "sodium": "Sodium",
     "vitamin-a": "Vitamine A",
-    "vitamin-d": "Vitamine D",
-    "vitamin-e": "Vitamine E",
-    "vitamin-k": "Vitamine K",
-    "vitamin-c": "Vitamine C",
     "vitamin-b1": "Vitamine B1 (Thiamine)",
     "vitamin-b2": "Vitamine B2 (Riboflavine)",
     "vitamin-pp": "Vitamine B3 (Niacine)",
@@ -30,6 +26,10 @@
     "biotin": "Vitamine B7 (Biotine)",
     "vitamin-b9": "Vitamine B9 (Acide folique)",
     "vitamin-b12": "Vitamine B12 (Cobalamine)",
+    "vitamin-c": "Vitamine C",
+    "vitamin-d": "Vitamine D",
+    "vitamin-e": "Vitamine E",
+    "vitamin-k": "Vitamine K",
     "potassium": "Potassium",
     "chloride": "Chlorure",
     "calcium": "Calcium",
@@ -193,7 +193,11 @@
     "shared-goal": "Objectif quotidien",
     "auto-adjust": "Ajuster automatiquement pour atteindre l'objectif moyen",
     "minimum-goal": "Objectif minimum",
-    "percent-goal": "Objectif en pourcentage de l'apport énergétique"
+    "percent-goal": "Objectif en pourcentage de l'apport énergétique",
+    "effective-from": "À partir de",
+    "new-goal": "Nouvel objectif",
+    "delete-goal": "Supprimer l'objectif",
+    "goal-deleted": "Objectif supprimé"
   },
   "meal-editor": {
     "title": "Modifier Repas",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Importation/Exportation",
+      "auto-backup": "Sauvegarde automatique",
       "backup": "Sauvegarder la base de données",
       "import": "Importer à partir d’une sauvegarde",
-      "auto-backup": "Sauvegarde automatique"
+      "import-foods-title": "Importer des Aliments",
+      "import-foods": "Importer des Aliments depuis un fichier JSON",
+      "import-foods-categories": "Catégories pour les éléments importés"
     },
     "integration": {
       "title": "Intégration",
@@ -315,8 +322,11 @@
       "invalid-api-key": "Clé API invalide",
       "export-success": "Données expportées",
       "export-fail": "Erreur d’exportation",
+      "import-fail": "Importation échouée",
       "import": "Importation",
       "confirm-import": "Cette opération écrasera la base de données actuelle, continuer ?",
+      "confirm-import-foods": "Êtes-vous sûr(e) ? Cette action ne peut pas être annulée. Pensez à sauvegarder votre base de données avant.",
+      "import-foods-category-fail": "Veuillez sélectionner au moins une catégorie",
       "import-success-title": "La sauvegarde a été restaurée",
       "import-success-message": "Importation réussie",
       "barcode-sound": "Son de scanner",
@@ -345,6 +355,7 @@
     "hebrew": "Hébreu",
     "finnish": "Finnois",
     "spanish": "Espagnol",
-    "dutch": "Néerlandais"
+    "dutch": "Néerlandais",
+    "turkish": "Turc"
   }
 }

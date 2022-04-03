@@ -9,19 +9,15 @@
     "fiber": "Fibrer",
     "proteins": "Proteiner",
     "salt": "Salt",
+    "sodium": "Natrium",
+    "cholesterol": "Kolesterol",
+    "trans-fat": "Transfett",
     "monounsaturated-fat": "Enkelomättat fett",
     "polyunsaturated-fat": "Fleromättat fett",
-    "trans-fat": "Transfett",
     "omega-3-fat": "Omega-3-fett",
     "omega-6-fat": "Omega-6-fett",
     "omega-9-fat": "Omega-9-fett",
-    "cholesterol": "Kolesterol",
-    "sodium": "Natrium",
     "vitamin-a": "A-vitamin",
-    "vitamin-d": "D-vitamin",
-    "vitamin-e": "E-vitamin",
-    "vitamin-k": "K-vitamin",
-    "vitamin-c": "C-vitamin",
     "vitamin-b1": "Vitamin B1 (Tiamin)",
     "vitamin-b2": "Vitamin B2 (Riboflavin)",
     "vitamin-pp": "Vitamin B3 (Niacin)",
@@ -30,6 +26,10 @@
     "biotin": "Vitamin B7 (Biotin)",
     "vitamin-b9": "Vitamin B9 (Folsyra)",
     "vitamin-b12": "Vitamin B12 (Kobalamin)",
+    "vitamin-c": "C-vitamin",
+    "vitamin-d": "D-vitamin",
+    "vitamin-e": "E-vitamin",
+    "vitamin-k": "K-vitamin",
     "potassium": "Kalium",
     "chloride": "Klorid",
     "calcium": "Kalcium",
@@ -193,11 +193,15 @@
     "shared-goal": "Samma mål varje dag",
     "auto-adjust": "Justera automatiskt för att uppfylla genomsnittsmål",
     "minimum-goal": "Är minimimål",
-    "percent-goal": "Mål som procentandel av energiintag"
+    "percent-goal": "Mål som procentandel av energiintag",
+    "effective-from": "Gäller från",
+    "new-goal": "Nytt mål",
+    "delete-goal": "Ta bort mål",
+    "goal-deleted": "Mål borttaget"
   },
   "meal-editor": {
     "title": "Redigera måltid",
-    "foods-recipes": "Mat & recept"
+    "foods-recipes": "Livsmedel & recept"
   },
   "recipe-editor": {
     "title": "Redigera recept",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Importera/Exportera",
+      "auto-backup": "Automatisk säkerhetskopiering",
       "backup": "Säkerhetskopiera databasen",
       "import": "Importera säkerhetskopia",
-      "auto-backup": "Automatisk säkerhetskopiering"
+      "import-foods-title": "Importera livsmedel",
+      "import-foods": "Importera livsmedel från JSON",
+      "import-foods-categories": "Kategorier för importerade objekt"
     },
     "integration": {
       "title": "Integrationer",
@@ -315,8 +322,11 @@
       "invalid-api-key": "Ogiltig API-nyckel",
       "export-success": "Databasen har exporterats",
       "export-fail": "Exporteringen misslyckades",
+      "import-fail": "Importeringen misslyckades",
       "import": "Import",
       "confirm-import": "Är du säker? Din nuvarande databas kommer att skrivas över.",
+      "confirm-import-foods": "Är du säker? Åtgärden kan inte ångras. Säkerhetskopiera din databas först.",
+      "import-foods-category-fail": "Välj minst en kategori",
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
       "barcode-sound": "Ljudsignal vid streckkodsskanning",
@@ -345,6 +355,7 @@
     "hebrew": "Hebreiska",
     "finnish": "Finska",
     "spanish": "Spanska",
-    "dutch": "Nederländska"
+    "dutch": "Nederländska",
+    "turkish": "Turkiska"
   }
 }

@@ -2,26 +2,22 @@
   "nutriments": {
     "kilojoules": "Kilojouleja",
     "calories": "Kaloreita",
-    "fat": "Rasvaa",
+    "fat": "Rasva",
     "saturated-fat": "Tyydyttynyt rasva",
     "carbohydrates": "Hiilihydraatit",
     "sugars": "Sokeri",
     "fiber": "Ravintokuitu",
     "proteins": "Proteiinit",
     "salt": "Suola",
+    "sodium": "Natrium",
+    "cholesterol": "Kolesteroli",
+    "trans-fat": "Transrasva",
     "monounsaturated-fat": "Kertatyydyttymätön rasvahappo",
     "polyunsaturated-fat": "Monityydyttymätön rasvahappo",
-    "trans-fat": "Transrasva",
     "omega-3-fat": "Omega-3 rasva",
     "omega-6-fat": "Omega-6 rasva",
     "omega-9-fat": "Omega-9 rasva",
-    "cholesterol": "Kolesteroli",
-    "sodium": "Natrium",
     "vitamin-a": "A-vitamiini",
-    "vitamin-d": "D-vitamiini",
-    "vitamin-e": "E-vitamiini",
-    "vitamin-k": "K-vitamiini",
-    "vitamin-c": "C-vitamiini",
     "vitamin-b1": "B1-vitamiini (tiamiini)",
     "vitamin-b2": "B2-vitamiini (riboflaviini)",
     "vitamin-pp": "B3-vitamiini (niasiini)",
@@ -30,6 +26,10 @@
     "biotin": "B7-vitamiini (Biotiini)",
     "vitamin-b9": "B9-vitamiini (foolihappo)",
     "vitamin-b12": "B12-vitamiini (kobalamiini)",
+    "vitamin-c": "C-vitamiini",
+    "vitamin-d": "D-vitamiini",
+    "vitamin-e": "E-vitamiini",
+    "vitamin-k": "K-vitamiini",
     "potassium": "Kalium",
     "chloride": "Kloridi",
     "calcium": "Kalsium",
@@ -193,7 +193,11 @@
     "shared-goal": "Sama tavoite joka päivä",
     "auto-adjust": "Säädä automaattisesti keskimääräisen tavoitteen saavuttamiseksi",
     "minimum-goal": "On vähimmäistavoite",
-    "percent-goal": "Tavoite prosentteina energian saannista"
+    "percent-goal": "Tavoite prosentteina energian saannista",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Muokkaa ateriaa",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Tuo / Vie",
+      "auto-backup": "Automaattinen varmuuskopiointi",
       "backup": "Varmuuskopioi tietokanta",
       "import": "Tuo varmuuskopiosta",
-      "auto-backup": "Automaattinen varmuuskopiointi"
+      "import-foods-title": "Tuo elintarvikkeita",
+      "import-foods": "Tuo elintarvikkeita JSONista",
+      "import-foods-categories": "Tuotujen kohteiden luokat"
     },
     "integration": {
       "title": "Intergrointi",
@@ -315,8 +322,11 @@
       "invalid-api-key": "API-avain on virheellinen",
       "export-success": "Tietokanta viety",
       "export-fail": "Vienti epäonnistui",
+      "import-fail": "Tuonti epäonnistui",
       "import": "Tuo",
       "confirm-import": "Oletko varma? Tämä korvaa nykyisen tietokannan.",
+      "confirm-import-foods": "Oletko varma? Tätä toimintoa ei voi perua. Ole hyvä ja varmuuskopioi tietokantasi ensin.",
+      "import-foods-category-fail": "Valitse vähintään yksi kategoria",
       "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Tuonti valmis",
       "barcode-sound": "Viivakoodin lukemisen äänimerkki",
@@ -345,6 +355,7 @@
     "hebrew": "Hebrea",
     "finnish": "Suomi",
     "spanish": "Espanja",
-    "dutch": "Hollanti"
+    "dutch": "Hollanti",
+    "turkish": "Turkish"
   }
 }

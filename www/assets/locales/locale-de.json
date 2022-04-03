@@ -9,19 +9,15 @@
     "fiber": "Ballaststoffe",
     "proteins": "Proteine",
     "salt": "Salz",
+    "sodium": "Natrium",
+    "cholesterol": "Cholesterin",
+    "trans-fat": "Transfette",
     "monounsaturated-fat": "Einfach ungesättigte Fettsäuren",
     "polyunsaturated-fat": "Mehrfach ungesättigte Fettsäuren",
-    "trans-fat": "Transfette",
     "omega-3-fat": "Omega-3-Fettsäuren",
     "omega-6-fat": "Omega-6-Fettsäuren",
     "omega-9-fat": "Omega-9-Fettsäuren",
-    "cholesterol": "Cholesterin",
-    "sodium": "Natrium",
     "vitamin-a": "Vitamin A",
-    "vitamin-d": "Vitamin D",
-    "vitamin-e": "Vitamin E",
-    "vitamin-k": "Vitamin K",
-    "vitamin-c": "Vitamin C",
     "vitamin-b1": "Vitamin B1 (Thiamin)",
     "vitamin-b2": "Vitamin B2 (Riboflavin)",
     "vitamin-pp": "Vitamin B3 (Niacin)",
@@ -30,6 +26,10 @@
     "biotin": "Vitamin B7 (Biotin)",
     "vitamin-b9": "Vitamin B9 (Folsäure)",
     "vitamin-b12": "Vitamin B12 (Cobalamine)",
+    "vitamin-c": "Vitamin C",
+    "vitamin-d": "Vitamin D",
+    "vitamin-e": "Vitamin E",
+    "vitamin-k": "Vitamin K",
     "potassium": "Kalium",
     "chloride": "Chlorid",
     "calcium": "Kalzium",
@@ -193,7 +193,11 @@
     "shared-goal": "Gleiches Ziel für jeden Tag",
     "auto-adjust": "Automatische Anpassung für Durchschnittsziel",
     "minimum-goal": "Ist Mindestziel",
-    "percent-goal": "Ziel als Prozentsatz der Energiezufuhr"
+    "percent-goal": "Ziel als Prozentsatz der Energiezufuhr",
+    "effective-from": "Gültig ab",
+    "new-goal": "Neues Ziel",
+    "delete-goal": "Ziel löschen",
+    "goal-deleted": "Ziel gelöscht"
   },
   "meal-editor": {
     "title": "Mahlzeit Bearbeiten",
@@ -228,7 +232,7 @@
     "diary": {
       "title": "Tagebuch",
       "categories": "Kategorien",
-      "timestamps": "Zeitstempel anzeigen",
+      "timestamps": "Uhrzeiten anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
       "show-all-nutriments": "Alle Nährstoffe auf Übersichtsseite anzeigen",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Importieren/Exportieren",
+      "auto-backup": "Automatische Sicherung",
       "backup": "Datenbanksicherung",
       "import": "Aus Datenbanksicherung importieren",
-      "auto-backup": "Automatische Sicherung"
+      "import-foods-title": "Lebensmittel importieren",
+      "import-foods": "Lebensmittel aus JSON importieren",
+      "import-foods-categories": "Kategorien für importierte Einträge"
     },
     "integration": {
       "title": "Integrationen",
@@ -314,9 +321,12 @@
       "invalid-credentials": "Ungültige Anmeldeinformationen",
       "invalid-api-key": "API-Schlüssel ungültig",
       "export-success": "Datenbank wurde exportiert",
-      "export-fail": "Fehler beim Export",
+      "export-fail": "Export fehlgeschlagen",
+      "import-fail": "Import fehlgeschlagen",
       "import": "Importieren",
       "confirm-import": "Bist du sicher? Dies wird deine aktuelle Datenbank überschreiben.",
+      "confirm-import-foods": "Bist du sicher? Dies kann nicht rückgängig gemacht werden. Bitte sichere zuerst deine Datenbank.",
+      "import-foods-category-fail": "Bitte wähle mindestens eine Kategorie aus",
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
       "barcode-sound": "Ton wenn Strichcode gescannt wird",
@@ -345,6 +355,7 @@
     "hebrew": "Hebräisch",
     "finnish": "Finnisch",
     "spanish": "Spanisch",
-    "dutch": "Niederländisch"
+    "dutch": "Niederländisch",
+    "turkish": "Türkisch"
   }
 }

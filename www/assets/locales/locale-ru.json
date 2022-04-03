@@ -9,19 +9,15 @@
     "fiber": "Клетчатка",
     "proteins": "Белок",
     "salt": "Соль",
+    "sodium": "Натрий",
+    "cholesterol": "Холестерин",
+    "trans-fat": "Трансжиры",
     "monounsaturated-fat": "Мононенасыщенные жиры",
     "polyunsaturated-fat": "Полиненасыщенные жиры",
-    "trans-fat": "Трансжиры",
     "omega-3-fat": "Омега-3 жиры",
     "omega-6-fat": "Омега-6 жиры",
     "omega-9-fat": "Омега-9 жиры",
-    "cholesterol": "Холестерин",
-    "sodium": "Натрий",
     "vitamin-a": "Витамин А",
-    "vitamin-d": "Витамин D",
-    "vitamin-e": "Витамин Е",
-    "vitamin-k": "Витамин K",
-    "vitamin-c": "Витамин C",
     "vitamin-b1": "Витамин B1 (тиамин)",
     "vitamin-b2": "Витамин B2 (рибофлавин)",
     "vitamin-pp": "Витамин B3 (ниацин)",
@@ -30,6 +26,10 @@
     "biotin": "Витамин В7 (Биотин)",
     "vitamin-b9": "Витамин B9 (фоллат)",
     "vitamin-b12": "Витамин B12 (кобаламин)",
+    "vitamin-c": "Витамин C",
+    "vitamin-d": "Витамин D",
+    "vitamin-e": "Витамин Е",
+    "vitamin-k": "Витамин K",
     "potassium": "Калий",
     "chloride": "Хлорид",
     "calcium": "Кальций",
@@ -193,7 +193,11 @@
     "shared-goal": "Одинаковая цель каждый день",
     "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Минимальная цель",
-    "percent-goal": "Цель в процентах от потребляемой энергии"
+    "percent-goal": "Цель в процентах от потребляемой энергии",
+    "effective-from": "Effective from",
+    "new-goal": "New Goal",
+    "delete-goal": "Delete Goal",
+    "goal-deleted": "Goal Deleted"
   },
   "meal-editor": {
     "title": "Изменить блюдо",
@@ -283,9 +287,12 @@
     },
     "import-export": {
       "title": "Импорт/Экспорт",
+      "auto-backup": "Автоматическое резервное копирование",
       "backup": "Резервное копирование базы данных",
       "import": "Импорт из резервной копии",
-      "auto-backup": "Автоматическое резервное копирование"
+      "import-foods-title": "Import Foods",
+      "import-foods": "Import Foods from JSON",
+      "import-foods-categories": "Categories for imported items"
     },
     "integration": {
       "title": "Интеграция",
@@ -315,8 +322,11 @@
       "invalid-api-key": "Неправильный API-ключ",
       "export-success": "База данных экспортирована",
       "export-fail": "Экспорт не удался",
+      "import-fail": "Import Failed",
       "import": "Импорт",
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
+      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
+      "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
@@ -345,6 +355,7 @@
     "hebrew": "Иврит",
     "finnish": "Финский",
     "spanish": "Испанский",
-    "dutch": "Голландский"
+    "dutch": "Голландский",
+    "turkish": "Turkish"
   }
 }
