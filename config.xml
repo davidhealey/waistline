@@ -55,6 +55,9 @@
         <splash density="land-xxhdpi" src="res/screen/android/splash-land-xxhdpi.png" />
         <splash density="land-xxxhdpi" src="res/screen/android/splash-land-xxxhdpi.png" />
     </platform>
+    <platform name="electron">
+    	<preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
+	</platform>
     <preference name="loadUrlTimeoutValue" value="900000" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreenDuration" value="500" />

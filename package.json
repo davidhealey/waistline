@@ -2,11 +2,13 @@
   "name": "com.waist.line",
   "displayName": "Waistline",
   "dependencies": {
+    "cordova": "^11.0.0",
     "cordova-plugin-ionic-keyboard": "2.2.0"
   },
   "devDependencies": {
     "cordova-android": "^10.1.1",
     "cordova-browser": "^6.0.0",
+    "cordova-electron": "^3.0.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
     "cordova-plugin-camera": "^6.0.0",
     "cordova-plugin-chooser": "^1.3.2",
@@ -36,7 +38,8 @@
     },
     "platforms": [
       "browser",
-      "android"
+      "android",
+      "electron"
     ]
   }
 }

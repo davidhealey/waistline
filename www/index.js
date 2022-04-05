@@ -543,3 +543,9 @@ window.addEventListener("keyboardDidHide", (e) => {
       app.f7.searchbar.disable(".searchbar");
   }
 });
+
+window.addEventListener("keydown", (e) => {
+	if (e.code == "AltRight" || e.code == "AltLeft") {
+		e.preventDefault();
+	}
+});

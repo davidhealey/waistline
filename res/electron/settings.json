@@ -1,0 +1,12 @@
+{
+    "browserWindow": {
+        "width": 407,
+        "height": 728,
+        "frame": true,
+        "titleBarStyle": "hidden",
+        "autoHideMenuBar": true,
+        "webPreferences": {
+        	"devTools": false
+        }
+    }
+}
