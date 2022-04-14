@@ -211,9 +211,9 @@
     "title": "Налаштування",
     "needs-restart": "Restart app to apply changes.",
     "appearance": {
-      "title": "Appearance",
+      "title": "Вигляд",
       "dark": "Темний режим",
-      "colour-theme": "Colour Theme",
+      "colour-theme": "Кольорова тема",
       "animations": "Вимкнути анімацію КІ",
       "start-page": "Початкова сторінка",
       "language": "Бажана мова"
