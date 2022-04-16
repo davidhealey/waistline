@@ -1,7 +1,7 @@
 {
   "nutriments": {
-    "kilojoules": "Kilojoules",
-    "calories": "Calories",
+    "kilojoules": "Кілоджоулі",
+    "calories": "Калорії",
     "fat": "Жири",
     "saturated-fat": "Sat fat",
     "carbohydrates": "Вуглеводи",
@@ -73,14 +73,14 @@
     "add": "Додати",
     "skip": "Пропустити",
     "confirm-delete": "Are you sure you want to delete this?",
-    "delete-title": "Delete Entry",
+    "delete-title": "Видалити запис",
     "required-fields": "Please complete all required fields.",
     "camera-problem": "There was a problem accessing your camera.",
     "no-internet": "No Internet Connection",
     "no-results": "No matching results",
     "no-search-providers": "No search providers are enabled",
     "scan-failed": "Scan Failed",
-    "search": "Search",
+    "search": "Пошук",
     "add-to-off": "Would you like to add this product to the Open Food Facts database?",
     "main-image": "Please add a main image",
     "download-title": "Retrieve latest information",
@@ -113,19 +113,19 @@
   },
   "statistics": {
     "title": "Статистика",
-    "range": "Range",
-    "stat": "Stat",
+    "range": "Проміжок",
+    "stat": "Рахувати",
     "week": "1 тиждень",
     "month": "1 місяць",
     "3month": "3 місяці",
     "6month": "6 місяців",
     "12month": "1 рік",
     "timeline": "Timeline",
-    "weight": "Weight",
-    "neck": "Neck",
-    "waist": "Waist",
-    "hips": "Hips",
-    "body fat": "Body Fat",
+    "weight": "Вага",
+    "neck": "Шия",
+    "waist": "Талія",
+    "hips": "Стегна",
+    "body fat": "Жир тіла",
     "average": "Average"
   },
   "diary": {
@@ -133,7 +133,7 @@
     "quick-add": "Quick Add",
     "quick-add-description": "Опис (необовʼязково)",
     "yesterdays-meal": "Yesterday's %s",
-    "log-title": "Today's Stats",
+    "log-title": "Сьогоднішня статистика",
     "log-saved": "Збережено",
     "no-data": "Нема даних",
     "default-meals": {
@@ -147,15 +147,15 @@
     "title": "Overview",
     "including-saturated-fat": "including sat fat",
     "including-sugars": "including sugars",
-    "no-data": "No data"
+    "no-data": "Нема даних"
   },
   "foods-meals-recipes": {
     "title": "Продукти, страви, рецепти",
-    "foods": "Foods",
-    "meals": "Meals",
-    "recipes": "Recipes",
+    "foods": "Продукти",
+    "meals": "Страви",
+    "recipes": "Рецепти",
     "selected": "Selected",
-    "search": "Search",
+    "search": "Пошук",
     "scan-prompt": "Place a barcode inside the scan area",
     "show-more-nutriments": "Show more nutriments",
     "show-less-nutriments": "Show less nutriments"
@@ -164,15 +164,15 @@
     "edit-item": "Edit Item",
     "add-new-item": "Add New Item",
     "details": "Details",
-    "barcode": "Barcode",
+    "barcode": "Штрих-код",
     "categories": "Категорії",
-    "name": "Name",
+    "name": "Назва",
     "brand": "Brand",
-    "category": "Category",
+    "category": "Категорія",
     "serving-size": "Serving Size",
     "serving-unit": "Serving Unit",
     "number-of-servings": "Number of Servings",
-    "notes": "Notes",
+    "notes": "Нотатки",
     "nutrition": "Nutrition",
     "per-100": "Per 100g/100ml",
     "per-serving": "Per Serving",
@@ -183,12 +183,12 @@
     "invalid-value-message": "Invalid Value."
   },
   "goals": {
-    "title": "Goals"
+    "title": "Цілі"
   },
   "goal-editor": {
     "title": "Set Goals",
     "goal": "Goal",
-    "show-in-diary": "Show in Diary",
+    "show-in-diary": "Показувати в щоденнику",
     "show-in-stats": "Show in Statistics",
     "shared-goal": "Same goal every day",
     "auto-adjust": "Auto adjust to meet average goal",
@@ -201,11 +201,11 @@
   },
   "meal-editor": {
     "title": "Edit Meal",
-    "foods-recipes": "Foods & Recipes"
+    "foods-recipes": "Продукти і рецепти"
   },
   "recipe-editor": {
-    "title": "Edit Recipe",
-    "notes": "Notes"
+    "title": "Змінити рецепт",
+    "notes": "Нотатки"
   },
   "settings": {
     "title": "Налаштування",
@@ -223,11 +223,11 @@
       "energy": "Energy",
       "weight": "Вага",
       "length": "Довжина",
-      "kilograms": "Кілограм",
-      "pounds": "Pounds",
-      "stones": "Stones",
-      "centimeters": "Сантиметрів",
-      "inches": "Дюймів"
+      "kilograms": "Кілограми",
+      "pounds": "Фунти",
+      "stones": "Стоуни",
+      "centimeters": "Сантиметри",
+      "inches": "Дюйми"
     },
     "diary": {
       "title": "Щоденник",
@@ -241,7 +241,7 @@
     },
     "nutriments": {
       "title": "Nutriments",
-      "field": "Name",
+      "field": "Назва",
       "unit": "Unit",
       "add": "Add Field",
       "edit": "Edit Field"
@@ -251,7 +251,7 @@
       "category": "Категорія"
     },
     "goals": {
-      "title": "Goals",
+      "title": "Цілі",
       "first-day-of-week": "First day of the week",
       "average-goal-base": "Compute average goals based on",
       "current-week": "Поточний тиждень",
@@ -261,15 +261,15 @@
       "last-10-days": "Last 10 Days"
     },
     "foods": {
-      "title": "Foods, Meals, Recipes",
+      "title": "Продукти, страви, рецепти",
       "sort": "Sort Foods",
       "sort-date": "By last used",
       "sort-alpha": "Alphabetically",
       "category-labels": "Show Category Labels",
       "thumbnails": "Show Thumbnails",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
-      "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi",
+      "images": "Показувати зображення продуктів",
+      "wifi-images": "Показувати зображення лише через Wi-Fi",
       "show-notes": "Show Food Notes"
     },
     "foods-categories": {
@@ -305,12 +305,12 @@
       "default": "Default",
       "auto": "Визначати автоматично",
       "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
-      "usda": "Enable USDA search",
+      "usda": "Дозволити пошук в USDA",
       "usda-login-title": "USDA",
       "usda-api": "USDA API",
-      "usda-api-key": "USDA API Key",
+      "usda-api-key": "Ключ API USDA",
       "usda-click-here": "Click here",
-      "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
+      "usda-note-0": "Вам потрібно ввести свій особистий ключ API для пошуку продуктів у базі USDA.",
       "usda-note-1": "to request a free API Key.",
       "username": "Імʼя користувача",
       "password": "Пароль",
@@ -335,9 +335,9 @@
     }
   },
   "about": {
-    "title": "About",
-    "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
-    "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
+    "title": "Про застосунок",
+    "p0": "Waistline створив David Healey з пропозиціями і співпрацею користувачів.",
+    "p1": "Waistline побудовано на Cordova й знаходиться під ліцензією Apache. Також містить Framework7, jQuery, jQuery localize та ChartJS, що під ліцензією MIT. HTML, CSS та інший javascript складають основне тіло програми й знаходяться під ліцензією GPLv3.",
     "p2": "The source code for Waistline can be found at",
     "p3": "Поточна версія:"
   },
