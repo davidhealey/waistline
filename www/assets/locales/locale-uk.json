@@ -112,7 +112,7 @@
     "camino": "Camino"
   },
   "statistics": {
-    "title": "Statistics",
+    "title": "Статистика",
     "range": "Range",
     "stat": "Stat",
     "week": "1 тиждень",
@@ -129,7 +129,7 @@
     "average": "Average"
   },
   "diary": {
-    "title": "Diary",
+    "title": "Щоденник",
     "quick-add": "Quick Add",
     "quick-add-description": "Опис (необовʼязково)",
     "yesterdays-meal": "Yesterday's %s",
@@ -150,7 +150,7 @@
     "no-data": "No data"
   },
   "foods-meals-recipes": {
-    "title": "Foods, Meals, Recipes",
+    "title": "Продукти, страви, рецепти",
     "foods": "Foods",
     "meals": "Meals",
     "recipes": "Recipes",
@@ -209,7 +209,7 @@
   },
   "settings": {
     "title": "Налаштування",
-    "needs-restart": "Restart app to apply changes.",
+    "needs-restart": "Перезапустіть застосунок, щоб зміни ввійшли в дію.",
     "appearance": {
       "title": "Вигляд",
       "dark": "Темний режим",
@@ -230,7 +230,7 @@
       "inches": "Дюймів"
     },
     "diary": {
-      "title": "Diary",
+      "title": "Щоденник",
       "categories": "Категорії",
       "timestamps": "Show Timestamps",
       "thumbnails": "Show Thumbnails",
@@ -280,7 +280,7 @@
       "edit": "Змінити категорію"
     },
     "statistics": {
-      "title": "Statistics",
+      "title": "Статистика",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
       "goal-line": "Show Goal Line"
