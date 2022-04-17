@@ -145,8 +145,8 @@
   },
   "diary-chart": {
     "title": "Огляд",
-    "including-saturated-fat": "разом із насичиними жирами",
-    "including-sugars": "разом із цукром",
+    "including-saturated-fat": "з них насичені жири",
+    "including-sugars": "з них цукор",
     "no-data": "Нема даних"
   },
   "foods-meals-recipes": {
@@ -156,8 +156,8 @@
     "recipes": "Рецепти",
     "selected": "Вибрані",
     "search": "Пошук",
-    "scan-prompt": "Розмістіть штрих-код в області сканування",
-    "show-more-nutriments": "Показувати більше поживних речовин",
+    "scan-prompt": "Помістіть штрих-код в область сканування",
+    "show-more-nutriments": "Показати більше поживних речовин",
     "show-less-nutriments": "Показувати менше поживних речовин"
   },
   "food-editor": {
@@ -201,7 +201,7 @@
   },
   "meal-editor": {
     "title": "Змінити страву",
-    "foods-recipes": "Продукти і рецепти"
+    "foods-recipes": "Продукти та рецепти"
   },
   "recipe-editor": {
     "title": "Змінити рецепт",
@@ -265,7 +265,7 @@
       "sort": "Сортувати продукти",
       "sort-date": "За останнім використанням",
       "sort-alpha": "За алфавітом",
-      "category-labels": "Показувати мітки категорії",
+      "category-labels": "Показувати мітки категорій",
       "thumbnails": "Показувати ескізи",
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
       "images": "Показувати зображення продуктів",
@@ -292,7 +292,7 @@
       "import": "Імпортувати з резервної копії",
       "import-foods-title": "Імпортувати продукти",
       "import-foods": "Імпортувати продукти з JSON",
-      "import-foods-categories": "Категорії імпортованих пунктів"
+      "import-foods-categories": "Категорії для імпортованих елементів"
     },
     "integration": {
       "title": "Інтегрування",
