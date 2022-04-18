@@ -562,7 +562,8 @@ app.FoodEditor = {
       item.portion = app.FoodEditor.el.portion.value;
 
       if (data !== undefined) {
-        if (data.id !== undefined) item.id = data.id;
+        if (data.id !== undefined)
+          item.id = data.id;
 
         item.type = data.type || "food";
 
@@ -583,7 +584,7 @@ app.FoodEditor = {
         const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
         const units = app.Nutriments.getNutrimentUnits();
         const energyUnit = app.Settings.get("units", "energy");
-        const inputs = document.querySelectorAll("#food-edit-form input:not(#quantity), #food-edit-form textarea, #food-edit-form radio");
+        const inputs = document.querySelectorAll("#food-edit-form input:not(#barcode):not(#unit):not(#quantity), #food-edit-form textarea, #food-edit-form radio");
         const caloriesEl = document.getElementById("calories");
         const kilojoulesEl = document.getElementById("kilojoules");
 
