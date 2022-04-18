@@ -58,11 +58,11 @@
     "mg": "мг",
     "µg": "мкг",
     "kg": "кг",
-    "lb": "фунт",
+    "lb": "lb",
     "st": "st",
     "cm": "см",
     "inch": "in",
-    "feet/inches": "фут/дюйм"
+    "feet/inches": "ft/in"
   },
   "dialogs": {
     "delete": "Видалити",
