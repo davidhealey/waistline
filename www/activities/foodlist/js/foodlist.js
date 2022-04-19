@@ -454,8 +454,10 @@ app.Foodlist = {
     app.data.context = {
       origin: "foodlist",
       scan: true,
-      item: undefined,
-      barcode: code
+      item: {
+        barcode: code,
+        nutrition: {}
+      },
     };
 
     let callbackYes = function() {
