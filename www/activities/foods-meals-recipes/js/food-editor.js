@@ -71,9 +71,6 @@ app.FoodEditor = {
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
       this.populateCategoryField(app.FoodEditor.item);
-
-    if (context.barcode !== undefined)
-      app.FoodEditor.el.barcode.value = context.barcode;
   },
 
   getComponents: function() {
@@ -188,10 +185,15 @@ app.FoodEditor = {
 
     } else {
       app.FoodEditor.el.quantityContainer.style.display = "none";
-      app.FoodEditor.el.link.style.display = "block";
 
-      if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined && !app.FoodEditor.item.barcode.startsWith('custom_'))
-        app.FoodEditor.el.download.style.display = "block";
+      if (app.FoodEditor.scan == true) {
+        app.FoodEditor.el.link.style.display = "none";
+      } else {
+        app.FoodEditor.el.link.style.display = "block";
+
+        if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined && !app.FoodEditor.item.barcode.startsWith('custom_'))
+          app.FoodEditor.el.download.style.display = "block";
+      }
     }
 
     app.FoodsMealsRecipes.setCategoriesVisibility(app.FoodEditor.el.categoriesContainer);
@@ -235,11 +237,6 @@ app.FoodEditor = {
         x.validate = false;
       }
     });
-
-    if (app.FoodEditor.scan == true) {
-      app.FoodEditor.linked = false;
-      app.FoodEditor.el.link.style.display = "none";
-    }
   },
 
   setRequiredFieldErrorMessage: function() {
@@ -417,9 +414,6 @@ app.FoodEditor = {
     if (item.portion != undefined) {
       app.FoodEditor.el.portion.value = parseFloat(item.portion);
       app.FoodEditor.el.portion.oldValue = parseFloat(item.portion);
-    } else {
-      app.FoodEditor.el.portion.setAttribute("placeholder", "N/A");
-      app.FoodEditor.el.portion.disabled = true;
     }
 
     // Quantity (number of servings)
