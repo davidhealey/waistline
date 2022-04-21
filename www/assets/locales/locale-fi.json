@@ -197,8 +197,8 @@
     "percent-goal": "Tavoite prosentteina energian saannista",
     "effective-from": "Effective from",
     "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "delete-goal": "Poista tavoite",
+    "goal-deleted": "Tavoite poistettu"
   },
   "meal-editor": {
     "title": "Muokkaa ateriaa",
@@ -357,7 +357,7 @@
     "finnish": "Suomi",
     "spanish": "Espanja",
     "dutch": "Hollanti",
-    "turkish": "Turkish",
-    "ukrainian": "Ukrainian"
+    "turkish": "Turkki",
+    "ukrainian": "Ukraina"
   }
 }
