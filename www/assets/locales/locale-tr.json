@@ -158,7 +158,8 @@
     "search": "Ara",
     "scan-prompt": "Barkodu tarama alanına hizalayın",
     "show-more-nutriments": "Daha fazla besin değeri göster",
-    "show-less-nutriments": "Daha az besin değeri göster"
+    "show-less-nutriments": "Daha az besin değeri göster",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Öğeyi Düzenle",
