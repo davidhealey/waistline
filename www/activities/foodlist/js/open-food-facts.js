@@ -110,7 +110,7 @@ app.OpenFoodFacts = {
     let dataAvailablePerServing = false;
     let dataAvailablePer100g = false;
 
-    if (item.serving_size) {
+    if (item.serving_size && item.serving_size.match(app.Utils.decimalRegExp())) {
       for (let n in item.nutriments) {
         if (n.endsWith("_serving")) {
           dataAvailablePerServing = true;
@@ -194,7 +194,7 @@ app.OpenFoodFacts = {
     }
 
     if (result.unit == undefined)
-      result.unit = "";
+      result.unit = "?";
 
     if (result.portion == undefined || isNaN(result.portion))
       result = undefined;
