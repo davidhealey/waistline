@@ -253,7 +253,7 @@ app.OpenFoodFacts = {
 
   getUploadString: function(data) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
-    const units = app.nutrimentUnits;
+    const units = app.Nutriments.getNutrimentUnits(true);
     const energyUnit = app.Settings.get("units", "energy");
 
     let string = "";
@@ -303,7 +303,7 @@ app.OpenFoodFacts = {
       if (!nutriments.includes(n)) continue;
 
       string += "&nutriment_" + n + "=" + data.nutrition[n];
-      string += "&nutriment_" + n + "_unit=" + (units[n] || "g");
+      string += "&nutriment_" + n + "_unit=" + encodeURIComponent(units[n] || "g");
     }
 
     // Tags
