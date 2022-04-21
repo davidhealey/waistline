@@ -158,7 +158,8 @@
     "search": "Suchen",
     "scan-prompt": "Platziere einen Strichcode im Scanbereich",
     "show-more-nutriments": "Mehr Nährstoffe anzeigen",
-    "show-less-nutriments": "Weniger Nährstoffe anzeigen"
+    "show-less-nutriments": "Weniger Nährstoffe anzeigen",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Eintrag bearbeiten",
