@@ -158,7 +158,8 @@
     "search": "Пошук",
     "scan-prompt": "Помістіть штрих-код в область сканування",
     "show-more-nutriments": "Показати більше поживних речовин",
-    "show-less-nutriments": "Показувати менше поживних речовин"
+    "show-less-nutriments": "Показувати менше поживних речовин",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Змінити пункт",
