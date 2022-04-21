@@ -158,7 +158,8 @@
     "search": "සොයන්න",
     "scan-prompt": "Place a barcode inside the scan area",
     "show-more-nutriments": "Show more nutriments",
-    "show-less-nutriments": "Show less nutriments"
+    "show-less-nutriments": "Show less nutriments",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Edit Item",
