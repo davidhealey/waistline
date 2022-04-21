@@ -158,7 +158,8 @@
     "search": "Recherche",
     "scan-prompt": "Placez un code barre devant le scanner",
     "show-more-nutriments": "Afficher plus de nutriments",
-    "show-less-nutriments": "Afficher moins de nutriments"
+    "show-less-nutriments": "Afficher moins de nutriments",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Modifier élément",
