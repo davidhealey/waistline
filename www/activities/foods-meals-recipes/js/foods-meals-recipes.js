@@ -578,13 +578,9 @@ app.FoodsMealsRecipes = {
 
   updateSelectionCount: async function() {
     if (!app.FoodsMealsRecipes.selection.length) {
-      if (app.FoodsMealsRecipes.tab == "foodlist")
-        app.FoodsMealsRecipes.el.scan.style.display = "block";
-
       app.FoodsMealsRecipes.el.submit.style.display = "none";
       app.FoodsMealsRecipes.el.title.innerText = app.FoodsMealsRecipes.tabTitle;
     } else {
-      app.FoodsMealsRecipes.el.scan.style.display = "none";
       app.FoodsMealsRecipes.el.submit.style.display = "block";
 
       // Get energy for selection

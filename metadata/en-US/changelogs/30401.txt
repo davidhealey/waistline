@@ -1,3 +1,4 @@
+- you can now add items to the diary or a meal/recipe by scanning their barcodes
 - added support for Ukrainian language
 - various bugfixes
 

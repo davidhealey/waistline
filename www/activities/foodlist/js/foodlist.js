@@ -95,7 +95,20 @@ app.Foodlist = {
         let item = await this.scan();
 
         if (item !== undefined) {
-          app.FoodsMealsRecipes.gotoEditor(item);
+          let itemData = JSON.stringify(item);
+
+          if ((item.id == undefined && app.FoodsMealsRecipes.editItems != "disabled") || app.FoodsMealsRecipes.editItems == "enabled") {
+            // scanned item is new or editing is enabled -> open food editor for the item
+            app.FoodsMealsRecipes.gotoEditor(item);
+          } else if (!app.FoodsMealsRecipes.selection.includes(itemData) && item.id !== undefined) {
+            // scanned item already exists in local database and is not yet selected -> add to selection
+            app.FoodsMealsRecipes.selection.push(itemData);
+            app.FoodsMealsRecipes.updateSelectionCount();
+            app.Foodlist.renderList(true);
+
+            let msg = app.strings["foods-meals-recipes"]["added-to-selection"] || "Scanned item added to selection";
+            app.Utils.toast(msg);
+          }
         }
       });
       app.Foodlist.el.scan.hasClickEvent = true;
@@ -424,7 +437,7 @@ app.Foodlist = {
 
                 if (result !== undefined && result[0] !== undefined)
                   item = result[0];
-                else
+                else if (app.FoodsMealsRecipes.editItems != "disabled")
                   app.Foodlist.gotoUploadEditor(code);
               }
             }
