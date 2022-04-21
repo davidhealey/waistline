@@ -158,7 +158,8 @@
     "search": "Zoeken",
     "scan-prompt": "Plaats een streepjescode in het scangebied",
     "show-more-nutriments": "Meer voedingsstoffen tonen",
-    "show-less-nutriments": "Minder voedingsstoffen tonen"
+    "show-less-nutriments": "Minder voedingsstoffen tonen",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Bewerk opvoer",
