@@ -159,7 +159,7 @@
     "scan-prompt": "Placera en streckkod innanför skanningsområdet",
     "show-more-nutriments": "Visa fler näringsämnen",
     "show-less-nutriments": "Visa färre näringsämnen",
-    "added-to-selection": "Scanned item added to selection"
+    "added-to-selection": "Skannat objekt har lagts till i markeringen"
   },
   "food-editor": {
     "edit-item": "Redigera objekt",
@@ -358,6 +358,6 @@
     "spanish": "Spanska",
     "dutch": "Nederländska",
     "turkish": "Turkiska",
-    "ukrainian": "Ukrainian"
+    "ukrainian": "Ukrainska"
   }
 }
