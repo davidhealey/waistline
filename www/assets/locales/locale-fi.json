@@ -158,7 +158,8 @@
     "search": "Etsi",
     "scan-prompt": "Aseta viivakoodi kuvausalueen sisälle",
     "show-more-nutriments": "Näytä enemmän ravinteita",
-    "show-less-nutriments": "Näytä vähemmän ravinteita"
+    "show-less-nutriments": "Näytä vähemmän ravinteita",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Muokkaa tuotetta",
