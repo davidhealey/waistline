@@ -158,7 +158,8 @@
     "search": "Ricerca",
     "scan-prompt": "Posiziona il codice Qr all'interno dell'area di scansione",
     "show-more-nutriments": "Mostra più nutrimenti",
-    "show-less-nutriments": "Mostra meno nutrimenti"
+    "show-less-nutriments": "Mostra meno nutrimenti",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Modifica elementi",
