@@ -21,9 +21,12 @@ app.Nutriments = {
 
   storeNames: ["foodList", "recipes"],
 
-  getNutrimentUnits: function() {
-    const units = app.Settings.get("nutriments", "units") || {};
-    return app.Utils.concatObjects(app.nutrimentUnits, units);
+  getNutrimentUnits: function(alcoholVolPercent) {
+    let nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits);
+    let customUnits = app.Settings.get("nutriments", "units") || {};
+    if (alcoholVolPercent === true)
+      nutrimentUnits.alcohol = "% vol";
+    return app.Utils.concatObjects(nutrimentUnits, customUnits);
   },
 
   populateNutrimentList: function() {

@@ -245,10 +245,46 @@ app.Utils = {
     else if (unit1 == "mg" && unit2 == "µg")
       result = value / 0.001;
 
+    // ml/l
+    else if (unit1 == "ml" && unit2 == "l")
+      result = value * 0.001;
+
+    else if (unit1 == "l" && unit2 == "ml")
+      result = value / 0.001;
+
+    // ml/cl
+    else if (unit1 == "ml" && unit2 == "cl")
+      result = value * 0.1;
+
+    else if (unit1 == "cl" && unit2 == "ml")
+      result = value / 0.1;
+
+    // cl/l
+    else if (unit1 == "cl" && unit2 == "l")
+      result = value * 0.01;
+
+    else if (unit1 == "l" && unit2 == "cl")
+      result = value / 0.01;
+
     if (result !== undefined && round === true)
       result = Math.round(result);
 
     return result;
+  },
+
+  convertAlcoholVolPercentToGrams: function(percentValue, quantityValue, quantityUnit) {
+
+    if (percentValue == undefined || quantityValue == undefined || quantityUnit == undefined)
+      return undefined;
+
+    let multiplier = percentValue / 100;
+
+    let mlValue = app.Utils.convertUnit(quantityValue, quantityUnit, "ml");
+
+    if (mlValue == undefined)
+      mlValue = quantityValue; // if conversion failed, assume quantity was already specified in ml
+
+    return mlValue * multiplier * 0.7893; // density of ethanol is 0.7893 g/ml
   },
 
   getEnergyUnitName: function(energyUnit) {

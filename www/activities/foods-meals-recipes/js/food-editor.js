@@ -277,7 +277,7 @@ app.FoodEditor = {
   renderNutritionFields: function(item) {
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const units = app.Nutriments.getNutrimentUnits();
+    const units = app.Nutriments.getNutrimentUnits(app.FoodEditor.scan == true);
     const energyUnit = app.Settings.get("units", "energy");
 
     if (item !== undefined && item.nutrition.kilojoules == undefined && energyUnit == units.kilojoules)
