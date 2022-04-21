@@ -553,10 +553,12 @@ app.FoodsMealsRecipes = {
 
   getItemThumbnail: function(url) {
     if (url !== undefined && url !== "" && url !== "undefined") {
+      let div = document.createElement("div");
+      div.className = "food-thumbnail";
       let img = document.createElement("img");
       img.src = unescape(url);
-      img.className = "food-thumbnail";
-      return img;
+      div.appendChild(img);
+      return div;
     }
     return undefined;
   },
