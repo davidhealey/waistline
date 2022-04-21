@@ -158,7 +158,8 @@
     "search": "Sök",
     "scan-prompt": "Placera en streckkod innanför skanningsområdet",
     "show-more-nutriments": "Visa fler näringsämnen",
-    "show-less-nutriments": "Visa färre näringsämnen"
+    "show-less-nutriments": "Visa färre näringsämnen",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Redigera objekt",
