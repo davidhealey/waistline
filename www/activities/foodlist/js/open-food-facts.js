@@ -154,7 +154,7 @@ app.OpenFoodFacts = {
     } else if (dataAvailablePer100g === true) {
       result.portion = "100";
       result.unit = app.strings["unit-symbols"]["g"] || "g";
-      if (item.serving_size && item.serving_size.match(/\d\s*(ml)/i))
+      if (item.serving_size && item.serving_size.match(/\d\s*(ml|cl|l)/i))
         result.unit = app.strings["unit-symbols"]["ml"] || "ml";
       if (item.nutriments.energy_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
@@ -190,6 +190,9 @@ app.OpenFoodFacts = {
       if (x != "calories" && x != "kilojoules") {
         let value = item.nutriments[x + perTag];
         result.nutrition[x] = app.Utils.convertUnit(value, "g", units[x]);
+
+        if (x == "alcohol")
+          result.nutrition[x] = app.Utils.convertAlcoholVolPercentToGrams(result.nutrition[x], result.portion, result.unit);
       }
     }
 
