@@ -481,7 +481,7 @@ app.FoodsMealsRecipes = {
         title.className = "item-title";
         if (item.name == "Quick Add") {
           if (item.description !== undefined)
-            title.innerText = app.Utils.tidyText(item.description, 50);
+            title.innerText = item.description;
           else
             title.innerText = app.strings.diary["quick-add"] || "Quick Add";
         } else {
