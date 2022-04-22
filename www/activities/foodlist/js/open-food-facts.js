@@ -154,7 +154,7 @@ app.OpenFoodFacts = {
     } else if (dataAvailablePer100g === true) {
       result.portion = "100";
       result.unit = app.strings["unit-symbols"]["g"] || "g";
-      if (item.serving_size && item.serving_size.match(/\d\s*(ml|cl|l)/i))
+      if (item.serving_size && item.serving_size.match(/\d\s*(ml|cl|l)(\s|$)/i))
         result.unit = app.strings["unit-symbols"]["ml"] || "ml";
       if (item.nutriments.energy_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
