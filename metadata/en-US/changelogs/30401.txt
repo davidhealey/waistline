@@ -1,4 +1,5 @@
 - you can now add items to the diary or a meal/recipe by scanning their barcodes
+- tap on the diary bottom bar to see your remaining allowance and goal progress
 - added support for Ukrainian language
 - various bugfixes
 
