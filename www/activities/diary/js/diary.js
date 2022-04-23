@@ -286,7 +286,7 @@ app.Diary = {
 
       // Value
       let values = document.createElement("div");
-      values.className = "col keep-ltr";
+      values.className = "col";
       values.id = x + "-value";
 
       let valueSpan = document.createElement("span");

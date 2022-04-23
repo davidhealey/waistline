@@ -27,8 +27,6 @@ option {direction: ltr;}
 html[dir="rtl"] select.align-end {direction: ltr;}
 html[dir="rtl"] option {direction: rtl;}
 
-.keep-ltr {direction: ltr;}
-
 #categories { width: 100%; }
 #categories-list:not([disabled]) { color: inherit; }
 
