@@ -435,10 +435,14 @@ app.Foodlist = {
                 if (item !== undefined && item.id !== undefined)
                   result[0].id = item.id;
 
-                if (result !== undefined && result[0] !== undefined)
+                if (result !== undefined && result[0] !== undefined) {
                   item = result[0];
-                else if (app.FoodsMealsRecipes.editItems != "disabled")
+                } else if (app.FoodsMealsRecipes.editItems != "disabled") {
                   app.Foodlist.gotoUploadEditor(code);
+                } else {
+                  let msg = app.strings.dialogs["no-results"] || "No matching results";
+                  app.Utils.toast(msg);
+                }
               }
             }
             resolve(item);
