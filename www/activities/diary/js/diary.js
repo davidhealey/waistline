@@ -306,11 +306,11 @@ app.Diary = {
       remaining.className = "col";
       remaining.id = x + "-remaining";
 
-      let remainingSpan = document.createElement("span");
       let progressCanvas = document.createElement("canvas");
       progressCanvas.style.display = "inline";
       progressCanvas.style.width = "0";
       progressCanvas.style.height = "0";
+      let remainingSpan = document.createElement("span");
       let remainingText = document.createTextNode("");
 
       // Value colour and goal
@@ -362,7 +362,6 @@ app.Diary = {
             backgroundColours.push("dimgrey");
         }
 
-        progressCanvas.style.margin = "0.2em 0.5em 0";
         progressCanvas.style.width = "2em";
         progressCanvas.style.height = "1em";
 
@@ -403,8 +402,8 @@ app.Diary = {
       rows[1].appendChild(values);
 
       remainingSpan.appendChild(remainingText);
-      remaining.appendChild(remainingSpan);
       remaining.appendChild(progressCanvas);
+      remaining.appendChild(remainingSpan);
       rows[2].appendChild(remaining);
 
       count++;
