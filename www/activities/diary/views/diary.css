@@ -27,5 +27,8 @@
 .page[data-name="diary"] #diary-nutrition .col {text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .page[data-name="diary"] #diary-nutrition .nutrition-total-title {font-weight: bold;}
 
+.page[data-name="diary"] #diary-nutrition.show-values .nutrition-total-remaining {display: none;}
+.page[data-name="diary"] #diary-nutrition.show-remaining .nutrition-total-values {display: none;}
+
 /* Dialog with scrollbar */
 .scroll-dialog {max-height: 64vh; overflow-y: auto;}

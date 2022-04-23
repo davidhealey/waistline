@@ -31,7 +31,7 @@ app.Utils = {
   tidyNumber: function(number, unit) {
     let text = "";
     if (number !== undefined) {
-      text += number.toLocaleString([], { useGrouping: false }).replace("-", "\u2212");
+      text += "\u200E" + number.toLocaleString([], { useGrouping: false }).replace("-", "\u2212");
     }
     if (unit !== undefined) {
       if (app.standardUnits.includes(unit))

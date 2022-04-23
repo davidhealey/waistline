@@ -59,6 +59,7 @@ app.Diary = {
     app.Diary.el.log = document.querySelector(".page[data-name='diary'] #log");
     app.Diary.el.date = document.querySelector(".page[data-name='diary'] #diary-date");
     app.Diary.el.showChart = document.querySelector(".page[data-name='diary'] #show-chart");
+    app.Diary.el.diaryNutrition = document.querySelector(".page[data-name='diary'] #diary-nutrition");
   },
 
   bindUIActions: function() {
@@ -71,12 +72,26 @@ app.Diary = {
       app.Diary.el.log.hasClickEvent = true;
     }
 
-    // Show chart 
+    // Show chart
     if (!app.Diary.el.showChart.hasClickEvent) {
       app.Diary.el.showChart.addEventListener("click", (e) => {
         app.Diary.showChart();
       });
       app.Diary.el.showChart.hasClickEvent = true;
+    }
+
+    // Toggle nutrition swiper card
+    if (!app.Diary.el.diaryNutrition.hasClickEvent) {
+      app.Diary.el.diaryNutrition.addEventListener("click", (e) => {
+        if (app.Diary.el.diaryNutrition.classList.contains("show-values")) {
+          app.Diary.el.diaryNutrition.classList.remove("show-values");
+          app.Diary.el.diaryNutrition.classList.add("show-remaining");
+        } else {
+          app.Diary.el.diaryNutrition.classList.remove("show-remaining");
+          app.Diary.el.diaryNutrition.classList.add("show-values");
+        }
+      });
+      app.Diary.el.diaryNutrition.hasClickEvent = true;
     }
   },
 
@@ -253,6 +268,10 @@ app.Diary = {
         rows[1] = document.createElement("div");
         rows[1].className = "row nutrition-total-values";
         slide.appendChild(rows[1]);
+
+        rows[2] = document.createElement("div");
+        rows[2].className = "row nutrition-total-remaining";
+        slide.appendChild(rows[2]);
       }
 
       // Title
@@ -267,11 +286,11 @@ app.Diary = {
 
       // Value
       let values = document.createElement("div");
-      values.className = "col keep-ltr";
+      values.className = "col";
       values.id = x + "-value";
 
-      let span = document.createElement("span");
-      t = document.createTextNode("");
+      let valueSpan = document.createElement("span");
+      let valueText = document.createTextNode("");
       let value = 0;
 
       if (nutrition !== undefined && nutrition[x] !== undefined) {
@@ -280,30 +299,112 @@ app.Diary = {
         else
           value = (Math.round(nutrition[x]));
       }
-      t.nodeValue = app.Utils.tidyNumber(value);
+      valueText.nodeValue = app.Utils.tidyNumber(value);
+
+      // Remaining and progress
+      let remaining = document.createElement("div");
+      remaining.className = "col";
+      remaining.id = x + "-remaining";
+
+      let progressCanvas = document.createElement("canvas");
+      progressCanvas.style.display = "inline";
+      progressCanvas.style.width = "0";
+      progressCanvas.style.height = "0";
+      let remainingSpan = document.createElement("span");
+      let remainingText = document.createTextNode("");
 
       // Value colour and goal
       let goal = nutrimentGoal.goal;
       let isMin = nutrimentGoal.isMin;
 
       if (goal !== undefined && !isNaN(goal)) {
-        if ((isMin !== true && value > goal) || (isMin === true && value < goal))
-          span.style.color = "red";
-        else
-          span.style.color = "green";
+        let colour;
 
-        t.nodeValue += " / " + app.Utils.tidyNumber(Math.round(goal * 100) / 100);
+        if ((isMin !== true && value > goal) || (isMin === true && value < goal))
+          colour = "red";
+        else
+          colour = "green";
+
+        valueSpan.style.color = colour;
+        remainingSpan.style.color = colour;
+
+        // Goal
+        valueText.nodeValue += " / " + app.Utils.tidyNumber(Math.round(goal * 100) / 100);
+
+        // Remaining value
+        let remainingValue = Math.round((value - goal) * 100) / 100;
+        if (remainingValue > 0)
+          remainingText.nodeValue = "\u200E+" + app.Utils.tidyNumber(remainingValue);
+        else
+          remainingText.nodeValue = app.Utils.tidyNumber(remainingValue);
+
+        // Progress ring
+        let percentProgress = value / goal;
+        let overshot = false;
+        if (percentProgress > 1) {
+          overshot = true;
+          if (percentProgress < 2)
+            percentProgress -= 1;
+          else
+            percentProgress = 1;
+        }
+
+        // Progress ring colours
+        let backgroundColours = [];
+        if (overshot) {
+          backgroundColours.push(colour);
+          backgroundColours.push(Chart.defaults.global.defaultFontColor);
+        } else {
+          backgroundColours.push(Chart.defaults.global.defaultFontColor);
+          if (Chart.defaults.global.defaultFontColor == "black")
+            backgroundColours.push("lightgrey");
+          else
+            backgroundColours.push("dimgrey");
+        }
+
+        progressCanvas.style.width = "2em";
+        progressCanvas.style.height = "1em";
+
+        // Draw progress ring
+        let chart = new Chart(progressCanvas, {
+          type: "doughnut",
+          data: {
+            datasets: [{
+              data: [percentProgress, (1 - percentProgress)],
+              backgroundColor: backgroundColours,
+              borderWidth: 0
+            }]
+          },
+          options: {
+            cutoutPercentage: 60,
+            responsive: false,
+            tooltips: {
+              enabled: false
+            },
+            animation: {
+              animateRotate: false
+            }
+          }
+        });
+      } else {
+        remainingText.nodeValue = app.Utils.tidyNumber(value);
       }
 
       // Unit
       if (app.Settings.get("diary", "show-nutrition-units")) {
         let unit = app.strings["unit-symbols"][units[x]] || units[x];
-        t.nodeValue += app.Utils.tidyNumber(undefined, unit);
+        valueText.nodeValue += app.Utils.tidyNumber(undefined, unit);
+        remainingText.nodeValue += app.Utils.tidyNumber(undefined, unit);
       }
 
-      span.appendChild(t);
-      values.appendChild(span);
+      valueSpan.appendChild(valueText);
+      values.appendChild(valueSpan);
       rows[1].appendChild(values);
+
+      remainingSpan.appendChild(remainingText);
+      remaining.appendChild(progressCanvas);
+      remaining.appendChild(remainingSpan);
+      rows[2].appendChild(remaining);
 
       count++;
     });
