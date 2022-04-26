@@ -26,6 +26,7 @@ app.FoodsMealsRecipes = {
   editItems: "enabled",
 
   init: function(context) {
+    this.selection = [];
     this.editItems = "enabled";
 
     this.getComponents();
@@ -61,12 +62,6 @@ app.FoodsMealsRecipes = {
     if (!this.ready) {
       this.ready = true;
     }
-  },
-
-  tabInit: function() {
-    app.FoodsMealsRecipes.el.title.innerText = this.tabTitle;
-    app.FoodsMealsRecipes.el.submit.style.display = "none";
-    app.FoodsMealsRecipes.localizeSearchPlaceholder();
   },
 
   getComponents: function() {
@@ -111,22 +106,34 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  submitButtonClickEventHandler: function(e) {
+  submitButtonClickEventHandler: async function(e) {
     if (app.FoodsMealsRecipes.selection.length > 0) {
-      switch (app.FoodsMealsRecipes.tab) {
-        case "foodlist":
-          app.Foodlist.submitButtonAction(app.FoodsMealsRecipes.selection);
-          break;
+      let result = [];
 
-        case "meals":
-          app.Meals.submitButtonAction(app.FoodsMealsRecipes.selection);
-          break;
+      for (let d of app.FoodsMealsRecipes.selection) {
+        let data = JSON.parse(d);
 
-        case "recipes":
-          app.Recipes.submitButtonAction(app.FoodsMealsRecipes.selection);
-          break;
+        if (data.items !== undefined) {
+          if (data.portion !== undefined && data.unit !== undefined) {
+            // Recipe
+            data.type = "recipe"
+            result.push(data);
+          } else {
+            // Meal
+            data.items.forEach((item) => {
+              result.push(item);
+            });
+          }
+        } else {
+          // Food
+          let item = await app.Foodlist.getItemFromSelectedData(data);
+          result.push(item);
+        }
       }
+
+      app.FoodsMealsRecipes.returnItems(result);
     }
+    app.FoodsMealsRecipes.selection = [];
   },
 
   getCategory: function() {
@@ -564,15 +571,13 @@ app.FoodsMealsRecipes = {
   },
 
   checkboxChanged: function(state, item) {
-
     if (state === true) {
       app.FoodsMealsRecipes.selection.push(item);
     } else {
-      let itemIndex = app.FoodsMealsRecipes.selection.indexOf(item);
-      if (itemIndex != -1)
-        app.FoodsMealsRecipes.selection.splice(itemIndex, 1);
+      let index = app.FoodsMealsRecipes.selection.indexOf(item);
+      if (index != -1)
+        app.FoodsMealsRecipes.selection.splice(index, 1);
     }
-
     app.FoodsMealsRecipes.updateSelectionCount();
   },
 
@@ -604,17 +609,28 @@ app.FoodsMealsRecipes = {
     }
   },
 
-  clearSearchSelection: function() {
-
-    //Remove any selected search items from the selection array
+  clearSelection: function() {
     const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
-
-    checked.forEach((x, i) => {
-      let itemIndex = app.FoodsMealsRecipes.selection.indexOf(x.data);
-      if (itemIndex != -1)
-        app.FoodsMealsRecipes.selection.splice(itemIndex, 1);
+    checked.forEach((x) => {
+      x.checked = false;
     });
+    app.FoodsMealsRecipes.selection = [];
+    app.FoodsMealsRecipes.updateSelectionCount();
+  },
 
+  unselectOldItem: function(item) {
+    // Iterate over all selected items in the current view
+    const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
+    checked.forEach((x) => {
+      let data = JSON.parse(x.data);
+      // Check if the item id or barcode matches the selected data
+      if ((data.id !== undefined && data.id === item.id) || (data.barcode !== undefined && data.barcode === item.barcode)) {
+        // They match -> remove the old item from the selection because it was just edited
+        let index = app.FoodsMealsRecipes.selection.indexOf(x.data);
+        if (index != -1)
+          app.FoodsMealsRecipes.selection.splice(index, 1);
+      }
+    });
     app.FoodsMealsRecipes.updateSelectionCount();
   },
 
@@ -622,10 +638,6 @@ app.FoodsMealsRecipes = {
     $(".page-content").scrollTop(0);
     app.f7.searchbar.disable(searchForm);
     app.FoodsMealsRecipes.clearSelectedCategories(searchFilter, searchFilterIcon);
-  },
-
-  getSelection: function() {
-    return app.FoodsMealsRecipes.selection;
   },
 
   initializeSearchBar: function(element, eventHandlers) {
@@ -818,6 +830,6 @@ document.addEventListener("page:beforeremove", function(e) {
 document.addEventListener("tab:init", function(e) {
   app.FoodsMealsRecipes.tab = e.target.id;
   app.FoodsMealsRecipes.tabTitle = app.strings["foods-meals-recipes"][e.target.title.toLowerCase()] || e.target.title;
-  app.FoodsMealsRecipes.selection = [];
-  app.FoodsMealsRecipes.tabInit();
+  app.FoodsMealsRecipes.localizeSearchPlaceholder();
+  app.FoodsMealsRecipes.updateSelectionCount();
 });

@@ -25,8 +25,8 @@ app.Recipes = {
 
   init: async function(context) {
 
-    if (context)
-      app.FoodsMealsRecipes.clearSearchSelection();
+    if (context && context.recipe)
+      app.FoodsMealsRecipes.unselectOldItem(context.recipe);
 
     app.Recipes.getComponents();
     app.Recipes.createSearchBar();
@@ -154,18 +154,6 @@ app.Recipes = {
         }
       ]
     }).open();
-  },
-
-  submitButtonAction: function(selection) {
-    let result = [];
-
-    selection.forEach((x) => {
-      let recipe = JSON.parse(x);
-      recipe.type = "recipe";
-      result.push(recipe);
-    });
-
-    app.FoodsMealsRecipes.returnItems(result);
   },
 
   gotoEditor: function(recipe) {

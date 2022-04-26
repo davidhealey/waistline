@@ -27,7 +27,7 @@ app.Foodlist = {
 
     if (context && context.item) {
       await this.putItem(context.item);
-      app.FoodsMealsRecipes.clearSearchSelection();
+      app.FoodsMealsRecipes.unselectOldItem(context.item);
     }
 
     this.getComponents();
@@ -313,47 +313,29 @@ app.Foodlist = {
     });
   },
 
-  submitButtonAction: async function(selection) {
-    let data = await this.getItemsFromSelection(selection);
-    app.FoodsMealsRecipes.returnItems(data.items);
-  },
-
-  getItemsFromSelection: function(selection) {
+  getItemFromSelectedData: function(data) {
     return new Promise(async function(resolve, reject) {
-      let result = {
-        items: [],
-        ids: []
-      };
+      if (data.id == undefined || data.hidden == true) { // No ID or hidden, must be a search result
 
-      for (let i = 0; i < selection.length; i++) {
-        let data = JSON.parse(selection[i]);
+        if (data.barcode) { // If item has barcode it must be from online service or imported from JSON
 
-        if (data.id == undefined || data.hidden == true) { //No ID or hidden, must be a search result 
+          // Check to see if item is already in DB
+          let dbData = await app.Foodlist.searchByBarcode(data.barcode);
 
-          if (data.barcode) { //If item has barcode it must be from online service or imported from JSON
-
-            //Check to see if item is already in DB 
-            let dbData = await app.Foodlist.searchByBarcode(data.barcode);
-
-            //If item is in DB use retrieved data, otherwise add item to DB and get new ID
-            if (dbData) {
-              data = dbData;
-              data.archived = false; // Unarchive the food if it has been archived
-              if (data.hidden == true) data.hidden = false; // Unhide the food if it was imported from JSON
-              await app.Foodlist.putItem(data);
-            }
+          // If item is in DB use retrieved data
+          if (dbData) {
+            data = dbData;
+            data.archived = false; // Unarchive the food if it has been archived
+            if (data.hidden == true) data.hidden = false; // Unhide the food if it was imported from JSON
+            await app.Foodlist.putItem(data);
           }
-
-          // Doesn't have barcode or could not be found with barcode search
-          if (data.id == undefined)
-            data.id = await app.Foodlist.putItem(data);
         }
 
-        result.items.push(data);
-        result.ids.push(data.id);
+        // Item is not in DB or doesn't have barcode, add to DB and get new ID
+        if (data.id == undefined)
+          data.id = await app.Foodlist.putItem(data);
       }
-
-      resolve(result);
+      resolve(data);
     });
   },
 
