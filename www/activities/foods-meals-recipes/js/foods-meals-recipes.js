@@ -26,6 +26,7 @@ app.FoodsMealsRecipes = {
   editItems: "enabled",
 
   init: function(context) {
+    this.selection = [];
     this.editItems = "enabled";
 
     this.getComponents();
@@ -61,12 +62,6 @@ app.FoodsMealsRecipes = {
     if (!this.ready) {
       this.ready = true;
     }
-  },
-
-  tabInit: function() {
-    app.FoodsMealsRecipes.el.title.innerText = this.tabTitle;
-    app.FoodsMealsRecipes.el.submit.style.display = "none";
-    app.FoodsMealsRecipes.localizeSearchPlaceholder();
   },
 
   getComponents: function() {
@@ -111,22 +106,34 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  submitButtonClickEventHandler: function(e) {
+  submitButtonClickEventHandler: async function(e) {
     if (app.FoodsMealsRecipes.selection.length > 0) {
-      switch (app.FoodsMealsRecipes.tab) {
-        case "foodlist":
-          app.Foodlist.submitButtonAction(app.FoodsMealsRecipes.selection);
-          break;
+      let result = [];
 
-        case "meals":
-          app.Meals.submitButtonAction(app.FoodsMealsRecipes.selection);
-          break;
+      for (let d of app.FoodsMealsRecipes.selection) {
+        let data = JSON.parse(d);
 
-        case "recipes":
-          app.Recipes.submitButtonAction(app.FoodsMealsRecipes.selection);
-          break;
+        if (data.items !== undefined) {
+          if (data.portion !== undefined && data.unit !== undefined) {
+            // Recipe
+            data.type = "recipe"
+            result.push(data);
+          } else {
+            // Meal
+            data.items.forEach((item) => {
+              result.push(item);
+            });
+          }
+        } else {
+          // Food
+          let item = await app.Foodlist.getItemFromSelectedData(data);
+          result.push(item);
+        }
       }
+
+      app.FoodsMealsRecipes.returnItems(result);
     }
+    app.FoodsMealsRecipes.selection = [];
   },
 
   getCategory: function() {
@@ -823,6 +830,6 @@ document.addEventListener("page:beforeremove", function(e) {
 document.addEventListener("tab:init", function(e) {
   app.FoodsMealsRecipes.tab = e.target.id;
   app.FoodsMealsRecipes.tabTitle = app.strings["foods-meals-recipes"][e.target.title.toLowerCase()] || e.target.title;
-  app.FoodsMealsRecipes.selection = [];
-  app.FoodsMealsRecipes.tabInit();
+  app.FoodsMealsRecipes.localizeSearchPlaceholder();
+  app.FoodsMealsRecipes.updateSelectionCount();
 });

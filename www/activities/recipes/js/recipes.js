@@ -156,18 +156,6 @@ app.Recipes = {
     }).open();
   },
 
-  submitButtonAction: function(selection) {
-    let result = [];
-
-    selection.forEach((x) => {
-      let recipe = JSON.parse(x);
-      recipe.type = "recipe";
-      result.push(recipe);
-    });
-
-    app.FoodsMealsRecipes.returnItems(result);
-  },
-
   gotoEditor: function(recipe) {
     app.data.context = {
       recipe: recipe,
