@@ -516,37 +516,43 @@ app.FoodsMealsRecipes = {
           inner.appendChild(subtitle);
         }
 
-        //Item details
-        let details = document.createElement("div");
-        details.className = "item-text";
-
         //Portion
-        let text = "";
-
         if (item.name != "Quick Add" && item.portion !== undefined && !isNaN(item.portion)) {
-          text = app.Utils.tidyNumber(parseFloat(item.portion), item.unit);
+          let portion = document.createElement("div");
+          portion.className = "item-text";
+          portion.innerText = app.Utils.tidyNumber(parseFloat(item.portion), item.unit);
 
           if (item.quantity !== undefined && item.quantity != 1) {
             if ($("html").get(0).getAttribute("dir") === "rtl")
-              text += " \u202E\u00D7\u202C "; // times symbol with RTL override
+              portion.innerText += " \u202E\u00D7\u202C "; // times symbol with RTL override
             else
-              text += " \u00D7 "; // times symbol
+              portion.innerText += " \u00D7 "; // times symbol
 
-            text += app.Utils.tidyNumber(parseFloat(item.quantity));
+            portion.innerText += app.Utils.tidyNumber(parseFloat(item.quantity));
           }
+
+          inner.appendChild(portion);
         }
 
+        //Timestamp
         if (timestamp == true && item.dateTime !== undefined) {
+          let timestampDiv = document.createElement("div");
+          timestampDiv.className = "item-text";
+
+          let timestampIcon = document.createElement("i");
+          timestampIcon.className = "far fa-clock";
+
+          let timestampText = document.createTextNode(" ");
           let dateTime = new Date(item.dateTime);
-          if (text != "") text += "\n";
-          text += dateTime.toLocaleTimeString([], {
+          timestampText.nodeValue += dateTime.toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit'
           });
-        }
 
-        details.innerText = text;
-        inner.appendChild(details);
+          timestampDiv.appendChild(timestampIcon);
+          timestampDiv.appendChild(timestampText);
+          inner.appendChild(timestampDiv);
+        }
       }
     }
   },
