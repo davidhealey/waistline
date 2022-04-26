@@ -303,9 +303,12 @@ app.FoodEditor = {
 
         let titleDiv = document.createElement("div");
         titleDiv.className = "item-title item-label";
-        titleDiv.innerText = app.Utils.tidyText(name, 25);
+        let label = document.createElement("label");
+        label.setAttribute("for", k);
+        label.innerText = app.Utils.tidyText(name, 25);
         if (unit !== undefined)
-          titleDiv.innerText += " (" + unit + ")";
+          label.innerText += " (" + unit + ")";
+        titleDiv.appendChild(label);
         innerDiv.appendChild(titleDiv);
 
         let inputWrapper = document.createElement("div");
