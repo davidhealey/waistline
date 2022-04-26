@@ -57,16 +57,23 @@
           <div class="accordion-item-content inline-labels">
             <ul>
 
-              <li class="item-content upload-field">
+              <li class="item-content" id="main-photo" >
                 <div class="item-inner">
-                  <a class="add-photo">
-                    <i class="icon material-icons">add_a_photo</i>
-                  </a>
-                  <div class="block photo-holder ripple" style="text-align:center;"></div>
+                  <div class="add-photo" style="display:flex;">
+                    <span>
+                      <a class="add-photo-camera display-inline-block">
+                        <i class="icon material-icons">add_a_photo</i>
+                      </a>
+                    </span>
+                    <span class="margin-horizontal">
+                      <a class="add-photo-library display-inline-block">
+                        <i class="icon material-icons">add_photo_alternate</i>
+                      </a>
+                    </span>
+                  </div>
+                  <div class="photo-holder block"></div>
                 </div>
               </li>
-
-              <li id="main-photo" style="display:none; text-align:center;"></li>
 
               <li class="item-content item-input upload-field" id="barcode-container" style="display:none;">
                 <div class="item-inner">
@@ -186,8 +193,19 @@
             <ul class="upload-field">
               <li class="item-content">
                 <div class="item-inner">
-                  <a class="add-photo"><i class="icon material-icons">add_a_photo</i></a>
-                  <div class="block photo-holder ripple" style="text-align:center;"></div>
+                  <div class="add-photo" style="display:flex;">
+                    <span>
+                      <a class="add-photo-camera display-inline-block">
+                        <i class="icon material-icons">add_a_photo</i>
+                      </a>
+                    </span>
+                    <span class="margin-horizontal">
+                      <a class="add-photo-library display-inline-block">
+                        <i class="icon material-icons">add_photo_alternate</i>
+                      </a>
+                    </span>
+                  </div>
+                  <div class="photo-holder block"></div>
                 </div>
               </li>
               <li class="item-content item-input">

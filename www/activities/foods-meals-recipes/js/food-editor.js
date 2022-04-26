@@ -99,6 +99,8 @@ app.FoodEditor = {
     app.FoodEditor.el.nutritionButton = document.querySelector(".page[data-name='food-editor'] #nutrition-button");
     app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
     app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
+    app.FoodEditor.el.addPhotoCamera = Array.from(document.getElementsByClassName("add-photo-camera"));
+    app.FoodEditor.el.addPhotoLibrary = Array.from(document.getElementsByClassName("add-photo-library"));
     app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
   },
 
@@ -154,11 +156,21 @@ app.FoodEditor = {
       app.FoodEditor.el.nutritionButton.hasClickEvent = true;
     }
 
-    // Add-photo
-    app.FoodEditor.el.addPhoto.forEach((x, i) => {
+    // Take photo
+    app.FoodEditor.el.addPhotoCamera.forEach((x, i) => {
       if (!x.hasClickEvent) {
         x.addEventListener("click", (e) => {
-          app.FoodEditor.takePicture(i);
+          app.FoodEditor.takePicture(i, Camera.PictureSourceType.CAMERA);
+        });
+        x.hasClickEvent = true;
+      }
+    });
+
+    // Add photo from library
+    app.FoodEditor.el.addPhotoLibrary.forEach((x, i) => {
+      if (!x.hasClickEvent) {
+        x.addEventListener("click", (e) => {
+          app.FoodEditor.takePicture(i, Camera.PictureSourceType.PHOTOLIBRARY);
         });
         x.hasClickEvent = true;
       }
@@ -191,7 +203,7 @@ app.FoodEditor = {
       } else {
         app.FoodEditor.el.link.style.display = "block";
 
-        if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined && !app.FoodEditor.item.barcode.startsWith('custom_'))
+        if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined && !app.FoodEditor.item.barcode.startsWith("custom_"))
           app.FoodEditor.el.download.style.display = "block";
       }
     }
@@ -426,26 +438,56 @@ app.FoodEditor = {
 
   populateImage: function(item) {
     app.FoodEditor.item_image_url = item.image_url;
-    app.FoodEditor.el.mainPhoto.innerHTML = "";
 
-    if (app.Settings.get("foodlist", "show-images")) {
-      let wifiOnly = app.Settings.get("foodlist", "wifi-images");
-      if (app.mode == "development") wifiOnly = false;
+    app.FoodEditor.el.mainPhoto.style.display = "none";
 
-      if (navigator.connection.type !== "none") {
-        if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-          if (item.image_url !== undefined && item.image_url !== "" && item.image_url !== "undefined") {
-            let img = document.createElement("img");
-            img.src = unescape(item.image_url);
-            img.style["max-width"] = "80vw";
-            img.style["max-height"] = "50vh";
+    if (item.image_url !== undefined && item.image_url !== "" && item.image_url !== "undefined") {
 
-            app.FoodEditor.el.mainPhoto.style.display = "block";
-            app.FoodEditor.el.mainPhoto.appendChild(img);
+      if (app.Settings.get("foodlist", "show-images")) {
+
+        if (item.image_url.startsWith("http")) {
+          let wifiOnly = app.Settings.get("foodlist", "wifi-images");
+          if (app.mode == "development") wifiOnly = false;
+
+          if (navigator.connection.type !== "none") {
+            if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
+              let src = unescape(item.image_url);
+              app.FoodEditor.insertImageEl(0, src, false);
+            }
           }
+        } else {
+          app.FoodEditor.insertImageEl(0, item.image_url, true);
         }
       }
+    } else if (app.FoodEditor.origin == "foodlist") {
+      app.FoodEditor.el.mainPhoto.style.display = "block";
+      app.FoodEditor.el.addPhoto[0].style.display = "flex";
+      app.FoodEditor.el.photoHolder[0].innerHTML = "";
     }
+  },
+
+  insertImageEl: function(index, src, removable) {
+    const holder = app.FoodEditor.el.photoHolder[index];
+    holder.innerHTML = "";
+
+    app.FoodEditor.el.mainPhoto.style.display = "block";
+    app.FoodEditor.el.addPhoto[index].style.display = "none";
+
+    let img = document.createElement("img");
+    img.src = src;
+    img.style["max-width"] = "80vw";
+    img.style["max-height"] = "40vh";
+
+    if (removable == true) {
+      holder.classList.add("ripple");
+      img.addEventListener("taphold", function(e) {
+        app.FoodEditor.removePicture(index);
+      });
+    } else {
+      holder.classList.remove("ripple");
+    }
+
+    holder.appendChild(img);
   },
 
   changeServing: function(item, field, newValue) {
@@ -489,36 +531,40 @@ app.FoodEditor = {
     }
   },
 
-  takePicture: function(index) {
+  takePicture: function(index, sourceType) {
 
     let options = {
+      "sourceType": sourceType,
+      "destinationType": Camera.DestinationType.DATA_URL,
       "allowEdit": app.Settings.get("integration", "edit-images"),
       "saveToPhotoAlbum": false
     };
 
-    navigator.camera.getPicture((image_uri) => {
+    navigator.camera.getPicture((image) => {
 
-        // Add new image
-        let img = document.createElement("img");
-        img.src = image_uri;
-        img.style["width"] = "50%";
+      let uri = "data:image/jpeg;base64," + image;
 
-        img.addEventListener("taphold", function(e) {
-          app.FoodEditor.removePicture(index);
-        });
+      fetch(uri).then((res) => res.blob()).then(async (blob) => {
 
-        app.FoodEditor.el.photoHolder[index].innerHTML = "";
-        app.FoodEditor.el.photoHolder[index].appendChild(img);
-        app.FoodEditor.el.addPhoto[index].style.display = "none";
-        app.FoodEditor.images[index] = image_uri;
-      },
-      (err) => {
-        if (err != "No Image Selected") {
-          let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-          app.Utils.toast(msg, 2500);
-          console.error(err);
+        let blobUrl = URL.createObjectURL(blob);
+        app.FoodEditor.insertImageEl(index, blobUrl, true);
+
+        if (app.FoodEditor.scan == true) {
+          app.FoodEditor.images[index] = blob;
+        } else {
+          let resizedBlob = await app.Utils.resizeImageBlob(blob, "jpeg");
+          let sourceString = await app.Utils.blobToBase64(resizedBlob);
+          app.FoodEditor.item_image_url = sourceString;
         }
-      }, options);
+      });
+    },
+    (err) => {
+      if (err != "No Image Selected") {
+        let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
+        app.Utils.toast(msg, 2500);
+        console.error(err);
+      }
+    }, options);
   },
 
   removePicture: function(index) {
@@ -540,9 +586,13 @@ app.FoodEditor = {
           text: app.strings.dialogs.delete || "Delete",
           keyCodes: [13],
           onClick: () => {
+            app.FoodEditor.el.addPhoto[index].style.display = "flex";
             app.FoodEditor.el.photoHolder[index].innerHTML = "";
-            app.FoodEditor.el.addPhoto[index].style.display = "block";
-            app.FoodEditor.images[index] = undefined;
+
+            if (app.FoodEditor.scan == true)
+              app.FoodEditor.images[index] = undefined;
+            else
+              app.FoodEditor.item_image_url = undefined;
           }
         }
       ]

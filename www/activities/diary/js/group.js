@@ -74,9 +74,8 @@ app.Group = {
 
     // Render items
     let showTimestamps = app.Settings.get("diary", "timestamps");
-    let showThumbnails = app.Utils.showThumbnails("diary");
     this.items.forEach((x) => {
-      app.FoodsMealsRecipes.renderItem(x, innerUl, false, false, true, undefined, self.removeItem, undefined, showTimestamps, showThumbnails);
+      app.FoodsMealsRecipes.renderItem(x, innerUl, false, false, true, undefined, self.removeItem, undefined, showTimestamps, "diary");
     });
 
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items);

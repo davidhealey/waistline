@@ -1,5 +1,7 @@
 - you can now add items to the diary or a meal/recipe by scanning their barcodes
 - tap on the diary bottom bar to see your remaining allowance and goal progress
+- added ability to select food images from the photo gallery
+- you can now add pictures to local food items
 - added support for Ukrainian language
 - various bugfixes
 

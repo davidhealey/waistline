@@ -395,7 +395,7 @@ app.FoodsMealsRecipes = {
     return 0;
   },
 
-  renderItem: async function(data, el, checkbox, sortable, clickable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnail) {
+  renderItem: async function(data, el, checkbox, sortable, clickable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnailSetting) {
 
     if (data !== undefined) {
 
@@ -449,8 +449,8 @@ app.FoodsMealsRecipes = {
         }
 
         //Thumbnail
-        if (thumbnail == true) {
-          let img = app.FoodsMealsRecipes.getItemThumbnail(item.image_url);
+        if (thumbnailSetting !== undefined) {
+          let img = app.FoodsMealsRecipes.getItemThumbnail(item.image_url, thumbnailSetting);
 
           if (img !== undefined)
             label.appendChild(img);
@@ -558,14 +558,31 @@ app.FoodsMealsRecipes = {
     }
   },
 
-  getItemThumbnail: function(url) {
+  getItemThumbnail: function(url, thumbnailSetting) {
     if (url !== undefined && url !== "" && url !== "undefined") {
-      let div = document.createElement("div");
-      div.className = "food-thumbnail";
-      let img = document.createElement("img");
-      img.src = unescape(url);
-      div.appendChild(img);
-      return div;
+
+      if (app.Settings.get(thumbnailSetting, "show-thumbnails")) {
+
+        let div = document.createElement("div");
+        div.className = "food-thumbnail";
+        let img = document.createElement("img");
+        div.appendChild(img);
+
+        if (url.startsWith("http")) {
+          let wifiOnly = app.Settings.get(thumbnailSetting, "wifi-thumbnails");
+          if (app.mode == "development") wifiOnly = false;
+
+          if (navigator.connection.type !== "none") {
+            if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
+              img.src = unescape(url);
+              return div;
+            }
+          }
+        } else {
+          img.src = url;
+          return div;
+        }
+      }
     }
     return undefined;
   },

@@ -34,6 +34,8 @@ i.searchbar-icon {margin: -12px 12px;}
 
 .item-content.item-inner {column-gap: 0.8em;}
 
+.photo-holder {width: 100%; text-align: center;}
+
 #food-edit-form .item-input .item-title {width: 32vw;}
 #meal-edit-form .item-input .item-title {width: 32vw;}
 #recipe-edit-form .item-input .item-title {width: 32vw;}
