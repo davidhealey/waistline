@@ -604,6 +604,15 @@ app.FoodsMealsRecipes = {
     }
   },
 
+  clearSelection: function() {
+    const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
+    checked.forEach((x) => {
+      x.checked = false;
+    });
+    app.FoodsMealsRecipes.selection = [];
+    app.FoodsMealsRecipes.updateSelectionCount();
+  },
+
   unselectOldItem: function(item) {
     // Iterate over all selected items in the current view
     const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));

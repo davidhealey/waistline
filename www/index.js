@@ -519,6 +519,12 @@ document.addEventListener("backbutton", (e) => {
     return false;
   }
 
+  let selection = app.FoodsMealsRecipes.selection;
+  if (searchField && selection && selection.length) {
+    app.FoodsMealsRecipes.clearSelection();
+    return false;
+  }
+
   let history = new Set(app.f7.views.main.history);
   if (history.size > 1) {
     app.f7.views.main.router.back();
