@@ -604,17 +604,19 @@ app.FoodsMealsRecipes = {
     }
   },
 
-  clearSearchSelection: function() {
-
-    //Remove any selected search items from the selection array
+  unselectOldItem: function(item) {
+    // Iterate over all selected items in the current view
     const checked = Array.from(document.querySelectorAll('input[type=checkbox]:checked'));
-
-    checked.forEach((x, i) => {
-      let itemIndex = app.FoodsMealsRecipes.selection.indexOf(x.data);
-      if (itemIndex != -1)
-        app.FoodsMealsRecipes.selection.splice(itemIndex, 1);
+    checked.forEach((x) => {
+      let data = JSON.parse(x.data);
+      // Check if the item id or barcode matches the selected data
+      if ((data.id !== undefined && data.id === item.id) || (data.barcode !== undefined && data.barcode === item.barcode)) {
+        // They match -> remove the old item from the selection because it was just edited
+        let index = app.FoodsMealsRecipes.selection.indexOf(x.data);
+        if (index != -1)
+          app.FoodsMealsRecipes.selection.splice(index, 1);
+      }
     });
-
     app.FoodsMealsRecipes.updateSelectionCount();
   },
 

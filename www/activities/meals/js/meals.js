@@ -25,8 +25,8 @@ app.Meals = {
 
   init: async function(context) {
 
-    if (context)
-      app.FoodsMealsRecipes.clearSearchSelection();
+    if (context && context.meal)
+      app.FoodsMealsRecipes.unselectOldItem(context.meal);
 
     app.Meals.getComponents();
     app.Meals.createSearchBar();

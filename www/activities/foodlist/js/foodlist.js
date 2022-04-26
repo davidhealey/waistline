@@ -27,7 +27,7 @@ app.Foodlist = {
 
     if (context && context.item) {
       await this.putItem(context.item);
-      app.FoodsMealsRecipes.clearSearchSelection();
+      app.FoodsMealsRecipes.unselectOldItem(context.item);
     }
 
     this.getComponents();
