@@ -492,15 +492,22 @@ app.FoodEditor = {
   takePicture: function(index) {
 
     let options = {
+      "destinationType": Camera.DestinationType.DATA_URL,
       "allowEdit": app.Settings.get("integration", "edit-images"),
       "saveToPhotoAlbum": false
     };
 
-    navigator.camera.getPicture((image_uri) => {
+    navigator.camera.getPicture((image) => {
+
+      let uri = "data:image/jpeg;base64," + image;
+
+      fetch(uri).then((res) => res.blob()).then((blob) => {
+
+        let blobUrl = URL.createObjectURL(blob);
 
         // Add new image
         let img = document.createElement("img");
-        img.src = image_uri;
+        img.src = blobUrl;
         img.style["width"] = "50%";
 
         img.addEventListener("taphold", function(e) {
@@ -510,15 +517,16 @@ app.FoodEditor = {
         app.FoodEditor.el.photoHolder[index].innerHTML = "";
         app.FoodEditor.el.photoHolder[index].appendChild(img);
         app.FoodEditor.el.addPhoto[index].style.display = "none";
-        app.FoodEditor.images[index] = image_uri;
-      },
-      (err) => {
-        if (err != "No Image Selected") {
-          let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-          app.Utils.toast(msg, 2500);
-          console.error(err);
-        }
-      }, options);
+        app.FoodEditor.images[index] = blob;
+      });
+    },
+    (err) => {
+      if (err != "No Image Selected") {
+        let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
+        app.Utils.toast(msg, 2500);
+        console.error(err);
+      }
+    }, options);
   },
 
   removePicture: function(index) {
