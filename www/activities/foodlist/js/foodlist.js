@@ -177,7 +177,6 @@ app.Foodlist = {
     let itemsPerLoad = 20; // Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
     let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
-    let showThumbnails = app.Utils.showThumbnails("foodlist");
 
     let showHiddenItems = false;
     let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
@@ -194,7 +193,7 @@ app.Foodlist = {
         if (item != undefined) {
           if (item.hidden == true && (showHiddenItems == false || forceHideItems == true)) continue;
           item.type = "food";
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, showThumbnails);
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, "foodlist");
         }
       }
     }

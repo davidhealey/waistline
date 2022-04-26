@@ -117,20 +117,6 @@ app.Utils = {
     return true;
   },
 
-  showThumbnails: function(page) {
-    if (app.Settings.get(page, "show-thumbnails")) {
-      let wifiOnly = app.Settings.get(page, "wifi-thumbnails");
-      if (app.mode == "development") wifiOnly = false;
-
-      if (navigator.connection.type !== "none") {
-        if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-          return true;
-        }
-      }
-    }
-    return false;
-  },
-
   notify: function(text, icon) {
     // Create notification with click to close
     let notification = app.f7.notification.create({

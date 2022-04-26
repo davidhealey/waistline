@@ -269,10 +269,9 @@ app.RecipeEditor = {
       app.RecipeEditor.el.foodlist.innerHTML = "";
 
       let clickable = (app.RecipeEditor.editingEnabled == true);
-      let showThumbnails = app.Utils.showThumbnails("foodlist");
 
       app.RecipeEditor.recipe.items.forEach(async (x, i) => {
-        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, true, clickable, app.RecipeEditor.recipeItemClickHandler, app.RecipeEditor.removeItem, undefined, false, showThumbnails);
+        app.FoodsMealsRecipes.renderItem(x, app.RecipeEditor.el.foodlist, false, true, clickable, app.RecipeEditor.recipeItemClickHandler, app.RecipeEditor.removeItem, undefined, false, "foodlist");
       });
       app.f7.sortable.disable(app.RecipeEditor.el.foodlist);
 
