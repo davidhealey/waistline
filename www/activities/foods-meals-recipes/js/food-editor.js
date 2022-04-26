@@ -433,17 +433,21 @@ app.FoodEditor = {
 
       if (app.Settings.get("foodlist", "show-images")) {
 
-        let wifiOnly = app.Settings.get("foodlist", "wifi-images");
-        if (app.mode == "development") wifiOnly = false;
+        if (item.image_url.startsWith("http")) {
+          let wifiOnly = app.Settings.get("foodlist", "wifi-images");
+          if (app.mode == "development") wifiOnly = false;
 
-        if (navigator.connection.type !== "none") {
-          if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-            let src = unescape(item.image_url);
-            app.FoodEditor.insertImageEl(0, src, false);
+          if (navigator.connection.type !== "none") {
+            if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
+              let src = unescape(item.image_url);
+              app.FoodEditor.insertImageEl(0, src, false);
+            }
           }
+        } else {
+          app.FoodEditor.insertImageEl(0, item.image_url, true);
         }
       }
-    } else if (app.FoodEditor.scan == true) {
+    } else if (app.FoodEditor.origin == "foodlist") {
       app.FoodEditor.el.mainPhoto.style.display = "block";
       app.FoodEditor.el.addPhoto[0].style.display = "block";
       app.FoodEditor.el.photoHolder[0].innerHTML = "";
@@ -527,13 +531,18 @@ app.FoodEditor = {
 
       let uri = "data:image/jpeg;base64," + image;
 
-      fetch(uri).then((res) => res.blob()).then((blob) => {
+      fetch(uri).then((res) => res.blob()).then(async (blob) => {
 
         let blobUrl = URL.createObjectURL(blob);
-
         app.FoodEditor.insertImageEl(index, blobUrl, true);
 
-        app.FoodEditor.images[index] = blob;
+        if (app.FoodEditor.scan == true) {
+          app.FoodEditor.images[index] = blob;
+        } else {
+          let resizedBlob = await app.Utils.resizeImageBlob(blob, "jpeg");
+          let sourceString = await app.Utils.blobToBase64(resizedBlob);
+          app.FoodEditor.item_image_url = sourceString;
+        }
       });
     },
     (err) => {
@@ -566,7 +575,11 @@ app.FoodEditor = {
           onClick: () => {
             app.FoodEditor.el.addPhoto[index].style.display = "block";
             app.FoodEditor.el.photoHolder[index].innerHTML = "";
-            app.FoodEditor.images[index] = undefined;
+
+            if (app.FoodEditor.scan == true)
+              app.FoodEditor.images[index] = undefined;
+            else
+              app.FoodEditor.item_image_url = undefined;
           }
         }
       ]

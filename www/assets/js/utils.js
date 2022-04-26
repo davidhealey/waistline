@@ -425,5 +425,72 @@ app.Utils = {
     }, () => {
       return false;
     });
+  },
+
+  resizeImageBlob: function(blob, type, maxBytes=20000) {
+    return new Promise(function(resolve, reject) {
+      const img = new Image();
+      img.src = URL.createObjectURL(blob);
+
+      img.onload = async () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        let width = img.width;
+        let height = img.height;
+        let start = 0;
+        let end = 1;
+        let last, accepted, newblob;
+
+        // Scale image to max 1280x720 while keeping aspect ratio
+        const maxWidth = 1280;
+        const maxHeight = 720;
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        newblob = await new Promise((rs) => canvas.toBlob(rs, "image/"+type, 1));
+        accepted = newblob;
+
+        if (newblob.size < maxBytes)
+          resolve(newblob); // No size change needed
+
+        // Binary search for the right size
+        while (true) {
+          const mid = Math.round( ((start + end) / 2) * 100 ) / 100;
+          if (mid === last) break;
+          last = mid;
+          newblob = await new Promise((rs) => canvas.toBlob(rs, "image/"+type, mid));
+
+          if (newblob.size < maxBytes) {
+            start = mid;
+            accepted = newblob;
+          } else {
+            end = mid;
+          }
+        }
+
+        resolve(accepted);
+      };
+    });
+  },
+
+  blobToBase64: function(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
   }
 };
