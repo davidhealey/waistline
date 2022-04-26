@@ -99,6 +99,8 @@ app.FoodEditor = {
     app.FoodEditor.el.nutritionButton = document.querySelector(".page[data-name='food-editor'] #nutrition-button");
     app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
     app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
+    app.FoodEditor.el.addPhotoCamera = Array.from(document.getElementsByClassName("add-photo-camera"));
+    app.FoodEditor.el.addPhotoLibrary = Array.from(document.getElementsByClassName("add-photo-library"));
     app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
   },
 
@@ -154,11 +156,21 @@ app.FoodEditor = {
       app.FoodEditor.el.nutritionButton.hasClickEvent = true;
     }
 
-    // Add-photo
-    app.FoodEditor.el.addPhoto.forEach((x, i) => {
+    // Take photo
+    app.FoodEditor.el.addPhotoCamera.forEach((x, i) => {
       if (!x.hasClickEvent) {
         x.addEventListener("click", (e) => {
-          app.FoodEditor.takePicture(i);
+          app.FoodEditor.takePicture(i, Camera.PictureSourceType.CAMERA);
+        });
+        x.hasClickEvent = true;
+      }
+    });
+
+    // Add photo from library
+    app.FoodEditor.el.addPhotoLibrary.forEach((x, i) => {
+      if (!x.hasClickEvent) {
+        x.addEventListener("click", (e) => {
+          app.FoodEditor.takePicture(i, Camera.PictureSourceType.PHOTOLIBRARY);
         });
         x.hasClickEvent = true;
       }
@@ -449,7 +461,7 @@ app.FoodEditor = {
       }
     } else if (app.FoodEditor.origin == "foodlist") {
       app.FoodEditor.el.mainPhoto.style.display = "block";
-      app.FoodEditor.el.addPhoto[0].style.display = "block";
+      app.FoodEditor.el.addPhoto[0].style.display = "flex";
       app.FoodEditor.el.photoHolder[0].innerHTML = "";
     }
   },
@@ -519,9 +531,10 @@ app.FoodEditor = {
     }
   },
 
-  takePicture: function(index) {
+  takePicture: function(index, sourceType) {
 
     let options = {
+      "sourceType": sourceType,
       "destinationType": Camera.DestinationType.DATA_URL,
       "allowEdit": app.Settings.get("integration", "edit-images"),
       "saveToPhotoAlbum": false
@@ -573,7 +586,7 @@ app.FoodEditor = {
           text: app.strings.dialogs.delete || "Delete",
           keyCodes: [13],
           onClick: () => {
-            app.FoodEditor.el.addPhoto[index].style.display = "block";
+            app.FoodEditor.el.addPhoto[index].style.display = "flex";
             app.FoodEditor.el.photoHolder[index].innerHTML = "";
 
             if (app.FoodEditor.scan == true)
