@@ -564,15 +564,13 @@ app.FoodsMealsRecipes = {
   },
 
   checkboxChanged: function(state, item) {
-
     if (state === true) {
       app.FoodsMealsRecipes.selection.push(item);
     } else {
-      let itemIndex = app.FoodsMealsRecipes.selection.indexOf(item);
-      if (itemIndex != -1)
-        app.FoodsMealsRecipes.selection.splice(itemIndex, 1);
+      let index = app.FoodsMealsRecipes.selection.indexOf(item);
+      if (index != -1)
+        app.FoodsMealsRecipes.selection.splice(index, 1);
     }
-
     app.FoodsMealsRecipes.updateSelectionCount();
   },
 
@@ -633,10 +631,6 @@ app.FoodsMealsRecipes = {
     $(".page-content").scrollTop(0);
     app.f7.searchbar.disable(searchForm);
     app.FoodsMealsRecipes.clearSelectedCategories(searchFilter, searchFilterIcon);
-  },
-
-  getSelection: function() {
-    return app.FoodsMealsRecipes.selection;
   },
 
   initializeSearchBar: function(element, eventHandlers) {
