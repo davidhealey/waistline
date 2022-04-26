@@ -191,7 +191,7 @@ app.FoodEditor = {
       } else {
         app.FoodEditor.el.link.style.display = "block";
 
-        if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined && !app.FoodEditor.item.barcode.startsWith('custom_'))
+        if (app.FoodEditor.item !== undefined && app.FoodEditor.item.barcode !== undefined && !app.FoodEditor.item.barcode.startsWith("custom_"))
           app.FoodEditor.el.download.style.display = "block";
       }
     }
@@ -426,26 +426,52 @@ app.FoodEditor = {
 
   populateImage: function(item) {
     app.FoodEditor.item_image_url = item.image_url;
-    app.FoodEditor.el.mainPhoto.innerHTML = "";
 
-    if (app.Settings.get("foodlist", "show-images")) {
-      let wifiOnly = app.Settings.get("foodlist", "wifi-images");
-      if (app.mode == "development") wifiOnly = false;
+    app.FoodEditor.el.mainPhoto.style.display = "none";
 
-      if (navigator.connection.type !== "none") {
-        if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-          if (item.image_url !== undefined && item.image_url !== "" && item.image_url !== "undefined") {
-            let img = document.createElement("img");
-            img.src = unescape(item.image_url);
-            img.style["max-width"] = "80vw";
-            img.style["max-height"] = "50vh";
+    if (item.image_url !== undefined && item.image_url !== "" && item.image_url !== "undefined") {
 
-            app.FoodEditor.el.mainPhoto.style.display = "block";
-            app.FoodEditor.el.mainPhoto.appendChild(img);
+      if (app.Settings.get("foodlist", "show-images")) {
+
+        let wifiOnly = app.Settings.get("foodlist", "wifi-images");
+        if (app.mode == "development") wifiOnly = false;
+
+        if (navigator.connection.type !== "none") {
+          if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
+            let src = unescape(item.image_url);
+            app.FoodEditor.insertImageEl(0, src, false);
           }
         }
       }
+    } else if (app.FoodEditor.scan == true) {
+      app.FoodEditor.el.mainPhoto.style.display = "block";
+      app.FoodEditor.el.addPhoto[0].style.display = "block";
+      app.FoodEditor.el.photoHolder[0].innerHTML = "";
     }
+  },
+
+  insertImageEl: function(index, src, removable) {
+    const holder = app.FoodEditor.el.photoHolder[index];
+    holder.innerHTML = "";
+
+    app.FoodEditor.el.mainPhoto.style.display = "block";
+    app.FoodEditor.el.addPhoto[index].style.display = "none";
+
+    let img = document.createElement("img");
+    img.src = src;
+    img.style["max-width"] = "80vw";
+    img.style["max-height"] = "40vh";
+
+    if (removable == true) {
+      holder.classList.add("ripple");
+      img.addEventListener("taphold", function(e) {
+        app.FoodEditor.removePicture(index);
+      });
+    } else {
+      holder.classList.remove("ripple");
+    }
+
+    holder.appendChild(img);
   },
 
   changeServing: function(item, field, newValue) {
@@ -505,18 +531,8 @@ app.FoodEditor = {
 
         let blobUrl = URL.createObjectURL(blob);
 
-        // Add new image
-        let img = document.createElement("img");
-        img.src = blobUrl;
-        img.style["width"] = "50%";
+        app.FoodEditor.insertImageEl(index, blobUrl, true);
 
-        img.addEventListener("taphold", function(e) {
-          app.FoodEditor.removePicture(index);
-        });
-
-        app.FoodEditor.el.photoHolder[index].innerHTML = "";
-        app.FoodEditor.el.photoHolder[index].appendChild(img);
-        app.FoodEditor.el.addPhoto[index].style.display = "none";
         app.FoodEditor.images[index] = blob;
       });
     },
@@ -548,8 +564,8 @@ app.FoodEditor = {
           text: app.strings.dialogs.delete || "Delete",
           keyCodes: [13],
           onClick: () => {
-            app.FoodEditor.el.photoHolder[index].innerHTML = "";
             app.FoodEditor.el.addPhoto[index].style.display = "block";
+            app.FoodEditor.el.photoHolder[index].innerHTML = "";
             app.FoodEditor.images[index] = undefined;
           }
         }
