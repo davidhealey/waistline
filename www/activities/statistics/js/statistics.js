@@ -334,7 +334,8 @@ app.Stats = {
           let date = timestamp.toLocaleDateString([], {
             year: "numeric",
             month: "2-digit",
-            day: "2-digit"
+            day: "2-digit",
+            timeZone: "UTC"
           });
           result.dates.push(date);
           result.dataset.values.push(Math.round(value * 100) / 100);
