@@ -158,7 +158,8 @@
     "search": "Поиск",
     "scan-prompt": "Поместите штрих-код в область сканирования",
     "show-more-nutriments": "Показать больше питательных веществ",
-    "show-less-nutriments": "Показать меньше питательных веществ"
+    "show-less-nutriments": "Показать меньше питательных веществ",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Редактировать элемент",
@@ -194,10 +195,10 @@
     "auto-adjust": "Auto adjust to meet average goal",
     "minimum-goal": "Минимальная цель",
     "percent-goal": "Цель в процентах от потребляемой энергии",
-    "effective-from": "Effective from",
-    "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "effective-from": "Действует с",
+    "new-goal": "Новая цель",
+    "delete-goal": "Удалить цель",
+    "goal-deleted": "Цель удалена"
   },
   "meal-editor": {
     "title": "Изменить блюдо",
@@ -252,13 +253,13 @@
     },
     "goals": {
       "title": "Цели",
-      "first-day-of-week": "First day of the week",
+      "first-day-of-week": "Первый день недели",
       "average-goal-base": "Compute average goals based on",
-      "current-week": "Current Week",
-      "last-3-days": "Last 3 Days",
-      "last-5-days": "Last 5 Days",
-      "last-7-days": "Last 7 Days",
-      "last-10-days": "Last 10 Days"
+      "current-week": "Текущая неделя",
+      "last-3-days": "Последние 3 дня",
+      "last-5-days": "Последние 5 дней",
+      "last-7-days": "Последние 7 дней",
+      "last-10-days": "Последние 10 дней"
     },
     "foods": {
       "title": "Еда, Блюда, Рецепты",
@@ -322,11 +323,11 @@
       "invalid-api-key": "Неправильный API-ключ",
       "export-success": "База данных экспортирована",
       "export-fail": "Экспорт не удался",
-      "import-fail": "Import Failed",
+      "import-fail": "Ошибка импорта",
       "import": "Импорт",
       "confirm-import": "Вы уверены? Это перезапишет вашу текущую базу данных.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "Вы уверены? Это действие нельзя отменить. Пожалуйста, сначала сделайте резервную копию базы данных.",
+      "import-foods-category-fail": "Пожалуйста, выберите по крайней мере одну категорию",
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
@@ -356,6 +357,7 @@
     "finnish": "Финский",
     "spanish": "Испанский",
     "dutch": "Голландский",
-    "turkish": "Turkish"
+    "turkish": "Турецкий",
+    "ukrainian": "Ukrainian"
   }
 }

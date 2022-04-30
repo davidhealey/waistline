@@ -158,7 +158,8 @@
     "search": "Ricerca",
     "scan-prompt": "Posiziona il codice Qr all'interno dell'area di scansione",
     "show-more-nutriments": "Mostra più nutrimenti",
-    "show-less-nutriments": "Mostra meno nutrimenti"
+    "show-less-nutriments": "Mostra meno nutrimenti",
+    "added-to-selection": "Elemento scansionato aggiunto alla selezione"
   },
   "food-editor": {
     "edit-item": "Modifica elementi",
@@ -356,6 +357,7 @@
     "finnish": "Finlandese",
     "spanish": "Spagnolo",
     "dutch": "Olandese",
-    "turkish": "Turkish"
+    "turkish": "Turco",
+    "ukrainian": "Ucraino"
   }
 }

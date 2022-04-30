@@ -158,7 +158,8 @@
     "search": "Etsi",
     "scan-prompt": "Aseta viivakoodi kuvausalueen sisälle",
     "show-more-nutriments": "Näytä enemmän ravinteita",
-    "show-less-nutriments": "Näytä vähemmän ravinteita"
+    "show-less-nutriments": "Näytä vähemmän ravinteita",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Muokkaa tuotetta",
@@ -196,8 +197,8 @@
     "percent-goal": "Tavoite prosentteina energian saannista",
     "effective-from": "Effective from",
     "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "delete-goal": "Poista tavoite",
+    "goal-deleted": "Tavoite poistettu"
   },
   "meal-editor": {
     "title": "Muokkaa ateriaa",
@@ -356,6 +357,7 @@
     "finnish": "Suomi",
     "spanish": "Espanja",
     "dutch": "Hollanti",
-    "turkish": "Turkish"
+    "turkish": "Turkki",
+    "ukrainian": "Ukraina"
   }
 }

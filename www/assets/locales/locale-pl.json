@@ -158,7 +158,8 @@
     "search": "Szukaj",
     "scan-prompt": "Umieść kod kreskowy w obrębie pola skanowania",
     "show-more-nutriments": "Pokaż więcej składników odżywczych",
-    "show-less-nutriments": "Pokaż mniej składników odżywczych"
+    "show-less-nutriments": "Pokaż mniej składników odżywczych",
+    "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
     "edit-item": "Edytuj element",
@@ -356,6 +357,7 @@
     "finnish": "Fiński",
     "spanish": "Hiszpański",
     "dutch": "Holenderski",
-    "turkish": "Turkish"
+    "turkish": "Turkish",
+    "ukrainian": "Ukrainian"
   }
 }
