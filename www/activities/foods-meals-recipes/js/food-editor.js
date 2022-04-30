@@ -744,7 +744,7 @@ app.FoodEditor = {
     app.f7.preloader.show();
 
     if (barcode !== undefined) {
-      if (barcode.includes("fdcId_"))
+      if (barcode.startsWith("fdcId_"))
         result = await app.USDA.search(barcode.replace("fdcId_", ""), preferDataPer100g);
       else
         result = await app.OpenFoodFacts.search(barcode, preferDataPer100g);
@@ -756,7 +756,8 @@ app.FoodEditor = {
       item = result[0];
       item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
       app.FoodEditor.populateFields(item);
-      app.FoodEditor.populateImage(item);
+      if (!barcode.startsWith("fdcId_"))
+        app.FoodEditor.populateImage(item);
       app.FoodEditor.renderNutritionFields(item);
     }
   },
