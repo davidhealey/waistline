@@ -90,7 +90,7 @@ app.Utils = {
   },
 
   timeoutFetch: function(url, options, ms) {
-    return new Promise((resolve, reject) => {
+    return new Promise(function(resolve, reject) {
       let timeout = ms || 10000;
       let timeoutId = setTimeout(() => {
         reject(new Error("timeout"))
@@ -428,9 +428,9 @@ app.Utils = {
         let end = 1;
         let last, accepted, newblob;
 
-        // Scale image to max 1280x720 while keeping aspect ratio
-        const maxWidth = 1280;
-        const maxHeight = 720;
+        // Scale image to max 640x640 while keeping aspect ratio
+        const maxWidth = 640;
+        const maxHeight = 640;
         if (width > height) {
           if (width > maxWidth) {
             height *= maxWidth / width;
@@ -473,7 +473,7 @@ app.Utils = {
   },
 
   blobToBase64: function(blob) {
-    return new Promise((resolve, reject) => {
+    return new Promise(function(resolve, reject) {
       const reader = new FileReader();
       reader.onloadend = () => resolve(reader.result);
       reader.readAsDataURL(blob);
