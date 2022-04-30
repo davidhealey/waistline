@@ -6,7 +6,7 @@
     "cordova-plugin-ionic-keyboard": "2.2.0"
   },
   "devDependencies": {
-    "cordova-android": "^10.1.1",
+    "cordova-android": "^10.1.2",
     "cordova-browser": "^6.0.0",
     "cordova-electron": "^3.0.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
@@ -38,8 +38,8 @@
     },
     "platforms": [
       "browser",
-      "android",
-      "electron"
+      "electron",
+      "android"
     ]
   }
 }
