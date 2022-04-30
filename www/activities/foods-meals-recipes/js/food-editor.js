@@ -549,16 +549,18 @@ app.FoodEditor = {
 
       fetch(uri).then((res) => res.blob()).then(async (blob) => {
 
-        let blobUrl = URL.createObjectURL(blob);
-        app.FoodEditor.insertImageEl(index, blobUrl, true);
-
         if (app.FoodEditor.scan == true) {
           app.FoodEditor.images[index] = blob;
         } else {
+          app.f7.preloader.show();
           let resizedBlob = await app.Utils.resizeImageBlob(blob, "jpeg");
           let sourceString = await app.Utils.blobToBase64(resizedBlob);
+          app.f7.preloader.hide();
           app.FoodEditor.item_image_url = sourceString;
         }
+
+        let blobUrl = URL.createObjectURL(blob);
+        app.FoodEditor.insertImageEl(index, blobUrl, true);
       });
     },
     (err) => {
@@ -742,7 +744,7 @@ app.FoodEditor = {
     app.f7.preloader.show();
 
     if (barcode !== undefined) {
-      if (barcode.includes("fdcId_"))
+      if (barcode.startsWith("fdcId_"))
         result = await app.USDA.search(barcode.replace("fdcId_", ""), preferDataPer100g);
       else
         result = await app.OpenFoodFacts.search(barcode, preferDataPer100g);
@@ -754,7 +756,8 @@ app.FoodEditor = {
       item = result[0];
       item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
       app.FoodEditor.populateFields(item);
-      app.FoodEditor.populateImage(item);
+      if (!barcode.startsWith("fdcId_"))
+        app.FoodEditor.populateImage(item);
       app.FoodEditor.renderNutritionFields(item);
     }
   },
