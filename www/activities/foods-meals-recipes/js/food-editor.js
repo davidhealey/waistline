@@ -552,8 +552,10 @@ app.FoodEditor = {
         if (app.FoodEditor.scan == true) {
           app.FoodEditor.images[index] = blob;
         } else {
+          app.f7.preloader.show();
           let resizedBlob = await app.Utils.resizeImageBlob(blob, "jpeg");
           let sourceString = await app.Utils.blobToBase64(resizedBlob);
+          app.f7.preloader.hide();
           app.FoodEditor.item_image_url = sourceString;
         }
 
