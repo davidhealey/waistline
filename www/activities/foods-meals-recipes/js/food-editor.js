@@ -549,9 +549,6 @@ app.FoodEditor = {
 
       fetch(uri).then((res) => res.blob()).then(async (blob) => {
 
-        let blobUrl = URL.createObjectURL(blob);
-        app.FoodEditor.insertImageEl(index, blobUrl, true);
-
         if (app.FoodEditor.scan == true) {
           app.FoodEditor.images[index] = blob;
         } else {
@@ -559,6 +556,9 @@ app.FoodEditor = {
           let sourceString = await app.Utils.blobToBase64(resizedBlob);
           app.FoodEditor.item_image_url = sourceString;
         }
+
+        let blobUrl = URL.createObjectURL(blob);
+        app.FoodEditor.insertImageEl(index, blobUrl, true);
       });
     },
     (err) => {
