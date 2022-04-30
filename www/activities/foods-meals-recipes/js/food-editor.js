@@ -540,14 +540,17 @@ app.FoodEditor = {
       "sourceType": sourceType,
       "destinationType": Camera.DestinationType.DATA_URL,
       "allowEdit": app.Settings.get("integration", "edit-images"),
-      "saveToPhotoAlbum": false
+      "saveToPhotoAlbum": false,
+      "quality": 25
     };
 
-    navigator.camera.getPicture((image) => {
+    navigator.camera.getPicture(onSuccess, onError, options);
 
-      let uri = "data:image/jpeg;base64," + image;
+    function onSuccess(imageData) {
+        
+        let uri = "data:image/jpeg;base64," + imageData;
 
-      fetch(uri).then((res) => res.blob()).then(async (blob) => {
+        fetch(uri).then((res) => res.blob()).then(async (blob) => {
 
         if (app.FoodEditor.scan == true) {
           app.FoodEditor.images[index] = blob;
@@ -558,18 +561,17 @@ app.FoodEditor = {
           app.f7.preloader.hide();
           app.FoodEditor.item_image_url = sourceString;
         }
-
+        
         let blobUrl = URL.createObjectURL(blob);
         app.FoodEditor.insertImageEl(index, blobUrl, true);
       });
-    },
-    (err) => {
-      if (err != "No Image Selected") {
-        let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-        app.Utils.toast(msg, 2500);
-        console.error(err);
-      }
-    }, options);
+    }
+
+    function onError(err) {
+      let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
+      app.Utils.toast(msg, 2500);
+      console.error(err);
+    }
   },
 
   removePicture: function(index) {
