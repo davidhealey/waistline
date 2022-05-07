@@ -331,7 +331,7 @@
       "import-success-title": "Yedekleme geri yüklendi",
       "import-success-message": "İçe Aktarma Tamamlandı",
       "barcode-sound": "Barkod Tarama Sesi",
-      "edit-images": "Yüklemeden Önce Görüntüyü Düzenle",
+      "edit-images": "Crop Photos",
       "login-success": "Başarıyla Giriş Yapıldı"
     }
   },
