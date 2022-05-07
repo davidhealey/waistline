@@ -331,7 +331,7 @@
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
       "barcode-sound": "Ton wenn Strichcode gescannt wird",
-      "edit-images": "Crop Photos",
+      "edit-images": "Fotos zuschneiden",
       "login-success": "Anmeldung erfolgreich"
     }
   },
