@@ -331,7 +331,7 @@
       "import-success-title": "La sauvegarde a été restaurée",
       "import-success-message": "Importation réussie",
       "barcode-sound": "Son de scanner",
-      "edit-images": "Modifier les images avant téléversement",
+      "edit-images": "Crop Photos",
       "login-success": "Connexion réussie"
     }
   },
