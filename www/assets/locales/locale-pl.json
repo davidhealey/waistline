@@ -331,7 +331,7 @@
       "import-success-title": "Kopia zapasowa została przywrócona",
       "import-success-message": "Import Zakończony",
       "barcode-sound": "Sygnał skanera kodu kreskowego",
-      "edit-images": "Edycja zdjęć do przesłania",
+      "edit-images": "Crop Photos",
       "login-success": "Zalogowano pomyślnie"
     }
   },
