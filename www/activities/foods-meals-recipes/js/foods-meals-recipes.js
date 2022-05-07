@@ -471,7 +471,7 @@ app.FoodsMealsRecipes = {
           });
         }
 
-        if (tapholdCallback !== undefined && item.id !== undefined) {
+        if (clickable !== false && tapholdCallback !== undefined && item.id !== undefined) {
           inner.addEventListener("taphold", function(e) {
             e.preventDefault();
             tapholdCallback(item, li);
