@@ -331,7 +331,7 @@
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
       "barcode-sound": "צפצוף סריקת ברקוד",
-      "edit-images": "עריכת תמונות בטרם ההעלאה",
+      "edit-images": "Crop Photos",
       "login-success": "הכניסה הצליחה"
     }
   },
