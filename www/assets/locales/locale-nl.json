@@ -331,7 +331,7 @@
       "import-success-title": "De backup is hersteld",
       "import-success-message": "Import afgerond",
       "barcode-sound": "Geluid bij het scannen",
-      "edit-images": "Bewerk foto's voor het uploaden",
+      "edit-images": "Crop Photos",
       "login-success": "Login succesvol"
     }
   },
