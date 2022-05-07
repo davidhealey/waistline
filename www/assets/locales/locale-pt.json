@@ -331,7 +331,7 @@
       "import-success-title": "O backup foi restaurado",
       "import-success-message": "Importação concluída",
       "barcode-sound": "Som do código de barras",
-      "edit-images": "Editar imagens antes de fazer Upload",
+      "edit-images": "Crop Photos",
       "login-success": "Login Successful"
     }
   },
