@@ -331,7 +331,7 @@
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
-      "edit-images": "Изменить изображения перед загрузкой",
+      "edit-images": "Crop Photos",
       "login-success": "Вход выполнен"
     }
   },
