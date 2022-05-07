@@ -331,7 +331,7 @@
       "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Tuonti valmis",
       "barcode-sound": "Viivakoodin lukemisen äänimerkki",
-      "edit-images": "Muokkaa kuvia ennen lähetystä",
+      "edit-images": "Crop Photos",
       "login-success": "Kirjautuminen onnistui"
     }
   },
