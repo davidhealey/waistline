@@ -331,7 +331,7 @@
       "import-success-title": "Se ha restaurado la copia de seguridad",
       "import-success-message": "Importación completa",
       "barcode-sound": "Pitido del escaneo de código de barras",
-      "edit-images": "Editar imágenes antes de subir",
+      "edit-images": "Crop Photos",
       "login-success": "Login Successful"
     }
   },
