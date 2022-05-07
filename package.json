@@ -3,6 +3,7 @@
   "displayName": "Waistline",
   "dependencies": {
     "cordova": "^11.0.0",
+    "cordova-plugin-crop": "github:rastafan/cordova-plugin-crop",
     "cordova-plugin-ionic-keyboard": "2.2.0"
   },
   "devDependencies": {
@@ -34,7 +35,8 @@
       "cordova-plugin-device": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-chooser": {}
+      "cordova-plugin-chooser": {},
+      "cordova-plugin-crop": {}
     },
     "platforms": [
       "browser",

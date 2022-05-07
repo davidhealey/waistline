@@ -1,0 +1,5 @@
+- fixed the option to crop photos in the food editor
+- various bugfixes
+
+You can find the full changelog at 
+https://github.com/davidhealey/waistline/releases

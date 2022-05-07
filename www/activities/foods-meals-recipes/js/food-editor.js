@@ -536,21 +536,37 @@ app.FoodEditor = {
 
   takePicture: function(index, sourceType) {
 
+    let destinationType = Camera.DestinationType.FILE_URI;
+
+    // Pictures from the library must be retrieved as base64 data to avoid permission errors
+    if (sourceType === Camera.PictureSourceType.PHOTOLIBRARY)
+      destinationType = Camera.DestinationType.DATA_URL;
+
     let options = {
       "sourceType": sourceType,
-      "destinationType": Camera.DestinationType.DATA_URL,
-      "allowEdit": app.Settings.get("integration", "edit-images"),
+      "destinationType": destinationType,
       "saveToPhotoAlbum": false,
       "quality": 25
     };
 
     navigator.camera.getPicture(onSuccess, onError, options);
 
-    function onSuccess(imageData) {
-        
-        let uri = "data:image/jpeg;base64," + imageData;
+    function onSuccess(image) {
+      (async () => {
 
-        fetch(uri).then((res) => res.blob()).then(async (blob) => {
+        let blob;
+        if (sourceType === Camera.PictureSourceType.PHOTOLIBRARY) {
+          let uri = "data:image/jpeg;base64," + image;
+          let res = await fetch(uri);
+          blob = await res.blob();
+        } else {
+          if (app.Settings.get("integration", "edit-images") == true) {
+            let newPath = await app.Utils.cropImage(image);
+            blob = await app.Utils.fileToBlob(newPath);
+          } else {
+            blob = await app.Utils.fileToBlob(image);
+          }
+        }
 
         if (app.FoodEditor.scan == true) {
           app.FoodEditor.images[index] = blob;
@@ -561,10 +577,10 @@ app.FoodEditor = {
           app.f7.preloader.hide();
           app.FoodEditor.item_image_url = sourceString;
         }
-        
+
         let blobUrl = URL.createObjectURL(blob);
         app.FoodEditor.insertImageEl(index, blobUrl, true);
-      });
+      })();
     }
 
     function onError(err) {

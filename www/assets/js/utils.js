@@ -413,6 +413,45 @@ app.Utils = {
     });
   },
 
+  fileToBlob: function(path) {
+    return new Promise(function(resolve, reject) {
+      window.resolveLocalFileSystemURL(path, (fileEntry) => {
+        fileEntry.file((file) => {
+          let reader = new FileReader();
+
+          reader.onloadend = function() {
+            // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+            let blob = new Blob([new Uint8Array(this.result)], {
+              type: "image/jpeg"
+            });
+            resolve(blob);
+          };
+
+          reader.readAsArrayBuffer(file);
+        }, (err) => {
+          console.error("Error getting file entry", err);
+          reject();
+        });
+      }, (err) => {
+        console.error("Error getting file", err);
+        reject();
+      });
+    });
+  },
+
+  cropImage: function(path) {
+    return new Promise(function(resolve, reject) {
+      plugins.crop.promise(path, {keepAspectRatio: 0})
+        .then((newPath) => {
+          resolve(newPath);
+        })
+        .catch((err) => {
+          console.error("Error cropping image", err);
+          reject();
+        });
+    });
+  },
+
   resizeImageBlob: function(blob, type, maxBytes=20000) {
     return new Promise(function(resolve, reject) {
       const img = new Image();
