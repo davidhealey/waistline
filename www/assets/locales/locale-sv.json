@@ -331,7 +331,7 @@
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
       "barcode-sound": "Ljudsignal vid streckkodsskanning",
-      "edit-images": "Redigera bilder före uppladdning",
+      "edit-images": "Crop Photos",
       "login-success": "Inloggningen lyckades"
     }
   },
