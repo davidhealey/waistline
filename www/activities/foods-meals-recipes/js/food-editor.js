@@ -459,7 +459,8 @@ app.FoodEditor = {
             }
           }
         } else {
-          app.FoodEditor.insertImageEl(0, item.image_url, true);
+          let removable = (app.FoodEditor.origin == "foodlist");
+          app.FoodEditor.insertImageEl(0, item.image_url, removable);
         }
       }
     } else if (app.FoodEditor.origin == "foodlist") {
