@@ -159,7 +159,7 @@
     "scan-prompt": "Plaats een streepjescode in het scangebied",
     "show-more-nutriments": "Meer voedingsstoffen tonen",
     "show-less-nutriments": "Minder voedingsstoffen tonen",
-    "added-to-selection": "Scanned item added to selection"
+    "added-to-selection": "Gescande item toegevoegd aan selectie"
   },
   "food-editor": {
     "edit-item": "Bewerk opvoer",
@@ -195,10 +195,10 @@
     "auto-adjust": "Automatisch aanpassen om doelgemiddelde te bereiken",
     "minimum-goal": "Is minimumdoel",
     "percent-goal": "Doelstelling als percentage van de energie-inname",
-    "effective-from": "Effective from",
-    "new-goal": "New Goal",
-    "delete-goal": "Delete Goal",
-    "goal-deleted": "Goal Deleted"
+    "effective-from": "Effectief vanaf",
+    "new-goal": "Nieuwe doelstelling",
+    "delete-goal": "Verwijder doelstelling",
+    "goal-deleted": "Doelstelling verwijderd"
   },
   "meal-editor": {
     "title": "Bewerk maaltijd",
@@ -291,9 +291,9 @@
       "auto-backup": "Automatische backup",
       "backup": "Backup database",
       "import": "Importeer uit backup",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Importeer voedsel",
+      "import-foods": "Importeer voedsel uit JSON",
+      "import-foods-categories": "Categorieën voor geïmporteerde items"
     },
     "integration": {
       "title": "Integratie",
@@ -323,15 +323,15 @@
       "invalid-api-key": "API-sleutel is ongeldig",
       "export-success": "Database geëxporteerd",
       "export-fail": "Export mislukt",
-      "import-fail": "Import Failed",
+      "import-fail": "Importeren mislukt",
       "import": "Importeren",
       "confirm-import": "Weet je het zeker? Dit overschrijft je huidige database.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "Weet je het zeker? Deze actie kan niet ongedaan worden gemaakt. Maak eerst een back-up van je database.",
+      "import-foods-category-fail": "Selecteer ten minste één categorie",
       "import-success-title": "De backup is hersteld",
       "import-success-message": "Import afgerond",
       "barcode-sound": "Geluid bij het scannen",
-      "edit-images": "Crop Photos",
+      "edit-images": "Foto's bijsnijden",
       "login-success": "Login succesvol"
     }
   },
@@ -357,7 +357,7 @@
     "finnish": "Fins",
     "spanish": "Spaans",
     "dutch": "Nederlands",
-    "turkish": "Turkish",
-    "ukrainian": "Ukrainian"
+    "turkish": "Turks",
+    "ukrainian": "Oekraïens"
   }
 }
