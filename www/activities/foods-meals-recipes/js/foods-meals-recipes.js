@@ -133,7 +133,6 @@ app.FoodsMealsRecipes = {
 
       app.FoodsMealsRecipes.returnItems(result);
     }
-    app.FoodsMealsRecipes.selection = [];
   },
 
   getCategory: function() {
@@ -318,6 +317,7 @@ app.FoodsMealsRecipes = {
 
       let category = 0;
       let categorySelectAction = function(i) {
+        app.FoodsMealsRecipes.selection = [];
         app.FoodsMealsRecipes.updateDateTimes(items);
         app.data.context.items = items;
         app.data.context.category = i;
@@ -351,6 +351,7 @@ app.FoodsMealsRecipes = {
         categorySelectAction(category);
       }
     } else {
+      app.FoodsMealsRecipes.selection = [];
       app.FoodsMealsRecipes.updateDateTimes(items);
 
       if (app.FoodsMealsRecipes.category !== undefined)
