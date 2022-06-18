@@ -100,7 +100,7 @@ app.Foodlist = {
           if ((item.id == undefined && app.FoodsMealsRecipes.editItems != "disabled") || app.FoodsMealsRecipes.editItems == "enabled") {
             // scanned item is new or editing is enabled -> open food editor for the item
             app.FoodsMealsRecipes.gotoEditor(item);
-          } else if (!app.FoodsMealsRecipes.selection.includes(itemData) && item.id !== undefined) {
+          } else if (!app.FoodsMealsRecipes.selection.includes(itemData)) {
             // scanned item already exists in local database and is not yet selected -> add to selection
             app.FoodsMealsRecipes.selection.push(itemData);
             app.FoodsMealsRecipes.updateSelectionCount();
@@ -212,11 +212,11 @@ app.Foodlist = {
   putItem: function(item) {
     return new Promise(async function(resolve, reject) {
 
-      // Check if search result already exists in the db
-      if (item.id == undefined && item.barcode !== undefined) {
+      // Check if search result already exists in the DB
+      if (item.id == undefined && item.barcode != undefined) {
         let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
 
-        if (dbRecord !== undefined)
+        if (dbRecord != undefined)
           item.id = dbRecord.id;
       }
 
@@ -301,37 +301,33 @@ app.Foodlist = {
     app.FoodsMealsRecipes.setCategoriesVisibility(app.Foodlist.el.searchFilterContainer);
   },
 
-  searchByBarcode: function(code) {
-    return new Promise(function(resolve, reject) {
-      dbHandler.getIndex("barcode", "foodList").get(code).onsuccess = (e) => {
-        resolve(e.target.result);
-      };
-    }).catch(err => {
-      throw (err);
-    });
-  },
-
   getItemFromSelectedData: function(data) {
     return new Promise(async function(resolve, reject) {
-      if (data.id == undefined || data.hidden == true) { // No ID or hidden, must be a search result
+      if (data.id != undefined && (data.archived == true || data.hidden == true)) {
+        // Item has ID, but is archived or hidden -> get item from DB and unarchive/unhide it
+        let dbData = await dbHandler.getByKey(data.id, "foodList");
 
-        if (data.barcode) { // If item has barcode it must be from online service or imported from JSON
-
-          // Check to see if item is already in DB
-          let dbData = await app.Foodlist.searchByBarcode(data.barcode);
-
-          // If item is in DB use retrieved data
-          if (dbData) {
-            data = dbData;
-            data.archived = false; // Unarchive the food if it has been archived
-            if (data.hidden == true) data.hidden = false; // Unhide the food if it was imported from JSON
-            await app.Foodlist.putItem(data);
-          }
+        if (dbData) {
+          data = dbData;
+          data.archived = false;
+          if (data.hidden == true) data.hidden = false;
+          await app.Foodlist.putItem(data);
         }
+      }
 
-        // Item is not in DB or doesn't have barcode, add to DB and get new ID
-        if (data.id == undefined)
+      if (data.id == undefined && data.barcode != undefined) {
+        // Item has no ID, but has a barcode (must be a search result) -> check if item is already in DB
+        let dbData = await dbHandler.get("foodList", "barcode", data.barcode);
+
+        if (dbData) {
+          // Use data from DB
+          data = dbData;
+          data.archived = false;
+          await app.Foodlist.putItem(data);
+        } else {
+          // Add item to DB and get new ID for it
           data.id = await app.Foodlist.putItem(data);
+        }
       }
       resolve(data);
     });
@@ -401,7 +397,7 @@ app.Foodlist = {
             let item = await dbHandler.get("foodList", "barcode", code);
 
             // Not already in foodlist so search OFF 
-            if (item === undefined || (item.archived !== undefined && item.archived == true)) {
+            if (item === undefined || item.archived === true) {
 
               if (!app.Utils.isInternetConnected()) {
                 resolve(undefined);
@@ -410,10 +406,6 @@ app.Foodlist = {
                 app.f7.preloader.show();
                 let result = await app.OpenFoodFacts.search(code);
                 app.f7.preloader.hide();
-
-                // When downloading data for archived items reuse the same id
-                if (item !== undefined && item.id !== undefined)
-                  result[0].id = item.id;
 
                 if (result !== undefined && result[0] !== undefined) {
                   item = result[0];
