@@ -276,11 +276,7 @@ app.FoodsMealsRecipes = {
   getItem: function(id, type, portion, quantity) {
     return new Promise(async function(resolve, reject) {
 
-      let store;
-
-      if (type == "food") store = "foodList";
-      if (type == "recipe") store = "recipes";
-
+      let store = app.FoodsMealsRecipes.getStoreForItemType(type);
       let data = await dbHandler.getByKey(id, store);
 
       if (data !== undefined) {
