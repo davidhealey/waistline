@@ -386,7 +386,6 @@ app.Settings = {
         }
       }
 
-      item.type = "food";
       item.dateTime = new Date();
 
       dbHandler.put(item, "foodList").onsuccess = (e) => {

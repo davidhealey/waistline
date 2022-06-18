@@ -127,6 +127,7 @@ app.FoodsMealsRecipes = {
         } else {
           // Food
           let item = await app.Foodlist.getItemFromSelectedData(data);
+          item.type = "food";
           result.push(item);
         }
       }
@@ -275,11 +276,7 @@ app.FoodsMealsRecipes = {
   getItem: function(id, type, portion, quantity) {
     return new Promise(async function(resolve, reject) {
 
-      let store;
-
-      if (type == "food") store = "foodList";
-      if (type == "recipe") store = "recipes";
-
+      let store = app.FoodsMealsRecipes.getStoreForItemType(type);
       let data = await dbHandler.getByKey(id, store);
 
       if (data !== undefined) {
@@ -363,13 +360,13 @@ app.FoodsMealsRecipes = {
   },
 
   updateDateTimes: function(items) {
-    if (items[0].type == "food") {
-      items.forEach(async (x, i) => {
-        let data = await dbHandler.getByKey(x.id, "foodList");
+    items.forEach(async (item) => {
+      if (item.type == "food") {
+        let data = await dbHandler.getByKey(item.id, "foodList");
         if (data != undefined)
           app.Foodlist.putItem(data);
-      });
-    }
+      }
+    });
   },
 
   flattenItem: function(item) {
