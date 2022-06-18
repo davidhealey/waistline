@@ -186,7 +186,7 @@ app.Foodlist = {
         let item = app.Foodlist.list[i];
 
         if (item != undefined) {
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, "foodlist");
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, app.Foodlist.handleTapHold, undefined, false, "foodlist");
         }
       }
     }
@@ -230,39 +230,37 @@ app.Foodlist = {
     });
   },
 
-  removeItem: function(item, li) {
-    return new Promise(function(resolve, reject) {
-      let title = app.strings.dialogs.delete || "Delete";
-      let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
+  handleTapHold: function(item, li) {
+    if (item.archived === true) return;
 
-      let div = document.createElement("div");
-      div.className = "dialog-text";
-      div.innerText = text;
+    let title = app.strings.dialogs.delete || "Delete";
+    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
-      let dialog = app.f7.dialog.create({
-        title: title,
-        content: div.outerHTML,
-        buttons: [{
-            text: app.strings.dialogs.cancel || "Cancel",
-            keyCodes: [27]
-          },
-          {
-            text: app.strings.dialogs.delete || "Delete",
-            keyCodes: [13],
-            onClick: async () => {
-              await app.FoodsMealsRecipes.archiveItem(item.id, "food");
-              app.Foodlist.filterList = await app.Foodlist.getListFromDB();
-              let index = app.Foodlist.list.indexOf(item);
-              if (index != -1)
-                app.Foodlist.list.splice(index, 1);
-              li.remove();
-            }
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: [13],
+          onClick: async () => {
+            await app.FoodsMealsRecipes.archiveItem(item.id, "food");
+            app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+            let index = app.Foodlist.list.indexOf(item);
+            if (index != -1)
+              app.Foodlist.list.splice(index, 1);
+            li.remove();
           }
-        ]
-      }).open();
-    }).catch(err => {
-      throw (err);
-    });
+        }
+      ]
+    }).open();
   },
 
   createSearchBar: function() {

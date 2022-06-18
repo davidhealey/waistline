@@ -105,7 +105,7 @@ app.Meals = {
         let item = app.Meals.list[i];
 
         item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, false, clickable, app.Meals.gotoEditor, app.Meals.deleteMeal);
+        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, false, clickable, app.Meals.gotoEditor, app.Meals.handleTapHold);
       }
     }
   },
@@ -173,7 +173,7 @@ app.Meals = {
     });
   },
 
-  deleteMeal: function(item, li) {
+  handleTapHold: function(item, li) {
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 

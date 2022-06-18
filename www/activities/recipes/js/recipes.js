@@ -105,7 +105,7 @@ app.Recipes = {
         let item = app.Recipes.list[i];
 
         item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-        app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.removeItem);
+        app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.handleTapHold);
       }
     }
   },
@@ -120,7 +120,9 @@ app.Recipes = {
     });
   },
 
-  removeItem: function(item, li) {
+  handleTapHold: function(item, li) {
+    if (item.archived === true) return;
+
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
