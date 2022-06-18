@@ -127,6 +127,7 @@ app.FoodsMealsRecipes = {
         } else {
           // Food
           let item = await app.Foodlist.getItemFromSelectedData(data);
+          item.type = "food";
           result.push(item);
         }
       }

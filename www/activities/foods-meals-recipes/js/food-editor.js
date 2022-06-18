@@ -633,7 +633,8 @@ app.FoodEditor = {
         if (data.id !== undefined)
           item.id = data.id;
 
-        item.type = data.type || "food";
+        if (data.type !== undefined)
+          item.type = data.type;
 
         if (data.index !== undefined)
           item.index = data.index;

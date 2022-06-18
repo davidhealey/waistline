@@ -314,7 +314,6 @@ var dbHandler = {
               }
 
               item.name = unescape(cursor.value.name);
-              item.type = "food";
 
               if (cursor.value.brand != undefined)
                 item.brand = unescape(cursor.value.brand);

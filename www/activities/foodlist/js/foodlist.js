@@ -192,7 +192,6 @@ app.Foodlist = {
 
         if (item != undefined) {
           if (item.hidden == true && (showHiddenItems == false || forceHideItems == true)) continue;
-          item.type = "food";
           app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, "foodlist");
         }
       }
