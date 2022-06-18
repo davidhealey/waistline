@@ -40,10 +40,10 @@ app.Foodlist = {
       app.Foodlist.ready = true;
     }
 
-    app.Foodlist.list = await this.getListFromDB();
-    app.Foodlist.filterList = app.Foodlist.list;
+    app.Foodlist.filterList = await this.getListFromDB();
+    app.Foodlist.list = app.FoodsMealsRecipes.filterList("", undefined, app.Foodlist.filterList);
 
-    await this.renderList(true, true);
+    await this.renderList(true);
 
     if (context)
       app.FoodsMealsRecipes.resetSearchForm(app.Foodlist.el.searchForm, app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
@@ -101,7 +101,7 @@ app.Foodlist = {
             // scanned item is new or editing is enabled -> open food editor for the item
             app.FoodsMealsRecipes.gotoEditor(item);
           } else if (!app.FoodsMealsRecipes.selection.includes(itemData)) {
-            // scanned item already exists in local database and is not yet selected -> add to selection
+            // scanned item is not yet selected -> add to selection
             app.FoodsMealsRecipes.selection.push(itemData);
             app.FoodsMealsRecipes.updateSelectionCount();
             app.Foodlist.renderList(true);
@@ -169,29 +169,23 @@ app.Foodlist = {
     this.renderList(true);
   },
 
-  renderList: async function(clear, forceHideItems) {
+  renderList: async function(clear) {
     if (clear) app.Utils.deleteChildNodes(app.Foodlist.el.list);
 
     //List settings
-    let maxItems = 300; // Max items to load
     let itemsPerLoad = 20; // Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
-    let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
 
-    let showHiddenItems = false;
-    let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
-    if (categories !== undefined) // Only show hidden items when the category filter is active
-      showHiddenItems = true;
+    let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
 
     if (lastIndex <= app.Foodlist.list.length) {
       //Render next set of items to list
-      for (let i = lastIndex; i <= lastIndex + itemsPerLoad; i++) {
+      for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
         if (i >= app.Foodlist.list.length) break; //Exit after all items in list
 
         let item = app.Foodlist.list[i];
 
         if (item != undefined) {
-          if (item.hidden == true && (showHiddenItems == false || forceHideItems == true)) continue;
           app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, "foodlist");
         }
       }
@@ -256,11 +250,9 @@ app.Foodlist = {
             text: app.strings.dialogs.delete || "Delete",
             keyCodes: [13],
             onClick: async () => {
-              await app.FoodsMealsRecipes.removeItem(item.id, "food");
-              let index = app.Foodlist.filterList.indexOf(item);
-              if (index != -1)
-                app.Foodlist.filterList.splice(index, 1);
-              index = app.Foodlist.list.indexOf(item);
+              await app.FoodsMealsRecipes.archiveItem(item.id, "food");
+              app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+              let index = app.Foodlist.list.indexOf(item);
               if (index != -1)
                 app.Foodlist.list.splice(index, 1);
               li.remove();

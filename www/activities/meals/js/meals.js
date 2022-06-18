@@ -38,8 +38,8 @@ app.Meals = {
       app.Meals.ready = true;
     }
 
-    app.Meals.list = await app.Meals.getListFromDB();
-    app.Meals.filterList = app.Meals.list;
+    app.Meals.filterList = await app.Meals.getListFromDB();
+    app.Meals.list = app.FoodsMealsRecipes.filterList("", undefined, app.Meals.filterList);
 
     await app.Meals.renderList(true);
 
@@ -92,7 +92,6 @@ app.Meals = {
     if (clear) app.Utils.deleteChildNodes(app.Meals.el.list);
 
     //List settings 
-    let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll("#meal-list-container li").length;
 

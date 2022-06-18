@@ -38,8 +38,8 @@ app.Recipes = {
       app.Recipes.ready = true;
     }
 
-    app.Recipes.list = await app.Recipes.getListFromDB();
-    app.Recipes.filterList = app.Recipes.list;
+    app.Recipes.filterList = await app.Recipes.getListFromDB();
+    app.Recipes.list = app.FoodsMealsRecipes.filterList("", undefined, app.Recipes.filterList);
 
     await app.Recipes.renderList(true);
 
@@ -92,7 +92,6 @@ app.Recipes = {
     if (clear) app.Utils.deleteChildNodes(app.Recipes.el.list);
 
     //List settings 
-    let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll("#recipe-list-container li").length;
 
@@ -105,10 +104,8 @@ app.Recipes = {
 
         let item = app.Recipes.list[i];
 
-        if (item.archived !== true) {
-          item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-          app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.removeItem);
-        }
+        item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
+        app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.removeItem);
       }
     }
   },
@@ -142,11 +139,9 @@ app.Recipes = {
           text: app.strings.dialogs.delete || "Delete",
           keyCodes: [13],
           onClick: async () => {
-            await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
-            let index = app.Recipes.filterList.indexOf(item);
-            if (index != -1)
-              app.Recipes.filterList.splice(index, 1);
-            index = app.Recipes.list.indexOf(item);
+            await app.FoodsMealsRecipes.archiveItem(item.id, "recipe");
+            app.Recipes.filterList = await app.Recipes.getListFromDB();
+            let index = app.Recipes.list.indexOf(item);
             if (index != -1)
               app.Recipes.list.splice(index, 1);
             li.remove();
