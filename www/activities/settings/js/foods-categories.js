@@ -22,6 +22,7 @@ app.FoodsCategories = {
   storeNames: ["foodList", "meals", "recipes"],
   defaultLabels: ["🌳", "🏪"],
   defaultCategories: {"🌳": "", "🏪": ""},
+  archivedLabel: "🗑️",
 
   populateFoodCategoriesList: function() {
     let labels = app.Settings.get("foodlist", "labels") || [];
@@ -168,7 +169,7 @@ app.FoodsCategories = {
     let title = app.strings.settings["foods-categories"]["add"] || "Add Category";
 
     app.FoodsCategories.showFoodCategoryDialog(title, "", "", (label, description) => {
-      if (label !== "" && !labels.includes(label)) {
+      if (app.FoodsCategories.isAllowedLabel(label) && !labels.includes(label)) {
         labels.push(label);
         categories[label] = description;
 
@@ -188,7 +189,7 @@ app.FoodsCategories = {
     let title = app.strings.settings["foods-categories"]["edit"] || "Edit Category";
 
     app.FoodsCategories.showFoodCategoryDialog(title, oldLabel, oldDescription, async (newLabel, newDescription) => {
-      if (newLabel !== "" && (newLabel == oldLabel || !labels.includes(newLabel))) {
+      if (app.FoodsCategories.isAllowedLabel(newLabel) && (!labels.includes(newLabel) || newLabel == oldLabel)) {
 
         if (newLabel !== oldLabel) {
           app.f7.preloader.show();
@@ -282,5 +283,9 @@ app.FoodsCategories = {
         }
       ]
     }).open();
+  },
+
+  isAllowedLabel: function(label) {
+    return (label !== "" && label !== app.FoodsCategories.archivedLabel)
   }
 };

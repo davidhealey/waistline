@@ -229,7 +229,7 @@ app.Meals = {
         app.Meals.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.populateCategoriesField(app.Meals.el.searchFilter, undefined, true, false, {
+    app.FoodsMealsRecipes.populateCategoriesField(app.Meals.el.searchFilter, undefined, false, true, false, {
       beforeOpen: (smartSelect, prevent) => {
         smartSelect.selectEl.selectedIndex = -1;
       },

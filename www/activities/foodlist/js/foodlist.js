@@ -283,7 +283,7 @@ app.Foodlist = {
         app.Foodlist.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.populateCategoriesField(app.Foodlist.el.searchFilter, undefined, true, false, {
+    app.FoodsMealsRecipes.populateCategoriesField(app.Foodlist.el.searchFilter, undefined, true, true, false, {
       beforeOpen: (smartSelect, prevent) => {
         smartSelect.selectEl.selectedIndex = -1;
       },
@@ -298,7 +298,6 @@ app.Foodlist = {
         app.Foodlist.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.setCategoriesVisibility(app.Foodlist.el.searchFilterContainer);
   },
 
   getItemFromSelectedData: function(data) {

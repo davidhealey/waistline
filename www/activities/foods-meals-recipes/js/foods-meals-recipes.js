@@ -670,9 +670,13 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  populateCategoriesField: function(element, item, enablePicker, enableRipple, pickerEventHandlers) {
-    const labels = app.Settings.get("foodlist", "labels") || [];
-    const categories = app.Settings.get("foodlist", "categories") || {};
+  populateCategoriesField: function(element, item, appendArchivedCategory, enablePicker, enableRipple, pickerEventHandlers) {
+    let labels = app.Settings.get("foodlist", "labels") || [];
+    let categories = app.Settings.get("foodlist", "categories") || {};
+
+    if (appendArchivedCategory) {
+      labels.push(app.FoodsCategories.archivedLabel);
+    }
 
     if (enablePicker) {
       let select = document.createElement("select");

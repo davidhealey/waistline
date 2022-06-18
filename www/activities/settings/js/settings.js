@@ -161,7 +161,7 @@ app.Settings = {
       importFoods.addEventListener("click", function(e) {
         app.Settings.importFoods();
       });
-      app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, true, true);
+      app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, false, true, true);
     }
 
     // Dark mode

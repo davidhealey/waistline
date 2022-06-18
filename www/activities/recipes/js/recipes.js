@@ -175,7 +175,7 @@ app.Recipes = {
         app.Recipes.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.populateCategoriesField(app.Recipes.el.searchFilter, undefined, true, false, {
+    app.FoodsMealsRecipes.populateCategoriesField(app.Recipes.el.searchFilter, undefined, true, true, false, {
       beforeOpen: (smartSelect, prevent) => {
         smartSelect.selectEl.selectedIndex = -1;
       },
@@ -190,7 +190,6 @@ app.Recipes = {
         app.Recipes.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.setCategoriesVisibility(app.Recipes.el.searchFilterContainer);
   },
 };
 
