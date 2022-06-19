@@ -379,10 +379,10 @@ app.Settings = {
         item.hidden = true; // Hide newly imported items by default
 
         if (item.barcode !== undefined) {
-          let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
+          let dbRecord = await dbHandler.getFirstNonArchived("foodList", "barcode", item.barcode);
 
           if (dbRecord !== undefined) {
-            item.id = dbRecord.id;
+            item.id = dbRecord.id; // Use ID of existing item
             item.hidden = dbRecord.hidden;
           }
         }

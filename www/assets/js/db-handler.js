@@ -628,6 +628,29 @@ var dbHandler = {
     });
   },
 
+  getFirstNonArchived: function(storeName, index, key) {
+    return new Promise(function(resolve, reject) {
+      let objectStore = DB.transaction(storeName).objectStore(storeName).index(index);
+
+      let request = objectStore.getAll(key);
+
+      request.onsuccess = function() {
+        if (request.result) {
+          for (const item of request.result) {
+            if (item.archived !== true)
+              resolve(item);
+          }
+        }
+        resolve(undefined);
+      };
+
+      request.onerror = function(e) {
+        dbHandler.errorHandler(e);
+        reject(e);
+      };
+    });
+  },
+
   getByKey: function(key, storeName) {
     return new Promise(function(resolve, reject) {
       let request = DB.transaction(storeName).objectStore(storeName).get(key);

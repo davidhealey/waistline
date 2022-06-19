@@ -208,7 +208,7 @@ app.Foodlist = {
 
       // Check if search result already exists in the DB
       if (item.id == undefined && item.barcode != undefined) {
-        let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
+        let dbRecord = await dbHandler.getFirstNonArchived("foodList", "barcode", item.barcode);
 
         if (dbRecord != undefined)
           item.id = dbRecord.id;
@@ -305,7 +305,7 @@ app.Foodlist = {
 
       if (data.id == undefined && data.barcode != undefined) {
         // Item has no ID, but has a barcode (must be an online search result) -> check if item is already in DB
-        let dbData = await dbHandler.get("foodList", "barcode", data.barcode);
+        let dbData = await dbHandler.getFirstNonArchived("foodList", "barcode", data.barcode);
 
         if (dbData) {
           // Use data from DB
@@ -385,10 +385,10 @@ app.Foodlist = {
 
           if (code !== undefined && !data.cancelled) {
             // Check if the item is already in the foodlist
-            let item = await dbHandler.get("foodList", "barcode", code);
+            let item = await dbHandler.getFirstNonArchived("foodList", "barcode", code);
 
             // Not already in foodlist so search OFF 
-            if (item === undefined || item.archived === true) {
+            if (item === undefined) {
 
               if (!app.Utils.isInternetConnected()) {
                 resolve(undefined);
