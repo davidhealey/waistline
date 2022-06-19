@@ -786,10 +786,21 @@ app.FoodsMealsRecipes = {
     });
   },
 
+  cloneItem: async function(item, type) {
+    let store = app.FoodsMealsRecipes.getStoreForItemType(type);
+
+    delete item.id;
+    item.name += " 2";
+    item.dateTime = new Date();
+    await dbHandler.put(item, store);
+  },
+
   getStoreForItemType: function(type) {
     switch (type) {
       case "food":
         return "foodList";
+      case "meal":
+        return "meals";
       case "recipe":
         return "recipes";
       default:

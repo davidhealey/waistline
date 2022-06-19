@@ -233,8 +233,29 @@ app.Foodlist = {
   handleTapHold: function(item, li) {
     if (item.archived === true) return;
 
-    let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
+    // Ask user for action
+    const actions = ["archive-item", "clone-item", "clone-and-archive"];
+    let options = [];
+
+    actions.forEach((action) => {
+      let choice = {
+        text: app.strings.dialogs[action] || action,
+        onClick: () => { app.Foodlist.handleTapHoldAction(action, item, li) }
+      };
+      options.push(choice);
+    });
+
+    let ac = app.f7.actions.create({
+      buttons: options,
+      closeOnEscape: true,
+      animate: !app.Settings.get("appearance", "animations")
+    });
+    ac.open();
+  },
+
+  handleTapHoldAction: function(action, item, li) {
+    let title = app.strings.dialogs[action] || action;
+    let text = app.strings.dialogs.confirm || "Are you sure?";
 
     let div = document.createElement("div");
     div.className = "dialog-text";
@@ -248,19 +269,43 @@ app.Foodlist = {
           keyCodes: [27]
         },
         {
-          text: app.strings.dialogs.delete || "Delete",
+          text: app.strings.dialogs.yes || "Yes",
           keyCodes: [13],
           onClick: async () => {
-            await app.FoodsMealsRecipes.archiveItem(item.id, "food");
-            app.Foodlist.filterList = await app.Foodlist.getListFromDB();
-            let index = app.Foodlist.list.indexOf(item);
-            if (index != -1)
-              app.Foodlist.list.splice(index, 1);
-            li.remove();
+            switch (action) {
+              case "clone-item":
+                await app.FoodsMealsRecipes.cloneItem(item, "food");
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                app.Foodlist.renderFilteredList();
+                break;
+    
+              case "archive-item":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "food");
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                let index = app.Foodlist.list.indexOf(item);
+                if (index != -1)
+                  app.Foodlist.list.splice(index, 1);
+                li.remove();
+                break;
+    
+              case "clone-and-archive":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "food");
+                await app.FoodsMealsRecipes.cloneItem(item, "food");
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                app.Foodlist.renderFilteredList();
+                break;
+            }
           }
         }
       ]
     }).open();
+  },
+
+  renderFilteredList: function() {
+    let query = app.Foodlist.el.search.value;
+    let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
+    app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, categories, app.Foodlist.filterList);
+    app.Foodlist.renderList(true);
   },
 
   createSearchBar: function() {
