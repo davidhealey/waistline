@@ -24,7 +24,7 @@ var dbHandler = {
     return new Promise(async function(resolve, reject) {
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 32;
+      var databaseVersion = 33;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -56,23 +56,28 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('foodList');
         }
 
-        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
+        while (store.indexNames.length !== 0) {
+          const index = store.indexNames.item(0);
+          store.deleteIndex(index);
+        }
+
+        store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
 
-        if (!store.indexNames.contains("barcode")) store.createIndex('barcode', 'barcode', {
-          unique: true
-        });
-
-        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
+        store.createIndex('barcode', 'barcode', {
           unique: false
         });
 
-        if (!store.indexNames.contains("brand")) store.createIndex('brand', 'brand', {
+        store.createIndex('name', 'name', {
           unique: false
         });
 
-        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+        store.createIndex('brand', 'brand', {
+          unique: false
+        });
+
+        store.createIndex('categories', 'categories', {
           unique: false,
           multiEntry: true
         });
@@ -87,7 +92,12 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('diary');
         }
 
-        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
+        while (store.indexNames.length !== 0) {
+          const index = store.indexNames.item(0);
+          store.deleteIndex(index);
+        }
+
+        store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
 
@@ -101,15 +111,20 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('meals');
         }
 
-        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
+        while (store.indexNames.length !== 0) {
+          const index = store.indexNames.item(0);
+          store.deleteIndex(index);
+        }
+
+        store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
 
-        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
+        store.createIndex('name', 'name', {
           unique: false
         });
 
-        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+        store.createIndex('categories', 'categories', {
           unique: false,
           multiEntry: true
         });
@@ -124,15 +139,20 @@ var dbHandler = {
           store = upgradeTransaction.objectStore('recipes');
         }
 
-        if (!store.indexNames.contains("dateTime")) store.createIndex('dateTime', 'dateTime', {
+        while (store.indexNames.length !== 0) {
+          const index = store.indexNames.item(0);
+          store.deleteIndex(index);
+        }
+
+        store.createIndex('dateTime', 'dateTime', {
           unique: false
         });
 
-        if (!store.indexNames.contains("name")) store.createIndex('name', 'name', {
+        store.createIndex('name', 'name', {
           unique: false
         });
 
-        if (!store.indexNames.contains("categories")) store.createIndex('categories', 'categories', {
+        store.createIndex('categories', 'categories', {
           unique: false,
           multiEntry: true
         });
@@ -747,8 +767,6 @@ var dbHandler = {
 
       app.f7.preloader.show("red");
 
-      let barcodes = []; // Keep track of barcodes to avoid duplicates
-
       // Add quick add item to foodlist data if it isn't already there
       if (data.foodList == undefined)
         data.foodList = [];
@@ -780,14 +798,6 @@ var dbHandler = {
               // Remove empty barcodes 
               if (entry.barcode == "" || entry.barcode == undefined || entry.barcode == "undefined")
                 delete entry.barcode;
-
-              // Catch duplicate barcodes
-              if (entry.barcode != undefined) {
-                if (barcodes.includes(entry.barcode))
-                  delete entry.barcode;
-                else
-                  barcodes.push(entry.barcode);
-              }
 
               let request = t.objectStore(x).add(entry);
 
