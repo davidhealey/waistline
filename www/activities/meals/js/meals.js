@@ -219,7 +219,7 @@ app.Meals = {
                 app.Meals.filterList = await app.Meals.getListFromDB();
                 app.Meals.renderFilteredList();
                 break;
-    
+
               case "delete-item":
                 let request = dbHandler.deleteItem(item.id, "meals");
                 request.onsuccess = function(e) {

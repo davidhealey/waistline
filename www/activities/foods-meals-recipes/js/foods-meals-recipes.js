@@ -766,14 +766,15 @@ app.FoodsMealsRecipes = {
     app.f7.views.main.router.navigate("/foods-meals-recipes/food-editor/");
   },
 
-  archiveItem: function(id, type) {
+  archiveItem: function(id, type, status) {
     let store = app.FoodsMealsRecipes.getStoreForItemType(type);
 
     return new Promise(async function(resolve, reject) {
       let data = await dbHandler.getByKey(id, store);
 
       if (data) {
-        data.archived = true;
+        data.archived = status;
+        data.dateTime = new Date();
 
         let request = dbHandler.put(data, store);
 

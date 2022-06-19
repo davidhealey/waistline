@@ -121,26 +121,29 @@ app.Recipes = {
   },
 
   handleTapHold: function(item, li) {
-    if (item.archived === true) return;
+    if (item.archived === true) {
+      // Offer to restore archived recipe
+      app.Recipes.handleTapHoldAction("restore-item", item, li);
+    } else {
+      // Ask user for action
+      const actions = ["archive-item", "clone-item", "clone-and-archive"];
+      let options = [];
 
-    // Ask user for action
-    const actions = ["archive-item", "clone-item", "clone-and-archive"];
-    let options = [];
+      actions.forEach((action) => {
+        let choice = {
+          text: app.strings.dialogs[action] || action,
+          onClick: () => { app.Recipes.handleTapHoldAction(action, item, li) }
+        };
+        options.push(choice);
+      });
 
-    actions.forEach((action) => {
-      let choice = {
-        text: app.strings.dialogs[action] || action,
-        onClick: () => { app.Recipes.handleTapHoldAction(action, item, li) }
-      };
-      options.push(choice);
-    });
-
-    let ac = app.f7.actions.create({
-      buttons: options,
-      closeOnEscape: true,
-      animate: !app.Settings.get("appearance", "animations")
-    });
-    ac.open();
+      let ac = app.f7.actions.create({
+        buttons: options,
+        closeOnEscape: true,
+        animate: !app.Settings.get("appearance", "animations")
+      });
+      ac.open();
+    }
   },
 
   handleTapHoldAction: function(action, item, li) {
@@ -168,19 +171,25 @@ app.Recipes = {
                 app.Recipes.filterList = await app.Recipes.getListFromDB();
                 app.Recipes.renderFilteredList();
                 break;
-    
+
               case "archive-item":
-                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe");
+                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe", true);
                 app.Recipes.filterList = await app.Recipes.getListFromDB();
                 let index = app.Recipes.list.indexOf(item);
                 if (index != -1)
                   app.Recipes.list.splice(index, 1);
                 li.remove();
                 break;
-    
+
               case "clone-and-archive":
-                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe");
+                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe", true);
                 await app.FoodsMealsRecipes.cloneItem(item, "recipe");
+                app.Recipes.filterList = await app.Recipes.getListFromDB();
+                app.Recipes.renderFilteredList();
+                break;
+
+              case "restore-item":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe", false);
                 app.Recipes.filterList = await app.Recipes.getListFromDB();
                 app.Recipes.renderFilteredList();
                 break;
