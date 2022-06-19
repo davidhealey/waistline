@@ -240,13 +240,13 @@ app.FoodsMealsRecipes = {
     let queryRegExp = query.trim().split(/\s+/).map((w) => {return new RegExp(w, "i")});
     let categoriesFilter = categories || [];
 
+    // Hidden items should only be shown when a category filter is active
+    let showHiddenItems = (categoriesFilter.length !== 0);
+
     // Check if the Archived category filter is selected
     let archivedFilter = categoriesFilter.indexOf(app.FoodsCategories.archivedLabel);
     if (archivedFilter !== -1)
       categoriesFilter.splice(archivedFilter, 1); // Remove it since it's not an actual food category
-
-    // Hidden items should only be shown when a category filter is active
-    let showHiddenItems = (categoriesFilter.length !== 0);
 
     // Filter the list of items
     result = result.filter((item) => {
@@ -257,7 +257,7 @@ app.FoodsMealsRecipes = {
         if (archivedFilter === -1 && item.archived === true) {
           return false; // Archived filter is not selected but the item is archived
         }
-        if (showHiddenItems == false && item.hidden == true) {
+        if (showHiddenItems === false && item.hidden === true) {
           return false; // Hidden items should not be shown but the item is hidden
         }
         if (item.name && item.brand) {

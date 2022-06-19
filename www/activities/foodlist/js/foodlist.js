@@ -292,20 +292,19 @@ app.Foodlist = {
 
   getItemFromSelectedData: function(data) {
     return new Promise(async function(resolve, reject) {
-      if (data.id != undefined && (data.archived == true || data.hidden == true)) {
-        // Item has ID, but is archived or hidden -> get item from DB and unarchive/unhide it
+      if (data.id != undefined && data.hidden == true) {
+        // Item has ID, but is hidden -> get item from DB and unhide it
         let dbData = await dbHandler.getByKey(data.id, "foodList");
 
         if (dbData) {
           data = dbData;
-          data.archived = false;
-          if (data.hidden == true) data.hidden = false;
+          data.hidden = false;
           await app.Foodlist.putItem(data);
         }
       }
 
       if (data.id == undefined && data.barcode != undefined) {
-        // Item has no ID, but has a barcode (must be a search result) -> check if item is already in DB
+        // Item has no ID, but has a barcode (must be an online search result) -> check if item is already in DB
         let dbData = await dbHandler.get("foodList", "barcode", data.barcode);
 
         if (dbData) {
@@ -313,11 +312,14 @@ app.Foodlist = {
           data = dbData;
           data.archived = false;
           await app.Foodlist.putItem(data);
-        } else {
-          // Add item to DB and get new ID for it
-          data.id = await app.Foodlist.putItem(data);
         }
       }
+
+      if (data.id == undefined) {
+        // Add item to DB and get new ID for it
+        data.id = await app.Foodlist.putItem(data);
+      }
+
       resolve(data);
     });
   },
