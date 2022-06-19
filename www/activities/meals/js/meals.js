@@ -214,12 +214,6 @@ app.Meals = {
           keyCodes: [13],
           onClick: async () => {
             switch (action) {
-              case "clone-item":
-                await app.FoodsMealsRecipes.cloneItem(item, "meal");
-                app.Meals.filterList = await app.Meals.getListFromDB();
-                app.Meals.renderFilteredList();
-                break;
-
               case "delete-item":
                 let request = dbHandler.deleteItem(item.id, "meals");
                 request.onsuccess = function(e) {
@@ -231,6 +225,12 @@ app.Meals = {
                     app.Meals.list.splice(index, 1);
                   li.remove();
                 };
+                break;
+
+              case "clone-item":
+                await app.FoodsMealsRecipes.cloneItem(item, "meal");
+                app.Meals.filterList = await app.Meals.getListFromDB();
+                app.Meals.renderFilteredList();
                 break;
             }
           }

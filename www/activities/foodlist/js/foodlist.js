@@ -276,12 +276,6 @@ app.Foodlist = {
           keyCodes: [13],
           onClick: async () => {
             switch (action) {
-              case "clone-item":
-                await app.FoodsMealsRecipes.cloneItem(item, "food");
-                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
-                app.Foodlist.renderFilteredList();
-                break;
-
               case "archive-item":
                 await app.FoodsMealsRecipes.archiveItem(item.id, "food", true);
                 app.Foodlist.filterList = await app.Foodlist.getListFromDB();
@@ -289,6 +283,12 @@ app.Foodlist = {
                 if (index != -1)
                   app.Foodlist.list.splice(index, 1);
                 li.remove();
+                break;
+
+              case "clone-item":
+                await app.FoodsMealsRecipes.cloneItem(item, "food");
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                app.Foodlist.renderFilteredList();
                 break;
 
               case "clone-and-archive":
