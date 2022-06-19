@@ -187,6 +187,10 @@ app.RecipeEditor = {
       if (app.RecipeEditor.recipe.id !== undefined) data.id = app.RecipeEditor.recipe.id;
       if (app.RecipeEditor.recipe.items !== undefined) data.items = app.RecipeEditor.recipe.items;
 
+      // If recipe was archived, keep it archived
+      if (app.RecipeEditor.recipe.archived === true) data.archived = true;
+      else data.archived = false;
+
       data.dateTime = new Date();
 
       let inputs = document.querySelectorAll(".page[data-name='recipe-editor'] input, .page[data-name='recipe-editor'] textarea");

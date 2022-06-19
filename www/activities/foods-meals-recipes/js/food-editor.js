@@ -709,8 +709,12 @@ app.FoodEditor = {
       if (item.nutrition_per !== undefined)
         delete item.nutrition_per;
 
-      item.archived = false;
-      if (item.hidden == true) item.hidden = false;
+      // If item was archived, keep it archived
+      if (data.archived === true) item.archived = true;
+      else item.archived = false;
+
+      // If item was hidden, unhide it
+      if (item.hidden === true) item.hidden = false;
 
       app.data.context = {
         item: item,
