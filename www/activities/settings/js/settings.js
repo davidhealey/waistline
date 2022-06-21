@@ -161,7 +161,7 @@ app.Settings = {
       importFoods.addEventListener("click", function(e) {
         app.Settings.importFoods();
       });
-      app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, true, true);
+      app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, false, true, true);
     }
 
     // Dark mode
@@ -375,14 +375,16 @@ app.Settings = {
 
   putFoodItem: function(item) {
     return new Promise(async function(resolve, reject) {
-      if (item.id == undefined && item.barcode !== undefined) {
-        let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
+      if (item.id == undefined) {
+        item.hidden = true; // Hide newly imported items by default
 
-        if (dbRecord !== undefined) {
-          item.id = dbRecord.id;
-          item.hidden = dbRecord.hidden;
-        } else {
-          item.hidden = true; // Hide newly imported items by default
+        if (item.barcode !== undefined) {
+          let dbRecord = await dbHandler.getFirstNonArchived("foodList", "barcode", item.barcode);
+
+          if (dbRecord !== undefined) {
+            item.id = dbRecord.id; // Use ID of existing item
+            item.hidden = dbRecord.hidden;
+          }
         }
       }
 
@@ -417,11 +419,14 @@ app.Settings = {
         let content = new TextDecoder("utf-8").decode(file.data);
         data = JSON.parse(content);
         if (data.version !== 1)
-            throw "Wrong food list version";
+          throw "Wrong food list version";
         for (let i = 0; i < data.foodList.length; i++) {
-          if (data.foodList[i].name === undefined) {
+          if (data.foodList[i].name == undefined)
             throw "Missing name";
-          }
+          if (data.foodList[i].unit == undefined)
+            throw "Missing unit";
+          if (data.foodList[i].portion == undefined)
+            throw "Missing portion";
         }
       } catch (e) {
         console.log(e);
@@ -435,7 +440,7 @@ app.Settings = {
           // Add selected catogories
           data.foodList[i].categories = categories;
           // Add a pseudo-barcode to prevent duplicate imports
-          if (data.foodList[i].id === undefined && data.foodList[i].uniqueId !== undefined)
+          if (data.foodList[i].id == undefined && data.foodList[i].uniqueId !== undefined)
             data.foodList[i].barcode = "custom_" + data.foodList[i].uniqueId.toString();
         }
 

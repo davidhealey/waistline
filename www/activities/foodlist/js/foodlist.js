@@ -40,10 +40,10 @@ app.Foodlist = {
       app.Foodlist.ready = true;
     }
 
-    app.Foodlist.list = await this.getListFromDB();
-    app.Foodlist.filterList = app.Foodlist.list;
+    app.Foodlist.filterList = await this.getListFromDB();
+    app.Foodlist.list = app.FoodsMealsRecipes.filterList("", undefined, app.Foodlist.filterList);
 
-    await this.renderList(true, true);
+    await this.renderList(true);
 
     if (context)
       app.FoodsMealsRecipes.resetSearchForm(app.Foodlist.el.searchForm, app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
@@ -101,7 +101,7 @@ app.Foodlist = {
             // scanned item is new or editing is enabled -> open food editor for the item
             app.FoodsMealsRecipes.gotoEditor(item);
           } else if (!app.FoodsMealsRecipes.selection.includes(itemData)) {
-            // scanned item already exists in local database and is not yet selected -> add to selection
+            // scanned item is not yet selected -> add to selection
             app.FoodsMealsRecipes.selection.push(itemData);
             app.FoodsMealsRecipes.updateSelectionCount();
             app.Foodlist.renderList(true);
@@ -169,30 +169,24 @@ app.Foodlist = {
     this.renderList(true);
   },
 
-  renderList: async function(clear, forceHideItems) {
+  renderList: async function(clear) {
     if (clear) app.Utils.deleteChildNodes(app.Foodlist.el.list);
 
     //List settings
-    let maxItems = 300; // Max items to load
     let itemsPerLoad = 20; // Number of items to append at a time
     let lastIndex = document.querySelectorAll(".page[data-name='foods-meals-recipes'] #foodlist-container li").length;
-    let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
 
-    let showHiddenItems = false;
-    let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
-    if (categories !== undefined) // Only show hidden items when the category filter is active
-      showHiddenItems = true;
+    let clickable = (app.FoodsMealsRecipes.editItems != "disabled");
 
     if (lastIndex <= app.Foodlist.list.length) {
       //Render next set of items to list
-      for (let i = lastIndex; i <= lastIndex + itemsPerLoad; i++) {
+      for (let i = lastIndex; i < lastIndex + itemsPerLoad; i++) {
         if (i >= app.Foodlist.list.length) break; //Exit after all items in list
 
         let item = app.Foodlist.list[i];
 
         if (item != undefined) {
-          if (item.hidden == true && (showHiddenItems == false || forceHideItems == true)) continue;
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, this.removeItem, undefined, false, "foodlist");
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, app.Foodlist.handleTapHold, undefined, false, "foodlist");
         }
       }
     }
@@ -214,7 +208,7 @@ app.Foodlist = {
 
       // Check if search result already exists in the DB
       if (item.id == undefined && item.barcode != undefined) {
-        let dbRecord = await dbHandler.get("foodList", "barcode", item.barcode);
+        let dbRecord = await dbHandler.getFirstNonArchived("foodList", "barcode", item.barcode);
 
         if (dbRecord != undefined)
           item.id = dbRecord.id;
@@ -236,41 +230,91 @@ app.Foodlist = {
     });
   },
 
-  removeItem: function(item, li) {
-    return new Promise(function(resolve, reject) {
-      let title = app.strings.dialogs.delete || "Delete";
-      let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
+  handleTapHold: function(item, li) {
+    if (item.archived === true) {
+      // Offer to restore archived food
+      app.Foodlist.handleTapHoldAction("restore-item", item, li);
+    } else {
+      // Ask user for action
+      const actions = ["archive-item", "clone-item", "clone-and-archive"];
+      let options = [];
 
-      let div = document.createElement("div");
-      div.className = "dialog-text";
-      div.innerText = text;
+      actions.forEach((action) => {
+        let choice = {
+          text: app.strings.dialogs[action] || action,
+          onClick: () => { app.Foodlist.handleTapHoldAction(action, item, li) }
+        };
+        options.push(choice);
+      });
 
-      let dialog = app.f7.dialog.create({
-        title: title,
-        content: div.outerHTML,
-        buttons: [{
-            text: app.strings.dialogs.cancel || "Cancel",
-            keyCodes: [27]
-          },
-          {
-            text: app.strings.dialogs.delete || "Delete",
-            keyCodes: [13],
-            onClick: async () => {
-              await app.FoodsMealsRecipes.removeItem(item.id, "food");
-              let index = app.Foodlist.filterList.indexOf(item);
-              if (index != -1)
-                app.Foodlist.filterList.splice(index, 1);
-              index = app.Foodlist.list.indexOf(item);
-              if (index != -1)
-                app.Foodlist.list.splice(index, 1);
-              li.remove();
+      let ac = app.f7.actions.create({
+        buttons: options,
+        closeOnEscape: true,
+        animate: !app.Settings.get("appearance", "animations")
+      });
+      ac.open();
+    }
+  },
+
+  handleTapHoldAction: function(action, item, li) {
+    let title = app.strings.dialogs[action] || action;
+    let text = app.strings.dialogs.confirm || "Are you sure?";
+
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        },
+        {
+          text: app.strings.dialogs.yes || "Yes",
+          keyCodes: [13],
+          onClick: async () => {
+            switch (action) {
+              case "archive-item":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "food", true);
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                let index = app.Foodlist.list.indexOf(item);
+                if (index != -1)
+                  app.Foodlist.list.splice(index, 1);
+                li.remove();
+                break;
+
+              case "clone-item":
+                await app.FoodsMealsRecipes.cloneItem(item, "food");
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                app.Foodlist.renderFilteredList();
+                break;
+
+              case "clone-and-archive":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "food", true);
+                await app.FoodsMealsRecipes.cloneItem(item, "food");
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                app.Foodlist.renderFilteredList();
+                break;
+
+              case "restore-item":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "food", false);
+                app.Foodlist.filterList = await app.Foodlist.getListFromDB();
+                app.Foodlist.renderFilteredList();
+                break;
             }
           }
-        ]
-      }).open();
-    }).catch(err => {
-      throw (err);
-    });
+        }
+      ]
+    }).open();
+  },
+
+  renderFilteredList: function() {
+    let query = app.Foodlist.el.search.value;
+    let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Foodlist.el.searchFilter);
+    app.Foodlist.list = app.FoodsMealsRecipes.filterList(query, categories, app.Foodlist.filterList);
+    app.Foodlist.renderList(true);
   },
 
   createSearchBar: function() {
@@ -283,7 +327,7 @@ app.Foodlist = {
         app.Foodlist.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.populateCategoriesField(app.Foodlist.el.searchFilter, undefined, true, false, {
+    app.FoodsMealsRecipes.populateCategoriesField(app.Foodlist.el.searchFilter, undefined, true, true, false, {
       beforeOpen: (smartSelect, prevent) => {
         smartSelect.selectEl.selectedIndex = -1;
       },
@@ -298,37 +342,38 @@ app.Foodlist = {
         app.Foodlist.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.setCategoriesVisibility(app.Foodlist.el.searchFilterContainer);
   },
 
   getItemFromSelectedData: function(data) {
     return new Promise(async function(resolve, reject) {
-      if (data.id != undefined && (data.archived == true || data.hidden == true)) {
-        // Item has ID, but is archived or hidden -> get item from DB and unarchive/unhide it
+      if (data.id != undefined && data.hidden == true) {
+        // Item has ID, but is hidden -> get item from DB and unhide it
         let dbData = await dbHandler.getByKey(data.id, "foodList");
 
         if (dbData) {
           data = dbData;
-          data.archived = false;
-          if (data.hidden == true) data.hidden = false;
+          data.hidden = false;
           await app.Foodlist.putItem(data);
         }
       }
 
       if (data.id == undefined && data.barcode != undefined) {
-        // Item has no ID, but has a barcode (must be a search result) -> check if item is already in DB
-        let dbData = await dbHandler.get("foodList", "barcode", data.barcode);
+        // Item has no ID, but has a barcode (must be an online search result) -> check if item is already in DB
+        let dbData = await dbHandler.getFirstNonArchived("foodList", "barcode", data.barcode);
 
         if (dbData) {
           // Use data from DB
           data = dbData;
           data.archived = false;
           await app.Foodlist.putItem(data);
-        } else {
-          // Add item to DB and get new ID for it
-          data.id = await app.Foodlist.putItem(data);
         }
       }
+
+      if (data.id == undefined) {
+        // Add item to DB and get new ID for it
+        data.id = await app.Foodlist.putItem(data);
+      }
+
       resolve(data);
     });
   },
@@ -394,10 +439,10 @@ app.Foodlist = {
 
           if (code !== undefined && !data.cancelled) {
             // Check if the item is already in the foodlist
-            let item = await dbHandler.get("foodList", "barcode", code);
+            let item = await dbHandler.getFirstNonArchived("foodList", "barcode", code);
 
             // Not already in foodlist so search OFF 
-            if (item === undefined || item.archived === true) {
+            if (item === undefined) {
 
               if (!app.Utils.isInternetConnected()) {
                 resolve(undefined);

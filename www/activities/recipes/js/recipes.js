@@ -38,8 +38,8 @@ app.Recipes = {
       app.Recipes.ready = true;
     }
 
-    app.Recipes.list = await app.Recipes.getListFromDB();
-    app.Recipes.filterList = app.Recipes.list;
+    app.Recipes.filterList = await app.Recipes.getListFromDB();
+    app.Recipes.list = app.FoodsMealsRecipes.filterList("", undefined, app.Recipes.filterList);
 
     await app.Recipes.renderList(true);
 
@@ -92,7 +92,6 @@ app.Recipes = {
     if (clear) app.Utils.deleteChildNodes(app.Recipes.el.list);
 
     //List settings 
-    let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll("#recipe-list-container li").length;
 
@@ -105,10 +104,8 @@ app.Recipes = {
 
         let item = app.Recipes.list[i];
 
-        if (item.archived !== true) {
-          item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-          app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.removeItem);
-        }
+        item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
+        app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.handleTapHold);
       }
     }
   },
@@ -123,9 +120,35 @@ app.Recipes = {
     });
   },
 
-  removeItem: function(item, li) {
-    let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
+  handleTapHold: function(item, li) {
+    if (item.archived === true) {
+      // Offer to restore archived recipe
+      app.Recipes.handleTapHoldAction("restore-item", item, li);
+    } else {
+      // Ask user for action
+      const actions = ["archive-item", "clone-item", "clone-and-archive"];
+      let options = [];
+
+      actions.forEach((action) => {
+        let choice = {
+          text: app.strings.dialogs[action] || action,
+          onClick: () => { app.Recipes.handleTapHoldAction(action, item, li) }
+        };
+        options.push(choice);
+      });
+
+      let ac = app.f7.actions.create({
+        buttons: options,
+        closeOnEscape: true,
+        animate: !app.Settings.get("appearance", "animations")
+      });
+      ac.open();
+    }
+  },
+
+  handleTapHoldAction: function(action, item, li) {
+    let title = app.strings.dialogs[action] || action;
+    let text = app.strings.dialogs.confirm || "Are you sure?";
 
     let div = document.createElement("div");
     div.className = "dialog-text";
@@ -139,17 +162,38 @@ app.Recipes = {
           keyCodes: [27]
         },
         {
-          text: app.strings.dialogs.delete || "Delete",
+          text: app.strings.dialogs.yes || "Yes",
           keyCodes: [13],
           onClick: async () => {
-            await app.FoodsMealsRecipes.removeItem(item.id, "recipe");
-            let index = app.Recipes.filterList.indexOf(item);
-            if (index != -1)
-              app.Recipes.filterList.splice(index, 1);
-            index = app.Recipes.list.indexOf(item);
-            if (index != -1)
-              app.Recipes.list.splice(index, 1);
-            li.remove();
+            switch (action) {
+              case "archive-item":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe", true);
+                app.Recipes.filterList = await app.Recipes.getListFromDB();
+                let index = app.Recipes.list.indexOf(item);
+                if (index != -1)
+                  app.Recipes.list.splice(index, 1);
+                li.remove();
+                break;
+
+              case "clone-item":
+                await app.FoodsMealsRecipes.cloneItem(item, "recipe");
+                app.Recipes.filterList = await app.Recipes.getListFromDB();
+                app.Recipes.renderFilteredList();
+                break;
+
+              case "clone-and-archive":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe", true);
+                await app.FoodsMealsRecipes.cloneItem(item, "recipe");
+                app.Recipes.filterList = await app.Recipes.getListFromDB();
+                app.Recipes.renderFilteredList();
+                break;
+
+              case "restore-item":
+                await app.FoodsMealsRecipes.archiveItem(item.id, "recipe", false);
+                app.Recipes.filterList = await app.Recipes.getListFromDB();
+                app.Recipes.renderFilteredList();
+                break;
+            }
           }
         }
       ]
@@ -165,6 +209,13 @@ app.Recipes = {
     app.f7.views.main.router.navigate("./recipe-editor/");
   },
 
+  renderFilteredList: function() {
+    let query = app.Recipes.el.search.value;
+    let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Recipes.el.searchFilter);
+    app.Recipes.list = app.FoodsMealsRecipes.filterList(query, categories, app.Recipes.filterList);
+    app.Recipes.renderList(true);
+  },
+
   createSearchBar: function() {
     app.FoodsMealsRecipes.initializeSearchBar(app.Recipes.el.searchForm, {
       searchbarSearch: async (searchbar, query, previousQuery) => {
@@ -175,7 +226,7 @@ app.Recipes = {
         app.Recipes.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.populateCategoriesField(app.Recipes.el.searchFilter, undefined, true, false, {
+    app.FoodsMealsRecipes.populateCategoriesField(app.Recipes.el.searchFilter, undefined, true, true, false, {
       beforeOpen: (smartSelect, prevent) => {
         smartSelect.selectEl.selectedIndex = -1;
       },
@@ -190,7 +241,6 @@ app.Recipes = {
         app.Recipes.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.setCategoriesVisibility(app.Recipes.el.searchFilterContainer);
   },
 };
 

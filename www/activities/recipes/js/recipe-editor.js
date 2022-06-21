@@ -34,7 +34,7 @@ app.RecipeEditor = {
         app.RecipeEditor.populateInputs(context.recipe);
       }
 
-      app.FoodsMealsRecipes.populateCategoriesField(app.RecipeEditor.el.categories, app.RecipeEditor.recipe, true, true);
+      app.FoodsMealsRecipes.populateCategoriesField(app.RecipeEditor.el.categories, app.RecipeEditor.recipe, false, true, true);
 
       // From food list
       if (context.items)
@@ -186,6 +186,10 @@ app.RecipeEditor = {
 
       if (app.RecipeEditor.recipe.id !== undefined) data.id = app.RecipeEditor.recipe.id;
       if (app.RecipeEditor.recipe.items !== undefined) data.items = app.RecipeEditor.recipe.items;
+
+      // If recipe was archived, keep it archived
+      if (app.RecipeEditor.recipe.archived === true) data.archived = true;
+      else data.archived = false;
 
       data.dateTime = new Date();
 

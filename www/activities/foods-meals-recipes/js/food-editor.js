@@ -62,7 +62,7 @@ app.FoodEditor = {
     this.setLinkButtonIcon();
 
     const categoriesEditable = (app.FoodEditor.origin == "foodlist");
-    app.FoodsMealsRecipes.populateCategoriesField(app.FoodEditor.el.categories, app.FoodEditor.item, categoriesEditable, true);
+    app.FoodsMealsRecipes.populateCategoriesField(app.FoodEditor.el.categories, app.FoodEditor.item, false, categoriesEditable, true);
 
     if (app.FoodEditor.item) {
       this.populateFields(app.FoodEditor.item);
@@ -709,8 +709,12 @@ app.FoodEditor = {
       if (item.nutrition_per !== undefined)
         delete item.nutrition_per;
 
-      item.archived = false;
-      if (item.hidden == true) item.hidden = false;
+      // If item was archived, keep it archived
+      if (data.archived === true) item.archived = true;
+      else item.archived = false;
+
+      // If item was hidden, unhide it
+      if (item.hidden === true) item.hidden = false;
 
       app.data.context = {
         item: item,

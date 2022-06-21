@@ -148,7 +148,7 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.el.back.style.display = "block";
   },
 
-  getFromDB: function(store, sort, includeArchived) {
+  getFromDB: function(store, sort) {
     return new Promise(function(resolve, reject) {
 
       let list = [];
@@ -162,9 +162,7 @@ app.FoodsMealsRecipes = {
         var cursor = e.target.result;
 
         if (cursor) {
-          if (!cursor.value.archived || includeArchived == true) {
-            list.push(cursor.value);
-          }
+          list.push(cursor.value);
           cursor.continue();
         } else {
           resolve(list);
@@ -239,37 +237,52 @@ app.FoodsMealsRecipes = {
   filterList: function(query, categories, list) {
     let result = list;
 
-    if (query !== "" || categories !== undefined) {
-      let queryRegExp = query.trim().split(/\s+/).map((w) => {return new RegExp(w, "i")});
-      let categoriesFilter = categories || [];
+    let queryRegExp = query.trim().split(/\s+/).map((w) => {return new RegExp(w, "i")});
+    let categoriesFilter = categories || [];
 
-      // Filter by name, brand and categories
-      result = result.filter((item) => {
-        if (item) {
-          if (item.name && item.brand) {
-            for (let regExp of queryRegExp) {
-              if (!item.name.match(regExp) && !item.brand.match(regExp))
-                return false;
-            }
-          } else if (item.name) {
-            for (let regExp of queryRegExp) {
-              if (!item.name.match(regExp))
-                return false;
-            }
-          }
-          for (let category of categoriesFilter) {
-            if (item.categories) {
-              if (!item.categories.includes(category))
-                return false;
-            } else {
-              return false;
-            }
-          }
-          return true;
+    // Hidden items should only be shown when a category filter is active
+    let showHiddenItems = (categoriesFilter.length !== 0);
+
+    // Check if the Archived category filter is selected
+    let archivedFilter = categoriesFilter.indexOf(app.FoodsCategories.archivedLabel);
+    if (archivedFilter !== -1)
+      categoriesFilter.splice(archivedFilter, 1); // Remove it since it's not an actual food category
+
+    // Filter the list of items
+    result = result.filter((item) => {
+      if (item) {
+        if (archivedFilter !== -1 && item.archived !== true) {
+          return false; // Archived filter is selected but the item is not archived
         }
-        return false;
-      });
-    }
+        if (archivedFilter === -1 && item.archived === true) {
+          return false; // Archived filter is not selected but the item is archived
+        }
+        if (showHiddenItems === false && item.hidden === true) {
+          return false; // Hidden items should not be shown but the item is hidden
+        }
+        if (item.name && item.brand) {
+          for (let regExp of queryRegExp) {
+            if (!item.name.match(regExp) && !item.brand.match(regExp))
+              return false;
+          }
+        } else if (item.name) {
+          for (let regExp of queryRegExp) {
+            if (!item.name.match(regExp))
+              return false;
+          }
+        }
+        for (let category of categoriesFilter) {
+          if (item.categories) {
+            if (!item.categories.includes(category))
+              return false;
+          } else {
+            return false;
+          }
+        }
+        return true;
+      }
+      return false;
+    });
     return result;
   },
 
@@ -670,9 +683,13 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  populateCategoriesField: function(element, item, enablePicker, enableRipple, pickerEventHandlers) {
-    const labels = app.Settings.get("foodlist", "labels") || [];
-    const categories = app.Settings.get("foodlist", "categories") || {};
+  populateCategoriesField: function(element, item, appendArchivedCategory, enablePicker, enableRipple, pickerEventHandlers) {
+    let labels = app.Settings.get("foodlist", "labels") || [];
+    let categories = app.Settings.get("foodlist", "categories") || {};
+
+    if (appendArchivedCategory) {
+      labels.push(app.FoodsCategories.archivedLabel);
+    }
 
     if (enablePicker) {
       let select = document.createElement("select");
@@ -749,14 +766,15 @@ app.FoodsMealsRecipes = {
     app.f7.views.main.router.navigate("/foods-meals-recipes/food-editor/");
   },
 
-  removeItem: function(id, type) {
+  archiveItem: function(id, type, status) {
     let store = app.FoodsMealsRecipes.getStoreForItemType(type);
 
     return new Promise(async function(resolve, reject) {
       let data = await dbHandler.getByKey(id, store);
 
       if (data) {
-        data.archived = true;
+        data.archived = status;
+        data.dateTime = new Date();
 
         let request = dbHandler.put(data, store);
 
@@ -769,10 +787,21 @@ app.FoodsMealsRecipes = {
     });
   },
 
+  cloneItem: async function(item, type) {
+    let store = app.FoodsMealsRecipes.getStoreForItemType(type);
+
+    delete item.id;
+    item.name += " 2";
+    item.dateTime = new Date();
+    await dbHandler.put(item, store);
+  },
+
   getStoreForItemType: function(type) {
     switch (type) {
       case "food":
         return "foodList";
+      case "meal":
+        return "meals";
       case "recipe":
         return "recipes";
       default:

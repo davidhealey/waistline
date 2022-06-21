@@ -38,8 +38,8 @@ app.Meals = {
       app.Meals.ready = true;
     }
 
-    app.Meals.list = await app.Meals.getListFromDB();
-    app.Meals.filterList = app.Meals.list;
+    app.Meals.filterList = await app.Meals.getListFromDB();
+    app.Meals.list = app.FoodsMealsRecipes.filterList("", undefined, app.Meals.filterList);
 
     await app.Meals.renderList(true);
 
@@ -92,7 +92,6 @@ app.Meals = {
     if (clear) app.Utils.deleteChildNodes(app.Meals.el.list);
 
     //List settings 
-    let maxItems = 200; //Max items to load
     let itemsPerLoad = 20; //Number of items to append at a time
     let lastIndex = document.querySelectorAll("#meal-list-container li").length;
 
@@ -106,7 +105,7 @@ app.Meals = {
         let item = app.Meals.list[i];
 
         item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
-        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, false, clickable, app.Meals.gotoEditor, app.Meals.deleteMeal);
+        app.FoodsMealsRecipes.renderItem(item, app.Meals.el.list, true, false, clickable, app.Meals.gotoEditor, app.Meals.handleTapHold);
       }
     }
   },
@@ -174,9 +173,30 @@ app.Meals = {
     });
   },
 
-  deleteMeal: function(item, li) {
-    let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
+  handleTapHold: function(item, li) {
+    // Ask user for action
+    const actions = ["delete-item", "clone-item"];
+    let options = [];
+
+    actions.forEach((action) => {
+      let choice = {
+        text: app.strings.dialogs[action] || action,
+        onClick: () => { app.Meals.handleTapHoldAction(action, item, li) }
+      };
+      options.push(choice);
+    });
+
+    let ac = app.f7.actions.create({
+      buttons: options,
+      closeOnEscape: true,
+      animate: !app.Settings.get("appearance", "animations")
+    });
+    ac.open();
+  },
+
+  handleTapHoldAction: function(action, item, li) {
+    let title = app.strings.dialogs[action] || action;
+    let text = app.strings.dialogs.confirm || "Are you sure?";
 
     let div = document.createElement("div");
     div.className = "dialog-text";
@@ -190,20 +210,29 @@ app.Meals = {
           keyCodes: [27]
         },
         {
-          text: app.strings.dialogs.delete || "Delete",
+          text: app.strings.dialogs.yes || "Yes",
           keyCodes: [13],
           onClick: async () => {
-            let request = dbHandler.deleteItem(item.id, "meals");
+            switch (action) {
+              case "delete-item":
+                let request = dbHandler.deleteItem(item.id, "meals");
+                request.onsuccess = function(e) {
+                  let index = app.Meals.filterList.indexOf(item);
+                  if (index != -1)
+                    app.Meals.filterList.splice(index, 1);
+                  index = app.Meals.list.indexOf(item);
+                  if (index != -1)
+                    app.Meals.list.splice(index, 1);
+                  li.remove();
+                };
+                break;
 
-            request.onsuccess = function(e) {
-              let index = app.Meals.filterList.indexOf(item);
-              if (index != -1)
-                app.Meals.filterList.splice(index, 1);
-              index = app.Meals.list.indexOf(item);
-              if (index != -1)
-                app.Meals.list.splice(index, 1);
-              li.remove();
-            };
+              case "clone-item":
+                await app.FoodsMealsRecipes.cloneItem(item, "meal");
+                app.Meals.filterList = await app.Meals.getListFromDB();
+                app.Meals.renderFilteredList();
+                break;
+            }
           }
         }
       ]
@@ -219,6 +248,13 @@ app.Meals = {
     app.f7.views.main.router.navigate("./meal-editor/");
   },
 
+  renderFilteredList: function() {
+    let query = app.Meals.el.search.value;
+    let categories = app.FoodsMealsRecipes.getSelectedCategories(app.Meals.el.searchFilter);
+    app.Meals.list = app.FoodsMealsRecipes.filterList(query, categories, app.Meals.filterList);
+    app.Meals.renderList(true);
+  },
+
   createSearchBar: function() {
     app.FoodsMealsRecipes.initializeSearchBar(app.Meals.el.searchForm, {
       searchbarSearch: async (searchbar, query, previousQuery) => {
@@ -229,7 +265,7 @@ app.Meals = {
         app.Meals.renderList(true);
       }
     });
-    app.FoodsMealsRecipes.populateCategoriesField(app.Meals.el.searchFilter, undefined, true, false, {
+    app.FoodsMealsRecipes.populateCategoriesField(app.Meals.el.searchFilter, undefined, false, true, false, {
       beforeOpen: (smartSelect, prevent) => {
         smartSelect.selectEl.selectedIndex = -1;
       },
