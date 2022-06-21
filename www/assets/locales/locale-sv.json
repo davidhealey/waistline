@@ -72,6 +72,12 @@
     "no": "Nej",
     "add": "Lägg till",
     "skip": "Hoppa över",
+    "clone-item": "Clone item",
+    "delete-item": "Delete item",
+    "archive-item": "Archive item",
+    "restore-item": "Restore item",
+    "clone-and-archive": "Clone item and archive original",
+    "confirm": "Are you sure?",
     "confirm-delete": "Är du säker på att du vill radera detta?",
     "delete-title": "Ta bort inlägg",
     "required-fields": "Vänligen fyll i alla obligatoriska fält.",
@@ -259,7 +265,8 @@
       "last-3-days": "Senaste 3 dagarna",
       "last-5-days": "Senaste 5 dagarna",
       "last-7-days": "Senaste 7 dagarna",
-      "last-10-days": "Senaste 10 dagarna"
+      "last-10-days": "Senaste 10 dagarna",
+      "goals-link": "Sätt upp mål"
     },
     "foods": {
       "title": "Livsmedel, måltider, recept",
