@@ -72,6 +72,12 @@
     "no": "Нет",
     "add": "Добавить",
     "skip": "Пропустить",
+    "clone-item": "Clone item",
+    "delete-item": "Delete item",
+    "archive-item": "Archive item",
+    "restore-item": "Restore item",
+    "clone-and-archive": "Clone item and archive original",
+    "confirm": "Are you sure?",
     "confirm-delete": "Вы уверены, что хотите удалить это?",
     "delete-title": "Удалить запись",
     "required-fields": "Пожалуйста, заполните все необходимые поля.",
@@ -259,7 +265,8 @@
       "last-3-days": "Последние 3 дня",
       "last-5-days": "Последние 5 дней",
       "last-7-days": "Последние 7 дней",
-      "last-10-days": "Последние 10 дней"
+      "last-10-days": "Последние 10 дней",
+      "goals-link": "Установить цели"
     },
     "foods": {
       "title": "Еда, Блюда, Рецепты",
