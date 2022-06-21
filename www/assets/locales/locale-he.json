@@ -72,6 +72,12 @@
     "no": "לא",
     "add": "הוספה",
     "skip": "דילוג",
+    "clone-item": "Clone item",
+    "delete-item": "Delete item",
+    "archive-item": "Archive item",
+    "restore-item": "Restore item",
+    "clone-and-archive": "Clone item and archive original",
+    "confirm": "Are you sure?",
     "confirm-delete": "למחוק את זה?",
     "delete-title": "מחיקת רשומה",
     "required-fields": "נא להשלים את כל השדות הנדרשים.",
@@ -259,7 +265,8 @@
       "last-3-days": "3 הימים האחרונים",
       "last-5-days": "5 הימים האחרונים",
       "last-7-days": "7 הימים האחרונים",
-      "last-10-days": "10 הימים האחרונים"
+      "last-10-days": "10 הימים האחרונים",
+      "goals-link": "הגדרת יעדים"
     },
     "foods": {
       "title": "מאכלים, מנות, מתכונים",
