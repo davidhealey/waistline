@@ -72,6 +72,12 @@
     "no": "No",
     "add": "Aggiungi",
     "skip": "Salta",
+    "clone-item": "Clone item",
+    "delete-item": "Delete item",
+    "archive-item": "Archive item",
+    "restore-item": "Restore item",
+    "clone-and-archive": "Clone item and archive original",
+    "confirm": "Are you sure?",
     "confirm-delete": "Sei sicuro di voler cancellare questo elemento?",
     "delete-title": "Elimina elemento",
     "required-fields": "Per favore inserisci tutti i campi richiesti.",
@@ -259,7 +265,8 @@
       "last-3-days": "Ultimi 3 giorni",
       "last-5-days": "Ultimi 5 giorni",
       "last-7-days": "Ultimi 7 giorni",
-      "last-10-days": "Ultimi 10 giorni"
+      "last-10-days": "Ultimi 10 giorni",
+      "goals-link": "Imposta Obiettivi"
     },
     "foods": {
       "title": "Cibi, Pasti, Ricette",
