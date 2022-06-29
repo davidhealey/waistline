@@ -72,12 +72,12 @@
     "no": "Нет",
     "add": "Добавить",
     "skip": "Пропустить",
-    "clone-item": "Клонировать предмет",
-    "delete-item": "Удалить предмет",
-    "archive-item": "Архивировать предмет",
-    "restore-item": "Restore item",
-    "clone-and-archive": "Clone item and archive original",
-    "confirm": "Are you sure?",
+    "clone-item": "Клонировать элемент",
+    "delete-item": "Удалить элемент",
+    "archive-item": "Архивировать элемент",
+    "restore-item": "Восстановить элемент",
+    "clone-and-archive": "Клонировать элемент и архивировать оригинал",
+    "confirm": "Вы уверены?",
     "confirm-delete": "Вы уверены, что хотите удалить это?",
     "delete-title": "Удалить запись",
     "required-fields": "Пожалуйста, заполните все необходимые поля.",
@@ -165,7 +165,7 @@
     "scan-prompt": "Поместите штрих-код в область сканирования",
     "show-more-nutriments": "Показать больше питательных веществ",
     "show-less-nutriments": "Показать меньше питательных веществ",
-    "added-to-selection": "Scanned item added to selection"
+    "added-to-selection": "Отсканированный элемент добавлен к выбору"
   },
   "food-editor": {
     "edit-item": "Редактировать элемент",
@@ -198,7 +198,7 @@
     "show-in-diary": "Показать в дневнике",
     "show-in-stats": "Показать в статистике",
     "shared-goal": "Одинаковая цель каждый день",
-    "auto-adjust": "Auto adjust to meet average goal",
+    "auto-adjust": "Автоматически корректировать для достижения среднего уровня цели",
     "minimum-goal": "Минимальная цель",
     "percent-goal": "Цель в процентах от потребляемой энергии",
     "effective-from": "Действует с",
@@ -260,7 +260,7 @@
     "goals": {
       "title": "Цели",
       "first-day-of-week": "Первый день недели",
-      "average-goal-base": "Compute average goals based on",
+      "average-goal-base": "Рассчитать средние цели на основе",
       "current-week": "Текущая неделя",
       "last-3-days": "Последние 3 дня",
       "last-5-days": "Последние 5 дней",
@@ -298,9 +298,9 @@
       "auto-backup": "Автоматическое резервное копирование",
       "backup": "Резервное копирование базы данных",
       "import": "Импорт из резервной копии",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Импорт еды",
+      "import-foods": "Импорт еды из JSON",
+      "import-foods-categories": "Категории импортированных элементов"
     },
     "integration": {
       "title": "Интеграция",
@@ -338,7 +338,7 @@
       "import-success-title": "Резервная копия была восстановлена",
       "import-success-message": "Импорт завершён",
       "barcode-sound": "Звуковой сигнал при сканировании штрихкода",
-      "edit-images": "Crop Photos",
+      "edit-images": "Обрезать фото",
       "login-success": "Вход выполнен"
     }
   },
@@ -365,6 +365,6 @@
     "spanish": "Испанский",
     "dutch": "Голландский",
     "turkish": "Турецкий",
-    "ukrainian": "Ukrainian"
+    "ukrainian": "Украинский"
   }
 }
