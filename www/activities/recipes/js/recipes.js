@@ -104,7 +104,7 @@ app.Recipes = {
 
         let item = app.Recipes.list[i];
 
-        item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items);
+        item.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(item.items, "subtract");
         app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.handleTapHold);
       }
     }

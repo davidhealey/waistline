@@ -134,7 +134,7 @@ app.Goals = {
       let diaryEntry = await app.Goals.getDiaryEntryFromDB(currentDate);
 
       if (diaryEntry !== undefined && diaryEntry.items !== undefined && diaryEntry.items.length > 0) {
-        let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items, true);
+        let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items, "disclose");
         let info = {
           nutrition: totalNutrition,
           date: currentDate,

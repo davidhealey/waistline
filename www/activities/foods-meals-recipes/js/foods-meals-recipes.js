@@ -171,7 +171,7 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  getTotalNutrition: function(items, includeBurnedEnergy) {
+  getTotalNutrition: function(items, handleBurnedEnergy) {
     return new Promise(async function(resolve, reject) {
       let ids = {};
       let entries = {};
@@ -222,8 +222,10 @@ app.FoodsMealsRecipes = {
               let isBurnedEnergy = false;
               if (value < 0) {
                 if (n !== "calories" && n !== "kilojoules") continue; // Negative values are only allowed for energy
-                if (includeBurnedEnergy !== true) continue; // Only include burned energy if parameter is set to true
-                isBurnedEnergy = true;
+                if (handleBurnedEnergy === "ignore") continue; // Skip negative energy values if parameter is set to "ignore"
+
+                if (handleBurnedEnergy === "disclose")
+                  isBurnedEnergy = true; // Compute separate sum for burned energy if parameter is set to "disclose"
               }
 
               let nutrimentName = (isBurnedEnergy) ? "burned-" + n : n;

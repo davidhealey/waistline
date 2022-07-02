@@ -69,7 +69,7 @@ app.DiaryChart = {
         "totals": []
       };
 
-      const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0]);
+      const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[0], "ignore");
       const macros = app.energyMacroNutriments;
 
       let energy = {};

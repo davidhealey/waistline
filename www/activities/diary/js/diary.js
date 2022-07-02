@@ -185,7 +185,7 @@ app.Diary = {
     // Populate groups and get overal nutrition
     if (entry) {
       await this.populateGroups(entry);
-      totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items);
+      totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
     }
 
     // Render category groups
