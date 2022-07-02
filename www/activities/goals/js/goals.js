@@ -134,7 +134,7 @@ app.Goals = {
       let diaryEntry = await app.Goals.getDiaryEntryFromDB(currentDate);
 
       if (diaryEntry !== undefined && diaryEntry.items !== undefined && diaryEntry.items.length > 0) {
-        let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items);
+        let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items, true);
         let info = {
           nutrition: totalNutrition,
           date: currentDate,
@@ -167,12 +167,16 @@ app.Goals = {
   },
 
   getGoal: function(stat, date, day, averageGoalBase, consideredDaysInfo, energyGoals) {
+    let nutritionInfo;
     let energyGoal;
+
+    if (consideredDaysInfo !== undefined)
+      nutritionInfo = consideredDaysInfo[consideredDaysInfo.length - 1]; // Last item in the list is for the requested date
     if (energyGoals !== undefined)
       energyGoal = energyGoals[energyGoals.length - 1]; // Last item in the list is for the requested date
 
     let statDateGoal = app.Goals.getStatDateGoal(stat, date);
-    let goal = app.Goals.getDayGoal(stat, statDateGoal, day, energyGoal);
+    let goal = app.Goals.getDayGoal(stat, statDateGoal, day, nutritionInfo, energyGoal);
 
     if (statDateGoal["auto-adjust"] == true) {
       let statSum = 0;
@@ -189,7 +193,7 @@ app.Goals = {
           dayEnergyGoal = energyGoals[i];
 
         let dateGoal = app.Goals.getStatDateGoal(stat, info.date);
-        let dayGoal = app.Goals.getDayGoal(stat, dateGoal, info.day, dayEnergyGoal);
+        let dayGoal = app.Goals.getDayGoal(stat, dateGoal, info.day, info, dayEnergyGoal);
         if (dayGoal !== undefined && !isNaN(dayGoal))
           goalSum += dayGoal;
       };
@@ -215,7 +219,7 @@ app.Goals = {
     }
   },
 
-  getDayGoal: function(stat, statGoal, day, energyGoal) {
+  getDayGoal: function(stat, statGoal, day, nutritionInfo, energyGoal) {
     let statGoalValues = statGoal["goal"] || [];
     let goal;
 
@@ -226,6 +230,9 @@ app.Goals = {
 
     if (statGoal["percent-goal"] == true)
       goal = app.Goals.getEnergyPercentGoal(stat, goal, energyGoal);
+
+    if ((stat === "calories" || stat === "kilojoules") && nutritionInfo !== undefined)
+      goal += nutritionInfo.nutrition["burned-" + stat] || 0; // Increase energy goal by burned amount
 
     return goal;
   },
