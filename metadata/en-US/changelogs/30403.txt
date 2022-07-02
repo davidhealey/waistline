@@ -1,6 +1,8 @@
 - clarified that foods and recipes cannot be deleted, only archived
 - added ability to browse archived foods and recipes
 - added ability to clone an existing food, meal or recipe
+- improved support for diary entries with negative energy values (i.e. workouts)
+- adding a workout now increases the goal instead of reducing the consumed amount
 - various bugfixes
 
 You can find the full changelog at 
