@@ -78,7 +78,7 @@ app.Group = {
       app.FoodsMealsRecipes.renderItem(x, innerUl, false, false, true, undefined, self.removeItem, undefined, showTimestamps, "diary");
     });
 
-    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items);
+    let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items, "subtract");
 
     app.Group.renderFooter(ul, this.id, nutrition);
   },

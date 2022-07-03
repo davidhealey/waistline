@@ -325,7 +325,7 @@ app.Stats = {
           }
 
         } else {
-          let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i]);
+          let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i], "ignore");
           value = parseFloat(nutrition[field]);
         }
 

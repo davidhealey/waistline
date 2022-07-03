@@ -221,7 +221,7 @@ app.MealEditor = {
   },
 
   renderNutrition: async function() {
-    const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.MealEditor.meal.items);
+    const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.MealEditor.meal.items, "subtract");
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();

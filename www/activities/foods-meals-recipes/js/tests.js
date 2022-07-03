@@ -14,7 +14,7 @@ async function getTotalNutrition() {
     }
   ];
 
-  let result = await app.FoodsMealsRecipes.getTotalNutrition(items);
+  let result = await app.FoodsMealsRecipes.getTotalNutrition(items, "ignore");
   console.log(result);
 }
 

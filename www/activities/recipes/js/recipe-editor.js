@@ -205,7 +205,7 @@ app.RecipeEditor = {
         data.categories = categories;
 
       if (app.RecipeEditor.recipe.items !== undefined)
-        data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
+        data.nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items, "subtract");
 
       app.data.context = {
         recipe: data
@@ -228,7 +228,7 @@ app.RecipeEditor = {
   },
 
   renderNutrition: async function() {
-    const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items);
+    const nutrition = await app.FoodsMealsRecipes.getTotalNutrition(app.RecipeEditor.recipe.items, "subtract");
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();

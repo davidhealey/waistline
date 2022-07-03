@@ -171,7 +171,7 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  getTotalNutrition: function(items) {
+  getTotalNutrition: function(items, handleBurnedEnergy) {
     return new Promise(async function(resolve, reject) {
       let ids = {};
       let entries = {};
@@ -217,13 +217,32 @@ app.FoodsMealsRecipes = {
             let multiplier = (itemPortion / dataPortion) * itemQuantity;
 
             for (let n in x.nutrition) {
-              let value = x.nutrition[n] || 0;
-              result[n] = result[n] || 0;
-              result[n] += Math.round(value * multiplier * 100) / 100;
+              let value = (Math.round(x.nutrition[n] * multiplier * 100) / 100) || 0;
+
+              let isBurnedEnergy = false;
+              if (value < 0) {
+                if (n !== "calories" && n !== "kilojoules") continue; // Negative values are only allowed for energy
+                if (handleBurnedEnergy === "ignore") continue; // Skip negative energy values if parameter is set to "ignore"
+
+                if (handleBurnedEnergy === "disclose")
+                  isBurnedEnergy = true; // Compute separate sum for burned energy if parameter is set to "disclose"
+              }
+
+              let nutrimentName = (isBurnedEnergy) ? "burned-" + n : n;
+              let nutrimentValue = (isBurnedEnergy) ? Math.abs(value) : value;
+
+              result[nutrimentName] = result[nutrimentName] || 0;
+              result[nutrimentName] += nutrimentValue;
+
               if (n === "calories" && x.nutrition["kilojoules"] === undefined) {
-                let kilojoules = app.Utils.convertUnit(value, units.calories, units.kilojoules);
-                result["kilojoules"] = result["kilojoules"] || 0;
-                result["kilojoules"] += Math.round(kilojoules * multiplier * 100) / 100;
+                let kilojoules = app.Utils.convertUnit(x.nutrition[n], units.calories, units.kilojoules);
+                kilojoules = (Math.round(kilojoules * multiplier * 100) / 100) || 0;
+
+                let kilojoulesName = (isBurnedEnergy) ? "burned-kilojoules" : "kilojoules";
+                let kilojoulesValue = (isBurnedEnergy) ? Math.abs(kilojoules) : kilojoules;
+
+                result[kilojoulesName] = result[kilojoulesName] || 0;
+                result[kilojoulesName] += kilojoulesValue;
               }
             }
           }
