@@ -196,7 +196,7 @@ app.Goals = {
         let dayGoal = app.Goals.getDayGoal(stat, dateGoal, info.day, info, dayEnergyGoal);
         if (dayGoal !== undefined && !isNaN(dayGoal))
           goalSum += dayGoal;
-      };
+      }
 
       // Split the difference among the remaining days of the current average base period
       let goalDelta = statSum - goalSum;
