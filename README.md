@@ -6,8 +6,8 @@ Waistline is a libre calorie counter and weight tracker app for Android. It's bu
 
 Features of Waistline include:
 
-- **Diary**: This is where users can keep a day by day account of the food they eat at different times.
-- **Food List**: This is where users can create a local database of foods. This can be done either by inputting the food details manually, by scanning the barcode of a product, or by searching for the product online. Waistline can connect to Open Food Facts and the USDA food database to find information about products.
+- Diary: This is where users can keep a day by day account of the food they eat at different times.
+- Food List: This is where users can create a local database of foods. This can be done either by inputting the food details manually, by scanning the barcode of a product, or by searching for the product online. Waistline can connect to Open Food Facts and the USDA food database to find information about products.
 - Import and export functionality to backup and restore app data.
 - Waistline is free and open source software.
 - Waistline doesn't contain any ads or in-app purchases.
@@ -66,6 +66,18 @@ Waistline was created by me, David Healey, and is developed with suggestions and
 If you enjoy using Waistline consider donating to [Open Food Facts](https://world.openfoodfacts.org/contribute), they freely provide and maintain the online database that Waistline uses.
 
 Please spread the word and share this app with anyone you think could benefit from it. Also, let me know if you find any bugs and I'll try to squish them.
+
+### GitHub
+This project is currently hosted on GitHub. This is not ideal; GitHub is a
+proprietary, trade-secret system that is not Free and Open Souce Software
+(FOSS). I am deeply concerned about using a proprietary system like GitHub
+to develop FOSS projects.
+
+Any use of this project's code by GitHub Copilot, past or present, is done
+without my permission. I do not consent to GitHub's use of this project's
+code in Copilot.
+
+I'm actively looking at other hosting solutions.
 
 ## Localization
 
