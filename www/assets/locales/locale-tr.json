@@ -219,7 +219,10 @@
     "needs-restart": "Değişiklikleri uygulamak için uygulamayı yeniden başlatınız.",
     "appearance": {
       "title": "Görünüm",
-      "dark": "Koyu Tema",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Renk Teması",
       "animations": "Animasyonları Devre Dışı Bırak",
       "start-page": "Başlangıç Sayfası",
