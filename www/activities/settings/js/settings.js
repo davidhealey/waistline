@@ -167,41 +167,43 @@ app.Settings = {
     // Dark mode
     let darkMode = document.querySelector(".page[data-name='settings-appearance'] #dark-mode");
 
-    if (darkMode != undefined && !darkMode.hasClickEvent) {
-      darkMode.addEventListener("click", (e) => {
+    if (darkMode != undefined && !darkMode.hasSecondaryChangeEvent) {
+      darkMode.addEventListener("change", (e) => {
         app.Settings.changeTheme(e.target.checked, themeSelect.value);
       });
-      darkMode.hasClickEvent = true;
+      darkMode.hasSecondaryChangeEvent = true;
     }
 
     // Theme
     let themeSelect = document.querySelector(".page[data-name='settings-appearance'] #theme");
 
-    if (themeSelect != undefined && !themeSelect.hasChangeEvent) {
+    if (themeSelect != undefined && !themeSelect.hasSecondaryChangeEvent) {
       themeSelect.addEventListener("change", (e) => {
         app.Settings.changeTheme(darkMode.checked, e.target.value);
       });
-      themeSelect.hasChangeEvent = true;
+      themeSelect.hasSecondaryChangeEvent = true;
     }
 
     // Preferred Language
     let locale = document.querySelector(".page[data-name='settings-appearance'] #locale");
 
-    if (locale != undefined && !locale.hasChangeEvent) {
+    if (locale != undefined && !locale.hasSecondaryChangeEvent) {
       locale.addEventListener("change", (e) => {
         let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
         app.Utils.toast(msg);
       });
-      locale.hasChangeEvent = true;
+      locale.hasSecondaryChangeEvent = true;
     }
 
     // Animations 
-    let toggleAnimations = document.getElementById("toggle-animations");
-    if (toggleAnimations != undefined) {
-      toggleAnimations.addEventListener("click", (e) => {
+    let toggleAnimations = document.querySelector(".page[data-name='settings-appearance'] #toggle-animations");
+
+    if (toggleAnimations != undefined && !toggleAnimations.hasSecondaryChangeEvent) {
+      toggleAnimations.addEventListener("change", (e) => {
         let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
         app.Utils.toast(msg);
       });
+      toggleAnimations.hasSecondaryChangeEvent = true;
     }
 
     // Nutriment list 
