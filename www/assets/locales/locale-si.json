@@ -219,7 +219,10 @@
     "needs-restart": "වෙනස්කම් යෙදීමට යෙදුම නැවත අරඹන්න.",
     "appearance": {
       "title": "Appearance",
-      "dark": "Dark Mode",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Colour Theme",
       "animations": "Disable UI Animations",
       "start-page": "ආරම්භක පිටුව",
