@@ -219,7 +219,10 @@
     "needs-restart": "Herstart app om wijzigingen door te voeren.",
     "appearance": {
       "title": "Weergave",
-      "dark": "Donkere modus",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Kleurenthema",
       "animations": "UI-animaties uitschakelen",
       "start-page": "Startpagina",
