@@ -219,7 +219,10 @@
     "needs-restart": "Starte die App neu, um die Änderungen anzuwenden.",
     "appearance": {
       "title": "Darstellung",
-      "dark": "Dunkelmodus",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Farb-Thema",
       "animations": "UI Animationen deaktivieren",
       "start-page": "Startseite",
