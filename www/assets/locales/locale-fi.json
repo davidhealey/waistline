@@ -219,7 +219,10 @@
     "needs-restart": "Käynnistä sovellus uudelleen, jotta muutokset voidaan ottaa käyttöön.",
     "appearance": {
       "title": "Ulkoasu",
-      "dark": "Tumma teema",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Väriteema",
       "animations": "Poista käyttöliittymän animaatiot käytöstä",
       "start-page": "Aloitussivu",
