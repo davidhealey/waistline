@@ -219,7 +219,10 @@
     "needs-restart": "Redémarrer l’application pour appliquer les changements.",
     "appearance": {
       "title": "Apparence",
-      "dark": "Mode sombre",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Thème de couleur",
       "animations": "Désactiver les animations",
       "start-page": "Page d’accueil",
