@@ -219,7 +219,10 @@
     "needs-restart": "Starta om appen för att tillämpa ändringarna.",
     "appearance": {
       "title": "Utseende",
-      "dark": "Mörkt läge",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Färgtema",
       "animations": "Inaktivera UI-animeringar",
       "start-page": "Startsida",
