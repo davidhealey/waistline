@@ -219,7 +219,10 @@
     "needs-restart": "Restart app to apply changes.",
     "appearance": {
       "title": "Appearance",
-      "dark": "Dark Mode",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Colour Theme",
       "animations": "Disable UI Animations",
       "start-page": "Start Page",

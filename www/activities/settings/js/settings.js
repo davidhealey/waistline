@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 5;
+const currentSettingsSchemaVersion = 6;
 
 var s;
 app.Settings = {
@@ -164,44 +164,46 @@ app.Settings = {
       app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, false, true, true);
     }
 
-    // Dark mode
-    let darkMode = document.querySelector(".page[data-name='settings-appearance'] #dark-mode");
+    // Mode
+    let modeSelect = document.querySelector(".page[data-name='settings-appearance'] #mode");
 
-    if (darkMode != undefined && !darkMode.hasClickEvent) {
-      darkMode.addEventListener("click", (e) => {
-        app.Settings.changeTheme(e.target.checked, themeSelect.value);
+    if (modeSelect != undefined && !modeSelect.hasSecondaryChangeEvent) {
+      modeSelect.addEventListener("change", (e) => {
+        app.Settings.changeTheme(e.target.value, themeSelect.value);
       });
-      darkMode.hasClickEvent = true;
+      modeSelect.hasSecondaryChangeEvent = true;
     }
 
     // Theme
     let themeSelect = document.querySelector(".page[data-name='settings-appearance'] #theme");
 
-    if (themeSelect != undefined && !themeSelect.hasChangeEvent) {
+    if (themeSelect != undefined && !themeSelect.hasSecondaryChangeEvent) {
       themeSelect.addEventListener("change", (e) => {
-        app.Settings.changeTheme(darkMode.checked, e.target.value);
+        app.Settings.changeTheme(modeSelect.value, e.target.value);
       });
-      themeSelect.hasChangeEvent = true;
+      themeSelect.hasSecondaryChangeEvent = true;
     }
 
     // Preferred Language
     let locale = document.querySelector(".page[data-name='settings-appearance'] #locale");
 
-    if (locale != undefined && !locale.hasChangeEvent) {
+    if (locale != undefined && !locale.hasSecondaryChangeEvent) {
       locale.addEventListener("change", (e) => {
         let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
         app.Utils.toast(msg);
       });
-      locale.hasChangeEvent = true;
+      locale.hasSecondaryChangeEvent = true;
     }
 
     // Animations 
-    let toggleAnimations = document.getElementById("toggle-animations");
-    if (toggleAnimations != undefined) {
-      toggleAnimations.addEventListener("click", (e) => {
+    let toggleAnimations = document.querySelector(".page[data-name='settings-appearance'] #toggle-animations");
+
+    if (toggleAnimations != undefined && !toggleAnimations.hasSecondaryChangeEvent) {
+      toggleAnimations.addEventListener("change", (e) => {
         let msg = app.strings.settings["needs-restart"] || "Restart app to apply changes.";
         app.Utils.toast(msg);
       });
+      toggleAnimations.hasSecondaryChangeEvent = true;
     }
 
     // Nutriment list 
@@ -231,18 +233,30 @@ app.Settings = {
     }
   },
 
-  changeTheme: function(darkMode, colourTheme) {
+  changeTheme: function(appMode, colourTheme) {
     let body = document.getElementsByTagName("body")[0];
+    body.className = colourTheme;
+
+    if (appMode === "system") {
+      app.f7.enableAutoDarkTheme(); // darkThemeChange event will handle the rest
+    } else {
+      app.f7.disableAutoDarkTheme();
+      app.Settings.applyAppMode(appMode);
+    }
+  },
+
+  applyAppMode: function(appMode) {
+    let html = document.getElementsByTagName("html")[0];
     let panel = document.getElementById("app-panel");
 
-    if (darkMode === true) {
-      body.className = colourTheme + " theme-dark";
+    if (appMode === "dark") {
+      html.classList.add("theme-dark");
       panel.style["background-color"] = "black";
-      Chart.defaults.global.defaultFontColor = 'white';
-    } else {
-      body.className = colourTheme;
+      Chart.defaults.global.defaultFontColor = "white";
+    } else if (appMode === "light") {
+      html.classList.remove("theme-dark");
       panel.style["background-color"] = "white";
-      Chart.defaults.global.defaultFontColor = 'black';
+      Chart.defaults.global.defaultFontColor = "black";
     }
   },
 
@@ -362,7 +376,7 @@ app.Settings = {
                 if (data.settings !== undefined) {
                   let settings = app.Settings.migrateSettings(data.settings, false);
                   window.localStorage.setItem("settings", JSON.stringify(settings));
-                  this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+                  this.changeTheme(settings.appearance.mode, settings.appearance.theme);
                   app.f7.views.main.router.refreshPage();
                 }
               }
@@ -509,7 +523,7 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        "dark-mode": false,
+        mode: "light",
         theme: "color-theme-red",
         animations: false,
         locale: "auto",
@@ -620,6 +634,15 @@ app.Settings = {
         if (settings.nutriments !== undefined && settings.nutriments.order !== undefined)
           nutriments = settings.nutriments.order;
         settings.goals = app.Settings.migrateGoalSettings(oldGoals, nutriments);
+      }
+
+      // Boolean value for dark-mode must be replaced with string value
+      if (settings.appearance !== undefined) {
+        if (settings.appearance["dark-mode"] === true)
+          settings.appearance.mode = "dark";
+        else
+          settings.appearance.mode = "light";
+        delete settings.appearance["dark-mode"];
       }
 
       settings.schemaVersion = currentSettingsSchemaVersion;
