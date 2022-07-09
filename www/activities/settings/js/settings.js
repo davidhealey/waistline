@@ -523,7 +523,7 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        mode: "system",
+        mode: "light",
         theme: "color-theme-red",
         animations: false,
         locale: "auto",
