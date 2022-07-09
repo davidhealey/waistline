@@ -219,7 +219,10 @@
     "needs-restart": "השינויים יחולו לאחר הפעלת היישומון מחדש.",
     "appearance": {
       "title": "מראה",
-      "dark": "מצב כהה",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "ערכת צבע",
       "animations": "השבתת הנפשות",
       "start-page": "עמוד הפתיחה",
