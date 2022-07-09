@@ -234,31 +234,30 @@ app.Settings = {
   },
 
   changeTheme: function(appMode, colourTheme) {
-    let html = document.getElementsByTagName("html")[0];
     let body = document.getElementsByTagName("body")[0];
-    let panel = document.getElementById("app-panel");
-
-    isDark = false;
+    body.className = colourTheme;
 
     if (appMode === "system") {
-      app.f7.enableAutoDarkTheme();
-      isDark = (app.f7.darkTheme === true);
+      app.f7.enableAutoDarkTheme(); // darkThemeChange event will handle the rest
     } else {
       app.f7.disableAutoDarkTheme();
-      isDark = (appMode === "dark");
+      app.Settings.applyAppMode(appMode);
     }
+  },
 
-    if (isDark) {
+  applyAppMode: function(appMode) {
+    let html = document.getElementsByTagName("html")[0];
+    let panel = document.getElementById("app-panel");
+
+    if (appMode === "dark") {
       html.classList.add("theme-dark");
       panel.style["background-color"] = "black";
       Chart.defaults.global.defaultFontColor = "white";
-    } else {
+    } else if (appMode === "light") {
       html.classList.remove("theme-dark");
       panel.style["background-color"] = "white";
       Chart.defaults.global.defaultFontColor = "black";
     }
-
-    body.className = colourTheme;
   },
 
   saveInputs: function(inputs) {
