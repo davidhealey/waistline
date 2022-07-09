@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 5;
+const currentSettingsSchemaVersion = 6;
 
 var s;
 app.Settings = {
@@ -164,14 +164,14 @@ app.Settings = {
       app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, false, true, true);
     }
 
-    // Dark mode
-    let darkMode = document.querySelector(".page[data-name='settings-appearance'] #dark-mode");
+    // Mode
+    let modeSelect = document.querySelector(".page[data-name='settings-appearance'] #mode");
 
-    if (darkMode != undefined && !darkMode.hasSecondaryChangeEvent) {
-      darkMode.addEventListener("change", (e) => {
-        app.Settings.changeTheme(e.target.checked, themeSelect.value);
+    if (modeSelect != undefined && !modeSelect.hasSecondaryChangeEvent) {
+      modeSelect.addEventListener("change", (e) => {
+        app.Settings.changeTheme(e.target.value, themeSelect.value);
       });
-      darkMode.hasSecondaryChangeEvent = true;
+      modeSelect.hasSecondaryChangeEvent = true;
     }
 
     // Theme
@@ -179,7 +179,7 @@ app.Settings = {
 
     if (themeSelect != undefined && !themeSelect.hasSecondaryChangeEvent) {
       themeSelect.addEventListener("change", (e) => {
-        app.Settings.changeTheme(darkMode.checked, e.target.value);
+        app.Settings.changeTheme(modeSelect.value, e.target.value);
       });
       themeSelect.hasSecondaryChangeEvent = true;
     }
@@ -233,19 +233,32 @@ app.Settings = {
     }
   },
 
-  changeTheme: function(darkMode, colourTheme) {
+  changeTheme: function(appMode, colourTheme) {
+    let html = document.getElementsByTagName("html")[0];
     let body = document.getElementsByTagName("body")[0];
     let panel = document.getElementById("app-panel");
 
-    if (darkMode === true) {
-      body.className = colourTheme + " theme-dark";
-      panel.style["background-color"] = "black";
-      Chart.defaults.global.defaultFontColor = 'white';
+    isDark = false;
+
+    if (appMode === "system") {
+      app.f7.enableAutoDarkTheme();
+      isDark = (app.f7.darkTheme === true);
     } else {
-      body.className = colourTheme;
-      panel.style["background-color"] = "white";
-      Chart.defaults.global.defaultFontColor = 'black';
+      app.f7.disableAutoDarkTheme();
+      isDark = (appMode === "dark");
     }
+
+    if (isDark) {
+      html.classList.add("theme-dark");
+      panel.style["background-color"] = "black";
+      Chart.defaults.global.defaultFontColor = "white";
+    } else {
+      html.classList.remove("theme-dark");
+      panel.style["background-color"] = "white";
+      Chart.defaults.global.defaultFontColor = "black";
+    }
+
+    body.className = colourTheme;
   },
 
   saveInputs: function(inputs) {
@@ -364,7 +377,7 @@ app.Settings = {
                 if (data.settings !== undefined) {
                   let settings = app.Settings.migrateSettings(data.settings, false);
                   window.localStorage.setItem("settings", JSON.stringify(settings));
-                  this.changeTheme(settings.appearance["dark-mode"], settings.appearance["theme"]);
+                  this.changeTheme(settings.appearance.mode, settings.appearance.theme);
                   app.f7.views.main.router.refreshPage();
                 }
               }
@@ -511,7 +524,7 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        "dark-mode": false,
+        mode: "system",
         theme: "color-theme-red",
         animations: false,
         locale: "auto",
@@ -622,6 +635,15 @@ app.Settings = {
         if (settings.nutriments !== undefined && settings.nutriments.order !== undefined)
           nutriments = settings.nutriments.order;
         settings.goals = app.Settings.migrateGoalSettings(oldGoals, nutriments);
+      }
+
+      // Boolean value for dark-mode must be replaced with string value
+      if (settings.appearance !== undefined) {
+        if (settings.appearance["dark-mode"] === true)
+          settings.appearance.mode = "dark";
+        else
+          settings.appearance.mode = "light";
+        delete settings.appearance["dark-mode"];
       }
 
       settings.schemaVersion = currentSettingsSchemaVersion;
