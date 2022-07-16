@@ -1,3 +1,4 @@
+- added option to follow the system wide dark theme (Android 10+)
 - clarified that foods and recipes cannot be deleted, only archived
 - added ability to browse archived foods and recipes
 - added ability to clone an existing food, meal or recipe

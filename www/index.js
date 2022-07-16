@@ -422,6 +422,11 @@ document.addEventListener("page:reinit", function(event) {
 
 app.f7.on("init", async function(event) {});
 
+app.f7.on("darkThemeChange", function(isDark) {
+  let appMode = isDark ? "dark" : "light";
+  app.Settings.applyAppMode(appMode);
+});
+
 document.addEventListener("page:beforein", (e) => {
   app.localize();
 });
@@ -438,7 +443,7 @@ document.addEventListener('deviceready', async function() {
     app.f7.views.main.router.navigate("/settings/");
   } else {
     settings = app.Settings.migrateSettings(settings);
-    app.Settings.changeTheme(settings.appearance["dark-mode"], settings.appearance.theme);
+    app.Settings.changeTheme(settings.appearance.mode, settings.appearance.theme);
     app.f7.views.main.router.navigate(settings.appearance["start-page"]);
   }
 

@@ -32,14 +32,15 @@
     <div class="list multi-line-titles">
       <ul>
         <li>
-          <div class="item-content">
+          <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title" data-localize="settings.appearance.dark">Dark Mode</div>
-              <div class="item-after">
-                <label class="toggle toggle-init">
-                  <input type="checkbox" id="dark-mode" field="appearance" name="dark-mode" />
-                  <span class="toggle-icon"></span>
-                </label>
+              <div class="item-title item-label" data-localize="settings.appearance.app-mode">App Mode</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select id="mode" name="mode" field="appearance">
+                  <option value="system" selected data-localize="settings.appearance.system">Use System Theme</option>
+                  <option value="light" data-localize="settings.appearance.light">Light</option>
+                  <option value="dark" data-localize="settings.appearance.dark">Dark</option>
+                </select>
               </div>
             </div>
           </div>
