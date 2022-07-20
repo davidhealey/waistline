@@ -72,6 +72,12 @@
     "no": "Hayır",
     "add": "Ekle",
     "skip": "Atla",
+    "clone-item": "Öğeyi kopyala",
+    "delete-item": "Öğeyi Sil",
+    "archive-item": "Öğeyi arşivle",
+    "restore-item": "Öğeyi kurtar",
+    "clone-and-archive": "Öğeyi kopyala ve orijinali arşivle",
+    "confirm": "Emin misiniz?",
     "confirm-delete": "Bunu silmek istediğinize emin misiniz?",
     "delete-title": "Girdiyi Sil",
     "required-fields": "Lütfen tüm gerekli alanları doldurun.",
@@ -213,7 +219,10 @@
     "needs-restart": "Değişiklikleri uygulamak için uygulamayı yeniden başlatınız.",
     "appearance": {
       "title": "Görünüm",
-      "dark": "Koyu Tema",
+      "app-mode": "Uygulama Modu",
+      "system": "Sistem temasını kullan",
+      "light": "Açık",
+      "dark": "Koyu",
       "colour-theme": "Renk Teması",
       "animations": "Animasyonları Devre Dışı Bırak",
       "start-page": "Başlangıç Sayfası",
@@ -259,7 +268,8 @@
       "last-3-days": "Son 3 Gün",
       "last-5-days": "Son 5 Gün",
       "last-7-days": "Son 7 Gün",
-      "last-10-days": "Son 10 Gün"
+      "last-10-days": "Son 10 Gün",
+      "goals-link": "Hedef Belirle"
     },
     "foods": {
       "title": "Gıdalar, Öğünler, Tarifler",
@@ -331,7 +341,7 @@
       "import-success-title": "Yedekleme geri yüklendi",
       "import-success-message": "İçe Aktarma Tamamlandı",
       "barcode-sound": "Barkod Tarama Sesi",
-      "edit-images": "Yüklemeden Önce Görüntüyü Düzenle",
+      "edit-images": "Fotoğrafları Kırp",
       "login-success": "Başarıyla Giriş Yapıldı"
     }
   },

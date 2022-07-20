@@ -72,6 +72,12 @@
     "no": "Nein",
     "add": "Hinzufügen",
     "skip": "Überspringen",
+    "clone-item": "Eintrag klonen",
+    "delete-item": "Eintrag löschen",
+    "archive-item": "Eintrag archivieren",
+    "restore-item": "Eintrag wiederherstellen",
+    "clone-and-archive": "Eintrag klonen und Original archivieren",
+    "confirm": "Bist du sicher?",
     "confirm-delete": "Bist du sicher, dass du dies löschen willst?",
     "delete-title": "Eintrag löschen",
     "required-fields": "Bitte fülle alle nötigen Felder aus.",
@@ -213,7 +219,10 @@
     "needs-restart": "Starte die App neu, um die Änderungen anzuwenden.",
     "appearance": {
       "title": "Darstellung",
-      "dark": "Dunkelmodus",
+      "app-mode": "App-Modus",
+      "system": "System-Thema verwenden",
+      "light": "Hell",
+      "dark": "Dunkel",
       "colour-theme": "Farb-Thema",
       "animations": "UI Animationen deaktivieren",
       "start-page": "Startseite",
@@ -259,7 +268,8 @@
       "last-3-days": "Letzte 3 Tage",
       "last-5-days": "Letzte 5 Tage",
       "last-7-days": "Letzte 7 Tage",
-      "last-10-days": "Letzte 10 Tage"
+      "last-10-days": "Letzte 10 Tage",
+      "goals-link": "Ziele setzen"
     },
     "foods": {
       "title": "Lebensmittel, Mahlzeiten, Rezepte",
@@ -331,7 +341,7 @@
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
       "barcode-sound": "Ton wenn Strichcode gescannt wird",
-      "edit-images": "Bilder vor dem Hochladen bearbeiten",
+      "edit-images": "Fotos zuschneiden",
       "login-success": "Anmeldung erfolgreich"
     }
   },

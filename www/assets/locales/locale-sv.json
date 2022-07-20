@@ -72,6 +72,12 @@
     "no": "Nej",
     "add": "Lägg till",
     "skip": "Hoppa över",
+    "clone-item": "Duplicera objekt",
+    "delete-item": "Ta bort objekt",
+    "archive-item": "Arkivera objekt",
+    "restore-item": "Återställ objekt",
+    "clone-and-archive": "Duplicera objekt och arkivera original",
+    "confirm": "Är du säker?",
     "confirm-delete": "Är du säker på att du vill radera detta?",
     "delete-title": "Ta bort inlägg",
     "required-fields": "Vänligen fyll i alla obligatoriska fält.",
@@ -213,7 +219,10 @@
     "needs-restart": "Starta om appen för att tillämpa ändringarna.",
     "appearance": {
       "title": "Utseende",
-      "dark": "Mörkt läge",
+      "app-mode": "App Mode",
+      "system": "Use System Theme",
+      "light": "Light",
+      "dark": "Dark",
       "colour-theme": "Färgtema",
       "animations": "Inaktivera UI-animeringar",
       "start-page": "Startsida",
@@ -259,7 +268,8 @@
       "last-3-days": "Senaste 3 dagarna",
       "last-5-days": "Senaste 5 dagarna",
       "last-7-days": "Senaste 7 dagarna",
-      "last-10-days": "Senaste 10 dagarna"
+      "last-10-days": "Senaste 10 dagarna",
+      "goals-link": "Sätt upp mål"
     },
     "foods": {
       "title": "Livsmedel, måltider, recept",
@@ -331,7 +341,7 @@
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
       "barcode-sound": "Ljudsignal vid streckkodsskanning",
-      "edit-images": "Redigera bilder före uppladdning",
+      "edit-images": "Beskär bilder",
       "login-success": "Inloggningen lyckades"
     }
   },

@@ -72,6 +72,12 @@
     "no": "Nie",
     "add": "Dodaj",
     "skip": "Pomiń",
+    "clone-item": "Klonuj element",
+    "delete-item": "Usuń element",
+    "archive-item": "Zarchiwizuj element",
+    "restore-item": "Przywróć element",
+    "clone-and-archive": "Zamknij element i zarchiwizuj oryginał",
+    "confirm": "Czy jesteś pewien?",
     "confirm-delete": "Czy na pewno chcesz to usunąć?",
     "delete-title": "Usuń wpis",
     "required-fields": "Wypełnij wszystkie wymagane pola.",
@@ -159,7 +165,7 @@
     "scan-prompt": "Umieść kod kreskowy w obrębie pola skanowania",
     "show-more-nutriments": "Pokaż więcej składników odżywczych",
     "show-less-nutriments": "Pokaż mniej składników odżywczych",
-    "added-to-selection": "Scanned item added to selection"
+    "added-to-selection": "Zeskanowany element został dodany do zaznaczenia"
   },
   "food-editor": {
     "edit-item": "Edytuj element",
@@ -195,10 +201,10 @@
     "auto-adjust": "Automatycznie dostosowuj do osiągnięcia celu średniego",
     "minimum-goal": "Jest celem minimalnym",
     "percent-goal": "Cel jako procent pobranej energii",
-    "effective-from": "Effective from",
-    "new-goal": "New Goal",
+    "effective-from": "Obowiązuje od",
+    "new-goal": "Nowy cel",
     "delete-goal": "Usuń cel",
-    "goal-deleted": "Goal Deleted"
+    "goal-deleted": "Usunięto cel"
   },
   "meal-editor": {
     "title": "Edytuj posiłek",
@@ -213,7 +219,10 @@
     "needs-restart": "Zresetuj aplikację, aby zastosować zmiany.",
     "appearance": {
       "title": "Wygląd",
-      "dark": "Ciemny motyw",
+      "app-mode": "Motyw aplikacji",
+      "system": "Użyj motywu systemowego",
+      "light": "Jasny",
+      "dark": "Ciemny",
       "colour-theme": "Motyw kolorów",
       "animations": "Wyłączenie animacji",
       "start-page": "Strona startowa",
@@ -259,7 +268,8 @@
       "last-3-days": "Ostatnie 3 dni",
       "last-5-days": "Ostatnie 5 dni",
       "last-7-days": "Ostatnie 7 dni",
-      "last-10-days": "Ostatnie 10 dni"
+      "last-10-days": "Ostatnie 10 dni",
+      "goals-link": "Ustal cel"
     },
     "foods": {
       "title": "Żywność, posiłki, przepisy",
@@ -291,9 +301,9 @@
       "auto-backup": "Automatyczna kopia zapasowa",
       "backup": "Wykonaj kopie",
       "import": "Importuj z kopii zapasowej",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items"
+      "import-foods-title": "Importowanie żywności",
+      "import-foods": "Import żywności z pliku JSON",
+      "import-foods-categories": "Kategorie dla importowanych elementów"
     },
     "integration": {
       "title": "Integracja",
@@ -323,15 +333,15 @@
       "invalid-api-key": "Niepoprawny klucz API",
       "export-success": "Baza danych wyeksportowana",
       "export-fail": "Eksport nie powiódł się",
-      "import-fail": "Import Failed",
+      "import-fail": "Importowanie nie powiodło się",
       "import": "Importuj",
       "confirm-import": "Jesteś pewien? To nadpisze Twoją obecną bazę danych.",
-      "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
-      "import-foods-category-fail": "Please select at least one category",
+      "confirm-import-foods": "Czy aby na pewno? Tej akcji nie można cofnąć. Proszę najpierw wykonać kopię zapasową bazy danych.",
+      "import-foods-category-fail": "Proszę wybrać przynajmniej jedną kategorię",
       "import-success-title": "Kopia zapasowa została przywrócona",
       "import-success-message": "Import Zakończony",
       "barcode-sound": "Sygnał skanera kodu kreskowego",
-      "edit-images": "Edycja zdjęć do przesłania",
+      "edit-images": "Przytnij zdjęcie",
       "login-success": "Zalogowano pomyślnie"
     }
   },
@@ -357,7 +367,7 @@
     "finnish": "Fiński",
     "spanish": "Hiszpański",
     "dutch": "Holenderski",
-    "turkish": "Turkish",
-    "ukrainian": "Ukrainian"
+    "turkish": "Turecki",
+    "ukrainian": "Ukraiński"
   }
 }

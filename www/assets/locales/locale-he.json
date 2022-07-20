@@ -72,6 +72,12 @@
     "no": "לא",
     "add": "הוספה",
     "skip": "דילוג",
+    "clone-item": "שכפול פריט",
+    "delete-item": "מחיקת פריט",
+    "archive-item": "העברת פריט לארכיון",
+    "restore-item": "שחזור פריט",
+    "clone-and-archive": "שכפול פריט והעברת המקור לארכיון",
+    "confirm": "להמשיך?",
     "confirm-delete": "למחוק את זה?",
     "delete-title": "מחיקת רשומה",
     "required-fields": "נא להשלים את כל השדות הנדרשים.",
@@ -213,7 +219,10 @@
     "needs-restart": "השינויים יחולו לאחר הפעלת היישומון מחדש.",
     "appearance": {
       "title": "מראה",
-      "dark": "מצב כהה",
+      "app-mode": "מצב יישום",
+      "system": "כמו ערכת הנושא של המערכת",
+      "light": "בהירה",
+      "dark": "כהה",
       "colour-theme": "ערכת צבע",
       "animations": "השבתת הנפשות",
       "start-page": "עמוד הפתיחה",
@@ -259,7 +268,8 @@
       "last-3-days": "3 הימים האחרונים",
       "last-5-days": "5 הימים האחרונים",
       "last-7-days": "7 הימים האחרונים",
-      "last-10-days": "10 הימים האחרונים"
+      "last-10-days": "10 הימים האחרונים",
+      "goals-link": "הגדרת יעדים"
     },
     "foods": {
       "title": "מאכלים, מנות, מתכונים",
@@ -331,7 +341,7 @@
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
       "barcode-sound": "צפצוף סריקת ברקוד",
-      "edit-images": "עריכת תמונות בטרם ההעלאה",
+      "edit-images": "חיתוך תמונות",
       "login-success": "הכניסה הצליחה"
     }
   },
