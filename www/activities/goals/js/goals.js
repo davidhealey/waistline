@@ -117,66 +117,71 @@ app.Goals = {
     });
 
     let consideredDaysInfo = [];
-    let energyGoals = [];
 
     let numberOfDaysToConsider = 1;
     // If some goals are defined to auto adjust, also consider the past days of the current average base period
     if (includesAutoAdjustGoal)
       numberOfDaysToConsider += considerPastDays;
 
-    // Fetch the nutrition totals end get the energy goal for each considered day
+    // Fetch the nutrition totals and get the energy goal for each considered day
     for (let d = 1; d <= numberOfDaysToConsider; d++) {
       let dayDelta = numberOfDaysToConsider - d;
       let currentDate = new Date(date.getTime());
       currentDate.setDate(currentDate.getDate() - dayDelta);
       let currentDay = (currentDate.getDay() - Number(firstDayOfWeek) + 7) % 7;
 
+      let info = {
+        nutrition: {},
+        energyGoal: undefined,
+        date: currentDate,
+        day: currentDay
+      };
+
+      let considerDay = false;
       let diaryEntry = await app.Goals.getDiaryEntryFromDB(currentDate);
 
+      // Check if this day has a diary entry with at least one item
       if (diaryEntry !== undefined && diaryEntry.items !== undefined && diaryEntry.items.length > 0) {
+        // Compute the total nutrition of the items
         let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryEntry.items, "disclose");
-        let info = {
-          nutrition: totalNutrition,
-          date: currentDate,
-          day: currentDay
-        };
-        consideredDaysInfo.push(info);
+        info.nutrition = totalNutrition;
+        considerDay = true;
+      } else if (d === numberOfDaysToConsider) {
+        // Always consider the requested day (= the last one), even if it has no items
+        considerDay = true;
       }
 
-      // If some goals are defined as percentage of energy, also get the energy goal
-      if (includesPercentGoal) {
-        let energyGoal = app.Goals.getGoal(energyName, currentDate, currentDay, averageGoalBase, consideredDaysInfo);
-        energyGoals.push(energyGoal.goal);
+      // Add this day to the list of considered days
+      if (considerDay) {
+        consideredDaysInfo.push(info);
+        // If some goals are defined as percentage of energy, also get the energy goal
+        if (includesPercentGoal) {
+          let energyGoal = app.Goals.getGoal(energyName, currentDate, currentDay, averageGoalBase, consideredDaysInfo);
+          consideredDaysInfo[consideredDaysInfo.length - 1]["energyGoal"] = energyGoal.goal;
+        }
       }
     }
 
     // Convert the energy goals to calories, if necessary
     if (energyUnit == app.nutrimentUnits.kilojoules) {
-      energyGoals.forEach((goal, i) => {
-        energyGoals[i] = app.Utils.convertUnit(goal, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
+      consideredDaysInfo.forEach((info, i) => {
+        consideredDaysInfo[i]["energyGoal"] = app.Utils.convertUnit(info.energyGoal, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
       });
     }
 
     // Get goals for the requested stats
     let goals = {};
     stats.forEach((stat) => {
-      goals[stat] = app.Goals.getGoal(stat, date, day, averageGoalBase, consideredDaysInfo, energyGoals);
+      goals[stat] = app.Goals.getGoal(stat, date, day, averageGoalBase, consideredDaysInfo);
     });
 
     return goals;
   },
 
-  getGoal: function(stat, date, day, averageGoalBase, consideredDaysInfo, energyGoals) {
-    let nutritionInfo;
-    let energyGoal;
-
-    if (consideredDaysInfo !== undefined)
-      nutritionInfo = consideredDaysInfo[consideredDaysInfo.length - 1]; // Last item in the list is for the requested date
-    if (energyGoals !== undefined)
-      energyGoal = energyGoals[energyGoals.length - 1]; // Last item in the list is for the requested date
-
+  getGoal: function(stat, date, day, averageGoalBase, consideredDaysInfo) {
+    let dayInfo = consideredDaysInfo[consideredDaysInfo.length - 1]; // Last item in the list is for the requested date
     let statDateGoal = app.Goals.getStatDateGoal(stat, date);
-    let goal = app.Goals.getDayGoal(stat, statDateGoal, day, nutritionInfo, energyGoal);
+    let goal = app.Goals.getDayGoal(stat, statDateGoal, day, dayInfo);
 
     if (statDateGoal["auto-adjust"] == true) {
       let statSum = 0;
@@ -188,12 +193,8 @@ app.Goals = {
         let dayStat = info.nutrition[stat] || 0;
         statSum += dayStat;
 
-        let dayEnergyGoal;
-        if (energyGoals !== undefined)
-          dayEnergyGoal = energyGoals[i];
-
         let dateGoal = app.Goals.getStatDateGoal(stat, info.date);
-        let dayGoal = app.Goals.getDayGoal(stat, dateGoal, info.day, info, dayEnergyGoal);
+        let dayGoal = app.Goals.getDayGoal(stat, dateGoal, info.day, info);
         if (dayGoal !== undefined && !isNaN(dayGoal))
           goalSum += dayGoal;
       }
@@ -219,7 +220,7 @@ app.Goals = {
     }
   },
 
-  getDayGoal: function(stat, statGoal, day, nutritionInfo, energyGoal) {
+  getDayGoal: function(stat, statGoal, day, dayInfo) {
     let statGoalValues = statGoal["goal"] || [];
     let goal;
 
@@ -229,10 +230,10 @@ app.Goals = {
       goal = parseFloat(statGoalValues[day]);
 
     if (statGoal["percent-goal"] == true)
-      goal = app.Goals.getEnergyPercentGoal(stat, goal, energyGoal);
+      goal = app.Goals.getEnergyPercentGoal(stat, goal, dayInfo.energyGoal);
 
-    if ((stat === "calories" || stat === "kilojoules") && nutritionInfo !== undefined)
-      goal += nutritionInfo.nutrition["burned-" + stat] || 0; // Increase energy goal by burned amount
+    if ((stat === "calories" || stat === "kilojoules") && dayInfo !== undefined)
+      goal += dayInfo.nutrition["burned-" + stat] || 0; // Increase energy goal by burned amount
 
     return goal;
   },
