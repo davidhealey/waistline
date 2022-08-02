@@ -1,0 +1,6 @@
+- improved Open Food Facts search integration
+- added support for Serbian language (Cyrillic and Latin)
+- various bugfixes
+
+You can find the full changelog at 
+https://github.com/davidhealey/waistline/releases
