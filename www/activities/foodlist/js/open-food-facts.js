@@ -42,6 +42,8 @@ app.OpenFoodFacts = {
 
         if (language != undefined && language != "Default")
           url += "&lang=" + encodeURIComponent(language) + "&lc=" + encodeURIComponent(language);
+        else
+          language = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
 
         let response = await app.Utils.timeoutFetch(url, {
           headers: {
@@ -58,7 +60,7 @@ app.OpenFoodFacts = {
           // Multiple results (hide results where all nutrition values are undefined)
           if (data.products !== undefined) {
             data.products.forEach((x) => {
-              let item = app.OpenFoodFacts.parseItem(x, preferDataPer100g);
+              let item = app.OpenFoodFacts.parseItem(x, preferDataPer100g, language);
               if (item != undefined) {
                 let nutritionValues = Object.values(item.nutrition).filter((v) => {return v != undefined});
                 if (nutritionValues.length != 0) result.push(item);
@@ -68,7 +70,7 @@ app.OpenFoodFacts = {
 
           // Single result (presumably from a barcode)
           if (data.product !== undefined) {
-            let item = app.OpenFoodFacts.parseItem(data.product, preferDataPer100g);
+            let item = app.OpenFoodFacts.parseItem(data.product, preferDataPer100g, language);
             if (item != undefined) result.push(item);
           }
 
@@ -79,7 +81,7 @@ app.OpenFoodFacts = {
     });
   },
 
-  parseItem: function(item, preferDataPer100g) {
+  parseItem: function(item, preferDataPer100g, preferredLanguage) {
     const nutriments = app.nutriments; // Array of OFF nutriment names
     const units = app.nutrimentUnits;
 
@@ -87,11 +89,16 @@ app.OpenFoodFacts = {
       "nutrition": {}
     };
 
-    // Search for all keys containing 'item_name' to include local item names
-    for (let k in item) {
-      if (k.includes("product_name") && item[k].length > 1) {
-        result.name = he.decode(item[k]);
-        break;
+    // Get item name, try the preferred language first
+    let key = "product_name_" + preferredLanguage;
+    if (item[key] !== undefined && item[key].length > 1) {
+      result.name = he.decode(item[key]);
+    } else {
+      for (let k in item) {
+        if (k.includes("product_name") && item[k].length > 1) {
+          result.name = he.decode(item[k]);
+          break;
+        }
       }
     }
 
@@ -272,14 +279,11 @@ app.OpenFoodFacts = {
 
     // Product language
     let language = app.Settings.get("integration", "search-language") || undefined;
-    let lang = "en";
 
     if (language != undefined && language != "Default")
-      lang = language;
+      string += "&lang=" + encodeURIComponent(language);
     else
-      lang = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
-
-    string += "&lang=" + encodeURIComponent(lang);
+      string += "&lang=" + encodeURIComponent(app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2));
 
     // Product information
     string += "&product_name_" + encodeURIComponent(lang) + "=" + encodeURIComponent(data.name);
