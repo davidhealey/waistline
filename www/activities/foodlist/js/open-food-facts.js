@@ -26,7 +26,7 @@ app.OpenFoodFacts = {
 
         // If query is a number, assume it's a barcode
         if (isNaN(query))
-          url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=last_modified_t&action=process&json=1";
+          url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=unique_scans_n&action=process&json=1";
         else
           url = "https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
 
