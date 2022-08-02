@@ -368,6 +368,8 @@
     "spanish": "Spaans",
     "dutch": "Nederlands",
     "turkish": "Turks",
-    "ukrainian": "Oekraïens"
+    "ukrainian": "Oekraïens",
+    "serbian-cyrillic": "Serbian (Cyrillic)",
+    "serbian-latin": "Serbian (Latin)"
   }
 }
