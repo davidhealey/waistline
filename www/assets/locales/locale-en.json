@@ -368,6 +368,8 @@
     "spanish": "Spanish",
     "dutch": "Dutch",
     "turkish": "Turkish",
-    "ukrainian": "Ukrainian"
+    "ukrainian": "Ukrainian",
+    "serbian-cyrillic": "Serbian (Cyrillic)",
+    "serbian-latin": "Serbian (Latin)"
   }
 }
