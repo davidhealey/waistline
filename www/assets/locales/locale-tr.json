@@ -220,7 +220,7 @@
     "appearance": {
       "title": "Görünüm",
       "app-mode": "Uygulama Modu",
-      "system": "Sistem temasını kullan",
+      "system": "Sistem Temasını Kullan",
       "light": "Açık",
       "dark": "Koyu",
       "colour-theme": "Renk Teması",
@@ -369,7 +369,7 @@
     "dutch": "Flemenkçe",
     "turkish": "Türkçe",
     "ukrainian": "Ukraynaca",
-    "serbian-cyrillic": "Serbian (Cyrillic)",
-    "serbian-latin": "Serbian (Latin)"
+    "serbian-cyrillic": "Sırpça (Kiril)",
+    "serbian-latin": "Sırpça (Latin)"
   }
 }
