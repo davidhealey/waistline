@@ -279,11 +279,14 @@ app.OpenFoodFacts = {
 
     // Product language
     let language = app.Settings.get("integration", "search-language") || undefined;
+    let lang = "en";
 
     if (language != undefined && language != "Default")
-      string += "&lang=" + encodeURIComponent(language);
+      lang = language;
     else
-      string += "&lang=" + encodeURIComponent(app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2));
+      lang = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
+
+    string += "&lang=" + encodeURIComponent(lang);
 
     // Product information
     string += "&product_name_" + encodeURIComponent(lang) + "=" + encodeURIComponent(data.name);
