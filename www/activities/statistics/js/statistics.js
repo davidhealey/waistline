@@ -310,23 +310,10 @@ app.Stats = {
         let value;
 
         if (app.measurements.includes(field)) {
-          value = parseFloat(data.stats[i][field]);
-
-          if (value != undefined) {
-            if (field == "weight") {
-              if (unit == "lb")
-                value = Math.round(value / 0.45359237 * 100) / 100;
-              else if (unit == "st")
-                value = Math.round(value / 6.35029318 * 100) / 100;
-            } else {
-              if (unit == "inch")
-                value = Math.round(value / 2.54 * 100) / 100;
-            }
-          }
-
+          value = app.Utils.convertUnit(data.stats[i][field], app.measurementUnits[field], unit);
         } else {
           let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i], "ignore");
-          value = parseFloat(nutrition[field]);
+          value = nutrition[field];
         }
 
         if (value != undefined && value != 0 && !isNaN(value)) {
