@@ -165,9 +165,9 @@ app.USDA = {
     }
 
     if (result.nutrition.calories && result.nutrition.kilojoules == undefined)
-      result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, true);
+      result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, 1);
     else if (result.nutrition.kilojoules && result.nutrition.calories == undefined)
-      result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, true);
+      result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, 1);
 
     // Nutriments
     offNutriments.forEach((x, i) => {

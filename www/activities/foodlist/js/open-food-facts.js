@@ -146,13 +146,13 @@ app.OpenFoodFacts = {
       if (item.nutriments.energy_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_serving"]) ?
           parseInt(item.nutriments["energy-kcal_serving"]) :
-          app.Utils.convertUnit(item.nutriments.energy_serving, units.kilojoules, units.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_serving, units.kilojoules, units.calories, 1);
         result.nutrition.kilojoules = item.nutriments.energy_serving;
         perTag = "_serving";
       } else if (item.nutriments.energy_prepared_serving) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_serving"]) ?
           parseInt(item.nutriments["energy-kcal_prepared_serving"]) :
-          app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_prepared_serving, units.kilojoules, units.calories, 1);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_serving;
         perTag = "_prepared_serving";
       } else {
@@ -166,13 +166,13 @@ app.OpenFoodFacts = {
       if (item.nutriments.energy_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_100g"]) ?
           item.nutriments["energy-kcal_100g"] :
-          app.Utils.convertUnit(item.nutriments.energy_100g, units.kilojoules, units.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_100g, units.kilojoules, units.calories, 1);
         result.nutrition.kilojoules = item.nutriments.energy_100g;
         perTag = "_100g";
       } else if (item.nutriments.energy_prepared_100g) {
         result.nutrition.calories = (item.nutriments["energy-kcal_prepared_100g"]) ?
           item.nutriments["energy-kcal_prepared_100g"] :
-          app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, true);
+          app.Utils.convertUnit(item.nutriments.energy_prepared_100g, units.kilojoules, units.calories, 1);
         result.nutrition.kilojoules = item.nutriments.energy_prepared_100g;
         perTag = "_prepared_100g";
       } else {
