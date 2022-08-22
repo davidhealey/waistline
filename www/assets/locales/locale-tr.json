@@ -304,9 +304,9 @@
       "import-foods-title": "Yemekleri İçe Aktar",
       "import-foods": "Yemekleri JSON'dan İçe Aktar",
       "import-foods-categories": "İçe aktarılan öğelerin kategorileri",
-      "export-diary-title": "Export Diary",
-      "export-diary": "Export Diary to CSV",
-      "date": "Date"
+      "export-diary-title": "Günlüğü dışa aktar",
+      "export-diary": "Günlüğü CSV'ye aktar",
+      "date": "Tarih"
     },
     "integration": {
       "title": "Entegrasyon",
