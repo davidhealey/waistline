@@ -303,7 +303,10 @@
       "import": "Aus Datenbanksicherung importieren",
       "import-foods-title": "Lebensmittel importieren",
       "import-foods": "Lebensmittel aus JSON importieren",
-      "import-foods-categories": "Kategorien für importierte Einträge"
+      "import-foods-categories": "Kategorien für importierte Einträge",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Integrationen",
