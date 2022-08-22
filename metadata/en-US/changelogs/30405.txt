@@ -1,3 +1,4 @@
+- added ability to export diary as CSV file
 - improved Open Food Facts search integration
 - added support for Serbian language (Cyrillic and Latin)
 - various bugfixes
