@@ -162,7 +162,7 @@ app.Utils = {
     }
   },
 
-  convertUnit: function(value, unit1, unit2, round=false) {
+  convertUnit: function(value, unit1, unit2, roundFactor) {
 
     if (unit1 !== undefined && typeof unit1.toLowerCase === "function")
       unit1 = unit1.toLowerCase();
@@ -252,8 +252,8 @@ app.Utils = {
     else if (unit1 == "l" && unit2 == "cl")
       result = value / 0.01;
 
-    if (result !== undefined && round === true)
-      result = Math.round(result);
+    if (result !== undefined && roundFactor !== undefined)
+      result = Math.round(result * roundFactor) / roundFactor;
 
     return result;
   },

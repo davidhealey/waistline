@@ -749,7 +749,6 @@ app.Diary = {
 
   log: async function() {
     const title = app.strings.diary["log-title"] || "Today's Stats";
-    const units = app.Settings.getField("units");
     const fields = app.measurements;
 
     // Look for stats in the past 15 diary entries starting from the current date
@@ -769,26 +768,8 @@ app.Diary = {
 
       if (x !== "weight" && !app.Goals.showInStats(x)) continue;
 
-      let unit;
-
-      if (x == "body fat")
-        unit = "%";
-      else
-        x == "weight" ? unit = units.weight : unit = units.length;
-
-      let value = stats[x];
-
-      if (value != undefined && x != "body fat") {
-        if (x == "weight") {
-          if (unit == "lb")
-            value = Math.round(stats[x] / 0.45359237 * 100) / 100;
-          else if (unit == "st")
-            value = Math.round(stats[x] / 6.35029318 * 100) / 100;
-        } else {
-          if (unit == "inch")
-            value = Math.round(stats[x] / 2.54 * 100) / 100;
-        }
-      }
+      let unit = app.Goals.getGoalUnit(x, false);
+      let value = app.Utils.convertUnit(stats[x], app.measurementUnits[x], unit, 100);
 
       let name = app.strings.statistics[x] || x;
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -865,26 +846,14 @@ app.Diary = {
   saveStats: async function(dialog) {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
     let inputs = Array.from(dialog.el.getElementsByTagName("input"));
-    let units = app.Settings.getField("units");
 
     let stats = {};
 
     for (let i = 0; i < inputs.length; i++) {
       let x = inputs[i];
 
-      let value = parseFloat(x.value);
-
-      if (x.id !== "body fat") {
-        if (x.id == "weight") {
-          if (units.weight == "lb")
-            value = Math.round(x.value * 0.45359237 * 100) / 100;
-          else if (units.weight == "st")
-            value = Math.round(x.value * 6.35029318 * 100) / 100;
-        } else {
-          if (units.length == "inch")
-            value = Math.round(x.value * 2.54 * 100) / 100;
-        }
-      }
+      let unit = app.Goals.getGoalUnit(x.id, false);
+      let value = app.Utils.convertUnit(parseFloat(x.value), unit, app.measurementUnits[x.id], 100);
 
       if (!isNaN(value))
         stats[x.id] = value;

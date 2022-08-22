@@ -24,6 +24,13 @@ const app = {
   strings: {}, // Localization strings
   standardUnits: ["kcal", "kJ", "ug", "µg", "mg", "g", "kg", "ul", "µl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
   measurements: ["weight", "neck", "waist", "hips", "body fat"],
+  measurementUnits: {
+    "weight": "kg",
+    "neck": "cm",
+    "waist": "cm",
+    "hips": "cm",
+    "body fat": "%"
+  },
   energyMacroNutriments: ["fat", "saturated-fat", "carbohydrates", "sugars", "proteins"],
   nutriments: ["kilojoules", "calories", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "sodium", "cholesterol", "trans-fat", "monounsaturated-fat", "polyunsaturated-fat", "omega-3-fat", "omega-6-fat", "omega-9-fat", "vitamin-a", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "vitamin-c", "vitamin-d", "vitamin-e", "vitamin-k", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
   nutrimentUnits: {

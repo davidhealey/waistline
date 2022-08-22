@@ -35,7 +35,7 @@ app.Stats = {
 
     this.setChartTypeButtonVisibility();
     this.chart = undefined;
-    this.dbData = await this.getDataFromDb();
+    this.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
 
     if (this.dbData !== undefined) {
       let laststat = window.localStorage.getItem("last-stat");
@@ -66,7 +66,7 @@ app.Stats = {
     // Date range
     if (!app.Stats.el.range.hasChangedEvent) {
       app.Stats.el.range.addEventListener("change", async (e) => {
-        app.Stats.dbData = await this.getDataFromDb();
+        app.Stats.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
         if (app.Stats.dbData !== undefined) {
           app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
           app.Stats.updateChart();
@@ -310,23 +310,10 @@ app.Stats = {
         let value;
 
         if (app.measurements.includes(field)) {
-          value = parseFloat(data.stats[i][field]);
-
-          if (value != undefined) {
-            if (field == "weight") {
-              if (unit == "lb")
-                value = Math.round(value / 0.45359237 * 100) / 100;
-              else if (unit == "st")
-                value = Math.round(value / 6.35029318 * 100) / 100;
-            } else {
-              if (unit == "inch")
-                value = Math.round(value / 2.54 * 100) / 100;
-            }
-          }
-
+          value = app.Utils.convertUnit(data.stats[i][field], app.measurementUnits[field], unit);
         } else {
           let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i], "ignore");
-          value = parseFloat(nutrition[field]);
+          value = nutrition[field];
         }
 
         if (value != undefined && value != 0 && !isNaN(value)) {
@@ -366,20 +353,15 @@ app.Stats = {
         "stats": []
       };
 
-      let now = from || new Date();
-      let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      let fromDate = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate()));
       fromDate.setHours(0, 0, 0, 0);
       let toDate = new Date(fromDate);
       toDate.setUTCHours(toDate.getUTCHours() + 24);
 
-      let rangeValue = 0;
-
       if (range !== undefined)
-        rangeValue = range;
-      else if (app.Stats.el.range !== undefined)
-        rangeValue = app.Stats.el.range.value;
-
-      rangeValue == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - rangeValue);
+        range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
+      else
+        fromDate = new Date(0); // No range specified, so use earliest possible date
 
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e) {
         let cursor = e.target.result;

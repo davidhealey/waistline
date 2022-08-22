@@ -132,8 +132,8 @@ app.SetupWizard = {
 
     let data = app.Settings.getField("user");
 
-    let currentWeight = app.Utils.convertUnit(data["current-weight"], data["current-weight-unit"], "kg", false);
-    let targetWeight = app.Utils.convertUnit(data["target-weight"], data["target-weight-unit"], "kg", false);
+    let currentWeight = app.Utils.convertUnit(data["current-weight"], data["current-weight-unit"], "kg");
+    let targetWeight = app.Utils.convertUnit(data["target-weight"], data["target-weight-unit"], "kg");
     let height = data["height"][0];
 
     if (data["height-unit"] == "ft")
