@@ -303,7 +303,10 @@
       "import": "Importuj z kopii zapasowej",
       "import-foods-title": "Importowanie żywności",
       "import-foods": "Import żywności z pliku JSON",
-      "import-foods-categories": "Kategorie dla importowanych elementów"
+      "import-foods-categories": "Kategorie dla importowanych elementów",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Integracja",
