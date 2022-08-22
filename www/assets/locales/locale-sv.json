@@ -220,9 +220,9 @@
     "appearance": {
       "title": "Utseende",
       "app-mode": "App Mode",
-      "system": "Use System Theme",
-      "light": "Light",
-      "dark": "Dark",
+      "system": "Använd systemtema",
+      "light": "Ljust",
+      "dark": "Mörkt",
       "colour-theme": "Färgtema",
       "animations": "Inaktivera UI-animeringar",
       "start-page": "Startsida",
@@ -304,9 +304,9 @@
       "import-foods-title": "Importera livsmedel",
       "import-foods": "Importera livsmedel från JSON",
       "import-foods-categories": "Kategorier för importerade objekt",
-      "export-diary-title": "Export Diary",
-      "export-diary": "Export Diary to CSV",
-      "date": "Date"
+      "export-diary-title": "Exportera dagbok",
+      "export-diary": "Exportera dagbok till CSV-fil",
+      "date": "Datum"
     },
     "integration": {
       "title": "Integrationer",
