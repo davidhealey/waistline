@@ -303,7 +303,10 @@
       "import": "Importera säkerhetskopia",
       "import-foods-title": "Importera livsmedel",
       "import-foods": "Importera livsmedel från JSON",
-      "import-foods-categories": "Kategorier för importerade objekt"
+      "import-foods-categories": "Kategorier för importerade objekt",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Integrationer",
