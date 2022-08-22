@@ -303,7 +303,10 @@
       "import": "Yedeklemeyi İçe Aktar",
       "import-foods-title": "Yemekleri İçe Aktar",
       "import-foods": "Yemekleri JSON'dan İçe Aktar",
-      "import-foods-categories": "İçe aktarılan öğelerin kategorileri"
+      "import-foods-categories": "İçe aktarılan öğelerin kategorileri",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Entegrasyon",
