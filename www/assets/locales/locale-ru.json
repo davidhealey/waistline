@@ -303,7 +303,10 @@
       "import": "Импорт из резервной копии",
       "import-foods-title": "Импорт еды",
       "import-foods": "Импорт еды из JSON",
-      "import-foods-categories": "Категории импортированных элементов"
+      "import-foods-categories": "Категории импортированных элементов",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Интеграция",
