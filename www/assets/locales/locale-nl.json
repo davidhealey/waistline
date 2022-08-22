@@ -303,7 +303,10 @@
       "import": "Importeer uit backup",
       "import-foods-title": "Importeer voedsel",
       "import-foods": "Importeer voedsel uit JSON",
-      "import-foods-categories": "Categorieën voor geïmporteerde items"
+      "import-foods-categories": "Categorieën voor geïmporteerde items",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Integratie",
