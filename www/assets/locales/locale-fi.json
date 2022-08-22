@@ -303,7 +303,10 @@
       "import": "Tuo varmuuskopiosta",
       "import-foods-title": "Tuo elintarvikkeita",
       "import-foods": "Tuo elintarvikkeita JSONista",
-      "import-foods-categories": "Tuotujen kohteiden luokat"
+      "import-foods-categories": "Tuotujen kohteiden luokat",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Intergrointi",
