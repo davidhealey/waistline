@@ -304,8 +304,8 @@
       "import-foods-title": "Importer des Aliments",
       "import-foods": "Importer des Aliments depuis un fichier JSON",
       "import-foods-categories": "Catégories pour les éléments importés",
-      "export-diary-title": "Export Diary",
-      "export-diary": "Export Diary to CSV",
+      "export-diary-title": "Exporter le journal",
+      "export-diary": "Exporter le journal au format CSV",
       "date": "Date"
     },
     "integration": {
