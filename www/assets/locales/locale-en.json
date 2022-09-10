@@ -294,7 +294,10 @@
       "title": "Statistics",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "goal-line": "Show Goal Line",
+      "send-data": "Send data to external service",
+      "send-data-address": "Service Address",
+      "send-data-authorization": "Authorization Header"
     },
     "import-export": {
       "title": "Import/Export",

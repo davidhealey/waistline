@@ -171,29 +171,26 @@ app.Diary = {
   },
 
   sendStatistics: async function () {
-    if (app.Settings.get("statistics", "send-data") != true) {
-      return;
-    }
+    let address = app.Settings.get("statistics", "send-data-address");
+    if (app.Settings.get("statistics", "send-data") == true && !!address) {
+      let entry = await this.getEntryFromDB(); // Get diary entry from DB
+      if (entry) {
+        let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
 
-    let entry = await this.getEntryFromDB(); // Get diary entry from DB
+        let entryDetails = await Promise.all(entry.items.map(async (data) => {
+          return await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
+        }));
 
-    // Populate groups and get overal nutrition
-    if (entry) {
-      let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
-
-      let entryDetails = await Promise.all(entry.items.map(async (data) => {
-        return await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
-      }));
-
-      // Send nutrition and diary to target service
-      await app.Utils.timeoutFetch(app.Settings.get("statistics", "send-data-address"), {
-        headers: {
-          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
-          "Authorization": app.Settings.get("statistics", "your_authorization_header")
-        },
-        method: 'POST',
-        body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
-      });
+        // Send nutrition and diary to target service
+        await app.Utils.timeoutFetch(address, {
+          headers: {
+            "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+            "Authorization": app.Settings.get("statistics", "send-data-authorization")
+          },
+          method: 'POST',
+          body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
+        });
+      }
     }
   },
 
