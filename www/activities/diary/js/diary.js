@@ -188,7 +188,8 @@ app.Diary = {
       // Send nutrition and diary to target service
       await app.Utils.timeoutFetch(app.Settings.get("statistics", "send-data-address"), {
         headers: {
-          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
+          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+          "Authorization": app.Settings.get("statistics", "your_authorization_header")
         },
         method: 'POST',
         body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
