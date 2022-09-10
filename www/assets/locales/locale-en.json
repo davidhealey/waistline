@@ -297,7 +297,7 @@
       "goal-line": "Show Goal Line",
       "send-data": "Send data to external service",
       "send-data-address": "Service Address",
-      "send-data-authorization": "Authorization Header"
+      "send-data-authorization": "Service Authorization Header"
     },
     "import-export": {
       "title": "Import/Export",
