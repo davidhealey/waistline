@@ -239,7 +239,7 @@ app.Diary = {
         else
           requestedScrollPosition = pagePosition; // Category add button is already visible from page position
       } else if (scrollPosition.position !== undefined) {
-        requestedScrollPosition = scrollPosition.position; // Scroll to specified positionew
+        requestedScrollPosition = scrollPosition.position; // Scroll to specified position
       }
     }
     if (requestedScrollPosition !== undefined) {
