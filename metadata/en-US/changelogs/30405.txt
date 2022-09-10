@@ -1,5 +1,6 @@
 - added ability to export diary as CSV file
 - improved Open Food Facts search integration
+- carbs values of items imported from USDA no longer include fiber
 - added support for Serbian language (Cyrillic and Latin)
 - various bugfixes
 
