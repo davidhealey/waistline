@@ -170,27 +170,29 @@ app.Diary = {
     el.innerText = dateString;
   },
 
-  sendStatistics: async function() {
+  sendStatistics: async function () {
+    if (app.Settings.get("statistics", "send-data") != true) {
+      return;
+    }
+
     let entry = await this.getEntryFromDB(); // Get diary entry from DB
-    let totalNutrition;
 
     // Populate groups and get overal nutrition
     if (entry) {
       await this.populateGroups(entry);
-      totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
-    }
-    let entryDetails = await Promise.all(entry.items.map(async (data) => {
-      return await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
-    }));
+      let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
 
-    if (app.Settings.get("statistics", "send-data") == true && totalNutrition) {
+      let entryDetails = await Promise.all(entry.items.map(async (data) => {
+        return await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
+      }));
+
       // Send nutrition and diary to target service
       await app.Utils.timeoutFetch(app.Settings.get("statistics", "send-data-address"), {
         headers: {
           "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
         },
         method: 'POST',
-        body: JSON.stringify({ "nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry })
+        body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
       });
     }
   },
