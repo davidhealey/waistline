@@ -179,7 +179,6 @@ app.Diary = {
 
     // Populate groups and get overal nutrition
     if (entry) {
-      await this.populateGroups(entry);
       let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
 
       let entryDetails = await Promise.all(entry.items.map(async (data) => {
