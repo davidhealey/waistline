@@ -171,8 +171,11 @@ app.Diary = {
   },
 
   sendStatistics: async function () {
-    let address = app.Settings.get("statistics", "send-data-address");
-    if (app.Settings.get("statistics", "send-data") == true && !!address) {
+    let address = app.Settings.get("developer", "data-sharing-address");
+    let wifiOnly = app.Settings.get("developer", "data-sharing-wifi-only");
+
+    if (app.Settings.get("developer", "data-sharing-active") == true && !!address
+        && (wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
       let entry = await this.getEntryFromDB(); // Get diary entry from DB
       if (entry) {
         let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
@@ -185,7 +188,7 @@ app.Diary = {
         await app.Utils.timeoutFetch(address, {
           headers: {
             "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
-            "Authorization": app.Settings.get("statistics", "send-data-authorization")
+            "Authorization": app.Settings.get("developer", "data-sharing-authorization")
           },
           method: 'POST',
           body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})

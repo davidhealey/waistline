@@ -291,6 +291,13 @@ const app = {
             options: {
               transition: "f7-parallax"
             }
+          },
+          {
+            path: "developer/",
+            url: "activities/settings/views/developer.html",
+            options: {
+              transition: "f7-parallax"
+            }
           }
         ]
       },

@@ -694,6 +694,12 @@ app.Settings = {
         "proteins": true,
         "salt": true
       },
+      developer: {
+        "data-sharing-active": false,
+        "data-sharing-wifi-only": true,
+        "data-sharing-address": "",
+        "data-sharing-authorization": ""
+      },
       firstTimeSetup: true,
       schemaVersion: currentSettingsSchemaVersion
     };

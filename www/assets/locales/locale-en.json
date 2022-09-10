@@ -294,10 +294,14 @@
       "title": "Statistics",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line",
-      "send-data": "Send data to external service",
-      "send-data-address": "Service Address",
-      "send-data-authorization": "Service Authorization Header"
+      "goal-line": "Show Goal Line"
+    },
+    "developer": {
+      "data-sharing": "Send data to external service",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
     },
     "import-export": {
       "title": "Import/Export",
