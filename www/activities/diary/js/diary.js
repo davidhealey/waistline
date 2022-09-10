@@ -53,7 +53,6 @@ app.Diary = {
 
     if (document.querySelector(".page-current[data-name='diary']") != null)
       app.Diary.lastScrollPosition = 0; // Reset last scroll position
-
   },
 
   getComponents: function() {
