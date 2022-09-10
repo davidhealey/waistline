@@ -53,6 +53,7 @@ app.Diary = {
 
     if (document.querySelector(".page-current[data-name='diary']") != null)
       app.Diary.lastScrollPosition = 0; // Reset last scroll position
+
   },
 
   getComponents: function() {
@@ -170,6 +171,31 @@ app.Diary = {
     el.innerText = dateString;
   },
 
+  sendStatistics: async function() {
+    let entry = await this.getEntryFromDB(); // Get diary entry from DB
+    let totalNutrition;
+
+    // Populate groups and get overal nutrition
+    if (entry) {
+      await this.populateGroups(entry);
+      totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
+    }
+    let entryDetails = await Promise.all(entry.items.map(async (data) => {
+      return await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
+    }));
+
+    if (app.Settings.get("statistics", "send-data") == true && totalNutrition) {
+      // Send nutrition and diary to target service
+      await app.Utils.timeoutFetch(app.Settings.get("statistics", "send-data-address"), {
+        headers: {
+          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
+        },
+        method: 'POST',
+        body: JSON.stringify({ "nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry })
+      });
+    }
+  },
+
   render: async function(scrollPosition) {
     let entry = await this.getEntryFromDB(); // Get diary entry from DB
     let totalNutrition;
@@ -214,12 +240,15 @@ app.Diary = {
         else
           requestedScrollPosition = pagePosition; // Category add button is already visible from page position
       } else if (scrollPosition.position !== undefined) {
-        requestedScrollPosition = scrollPosition.position; // Scroll to specified position
+        requestedScrollPosition = scrollPosition.position; // Scroll to specified positionew
       }
     }
     if (requestedScrollPosition !== undefined) {
       $(".page[data-name='diary'] .page-content").scrollTop(requestedScrollPosition);
     }
+
+    // Send statistics. This is the wrong place. but idk. a better place.
+    this.sendStatistics();
   },
 
   renderNutritionCard: async function(nutrition, date, swiper) {
