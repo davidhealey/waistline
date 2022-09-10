@@ -182,14 +182,24 @@ app.USDA = {
             let value = app.Utils.convertUnit(n.value, n.unitName, units[x]);
             result.nutrition[x] = Math.round(value * multiplier * 100) / 100;
 
-            if (x == "sodium")
-              result.nutrition.salt = result.nutrition.sodium * 0.0025;
-
             break;
           }
         }
       }
     });
+
+    // The USDA db only contains values for sodium, but not for salt
+    if (result.nutrition.sodium !== undefined) {
+      result.nutrition.salt = result.nutrition.sodium * 0.0025;
+    }
+
+    // The carbs values in the USDA db include fiber, but we don't want that
+    if (result.nutrition.carbohydrates && result.nutrition.fiber) {
+      let correctedCarbs = result.nutrition.carbohydrates - result.nutrition.fiber;
+      if (correctedCarbs < result.nutrition.sugars || 0)
+        correctedCarbs = result.nutrition.sugars || 0;
+      result.nutrition.carbohydrates = correctedCarbs;
+    }
 
     return result;
   },
