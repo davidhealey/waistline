@@ -297,7 +297,8 @@
       "goal-line": "Show Goal Line"
     },
     "developer": {
-      "data-sharing": "Send data to external service",
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
       "data-sharing-wifi-only": "Only share data over Wi-Fi",
       "data-sharing-active": "Share data with external service",
       "data-sharing-address": "Service Address",

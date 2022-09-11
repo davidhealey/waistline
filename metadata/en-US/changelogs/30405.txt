@@ -3,6 +3,7 @@
 - carbs values of items imported from USDA no longer include fiber
 - added support for Serbian language (Cyrillic and Latin)
 - various bugfixes
+- added data sharing with external services (by default disabled -> developer settings)
 
 You can find the full changelog at 
 https://github.com/davidhealey/waistline/releases

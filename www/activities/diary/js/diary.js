@@ -248,7 +248,6 @@ app.Diary = {
       $(".page[data-name='diary'] .page-content").scrollTop(requestedScrollPosition);
     }
 
-    // Send statistics. This is the wrong place. but idk. a better place.
     this.sendStatistics();
   },
 
