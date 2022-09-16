@@ -1,1 +1,123 @@
-(function framework7ComponentLoader(e,r){void 0===r&&(r=!0);var o=e.$,n=e.utils,a=(e.getDevice,e.getSupport,e.Class,e.Modal,e.ConstructorMethods,e.ModalMethods,n.bindMethods),t=n.iosPreloaderContent,d=n.mdPreloaderContent,i=n.auroraPreloaderContent,l={init:function(e){var r={iosPreloaderContent:t,mdPreloaderContent:d,auroraPreloaderContent:i},n=o(e);0===n.length||n.children(".preloader-inner").length>0||n.children(".preloader-inner-line").length>0||n.append(r[this.theme+"PreloaderContent"])},visible:!1,show:function(e){void 0===e&&(e="white");if(!l.visible){var r={iosPreloaderContent:t,mdPreloaderContent:d,auroraPreloaderContent:i}[this.theme+"PreloaderContent"]||"";o("html").addClass("with-modal-preloader"),this.$el.append('\n      <div class="preloader-backdrop"></div>\n      <div class="preloader-modal">\n        <div class="preloader color-'+e+'">'+r+"</div>\n      </div>\n    "),l.visible=!0}},showIn:function(e,r){void 0===r&&(r="white");var n={iosPreloaderContent:t,mdPreloaderContent:d,auroraPreloaderContent:i}[this.theme+"PreloaderContent"]||"";o(e||"html").addClass("with-modal-preloader"),o(e||this.$el).append('\n      <div class="preloader-backdrop"></div>\n      <div class="preloader-modal">\n        <div class="preloader color-'+r+'">'+n+"</div>\n      </div>\n    ")},hide:function(){l.visible&&(o("html").removeClass("with-modal-preloader"),this.$el.find(".preloader-backdrop, .preloader-modal").remove(),l.visible=!1)},hideIn:function(e){o(e||"html").removeClass("with-modal-preloader"),o(e||this.$el).find(".preloader-backdrop, .preloader-modal").remove()}},s={name:"preloader",create:function(){a(this,{preloader:l})},on:{photoBrowserOpen:function(e){var r=this;e.$el.find(".preloader").each((function(e){r.preloader.init(e)}))},tabMounted:function(e){var r=this;o(e).find(".preloader").each((function(e){r.preloader.init(e)}))},pageInit:function(e){var r=this;e.$el.find(".preloader").each((function(e){r.preloader.init(e)}))}},vnode:{preloader:{insert:function(e){var r=e.elm;this.preloader.init(r)}}}};if(r){if(e.prototype.modules&&e.prototype.modules[s.name])return;e.use(s),e.instance&&(e.instance.useModuleParams(s,e.instance.params),e.instance.useModule(s))}return s}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { bindMethods, iosPreloaderContent, mdPreloaderContent, auroraPreloaderContent } from '../../shared/utils.js';
+const Preloader = {
+  init(el) {
+    const app = this;
+    const preloaders = {
+      iosPreloaderContent,
+      mdPreloaderContent,
+      auroraPreloaderContent
+    };
+    const $el = $(el);
+    if ($el.length === 0 || $el.children('.preloader-inner').length > 0 || $el.children('.preloader-inner-line').length > 0) return;
+    $el.append(preloaders[`${app.theme}PreloaderContent`]);
+  },
+
+  // Modal
+  visible: false,
+
+  show(color) {
+    if (color === void 0) {
+      color = 'white';
+    }
+
+    const app = this;
+    if (Preloader.visible) return;
+    const preloaders = {
+      iosPreloaderContent,
+      mdPreloaderContent,
+      auroraPreloaderContent
+    };
+    const preloaderInner = preloaders[`${app.theme}PreloaderContent`] || '';
+    $('html').addClass('with-modal-preloader'); // prettier-ignore
+
+    app.$el.append(`
+      <div class="preloader-backdrop"></div>
+      <div class="preloader-modal">
+        <div class="preloader color-${color}">${preloaderInner}</div>
+      </div>
+    `);
+    Preloader.visible = true;
+  },
+
+  showIn(el, color) {
+    if (color === void 0) {
+      color = 'white';
+    }
+
+    const app = this;
+    const preloaders = {
+      iosPreloaderContent,
+      mdPreloaderContent,
+      auroraPreloaderContent
+    };
+    const preloaderInner = preloaders[`${app.theme}PreloaderContent`] || '';
+    $(el || 'html').addClass('with-modal-preloader'); // prettier-ignore
+
+    $(el || app.$el).append(`
+      <div class="preloader-backdrop"></div>
+      <div class="preloader-modal">
+        <div class="preloader color-${color}">${preloaderInner}</div>
+      </div>
+    `);
+  },
+
+  hide() {
+    const app = this;
+    if (!Preloader.visible) return;
+    $('html').removeClass('with-modal-preloader');
+    app.$el.find('.preloader-backdrop, .preloader-modal').remove();
+    Preloader.visible = false;
+  },
+
+  hideIn(el) {
+    const app = this;
+    $(el || 'html').removeClass('with-modal-preloader');
+    $(el || app.$el).find('.preloader-backdrop, .preloader-modal').remove();
+  }
+
+};
+export default {
+  name: 'preloader',
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      preloader: Preloader
+    });
+  },
+
+  on: {
+    photoBrowserOpen(pb) {
+      const app = this;
+      pb.$el.find('.preloader').each(preloaderEl => {
+        app.preloader.init(preloaderEl);
+      });
+    },
+
+    tabMounted(tabEl) {
+      const app = this;
+      $(tabEl).find('.preloader').each(preloaderEl => {
+        app.preloader.init(preloaderEl);
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.preloader').each(preloaderEl => {
+        app.preloader.init(preloaderEl);
+      });
+    }
+
+  },
+  vnode: {
+    preloader: {
+      insert(vnode) {
+        const app = this;
+        const preloaderEl = vnode.elm;
+        app.preloader.init(preloaderEl);
+      }
+
+    }
+  }
+};

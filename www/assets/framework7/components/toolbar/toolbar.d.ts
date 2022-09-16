@@ -1,5 +1,5 @@
 import { Dom7Array } from 'dom7';
-import { CSSSelector, Framework7Plugin } from '../app/app-class';
+import { CSSSelector, Framework7Plugin } from '../app/app-class.js';
 
 export namespace Toolbar {
   interface AppMethods {

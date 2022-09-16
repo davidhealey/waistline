@@ -1,5 +1,9 @@
 import { Dom7Array } from 'dom7';
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
 
 export namespace TouchRipple {
   interface TouchRipple {

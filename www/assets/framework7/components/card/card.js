@@ -1,1 +1,612 @@
-(function framework7ComponentLoader(e,a){void 0===a&&(a=!0);var t=e.$,r=e.utils,n=e.getDevice,o=e.getSupport,s=(e.Class,e.Modal,e.ConstructorMethods,e.ModalMethods,r.bindMethods),d={open:function(e,a){void 0===e&&(e=".card-expandable"),void 0===a&&(a=!0);var r=this,s=n(),d=o(),l=t(e).eq(0);if(l&&l.length&&!(l.hasClass("card-opened")||l.hasClass("card-opening")||l.hasClass("card-closing"))){var c,i=l.parents(".page").eq(0);if(i.length)if(!i.find(".card-opened").length)if(l.trigger("card:beforeopen",{prevent:Z}),r.emit("cardBeforeOpen",l[0],Z),!c){var p,h,f,g=Object.assign({animate:a},r.params.card,l.dataset()),v=l.parents(".page-content");l.attr("data-backdrop-el")&&(p=t(l.attr("data-backdrop-el"))),!p&&g.backdrop&&((p=v.find(".card-backdrop")).length||(p=t('<div class="card-backdrop"></div>'),v.append(p))),g.hideNavbarOnOpen&&((h=i.children(".navbar")).length||i[0].f7Page&&(h=i[0].f7Page.$navbarEl)),g.hideToolbarOnOpen&&((f=i.children(".toolbar")).length||(f=i.parents(".view").children(".toolbar")),f.length||(f=i.parents(".views").children(".toolbar")));var b,m=l.css("transform");m&&m.match(/[2-9]/)&&(b=!0);var u=l.children(".card-content"),C=t(document.createElement("div")).addClass("card-expandable-size");l.append(C);var O,x=l[0].offsetWidth,k=l[0].offsetHeight,w=i[0].offsetWidth,T=i[0].offsetHeight,E=C[0].offsetWidth||w,N=C[0].offsetHeight||T;h&&!g.hideStatusbarOnOpen&&N===T&&(O=parseInt(h.css("--f7-safe-area-top"),10),Number.isNaN(O)&&(O=0)),O&&(N-=O);var H,M,$=E/x,y=N/k,B=l.offset(),K=i.offset();if(O&&(K.top+=O/2),B.left-=K.left,b){var S=m.replace(/matrix\(|\)/g,"").split(",").map((function(e){return e.trim()}));if(S&&S.length>1){var W=parseFloat(S[0]);H=B.left-x*(1-W)/2,M=B.top-K.top-k*(1-W)/2,r.rtl&&(H-=l[0].scrollLeft)}else H=l[0].offsetLeft,M=l[0].offsetTop-(v.length?v[0].scrollTop:0)}else H=B.left,M=B.top-K.top,r.rtl&&(H-=l[0].scrollLeft);M-=(T-N)/2;var q=E-x-(H-=(w-E)/2);if(r.rtl){var L=[q,H];H=L[0],q=L[1]}var P,z,I,X,j,D,Y,F,A,G,J,Q,R=N-k-M,U=(q-H)/2,V=(R-M)/2;g.hideNavbarOnOpen&&h&&h.length&&(h.closest(".navbar-hidden").length?l[0].f7KeepNavbarOnClose=!0:(delete l[0].f7KeepNavbarOnClose,r.navbar.hide(h,g.animate,g.hideStatusbarOnOpen,!0))),g.hideToolbarOnOpen&&f&&f.length&&(f.closest(".toolbar-hidden").length?l[0].f7KeepToolbarOnClose=!0:(delete l[0].f7KeepToolbarOnClose,r.toolbar.hide(f,g.animate))),p&&p.removeClass("card-backdrop-out").addClass("card-backdrop-in"),l.removeClass("card-transitioning"),g.animate&&l.addClass("card-opening"),l.trigger("card:open"),r.emit("cardOpen",l[0]),u.css({width:E+"px",height:N+"px"}).transform("translate3d("+(r.rtl?H+U:-H-U)+"px, 0px, 0) scale("+1/$+", "+1/y+")"),l.transform("translate3d("+(r.rtl?-U:U)+"px, "+V+"px, 0) scale("+$+", "+y+")"),g.animate?l.transitionEnd((function(){_()})):_(),l[0].detachEventHandlers=function(){r.off("resize",ee),d.touch&&g.swipeToClose&&(r.off("touchstart:passive",ae),r.off("touchmove:active",te),r.off("touchend:passive",re))},r.on("resize",ee),d.touch&&g.swipeToClose&&(r.on("touchstart:passive",ae),r.on("touchmove:active",te),r.on("touchend:passive",re))}}function Z(){c=!0}function _(){i.addClass("page-with-card-opened"),s.ios&&v.length&&(v.css("height",v[0].offsetHeight+1+"px"),setTimeout((function(){v.css("height","")}))),l.addClass("card-opened"),l.removeClass("card-opening"),l.trigger("card:opened"),r.emit("cardOpened",l[0],i[0])}function ee(){if(l.removeClass("card-transitioning"),x=l[0].offsetWidth,k=l[0].offsetHeight,w=i[0].offsetWidth,T=i[0].offsetHeight,E=C[0].offsetWidth||w,N=C[0].offsetHeight||T,O=0,h&&!g.hideStatusbarOnOpen&&N===T&&(O=parseInt(h.css("--f7-safe-area-top"),10),Number.isNaN(O)&&(O=0)),O&&(N-=O),$=E/x,y=N/k,l.transform("translate3d(0px, 0px, 0) scale(1)"),B=l.offset(),K=i.offset(),O&&(K.top+=O/2),B.left-=K.left,B.top-=K.top,H=B.left-(w-E)/2,r.rtl&&(H-=l[0].scrollLeft),M=B.top-(T-N)/2,q=E-x-H,R=N-k-M,r.rtl){var e=[q,H];H=e[0],q=e[1]}U=(q-H)/2,V=(R-M)/2,l.transform("translate3d("+(r.rtl?-U:U)+"px, "+V+"px, 0) scale("+$+", "+y+")"),u.css({width:E+"px",height:N+"px"}).transform("translate3d("+(r.rtl?H+U:-H-U)+"px, 0px, 0) scale("+1/$+", "+1/y+")")}function ae(e){t(e.target).closest(l).length&&l.hasClass("card-opened")&&(Q=l.find(g.scrollableEl),P=Q[0]&&Q[0]!==u[0]&&!Q[0].contains(e.target)?0:Q.scrollTop(),z=!0,X=e.targetTouches[0].pageX,j=e.targetTouches[0].pageY,F=void 0,G=!1,J=!1)}function te(e){if(z){if(D=e.targetTouches[0].pageX,Y=e.targetTouches[0].pageY,void 0===F&&(F=!!(F||Math.abs(Y-j)>Math.abs(D-X))),J||G||(!F&&e.targetTouches[0].clientX<=50?J=!0:G=!0),!J&&!G||G&&0!==P)return z=!0,void(I=!0);I||l.removeClass("card-transitioning"),I=!0,((A=G?Math.max((Y-j)/150,0):Math.max((D-X)/(x/2),0))>0&&G||J)&&(G&&s.ios&&Q[0]===u[0]&&(Q.css("-webkit-overflow-scrolling","auto"),Q.scrollTop(0)),e.preventDefault()),A>1&&(A=Math.pow(A,.3)),A>(G?1.3:1.1)?(z=!1,I=!1,r.card.close(l)):l.transform("translate3d("+(r.rtl?-U:U)+"px, "+V+"px, 0) scale("+$*(1-.2*A)+", "+y*(1-.2*A)+")")}}function re(){z&&I&&(z=!1,I=!1,s.ios&&Q.css("-webkit-overflow-scrolling",""),A>=.8?r.card.close(l):l.addClass("card-transitioning").transform("translate3d("+(r.rtl?-U:U)+"px, "+V+"px, 0) scale("+$+", "+y+")"))}},close:function(e,a){void 0===e&&(e=".card-expandable.card-opened"),void 0===a&&(a=!0);var r=this,o=n(),s=t(e).eq(0);if(s&&s.length&&s.hasClass("card-opened")&&!s.hasClass("card-opening")&&!s.hasClass("card-closing")){var d=s.children(".card-content"),l=s.parents(".page-content"),c=s.parents(".page").eq(0);if(c.length){var i,p,h,f=Object.assign({animate:a},r.params.card,s.dataset()),g=s.find(f.scrollableEl);s.attr("data-backdrop-el")&&(h=t(s.attr("data-backdrop-el"))),f.backdrop&&(h=s.parents(".page-content").find(".card-backdrop")),f.hideNavbarOnOpen&&((i=c.children(".navbar")).length||c[0].f7Page&&(i=c[0].f7Page.$navbarEl),i&&i.length&&!s[0].f7KeepNavbarOnClose&&r.navbar.show(i,f.animate,!0)),f.hideToolbarOnOpen&&((p=c.children(".toolbar")).length||(p=c.parents(".view").children(".toolbar")),p.length||(p=c.parents(".views").children(".toolbar")),p&&p.length&&!s[0].f7KeepToolbarOnClose&&r.toolbar.show(p,f.animate)),c.removeClass("page-with-card-opened"),o.ios&&l.length&&(l.css("height",l[0].offsetHeight+1+"px"),setTimeout((function(){l.css("height","")}))),h&&h.length&&h.removeClass("card-backdrop-in").addClass("card-backdrop-out"),s.removeClass("card-opened card-transitioning"),f.animate?s.addClass("card-closing"):s.addClass("card-no-transition"),s.transform(""),s.trigger("card:close"),r.emit("cardClose",s[0],c[0]);var v=s.hasClass("card-expandable-animate-width");v&&d.css({width:"",height:""}),d.transform("").scrollTop(0,a?300:0),g.length&&g[0]!==d[0]&&g.scrollTop(0,a?300:0),a?d.transitionEnd((function(){b()})):b(),s[0].detachEventHandlers&&(s[0].detachEventHandlers(),delete s[0].detachEventHandlers)}}function b(){v||d.css({width:"",height:""}),h&&h.length&&h.removeClass("card-backdrop-in card-backdrop-out"),s.removeClass("card-closing card-no-transition"),s.trigger("card:closed"),s.find(".card-expandable-size").remove(),r.emit("cardClosed",s[0],c[0])}},toggle:function(e,a){void 0===e&&(e=".card-expandable");var r=t(e).eq(0);r.length&&(r.hasClass("card-opened")?this.card.close(r,a):this.card.open(r,a))}},l={name:"card",params:{card:{hideNavbarOnOpen:!0,hideStatusbarOnOpen:!0,hideToolbarOnOpen:!0,scrollableEl:".card-content",swipeToClose:!0,closeByBackdropClick:!0,backdrop:!0}},create:function(){s(this,{card:d})},on:{pageBeforeIn:function(e){var a=this;if(a.params.card.hideNavbarOnOpen&&e.navbarEl&&e.$el.find(".card-opened.card-expandable").length&&a.navbar.hide(e.navbarEl,!0,a.params.card.hideStatusbarOnOpen,!0),a.params.card.hideToolbarOnOpen&&e.$el.find(".card-opened.card-expandable").length){var t=e.$el.children(".toolbar");t.length||(t=e.$el.parents(".view").children(".toolbar")),t.length||(t=e.$el.parents(".views").children(".toolbar")),t&&t.length&&a.toolbar.hide(t)}}},clicks:{".card-close":function(e,a){this.card.close(a.card,a.animate)},".card-open":function(e,a){this.card.open(a.card,a.animate)},".card-expandable":function(e,a,r){e.hasClass("card-opened")||e.hasClass("card-opening")||e.hasClass("card-closing")||t(r.target).closest(".card-prevent-open, .card-close").length||this.card.open(e)},".card-backdrop-in":function(){var e=!1;this.params.card.closeByBackdropClick&&(e=!0);var a=t(".card-opened");a.length&&("true"===a.attr("data-close-by-backdrop-click")?e=!0:"false"===a.attr("data-close-by-backdrop-click")&&(e=!1),e&&this.card.close(a))}}};if(a){if(e.prototype.modules&&e.prototype.modules[l.name])return;e.use(l),e.instance&&(e.instance.useModuleParams(l,e.instance.params),e.instance.useModule(l))}return l}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+/* eslint no-param-reassign: "off" */
+import { getDocument } from 'ssr-window';
+import { bindMethods } from '../../shared/utils.js';
+import { getSupport } from '../../shared/get-support.js';
+import { getDevice } from '../../shared/get-device.js';
+import $ from '../../shared/dom7.js';
+const CardExpandable = {
+  open(cardEl, animate) {
+    if (cardEl === void 0) {
+      cardEl = '.card-expandable';
+    }
+
+    if (animate === void 0) {
+      animate = true;
+    }
+
+    const app = this;
+    const device = getDevice();
+    const document = getDocument();
+    const support = getSupport();
+    const $cardEl = $(cardEl).eq(0);
+    if (!$cardEl || !$cardEl.length) return;
+    if ($cardEl.hasClass('card-opened') || $cardEl.hasClass('card-opening') || $cardEl.hasClass('card-closing')) return;
+    const $pageEl = $cardEl.parents('.page').eq(0);
+    if (!$pageEl.length) return;
+
+    if ($pageEl.find('.card-opened').length) {
+      return;
+    }
+
+    let prevented;
+
+    function prevent() {
+      prevented = true;
+    }
+
+    $cardEl.trigger('card:beforeopen', {
+      prevent
+    });
+    app.emit('cardBeforeOpen', $cardEl[0], prevent);
+    if (prevented) return;
+    const cardParams = Object.assign({
+      animate
+    }, app.params.card, $cardEl.dataset());
+    const $pageContentEl = $cardEl.parents('.page-content');
+    let $backdropEl;
+
+    if ($cardEl.attr('data-backdrop-el')) {
+      $backdropEl = $($cardEl.attr('data-backdrop-el'));
+    }
+
+    if (!$backdropEl && cardParams.backdrop) {
+      $backdropEl = $pageContentEl.find('.card-backdrop');
+
+      if (!$backdropEl.length) {
+        $backdropEl = $('<div class="card-backdrop"></div>');
+        $pageContentEl.append($backdropEl);
+      }
+    }
+
+    let $navbarEl;
+    let $toolbarEl;
+
+    if (cardParams.hideNavbarOnOpen) {
+      $navbarEl = $pageEl.children('.navbar');
+
+      if (!$navbarEl.length) {
+        if ($pageEl[0].f7Page) $navbarEl = $pageEl[0].f7Page.$navbarEl;
+      }
+    }
+
+    if (cardParams.hideToolbarOnOpen) {
+      $toolbarEl = $pageEl.children('.toolbar');
+
+      if (!$toolbarEl.length) {
+        $toolbarEl = $pageEl.parents('.view').children('.toolbar');
+      }
+
+      if (!$toolbarEl.length) {
+        $toolbarEl = $pageEl.parents('.views').children('.toolbar');
+      }
+    }
+
+    const currTransform = $cardEl.css('transform');
+    let hasTransform;
+
+    if (currTransform && currTransform.match(/[2-9]/)) {
+      hasTransform = true;
+    }
+
+    const $cardContentEl = $cardEl.children('.card-content');
+    const $cardSizeEl = $(document.createElement('div')).addClass('card-expandable-size');
+    $cardEl.append($cardSizeEl);
+    let cardWidth = $cardEl[0].offsetWidth;
+    let cardHeight = $cardEl[0].offsetHeight;
+    let pageWidth = $pageEl[0].offsetWidth;
+    let pageHeight = $pageEl[0].offsetHeight;
+    let maxWidth = $cardSizeEl[0].offsetWidth || pageWidth;
+    let maxHeight = $cardSizeEl[0].offsetHeight || pageHeight;
+    let statusbarHeight;
+
+    if ($navbarEl && !cardParams.hideStatusbarOnOpen && maxHeight === pageHeight) {
+      statusbarHeight = parseInt($navbarEl.css('--f7-safe-area-top'), 10);
+      if (Number.isNaN(statusbarHeight)) statusbarHeight = 0;
+    }
+
+    if (statusbarHeight) {
+      maxHeight -= statusbarHeight;
+    }
+
+    let scaleX = maxWidth / cardWidth;
+    let scaleY = maxHeight / cardHeight;
+    let offset = $cardEl.offset();
+    let pageOffset = $pageEl.offset();
+
+    if (statusbarHeight) {
+      pageOffset.top += statusbarHeight / 2;
+    }
+
+    offset.left -= pageOffset.left;
+    let cardLeftOffset;
+    let cardTopOffset;
+
+    if (hasTransform) {
+      const transformValues = currTransform.replace(/matrix\(|\)/g, '').split(',').map(el => el.trim());
+
+      if (transformValues && transformValues.length > 1) {
+        const scale = parseFloat(transformValues[0]);
+        cardLeftOffset = offset.left - cardWidth * (1 - scale) / 2;
+        cardTopOffset = offset.top - pageOffset.top - cardHeight * (1 - scale) / 2;
+        if (app.rtl) cardLeftOffset -= $cardEl[0].scrollLeft;
+      } else {
+        cardLeftOffset = $cardEl[0].offsetLeft;
+        cardTopOffset = $cardEl[0].offsetTop - ($pageContentEl.length ? $pageContentEl[0].scrollTop : 0);
+      }
+    } else {
+      cardLeftOffset = offset.left;
+      cardTopOffset = offset.top - pageOffset.top;
+      if (app.rtl) cardLeftOffset -= $cardEl[0].scrollLeft;
+    }
+
+    cardLeftOffset -= (pageWidth - maxWidth) / 2;
+    cardTopOffset -= (pageHeight - maxHeight) / 2;
+    let cardRightOffset = maxWidth - cardWidth - cardLeftOffset;
+
+    if (app.rtl) {
+      [cardLeftOffset, cardRightOffset] = [cardRightOffset, cardLeftOffset];
+    }
+
+    let cardBottomOffset = maxHeight - cardHeight - cardTopOffset;
+    let translateX = (cardRightOffset - cardLeftOffset) / 2;
+    let translateY = (cardBottomOffset - cardTopOffset) / 2;
+
+    if (cardParams.hideNavbarOnOpen && $navbarEl && $navbarEl.length) {
+      if ($navbarEl.closest('.navbar-hidden').length) {
+        // Was hidden
+        $cardEl[0].f7KeepNavbarOnClose = true;
+      } else {
+        delete $cardEl[0].f7KeepNavbarOnClose;
+        app.navbar.hide($navbarEl, cardParams.animate, cardParams.hideStatusbarOnOpen, true);
+      }
+    }
+
+    if (cardParams.hideToolbarOnOpen && $toolbarEl && $toolbarEl.length) {
+      if ($toolbarEl.closest('.toolbar-hidden').length) {
+        // Was hidden
+        $cardEl[0].f7KeepToolbarOnClose = true;
+      } else {
+        delete $cardEl[0].f7KeepToolbarOnClose;
+        app.toolbar.hide($toolbarEl, cardParams.animate);
+      }
+    }
+
+    if ($backdropEl) {
+      $backdropEl.removeClass('card-backdrop-out').addClass('card-backdrop-in');
+    }
+
+    $cardEl.removeClass('card-transitioning');
+
+    if (cardParams.animate) {
+      $cardEl.addClass('card-opening');
+    }
+
+    $cardEl.trigger('card:open');
+    app.emit('cardOpen', $cardEl[0]);
+
+    function transitionEnd() {
+      $pageEl.addClass('page-with-card-opened');
+
+      if (device.ios && $pageContentEl.length) {
+        $pageContentEl.css('height', `${$pageContentEl[0].offsetHeight + 1}px`);
+        setTimeout(() => {
+          $pageContentEl.css('height', '');
+        });
+      }
+
+      $cardEl.addClass('card-opened');
+      $cardEl.removeClass('card-opening');
+      $cardEl.trigger('card:opened');
+      app.emit('cardOpened', $cardEl[0], $pageEl[0]);
+    }
+
+    $cardContentEl.css({
+      width: `${maxWidth}px`,
+      height: `${maxHeight}px`
+    }).transform(`translate3d(${app.rtl ? cardLeftOffset + translateX : -cardLeftOffset - translateX}px, 0px, 0) scale(${1 / scaleX}, ${1 / scaleY})`);
+    $cardEl.transform(`translate3d(${app.rtl ? -translateX : translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`);
+
+    if (cardParams.animate) {
+      $cardEl.transitionEnd(() => {
+        transitionEnd();
+      });
+    } else {
+      transitionEnd();
+    }
+
+    function onResize() {
+      $cardEl.removeClass('card-transitioning');
+      cardWidth = $cardEl[0].offsetWidth;
+      cardHeight = $cardEl[0].offsetHeight;
+      pageWidth = $pageEl[0].offsetWidth;
+      pageHeight = $pageEl[0].offsetHeight;
+      maxWidth = $cardSizeEl[0].offsetWidth || pageWidth;
+      maxHeight = $cardSizeEl[0].offsetHeight || pageHeight;
+      statusbarHeight = 0;
+
+      if ($navbarEl && !cardParams.hideStatusbarOnOpen && maxHeight === pageHeight) {
+        statusbarHeight = parseInt($navbarEl.css('--f7-safe-area-top'), 10);
+        if (Number.isNaN(statusbarHeight)) statusbarHeight = 0;
+      }
+
+      if (statusbarHeight) {
+        maxHeight -= statusbarHeight;
+      }
+
+      scaleX = maxWidth / cardWidth;
+      scaleY = maxHeight / cardHeight;
+      $cardEl.transform('translate3d(0px, 0px, 0) scale(1)');
+      offset = $cardEl.offset();
+      pageOffset = $pageEl.offset();
+
+      if (statusbarHeight) {
+        pageOffset.top += statusbarHeight / 2;
+      }
+
+      offset.left -= pageOffset.left;
+      offset.top -= pageOffset.top;
+      cardLeftOffset = offset.left - (pageWidth - maxWidth) / 2;
+      if (app.rtl) cardLeftOffset -= $cardEl[0].scrollLeft;
+      cardTopOffset = offset.top - (pageHeight - maxHeight) / 2;
+      cardRightOffset = maxWidth - cardWidth - cardLeftOffset;
+      cardBottomOffset = maxHeight - cardHeight - cardTopOffset;
+
+      if (app.rtl) {
+        [cardLeftOffset, cardRightOffset] = [cardRightOffset, cardLeftOffset];
+      }
+
+      translateX = (cardRightOffset - cardLeftOffset) / 2;
+      translateY = (cardBottomOffset - cardTopOffset) / 2;
+      $cardEl.transform(`translate3d(${app.rtl ? -translateX : translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`);
+      $cardContentEl.css({
+        width: `${maxWidth}px`,
+        height: `${maxHeight}px`
+      }).transform(`translate3d(${app.rtl ? cardLeftOffset + translateX : -cardLeftOffset - translateX}px, 0px, 0) scale(${1 / scaleX}, ${1 / scaleY})`);
+    }
+
+    let cardScrollTop;
+    let isTouched;
+    let isMoved;
+    let touchStartX;
+    let touchStartY;
+    let touchEndX;
+    let touchEndY;
+    let isScrolling;
+    let progress;
+    let isV;
+    let isH;
+    let $cardScrollableEl;
+
+    function onTouchStart(e) {
+      if (!$(e.target).closest($cardEl).length) return;
+      if (!$cardEl.hasClass('card-opened')) return;
+      $cardScrollableEl = $cardEl.find(cardParams.scrollableEl);
+
+      if ($cardScrollableEl[0] && $cardScrollableEl[0] !== $cardContentEl[0] && !$cardScrollableEl[0].contains(e.target)) {
+        cardScrollTop = 0;
+      } else {
+        cardScrollTop = $cardScrollableEl.scrollTop();
+      }
+
+      isTouched = true;
+      touchStartX = e.targetTouches[0].pageX;
+      touchStartY = e.targetTouches[0].pageY;
+      isScrolling = undefined;
+      isV = false;
+      isH = false;
+    }
+
+    function onTouchMove(e) {
+      if (!isTouched) return;
+      touchEndX = e.targetTouches[0].pageX;
+      touchEndY = e.targetTouches[0].pageY;
+
+      if (typeof isScrolling === 'undefined') {
+        isScrolling = !!(isScrolling || Math.abs(touchEndY - touchStartY) > Math.abs(touchEndX - touchStartX));
+      }
+
+      if (!isH && !isV) {
+        if (!isScrolling && e.targetTouches[0].clientX <= 50) {
+          isH = true;
+        } else {
+          isV = true;
+        }
+      }
+
+      if (!(isH || isV) || isV && cardScrollTop !== 0) {
+        isTouched = true;
+        isMoved = true;
+        return;
+      }
+
+      if (!isMoved) {
+        $cardEl.removeClass('card-transitioning');
+      }
+
+      isMoved = true;
+      progress = isV ? Math.max((touchEndY - touchStartY) / 150, 0) : Math.max((touchEndX - touchStartX) / (cardWidth / 2), 0);
+
+      if (progress > 0 && isV || isH) {
+        if (isV && device.ios && $cardScrollableEl[0] === $cardContentEl[0]) {
+          $cardScrollableEl.css('-webkit-overflow-scrolling', 'auto');
+          $cardScrollableEl.scrollTop(0);
+        }
+
+        e.preventDefault();
+      }
+
+      if (progress > 1) progress **= 0.3;
+
+      if (progress > (isV ? 1.3 : 1.1)) {
+        isTouched = false;
+        isMoved = false;
+        app.card.close($cardEl);
+      } else {
+        $cardEl.transform(`translate3d(${app.rtl ? -translateX : translateX}px, ${translateY}px, 0) scale(${scaleX * (1 - progress * 0.2)}, ${scaleY * (1 - progress * 0.2)})`);
+      }
+    }
+
+    function onTouchEnd() {
+      if (!isTouched || !isMoved) return;
+      isTouched = false;
+      isMoved = false;
+
+      if (device.ios) {
+        $cardScrollableEl.css('-webkit-overflow-scrolling', '');
+      }
+
+      if (progress >= 0.8) {
+        app.card.close($cardEl);
+      } else {
+        $cardEl.addClass('card-transitioning').transform(`translate3d(${app.rtl ? -translateX : translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`);
+      }
+    }
+
+    $cardEl[0].detachEventHandlers = function detachEventHandlers() {
+      app.off('resize', onResize);
+
+      if (support.touch && cardParams.swipeToClose) {
+        app.off('touchstart:passive', onTouchStart);
+        app.off('touchmove:active', onTouchMove);
+        app.off('touchend:passive', onTouchEnd);
+      }
+    };
+
+    app.on('resize', onResize);
+
+    if (support.touch && cardParams.swipeToClose) {
+      app.on('touchstart:passive', onTouchStart);
+      app.on('touchmove:active', onTouchMove);
+      app.on('touchend:passive', onTouchEnd);
+    }
+  },
+
+  close(cardEl, animate) {
+    if (cardEl === void 0) {
+      cardEl = '.card-expandable.card-opened';
+    }
+
+    if (animate === void 0) {
+      animate = true;
+    }
+
+    const app = this;
+    const device = getDevice();
+    const $cardEl = $(cardEl).eq(0);
+    if (!$cardEl || !$cardEl.length) return;
+    if (!$cardEl.hasClass('card-opened') || $cardEl.hasClass('card-opening') || $cardEl.hasClass('card-closing')) return;
+    const $cardContentEl = $cardEl.children('.card-content');
+    const $pageContentEl = $cardEl.parents('.page-content');
+    const $pageEl = $cardEl.parents('.page').eq(0);
+    if (!$pageEl.length) return;
+    const cardParams = Object.assign({
+      animate
+    }, app.params.card, $cardEl.dataset());
+    const $cardScrollableEl = $cardEl.find(cardParams.scrollableEl);
+    let $navbarEl;
+    let $toolbarEl;
+    let $backdropEl;
+
+    if ($cardEl.attr('data-backdrop-el')) {
+      $backdropEl = $($cardEl.attr('data-backdrop-el'));
+    }
+
+    if (cardParams.backdrop) {
+      $backdropEl = $cardEl.parents('.page-content').find('.card-backdrop');
+    }
+
+    if (cardParams.hideNavbarOnOpen) {
+      $navbarEl = $pageEl.children('.navbar');
+
+      if (!$navbarEl.length) {
+        if ($pageEl[0].f7Page) $navbarEl = $pageEl[0].f7Page.$navbarEl;
+      }
+
+      if ($navbarEl && $navbarEl.length && !$cardEl[0].f7KeepNavbarOnClose) {
+        app.navbar.show($navbarEl, cardParams.animate, true);
+      }
+    }
+
+    if (cardParams.hideToolbarOnOpen) {
+      $toolbarEl = $pageEl.children('.toolbar');
+
+      if (!$toolbarEl.length) {
+        $toolbarEl = $pageEl.parents('.view').children('.toolbar');
+      }
+
+      if (!$toolbarEl.length) {
+        $toolbarEl = $pageEl.parents('.views').children('.toolbar');
+      }
+
+      if ($toolbarEl && $toolbarEl.length && !$cardEl[0].f7KeepToolbarOnClose) {
+        app.toolbar.show($toolbarEl, cardParams.animate);
+      }
+    }
+
+    $pageEl.removeClass('page-with-card-opened');
+
+    if (device.ios && $pageContentEl.length) {
+      $pageContentEl.css('height', `${$pageContentEl[0].offsetHeight + 1}px`);
+      setTimeout(() => {
+        $pageContentEl.css('height', '');
+      });
+    }
+
+    if ($backdropEl && $backdropEl.length) {
+      $backdropEl.removeClass('card-backdrop-in').addClass('card-backdrop-out');
+    }
+
+    $cardEl.removeClass('card-opened card-transitioning');
+
+    if (cardParams.animate) {
+      $cardEl.addClass('card-closing');
+    } else {
+      $cardEl.addClass('card-no-transition');
+    }
+
+    $cardEl.transform('');
+    $cardEl.trigger('card:close');
+    app.emit('cardClose', $cardEl[0], $pageEl[0]);
+    const animateWidth = $cardEl.hasClass('card-expandable-animate-width');
+
+    function transitionEnd() {
+      if (!animateWidth) {
+        $cardContentEl.css({
+          width: '',
+          height: ''
+        });
+      }
+
+      if ($backdropEl && $backdropEl.length) {
+        $backdropEl.removeClass('card-backdrop-in card-backdrop-out');
+      }
+
+      $cardEl.removeClass('card-closing card-no-transition');
+      $cardEl.trigger('card:closed');
+      $cardEl.find('.card-expandable-size').remove();
+      app.emit('cardClosed', $cardEl[0], $pageEl[0]);
+    }
+
+    if (animateWidth) {
+      $cardContentEl.css({
+        width: '',
+        height: ''
+      });
+    }
+
+    $cardContentEl.transform('').scrollTop(0, animate ? 300 : 0);
+
+    if ($cardScrollableEl.length && $cardScrollableEl[0] !== $cardContentEl[0]) {
+      $cardScrollableEl.scrollTop(0, animate ? 300 : 0);
+    }
+
+    if (animate) {
+      $cardContentEl.transitionEnd(() => {
+        transitionEnd();
+      });
+    } else {
+      transitionEnd();
+    }
+
+    if ($cardEl[0].detachEventHandlers) {
+      $cardEl[0].detachEventHandlers();
+      delete $cardEl[0].detachEventHandlers;
+    }
+  },
+
+  toggle(cardEl, animate) {
+    if (cardEl === void 0) {
+      cardEl = '.card-expandable';
+    }
+
+    const app = this;
+    const $cardEl = $(cardEl).eq(0);
+    if (!$cardEl.length) return;
+
+    if ($cardEl.hasClass('card-opened')) {
+      app.card.close($cardEl, animate);
+    } else {
+      app.card.open($cardEl, animate);
+    }
+  }
+
+};
+export default {
+  name: 'card',
+  params: {
+    card: {
+      hideNavbarOnOpen: true,
+      hideStatusbarOnOpen: true,
+      hideToolbarOnOpen: true,
+      scrollableEl: '.card-content',
+      swipeToClose: true,
+      closeByBackdropClick: true,
+      backdrop: true
+    }
+  },
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      card: CardExpandable
+    });
+  },
+
+  on: {
+    pageBeforeIn(page) {
+      const app = this;
+
+      if (app.params.card.hideNavbarOnOpen && page.navbarEl && page.$el.find('.card-opened.card-expandable').length) {
+        app.navbar.hide(page.navbarEl, true, app.params.card.hideStatusbarOnOpen, true);
+      }
+
+      if (app.params.card.hideToolbarOnOpen && page.$el.find('.card-opened.card-expandable').length) {
+        let $toolbarEl = page.$el.children('.toolbar');
+
+        if (!$toolbarEl.length) {
+          $toolbarEl = page.$el.parents('.view').children('.toolbar');
+        }
+
+        if (!$toolbarEl.length) {
+          $toolbarEl = page.$el.parents('.views').children('.toolbar');
+        }
+
+        if ($toolbarEl && $toolbarEl.length) {
+          app.toolbar.hide($toolbarEl);
+        }
+      }
+    }
+
+  },
+  clicks: {
+    '.card-close': function closeCard($clickedEl, data) {
+      const app = this;
+      app.card.close(data.card, data.animate);
+    },
+    '.card-open': function closeCard($clickedEl, data) {
+      const app = this;
+      app.card.open(data.card, data.animate);
+    },
+    '.card-expandable': function toggleExpandableCard($clickedEl, data, e) {
+      const app = this;
+      if ($clickedEl.hasClass('card-opened') || $clickedEl.hasClass('card-opening') || $clickedEl.hasClass('card-closing')) return;
+      if ($(e.target).closest('.card-prevent-open, .card-close').length) return;
+      app.card.open($clickedEl);
+    },
+    '.card-backdrop-in': function onBackdropClick() {
+      const app = this;
+      let needToClose = false;
+      if (app.params.card.closeByBackdropClick) needToClose = true;
+      const $openedCardEl = $('.card-opened');
+      if (!$openedCardEl.length) return;
+
+      if ($openedCardEl.attr('data-close-by-backdrop-click') === 'true') {
+        needToClose = true;
+      } else if ($openedCardEl.attr('data-close-by-backdrop-click') === 'false') {
+        needToClose = false;
+      }
+
+      if (needToClose) app.card.close($openedCardEl);
+    }
+  }
+};

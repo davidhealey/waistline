@@ -1,1 +1,110 @@
-(function framework7ComponentLoader(n,i){void 0===i&&(i=!0);var e=n.$,t=n.utils,o=(n.getDevice,n.getSupport,n.Class,n.Modal,n.ConstructorMethods,n.ModalMethods,t.bindMethods),r={handle:function(n,i){var t,o=e(n),r=o[0].scrollTop,l=o[0].scrollHeight,c=o[0].offsetHeight,f=o[0].getAttribute("data-infinite-distance"),a=o.find(".virtual-list"),s=o.hasClass("infinite-scroll-top");if(f||(f=50),"string"==typeof f&&f.indexOf("%")>=0&&(f=parseInt(f,10)/100*c),f>c&&(f=c),s)r<f&&(o.trigger("infinite",i),this.emit("infinite",o[0],i));else if(r+c>=l-f){if(a.length>0&&(t=a.eq(-1)[0].f7VirtualList)&&!t.reachEnd&&!t.params.updatableScroll)return;o.trigger("infinite",i),this.emit("infinite",o[0],i)}},create:function(n){var i=e(n),t=this;function o(n){t.infiniteScroll.handle(this,n)}i.each((function(n){n.f7InfiniteScrollHandler=o,n.addEventListener("scroll",n.f7InfiniteScrollHandler)}))},destroy:function(n){e(n).each((function(n){n.removeEventListener("scroll",n.f7InfiniteScrollHandler),delete n.f7InfiniteScrollHandler}))}},l={name:"infiniteScroll",create:function(){o(this,{infiniteScroll:r})},on:{tabMounted:function(n){var i=this,t=e(n),o=t.find(".infinite-scroll-content");t.is(".infinite-scroll-content")&&o.add(t),o.each((function(n){i.infiniteScroll.create(n)}))},tabBeforeRemove:function(n){var i=e(n),t=this,o=i.find(".infinite-scroll-content");i.is(".infinite-scroll-content")&&o.add(i),o.each((function(n){t.infiniteScroll.destroy(n)}))},pageInit:function(n){var i=this;n.$el.find(".infinite-scroll-content").each((function(n){i.infiniteScroll.create(n)}))},pageBeforeRemove:function(n){var i=this;n.$el.find(".infinite-scroll-content").each((function(n){i.infiniteScroll.destroy(n)}))}}};if(i){if(n.prototype.modules&&n.prototype.modules[l.name])return;n.use(l),n.instance&&(n.instance.useModuleParams(l,n.instance.params),n.instance.useModule(l))}return l}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { bindMethods } from '../../shared/utils.js';
+const InfiniteScroll = {
+  handle(el, e) {
+    const app = this;
+    const $el = $(el);
+    const scrollTop = $el[0].scrollTop;
+    const scrollHeight = $el[0].scrollHeight;
+    const height = $el[0].offsetHeight;
+    let distance = $el[0].getAttribute('data-infinite-distance');
+    const virtualListContainer = $el.find('.virtual-list');
+    let virtualList;
+    const onTop = $el.hasClass('infinite-scroll-top');
+    if (!distance) distance = 50;
+
+    if (typeof distance === 'string' && distance.indexOf('%') >= 0) {
+      distance = parseInt(distance, 10) / 100 * height;
+    }
+
+    if (distance > height) distance = height;
+
+    if (onTop) {
+      if (scrollTop < distance) {
+        $el.trigger('infinite', e);
+        app.emit('infinite', $el[0], e);
+      }
+    } else if (scrollTop + height >= scrollHeight - distance) {
+      if (virtualListContainer.length > 0) {
+        virtualList = virtualListContainer.eq(-1)[0].f7VirtualList;
+
+        if (virtualList && !virtualList.reachEnd && !virtualList.params.updatableScroll) {
+          return;
+        }
+      }
+
+      $el.trigger('infinite', e);
+      app.emit('infinite', $el[0], e);
+    }
+  },
+
+  create(el) {
+    const $el = $(el);
+    const app = this;
+
+    function scrollHandler(e) {
+      app.infiniteScroll.handle(this, e);
+    }
+
+    $el.each(element => {
+      element.f7InfiniteScrollHandler = scrollHandler;
+      element.addEventListener('scroll', element.f7InfiniteScrollHandler);
+    });
+  },
+
+  destroy(el) {
+    const $el = $(el);
+    $el.each(element => {
+      element.removeEventListener('scroll', element.f7InfiniteScrollHandler);
+      delete element.f7InfiniteScrollHandler;
+    });
+  }
+
+};
+export default {
+  name: 'infiniteScroll',
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      infiniteScroll: InfiniteScroll
+    });
+  },
+
+  on: {
+    tabMounted(tabEl) {
+      const app = this;
+      const $tabEl = $(tabEl);
+      const $isEls = $tabEl.find('.infinite-scroll-content');
+      if ($tabEl.is('.infinite-scroll-content')) $isEls.add($tabEl);
+      $isEls.each(el => {
+        app.infiniteScroll.create(el);
+      });
+    },
+
+    tabBeforeRemove(tabEl) {
+      const $tabEl = $(tabEl);
+      const app = this;
+      const $isEls = $tabEl.find('.infinite-scroll-content');
+      if ($tabEl.is('.infinite-scroll-content')) $isEls.add($tabEl);
+      $isEls.each(el => {
+        app.infiniteScroll.destroy(el);
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.infinite-scroll-content').each(el => {
+        app.infiniteScroll.create(el);
+      });
+    },
+
+    pageBeforeRemove(page) {
+      const app = this;
+      page.$el.find('.infinite-scroll-content').each(el => {
+        app.infiniteScroll.destroy(el);
+      });
+    }
+
+  }
+};

@@ -245,9 +245,9 @@ app.Settings = {
     body.className = colourTheme;
 
     if (appMode === "system") {
-      app.f7.enableAutoDarkTheme(); // darkThemeChange event will handle the rest
+      app.f7.enableAutoDarkMode(); // darkModeChange event will handle the rest
     } else {
-      app.f7.disableAutoDarkTheme();
+      app.f7.disableAutoDarkMode();
       app.Settings.applyAppMode(appMode);
     }
   },
@@ -257,11 +257,11 @@ app.Settings = {
     let panel = document.getElementById("app-panel");
 
     if (appMode === "dark") {
-      html.classList.add("theme-dark");
+      html.classList.add("dark");
       panel.style["background-color"] = "black";
       Chart.defaults.global.defaultFontColor = "white";
     } else if (appMode === "light") {
-      html.classList.remove("theme-dark");
+      html.classList.remove("dark");
       panel.style["background-color"] = "white";
       Chart.defaults.global.defaultFontColor = "black";
     }

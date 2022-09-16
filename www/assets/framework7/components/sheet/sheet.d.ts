@@ -1,5 +1,9 @@
 import { Dom7Array } from 'dom7';
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
 
 export namespace Sheet {
   interface Events {
@@ -29,6 +33,8 @@ export namespace Sheet {
     backdrop?: boolean;
     /** Backdrop element to share across instances */
     backdropEl?: HTMLElement | CSSSelector;
+    /** If enabled it creates unique backdrop element exclusively for this modal (default false) */
+    backdropUnique?: boolean;
     /** HTML element or string (with CSS selector) of element. If specified, then sheet will try to scroll page content to this element on open */
     scrollToEl?: HTMLElement | CSSSelector;
     /** When enabled, Sheet Modal will be closed on backdrop click. (default true) */

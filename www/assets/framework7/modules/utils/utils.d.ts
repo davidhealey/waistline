@@ -1,5 +1,5 @@
-import { Utils } from '../../shared/utils';
-import Framework7, { Framework7Plugin } from '../../components/app/app-class';
+import { Utils } from '../../shared/utils.js';
+import Framework7, { Framework7Plugin } from '../../components/app/app-class.js';
 
 export namespace Utils {
   interface AppMethods {

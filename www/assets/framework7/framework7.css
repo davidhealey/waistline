@@ -1,5 +1,5 @@
 /**
- * Framework7 6.3.16
+ * Framework7 7.0.8
  * Full featured mobile HTML framework for building iOS & Android apps
  * https://framework7.io/
  *
@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: February 10, 2022
+ * Released on: September 14, 2022
  */
 
 /*====================
@@ -93,8 +93,8 @@
   --f7-bars-bg-color: #f7f7f8;
   --f7-bars-bg-color-rgb: 247, 247, 248;
 }
-:root .theme-dark,
-:root.theme-dark {
+:root .dark,
+:root.dark {
   --f7-bars-text-color: #fff;
 }
 .ios {
@@ -103,8 +103,8 @@
   --f7-text-color: #000;
   --f7-bars-border-color: rgba(0, 0, 0, 0.25);
 }
-.ios .theme-dark,
-.ios.theme-dark {
+.ios .dark,
+.ios.dark {
   --f7-text-color: #fff;
   --f7-bars-bg-color: #121212;
   --f7-bars-bg-color-rgb: 22, 22, 22;
@@ -116,8 +116,8 @@
   --f7-bars-border-color: transparent;
   --f7-text-color: #212121;
 }
-.md .theme-dark,
-.md.theme-dark {
+.md .dark,
+.md.dark {
   --f7-text-color: rgba(255, 255, 255, 0.87);
   --f7-bars-bg-color: #202020;
 }
@@ -127,8 +127,8 @@
   --f7-text-color: #000;
   --f7-bars-border-color: rgba(0, 0, 0, 0.2);
 }
-.aurora .theme-dark,
-.aurora.theme-dark {
+.aurora .dark,
+.aurora.dark {
   --f7-text-color: #fff;
   --f7-bars-bg-color: #202020;
   --f7-bars-border-color: rgba(255, 255, 255, 0.1);
@@ -612,11 +612,11 @@ body {
   line-height: var(--f7-line-height);
   color: var(--f7-text-color);
 }
-.theme-dark body,
-body.theme-dark {
+.dark body,
+body.dark {
   background: #000;
 }
-.theme-dark {
+.dark {
   color: var(--f7-text-color);
 }
 .framework7-root {
@@ -774,8 +774,8 @@ html.device-full-viewport body {
   --f7-page-title-padding-vertical: 6px;
   --f7-page-bg-color: #efeff4;
 }
-.ios .theme-dark,
-.ios.theme-dark {
+.ios .dark,
+.ios.dark {
   --f7-page-bg-color: #000;
 }
 .md {
@@ -786,8 +786,8 @@ html.device-full-viewport body {
   --f7-page-title-padding-vertical: 8px;
   --f7-page-bg-color: #fff;
 }
-.md .theme-dark,
-.md.theme-dark {
+.md .dark,
+.md.dark {
   --f7-page-bg-color: #121212;
 }
 .aurora {
@@ -798,11 +798,11 @@ html.device-full-viewport body {
   --f7-page-title-padding-vertical: 7px;
   --f7-page-bg-color: #f3f4f6;
 }
-.aurora .theme-dark,
-.aurora.theme-dark {
+.aurora .dark,
+.aurora.dark {
   --f7-page-bg-color: #121212;
 }
-.theme-dark {
+.dark {
   --f7-page-master-border-color: rgba(255, 255, 255, 0.2);
 }
 .pages {
@@ -1695,8 +1695,8 @@ html.device-full-viewport body {
   */
   --f7-navbar-subtitle-text-color: rgba(0, 0, 0, 0.55);
 }
-.ios .theme-dark,
-.ios.theme-dark {
+.ios .dark,
+.ios.dark {
   --f7-navbar-subtitle-text-color: rgba(255, 255, 255, 0.55);
 }
 .md {
@@ -1721,8 +1721,8 @@ html.device-full-viewport body {
   --f7-navbar-link-line-height: 48px;
   --f7-navbar-subtitle-text-color: rgba(0, 0, 0, 0.85);
 }
-.md .theme-dark,
-.md.theme-dark {
+.md .dark,
+.md.dark {
   --f7-navbar-subtitle-text-color: rgba(255, 255, 255, 0.85);
 }
 .aurora {
@@ -1747,8 +1747,8 @@ html.device-full-viewport body {
   --f7-navbar-link-line-height: inherit;
   --f7-navbar-subtitle-text-color: rgba(0, 0, 0, 0.6);
 }
-.aurora .theme-dark,
-.aurora.theme-dark {
+.aurora .dark,
+.aurora.dark {
   --f7-navbar-subtitle-text-color: rgba(255, 255, 255, 0.5);
 }
 .navbars,
@@ -2800,8 +2800,8 @@ html.device-full-viewport body {
   --f7-tabbar-label-letter-spacing: 0.01;
   --f7-tabbar-link-inactive-color: rgba(0, 0, 0, 0.4);
 }
-.ios .theme-dark,
-.ios.theme-dark {
+.ios .dark,
+.ios.dark {
   --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.54);
 }
 .md {
@@ -2830,8 +2830,8 @@ html.device-full-viewport body {
   --f7-tabbar-label-letter-spacing: 0;
   --f7-tabbar-link-inactive-color: rgba(0, 0, 0, 0.54);
 }
-.md .theme-dark,
-.md.theme-dark {
+.md .dark,
+.md.dark {
   --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.54);
 }
 .aurora {
@@ -2858,8 +2858,8 @@ html.device-full-viewport body {
   --f7-tabbar-label-letter-spacing: 0;
   --f7-tabbar-link-inactive-color: rgba(0, 0, 0, 0.5);
 }
-.aurora .theme-dark,
-.aurora.theme-dark {
+.aurora .dark,
+.aurora.dark {
   --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.5);
 }
 .toolbar {
@@ -3755,8 +3755,8 @@ html.device-full-viewport body {
   --f7-block-title-large-text-color: #000;
   --f7-block-strong-bg-color: #fff;
 }
-:root .theme-dark,
-:root.theme-dark {
+:root .dark,
+:root.dark {
   --f7-block-title-text-color: #fff;
   --f7-block-strong-border-color: rgba(255, 255, 255, 0.15);
   --f7-block-title-medium-text-color: #fff;
@@ -3782,8 +3782,8 @@ html.device-full-viewport body {
   --f7-block-header-text-color: rgba(0, 0, 0, 0.45);
   --f7-block-footer-text-color: rgba(0, 0, 0, 0.45);
 }
-.ios .theme-dark,
-.ios.theme-dark {
+.ios .dark,
+.ios.dark {
   --f7-block-header-text-color: rgba(255, 255, 255, 0.55);
   --f7-block-footer-text-color: rgba(255, 255, 255, 0.55);
   --f7-block-strong-text-color: #fff;
@@ -3807,8 +3807,8 @@ html.device-full-viewport body {
   --f7-block-header-text-color: rgba(0, 0, 0, 0.54);
   --f7-block-footer-text-color: rgba(0, 0, 0, 0.54);
 }
-.md .theme-dark,
-.md.theme-dark {
+.md .dark,
+.md.dark {
   --f7-block-header-text-color: rgba(255, 255, 255, 0.54);
   --f7-block-footer-text-color: rgba(255, 255, 255, 0.54);
 }
@@ -3831,8 +3831,8 @@ html.device-full-viewport body {
   --f7-block-header-text-color: rgba(0, 0, 0, 0.6);
   --f7-block-footer-text-color: rgba(0, 0, 0, 0.6);
 }
-.aurora .theme-dark,
-.aurora.theme-dark {
+.aurora .dark,
+.aurora.dark {
   --f7-block-header-text-color: rgba(255, 255, 255, 0.54);
   --f7-block-footer-text-color: rgba(255, 255, 255, 0.54);
   --f7-block-strong-text-color: #fff;
@@ -4201,8 +4201,8 @@ html.device-full-viewport body {
   --f7-menu-list-selected-text-color: var(--f7-theme-color);
   --f7-menu-list-selected-bg-color: rgba(var(--f7-theme-color-rgb), 0.15);
 }
-:root .theme-dark,
-:root.theme-dark {
+:root .dark,
+:root.dark {
   --f7-list-button-border-color: rgba(255, 255, 255, 0.15);
   --f7-list-bg-color: #1c1c1d;
   --f7-list-border-color: rgba(255, 255, 255, 0.15);
@@ -4247,8 +4247,8 @@ html.device-full-viewport body {
   --f7-list-item-divider-text-color: rgba(0, 0, 0, 0.45);
   --f7-list-group-title-text-color: rgba(0, 0, 0, 0.45);
 }
-.ios .theme-dark,
-.ios.theme-dark {
+.ios .dark,
+.ios.dark {
   --f7-list-item-after-text-color: rgba(255, 255, 255, 0.55);
   --f7-list-item-header-text-color: rgba(255, 255, 255, 0.55);
   --f7-list-item-footer-text-color: rgba(255, 255, 255, 0.55);
@@ -4293,8 +4293,8 @@ html.device-full-viewport body {
   --f7-list-item-divider-text-color: rgba(0, 0, 0, 0.54);
   --f7-list-group-title-text-color: rgba(0, 0, 0, 0.54);
 }
-.md .theme-dark,
-.md.theme-dark {
+.md .dark,
+.md.dark {
   --f7-list-item-divider-text-color: #fff;
   --f7-list-group-title-text-color: #fff;
   --f7-list-link-pressed-bg-color: rgba(255, 255, 255, 0.05);
@@ -4338,8 +4338,8 @@ html.device-full-viewport body {
   --f7-list-item-divider-text-color: rgba(0, 0, 0, 0.6);
   --f7-list-group-title-text-color: rgba(0, 0, 0, 0.6);
 }
-.aurora .theme-dark,
-.aurora.theme-dark {
+.aurora .dark,
+.aurora.dark {
   --f7-list-item-text-text-color: rgba(255, 255, 255, 0.54);
   --f7-list-item-after-text-color: rgba(255, 255, 255, 0.54);
   --f7-list-item-footer-text-color: rgba(255, 255, 255, 0.54);
@@ -4930,7 +4930,6 @@ li.item-divider:before,
 li.list-group-title,
 .list li.list-group-title {
   position: relative;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   margin-top: 0;
@@ -5295,8 +5294,8 @@ li.list-group-title,
   --f7-segmented-strong-button-active-text-color: #000;
   --f7-segmented-strong-button-active-bg-color: #fff;
 }
-:root .theme-dark,
-:root.theme-dark {
+:root .dark,
+:root.dark {
   --f7-segmented-strong-bg-color: rgba(255, 255, 255, 0.1);
   --f7-segmented-strong-button-pressed-bg-color: rgba(255, 255, 255, 0.04);
   --f7-segmented-strong-button-hover-bg-color: rgba(255, 255, 255, 0.02);
@@ -5365,7 +5364,6 @@ li.list-group-title,
 }
 button {
   -webkit-appearance: none;
-     -moz-appearance: none;
           appearance: none;
   width: 100%;
 }
@@ -5375,7 +5373,6 @@ button {
   text-align: center;
   display: flex;
   -webkit-appearance: none;
-     -moz-appearance: none;
           appearance: none;
   background: none;
   margin: 0;
@@ -5780,7 +5777,7 @@ input[type='reset'].button {
   --f7-touch-ripple-white: rgba(255, 255, 255, 0.3);
   --f7-touch-ripple-color: var(--f7-touch-ripple-black);
 }
-.theme-dark {
+.dark {
   --f7-touch-ripple-color: var(--f7-touch-ripple-white);
 }
 .ripple,
@@ -5796,8 +5793,7 @@ input[type='reset'].button {
 .actions-button,
 .speed-dial-buttons a {
   -webkit-user-select: none;
-  -moz-user-select: none;
-       user-select: none;
+  user-select: none;
 }
 .ripple-wave {
   left: 0;

@@ -2,18 +2,18 @@ import Framework7, {
   Framework7EventsClass,
   Framework7Plugin,
   CSSSelector,
-} from '../../components/app/app-class';
+} from '../../components/app/app-class.js';
 import { Dom7, Dom7Array } from 'dom7';
-import { View } from '../../components/view/view';
+import { View } from '../../components/view/view.js';
 
-import { ComponentFunction as Component } from '../../modules/component/component';
-import { Actions } from '../../components/actions/actions';
-import { Popup } from '../../components/popup/popup';
-import { LoginScreen } from '../../components/login-screen/login-screen';
-import { Popover } from '../../components/popover/popover';
-import { Modal } from '../../components/modal/modal';
-import { Sheet } from '../../components/sheet/sheet';
-import { Panel } from '../../components/panel/panel';
+import { ComponentFunction as Component } from '../../modules/component/component.js';
+import { Actions } from '../../components/actions/actions.js';
+import { Popup } from '../../components/popup/popup.js';
+import { LoginScreen } from '../../components/login-screen/login-screen.js';
+import { Popover } from '../../components/popover/popover.js';
+import { Modal } from '../../components/modal/modal.js';
+import { Sheet } from '../../components/sheet/sheet.js';
+import { Panel } from '../../components/panel/panel.js';
 
 export namespace Router {
   interface ModalRouteParameters {

@@ -1,4 +1,8 @@
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
 import { Swiper } from 'swiper/bundle';
 
 export namespace Swiper {

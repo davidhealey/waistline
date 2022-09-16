@@ -1,1 +1,283 @@
-(function framework7ComponentLoader(a,e){void 0===e&&(e=!0);var t=a.$,r=a.utils,o=(a.getDevice,a.getSupport),s=(a.Class,a.Modal,a.ConstructorMethods,a.ModalMethods,r.bindMethods),n={destroy:function(a){var e=t(a).closest(".page");e.length&&e[0].f7LazyDestroy&&e[0].f7LazyDestroy()},create:function(a){var e=this,r=o(),s=t(a).closest(".page").eq(0),n=s.find(".lazy");if(0!==n.length||s.hasClass("lazy")){var l=e.params.lazy.placeholder;!1!==l&&n.each((function(a){t(a).attr("data-src")&&!t(a).attr("src")&&t(a).attr("src",l)}));var i=[],d=!1;if(e.params.lazy.observer&&r.intersectionObserver){var y=s[0].f7LazyObserver;return y||(y=new window.IntersectionObserver((function(a,t){a.forEach((function(a){if(a.isIntersecting){if(e.params.lazy.sequential&&d)return void(i.indexOf(a.target)<0&&i.push(a.target));d=!0,e.lazy.loadImage(a.target,c),t.unobserve(a.target)}}))}),{root:s[0]})),n.each((function(a){a.f7LazyObserverAdded||(a.f7LazyObserverAdded=!0,y.observe(a))})),void(s[0].f7LazyDestroy||(s[0].f7LazyDestroy=function(){y.disconnect(),delete s[0].f7LazyDestroy,delete s[0].f7LazyObserver}))}s[0].f7LazyDestroy||(s[0].f7LazyDestroy=function(){s[0].f7LazyAttached=!1,delete s[0].f7LazyAttached,s.off("lazy",f),s.off("scroll",f,!0),s.find(".tab").off("tab:mounted tab:show",f),e.off("resize",f)}),s[0].f7LazyAttached||(s[0].f7LazyAttached=!0,s.on("lazy",f),s.on("scroll",f,!0),s.find(".tab").on("tab:mounted tab:show",f),e.on("resize",f)),f()}function c(a){i.indexOf(a)>=0&&i.splice(i.indexOf(a),1),d=!1,e.params.lazy.sequential&&i.length>0&&(d=!0,e.lazy.loadImage(i[0],c))}function f(){e.lazy.load(s,(function(a){e.params.lazy.sequential&&d?i.indexOf(a)<0&&i.push(a):(d=!0,e.lazy.loadImage(a,c))}))}},isInViewport:function(a){var e=this,t=a.getBoundingClientRect(),r=e.params.lazy.threshold||0;return t.top>=0-r&&t.left>=0-r&&t.top<=e.height+r&&t.left<=e.width+r},loadImage:function(a,e){var r=this,o=t(a),s=o.attr("data-background"),n=s||o.attr("data-src");function l(){o.removeClass("lazy").addClass("lazy-loaded"),s?o.css("background-image","url("+n+")"):n&&o.attr("src",n),e&&e(a),o.trigger("lazy:loaded"),r.emit("lazyLoaded",o[0])}if(!n)return o.trigger("lazy:load"),r.emit("lazyLoad",o[0]),void l();var i=new window.Image;i.onload=l,i.onerror=function(){o.removeClass("lazy").addClass("lazy-loaded"),s?o.css("background-image","url("+(r.params.lazy.placeholder||"")+")"):o.attr("src",r.params.lazy.placeholder||""),e&&e(a),o.trigger("lazy:error"),r.emit("lazyError",o[0])},i.src=n,o.removeAttr("data-src").removeAttr("data-background"),o.trigger("lazy:load"),r.emit("lazyLoad",o[0])},load:function(a,e){var r=this,o=t(a);o.hasClass("page")||(o=o.parents(".page").eq(0)),0!==o.length&&o.find(".lazy").each((function(a){t(a).parents(".tab:not(.tab-active)").length>0||r.lazy.isInViewport(a)&&(e?e(a):r.lazy.loadImage(a))}))}},l={name:"lazy",params:{lazy:{placeholder:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEXCwsK592mkAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",threshold:0,sequential:!0,observer:!0}},create:function(){s(this,{lazy:n})},on:{pageInit:function(a){(a.$el.find(".lazy").length>0||a.$el.hasClass("lazy"))&&this.lazy.create(a.$el)},pageAfterIn:function(a){var e=o();this.params.lazy.observer&&e.intersectionObserver||(a.$el.find(".lazy").length>0||a.$el.hasClass("lazy"))&&this.lazy.create(a.$el)},pageBeforeRemove:function(a){(a.$el.find(".lazy").length>0||a.$el.hasClass("lazy"))&&this.lazy.destroy(a.$el)},tabMounted:function(a){var e=t(a);(e.find(".lazy").length>0||e.hasClass("lazy"))&&this.lazy.create(e)},tabBeforeRemove:function(a){var e=o();if(!this.params.lazy.observer||!e.intersectionObserver){var r=t(a);(r.find(".lazy").length>0||r.hasClass("lazy"))&&this.lazy.destroy(r)}}}};if(e){if(a.prototype.modules&&a.prototype.modules[l.name])return;a.use(l),a.instance&&(a.instance.useModuleParams(l,a.instance.params),a.instance.useModule(l))}return l}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import { getWindow } from 'ssr-window';
+import $ from '../../shared/dom7.js';
+import { bindMethods } from '../../shared/utils.js';
+import { getSupport } from '../../shared/get-support.js';
+const Lazy = {
+  destroy(pageEl) {
+    const $pageEl = $(pageEl).closest('.page');
+    if (!$pageEl.length) return;
+
+    if ($pageEl[0].f7LazyDestroy) {
+      $pageEl[0].f7LazyDestroy();
+    }
+  },
+
+  create(pageEl) {
+    const app = this;
+    const window = getWindow();
+    const support = getSupport();
+    const $pageEl = $(pageEl).closest('.page').eq(0); // Lazy images
+
+    const $lazyLoadImages = $pageEl.find('.lazy');
+    if ($lazyLoadImages.length === 0 && !$pageEl.hasClass('lazy')) return; // Placeholder
+
+    const placeholderSrc = app.params.lazy.placeholder;
+
+    if (placeholderSrc !== false) {
+      $lazyLoadImages.each(lazyEl => {
+        if ($(lazyEl).attr('data-src') && !$(lazyEl).attr('src')) $(lazyEl).attr('src', placeholderSrc);
+      });
+    } // load image
+
+
+    const imagesSequence = [];
+    let imageIsLoading = false;
+
+    function onImageComplete(lazyEl) {
+      if (imagesSequence.indexOf(lazyEl) >= 0) {
+        imagesSequence.splice(imagesSequence.indexOf(lazyEl), 1);
+      }
+
+      imageIsLoading = false;
+
+      if (app.params.lazy.sequential && imagesSequence.length > 0) {
+        imageIsLoading = true;
+        app.lazy.loadImage(imagesSequence[0], onImageComplete);
+      }
+    }
+
+    function observerCallback(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (app.params.lazy.sequential && imageIsLoading) {
+            if (imagesSequence.indexOf(entry.target) < 0) imagesSequence.push(entry.target);
+            return;
+          } // Load image
+
+
+          imageIsLoading = true;
+          app.lazy.loadImage(entry.target, onImageComplete); // Detach
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }
+
+    if (app.params.lazy.observer && support.intersectionObserver) {
+      let observer = $pageEl[0].f7LazyObserver;
+
+      if (!observer) {
+        observer = new window.IntersectionObserver(observerCallback, {
+          root: $pageEl[0]
+        });
+      }
+
+      $lazyLoadImages.each(el => {
+        if (el.f7LazyObserverAdded) return;
+        el.f7LazyObserverAdded = true;
+        observer.observe(el);
+      });
+
+      if (!$pageEl[0].f7LazyDestroy) {
+        $pageEl[0].f7LazyDestroy = () => {
+          observer.disconnect();
+          delete $pageEl[0].f7LazyDestroy;
+          delete $pageEl[0].f7LazyObserver;
+        };
+      }
+
+      return;
+    }
+
+    function lazyHandler() {
+      app.lazy.load($pageEl, lazyEl => {
+        if (app.params.lazy.sequential && imageIsLoading) {
+          if (imagesSequence.indexOf(lazyEl) < 0) imagesSequence.push(lazyEl);
+          return;
+        }
+
+        imageIsLoading = true;
+        app.lazy.loadImage(lazyEl, onImageComplete);
+      });
+    }
+
+    function attachEvents() {
+      $pageEl[0].f7LazyAttached = true;
+      $pageEl.on('lazy', lazyHandler);
+      $pageEl.on('scroll', lazyHandler, true);
+      $pageEl.find('.tab').on('tab:mounted tab:show', lazyHandler);
+      app.on('resize', lazyHandler);
+    }
+
+    function detachEvents() {
+      $pageEl[0].f7LazyAttached = false;
+      delete $pageEl[0].f7LazyAttached;
+      $pageEl.off('lazy', lazyHandler);
+      $pageEl.off('scroll', lazyHandler, true);
+      $pageEl.find('.tab').off('tab:mounted tab:show', lazyHandler);
+      app.off('resize', lazyHandler);
+    } // Store detach function
+
+
+    if (!$pageEl[0].f7LazyDestroy) {
+      $pageEl[0].f7LazyDestroy = detachEvents;
+    } // Attach events
+
+
+    if (!$pageEl[0].f7LazyAttached) {
+      attachEvents();
+    } // Run loader on page load/init
+
+
+    lazyHandler();
+  },
+
+  isInViewport(lazyEl) {
+    const app = this;
+    const rect = lazyEl.getBoundingClientRect();
+    const threshold = app.params.lazy.threshold || 0;
+    return rect.top >= 0 - threshold && rect.left >= 0 - threshold && rect.top <= app.height + threshold && rect.left <= app.width + threshold;
+  },
+
+  loadImage(imageEl, callback) {
+    const app = this;
+    const window = getWindow();
+    const $imageEl = $(imageEl);
+    const bg = $imageEl.attr('data-background');
+    const src = bg || $imageEl.attr('data-src');
+
+    function onLoad() {
+      $imageEl.removeClass('lazy').addClass('lazy-loaded');
+
+      if (bg) {
+        $imageEl.css('background-image', `url(${src})`);
+      } else if (src) {
+        $imageEl.attr('src', src);
+      }
+
+      if (callback) callback(imageEl);
+      $imageEl.trigger('lazy:loaded');
+      app.emit('lazyLoaded', $imageEl[0]);
+    }
+
+    if (!src) {
+      $imageEl.trigger('lazy:load');
+      app.emit('lazyLoad', $imageEl[0]);
+      onLoad();
+      return;
+    }
+
+    function onError() {
+      $imageEl.removeClass('lazy').addClass('lazy-loaded');
+
+      if (bg) {
+        $imageEl.css('background-image', `url(${app.params.lazy.placeholder || ''})`);
+      } else {
+        $imageEl.attr('src', app.params.lazy.placeholder || '');
+      }
+
+      if (callback) callback(imageEl);
+      $imageEl.trigger('lazy:error');
+      app.emit('lazyError', $imageEl[0]);
+    }
+
+    const image = new window.Image();
+    image.onload = onLoad;
+    image.onerror = onError;
+    image.src = src;
+    $imageEl.removeAttr('data-src').removeAttr('data-background'); // Add loaded callback and events
+
+    $imageEl.trigger('lazy:load');
+    app.emit('lazyLoad', $imageEl[0]);
+  },
+
+  load(pageEl, callback) {
+    const app = this;
+    let $pageEl = $(pageEl);
+    if (!$pageEl.hasClass('page')) $pageEl = $pageEl.parents('.page').eq(0);
+
+    if ($pageEl.length === 0) {
+      return;
+    }
+
+    $pageEl.find('.lazy').each(lazyEl => {
+      const $lazyEl = $(lazyEl);
+
+      if ($lazyEl.parents('.tab:not(.tab-active)').length > 0) {
+        return;
+      }
+
+      if (app.lazy.isInViewport(lazyEl)) {
+        if (callback) callback(lazyEl);else app.lazy.loadImage(lazyEl);
+      }
+    });
+  }
+
+};
+export default {
+  name: 'lazy',
+  params: {
+    lazy: {
+      placeholder: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEXCwsK592mkAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==',
+      threshold: 0,
+      sequential: true,
+      observer: true
+    }
+  },
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      lazy: Lazy
+    });
+  },
+
+  on: {
+    pageInit(page) {
+      const app = this;
+
+      if (page.$el.find('.lazy').length > 0 || page.$el.hasClass('lazy')) {
+        app.lazy.create(page.$el);
+      }
+    },
+
+    pageAfterIn(page) {
+      const app = this;
+      const support = getSupport();
+      if (app.params.lazy.observer && support.intersectionObserver) return;
+
+      if (page.$el.find('.lazy').length > 0 || page.$el.hasClass('lazy')) {
+        app.lazy.create(page.$el);
+      }
+    },
+
+    pageBeforeRemove(page) {
+      const app = this;
+
+      if (page.$el.find('.lazy').length > 0 || page.$el.hasClass('lazy')) {
+        app.lazy.destroy(page.$el);
+      }
+    },
+
+    tabMounted(tabEl) {
+      const app = this;
+      const $tabEl = $(tabEl);
+
+      if ($tabEl.find('.lazy').length > 0 || $tabEl.hasClass('lazy')) {
+        app.lazy.create($tabEl);
+      }
+    },
+
+    tabBeforeRemove(tabEl) {
+      const app = this;
+      const support = getSupport();
+      if (app.params.lazy.observer && support.intersectionObserver) return;
+      const $tabEl = $(tabEl);
+
+      if ($tabEl.find('.lazy').length > 0 || $tabEl.hasClass('lazy')) {
+        app.lazy.destroy($tabEl);
+      }
+    }
+
+  }
+};

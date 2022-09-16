@@ -1,5 +1,5 @@
-import { Support } from '../../shared/get-support';
-import Framework7, { Framework7Plugin } from '../../components/app/app-class';
+import { Support } from '../../shared/get-support.js';
+import Framework7, { Framework7Plugin } from '../../components/app/app-class.js';
 
 export namespace Support {
   interface AppMethods {

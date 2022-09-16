@@ -1,1 +1,193 @@
-(function framework7ComponentLoader(t,e){void 0===e&&(e=!0);var n=t.$,a=t.utils;t.getDevice,t.getSupport,t.Class,t.Modal,t.ConstructorMethods,t.ModalMethods;function o(t){this.wrapped=t}function s(t){var e,n;function a(e,n){try{var r=t[e](n),f=r.value,i=f instanceof o;Promise.resolve(i?f.wrapped:f).then((function(t){i?a("return"===e?"return":"next",t):s(r.done?"return":"normal",t)}),(function(t){a("throw",t)}))}catch(t){s("throw",t)}}function s(t,o){switch(t){case"return":e.resolve({value:o,done:!0});break;case"throw":e.reject(o);break;default:e.resolve({value:o,done:!1})}(e=e.next)?a(e.key,e.arg):n=null}this._invoke=function(t,o){return new Promise((function(s,r){var f={key:t,arg:o,resolve:s,reject:r,next:null};n?n=n.next=f:(e=n=f,a(t,o))}))},"function"!=typeof t.return&&(this.return=void 0)}function r(){return(r=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(t[a]=n[a])}return t}).apply(this,arguments)}s.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},s.prototype.next=function(t){return this._invoke("next",t)},s.prototype.throw=function(t){return this._invoke("throw",t)},s.prototype.return=function(t){return this._invoke("return",t)};var f=a.bindMethods,i=a.getTranslate,h=a.nextFrame,l={morphOpen:function(t,e){var a=this,o=n(t),s=n(e);if(0!==s.length){s.transition(0).addClass("fab-morph-target-visible");var r={width:s[0].offsetWidth,height:s[0].offsetHeight,offset:s.offset(),borderRadius:s.css("border-radius"),zIndex:s.css("z-index")},f={width:o[0].offsetWidth,height:o[0].offsetHeight,offset:o.offset(),translateX:i(o[0],"x"),translateY:i(o[0],"y")};o[0].f7FabMorphData={$targetEl:s,target:r,fab:f};var l=f.offset.left+f.width/2-(r.offset.left+r.width/2)-f.translateX,p=f.offset.top+f.height/2-(r.offset.top+r.height/2)-f.translateY,c=r.width/f.width,d=r.height/f.height,b=Math.ceil(parseInt(r.borderRadius,10)/Math.max(c,d));b>0&&(b+=2),o[0].f7FabMorphResizeHandler=function(){o.transition(0).transform(""),s.transition(0),r.width=s[0].offsetWidth,r.height=s[0].offsetHeight,r.offset=s.offset(),f.offset=o.offset();var t=f.offset.left+f.width/2-(r.offset.left+r.width/2)-f.translateX,e=f.offset.top+f.height/2-(r.offset.top+r.height/2)-f.translateY,n=r.width/f.width,a=r.height/f.height;o.transform("translate3d("+-t+"px, "+-e+"px, 0) scale("+n+", "+a+")")},s.css("opacity",0).transform("scale("+1/c+", "+1/d+")"),o.addClass("fab-opened").css("z-index",r.zIndex-1).transform("translate3d("+-l+"px, "+-p+"px, 0)"),o.transitionEnd((function(){s.transition(""),h((function(){s.css("opacity",1).transform("scale(1,1)"),o.transform("translate3d("+-l+"px, "+-p+"px, 0) scale("+c+", "+d+")").css("border-radius",b+"px").css("box-shadow","none").css("opacity","0")})),a.on("resize",o[0].f7FabMorphResizeHandler),s.parents(".page-content").length>0&&s.parents(".page-content").on("scroll",o[0].f7FabMorphResizeHandler)}))}},morphClose:function(t){var e=n(t),a=e[0].f7FabMorphData;if(a){var o=a.$targetEl,s=a.target,r=a.fab;if(0!==o.length){var f=r.offset.left+r.width/2-(s.offset.left+s.width/2)-r.translateX,i=r.offset.top+r.height/2-(s.offset.top+s.height/2)-r.translateY,l=s.width/r.width,p=s.height/r.height;this.off("resize",e[0].f7FabMorphResizeHandler),o.parents(".page-content").length>0&&o.parents(".page-content").off("scroll",e[0].f7FabMorphResizeHandler),o.css("opacity",0).transform("scale("+1/l+", "+1/p+")"),e.transition("").css("box-shadow","").css("border-radius","").css("opacity","1").transform("translate3d("+-f+"px, "+-i+"px, 0)"),e.transitionEnd((function(){e.css("z-index","").removeClass("fab-opened").transform(""),h((function(){e.transitionEnd((function(){o.removeClass("fab-morph-target-visible").css("opacity","").transform("").transition("")}))}))}))}}},open:function(t,e){var a=this,o=n(t).eq(0),s=o.find(".fab-buttons");if(o.length&&!o.hasClass("fab-opened")&&(s.length||o.hasClass("fab-morph"))){if(a.fab.openedEl){if(a.fab.openedEl===o[0])return;a.fab.close(a.fab.openedEl)}a.fab.openedEl=o[0],o.hasClass("fab-morph")?a.fab.morphOpen(o,e||o.attr("data-morph-to")):o.addClass("fab-opened"),o.siblings(".fab-backdrop").addClass("backdrop-in"),o.trigger("fab:open")}},close:function(t){void 0===t&&(t=".fab-opened");var e=n(t).eq(0),a=e.find(".fab-buttons");e.length&&e.hasClass("fab-opened")&&(a.length||e.hasClass("fab-morph"))&&(this.fab.openedEl=null,e.hasClass("fab-morph")?this.fab.morphClose(e):e.removeClass("fab-opened"),e.siblings(".fab-backdrop").removeClass("backdrop-in"),e.trigger("fab:close"))},toggle:function(t){n(t).hasClass("fab-opened")?this.fab.close(t):this.fab.open(t)}},p={name:"fab",create:function(){f(this,{fab:r({openedEl:null},l)})},clicks:{".fab > a":function(t){this.fab.toggle(t.parents(".fab"))},".fab-open":function(t,e){void 0===e&&(e={});this.fab.open(e.fab)},".fab-close":function(t,e){void 0===e&&(e={});this.fab.close(e.fab)},".fab-backdrop":function(){this.fab.close()}}};if(e){if(t.prototype.modules&&t.prototype.modules[p.name])return;t.use(p),t.instance&&(t.instance.useModuleParams(p,t.instance.params),t.instance.useModule(p))}return p}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { bindMethods, getTranslate, nextFrame } from '../../shared/utils.js';
+const Fab = {
+  morphOpen(fabEl, targetEl) {
+    const app = this;
+    const $fabEl = $(fabEl);
+    const $targetEl = $(targetEl);
+    if ($targetEl.length === 0) return;
+    $targetEl.transition(0).addClass('fab-morph-target-visible');
+    const target = {
+      width: $targetEl[0].offsetWidth,
+      height: $targetEl[0].offsetHeight,
+      offset: $targetEl.offset(),
+      borderRadius: $targetEl.css('border-radius'),
+      zIndex: $targetEl.css('z-index')
+    };
+    const fab = {
+      width: $fabEl[0].offsetWidth,
+      height: $fabEl[0].offsetHeight,
+      offset: $fabEl.offset(),
+      translateX: getTranslate($fabEl[0], 'x'),
+      translateY: getTranslate($fabEl[0], 'y')
+    };
+    $fabEl[0].f7FabMorphData = {
+      $targetEl,
+      target,
+      fab
+    };
+    const diffX = fab.offset.left + fab.width / 2 - (target.offset.left + target.width / 2) - fab.translateX;
+    const diffY = fab.offset.top + fab.height / 2 - (target.offset.top + target.height / 2) - fab.translateY;
+    const scaleX = target.width / fab.width;
+    const scaleY = target.height / fab.height;
+    let borderRadius = Math.ceil(parseInt(target.borderRadius, 10) / Math.max(scaleX, scaleY));
+    if (borderRadius > 0) borderRadius += 2;
+
+    $fabEl[0].f7FabMorphResizeHandler = function resizeHandler() {
+      $fabEl.transition(0).transform('');
+      $targetEl.transition(0);
+      target.width = $targetEl[0].offsetWidth;
+      target.height = $targetEl[0].offsetHeight;
+      target.offset = $targetEl.offset();
+      fab.offset = $fabEl.offset();
+      const diffXNew = fab.offset.left + fab.width / 2 - (target.offset.left + target.width / 2) - fab.translateX;
+      const diffYNew = fab.offset.top + fab.height / 2 - (target.offset.top + target.height / 2) - fab.translateY;
+      const scaleXNew = target.width / fab.width;
+      const scaleYNew = target.height / fab.height;
+      $fabEl.transform(`translate3d(${-diffXNew}px, ${-diffYNew}px, 0) scale(${scaleXNew}, ${scaleYNew})`);
+    };
+
+    $targetEl.css('opacity', 0).transform(`scale(${1 / scaleX}, ${1 / scaleY})`);
+    $fabEl.addClass('fab-opened').css('z-index', target.zIndex - 1).transform(`translate3d(${-diffX}px, ${-diffY}px, 0)`);
+    $fabEl.transitionEnd(() => {
+      $targetEl.transition('');
+      nextFrame(() => {
+        $targetEl.css('opacity', 1).transform('scale(1,1)');
+        $fabEl.transform(`translate3d(${-diffX}px, ${-diffY}px, 0) scale(${scaleX}, ${scaleY})`).css('border-radius', `${borderRadius}px`).css('box-shadow', 'none').css('opacity', '0');
+      });
+      app.on('resize', $fabEl[0].f7FabMorphResizeHandler);
+
+      if ($targetEl.parents('.page-content').length > 0) {
+        $targetEl.parents('.page-content').on('scroll', $fabEl[0].f7FabMorphResizeHandler);
+      }
+    });
+  },
+
+  morphClose(fabEl) {
+    const app = this;
+    const $fabEl = $(fabEl);
+    const morphData = $fabEl[0].f7FabMorphData;
+    if (!morphData) return;
+    const {
+      $targetEl,
+      target,
+      fab
+    } = morphData;
+    if ($targetEl.length === 0) return;
+    const diffX = fab.offset.left + fab.width / 2 - (target.offset.left + target.width / 2) - fab.translateX;
+    const diffY = fab.offset.top + fab.height / 2 - (target.offset.top + target.height / 2) - fab.translateY;
+    const scaleX = target.width / fab.width;
+    const scaleY = target.height / fab.height;
+    app.off('resize', $fabEl[0].f7FabMorphResizeHandler);
+
+    if ($targetEl.parents('.page-content').length > 0) {
+      $targetEl.parents('.page-content').off('scroll', $fabEl[0].f7FabMorphResizeHandler);
+    }
+
+    $targetEl.css('opacity', 0).transform(`scale(${1 / scaleX}, ${1 / scaleY})`);
+    $fabEl.transition('').css('box-shadow', '').css('border-radius', '').css('opacity', '1').transform(`translate3d(${-diffX}px, ${-diffY}px, 0)`);
+    $fabEl.transitionEnd(() => {
+      $fabEl.css('z-index', '').removeClass('fab-opened').transform('');
+      nextFrame(() => {
+        $fabEl.transitionEnd(() => {
+          $targetEl.removeClass('fab-morph-target-visible').css('opacity', '').transform('').transition('');
+        });
+      });
+    });
+  },
+
+  open(fabEl, targetEl) {
+    const app = this;
+    const $fabEl = $(fabEl).eq(0);
+    const $buttonsEl = $fabEl.find('.fab-buttons');
+    if (!$fabEl.length) return;
+    if ($fabEl.hasClass('fab-opened')) return;
+    if (!$buttonsEl.length && !$fabEl.hasClass('fab-morph')) return;
+
+    if (app.fab.openedEl) {
+      if (app.fab.openedEl === $fabEl[0]) return;
+      app.fab.close(app.fab.openedEl);
+    }
+
+    app.fab.openedEl = $fabEl[0];
+
+    if ($fabEl.hasClass('fab-morph')) {
+      app.fab.morphOpen($fabEl, targetEl || $fabEl.attr('data-morph-to'));
+    } else {
+      $fabEl.addClass('fab-opened');
+    }
+
+    $fabEl.siblings('.fab-backdrop').addClass('backdrop-in');
+    $fabEl.trigger('fab:open');
+  },
+
+  close(fabEl) {
+    if (fabEl === void 0) {
+      fabEl = '.fab-opened';
+    }
+
+    const app = this;
+    const $fabEl = $(fabEl).eq(0);
+    const $buttonsEl = $fabEl.find('.fab-buttons');
+    if (!$fabEl.length) return;
+    if (!$fabEl.hasClass('fab-opened')) return;
+    if (!$buttonsEl.length && !$fabEl.hasClass('fab-morph')) return;
+    app.fab.openedEl = null;
+
+    if ($fabEl.hasClass('fab-morph')) {
+      app.fab.morphClose($fabEl);
+    } else {
+      $fabEl.removeClass('fab-opened');
+    }
+
+    $fabEl.siblings('.fab-backdrop').removeClass('backdrop-in');
+    $fabEl.trigger('fab:close');
+  },
+
+  toggle(fabEl) {
+    const app = this;
+    const $fabEl = $(fabEl);
+    if (!$fabEl.hasClass('fab-opened')) app.fab.open(fabEl);else app.fab.close(fabEl);
+  }
+
+};
+export default {
+  name: 'fab',
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      fab: {
+        openedEl: null,
+        ...Fab
+      }
+    });
+  },
+
+  clicks: {
+    '.fab > a': function open($clickedEl) {
+      const app = this;
+      app.fab.toggle($clickedEl.parents('.fab'));
+    },
+    '.fab-open': function open($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.fab.open(data.fab);
+    },
+    '.fab-close': function close($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.fab.close(data.fab);
+    },
+    '.fab-backdrop': function close() {
+      const app = this;
+      app.fab.close();
+    }
+  }
+};

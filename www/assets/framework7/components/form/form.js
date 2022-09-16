@@ -1,1 +1,347 @@
-(function framework7ComponentLoader(t,e){void 0===e&&(e=!0);var a=t.$,o=t.utils,r=(t.getDevice,t.getSupport,t.Class,t.Modal,t.ConstructorMethods,t.ModalMethods,o.extend),n=o.serializeObject,i={store:function(t,e){var o=t,r=a(t);r.length&&r.is("form")&&r.attr("id")&&(o=r.attr("id")),this.form.data["form-"+o]=e,window.localStorage["f7form-"+o]=JSON.stringify(e)},get:function(t){var e=t,o=a(t);return o.length&&o.is("form")&&o.attr("id")&&(e=o.attr("id")),window.localStorage["f7form-"+e]?JSON.parse(window.localStorage["f7form-"+e]):this.form.data["form-"+e]?this.form.data["form-"+e]:void 0},remove:function(t){var e=this,o=t,r=a(t);r.length&&r.is("form")&&r.attr("id")&&(o=r.attr("id")),e.form.data["form-"+o]&&(e.form.data["form-"+o]="",delete e.form.data["form-"+o]),window.localStorage["f7form-"+o]&&(window.localStorage["f7form-"+o]="",window.localStorage.removeItem("f7form-"+o))}},f={init:function(t){var e=this,o=a(t),r=o.attr("id");if(r){var n=e.form.getFormData(r);n&&e.form.fillFromData(o,n),o.on("change submit",(function(){var t=e.form.convertToData(o);t&&(e.form.storeFormData(r,t),o.trigger("form:storedata",t),e.emit("formStoreData",o[0],t))}))}},destroy:function(t){a(t).off("change submit")}};function s(t){var e=a(t).eq(0);if(0!==e.length){var o={},r=["submit","image","button","file"],n=[];return e.find("input, select, textarea").each((function(t){var i=a(t);if(!i.hasClass("ignore-store-data")&&!i.hasClass("no-store-data")){var f=i.attr("name"),s=i.attr("type"),m=t.nodeName.toLowerCase();if(!(r.indexOf(s)>=0)&&!(n.indexOf(f)>=0)&&f)if("select"===m&&i.prop("multiple"))n.push(f),o[f]=[],e.find('select[name="'+f+'"] option').each((function(t){t.selected&&o[f].push(t.value)}));else switch(s){case"checkbox":n.push(f),o[f]=[],e.find('input[name="'+f+'"]').each((function(t){t.checked&&o[f].push(t.value)}));break;case"radio":n.push(f),e.find('input[name="'+f+'"]').each((function(t){t.checked&&(o[f]=t.value)}));break;default:o[f]=i.val()}}})),e.trigger("form:todata",o),this.emit("formToData",e[0],o),o}}function m(t,e){var o=a(t).eq(0);if(o.length){var r=e,n=o.attr("id");if(!r&&n&&(r=this.form.getFormData(n)),r){var i=["submit","image","button","file"],f=[];o.find("input, select, textarea").each((function(t){var e=a(t);if(!e.hasClass("ignore-store-data")&&!e.hasClass("no-store-data")){var n=e.attr("name"),s=e.attr("type"),m=t.nodeName.toLowerCase();if(void 0!==r[n]&&null!==r[n]&&!(i.indexOf(s)>=0)&&!(f.indexOf(n)>=0)&&n){if("select"===m&&e.prop("multiple"))f.push(n),o.find('select[name="'+n+'"] option').each((function(t){var e=t;r[n].indexOf(t.value)>=0?e.selected=!0:e.selected=!1}));else switch(s){case"checkbox":f.push(n),o.find('input[name="'+n+'"]').each((function(t){var e=t;r[n].indexOf(t.value)>=0?e.checked=!0:e.checked=!1}));break;case"radio":f.push(n),o.find('input[name="'+n+'"]').each((function(t){var e=t;r[n]===t.value?e.checked=!0:e.checked=!1}));break;default:e.val(r[n])}"select"!==m&&"input"!==m&&"textarea"!==m||e.trigger("change","fromdata")}}})),o.trigger("form:fromdata",r),this.emit("formFromData",o[0],r)}}}function c(){var t=this;a(document).on("submit change","form.form-ajax-submit, form.form-ajax-submit-onchange",(function(e,o){var r=a(this);if(("change"!==e.type||r.hasClass("form-ajax-submit-onchange"))&&("submit"===e.type&&e.preventDefault(),"change"!==e.type||"fromdata"!==o)){var i,f=(r.attr("method")||"GET").toUpperCase(),s=r.prop("enctype")||r.attr("enctype"),m=r.attr("action");if(m)i="POST"===f?"application/x-www-form-urlencoded"===s?t.form.convertToData(r[0]):new window.FormData(r[0]):n(t.form.convertToData(r[0])),t.request({method:f,url:m,contentType:s,data:i,beforeSend:function(e){r.trigger("formajax:beforesend",{data:i,xhr:e}),t.emit("formAjaxBeforeSend",r[0],i,e)},error:function(e){r.trigger("formajax:error",{data:i,xhr:e}),t.emit("formAjaxError",r[0],i,e)},complete:function(e){r.trigger("formajax:complete",{data:i,xhr:e}),t.emit("formAjaxComplete",r[0],i,e)},success:function(e,a,o){r.trigger("formajax:success",{data:i,xhr:o}),t.emit("formAjaxSuccess",r[0],i,o)}})}}))}var d={name:"form",create:function(){var t=this;r(t,{form:{data:{},storeFormData:i.store.bind(t),getFormData:i.get.bind(t),removeFormData:i.remove.bind(t),convertToData:s.bind(t),fillFromData:m.bind(t),storage:{init:f.init.bind(t),destroy:f.destroy.bind(t)}}})},on:{init:function(){c.call(this)},tabBeforeRemove:function(t){var e=this;a(t).find(".form-store-data").each((function(t){e.form.storage.destroy(t)}))},tabMounted:function(t){var e=this;a(t).find(".form-store-data").each((function(t){e.form.storage.init(t)}))},pageBeforeRemove:function(t){var e=this;t.$el.find(".form-store-data").each((function(t){e.form.storage.destroy(t)}))},pageInit:function(t){var e=this;t.$el.find(".form-store-data").each((function(t){e.form.storage.init(t)}))}}};if(e){if(t.prototype.modules&&t.prototype.modules[d.name])return;t.use(d),t.instance&&(t.instance.useModuleParams(d,t.instance.params),t.instance.useModule(d))}return d}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import { getWindow, getDocument } from 'ssr-window';
+import $ from '../../shared/dom7.js';
+import { extend, serializeObject } from '../../shared/utils.js'; // Form Data
+
+const FormData = {
+  store(form, data) {
+    const app = this;
+    const window = getWindow();
+    let formId = form;
+    const $formEl = $(form);
+
+    if ($formEl.length && $formEl.is('form') && $formEl.attr('id')) {
+      formId = $formEl.attr('id');
+    } // Store form data in app.formsData
+
+
+    app.form.data[`form-${formId}`] = data; // Store form data in local storage also
+
+    window.localStorage[`f7form-${formId}`] = JSON.stringify(data);
+  },
+
+  get(form) {
+    const app = this;
+    const window = getWindow();
+    let formId = form;
+    const $formEl = $(form);
+
+    if ($formEl.length && $formEl.is('form') && $formEl.attr('id')) {
+      formId = $formEl.attr('id');
+    }
+
+    if (window.localStorage[`f7form-${formId}`]) {
+      return JSON.parse(window.localStorage[`f7form-${formId}`]);
+    }
+
+    if (app.form.data[`form-${formId}`]) {
+      return app.form.data[`form-${formId}`];
+    }
+
+    return undefined;
+  },
+
+  remove(form) {
+    const app = this;
+    const window = getWindow();
+    let formId = form;
+    const $formEl = $(form);
+
+    if ($formEl.length && $formEl.is('form') && $formEl.attr('id')) {
+      formId = $formEl.attr('id');
+    } // Delete form data from app.formsData
+
+
+    if (app.form.data[`form-${formId}`]) {
+      app.form.data[`form-${formId}`] = '';
+      delete app.form.data[`form-${formId}`];
+    } // Delete form data from local storage also
+
+
+    if (window.localStorage[`f7form-${formId}`]) {
+      window.localStorage[`f7form-${formId}`] = '';
+      window.localStorage.removeItem(`f7form-${formId}`);
+    }
+  }
+
+}; // Form Storage
+
+const FormStorage = {
+  init(formEl) {
+    const app = this;
+    const $formEl = $(formEl);
+    const formId = $formEl.attr('id');
+    if (!formId) return;
+    const initialData = app.form.getFormData(formId);
+
+    if (initialData) {
+      app.form.fillFromData($formEl, initialData);
+    }
+
+    function store() {
+      const data = app.form.convertToData($formEl);
+      if (!data) return;
+      app.form.storeFormData(formId, data);
+      $formEl.trigger('form:storedata', data);
+      app.emit('formStoreData', $formEl[0], data);
+    }
+
+    $formEl.on('change submit', store);
+  },
+
+  destroy(formEl) {
+    const $formEl = $(formEl);
+    $formEl.off('change submit');
+  }
+
+}; // Form To/From Data
+
+function formToData(formEl) {
+  const app = this;
+  const $formEl = $(formEl).eq(0);
+  if ($formEl.length === 0) return undefined; // Form data
+
+  const data = {}; // Skip input types
+
+  const skipTypes = ['submit', 'image', 'button', 'file'];
+  const skipNames = [];
+  $formEl.find('input, select, textarea').each(inputEl => {
+    const $inputEl = $(inputEl);
+
+    if ($inputEl.hasClass('ignore-store-data') || $inputEl.hasClass('no-store-data')) {
+      return;
+    }
+
+    const name = $inputEl.attr('name');
+    const type = $inputEl.attr('type');
+    const tag = inputEl.nodeName.toLowerCase();
+    if (skipTypes.indexOf(type) >= 0) return;
+    if (skipNames.indexOf(name) >= 0 || !name) return;
+
+    if (tag === 'select' && $inputEl.prop('multiple')) {
+      skipNames.push(name);
+      data[name] = [];
+      $formEl.find(`select[name="${name}"] option`).each(el => {
+        if (el.selected) data[name].push(el.value);
+      });
+    } else {
+      switch (type) {
+        case 'checkbox':
+          skipNames.push(name);
+          data[name] = [];
+          $formEl.find(`input[name="${name}"]`).each(el => {
+            if (el.checked) data[name].push(el.value);
+          });
+          break;
+
+        case 'radio':
+          skipNames.push(name);
+          $formEl.find(`input[name="${name}"]`).each(el => {
+            if (el.checked) data[name] = el.value;
+          });
+          break;
+
+        default:
+          data[name] = $inputEl.val();
+          break;
+      }
+    }
+  });
+  $formEl.trigger('form:todata', data);
+  app.emit('formToData', $formEl[0], data);
+  return data;
+}
+
+function formFromData(formEl, formData) {
+  const app = this;
+  const $formEl = $(formEl).eq(0);
+  if (!$formEl.length) return;
+  let data = formData;
+  const formId = $formEl.attr('id');
+
+  if (!data && formId) {
+    data = app.form.getFormData(formId);
+  }
+
+  if (!data) return; // Skip input types
+
+  const skipTypes = ['submit', 'image', 'button', 'file'];
+  const skipNames = [];
+  $formEl.find('input, select, textarea').each(inputEl => {
+    const $inputEl = $(inputEl);
+
+    if ($inputEl.hasClass('ignore-store-data') || $inputEl.hasClass('no-store-data')) {
+      return;
+    }
+
+    const name = $inputEl.attr('name');
+    const type = $inputEl.attr('type');
+    const tag = inputEl.nodeName.toLowerCase();
+    if (typeof data[name] === 'undefined' || data[name] === null) return;
+    if (skipTypes.indexOf(type) >= 0) return;
+    if (skipNames.indexOf(name) >= 0 || !name) return;
+
+    if (tag === 'select' && $inputEl.prop('multiple')) {
+      skipNames.push(name);
+      $formEl.find(`select[name="${name}"] option`).each(el => {
+        const selectEl = el;
+        if (data[name].indexOf(el.value) >= 0) selectEl.selected = true;else selectEl.selected = false;
+      });
+    } else {
+      switch (type) {
+        case 'checkbox':
+          skipNames.push(name);
+          $formEl.find(`input[name="${name}"]`).each(el => {
+            const checkboxEl = el;
+            if (data[name].indexOf(el.value) >= 0) checkboxEl.checked = true;else checkboxEl.checked = false;
+          });
+          break;
+
+        case 'radio':
+          skipNames.push(name);
+          $formEl.find(`input[name="${name}"]`).each(el => {
+            const radioEl = el;
+            if (data[name] === el.value) radioEl.checked = true;else radioEl.checked = false;
+          });
+          break;
+
+        default:
+          $inputEl.val(data[name]);
+          break;
+      }
+    }
+
+    if (tag === 'select' || tag === 'input' || tag === 'textarea') {
+      $inputEl.trigger('change', 'fromdata');
+    }
+  });
+  $formEl.trigger('form:fromdata', data);
+  app.emit('formFromData', $formEl[0], data);
+}
+
+function initAjaxForm() {
+  const app = this;
+  const window = getWindow();
+  const document = getDocument();
+
+  function onSubmitChange(e, fromData) {
+    const $formEl = $(this);
+    if (e.type === 'change' && !$formEl.hasClass('form-ajax-submit-onchange')) return;
+    if (e.type === 'submit') e.preventDefault();
+    if (e.type === 'change' && fromData === 'fromdata') return;
+    const method = ($formEl.attr('method') || 'GET').toUpperCase();
+    const contentType = $formEl.prop('enctype') || $formEl.attr('enctype');
+    const url = $formEl.attr('action');
+    if (!url) return;
+    let data;
+
+    if (method === 'POST') {
+      if (contentType === 'application/x-www-form-urlencoded') {
+        data = app.form.convertToData($formEl[0]);
+      } else {
+        data = new window.FormData($formEl[0]);
+      }
+    } else {
+      data = serializeObject(app.form.convertToData($formEl[0]));
+    }
+
+    app.request({
+      method,
+      url,
+      contentType,
+      data,
+
+      beforeSend(xhr) {
+        $formEl.trigger('formajax:beforesend', {
+          data,
+          xhr
+        });
+        app.emit('formAjaxBeforeSend', $formEl[0], data, xhr);
+      },
+
+      error(xhr) {
+        $formEl.trigger('formajax:error', {
+          data,
+          xhr
+        });
+        app.emit('formAjaxError', $formEl[0], data, xhr);
+      },
+
+      complete(xhr) {
+        $formEl.trigger('formajax:complete', {
+          data,
+          xhr
+        });
+        app.emit('formAjaxComplete', $formEl[0], data, xhr);
+      },
+
+      success(response, status, xhr) {
+        $formEl.trigger('formajax:success', {
+          data,
+          xhr
+        });
+        app.emit('formAjaxSuccess', $formEl[0], data, xhr);
+      }
+
+    });
+  }
+
+  $(document).on('submit change', 'form.form-ajax-submit, form.form-ajax-submit-onchange', onSubmitChange);
+}
+
+export default {
+  name: 'form',
+
+  create() {
+    const app = this;
+    extend(app, {
+      form: {
+        data: {},
+        storeFormData: FormData.store.bind(app),
+        getFormData: FormData.get.bind(app),
+        removeFormData: FormData.remove.bind(app),
+        convertToData: formToData.bind(app),
+        fillFromData: formFromData.bind(app),
+        storage: {
+          init: FormStorage.init.bind(app),
+          destroy: FormStorage.destroy.bind(app)
+        }
+      }
+    });
+  },
+
+  on: {
+    init() {
+      const app = this;
+      initAjaxForm.call(app);
+    },
+
+    tabBeforeRemove(tabEl) {
+      const app = this;
+      $(tabEl).find('.form-store-data').each(formEl => {
+        app.form.storage.destroy(formEl);
+      });
+    },
+
+    tabMounted(tabEl) {
+      const app = this;
+      $(tabEl).find('.form-store-data').each(formEl => {
+        app.form.storage.init(formEl);
+      });
+    },
+
+    pageBeforeRemove(page) {
+      const app = this;
+      page.$el.find('.form-store-data').each(formEl => {
+        app.form.storage.destroy(formEl);
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.form-store-data').each(formEl => {
+        app.form.storage.init(formEl);
+      });
+    }
+
+  }
+};

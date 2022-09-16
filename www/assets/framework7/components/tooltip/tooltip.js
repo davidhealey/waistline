@@ -1,1 +1,144 @@
-(function framework7ComponentLoader(t,e){void 0===e&&(e=!0);var o=t.$,r=t.utils,n=(t.getDevice,t.getSupport),a=t.Class,i=(t.Modal,t.ConstructorMethods);t.ModalMethods;function l(t){this.wrapped=t}function s(t){var e,o;function r(e,o){try{var a=t[e](o),i=a.value,s=i instanceof l;Promise.resolve(s?i.wrapped:i).then((function(t){s?r("return"===e?"return":"next",t):n(a.done?"return":"normal",t)}),(function(t){r("throw",t)}))}catch(t){n("throw",t)}}function n(t,n){switch(t){case"return":e.resolve({value:n,done:!0});break;case"throw":e.reject(n);break;default:e.resolve({value:n,done:!1})}(e=e.next)?r(e.key,e.arg):o=null}this._invoke=function(t,n){return new Promise((function(a,i){var l={key:t,arg:n,resolve:a,reject:i,next:null};o?o=o.next=l:(e=o=l,r(t,n))}))},"function"!=typeof t.return&&(this.return=void 0)}function p(t,e){return(p=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function c(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}s.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},s.prototype.next=function(t){return this._invoke("next",t)},s.prototype.throw=function(t){return this._invoke("throw",t)},s.prototype.return=function(t){return this._invoke("return",t)};var u=r.extend,f=r.deleteProps,d=function(t){var e,r;function a(e,r){var a;void 0===r&&(r={});var i=c(a=t.call(this,r,[e])||this),l=n(),s=u({},e.params.tooltip);i.useModulesParams(s),i.params=u(s,r),void 0===r.offset&&l.touch&&"hover"===i.params.trigger&&(i.params.offset=10);var p=i.params,f=p.targetEl,d=p.containerEl;if(!f&&!i.params.delegated)return i||c(a);var h=o(f);if(0===h.length&&!i.params.delegated)return i||c(a);if(h[0]&&h[0].f7Tooltip&&!i.params.delegated)return h[0].f7Tooltip||c(a);var v=o(d||e.$el).eq(0);0===v.length&&(v=e.$el);var g=o(i.render()).eq(0);u(i,{app:e,$targetEl:h,targetEl:h&&h[0],$containerEl:v,containerEl:v&&v[0],$el:g,el:g&&g[0],text:i.params.text||"",visible:!1,opened:!1}),h[0]&&(h[0].f7Tooltip=i);var m,E={};function y(){i.opened?i.hide():i.show(this)}function $(t){i.opened&&(o(t.target).closest(h).length||o(t.target).closest(i.$el).length)||i.hide()}function w(t){m||(m=!0,E.x="touchstart"===t.type?t.targetTouches[0].pageX:t.pageX,E.y="touchstart"===t.type?t.targetTouches[0].pageY:t.pageY,i.show(this))}function T(t){if(m){var e="touchmove"===t.type?t.targetTouches[0].pageX:t.pageX,o="touchmove"===t.type?t.targetTouches[0].pageY:t.pageY;Math.pow(Math.pow(e-E.x,2)+Math.pow(o-E.y,2),.5)>50&&(m=!1,i.hide())}}function b(){m&&(m=!1,i.hide())}function x(){i.show(this)}function k(){i.hide()}function C(){g.hasClass("tooltip-in")||g.removeClass("tooltip-out").remove()}return i.attachEvents=function(){if(g.on("transitionend",C),"click"===i.params.trigger)return i.params.delegated?o(document).on("click",i.params.targetEl,y):i.$targetEl.on("click",y),void o("html").on("click",$);if("manual"!==i.params.trigger)if(l.touch){var t=!!l.passiveListener&&{passive:!0};i.params.delegated?o(document).on(e.touchEvents.start,i.params.targetEl,w,t):i.$targetEl.on(e.touchEvents.start,w,t),e.on("touchmove",T),e.on("touchend:passive",b)}else i.params.delegated?(o(document).on(l.pointerEvents?"pointerenter":"mouseenter",i.params.targetEl,x,!0),o(document).on(l.pointerEvents?"pointerleave":"mouseleave",i.params.targetEl,k,!0)):(i.$targetEl.on(l.pointerEvents?"pointerenter":"mouseenter",x),i.$targetEl.on(l.pointerEvents?"pointerleave":"mouseleave",k))},i.detachEvents=function(){if(g.off("transitionend",C),"click"===i.params.trigger)return i.params.delegated?o(document).on("click",i.params.targetEl,y):i.$targetEl.off("click",y),void o("html").off("click",$);if("manual"!==i.params.trigger)if(l.touch){var t=!!l.passiveListener&&{passive:!0};i.params.delegated?o(document).off(e.touchEvents.start,i.params.targetEl,w,t):i.$targetEl.off(e.touchEvents.start,w,t),e.off("touchmove",T),e.off("touchend:passive",b)}else i.params.delegated?(o(document).off(l.pointerEvents?"pointerenter":"mouseenter",i.params.targetEl,x,!0),o(document).off(l.pointerEvents?"pointerleave":"mouseleave",i.params.targetEl,k,!0)):(i.$targetEl.off(l.pointerEvents?"pointerenter":"mouseenter",x),i.$targetEl.off(l.pointerEvents?"pointerleave":"mouseleave",k))},i.useModules(),i.init(),i||c(a)}r=t,(e=a).prototype=Object.create(r.prototype),e.prototype.constructor=e,p(e,r);var i=a.prototype;return i.setTargetEl=function(t){var e=this;return e.detachEvents(),e.$targetEl=o(t),e.targetEl=e.$targetEl[0],e.attachEvents(),e},i.position=function(t){var e=this,r=e.$el,n=e.app,a=e.$containerEl,i=!!e.params.containerEl,l=e.params.offset||0;r.css({left:"",top:""});var s,p,c,u,f=o(t||e.targetEl),d=[r.width(),r.height()],h=d[0],v=d[1];r.css({left:"",top:""});var g=i&&a.length?a[0].getBoundingClientRect():n;if(f&&f.length>0){if(s=f.outerWidth(),p=f.outerHeight(),void 0===s&&void 0===p){var m=f[0].getBoundingClientRect();s=m.width,p=m.height}var E=f.offset();c=E.left-g.left,u=E.top-g.top;var y=f.parents(".page");y.length>0&&(u-=y[0].scrollTop)}var $=[0,0,0],w=$[0],T=$[1],b="top";v+l<u?T=u-v-l:v<g.height-u-p?(b="bottom",T=u+p+l):(b="middle",(T=p/2+u-v/2)<=0?T=8:T+v>=g.height&&(T=g.height-v-8)),"top"===b||"bottom"===b?((w=s/2+c-h/2)<8&&(w=8),w+h>g.width&&(w=g.width-h-8),w<0&&(w=0)):"middle"===b&&((w=c-h)<8||w+h>g.width)&&(w<8&&(w=c+s),w+h>g.width&&(w=g.width-h-8)),r.css({top:T+"px",left:w+"px"})},i.show=function(t){var e=this,r=e.$el,n=e.$targetEl,a=e.$containerEl;a[0]&&r[0]&&!a[0].contains(r[0])&&a.append(r),e.position(t);var i=o(t);return e.visible=!0,e.opened=!0,n.trigger("tooltip:show"),r.trigger("tooltip:show"),i.length&&i[0]!==n[0]&&i.trigger("tooltip:show"),e.emit("local::show tooltipShow",e),r.removeClass("tooltip-out").addClass("tooltip-in"),e},i.hide=function(){var t=this,e=t.$el,o=t.$targetEl;return t.visible=!1,t.opened=!1,o.trigger("tooltip:hide"),e.trigger("tooltip:hide"),t.emit("local::hide tooltipHide",t),e.addClass("tooltip-out").removeClass("tooltip-in"),t},i.render=function(){var t=this;if(t.params.render)return t.params.render.call(t,t);var e=t.params;return('\n      <div class="tooltip '+(e.cssClass||"")+'">\n        <div class="tooltip-content">'+(e.text||"")+"</div>\n      </div>\n    ").trim()},i.setText=function(t){var e=this;return void 0===t||(e.params.text=t,e.text=t,e.$el&&e.$el.children(".tooltip-content").html(t),e.opened&&e.position()),e},i.init=function(){this.attachEvents()},i.destroy=function(){var t=this;t.$targetEl&&!t.destroyed&&(t.$targetEl.trigger("tooltip:beforedestroy"),t.emit("local::beforeDestroy tooltipBeforeDestroy",t),t.$el.remove(),t.$targetEl[0]&&delete t.$targetEl[0].f7Tooltip,t.detachEvents(),f(t),t.destroyed=!0)},a}(a),h={name:"tooltip",static:{Tooltip:d},create:function(){var t=this;t.tooltip=i({defaultSelector:".tooltip",constructor:d,app:t,domProp:"f7Tooltip"}),t.tooltip.show=function(t){var e=o(t);if(0!==e.length){var r=e[0].f7Tooltip;if(r)return r.show(e[0]),r}},t.tooltip.hide=function(t){var e=o(t);if(0!==e.length){var r=e[0].f7Tooltip;if(r)return r.hide(),r}},t.tooltip.setText=function(t,e){var r=o(t);if(0!==r.length){var n=r[0].f7Tooltip;if(n)return n.setText(e),n}}},params:{tooltip:{targetEl:null,delegated:!1,text:null,cssClass:null,render:null,offset:0,trigger:"hover",containerEl:void 0}},on:{tabMounted:function(t){var e=this;o(t).find(".tooltip-init").each((function(t){var r=o(t).attr("data-tooltip");r&&e.tooltip.create({targetEl:t,text:r})}))},tabBeforeRemove:function(t){o(t).find(".tooltip-init").each((function(t){t.f7Tooltip&&t.f7Tooltip.destroy()}))},pageInit:function(t){var e=this;t.$el.find(".tooltip-init").each((function(t){var r=o(t).attr("data-tooltip");r&&e.tooltip.create({targetEl:t,text:r})})),"ios"===e.theme&&t.view&&t.view.router.dynamicNavbar&&t.$navbarEl&&t.$navbarEl.length>0&&t.$navbarEl.find(".tooltip-init").each((function(t){var r=o(t).attr("data-tooltip");r&&e.tooltip.create({targetEl:t,text:r})}))},pageBeforeRemove:function(t){t.$el.find(".tooltip-init").each((function(t){t.f7Tooltip&&t.f7Tooltip.destroy()})),"ios"===this.theme&&t.view&&t.view.router.dynamicNavbar&&t.$navbarEl&&t.$navbarEl.length>0&&t.$navbarEl.find(".tooltip-init").each((function(t){t.f7Tooltip&&t.f7Tooltip.destroy()}))}},vnode:{"tooltip-init":{insert:function(t){var e=t.elm,r=o(e).attr("data-tooltip");r&&this.tooltip.create({targetEl:e,text:r})},update:function(t){var e=t.elm;e.f7Tooltip&&t&&t.data&&t.data.attrs&&t.data.attrs["data-tooltip"]&&e.f7Tooltip.setText(t.data.attrs["data-tooltip"])},destroy:function(t){var e=t.elm;e.f7Tooltip&&e.f7Tooltip.destroy()}}}};if(e){if(t.prototype.modules&&t.prototype.modules[h.name])return;t.use(h),t.instance&&(t.instance.useModuleParams(h,t.instance.params),t.instance.useModule(h))}return h}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import Tooltip from './tooltip-class.js';
+import ConstructorMethods from '../../shared/constructor-methods.js';
+export default {
+  name: 'tooltip',
+  static: {
+    Tooltip
+  },
+
+  create() {
+    const app = this;
+    app.tooltip = ConstructorMethods({
+      defaultSelector: '.tooltip',
+      constructor: Tooltip,
+      app,
+      domProp: 'f7Tooltip'
+    });
+
+    app.tooltip.show = function show(el) {
+      const $el = $(el);
+      if ($el.length === 0) return undefined;
+      const tooltip = $el[0].f7Tooltip;
+      if (!tooltip) return undefined;
+      tooltip.show($el[0]);
+      return tooltip;
+    };
+
+    app.tooltip.hide = function hide(el) {
+      const $el = $(el);
+      if ($el.length === 0) return undefined;
+      const tooltip = $el[0].f7Tooltip;
+      if (!tooltip) return undefined;
+      tooltip.hide();
+      return tooltip;
+    };
+
+    app.tooltip.setText = function text(el, newText) {
+      const $el = $(el);
+      if ($el.length === 0) return undefined;
+      const tooltip = $el[0].f7Tooltip;
+      if (!tooltip) return undefined;
+      tooltip.setText(newText);
+      return tooltip;
+    };
+  },
+
+  params: {
+    tooltip: {
+      targetEl: null,
+      delegated: false,
+      text: null,
+      cssClass: null,
+      render: null,
+      offset: 0,
+      trigger: 'hover',
+      containerEl: undefined
+    }
+  },
+  on: {
+    tabMounted(tabEl) {
+      const app = this;
+      $(tabEl).find('.tooltip-init').each(el => {
+        const text = $(el).attr('data-tooltip');
+        if (!text) return;
+        app.tooltip.create({
+          targetEl: el,
+          text
+        });
+      });
+    },
+
+    tabBeforeRemove(tabEl) {
+      $(tabEl).find('.tooltip-init').each(el => {
+        if (el.f7Tooltip) el.f7Tooltip.destroy();
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.tooltip-init').each(el => {
+        const text = $(el).attr('data-tooltip');
+        if (!text) return;
+        app.tooltip.create({
+          targetEl: el,
+          text
+        });
+      });
+
+      if (app.theme === 'ios' && page.view && page.view.router.dynamicNavbar && page.$navbarEl && page.$navbarEl.length > 0) {
+        page.$navbarEl.find('.tooltip-init').each(el => {
+          const text = $(el).attr('data-tooltip');
+          if (!text) return;
+          app.tooltip.create({
+            targetEl: el,
+            text
+          });
+        });
+      }
+    },
+
+    pageBeforeRemove(page) {
+      const app = this;
+      page.$el.find('.tooltip-init').each(el => {
+        if (el.f7Tooltip) el.f7Tooltip.destroy();
+      });
+
+      if (app.theme === 'ios' && page.view && page.view.router.dynamicNavbar && page.$navbarEl && page.$navbarEl.length > 0) {
+        page.$navbarEl.find('.tooltip-init').each(el => {
+          if (el.f7Tooltip) el.f7Tooltip.destroy();
+        });
+      }
+    }
+
+  },
+  vnode: {
+    'tooltip-init': {
+      insert(vnode) {
+        const app = this;
+        const el = vnode.elm;
+        const text = $(el).attr('data-tooltip');
+        if (!text) return;
+        app.tooltip.create({
+          targetEl: el,
+          text
+        });
+      },
+
+      update(vnode) {
+        const el = vnode.elm;
+        if (!el.f7Tooltip) return;
+
+        if (vnode && vnode.data && vnode.data.attrs && vnode.data.attrs['data-tooltip']) {
+          el.f7Tooltip.setText(vnode.data.attrs['data-tooltip']);
+        }
+      },
+
+      destroy(vnode) {
+        const el = vnode.elm;
+        if (el.f7Tooltip) el.f7Tooltip.destroy();
+      }
+
+    }
+  }
+};

@@ -1,1 +1,35 @@
-(function framework7ComponentLoader(t,e){void 0===e&&(e=!0);var o=t.$,n=t.utils,i=(t.getDevice,t.getSupport,t.Class,t.Modal),r=(t.ConstructorMethods,t.ModalMethods),s=n.extend,a=n.now,c=n.nextTick;function l(t){this.wrapped=t}function u(t){var e,o;function n(e,o){try{var r=t[e](o),s=r.value,a=s instanceof l;Promise.resolve(a?s.wrapped:s).then((function(t){a?n("return"===e?"return":"next",t):i(r.done?"return":"normal",t)}),(function(t){n("throw",t)}))}catch(t){i("throw",t)}}function i(t,i){switch(t){case"return":e.resolve({value:i,done:!0});break;case"throw":e.reject(i);break;default:e.resolve({value:i,done:!1})}(e=e.next)?n(e.key,e.arg):o=null}this._invoke=function(t,i){return new Promise((function(r,s){var a={key:t,arg:i,resolve:r,reject:s,next:null};o?o=o.next=a:(e=o=a,n(t,i))}))},"function"!=typeof t.return&&(this.return=void 0)}function f(t,e){return(f=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function p(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}u.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},u.prototype.next=function(t){return this._invoke("next",t)},u.prototype.throw=function(t){return this._invoke("throw",t)},u.prototype.return=function(t){return this._invoke("return",t)};var v=function(t){var e,n;function i(e,n){var i,r=s({on:{}},e.params.notification,n),l=p(i=t.call(this,e,r)||this);l.app=e,l.params=r;var u,f,v,h,d,m,y,x=l.params,g=x.icon,b=x.title,$=x.titleRightText,k=x.subtitle,w=x.text,C=x.closeButton,T=x.closeTimeout,j=x.cssClass,M=x.closeOnClick;if(l.params.el)u=o(l.params.el);else{var _=l.render({icon:g,title:b,titleRightText:$,subtitle:k,text:w,closeButton:C,cssClass:j});u=o(_)}if(u&&u.length>0&&u[0].f7Modal)return u[0].f7Modal||p(i);if(0===u.length)return l.destroy()||p(i);s(l,{$el:u,el:u[0],type:"notification"}),u[0].f7Modal=l,C&&u.find(".notification-close-button").on("click",(function(){l.close()})),u.on("click",(function(t){C&&o(t.target).closest(".notification-close-button").length||(l.emit("local::click notificationClick",l),M&&l.close())})),l.on("beforeDestroy",(function(){u.off("click")}));var O,R={};function B(t){f||(f=!0,v=!1,h=void 0,m=a(),R.x="touchstart"===t.type?t.targetTouches[0].pageX:t.pageX,R.y="touchstart"===t.type?t.targetTouches[0].pageY:t.pageY)}function D(t){if(f){var e="touchmove"===t.type?t.targetTouches[0].pageX:t.pageX,o="touchmove"===t.type?t.targetTouches[0].pageY:t.pageY;if(void 0===h&&(h=!!(h||Math.abs(o-R.y)<Math.abs(e-R.x))),h)f=!1;else{t.preventDefault(),v||(l.$el.removeClass("notification-transitioning"),l.$el.transition(0),y=l.$el[0].offsetHeight/2),v=!0;var n=d=o-R.y;d>0&&(n=Math.pow(d,.8)),l.$el.transform("translate3d(0, "+n+"px, 0)")}}}function E(){if(!f||!v)return f=!1,void(v=!1);if(f=!1,v=!1,0!==d){var t=a()-m;l.$el.transition(""),l.$el.addClass("notification-transitioning"),l.$el.transform(""),(d<-10&&t<300||-d>=y/1)&&l.close()}}function P(){O=c((function(){f&&v?P():l.close()}),T)}return l.on("open",(function(){l.params.swipeToClose&&(l.$el.on(e.touchEvents.start,B,{passive:!0}),e.on("touchmove:active",D),e.on("touchend:passive",E)),o(".notification.modal-in").each((function(t){var o=e.notification.get(t);t!==l.el&&o&&o.close()})),T&&P()})),l.on("close beforeDestroy",(function(){l.params.swipeToClose&&(l.$el.off(e.touchEvents.start,B,{passive:!0}),e.off("touchmove:active",D),e.off("touchend:passive",E)),clearTimeout(O)})),l||p(i)}return n=t,(e=i).prototype=Object.create(n.prototype),e.prototype.constructor=e,f(e,n),i.prototype.render=function(){var t=this;if(t.params.render)return t.params.render.call(t,t);var e=t.params,o=e.icon,n=e.title,i=e.titleRightText,r=e.subtitle,s=e.text,a=e.closeButton,c=e.cssClass;return $jsx("div",{class:"notification "+(c||"")},$jsx("div",{class:"notification-header"},o&&$jsx("div",{class:"notification-icon"},o),n&&$jsx("div",{class:"notification-title"},n),i&&$jsx("div",{class:"notification-title-right-text"},i),a&&$jsx("span",{class:"notification-close-button"})),$jsx("div",{class:"notification-content"},r&&$jsx("div",{class:"notification-subtitle"},r),s&&$jsx("div",{class:"notification-text"},s)))},i}(i),h={name:"notification",static:{Notification:v},create:function(){this.notification=s({},r({app:this,constructor:v,defaultSelector:".notification.modal-in"}))},params:{notification:{icon:null,title:null,titleRightText:null,subtitle:null,text:null,closeButton:!1,closeTimeout:null,closeOnClick:!1,swipeToClose:!0,cssClass:null,render:null,containerEl:null}}};if(e){if(t.prototype.modules&&t.prototype.modules[h.name])return;t.use(h),t.instance&&(t.instance.useModuleParams(h,t.instance.params),t.instance.useModule(h))}return h}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import { extend } from '../../shared/utils.js';
+import Notification from './notification-class.js';
+import ModalMethods from '../../shared/modal-methods.js';
+export default {
+  name: 'notification',
+  static: {
+    Notification
+  },
+
+  create() {
+    const app = this;
+    app.notification = extend({}, ModalMethods({
+      app,
+      constructor: Notification,
+      defaultSelector: '.notification.modal-in'
+    }));
+  },
+
+  params: {
+    notification: {
+      icon: null,
+      title: null,
+      titleRightText: null,
+      subtitle: null,
+      text: null,
+      closeButton: false,
+      closeTimeout: null,
+      closeOnClick: false,
+      swipeToClose: true,
+      cssClass: null,
+      render: null,
+      containerEl: null
+    }
+  }
+};

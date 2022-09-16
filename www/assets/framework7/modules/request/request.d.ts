@@ -1,5 +1,5 @@
-import { Request } from '../../shared/request';
-import Framework7, { Framework7Plugin } from '../../components/app/app-class';
+import { Request } from '../../shared/request.js';
+import Framework7, { Framework7Plugin } from '../../components/app/app-class.js';
 
 export namespace Request {
   interface AppMethods {

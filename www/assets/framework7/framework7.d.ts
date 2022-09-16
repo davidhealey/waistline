@@ -1,96 +1,97 @@
 import Dom7 from 'dom7';
-import Framework7 from './types/components/app/app-class'
+import Framework7 from './components/app/app-class.js'
 
-import request from './types/shared/request';
-import { getSupport } from './types/shared/get-support';
-import { getDevice } from './types/shared/get-device';
-import { Utils } from './types/shared/utils';
+import request from './shared/request.js';
+import { getSupport } from './shared/get-support.js';
+import { getDevice } from './shared/get-device.js';
+import { Utils } from './shared/utils.js';
 
-import { Clicks as ClicksModule } from './types/modules/clicks/clicks';
-import { Component as ComponentModule } from './types/modules/component/component';
-import { Device as DeviceModule } from './types/modules/device/device';
-import { Request as RequestModule } from './types/modules/request/request';
-import { Resize as ResizeModule } from './types/modules/resize/resize';
-import { Router as RouterModule } from './types/modules/router/router';
-import { ServiceWorker as ServiceWorkerModule } from './types/modules/service-worker/service-worker';
-import { Store as StoreModule } from './types/modules/store/store';
-import { Support as SupportModule } from './types/modules/support/support';
-import { Touch as TouchModule } from './types/modules/touch/touch';
-import { Utils as UtilsModule } from './types/modules/utils/utils';
-import { ComponentFunction as Component } from './types/modules/component/component';
-import { StoreObject as Store, StoreParameters, createStore } from './types/modules/store/store';
+import { Clicks as ClicksModule } from './modules/clicks/clicks.js';
+import { Component as ComponentModule } from './modules/component/component.js';
+import { Device as DeviceModule } from './modules/device/device.js';
+import { Request as RequestModule } from './modules/request/request.js';
+import { Resize as ResizeModule } from './modules/resize/resize.js';
+import { Router as RouterModule } from './modules/router/router.js';
+import { ServiceWorker as ServiceWorkerModule } from './modules/service-worker/service-worker.js';
+import { Store as StoreModule } from './modules/store/store.js';
+import { Support as SupportModule } from './modules/support/support.js';
+import { Touch as TouchModule } from './modules/touch/touch.js';
+import { Utils as UtilsModule } from './modules/utils/utils.js';
+import { ComponentFunction as Component } from './modules/component/component.js';
+import { StoreObject as Store, StoreParameters, createStore } from './modules/store/store.js';
 
-import { Accordion } from './types/components/accordion/accordion';
-import { Actions } from './types/components/actions/actions';
-import { Appbar } from './types/components/appbar/appbar';
-import { AreaChart } from './types/components/area-chart/area-chart';
-import { Autocomplete } from './types/components/autocomplete/autocomplete';
-import { Badge } from './types/components/badge/badge';
-import { Block } from './types/components/block/block';
-import { Button } from './types/components/button/button';
-import { Calendar } from './types/components/calendar/calendar';
-import { Card } from './types/components/card/card';
-import { Checkbox } from './types/components/checkbox/checkbox';
-import { Chip } from './types/components/chip/chip';
-import { ColorPicker } from './types/components/color-picker/color-picker';
-import { ContactsList } from './types/components/contacts-list/contacts-list';
-import { DataTable } from './types/components/data-table/data-table';
-import { Dialog } from './types/components/dialog/dialog';
-import { Elevation } from './types/components/elevation/elevation';
-import { Fab } from './types/components/fab/fab';
-import { Form } from './types/components/form/form';
-import { Gauge } from './types/components/gauge/gauge';
-import { Grid } from './types/components/grid/grid';
-import { Icon } from './types/components/icon/icon';
-import { InfiniteScroll } from './types/components/infinite-scroll/infinite-scroll';
-import { Input } from './types/components/input/input';
-import { Lazy } from './types/components/lazy/lazy';
-import { Link } from './types/components/link/link';
-import { List } from './types/components/list/list';
-import { ListIndex } from './types/components/list-index/list-index';
-import { LoginScreen } from './types/components/login-screen/login-screen';
-import { Menu } from './types/components/menu/menu';
-import { Messagebar } from './types/components/messagebar/messagebar';
-import { Messages } from './types/components/messages/messages';
-import { Modal } from './types/components/modal/modal';
-import { Navbar } from './types/components/navbar/navbar';
-import { Notification } from './types/components/notification/notification';
-import { Page } from './types/components/page/page';
-import { Panel } from './types/components/panel/panel';
-import { PhotoBrowser } from './types/components/photo-browser/photo-browser';
-import { Picker } from './types/components/picker/picker';
-import { PieChart } from './types/components/pie-chart/pie-chart';
-import { Popover } from './types/components/popover/popover';
-import { Popup } from './types/components/popup/popup';
-import { Preloader } from './types/components/preloader/preloader';
-import { Progressbar } from './types/components/progressbar/progressbar';
-import { PullToRefresh } from './types/components/pull-to-refresh/pull-to-refresh';
-import { Radio } from './types/components/radio/radio';
-import { Range } from './types/components/range/range';
-import { Searchbar } from './types/components/searchbar/searchbar';
-import { Sheet } from './types/components/sheet/sheet';
-import { Skeleton } from './types/components/skeleton/skeleton';
-import { SmartSelect } from './types/components/smart-select/smart-select';
-import { Sortable } from './types/components/sortable/sortable';
-import { Statusbar } from './types/components/statusbar/statusbar';
-import { Stepper } from './types/components/stepper/stepper';
-import { Subnavbar } from './types/components/subnavbar/subnavbar';
-import { Swipeout } from './types/components/swipeout/swipeout';
-import { Swiper } from './types/components/swiper/swiper';
-import { Tabs } from './types/components/tabs/tabs';
-import { TextEditor } from './types/components/text-editor/text-editor';
-import { Timeline } from './types/components/timeline/timeline';
-import { Toast } from './types/components/toast/toast';
-import { Toggle } from './types/components/toggle/toggle';
-import { Toolbar } from './types/components/toolbar/toolbar';
-import { Tooltip } from './types/components/tooltip/tooltip';
-import { TouchRipple } from './types/components/touch-ripple/touch-ripple';
-import { Treeview } from './types/components/treeview/treeview';
-import { Typography } from './types/components/typography/typography';
-import { View } from './types/components/view/view';
-import { VirtualList } from './types/components/virtual-list/virtual-list';
+import { Accordion } from './components/accordion/accordion.js';
+import { Actions } from './components/actions/actions.js';
+import { Appbar } from './components/appbar/appbar.js';
+import { AreaChart } from './components/area-chart/area-chart.js';
+import { Autocomplete } from './components/autocomplete/autocomplete.js';
+import { Badge } from './components/badge/badge.js';
+import { Block } from './components/block/block.js';
+import { Breadcrumbs } from './components/breadcrumbs/breadcrumbs.js';
+import { Button } from './components/button/button.js';
+import { Calendar } from './components/calendar/calendar.js';
+import { Card } from './components/card/card.js';
+import { Checkbox } from './components/checkbox/checkbox.js';
+import { Chip } from './components/chip/chip.js';
+import { ColorPicker } from './components/color-picker/color-picker.js';
+import { ContactsList } from './components/contacts-list/contacts-list.js';
+import { DataTable } from './components/data-table/data-table.js';
+import { Dialog } from './components/dialog/dialog.js';
+import { Elevation } from './components/elevation/elevation.js';
+import { Fab } from './components/fab/fab.js';
+import { Form } from './components/form/form.js';
+import { Gauge } from './components/gauge/gauge.js';
+import { Grid } from './components/grid/grid.js';
+import { Icon } from './components/icon/icon.js';
+import { InfiniteScroll } from './components/infinite-scroll/infinite-scroll.js';
+import { Input } from './components/input/input.js';
+import { Lazy } from './components/lazy/lazy.js';
+import { Link } from './components/link/link.js';
+import { List } from './components/list/list.js';
+import { ListIndex } from './components/list-index/list-index.js';
+import { LoginScreen } from './components/login-screen/login-screen.js';
+import { Menu } from './components/menu/menu.js';
+import { Messagebar } from './components/messagebar/messagebar.js';
+import { Messages } from './components/messages/messages.js';
+import { Modal } from './components/modal/modal.js';
+import { Navbar } from './components/navbar/navbar.js';
+import { Notification } from './components/notification/notification.js';
+import { Page } from './components/page/page.js';
+import { Panel } from './components/panel/panel.js';
+import { PhotoBrowser } from './components/photo-browser/photo-browser.js';
+import { Picker } from './components/picker/picker.js';
+import { PieChart } from './components/pie-chart/pie-chart.js';
+import { Popover } from './components/popover/popover.js';
+import { Popup } from './components/popup/popup.js';
+import { Preloader } from './components/preloader/preloader.js';
+import { Progressbar } from './components/progressbar/progressbar.js';
+import { PullToRefresh } from './components/pull-to-refresh/pull-to-refresh.js';
+import { Radio } from './components/radio/radio.js';
+import { Range } from './components/range/range.js';
+import { Searchbar } from './components/searchbar/searchbar.js';
+import { Sheet } from './components/sheet/sheet.js';
+import { Skeleton } from './components/skeleton/skeleton.js';
+import { SmartSelect } from './components/smart-select/smart-select.js';
+import { Sortable } from './components/sortable/sortable.js';
+import { Statusbar } from './components/statusbar/statusbar.js';
+import { Stepper } from './components/stepper/stepper.js';
+import { Subnavbar } from './components/subnavbar/subnavbar.js';
+import { Swipeout } from './components/swipeout/swipeout.js';
+import { Swiper } from './components/swiper/swiper.js';
+import { Tabs } from './components/tabs/tabs.js';
+import { TextEditor } from './components/text-editor/text-editor.js';
+import { Timeline } from './components/timeline/timeline.js';
+import { Toast } from './components/toast/toast.js';
+import { Toggle } from './components/toggle/toggle.js';
+import { Toolbar } from './components/toolbar/toolbar.js';
+import { Tooltip } from './components/tooltip/tooltip.js';
+import { TouchRipple } from './components/touch-ripple/touch-ripple.js';
+import { Treeview } from './components/treeview/treeview.js';
+import { Typography } from './components/typography/typography.js';
+import { View } from './components/view/view.js';
+import { VirtualList } from './components/virtual-list/virtual-list.js';
 
-declare module './types/components/app/app-class' {
+declare module './components/app/app-class.js' {
   interface Framework7Class<Events> extends ClicksModule.AppMethods{}
   interface Framework7Parameters extends ClicksModule.AppParams{}
   interface Framework7Events extends ClicksModule.AppEvents{}
@@ -145,6 +146,9 @@ declare module './types/components/app/app-class' {
   interface Framework7Class<Events> extends Block.AppMethods{}
   interface Framework7Parameters extends Block.AppParams{}
   interface Framework7Events extends Block.AppEvents{}
+  interface Framework7Class<Events> extends Breadcrumbs.AppMethods{}
+  interface Framework7Parameters extends Breadcrumbs.AppParams{}
+  interface Framework7Events extends Breadcrumbs.AppEvents{}
   interface Framework7Class<Events> extends Button.AppMethods{}
   interface Framework7Parameters extends Button.AppParams{}
   interface Framework7Events extends Button.AppEvents{}

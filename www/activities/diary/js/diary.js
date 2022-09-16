@@ -196,7 +196,7 @@ app.Diary = {
       await app.Diary.groups[group].render(container);
 
     // Render nutrition swiper card
-    let swiper = app.f7.swiper.get("#diary-nutrition .swiper-container");
+    let swiper = app.f7.swiper.get("#diary-nutrition .swiper");
     let swiperWrapper = document.querySelector("#diary-nutrition .swiper-wrapper");
     swiperWrapper.innerHTML = "";
 

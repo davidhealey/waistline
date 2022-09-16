@@ -1,4 +1,4 @@
-import { CSSSelector, Framework7Plugin } from '../app/app-class';
+import { CSSSelector, Framework7Plugin } from '../app/app-class.js';
 
 export namespace Tabs {
   interface TabShowResult {
