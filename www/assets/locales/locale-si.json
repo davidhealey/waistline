@@ -190,7 +190,9 @@
     "invalid-value-message": "අගය වලංගු නොවේ."
   },
   "goals": {
-    "title": "Goals"
+    "title": "Goals",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Set Goals",
