@@ -190,7 +190,9 @@
     "invalid-value-message": "Ogiltigt värde."
   },
   "goals": {
-    "title": "Målsättningar"
+    "title": "Målsättningar",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Sätt upp mål",
