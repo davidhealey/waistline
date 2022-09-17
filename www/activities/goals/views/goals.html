@@ -32,9 +32,27 @@
     </div>
   </div>
 
-  <div class="page-content">
-    <div class="list links-list">
-      <ul id="goal-list"></ul>
+  <!-- Tab Bar -->
+  <div class="toolbar tabbar toolbar-bottom">
+    <div class="toolbar-inner">
+      <a href="#your-goals" class="tab-link tab-link-active" data-localize="goals.your-goals">Your Goals</a>
+      <a href="#all-fields" class="tab-link" data-localize="goals.all-fields">All Fields</a>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-animated-wrap">
+    <div class="tabs">
+      <div id="your-goals" class="page-content tab tab-active">
+        <div class="list links-list">
+          <ul id="your-goals-list"></ul>
+        </div>
+      </div>
+      <div id="all-fields" class="page-content tab">
+        <div class="list links-list">
+          <ul id="all-fields-list"></ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
