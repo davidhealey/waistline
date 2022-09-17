@@ -190,7 +190,9 @@
     "invalid-value-message": "Недопустимое значение."
   },
   "goals": {
-    "title": "Цели"
+    "title": "Цели",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Установить цели",
