@@ -111,13 +111,14 @@ app.Settings = {
       if (x.hasAttribute("field") && x.hasAttribute("name") && !x.hasChangeEvent) {
         x.addEventListener("change", (e) => {
           app.Settings.saveInputs(inputs);
-          app.Settings.resetModuleReadyStates(); //Reset modules for changes to take effect
+          if (x.classList.contains("reset-modules"))
+            app.Settings.resetModuleReadyStates(); // Reset modules for changes to take effect
         });
         x.hasChangeEvent = true;
       }
     });
 
-    // Open food facts credentials login button
+    // Open Food Facts credentials login button
     let offLogin = document.getElementById("off-login");
     if (offLogin) {
       offLogin.addEventListener("click", function(e) {
