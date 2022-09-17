@@ -190,7 +190,9 @@
     "invalid-value-message": "Ongeldige waarde."
   },
   "goals": {
-    "title": "Doelen"
+    "title": "Doelen",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Doel stellen",
