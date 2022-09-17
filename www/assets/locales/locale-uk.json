@@ -190,7 +190,9 @@
     "invalid-value-message": "Неправильне значення."
   },
   "goals": {
-    "title": "Цілі"
+    "title": "Цілі",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Задати ціль",
