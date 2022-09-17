@@ -190,7 +190,9 @@
     "invalid-value-message": "Virheellinen arvo."
   },
   "goals": {
-    "title": "Tavoitteet"
+    "title": "Tavoitteet",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Aseta tavoitteet",
