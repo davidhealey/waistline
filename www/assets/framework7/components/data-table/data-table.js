@@ -1,1 +1,72 @@
-(function framework7ComponentLoader(e,t){void 0===t&&(t=!0);var a=e.$,n=e.utils,r=(e.getDevice,e.getSupport,e.Class),l=(e.Modal,e.ConstructorMethods);e.ModalMethods;function o(e){this.wrapped=e}function c(e){var t,a;function n(t,a){try{var l=e[t](a),c=l.value,i=c instanceof o;Promise.resolve(i?c.wrapped:c).then((function(e){i?n("return"===t?"return":"next",e):r(l.done?"return":"normal",e)}),(function(e){n("throw",e)}))}catch(e){r("throw",e)}}function r(e,r){switch(e){case"return":t.resolve({value:r,done:!0});break;case"throw":t.reject(r);break;default:t.resolve({value:r,done:!1})}(t=t.next)?n(t.key,t.arg):a=null}this._invoke=function(e,r){return new Promise((function(l,o){var c={key:e,arg:r,resolve:l,reject:o,next:null};a?a=a.next=c:(t=a=c,n(e,r))}))},"function"!=typeof e.return&&(this.return=void 0)}function i(e,t){return(i=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function s(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}c.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},c.prototype.next=function(e){return this._invoke("next",e)},c.prototype.throw=function(e){return this._invoke("throw",e)},c.prototype.return=function(e){return this._invoke("return",e)};var d=n.extend,h=n.deleteProps,u=function(e){var t,n;function r(t,n){var r;void 0===n&&(n={});var l=s(r=e.call(this,n,[t])||this),o={};l.useModulesParams(o),l.params=d(o,n);var c=a(l.params.el);if(0===c.length)return s(r);if(l.$el=c,l.el=c[0],l.$el[0].f7DataTable){var i=l.$el[0].f7DataTable;return l.destroy(),i||s(r)}function h(e){if(!e.detail||!e.detail.sentByF7DataTable){var t=a(this),n=t[0].checked,r=t.parents("td,th").index();if(t.parents("thead").length>0)0===r&&c.find("tbody tr")[n?"addClass":"removeClass"]("data-table-row-selected"),c.find("tbody tr td:nth-child("+(r+1)+") input").prop("checked",n).trigger("change",{sentByF7DataTable:!0}),t.prop("indeterminate",!1);else{0===r&&t.parents("tr")[n?"addClass":"removeClass"]("data-table-row-selected");var o=c.find("tbody .checkbox-cell:nth-child("+(r+1)+') input[type="checkbox"]:checked').length,i=c.find("tbody tr").length,s=c.find("thead .checkbox-cell:nth-child("+(r+1)+') input[type="checkbox"]');n?o===i&&s.prop("checked",!0).trigger("change",{sentByF7DataTable:!0}):s.prop("checked",!1),s.prop("indeterminate",o>0&&o<i)}l.checkSelectedHeader()}}function u(){var e,t=a(this),n=t.hasClass("sortable-cell-active"),r=t.hasClass("sortable-desc")?"desc":"asc";n?(e="desc"===r?"asc":"desc",t.removeClass("sortable-desc sortable-asc").addClass("sortable-"+e)):(c.find("thead .sortable-cell-active").removeClass("sortable-cell-active"),t.addClass("sortable-cell-active"),e=r),t.trigger("datatable:sort",e),l.emit("local::sort dataTableSort",l,e)}return l.$el[0].f7DataTable=l,d(l,{collapsible:c.hasClass("data-table-collapsible"),$headerEl:c.find(".data-table-header"),$headerSelectedEl:c.find(".data-table-header-selected")}),l.attachEvents=function(){l.$el.on("change",'.checkbox-cell input[type="checkbox"]',h),l.$el.find("thead .sortable-cell").on("click",u)},l.detachEvents=function(){l.$el.off("change",'.checkbox-cell input[type="checkbox"]',h),l.$el.find("thead .sortable-cell").off("click",u)},l.useModules(),l.init(),l||s(r)}n=e,(t=r).prototype=Object.create(n.prototype),t.prototype.constructor=t,i(t,n);var l=r.prototype;return l.setCollapsibleLabels=function(){var e=this;e.collapsible&&e.$el.find("tbody td:not(.checkbox-cell)").each((function(t){var n=a(t),r=n.index(),l=n.attr("data-collapsible-title");l||""===l||n.attr("data-collapsible-title",e.$el.find("thead th").eq(r).text())}))},l.checkSelectedHeader=function(){var e=this;if(e.$headerEl.length>0&&e.$headerSelectedEl.length>0){var t=e.$el.find("tbody .checkbox-cell input:checked").length;e.$el[t>0?"addClass":"removeClass"]("data-table-has-checked"),e.$headerSelectedEl.find(".data-table-selected-count").text(t)}},l.init=function(){var e=this;e.attachEvents(),e.setCollapsibleLabels(),e.checkSelectedHeader()},l.destroy=function(){var e=this;e.$el.trigger("datatable:beforedestroy"),e.emit("local::beforeDestroy dataTableBeforeDestroy",e),e.attachEvents(),e.$el[0]&&(e.$el[0].f7DataTable=null,delete e.$el[0].f7DataTable),h(e),e=null},r}(r),f={name:"dataTable",static:{DataTable:u},create:function(){this.dataTable=l({defaultSelector:".data-table",constructor:u,app:this,domProp:"f7DataTable"})},on:{tabBeforeRemove:function(e){var t=this;a(e).find(".data-table-init").each((function(e){t.dataTable.destroy(e)}))},tabMounted:function(e){var t=this;a(e).find(".data-table-init").each((function(e){t.dataTable.create({el:e})}))},pageBeforeRemove:function(e){var t=this;e.$el.find(".data-table-init").each((function(e){t.dataTable.destroy(e)}))},pageInit:function(e){var t=this;e.$el.find(".data-table-init").each((function(e){t.dataTable.create({el:e})}))}},vnode:{"data-table-init":{insert:function(e){var t=e.elm;this.dataTable.create({el:t})},destroy:function(e){var t=e.elm;this.dataTable.destroy(t)}}}};if(t){if(e.prototype.modules&&e.prototype.modules[f.name])return;e.use(f),e.instance&&(e.instance.useModuleParams(f,e.instance.params),e.instance.useModule(f))}return f}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import DataTable from './data-table-class.js';
+import ConstructorMethods from '../../shared/constructor-methods.js';
+export default {
+  name: 'dataTable',
+  static: {
+    DataTable
+  },
+
+  create() {
+    const app = this;
+    app.dataTable = ConstructorMethods({
+      defaultSelector: '.data-table',
+      constructor: DataTable,
+      app,
+      domProp: 'f7DataTable'
+    });
+  },
+
+  on: {
+    tabBeforeRemove(tabEl) {
+      const app = this;
+      $(tabEl).find('.data-table-init').each(tableEl => {
+        app.dataTable.destroy(tableEl);
+      });
+    },
+
+    tabMounted(tabEl) {
+      const app = this;
+      $(tabEl).find('.data-table-init').each(tableEl => {
+        app.dataTable.create({
+          el: tableEl
+        });
+      });
+    },
+
+    pageBeforeRemove(page) {
+      const app = this;
+      page.$el.find('.data-table-init').each(tableEl => {
+        app.dataTable.destroy(tableEl);
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.data-table-init').each(tableEl => {
+        app.dataTable.create({
+          el: tableEl
+        });
+      });
+    }
+
+  },
+  vnode: {
+    'data-table-init': {
+      insert(vnode) {
+        const app = this;
+        const tableEl = vnode.elm;
+        app.dataTable.create({
+          el: tableEl
+        });
+      },
+
+      destroy(vnode) {
+        const app = this;
+        const tableEl = vnode.elm;
+        app.dataTable.destroy(tableEl);
+      }
+
+    }
+  }
+};

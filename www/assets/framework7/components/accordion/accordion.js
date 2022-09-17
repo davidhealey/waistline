@@ -1,1 +1,132 @@
-(function framework7ComponentLoader(e,o){void 0===o&&(o=!0);var n=e.$,i=e.utils,t=(e.getDevice,e.getSupport,e.Class,e.Modal,e.ConstructorMethods,e.ModalMethods,i.bindMethods),c=i.nextFrame,r={toggleClicked:function(e){var o=e.closest(".accordion-item").eq(0);o.length||(o=e.parents("li").eq(0));var n=e.parents(".accordion-item-content").eq(0);n.length&&n.parents(o).length||e.parents("li").length>1&&e.parents("li")[0]!==o[0]||this.accordion.toggle(o)},open:function(e){var o=this,i=n(e),t=!1;function r(){t=!0}if(i.trigger("accordion:beforeopen",{prevent:r},r),o.emit("accordionBeforeOpen",i[0],r),!t){var a=i.parents(".accordion-list").eq(0),s=i.children(".accordion-item-content");if(s.removeAttr("aria-hidden"),0===s.length&&(s=i.find(".accordion-item-content")),0!==s.length){var d=a.length>0&&i.parent().children(".accordion-item-opened");d.length>0&&o.accordion.close(d),s.transitionEnd((function(){i.hasClass("accordion-item-opened")?(s.transition(0),s.css("height","auto"),c((function(){s.transition(""),i.trigger("accordion:opened"),o.emit("accordionOpened",i[0])}))):(s.css("height",""),i.trigger("accordion:closed"),o.emit("accordionClosed",i[0]))})),s.css("height",s[0].scrollHeight+"px"),i.trigger("accordion:open"),i.addClass("accordion-item-opened"),o.emit("accordionOpen",i[0])}}},close:function(e){var o=this,i=n(e),t=!1;function r(){t=!0}if(i.trigger("accordion:beforeclose",{prevent:r},r),o.emit("accordionBeforeClose",i[0],r),!t){var a=i.children(".accordion-item-content");0===a.length&&(a=i.find(".accordion-item-content")),i.removeClass("accordion-item-opened"),a.attr("aria-hidden",!0),a.transition(0),a.css("height",a[0].scrollHeight+"px"),a.transitionEnd((function(){i.hasClass("accordion-item-opened")?(a.transition(0),a.css("height","auto"),c((function(){a.transition(""),i.trigger("accordion:opened"),o.emit("accordionOpened",i[0])}))):(a.css("height",""),i.trigger("accordion:closed"),o.emit("accordionClosed",i[0]))})),c((function(){a.transition(""),a.css("height",""),i.trigger("accordion:close"),o.emit("accordionClose",i[0])}))}},toggle:function(e){var o=n(e);0!==o.length&&(o.hasClass("accordion-item-opened")?this.accordion.close(e):this.accordion.open(e))}},a={name:"accordion",create:function(){t(this,{accordion:r})},clicks:{".accordion-item .item-link, .accordion-item-toggle, .links-list.accordion-list > ul > li > a":function(e){r.toggleClicked.call(this,e)}}};if(o){if(e.prototype.modules&&e.prototype.modules[a.name])return;e.use(a),e.instance&&(e.instance.useModuleParams(a,e.instance.params),e.instance.useModule(a))}return a}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { nextFrame, bindMethods } from '../../shared/utils.js';
+const Accordion = {
+  toggleClicked($clickedEl) {
+    const app = this;
+    let $accordionItemEl = $clickedEl.closest('.accordion-item').eq(0);
+    if (!$accordionItemEl.length) $accordionItemEl = $clickedEl.parents('li').eq(0);
+    const $accordionContent = $clickedEl.parents('.accordion-item-content').eq(0);
+
+    if ($accordionContent.length) {
+      if ($accordionContent.parents($accordionItemEl).length) return;
+    }
+
+    if ($clickedEl.parents('li').length > 1 && $clickedEl.parents('li')[0] !== $accordionItemEl[0]) return;
+    app.accordion.toggle($accordionItemEl);
+  },
+
+  open(el) {
+    const app = this;
+    const $el = $(el);
+    let prevented = false;
+
+    function prevent() {
+      prevented = true;
+    }
+
+    $el.trigger('accordion:beforeopen', {
+      prevent
+    }, prevent);
+    app.emit('accordionBeforeOpen', $el[0], prevent);
+    if (prevented) return;
+    const $list = $el.parents('.accordion-list').eq(0);
+    let $contentEl = $el.children('.accordion-item-content');
+    $contentEl.removeAttr('aria-hidden');
+    if ($contentEl.length === 0) $contentEl = $el.find('.accordion-item-content');
+    if ($contentEl.length === 0) return;
+    const $openedItem = $list.length > 0 && $el.parent().children('.accordion-item-opened');
+
+    if ($openedItem.length > 0) {
+      app.accordion.close($openedItem);
+    }
+
+    $contentEl.transitionEnd(() => {
+      if ($el.hasClass('accordion-item-opened')) {
+        $contentEl.transition(0);
+        $contentEl.css('height', 'auto');
+        nextFrame(() => {
+          $contentEl.transition('');
+          $el.trigger('accordion:opened');
+          app.emit('accordionOpened', $el[0]);
+        });
+      } else {
+        $contentEl.css('height', '');
+        $el.trigger('accordion:closed');
+        app.emit('accordionClosed', $el[0]);
+      }
+    });
+    $contentEl.css('height', `${$contentEl[0].scrollHeight}px`);
+    $el.trigger('accordion:open');
+    $el.addClass('accordion-item-opened');
+    app.emit('accordionOpen', $el[0]);
+  },
+
+  close(el) {
+    const app = this;
+    const $el = $(el);
+    let prevented = false;
+
+    function prevent() {
+      prevented = true;
+    }
+
+    $el.trigger('accordion:beforeclose', {
+      prevent
+    }, prevent);
+    app.emit('accordionBeforeClose', $el[0], prevent);
+    if (prevented) return;
+    let $contentEl = $el.children('.accordion-item-content');
+    if ($contentEl.length === 0) $contentEl = $el.find('.accordion-item-content');
+    $el.removeClass('accordion-item-opened');
+    $contentEl.attr('aria-hidden', true);
+    $contentEl.transition(0);
+    $contentEl.css('height', `${$contentEl[0].scrollHeight}px`); // Close
+
+    $contentEl.transitionEnd(() => {
+      if ($el.hasClass('accordion-item-opened')) {
+        $contentEl.transition(0);
+        $contentEl.css('height', 'auto');
+        nextFrame(() => {
+          $contentEl.transition('');
+          $el.trigger('accordion:opened');
+          app.emit('accordionOpened', $el[0]);
+        });
+      } else {
+        $contentEl.css('height', '');
+        $el.trigger('accordion:closed');
+        app.emit('accordionClosed', $el[0]);
+      }
+    });
+    nextFrame(() => {
+      $contentEl.transition('');
+      $contentEl.css('height', '');
+      $el.trigger('accordion:close');
+      app.emit('accordionClose', $el[0]);
+    });
+  },
+
+  toggle(el) {
+    const app = this;
+    const $el = $(el);
+    if ($el.length === 0) return;
+    if ($el.hasClass('accordion-item-opened')) app.accordion.close(el);else app.accordion.open(el);
+  }
+
+};
+export default {
+  name: 'accordion',
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      accordion: Accordion
+    });
+  },
+
+  clicks: {
+    '.accordion-item .item-link, .accordion-item-toggle, .links-list.accordion-list > ul > li > a': function open($clickedEl) {
+      const app = this;
+      Accordion.toggleClicked.call(app, $clickedEl);
+    }
+  }
+};

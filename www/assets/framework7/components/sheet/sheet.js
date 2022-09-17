@@ -1,1 +1,77 @@
-(function framework7ComponentLoader(e,t){void 0===t&&(t=!0);var s=e.$,o=e.utils,r=e.getDevice,a=e.getSupport,p=(e.Class,e.Modal),l=(e.ConstructorMethods,e.ModalMethods),i=o.extend,n=o.now,c=o.getTranslate;function h(e){this.wrapped=e}function d(e){var t,s;function o(t,s){try{var a=e[t](s),p=a.value,l=p instanceof h;Promise.resolve(l?p.wrapped:p).then((function(e){l?o("return"===t?"return":"next",e):r(a.done?"return":"normal",e)}),(function(e){o("throw",e)}))}catch(e){r("throw",e)}}function r(e,r){switch(e){case"return":t.resolve({value:r,done:!0});break;case"throw":t.reject(r);break;default:t.resolve({value:r,done:!1})}(t=t.next)?o(t.key,t.arg):s=null}this._invoke=function(e,r){return new Promise((function(a,p){var l={key:e,arg:r,resolve:a,reject:p,next:null};s?s=s.next=l:(t=s=l,o(e,r))}))},"function"!=typeof e.return&&(this.return=void 0)}function m(e,t){return(m=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function u(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}d.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},d.prototype.next=function(e){return this._invoke("next",e)},d.prototype.throw=function(e){return this._invoke("throw",e)},d.prototype.return=function(e){return this._invoke("return",e)};var f=function(e){var t,o;function p(t,o){var p,l,h,d,m,f=i({on:{}},t.params.sheet,o),g=u(p=e.call(this,t,f)||this),v=a(),w=r();if(g.params=f,void 0===g.params.backdrop&&(g.params.backdrop="ios"!==t.theme),(l=g.params.el?s(g.params.el).eq(0):s(g.params.content).filter((function(e){return 1===e.nodeType})).eq(0))&&l.length>0&&l[0].f7Modal)return l[0].f7Modal||u(p);if(0===l.length)return g.destroy()||u(p);function y(e){var t=e.target,o=s(t);!w.desktop&&w.cordova&&(window.Keyboard&&window.Keyboard.isVisible||window.cordova.plugins&&window.cordova.plugins.Keyboard&&window.cordova.plugins.Keyboard.isVisible)||0===o.closest(g.el).length&&(g.params.closeByBackdropClick&&g.params.backdrop&&g.backdropEl&&g.backdropEl===t||g.params.closeByOutsideClick)&&g.close()}function b(e){27===e.keyCode&&g.params.closeOnEscape&&g.close()}function C(e){return(t.height-2*e)/t.height}g.params.backdrop&&g.params.backdropEl?h=s(g.params.backdropEl):g.params.backdrop&&0===(h=g.$containerEl.children(".sheet-backdrop")).length&&(h=s('<div class="sheet-backdrop"></div>'),g.$containerEl.append(h)),i(g,{app:t,push:l.hasClass("sheet-modal-push")||g.params.push,$el:l,el:l[0],$backdropEl:h,backdropEl:h&&h[0],type:"sheet",$htmlEl:s("html")}),g.params.push&&l.addClass("sheet-modal-push");var k,S,E,T,P,x,M,$,O,_,H,B,I,N,q,j,D,K,X=!1,Y=!1;function z(e){X||!g.params.swipeToClose&&!g.params.swipeToStep||g.params.swipeHandler&&0===s(e.target).closest(g.params.swipeHandler).length||(X=!0,Y=!1,k={x:"touchstart"===e.type?e.targetTouches[0].pageX:e.pageX,y:"touchstart"===e.type?e.targetTouches[0].pageY:e.pageY},T=n(),E=void 0,x=l.hasClass("sheet-modal-top"),g.params.swipeHandler||"touchstart"!==e.type||(q=s(e.target).closest(".page-content")[0]))}function A(e){if(X){if(S={x:"touchmove"===e.type?e.targetTouches[0].pageX:e.pageX,y:"touchmove"===e.type?e.targetTouches[0].pageY:e.pageY},void 0===E&&(E=!!(E||Math.abs(S.x-k.x)>Math.abs(S.y-k.y))),E)return X=!1,void(Y=!1);var s,o=(P=k.y-S.y)<0?"to-bottom":"to-top";if(!Y){if(q&&!l.hasClass("modal-in-swipe-step")&&(j=q.scrollTop,D=q.scrollHeight,K=q.offsetHeight,!(D===K||"to-bottom"===o&&0===j||"to-top"===o&&j===D-K)))return l.transform(""),X=!1,void(Y=!1);g.push&&m&&(I=t.$el.children(".view, .views")),_=l[0].offsetHeight,$=c(l[0],"y"),x?(H=g.params.swipeToClose?-_:-M,B=0):(H=0,B=g.params.swipeToClose?_:M),Y=!0}if(O=$-P,O=Math.min(Math.max(O,H),B),e.preventDefault(),g.push&&m){var r=(O-$)/_;g.params.swipeToStep&&(r=x?O/M:1-(M-O)/M),r=Math.abs(r);var a=1-(r=Math.min(Math.max(r,0),1)),p=1-(1-C(m))*a;I.transition(0).forEach((function(e){e.style.setProperty("transform","translate3d(0,0,0) scale("+p+")","important")})),g.params.swipeToStep&&I.css("border-radius",N*a+"px")}if(l.transition(0).transform("translate3d(0,"+O+"px,0)"),g.params.swipeToStep)s=x?1-O/M:(M-O)/M,s=Math.min(Math.max(s,0),1),l.trigger("sheet:stepprogress",s),g.emit("local::stepProgress sheetStepProgress",g,s)}}function L(){if(X=!1,Y){Y=!1,l.transform("").transition(""),g.push&&m&&(I.transition("").transform(""),I.css("border-radius",""));var e=P<0?"to-bottom":"to-top",t=Math.abs(P);if(0!==t&&O!==$){var s=(new Date).getTime()-T;if(g.params.swipeToStep){var o=x?"to-bottom":"to-top",r=x?"to-top":"to-bottom",a=Math.abs(O),p=Math.abs(M);if(s<300&&t>10)return e===o&&a<p&&(l.removeClass("modal-in-swipe-step"),l.trigger("sheet:stepprogress",1),g.emit("local::stepProgress sheetStepProgress",g,1),g.emit("local::_swipeStep",!1),l.trigger("sheet:stepopen"),g.emit("local::stepOpen sheetStepOpen",g),g.push&&m&&(g.$htmlEl[0].style.setProperty("--f7-sheet-push-scale",C(m)),I.css("border-radius",""))),e===r&&a>p&&(g.params.swipeToClose?g.close():(l.addClass("modal-in-swipe-step"),l.trigger("sheet:stepprogress",0),g.emit("local::stepProgress sheetStepProgress",g,0),g.emit("local::_swipeStep",!0),l.trigger("sheet:stepclose"),g.emit("local::stepClose sheetStepClose",g),g.push&&m&&(g.$htmlEl[0].style.removeProperty("--f7-sheet-push-scale"),I.css("border-radius","0px")))),void(e===r&&a<=p&&(l.addClass("modal-in-swipe-step"),l.trigger("sheet:stepprogress",0),g.emit("local::stepProgress sheetStepProgress",g,0),g.emit("local::_swipeStep",!0),l.trigger("sheet:stepclose"),g.emit("local::stepClose sheetStepClose",g),g.push&&m&&(g.$htmlEl[0].style.removeProperty("--f7-sheet-push-scale"),I.css("border-radius","0px"))));if(s>=300){var i=!l.hasClass("modal-in-swipe-step");i?i&&(a>p+(_-p)/2?g.params.swipeToClose&&g.close():a>p/2&&(l.addClass("modal-in-swipe-step"),l.trigger("sheet:stepprogress",0),g.emit("local::stepProgress sheetStepProgress",g,0),g.emit("local::_swipeStep",!0),l.trigger("sheet:stepclose"),g.emit("local::stepClose sheetStepClose",g),g.push&&m&&(g.$htmlEl[0].style.removeProperty("--f7-sheet-push-scale"),I.css("border-radius","0px")))):a<p/2?(l.removeClass("modal-in-swipe-step"),l.trigger("sheet:stepprogress",1),g.emit("local::stepProgress sheetStepProgress",g,1),g.emit("local::_swipeStep",!1),l.trigger("sheet:stepopen"),g.emit("local::stepOpen sheetStepOpen",g),g.push&&m&&(g.$htmlEl[0].style.setProperty("--f7-sheet-push-scale",C(m)),I.css("border-radius",""))):a-p>(_-p)/2&&g.params.swipeToClose&&g.close()}}else{if(e!==(x?"to-top":"to-bottom"))return;(s<300&&t>20||s>=300&&t>_/2)&&g.close()}}}}function V(){g.setSwipeStep(!0)}g.setSwipeStep=function(e){void 0===e&&(e=!0);var t=l.find(".sheet-modal-swipe-step").eq(0);t.length&&(M=l.hasClass("sheet-modal-top")?-(t.offset().top-l.offset().top+t[0].offsetHeight):l[0].offsetHeight-(t.offset().top-l.offset().top+t[0].offsetHeight),l[0].style.setProperty("--f7-sheet-swipe-step",M+"px"),e||(l.addClass("modal-in-swipe-step"),g.emit("local::_swipeStep",!0)))};var F=!!v.passiveListener&&{passive:!0};return(g.params.swipeToClose||g.params.swipeToStep)&&(l.on(t.touchEvents.start,z,F),t.on("touchmove",A),t.on("touchend:passive",L),g.once("sheetDestroy",(function(){l.off(t.touchEvents.start,z,F),t.off("touchmove",A),t.off("touchend:passive",L)}))),g.on("open",(function(){g.params.closeOnEscape&&s(document).on("keydown",b),l.prevAll(".popup.modal-in").addClass("popup-behind"),g.params.swipeToStep&&(g.setSwipeStep(!1),t.on("resize",V)),g.params.scrollToEl&&function(){var e=s(g.params.scrollToEl).eq(0);if(0!==e.length&&0!==(d=e.parents(".page-content")).length){var t,o=parseInt(d.css("padding-top"),10),r=parseInt(d.css("padding-bottom"),10),a=d[0].offsetHeight-o-l.height(),p=d[0].scrollHeight-o-l.height(),i=d.scrollTop(),n=e.offset().top-o+e[0].offsetHeight;if(n>a){var c=i+n-a;c+a>p&&(t=c+a-p+r,a===p&&(t=l.height()),d.css({"padding-bottom":t+"px"})),d.scrollTop(c,300)}}}(),g.push&&(m=parseInt(l.css("--f7-sheet-push-offset"),10),Number.isNaN(m)&&(m=0),m&&(l.addClass("sheet-modal-push"),g.$htmlEl.addClass("with-modal-sheet-push"),g.params.swipeToStep?(I=t.$el.children(".view, .views"),N=parseFloat(l.css("border-"+(x?"bottom":"top")+"-left-radius")),I.css("border-radius","0px")):g.$htmlEl[0].style.setProperty("--f7-sheet-push-scale",C(m))))})),g.on("opened",(function(){(g.params.closeByOutsideClick||g.params.closeByBackdropClick)&&t.on("click",y)})),g.on("close",(function(){g.params.swipeToStep&&(l.removeClass("modal-in-swipe-step"),g.emit("local::_swipeStep",!1),t.off("resize",V)),g.params.closeOnEscape&&s(document).off("keydown",b),g.params.scrollToEl&&d&&d.length>0&&d.css({"padding-bottom":""}),(g.params.closeByOutsideClick||g.params.closeByBackdropClick)&&t.off("click",y),l.prevAll(".popup.modal-in").eq(0).removeClass("popup-behind"),g.push&&m&&(g.$htmlEl.removeClass("with-modal-sheet-push"),g.$htmlEl.addClass("with-modal-sheet-push-closing"))})),g.on("closed",(function(){g.push&&m&&(g.$htmlEl.removeClass("with-modal-sheet-push-closing"),g.$htmlEl[0].style.removeProperty("--f7-sheet-push-scale"))})),g.stepOpen=function(){l.removeClass("modal-in-swipe-step"),g.emit("local::_swipeStep",!1),g.push&&(m||(m=parseInt(l.css("--f7-sheet-push-offset"),10),Number.isNaN(m)&&(m=0)),m&&g.$htmlEl[0].style.setProperty("--f7-sheet-push-scale",C(m)))},g.stepClose=function(){l.addClass("modal-in-swipe-step"),g.emit("local::_swipeStep",!0),g.push&&g.$htmlEl[0].style.removeProperty("--f7-sheet-push-scale")},g.stepToggle=function(){l.toggleClass("modal-in-swipe-step"),g.emit("local::_swipeStep",l.hasClass("modal-in-swipe-step"))},l[0].f7Modal=g,g||u(p)}return o=e,(t=p).prototype=Object.create(o.prototype),t.prototype.constructor=t,m(t,o),p}(p),g={name:"sheet",params:{sheet:{push:!1,backdrop:void 0,backdropEl:void 0,closeByBackdropClick:!0,closeByOutsideClick:!1,closeOnEscape:!1,swipeToClose:!1,swipeToStep:!1,swipeHandler:null,containerEl:null}},static:{Sheet:f},create:function(){var e=this;e.sheet=i({},l({app:e,constructor:f,defaultSelector:".sheet-modal.modal-in"}),{stepOpen:function(t){var s=e.sheet.get(t);if(s&&s.stepOpen)return s.stepOpen()},stepClose:function(t){var s=e.sheet.get(t);if(s&&s.stepClose)return s.stepClose()},stepToggle:function(t){var s=e.sheet.get(t);if(s&&s.stepToggle)return s.stepToggle()}})},clicks:{".sheet-open":function(e,t){void 0===t&&(t={});s(".sheet-modal.modal-in").length>0&&t.sheet&&s(t.sheet)[0]!==s(".sheet-modal.modal-in")[0]&&this.sheet.close(".sheet-modal.modal-in"),this.sheet.open(t.sheet,t.animate,e)},".sheet-close":function(e,t){void 0===t&&(t={});this.sheet.close(t.sheet,t.animate,e)}}};if(t){if(e.prototype.modules&&e.prototype.modules[g.name])return;e.use(g),e.instance&&(e.instance.useModuleParams(g,e.instance.params),e.instance.useModule(g))}return g}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { extend } from '../../shared/utils.js';
+import Sheet from './sheet-class.js';
+import ModalMethods from '../../shared/modal-methods.js';
+export default {
+  name: 'sheet',
+  params: {
+    sheet: {
+      push: false,
+      backdrop: undefined,
+      backdropEl: undefined,
+      backdropUnique: false,
+      closeByBackdropClick: true,
+      closeByOutsideClick: false,
+      closeOnEscape: false,
+      swipeToClose: false,
+      swipeToStep: false,
+      swipeHandler: null,
+      containerEl: null
+    }
+  },
+  static: {
+    Sheet
+  },
+
+  create() {
+    const app = this;
+    app.sheet = extend({}, ModalMethods({
+      app,
+      constructor: Sheet,
+      defaultSelector: '.sheet-modal.modal-in'
+    }), {
+      stepOpen(sheet) {
+        const sheetInstance = app.sheet.get(sheet);
+        if (sheetInstance && sheetInstance.stepOpen) return sheetInstance.stepOpen();
+        return undefined;
+      },
+
+      stepClose(sheet) {
+        const sheetInstance = app.sheet.get(sheet);
+        if (sheetInstance && sheetInstance.stepClose) return sheetInstance.stepClose();
+        return undefined;
+      },
+
+      stepToggle(sheet) {
+        const sheetInstance = app.sheet.get(sheet);
+        if (sheetInstance && sheetInstance.stepToggle) return sheetInstance.stepToggle();
+        return undefined;
+      }
+
+    });
+  },
+
+  clicks: {
+    '.sheet-open': function openSheet($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+
+      if ($('.sheet-modal.modal-in').length > 0 && data.sheet && $(data.sheet)[0] !== $('.sheet-modal.modal-in')[0]) {
+        app.sheet.close('.sheet-modal.modal-in');
+      }
+
+      app.sheet.open(data.sheet, data.animate, $clickedEl);
+    },
+    '.sheet-close': function closeSheet($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.sheet.close(data.sheet, data.animate, $clickedEl);
+    }
+  }
+};

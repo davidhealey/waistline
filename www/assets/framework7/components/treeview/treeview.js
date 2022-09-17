@@ -1,1 +1,83 @@
-(function framework7ComponentLoader(e,t){void 0===t&&(t=!0);var r=e.$,i=e.utils,o=(e.getDevice,e.getSupport,e.Class,e.Modal,e.ConstructorMethods,e.ModalMethods,i.bindMethods),n=i.iosPreloaderContent,a=i.mdPreloaderContent,l=i.auroraPreloaderContent,d={open:function(e){var t=this,i=r(e).eq(0);if(i.length&&(i.addClass("treeview-item-opened"),i.trigger("treeview:open"),t.emit("treeviewOpen",i[0]),i.hasClass("treeview-load-children")&&!i[0].f7TreeviewChildrenLoaded)){var o={iosPreloaderContent:n,mdPreloaderContent:a,auroraPreloaderContent:l};i.trigger("treeview:loadchildren",d),t.emit("treeviewLoadChildren",i[0],d),i.find(".treeview-toggle").addClass("treeview-toggle-hidden"),i.find(".treeview-item-root").prepend('<div class="preloader treeview-preloader">'+o[t.theme+"PreloaderContent"]+"</div>")}function d(e){e?(i.removeClass("treeview-item-opened"),i.trigger("treeview:close"),t.emit("treeviewClose",i[0])):i[0].f7TreeviewChildrenLoaded=!0,i.find(".treeview-toggle").removeClass("treeview-toggle-hidden"),i.find(".treeview-preloader").remove()}},close:function(e){var t=r(e).eq(0);t.length&&(t.removeClass("treeview-item-opened"),t.trigger("treeview:close"),this.emit("treeviewClose",t[0]))},toggle:function(e){var t=r(e).eq(0);if(t.length){var i=t.hasClass("treeview-item-opened");this.treeview[i?"close":"open"](t)}}},s={name:"treeview",create:function(){o(this,{treeview:d})},clicks:{".treeview-toggle":function(e,t,r){if(!e.parents(".treeview-item-toggle").length){var i=e.parents(".treeview-item").eq(0);i.length&&(r.preventF7Router=!0,this.treeview.toggle(i[0]))}},".treeview-item-toggle":function(e,t,r){var i=e.closest(".treeview-item").eq(0);i.length&&(r.preventF7Router=!0,this.treeview.toggle(i[0]))}}};if(t){if(e.prototype.modules&&e.prototype.modules[s.name])return;e.use(s),e.instance&&(e.instance.useModuleParams(s,e.instance.params),e.instance.useModule(s))}return s}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { bindMethods, iosPreloaderContent, mdPreloaderContent, auroraPreloaderContent } from '../../shared/utils.js';
+const Treeview = {
+  open(itemEl) {
+    const app = this;
+    const $itemEl = $(itemEl).eq(0);
+    if (!$itemEl.length) return;
+    $itemEl.addClass('treeview-item-opened');
+    $itemEl.trigger('treeview:open');
+    app.emit('treeviewOpen', $itemEl[0]);
+
+    function done(cancel) {
+      if (cancel) {
+        $itemEl.removeClass('treeview-item-opened');
+        $itemEl.trigger('treeview:close');
+        app.emit('treeviewClose', $itemEl[0]);
+      } else {
+        $itemEl[0].f7TreeviewChildrenLoaded = true;
+      }
+
+      $itemEl.find('.treeview-toggle').removeClass('treeview-toggle-hidden');
+      $itemEl.find('.treeview-preloader').remove();
+    }
+
+    if ($itemEl.hasClass('treeview-load-children') && !$itemEl[0].f7TreeviewChildrenLoaded) {
+      const preloaders = {
+        iosPreloaderContent,
+        mdPreloaderContent,
+        auroraPreloaderContent
+      };
+      $itemEl.trigger('treeview:loadchildren', done);
+      app.emit('treeviewLoadChildren', $itemEl[0], done);
+      $itemEl.find('.treeview-toggle').addClass('treeview-toggle-hidden');
+      $itemEl.find('.treeview-item-root').prepend(`<div class="preloader treeview-preloader">${preloaders[`${app.theme}PreloaderContent`]}</div>`);
+    }
+  },
+
+  close(itemEl) {
+    const app = this;
+    const $itemEl = $(itemEl).eq(0);
+    if (!$itemEl.length) return;
+    $itemEl.removeClass('treeview-item-opened');
+    $itemEl.trigger('treeview:close');
+    app.emit('treeviewClose', $itemEl[0]);
+  },
+
+  toggle(itemEl) {
+    const app = this;
+    const $itemEl = $(itemEl).eq(0);
+    if (!$itemEl.length) return;
+    const wasOpened = $itemEl.hasClass('treeview-item-opened');
+    app.treeview[wasOpened ? 'close' : 'open']($itemEl);
+  }
+
+};
+export default {
+  name: 'treeview',
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      treeview: Treeview
+    });
+  },
+
+  clicks: {
+    '.treeview-toggle': function toggle($clickedEl, clickedData, e) {
+      const app = this;
+      if ($clickedEl.parents('.treeview-item-toggle').length) return;
+      const $treeviewItemEl = $clickedEl.parents('.treeview-item').eq(0);
+      if (!$treeviewItemEl.length) return;
+      e.preventF7Router = true;
+      app.treeview.toggle($treeviewItemEl[0]);
+    },
+    '.treeview-item-toggle': function toggle($clickedEl, clickedData, e) {
+      const app = this;
+      const $treeviewItemEl = $clickedEl.closest('.treeview-item').eq(0);
+      if (!$treeviewItemEl.length) return;
+      e.preventF7Router = true;
+      app.treeview.toggle($treeviewItemEl[0]);
+    }
+  }
+};

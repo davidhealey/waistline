@@ -1,7 +1,11 @@
 import { Dom7Array } from 'dom7';
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
-import { Searchbar } from '../searchbar/searchbar';
-import { View } from '../view/view';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
+import { Searchbar } from '../searchbar/searchbar.js';
+import { View } from '../view/view.js';
 
 export namespace Autocomplete {
   interface Autocomplete extends Framework7EventsClass<Events> {

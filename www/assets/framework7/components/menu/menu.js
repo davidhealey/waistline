@@ -1,1 +1,87 @@
-(function framework7ComponentLoader(e,n){void 0===n&&(n=!0);var o=e.$,t=e.utils,s=(e.getDevice,e.getSupport,e.Class,e.Modal,e.ConstructorMethods,e.ModalMethods,t.bindMethods),d={open:function(e){void 0===e&&(e=".menu-item-dropdown");if(e){var n=o(e).closest(".menu-item-dropdown");if(n.length){var t=n.closest(".menu").eq(0);if(t.length){var s=t.css("z-index"),d=t[0].style.zIndex;t.css("z-index",parseInt(s||0,10)+1),t[0].f7MenuZIndex=d}n.eq(0).addClass("menu-item-dropdown-opened").trigger("menu:opened"),this.emit("menuOpened",n.eq(0)[0])}}},close:function(e){void 0===e&&(e=".menu-item-dropdown-opened");if(e){var n=o(e).closest(".menu-item-dropdown-opened");if(n.length){var t=n.closest(".menu").eq(0);if(t.length){var s=t[0].f7MenuZIndex;t.css("z-index",s),delete t[0].f7MenuZIndex}n.eq(0).removeClass("menu-item-dropdown-opened").trigger("menu:closed"),this.emit("menuClosed",n.eq(0)[0])}}}},i={name:"menu",create:function(){s(this,{menu:d})},on:{click:function(e){var n=this,t=o(".menu-item-dropdown-opened");t.length&&t.each((function(t){o(e.target).closest(".menu-item-dropdown-opened").length||n.menu.close(t)}))}},clicks:{".menu-item-dropdown":function(e,n,t){if(e.hasClass("menu-item-dropdown-opened")){if(o(t.target).closest(".menu-dropdown").length)return;this.menu.close(e)}else this.menu.open(e)},".menu-close":function(){this.menu.close()}}};if(n){if(e.prototype.modules&&e.prototype.modules[i.name])return;e.use(i),e.instance&&(e.instance.useModuleParams(i,e.instance.params),e.instance.useModule(i))}return i}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { bindMethods } from '../../shared/utils.js';
+const Menu = {
+  open(el) {
+    if (el === void 0) {
+      el = '.menu-item-dropdown';
+    }
+
+    const app = this;
+    if (!el) return;
+    const $el = $(el).closest('.menu-item-dropdown');
+    if (!$el.length) return;
+    const $menuEl = $el.closest('.menu').eq(0);
+
+    if ($menuEl.length) {
+      const zIndex = $menuEl.css('z-index');
+      const originalZIndex = $menuEl[0].style.zIndex;
+      $menuEl.css('z-index', parseInt(zIndex || 0, 10) + 1);
+      $menuEl[0].f7MenuZIndex = originalZIndex;
+    }
+
+    $el.eq(0).addClass('menu-item-dropdown-opened').trigger('menu:opened');
+    app.emit('menuOpened', $el.eq(0)[0]);
+  },
+
+  close(el) {
+    if (el === void 0) {
+      el = '.menu-item-dropdown-opened';
+    }
+
+    const app = this;
+    if (!el) return;
+    const $el = $(el).closest('.menu-item-dropdown-opened');
+    if (!$el.length) return;
+    const $menuEl = $el.closest('.menu').eq(0);
+
+    if ($menuEl.length) {
+      const zIndex = $menuEl[0].f7MenuZIndex;
+      $menuEl.css('z-index', zIndex);
+      delete $menuEl[0].f7MenuZIndex;
+    }
+
+    $el.eq(0).removeClass('menu-item-dropdown-opened').trigger('menu:closed');
+    app.emit('menuClosed', $el.eq(0)[0]);
+  }
+
+};
+export default {
+  name: 'menu',
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      menu: Menu
+    });
+  },
+
+  on: {
+    click(e) {
+      const app = this;
+      const openedMenus = $('.menu-item-dropdown-opened');
+      if (!openedMenus.length) return;
+      openedMenus.each(el => {
+        if (!$(e.target).closest('.menu-item-dropdown-opened').length) {
+          app.menu.close(el);
+        }
+      });
+    }
+
+  },
+  clicks: {
+    '.menu-item-dropdown': function onClick($clickedEl, dataset, e) {
+      const app = this;
+
+      if ($clickedEl.hasClass('menu-item-dropdown-opened')) {
+        if ($(e.target).closest('.menu-dropdown').length) return;
+        app.menu.close($clickedEl);
+      } else {
+        app.menu.open($clickedEl);
+      }
+    },
+    '.menu-close': function onClick() {
+      const app = this;
+      app.menu.close();
+    }
+  }
+};

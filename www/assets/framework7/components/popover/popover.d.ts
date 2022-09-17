@@ -1,5 +1,9 @@
 import { Dom7Array } from 'dom7';
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
 
 export namespace Popover {
   interface Events {
@@ -23,6 +27,8 @@ export namespace Popover {
     backdrop?: boolean;
     /** Backdrop element to share across instances */
     backdropEl?: HTMLElement | CSSSelector;
+    /** If enabled it creates unique backdrop element exclusively for this modal (default false) */
+    backdropUnique?: boolean;
     /** When enabled, popover will be closed on backdrop click. (default true) */
     closeByBackdropClick?: boolean;
     /** When enabled, popover will be closed on when click outside of it (default true) */
@@ -43,6 +49,8 @@ export namespace Popover {
     targetHeight?: number;
     /** Element to mount modal to. (default app.el) */
     containerEl?: HTMLElement | CSSSelector;
+    /** Force popover vertical position, can be 'auto', 'top' or 'bottom' (default 'auto')  */
+    verticalPosition?: string;
     /** Object with events handlers.. */
     on?: {
       [event in keyof Events]?: Events[event];

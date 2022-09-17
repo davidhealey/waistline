@@ -1,1 +1,99 @@
-(function framework7ComponentLoader(e,t){void 0===t&&(t=!0);var r=e.$,a=e.utils,n=(e.getDevice,e.getSupport,e.Class),o=(e.Modal,e.ConstructorMethods);e.ModalMethods;function i(e){this.wrapped=e}function l(e){var t,r;function a(t,r){try{var o=e[t](r),l=o.value,s=l instanceof i;Promise.resolve(s?l.wrapped:l).then((function(e){s?a("return"===t?"return":"next",e):n(o.done?"return":"normal",e)}),(function(e){a("throw",e)}))}catch(e){n("throw",e)}}function n(e,n){switch(e){case"return":t.resolve({value:n,done:!0});break;case"throw":t.reject(n);break;default:t.resolve({value:n,done:!1})}(t=t.next)?a(t.key,t.arg):r=null}this._invoke=function(e,n){return new Promise((function(o,i){var l={key:e,arg:n,resolve:o,reject:i,next:null};r?r=r.next=l:(t=r=l,a(e,n))}))},"function"!=typeof e.return&&(this.return=void 0)}function s(e,t){return(s=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function u(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}l.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},l.prototype.next=function(e){return this._invoke("next",e)},l.prototype.throw=function(e){return this._invoke("throw",e)},l.prototype.return=function(e){return this._invoke("return",e)};var c=a.extend,d=a.deleteProps,f=function(e){var t,a;function n(t,a){var n;void 0===a&&(a={});var o=u(n=e.call(this,a,[t])||this),i=c({},t.params.gauge);o.useModulesParams(i),o.params=c(i,a);var l=o.params.el;if(!l)return o||u(n);var s=r(l);return 0===s.length?o||u(n):s[0].f7Gauge?s[0].f7Gauge||u(n):(c(o,{app:t,$el:s,el:s&&s[0]}),s[0].f7Gauge=o,o.useModules(),o.init(),o||u(n))}a=e,(t=n).prototype=Object.create(a.prototype),t.prototype.constructor=t,s(t,a);var o=n.prototype;return o.calcRadius=function(){var e=this.params;return e.size/2-e.borderWidth/2},o.calcBorderLength=function(){var e=this.calcRadius();return 2*Math.PI*e},o.render=function(){var e=this;if(e.params.render)return e.params.render.call(e,e);var t=e.params,r=t.type,a=t.value,n=t.size,o=t.bgColor,i=t.borderBgColor,l=t.borderColor,s=t.borderWidth,u=t.valueText,c=t.valueTextColor,d=t.valueFontSize,f=t.valueFontWeight,g=t.labelText,h=t.labelTextColor,v=t.labelFontSize,p=t.labelFontWeight,x="semicircle"===r,m=e.calcRadius(),b=e.calcBorderLength(),y=Math.max(Math.min(a,1),0);return $jsx("svg",{class:"gauge-svg",width:n+"px",height:(x?n/2:n)+"px",viewBox:"0 0 "+n+" "+(x?n/2:n)},x&&$jsx("path",{class:"gauge-back-semi",d:"M"+(n-s/2)+","+n/2+" a1,1 0 0,0 -"+(n-s)+",0",stroke:i,"stroke-width":s,fill:o||"none"}),x&&$jsx("path",{class:"gauge-front-semi",d:"M"+(n-s/2)+","+n/2+" a1,1 0 0,0 -"+(n-s)+",0",stroke:l,"stroke-width":s,"stroke-dasharray":b/2,"stroke-dashoffset":b/2*(1+y),fill:i?"none":o||"none"}),!x&&i&&$jsx("circle",{class:"gauge-back-circle",stroke:i,"stroke-width":s,fill:o||"none",cx:n/2,cy:n/2,r:m}),!x&&$jsx("circle",{class:"gauge-front-circle",transform:"rotate(-90 "+n/2+" "+n/2+")",stroke:l,"stroke-width":s,"stroke-dasharray":b,"stroke-dashoffset":b*(1-y),fill:i?"none":o||"none",cx:n/2,cy:n/2,r:m}),u&&$jsx("text",{class:"gauge-value-text",x:"50%",y:x?"100%":"50%","font-weight":f,"font-size":d,fill:c,dy:x?g?-v-15:-5:0,"text-anchor":"middle","dominant-baseline":!x&&"middle"},u),g&&$jsx("text",{class:"gauge-label-text",x:"50%",y:x?"100%":"50%","font-weight":p,"font-size":v,fill:h,dy:x?-5:u?d/2+10:0,"text-anchor":"middle","dominant-baseline":!x&&"middle"},g))},o.update=function(e){void 0===e&&(e={});var t=this,r=t.params,a=t.$svgEl;if(Object.keys(e).forEach((function(t){void 0!==e[t]&&(r[t]=e[t])})),0===a.length)return t;var n=r.value,o=r.size,i=r.bgColor,l=r.borderBgColor,s=r.borderColor,u=r.borderWidth,c=r.valueText,d=r.valueTextColor,f=r.valueFontSize,g=r.valueFontWeight,h=r.labelText,v=r.labelTextColor,p=r.labelFontSize,x=r.labelFontWeight,m=t.calcBorderLength(),b=Math.max(Math.min(n,1),0),y=t.calcRadius(),k="semicircle"===r.type,w={width:o+"px",height:(k?o/2:o)+"px",viewBox:"0 0 "+o+" "+(k?o/2:o)};if(Object.keys(w).forEach((function(e){a.attr(e,w[e])})),k){var j={d:"M"+(o-u/2)+","+o/2+" a1,1 0 0,0 -"+(o-u)+",0",stroke:l,"stroke-width":u,fill:i||"none"},C={d:"M"+(o-u/2)+","+o/2+" a1,1 0 0,0 -"+(o-u)+",0",stroke:s,"stroke-width":u,"stroke-dasharray":m/2,"stroke-dashoffset":m/2*(1+b),fill:l?"none":i||"none"};Object.keys(j).forEach((function(e){a.find(".gauge-back-semi").attr(e,j[e])})),Object.keys(C).forEach((function(e){a.find(".gauge-front-semi").attr(e,C[e])}))}else{var M={stroke:l,"stroke-width":u,fill:i||"none",cx:o/2,cy:o/2,r:y},$={transform:"rotate(-90 "+o/2+" "+o/2+")",stroke:s,"stroke-width":u,"stroke-dasharray":m,"stroke-dashoffset":m*(1-b),fill:l?"none":i||"none",cx:o/2,cy:o/2,r:y};Object.keys(M).forEach((function(e){a.find(".gauge-back-circle").attr(e,M[e])})),Object.keys($).forEach((function(e){a.find(".gauge-front-circle").attr(e,$[e])}))}if(c){if(!a.find(".gauge-value-text").length){var E=document.createElementNS("http://www.w3.org/2000/svg","text");E.classList.add("gauge-value-text"),a.append(E)}var z={x:"50%",y:k?"100%":"50%","font-weight":g,"font-size":f,fill:d,dy:k?h?-p-15:-5:0,"text-anchor":"middle","dominant-baseline":!k&&"middle"};Object.keys(z).forEach((function(e){a.find(".gauge-value-text").attr(e,z[e])})),a.find(".gauge-value-text").text(c)}else a.find(".gauge-value-text").remove();if(h){if(!a.find(".gauge-label-text").length){var G=document.createElementNS("http://www.w3.org/2000/svg","text");G.classList.add("gauge-label-text"),a.append(G)}var F={x:"50%",y:k?"100%":"50%","font-weight":x,"font-size":p,fill:v,dy:k?-5:c?f/2+10:0,"text-anchor":"middle","dominant-baseline":!k&&"middle"};Object.keys(F).forEach((function(e){a.find(".gauge-label-text").attr(e,F[e])})),a.find(".gauge-label-text").text(h)}else a.find(".gauge-label-text").remove();return t},o.init=function(){var e=this,t=r(e.render()).eq(0);return t.f7Gauge=e,c(e,{$svgEl:t,svgEl:t&&t[0]}),e.$el.append(t),e},o.destroy=function(){var e=this;e.$el&&!e.destroyed&&(e.$el.trigger("gauge:beforedestroy"),e.emit("local::beforeDestroy gaugeBeforeDestroy",e),e.$svgEl.remove(),delete e.$el[0].f7Gauge,d(e),e.destroyed=!0)},n}(n),g={name:"gauge",static:{Gauge:f},create:function(){var e=this;e.gauge=o({defaultSelector:".gauge",constructor:f,app:e,domProp:"f7Gauge"}),e.gauge.update=function(t,a){if(0!==r(t).length){var n=e.gauge.get(t);if(n)return n.update(a),n}}},params:{gauge:{el:null,type:"circle",value:0,size:200,bgColor:"transparent",borderBgColor:"#eeeeee",borderColor:"#000000",borderWidth:10,valueText:null,valueTextColor:"#000000",valueFontSize:31,valueFontWeight:500,labelText:null,labelTextColor:"#888888",labelFontSize:14,labelFontWeight:400}},on:{tabMounted:function(e){var t=this;r(e).find(".gauge-init").each((function(e){t.gauge.create(c({el:e},r(e).dataset()||{}))}))},tabBeforeRemove:function(e){r(e).find(".gauge-init").each((function(e){e.f7Gauge&&e.f7Gauge.destroy()}))},pageInit:function(e){var t=this;e.$el.find(".gauge-init").each((function(e){t.gauge.create(c({el:e},r(e).dataset()||{}))}))},pageBeforeRemove:function(e){e.$el.find(".gauge-init").each((function(e){e.f7Gauge&&e.f7Gauge.destroy()}))}},vnode:{"gauge-init":{insert:function(e){var t=e.elm;this.gauge.create(c({el:t},r(t).dataset()||{}))},destroy:function(e){var t=e.elm;t.f7Gauge&&t.f7Gauge.destroy()}}}};if(t){if(e.prototype.modules&&e.prototype.modules[g.name])return;e.use(g),e.instance&&(e.instance.useModuleParams(g,e.instance.params),e.instance.useModule(g))}return g}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import Gauge from './gauge-class.js';
+import ConstructorMethods from '../../shared/constructor-methods.js';
+import { extend } from '../../shared/utils.js';
+export default {
+  name: 'gauge',
+  static: {
+    Gauge
+  },
+
+  create() {
+    const app = this;
+    app.gauge = ConstructorMethods({
+      defaultSelector: '.gauge',
+      constructor: Gauge,
+      app,
+      domProp: 'f7Gauge'
+    });
+
+    app.gauge.update = function update(el, newParams) {
+      const $el = $(el);
+      if ($el.length === 0) return undefined;
+      const gauge = app.gauge.get(el);
+      if (!gauge) return undefined;
+      gauge.update(newParams);
+      return gauge;
+    };
+  },
+
+  params: {
+    gauge: {
+      el: null,
+      type: 'circle',
+      value: 0,
+      size: 200,
+      bgColor: 'transparent',
+      borderBgColor: '#eeeeee',
+      borderColor: '#000000',
+      borderWidth: 10,
+      valueText: null,
+      valueTextColor: '#000000',
+      valueFontSize: 31,
+      valueFontWeight: 500,
+      labelText: null,
+      labelTextColor: '#888888',
+      labelFontSize: 14,
+      labelFontWeight: 400
+    }
+  },
+  on: {
+    tabMounted(tabEl) {
+      const app = this;
+      $(tabEl).find('.gauge-init').each(el => {
+        app.gauge.create(extend({
+          el
+        }, $(el).dataset() || {}));
+      });
+    },
+
+    tabBeforeRemove(tabEl) {
+      $(tabEl).find('.gauge-init').each(el => {
+        if (el.f7Gauge) el.f7Gauge.destroy();
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.gauge-init').each(el => {
+        app.gauge.create(extend({
+          el
+        }, $(el).dataset() || {}));
+      });
+    },
+
+    pageBeforeRemove(page) {
+      page.$el.find('.gauge-init').each(el => {
+        if (el.f7Gauge) el.f7Gauge.destroy();
+      });
+    }
+
+  },
+  vnode: {
+    'gauge-init': {
+      insert(vnode) {
+        const app = this;
+        const el = vnode.elm;
+        app.gauge.create(extend({
+          el
+        }, $(el).dataset() || {}));
+      },
+
+      destroy(vnode) {
+        const el = vnode.elm;
+        if (el.f7Gauge) el.f7Gauge.destroy();
+      }
+
+    }
+  }
+};

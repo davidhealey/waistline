@@ -1,1 +1,610 @@
-(function framework7ComponentLoader(e,t){void 0===t&&(t=!0);var o=e.$,s=e.utils,i=(e.getDevice,e.getSupport),n=(e.Class,e.Modal,e.ConstructorMethods,e.ModalMethods,s.bindMethods),a=s.nextFrame,r={init:function(){var e,t,s,n,a,p,l,u,f,w,d,c,h,v,g,m,C,x,O,M,E,T=this,L={};var S=!!i().passiveListener&&{passive:!0};T.on("touchstart",(function(e){if(r.el){var t=o(e.target);o(r.el).is(t[0])||t.parents(".swipeout").is(r.el)||t.hasClass("modal-in")||(t.attr("class")||"").indexOf("-backdrop")>0||t.hasClass("actions-modal")||t.parents(".actions-modal.modal-in, .dialog.modal-in").length>0||T.swipeout.close(r.el)}})),o(document).on(T.touchEvents.start,"li.swipeout",(function(i){T.swipeout.allow&&(t=!1,e=!0,s=void 0,L.x="touchstart"===i.type?i.targetTouches[0].pageX:i.pageX,L.y="touchstart"===i.type?i.targetTouches[0].pageY:i.pageY,n=(new Date).getTime(),p=o(this))}),S),T.on("touchmove:active",(function(i){if(e){var n="touchmove"===i.type?i.targetTouches[0].pageX:i.pageX,r="touchmove"===i.type?i.targetTouches[0].pageY:i.pageY;if(void 0===s&&(s=!!(s||Math.abs(r-L.y)>Math.abs(n-L.x))),s)e=!1;else{if(!t){if(o(".list.sortable-opened").length>0)return;l=p.find(".swipeout-content"),u=p.find(".swipeout-actions-right"),f=p.find(".swipeout-actions-left"),w=null,d=null,g=null,m=null,O=null,x=null,f.length>0&&(w=f.outerWidth(),g=f.children("a"),x=f.find(".swipeout-overswipe")),u.length>0&&(d=u.outerWidth(),m=u.children("a"),O=u.find(".swipeout-overswipe")),(h=p.hasClass("swipeout-opened"))&&(v=p.find(".swipeout-actions-left.swipeout-actions-opened").length>0?"left":"right"),p.removeClass("swipeout-transitioning"),T.params.swipeout.noFollow||(p.find(".swipeout-actions-opened").removeClass("swipeout-actions-opened"),p.removeClass("swipeout-opened"))}if(t=!0,i.cancelable&&i.preventDefault(),a=n-L.x,c=a,h&&("right"===v?c-=d:c+=w),c>0&&0===f.length||c<0&&0===u.length){if(!h)return e=!1,t=!1,l.transform(""),m&&m.length>0&&m.transform(""),void(g&&g.length>0&&g.transform(""));c=0}var S,y;if(c<0?C="to-left":c>0?C="to-right":C||(C="to-left"),i.f7PreventSwipePanel=!0,T.params.swipeout.noFollow)return h?("right"===v&&a>0&&T.swipeout.close(p),"left"===v&&a<0&&T.swipeout.close(p)):(a<0&&u.length>0&&T.swipeout.open(p,"right"),a>0&&f.length>0&&T.swipeout.open(p,"left")),e=!1,void(t=!1);if(M=!1,E=!1,u.length>0){var B=c;if(y=B/d,B<-d){var W=B/-d;B=-d-Math.pow(-B-d,.8),c=B,O.length>0&&W>T.params.swipeout.overswipeRatio&&(E=!0)}"to-left"!==C&&(y=0,B=0),m.each((function(e){var t=o(e);void 0===e.f7SwipeoutButtonOffset&&(t[0].f7SwipeoutButtonOffset=e.offsetLeft),S=e.f7SwipeoutButtonOffset,O.length>0&&t.hasClass("swipeout-overswipe")&&"to-left"===C&&(t.css({left:(E?-S:0)+"px"}),E?(t.hasClass("swipeout-overswipe-active")||(p.trigger("swipeout:overswipeenter"),T.emit("swipeoutOverswipeEnter",p[0])),t.addClass("swipeout-overswipe-active")):(t.hasClass("swipeout-overswipe-active")&&(p.trigger("swipeout:overswipeexit"),T.emit("swipeoutOverswipeExit",p[0])),t.removeClass("swipeout-overswipe-active"))),t.transform("translate3d("+(B-S*(1+Math.max(y,-1)))+"px,0,0)")}))}if(f.length>0){var b=c;if(y=b/w,b>w){var D=b/d;b=w+Math.pow(b-w,.8),c=b,x.length>0&&D>T.params.swipeout.overswipeRatio&&(M=!0)}"to-right"!==C&&(b=0,y=0),g.each((function(e,t){var s=o(e);void 0===e.f7SwipeoutButtonOffset&&(s[0].f7SwipeoutButtonOffset=w-e.offsetLeft-e.offsetWidth),S=e.f7SwipeoutButtonOffset,x.length>0&&s.hasClass("swipeout-overswipe")&&"to-right"===C&&(s.css({left:(M?S:0)+"px"}),M?(s.hasClass("swipeout-overswipe-active")||(p.trigger("swipeout:overswipeenter"),T.emit("swipeoutOverswipeEnter",p[0])),s.addClass("swipeout-overswipe-active")):(s.hasClass("swipeout-overswipe-active")&&(p.trigger("swipeout:overswipeexit"),T.emit("swipeoutOverswipeExit",p[0])),s.removeClass("swipeout-overswipe-active"))),g.length>1&&s.css("z-index",g.length-t),s.transform("translate3d("+(b+S*(1-Math.min(y,1)))+"px,0,0)")}))}p.trigger("swipeout",y),T.emit("swipeout",p[0],y),l.transform("translate3d("+c+"px,0,0)")}}})),T.on("touchend:passive",(function(){if(!e||!t)return e=!1,void(t=!1);e=!1,t=!1;var s,i,v,x,O=(new Date).getTime()-n,L="to-left"===C?u:f,S="to-left"===C?d:w;if(s=O<300&&(a<-10&&"to-left"===C||a>10&&"to-right"===C)||O>=300&&Math.abs(c)>S/2?"open":"close",O<300&&(0===Math.abs(c)&&(s="close"),Math.abs(c)===S&&(s="open")),"open"===s){r.el=p[0],p.trigger("swipeout:open"),T.emit("swipeoutOpen",p[0]),p.addClass("swipeout-opened swipeout-transitioning");var y="to-left"===C?-S:S;if(l.transform("translate3d("+y+"px,0,0)"),L.addClass("swipeout-actions-opened"),i="to-left"===C?m:g)for(v=0;v<i.length;v+=1)o(i[v]).transform("translate3d("+y+"px,0,0)");E&&u.find(".swipeout-overswipe").trigger("click","f7Overswipe"),M&&f.find(".swipeout-overswipe").trigger("click","f7Overswipe")}else p.trigger("swipeout:close"),T.emit("swipeoutClose",p[0]),r.el=void 0,p.addClass("swipeout-transitioning").removeClass("swipeout-opened"),l.transform(""),L.removeClass("swipeout-actions-opened");g&&g.length>0&&g!==i&&g.each((function(e){var t=o(e);void 0===(x=e.f7SwipeoutButtonOffset)&&(t[0].f7SwipeoutButtonOffset=w-e.offsetLeft-e.offsetWidth),t.transform("translate3d("+x+"px,0,0)")})),m&&m.length>0&&m!==i&&m.each((function(e){var t=o(e);void 0===(x=e.f7SwipeoutButtonOffset)&&(t[0].f7SwipeoutButtonOffset=e.offsetLeft),t.transform("translate3d("+-x+"px,0,0)")})),l.transitionEnd((function(){h&&"open"===s||!h&&"close"===s||(p.trigger("open"===s?"swipeout:opened":"swipeout:closed"),T.emit("open"===s?"swipeoutOpened":"swipeoutClosed",p[0]),p.removeClass("swipeout-transitioning"),h&&"close"===s&&(u.length>0&&m.transform(""),f.length>0&&g.transform("")))}))}))},allow:!0,el:void 0,open:function(){for(var e=this,t=arguments.length,s=new Array(t),i=0;i<t;i++)s[i]=arguments[i];var n=s[0],p=s[1],l=s[2];"function"==typeof s[1]&&(n=s[0],l=s[1],p=s[2]);var u=o(n).eq(0);if(0!==u.length&&u.hasClass("swipeout")&&!u.hasClass("swipeout-opened")){p||(p=u.find(".swipeout-actions-right").length>0?"right":"left");var f=u.find(".swipeout-actions-"+p),w=u.find(".swipeout-content");if(0!==f.length){u.trigger("swipeout:open").addClass("swipeout-opened").removeClass("swipeout-transitioning"),e.emit("swipeoutOpen",u[0]),f.addClass("swipeout-actions-opened");var d=f.children("a"),c=f.outerWidth(),h="right"===p?-c:c;d.length>1&&d.each((function(e,t){var s=o(e);"right"===p?s.transform("translate3d("+-e.offsetLeft+"px,0,0)"):s.css("z-index",d.length-t).transform("translate3d("+(c-e.offsetWidth-e.offsetLeft)+"px,0,0)")})),u.addClass("swipeout-transitioning"),w.transitionEnd((function(){u.trigger("swipeout:opened"),e.emit("swipeoutOpened",u[0]),l&&l.call(u[0])})),a((function(){d.transform("translate3d("+h+"px,0,0)"),w.transform("translate3d("+h+"px,0,0)")})),r.el=u[0]}}},close:function(e,t){var s=this,i=o(e).eq(0);if(0!==i.length&&i.hasClass("swipeout-opened")){var n,a=i.find(".swipeout-actions-opened").hasClass("swipeout-actions-right")?"right":"left",p=i.find(".swipeout-actions-opened").removeClass("swipeout-actions-opened"),l=p.children("a"),u=p.outerWidth();s.swipeout.allow=!1,i.trigger("swipeout:close"),s.emit("swipeoutClose",i[0]),i.removeClass("swipeout-opened").addClass("swipeout-transitioning"),i.find(".swipeout-content").transform("").transitionEnd(f),n=setTimeout(f,500),l.each((function(e){var t=o(e);"right"===a?t.transform("translate3d("+-e.offsetLeft+"px,0,0)"):t.transform("translate3d("+(u-e.offsetWidth-e.offsetLeft)+"px,0,0)"),t.css({left:"0px"}).removeClass("swipeout-overswipe-active")})),r.el&&r.el===i[0]&&(r.el=void 0)}function f(){s.swipeout.allow=!0,i.hasClass("swipeout-opened")||(i.removeClass("swipeout-transitioning"),l.transform(""),i.trigger("swipeout:closed"),s.emit("swipeoutClosed",i[0]),t&&t.call(i[0]),n&&clearTimeout(n))}},delete:function(e,t){var s=this,i=o(e).eq(0);0!==i.length&&(r.el=void 0,i.trigger("swipeout:delete"),s.emit("swipeoutDelete",i[0]),i.css({height:i.outerHeight()+"px"}),i.transitionEnd((function(){if(i.trigger("swipeout:deleted"),s.emit("swipeoutDeleted",i[0]),t&&t.call(i[0]),i.parents(".virtual-list").length>0){var e=i.parents(".virtual-list")[0].f7VirtualList,o=i[0].f7VirtualListIndex;e&&void 0!==o&&e.deleteItem(o)}else s.params.swipeout.removeElements?s.params.swipeout.removeElementsWithTimeout?setTimeout((function(){i.remove()}),s.params.swipeout.removeElementsTimeout):i.remove():i.removeClass("swipeout-deleting swipeout-transitioning")})),a((function(){i.addClass("swipeout-deleting swipeout-transitioning").css({height:"0px"}).find(".swipeout-content").transform("translate3d(-100%,0,0)")})))}},p={name:"swipeout",params:{swipeout:{actionsNoFold:!1,noFollow:!1,removeElements:!0,removeElementsWithTimeout:!1,removeElementsTimeout:0,overswipeRatio:1.2}},create:function(){n(this,{swipeout:r})},clicks:{".swipeout-open":function(e,t){void 0===t&&(t={});this.swipeout.open(t.swipeout,t.side)},".swipeout-close":function(e){var t=e.closest(".swipeout");0!==t.length&&this.swipeout.close(t)},".swipeout-delete":function(e,t){void 0===t&&(t={});var o=this,s=e.closest(".swipeout");if(0!==s.length){var i=t,n=i.confirm,a=i.confirmTitle;t.confirm?o.dialog.confirm(n,a,(function(){o.swipeout.delete(s)})):o.swipeout.delete(s)}}},on:{init:function(){this.params.swipeout&&this.swipeout.init()}}};if(t){if(e.prototype.modules&&e.prototype.modules[p.name])return;e.use(p),e.instance&&(e.instance.useModuleParams(p,e.instance.params),e.instance.useModule(p))}return p}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import { getDocument } from 'ssr-window';
+import $ from '../../shared/dom7.js';
+import { nextFrame, bindMethods } from '../../shared/utils.js';
+import { getSupport } from '../../shared/get-support.js';
+const Swipeout = {
+  init() {
+    const app = this;
+    const document = getDocument();
+    const touchesStart = {};
+    let isTouched;
+    let isMoved;
+    let isScrolling;
+    let touchStartTime;
+    let touchesDiff;
+    let $swipeoutEl;
+    let $swipeoutContent;
+    let $actionsRight;
+    let $actionsLeft;
+    let actionsLeftWidth;
+    let actionsRightWidth;
+    let translate;
+    let opened;
+    let openedActionsSide;
+    let $leftButtons;
+    let $rightButtons;
+    let direction;
+    let $overswipeLeftButton;
+    let $overswipeRightButton;
+    let overswipeLeft;
+    let overswipeRight;
+
+    function handleTouchStart(e) {
+      if (!app.swipeout.allow) return;
+      isMoved = false;
+      isTouched = true;
+      isScrolling = undefined;
+      touchesStart.x = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
+      touchesStart.y = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+      touchStartTime = new Date().getTime();
+      $swipeoutEl = $(this);
+    }
+
+    function handleTouchMove(e) {
+      if (!isTouched) return;
+      const pageX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
+      const pageY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+
+      if (typeof isScrolling === 'undefined') {
+        isScrolling = !!(isScrolling || Math.abs(pageY - touchesStart.y) > Math.abs(pageX - touchesStart.x));
+      }
+
+      if (isScrolling) {
+        isTouched = false;
+        return;
+      }
+
+      if (!isMoved) {
+        if ($('.list.sortable-opened').length > 0) return;
+        $swipeoutContent = $swipeoutEl.find('.swipeout-content');
+        $actionsRight = $swipeoutEl.find('.swipeout-actions-right');
+        $actionsLeft = $swipeoutEl.find('.swipeout-actions-left');
+        actionsLeftWidth = null;
+        actionsRightWidth = null;
+        $leftButtons = null;
+        $rightButtons = null;
+        $overswipeRightButton = null;
+        $overswipeLeftButton = null;
+
+        if ($actionsLeft.length > 0) {
+          actionsLeftWidth = $actionsLeft.outerWidth();
+          $leftButtons = $actionsLeft.children('a');
+          $overswipeLeftButton = $actionsLeft.find('.swipeout-overswipe');
+        }
+
+        if ($actionsRight.length > 0) {
+          actionsRightWidth = $actionsRight.outerWidth();
+          $rightButtons = $actionsRight.children('a');
+          $overswipeRightButton = $actionsRight.find('.swipeout-overswipe');
+        }
+
+        opened = $swipeoutEl.hasClass('swipeout-opened');
+
+        if (opened) {
+          openedActionsSide = $swipeoutEl.find('.swipeout-actions-left.swipeout-actions-opened').length > 0 ? 'left' : 'right';
+        }
+
+        $swipeoutEl.removeClass('swipeout-transitioning');
+
+        if (!app.params.swipeout.noFollow) {
+          $swipeoutEl.find('.swipeout-actions-opened').removeClass('swipeout-actions-opened');
+          $swipeoutEl.removeClass('swipeout-opened');
+        }
+      }
+
+      isMoved = true;
+
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
+      touchesDiff = pageX - touchesStart.x;
+      translate = touchesDiff;
+
+      if (opened) {
+        if (openedActionsSide === 'right') translate -= actionsRightWidth;else translate += actionsLeftWidth;
+      }
+
+      if (translate > 0 && $actionsLeft.length === 0 || translate < 0 && $actionsRight.length === 0) {
+        if (!opened) {
+          isTouched = false;
+          isMoved = false;
+          $swipeoutContent.transform('');
+
+          if ($rightButtons && $rightButtons.length > 0) {
+            $rightButtons.transform('');
+          }
+
+          if ($leftButtons && $leftButtons.length > 0) {
+            $leftButtons.transform('');
+          }
+
+          return;
+        }
+
+        translate = 0;
+      }
+
+      if (translate < 0) direction = 'to-left';else if (translate > 0) direction = 'to-right';else if (!direction) direction = 'to-left';
+      let buttonOffset;
+      let progress;
+      e.f7PreventSwipePanel = true;
+
+      if (app.params.swipeout.noFollow) {
+        if (opened) {
+          if (openedActionsSide === 'right' && touchesDiff > 0) {
+            app.swipeout.close($swipeoutEl);
+          }
+
+          if (openedActionsSide === 'left' && touchesDiff < 0) {
+            app.swipeout.close($swipeoutEl);
+          }
+        } else {
+          if (touchesDiff < 0 && $actionsRight.length > 0) {
+            app.swipeout.open($swipeoutEl, 'right');
+          }
+
+          if (touchesDiff > 0 && $actionsLeft.length > 0) {
+            app.swipeout.open($swipeoutEl, 'left');
+          }
+        }
+
+        isTouched = false;
+        isMoved = false;
+        return;
+      }
+
+      overswipeLeft = false;
+      overswipeRight = false;
+
+      if ($actionsRight.length > 0) {
+        // Show right actions
+        let buttonTranslate = translate;
+        progress = buttonTranslate / actionsRightWidth;
+
+        if (buttonTranslate < -actionsRightWidth) {
+          const ratio = buttonTranslate / -actionsRightWidth;
+          buttonTranslate = -actionsRightWidth - (-buttonTranslate - actionsRightWidth) ** 0.8;
+          translate = buttonTranslate;
+
+          if ($overswipeRightButton.length > 0 && ratio > app.params.swipeout.overswipeRatio) {
+            overswipeRight = true;
+          }
+        }
+
+        if (direction !== 'to-left') {
+          progress = 0;
+          buttonTranslate = 0;
+        }
+
+        $rightButtons.each(buttonEl => {
+          const $buttonEl = $(buttonEl);
+
+          if (typeof buttonEl.f7SwipeoutButtonOffset === 'undefined') {
+            $buttonEl[0].f7SwipeoutButtonOffset = buttonEl.offsetLeft;
+          }
+
+          buttonOffset = buttonEl.f7SwipeoutButtonOffset;
+
+          if ($overswipeRightButton.length > 0 && $buttonEl.hasClass('swipeout-overswipe') && direction === 'to-left') {
+            $buttonEl.css({
+              left: `${overswipeRight ? -buttonOffset : 0}px`
+            });
+
+            if (overswipeRight) {
+              if (!$buttonEl.hasClass('swipeout-overswipe-active')) {
+                $swipeoutEl.trigger('swipeout:overswipeenter');
+                app.emit('swipeoutOverswipeEnter', $swipeoutEl[0]);
+              }
+
+              $buttonEl.addClass('swipeout-overswipe-active');
+            } else {
+              if ($buttonEl.hasClass('swipeout-overswipe-active')) {
+                $swipeoutEl.trigger('swipeout:overswipeexit');
+                app.emit('swipeoutOverswipeExit', $swipeoutEl[0]);
+              }
+
+              $buttonEl.removeClass('swipeout-overswipe-active');
+            }
+          }
+
+          $buttonEl.transform(`translate3d(${buttonTranslate - buttonOffset * (1 + Math.max(progress, -1))}px,0,0)`);
+        });
+      }
+
+      if ($actionsLeft.length > 0) {
+        // Show left actions
+        let buttonTranslate = translate;
+        progress = buttonTranslate / actionsLeftWidth;
+
+        if (buttonTranslate > actionsLeftWidth) {
+          const ratio = buttonTranslate / actionsRightWidth;
+          buttonTranslate = actionsLeftWidth + (buttonTranslate - actionsLeftWidth) ** 0.8;
+          translate = buttonTranslate;
+
+          if ($overswipeLeftButton.length > 0 && ratio > app.params.swipeout.overswipeRatio) {
+            overswipeLeft = true;
+          }
+        }
+
+        if (direction !== 'to-right') {
+          buttonTranslate = 0;
+          progress = 0;
+        }
+
+        $leftButtons.each((buttonEl, index) => {
+          const $buttonEl = $(buttonEl);
+
+          if (typeof buttonEl.f7SwipeoutButtonOffset === 'undefined') {
+            $buttonEl[0].f7SwipeoutButtonOffset = actionsLeftWidth - buttonEl.offsetLeft - buttonEl.offsetWidth;
+          }
+
+          buttonOffset = buttonEl.f7SwipeoutButtonOffset;
+
+          if ($overswipeLeftButton.length > 0 && $buttonEl.hasClass('swipeout-overswipe') && direction === 'to-right') {
+            $buttonEl.css({
+              left: `${overswipeLeft ? buttonOffset : 0}px`
+            });
+
+            if (overswipeLeft) {
+              if (!$buttonEl.hasClass('swipeout-overswipe-active')) {
+                $swipeoutEl.trigger('swipeout:overswipeenter');
+                app.emit('swipeoutOverswipeEnter', $swipeoutEl[0]);
+              }
+
+              $buttonEl.addClass('swipeout-overswipe-active');
+            } else {
+              if ($buttonEl.hasClass('swipeout-overswipe-active')) {
+                $swipeoutEl.trigger('swipeout:overswipeexit');
+                app.emit('swipeoutOverswipeExit', $swipeoutEl[0]);
+              }
+
+              $buttonEl.removeClass('swipeout-overswipe-active');
+            }
+          }
+
+          if ($leftButtons.length > 1) {
+            $buttonEl.css('z-index', $leftButtons.length - index);
+          }
+
+          $buttonEl.transform(`translate3d(${buttonTranslate + buttonOffset * (1 - Math.min(progress, 1))}px,0,0)`);
+        });
+      }
+
+      $swipeoutEl.trigger('swipeout', progress);
+      app.emit('swipeout', $swipeoutEl[0], progress);
+      $swipeoutContent.transform(`translate3d(${translate}px,0,0)`);
+    }
+
+    function handleTouchEnd() {
+      if (!isTouched || !isMoved) {
+        isTouched = false;
+        isMoved = false;
+        return;
+      }
+
+      isTouched = false;
+      isMoved = false;
+      const timeDiff = new Date().getTime() - touchStartTime;
+      const $actions = direction === 'to-left' ? $actionsRight : $actionsLeft;
+      const actionsWidth = direction === 'to-left' ? actionsRightWidth : actionsLeftWidth;
+      let action;
+      let $buttons;
+      let i;
+
+      if (timeDiff < 300 && (touchesDiff < -10 && direction === 'to-left' || touchesDiff > 10 && direction === 'to-right') || timeDiff >= 300 && Math.abs(translate) > actionsWidth / 2) {
+        action = 'open';
+      } else {
+        action = 'close';
+      }
+
+      if (timeDiff < 300) {
+        if (Math.abs(translate) === 0) action = 'close';
+        if (Math.abs(translate) === actionsWidth) action = 'open';
+      }
+
+      if (action === 'open') {
+        Swipeout.el = $swipeoutEl[0];
+        $swipeoutEl.trigger('swipeout:open');
+        app.emit('swipeoutOpen', $swipeoutEl[0]);
+        $swipeoutEl.addClass('swipeout-opened swipeout-transitioning');
+        const newTranslate = direction === 'to-left' ? -actionsWidth : actionsWidth;
+        $swipeoutContent.transform(`translate3d(${newTranslate}px,0,0)`);
+        $actions.addClass('swipeout-actions-opened');
+        $buttons = direction === 'to-left' ? $rightButtons : $leftButtons;
+
+        if ($buttons) {
+          for (i = 0; i < $buttons.length; i += 1) {
+            $($buttons[i]).transform(`translate3d(${newTranslate}px,0,0)`);
+          }
+        }
+
+        if (overswipeRight) {
+          $actionsRight.find('.swipeout-overswipe').trigger('click', 'f7Overswipe');
+        }
+
+        if (overswipeLeft) {
+          $actionsLeft.find('.swipeout-overswipe').trigger('click', 'f7Overswipe');
+        }
+      } else {
+        $swipeoutEl.trigger('swipeout:close');
+        app.emit('swipeoutClose', $swipeoutEl[0]);
+        Swipeout.el = undefined;
+        $swipeoutEl.addClass('swipeout-transitioning').removeClass('swipeout-opened');
+        $swipeoutContent.transform('');
+        $actions.removeClass('swipeout-actions-opened');
+      }
+
+      let buttonOffset;
+
+      if ($leftButtons && $leftButtons.length > 0 && $leftButtons !== $buttons) {
+        $leftButtons.each(buttonEl => {
+          const $buttonEl = $(buttonEl);
+          buttonOffset = buttonEl.f7SwipeoutButtonOffset;
+
+          if (typeof buttonOffset === 'undefined') {
+            $buttonEl[0].f7SwipeoutButtonOffset = actionsLeftWidth - buttonEl.offsetLeft - buttonEl.offsetWidth;
+          }
+
+          $buttonEl.transform(`translate3d(${buttonOffset}px,0,0)`);
+        });
+      }
+
+      if ($rightButtons && $rightButtons.length > 0 && $rightButtons !== $buttons) {
+        $rightButtons.each(buttonEl => {
+          const $buttonEl = $(buttonEl);
+          buttonOffset = buttonEl.f7SwipeoutButtonOffset;
+
+          if (typeof buttonOffset === 'undefined') {
+            $buttonEl[0].f7SwipeoutButtonOffset = buttonEl.offsetLeft;
+          }
+
+          $buttonEl.transform(`translate3d(${-buttonOffset}px,0,0)`);
+        });
+      }
+
+      $swipeoutContent.transitionEnd(() => {
+        if (opened && action === 'open' || !opened && action === 'close') return;
+        $swipeoutEl.trigger(action === 'open' ? 'swipeout:opened' : 'swipeout:closed');
+        app.emit(action === 'open' ? 'swipeoutOpened' : 'swipeoutClosed', $swipeoutEl[0]);
+        $swipeoutEl.removeClass('swipeout-transitioning');
+
+        if (opened && action === 'close') {
+          if ($actionsRight.length > 0) {
+            $rightButtons.transform('');
+          }
+
+          if ($actionsLeft.length > 0) {
+            $leftButtons.transform('');
+          }
+        }
+      });
+    }
+
+    const passiveListener = getSupport().passiveListener ? {
+      passive: true
+    } : false;
+    app.on('touchstart', e => {
+      if (Swipeout.el) {
+        const $targetEl = $(e.target);
+
+        if (!($(Swipeout.el).is($targetEl[0]) || $targetEl.parents('.swipeout').is(Swipeout.el) || $targetEl.hasClass('modal-in') || ($targetEl.attr('class') || '').indexOf('-backdrop') > 0 || $targetEl.hasClass('actions-modal') || $targetEl.parents('.actions-modal.modal-in, .dialog.modal-in').length > 0)) {
+          app.swipeout.close(Swipeout.el);
+        }
+      }
+    });
+    $(document).on(app.touchEvents.start, 'li.swipeout', handleTouchStart, passiveListener);
+    app.on('touchmove:active', handleTouchMove);
+    app.on('touchend:passive', handleTouchEnd);
+  },
+
+  allow: true,
+  el: undefined,
+
+  open() {
+    const app = this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    let [el, side, callback] = args;
+
+    if (typeof args[1] === 'function') {
+      [el, callback, side] = args;
+    }
+
+    const $el = $(el).eq(0);
+    if ($el.length === 0) return;
+    if (!$el.hasClass('swipeout') || $el.hasClass('swipeout-opened')) return;
+
+    if (!side) {
+      if ($el.find('.swipeout-actions-right').length > 0) side = 'right';else side = 'left';
+    }
+
+    const $swipeoutActions = $el.find(`.swipeout-actions-${side}`);
+    const $swipeoutContent = $el.find('.swipeout-content');
+    if ($swipeoutActions.length === 0) return;
+    $el.trigger('swipeout:open').addClass('swipeout-opened').removeClass('swipeout-transitioning');
+    app.emit('swipeoutOpen', $el[0]);
+    $swipeoutActions.addClass('swipeout-actions-opened');
+    const $buttons = $swipeoutActions.children('a');
+    const swipeoutActionsWidth = $swipeoutActions.outerWidth();
+    const translate = side === 'right' ? -swipeoutActionsWidth : swipeoutActionsWidth;
+
+    if ($buttons.length > 1) {
+      $buttons.each((buttonEl, buttonIndex) => {
+        const $buttonEl = $(buttonEl);
+
+        if (side === 'right') {
+          $buttonEl.transform(`translate3d(${-buttonEl.offsetLeft}px,0,0)`);
+        } else {
+          $buttonEl.css('z-index', $buttons.length - buttonIndex).transform(`translate3d(${swipeoutActionsWidth - buttonEl.offsetWidth - buttonEl.offsetLeft}px,0,0)`);
+        }
+      });
+    }
+
+    $el.addClass('swipeout-transitioning');
+    $swipeoutContent.transitionEnd(() => {
+      $el.trigger('swipeout:opened');
+      app.emit('swipeoutOpened', $el[0]);
+      if (callback) callback.call($el[0]);
+    });
+    nextFrame(() => {
+      $buttons.transform(`translate3d(${translate}px,0,0)`);
+      $swipeoutContent.transform(`translate3d(${translate}px,0,0)`);
+    });
+    Swipeout.el = $el[0];
+  },
+
+  close(el, callback) {
+    const app = this;
+    const $el = $(el).eq(0);
+    if ($el.length === 0) return;
+    if (!$el.hasClass('swipeout-opened')) return;
+    const side = $el.find('.swipeout-actions-opened').hasClass('swipeout-actions-right') ? 'right' : 'left';
+    const $swipeoutActions = $el.find('.swipeout-actions-opened').removeClass('swipeout-actions-opened');
+    const $buttons = $swipeoutActions.children('a');
+    const swipeoutActionsWidth = $swipeoutActions.outerWidth();
+    app.swipeout.allow = false;
+    $el.trigger('swipeout:close');
+    app.emit('swipeoutClose', $el[0]);
+    $el.removeClass('swipeout-opened').addClass('swipeout-transitioning');
+    let closeTimeout;
+
+    function onSwipeoutClose() {
+      app.swipeout.allow = true;
+      if ($el.hasClass('swipeout-opened')) return;
+      $el.removeClass('swipeout-transitioning');
+      $buttons.transform('');
+      $el.trigger('swipeout:closed');
+      app.emit('swipeoutClosed', $el[0]);
+      if (callback) callback.call($el[0]);
+      if (closeTimeout) clearTimeout(closeTimeout);
+    }
+
+    $el.find('.swipeout-content').transform('').transitionEnd(onSwipeoutClose);
+    closeTimeout = setTimeout(onSwipeoutClose, 500);
+    $buttons.each(buttonEl => {
+      const $buttonEl = $(buttonEl);
+
+      if (side === 'right') {
+        $buttonEl.transform(`translate3d(${-buttonEl.offsetLeft}px,0,0)`);
+      } else {
+        $buttonEl.transform(`translate3d(${swipeoutActionsWidth - buttonEl.offsetWidth - buttonEl.offsetLeft}px,0,0)`);
+      }
+
+      $buttonEl.css({
+        left: '0px'
+      }).removeClass('swipeout-overswipe-active');
+    });
+    if (Swipeout.el && Swipeout.el === $el[0]) Swipeout.el = undefined;
+  },
+
+  delete(el, callback) {
+    const app = this;
+    const $el = $(el).eq(0);
+    if ($el.length === 0) return;
+    Swipeout.el = undefined;
+    $el.trigger('swipeout:delete');
+    app.emit('swipeoutDelete', $el[0]);
+    $el.css({
+      height: `${$el.outerHeight()}px`
+    });
+    $el.transitionEnd(() => {
+      $el.trigger('swipeout:deleted');
+      app.emit('swipeoutDeleted', $el[0]);
+      if (callback) callback.call($el[0]);
+
+      if ($el.parents('.virtual-list').length > 0) {
+        const virtualList = $el.parents('.virtual-list')[0].f7VirtualList;
+        const virtualIndex = $el[0].f7VirtualListIndex;
+        if (virtualList && typeof virtualIndex !== 'undefined') virtualList.deleteItem(virtualIndex);
+      } else if (app.params.swipeout.removeElements) {
+        if (app.params.swipeout.removeElementsWithTimeout) {
+          setTimeout(() => {
+            $el.remove();
+          }, app.params.swipeout.removeElementsTimeout);
+        } else {
+          $el.remove();
+        }
+      } else {
+        $el.removeClass('swipeout-deleting swipeout-transitioning');
+      }
+    }); // eslint-disable-next-line
+    // $el[0]._clientLeft = $el[0].clientLeft;
+
+    nextFrame(() => {
+      $el.addClass('swipeout-deleting swipeout-transitioning').css({
+        height: '0px'
+      }).find('.swipeout-content').transform('translate3d(-100%,0,0)');
+    });
+  }
+
+};
+export default {
+  name: 'swipeout',
+  params: {
+    swipeout: {
+      actionsNoFold: false,
+      noFollow: false,
+      removeElements: true,
+      removeElementsWithTimeout: false,
+      removeElementsTimeout: 0,
+      overswipeRatio: 1.2
+    }
+  },
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      swipeout: Swipeout
+    });
+  },
+
+  clicks: {
+    '.swipeout-open': function openSwipeout($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.swipeout.open(data.swipeout, data.side);
+    },
+    '.swipeout-close': function closeSwipeout($clickedEl) {
+      const app = this;
+      const $swipeoutEl = $clickedEl.closest('.swipeout');
+      if ($swipeoutEl.length === 0) return;
+      app.swipeout.close($swipeoutEl);
+    },
+    '.swipeout-delete': function deleteSwipeout($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      const $swipeoutEl = $clickedEl.closest('.swipeout');
+      if ($swipeoutEl.length === 0) return;
+      const {
+        confirm,
+        confirmTitle
+      } = data;
+
+      if (data.confirm) {
+        app.dialog.confirm(confirm, confirmTitle, () => {
+          app.swipeout.delete($swipeoutEl);
+        });
+      } else {
+        app.swipeout.delete($swipeoutEl);
+      }
+    }
+  },
+  on: {
+    init() {
+      const app = this;
+      if (!app.params.swipeout) return;
+      app.swipeout.init();
+    }
+
+  }
+};

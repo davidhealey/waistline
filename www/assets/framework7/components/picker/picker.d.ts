@@ -1,6 +1,10 @@
 import { Dom7Array } from 'dom7';
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
-import { View } from '../view/view';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
+import { View } from '../view/view.js';
 
 export namespace Picker {
   interface Picker extends Framework7EventsClass<Events> {
@@ -32,9 +36,8 @@ export namespace Picker {
     view: View.View;
     /** Object with initialization parameters */
     params: Parameters;
-
     /** Set new picker value. values is array where each item represents value for each column. duration - transition duration in ms */
-    setValue(values: unknown[], duration?: number): void;
+    setValue(values: unknown[]): void;
     /** Returns current picker value */
     getValue(): unknown;
     /** Open Picker */
@@ -60,7 +63,7 @@ export namespace Picker {
     activeIndex: number;
 
     /** Set new value for current column. value is a new value, duration - transition duration in ms */
-    setValue(value: unknown, duration?: number): void;
+    setValue(value: unknown): void;
     /** Replace column values and displayValues with new ones */
     replaceValues(values: unknown[], displayValues: unknown[]): void;
   }
@@ -87,16 +90,6 @@ export namespace Picker {
   interface Parameters {
     /** Enables 3D rotate effect. (default false) */
     rotateEffect?: boolean;
-    /** Larger values produces more momentum when you release picker after fast touch and move. (default 7) */
-    momentumRatio?: number;
-    /** Updates picker and input values during momentum. (default false) */
-    updateValuesOnMomentum?: boolean;
-    /** Updates picker and input values during touch move. (default true) */
-    updateValuesOnTouchmove?: boolean;
-    /** Updates picker and input values during mousewheel scrolling. (default true) */
-    updateValuesOnMousewheel?: boolean;
-    /** Allow to scroll through picker with mousewheel (default true) */
-    mousewheel?: boolean;
     /** Disables snapping on values. (default false) */
     freeMode?: boolean;
     /** Array with initial values. Each array item represents value of related column. */

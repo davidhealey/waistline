@@ -1,5 +1,5 @@
-import Framework7 from '../app/app-class';
-import { CSSSelector, Framework7Plugin } from '../app/app-class';
+import Framework7 from '../app/app-class.js';
+import { CSSSelector, Framework7Plugin } from '../app/app-class.js';
 
 export namespace Accordion {
   interface AppMethods {

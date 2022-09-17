@@ -1,1 +1,70 @@
-(function framework7ComponentLoader(t,e){void 0===e&&(e=!0);var r=t.$,o=t.utils,a=t.getDevice,n=t.getSupport,s=t.Class,l=(t.Modal,t.ConstructorMethods),i=(t.ModalMethods,o.deleteProps),p=o.extend;function c(t){this.wrapped=t}function u(t){var e,r;function o(e,r){try{var n=t[e](r),s=n.value,l=s instanceof c;Promise.resolve(l?s.wrapped:s).then((function(t){l?o("return"===e?"return":"next",t):a(n.done?"return":"normal",t)}),(function(t){o("throw",t)}))}catch(t){a("throw",t)}}function a(t,a){switch(t){case"return":e.resolve({value:a,done:!0});break;case"throw":e.reject(a);break;default:e.resolve({value:a,done:!1})}(e=e.next)?o(e.key,e.arg):r=null}this._invoke=function(t,a){return new Promise((function(n,s){var l={key:t,arg:a,resolve:n,reject:s,next:null};r?r=r.next=l:(e=r=l,o(t,a))}))},"function"!=typeof t.return&&(this.return=void 0)}function f(t,e){return(f=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function h(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}u.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},u.prototype.next=function(t){return this._invoke("next",t)},u.prototype.throw=function(t){return this._invoke("throw",t)},u.prototype.return=function(t){return this._invoke("return",t)};var d=function(t){var e,o;function s(e,o){var s,l=h(s=t.call(this,{},[e])||this),i=a(),p=n(),c=r(o),u=c.find(".ptr-preloader");l.$el=c,l.el=c[0],l.app=e,l.bottom=l.$el.hasClass("ptr-bottom"),l.useModulesParams({});var f,d,v,g="md"===e.theme,m="ios"===e.theme,b="aurora"===e.theme;l.done=function(){var t=g?u:c;return t.on("transitionend",(function e(o){r(o.target).closest(u).length||(c.removeClass("ptr-transitioning ptr-pull-up ptr-pull-down ptr-closing"),c.trigger("ptr:done"),l.emit("local::done ptrDone",c[0]),t.off("transitionend",e))})),c.removeClass("ptr-refreshing").addClass("ptr-transitioning ptr-closing"),l},l.refresh=function(){return c.hasClass("ptr-refreshing")||(c.addClass("ptr-transitioning ptr-refreshing"),c.trigger("ptr:refresh",l.done),l.emit("local::refresh ptrRefresh",c[0],l.done)),l},l.mousewheel="true"===c.attr("data-ptr-mousewheel");var w,C,y,M,T,x,P,E,H,k,R,D,S,_={},I=!1,$=!1,O=!1,X=0,Y=!1,j=c.parents(".page");if((j.find(".navbar").length>0||j.parents(".view").children(".navbars").length>0)&&(Y=!0),j.hasClass("no-navbar")&&(Y=!1),!l.bottom){var B=e.navbar.getElByPage(j[0]);if(B){var L=r(B),V=L.hasClass("navbar-large-transparent")||L.hasClass("navbar-large")&&L.hasClass("navbar-transparent"),q=L.hasClass("navbar-transparent")&&!L.hasClass("navbar-large");V?c.addClass("ptr-with-navbar-large-transparent"):q&&c.addClass("ptr-with-navbar-transparent")}}function z(t){void 0===t&&(t=0);var e=u.find(".preloader-inner-line"),r=1/e.length;e.forEach((function(e,o){var a=(t-o*r)/r;e.style.opacity=.27*Math.max(Math.min(a,1),0)}))}function A(){u.find(".preloader-inner-line").css("opacity","")}function F(t){if(d){if("android"!==i.os)return;if("targetTouches"in t&&t.targetTouches.length>1)return}c.hasClass("ptr-refreshing")||r(t.target).closest(".sortable-handler, .ptr-ignore, .card-expandable.card-opened").length||(v=!1,E=!1,d=!0,w=void 0,T=void 0,"touchstart"===t.type&&(f=t.targetTouches[0].identifier),_.x="touchstart"===t.type?t.targetTouches[0].pageX:t.pageX,_.y="touchstart"===t.type?t.targetTouches[0].pageY:t.pageY)}function G(t){if(d){var e,a,n;if("touchmove"===t.type){if(f&&t.touches)for(var s=0;s<t.touches.length;s+=1)t.touches[s].identifier===f&&(n=t.touches[s]);n||(n=t.targetTouches[0]),e=n.pageX,a=n.pageY}else e=t.pageX,a=t.pageY;if(e&&a)if(void 0===w&&(w=!!(w||Math.abs(a-_.y)>Math.abs(e-_.x))),w){if(M=c[0].scrollTop,!v){var p;if(c.removeClass("ptr-transitioning"),m&&z(0),H=c[0].scrollHeight,k=c[0].offsetHeight,l.bottom&&(R=H-k),M>H)return void(d=!1);var h=r(t.target).closest(".ptr-watch-scroll");if(h.length&&h.each((function(t){t!==o&&t.scrollHeight>t.offsetHeight&&"auto"===r(t).css("overflow")&&(!l.bottom&&t.scrollTop>0||l.bottom&&t.scrollTop<t.scrollHeight-t.offsetHeight)&&(p=!0)})),p)return void(d=!1);P&&(x=c.attr("data-ptr-distance")).indexOf("%")>=0&&(x=H*parseInt(x,10)/100),X=c.hasClass("ptr-refreshing")?x:0,$=!(H!==k&&"ios"===i.os&&!g),O=!1}if(v=!0,C=a-_.y,void 0===T&&(l.bottom?M!==R:0!==M)&&(T=!0),l.bottom?C<0&&M>=R||M>R:C>0&&M<=0||M<0)"ios"===i.os&&parseInt(i.osVersion.split(".")[0],10)>7&&(l.bottom||0!==M||T||($=!0),l.bottom&&M===R&&!T&&($=!0)),$||!l.bottom||g||(c.css("-webkit-overflow-scrolling","auto"),c.scrollTop(R),O=!0),$||O?(t.cancelable&&t.preventDefault(),y=(l.bottom?-1*Math.pow(Math.abs(C),.85):Math.pow(C,.85))+X,g?u.transform("translate3d(0,"+y+"px,0)").find(".ptr-arrow").transform("rotate("+(Math.abs(C)/66*180+100)+"deg)"):(l.bottom||m?c.children().transform("translate3d(0,"+y+"px,0)"):c.transform("translate3d(0,"+y+"px,0)"),m&&u.transform("translate3d(0,0px,0)"))):m&&!l.bottom&&u.transform("translate3d(0,"+M+"px,0)"),m&&!I&&z($||O?Math.pow(Math.abs(C),.85)/x:Math.abs(C)/(2*x)),($||O)&&Math.pow(Math.abs(C),.85)>x||!$&&Math.abs(C)>=2*x?(I=!0,c.addClass("ptr-pull-up").removeClass("ptr-pull-down"),A()):(I=!1,c.removeClass("ptr-pull-up").addClass("ptr-pull-down")),E||(c.trigger("ptr:pullstart"),l.emit("local::pullStart ptrPullStart",c[0]),E=!0),c.trigger("ptr:pullmove",{event:t,scrollTop:M,translate:y,touchesDiff:C}),l.emit("local::pullMove ptrPullMove",c[0],{event:t,scrollTop:M,translate:y,touchesDiff:C});else E=!1,c.removeClass("ptr-pull-up ptr-pull-down"),I=!1}else d=!1}}function J(t){return"touchend"===t.type&&t.changedTouches&&t.changedTouches.length>0&&f&&t.changedTouches[0].identifier!==f?(d=!1,w=!1,v=!1,void(f=null)):d&&v?(y&&(c.addClass("ptr-transitioning"),y=0),g?u.transform("").find(".ptr-arrow").transform(""):(u.transform(""),l.bottom||m?c.children().transform(""):c.transform("")),$||!l.bottom||g||c.css("-webkit-overflow-scrolling",""),I?(c.addClass("ptr-refreshing"),c.trigger("ptr:refresh",l.done),l.emit("local::refresh ptrRefresh",c[0],l.done)):c.removeClass("ptr-pull-down"),d=!1,v=!1,void(E&&(c.trigger("ptr:pullend"),l.emit("local::pullEnd ptrPullEnd",c[0])))):(d=!1,void(v=!1))}Y||l.bottom||c.addClass("ptr-no-navbar"),c.attr("data-ptr-distance")?P=!0:g?x=66:m?x=44:b&&(x=38);var K=!0,N=0;function Q(){K=!0,S=!1,N=0,y&&(c.addClass("ptr-transitioning"),y=0),g?u.transform("").find(".ptr-arrow").transform(""):(u.transform(""),l.bottom?c.children().transform(""):c.transform("")),I?(c.addClass("ptr-refreshing"),c.trigger("ptr:refresh",l.done),l.emit("local::refresh ptrRefresh",c[0],l.done)):c.removeClass("ptr-pull-down"),E&&(c.trigger("ptr:pullend"),l.emit("local::pullEnd ptrPullEnd",c[0]))}function U(t){if(K){var e=t.deltaX,a=t.deltaY;if(!(Math.abs(e)>Math.abs(a)||c.hasClass("ptr-refreshing")||r(t.target).closest(".sortable-handler, .ptr-ignore, .card-expandable.card-opened").length)){if(clearTimeout(D),M=c[0].scrollTop,!S){var n;if(c.removeClass("ptr-transitioning"),m&&z(0),H=c[0].scrollHeight,k=c[0].offsetHeight,l.bottom&&(R=H-k),M>H)return void(K=!1);var s=r(t.target).closest(".ptr-watch-scroll");if(s.length&&s.each((function(t){t!==o&&t.scrollHeight>t.offsetHeight&&"auto"===r(t).css("overflow")&&(!l.bottom&&t.scrollTop>0||l.bottom&&t.scrollTop<t.scrollHeight-t.offsetHeight)&&(n=!0)})),n)return void(K=!1);P&&(x=c.attr("data-ptr-distance")).indexOf("%")>=0&&(x=H*parseInt(x,10)/100)}if(v=!0,C=N-=a,void 0===T&&(l.bottom?M!==R:0!==M)&&(T=!0),l.bottom?C<0&&M>=R||M>R:C>0&&M<=0||M<0)t.cancelable&&t.preventDefault(),y=C,Math.abs(y)>x&&(y=x+Math.pow(Math.abs(y)-x,.7),l.bottom&&(y=-y)),g?u.transform("translate3d(0,"+y+"px,0)").find(".ptr-arrow").transform("rotate("+(Math.abs(C)/66*180+100)+"deg)"):l.bottom?c.children().transform("translate3d(0,"+y+"px,0)"):(c.transform("translate3d(0,"+y+"px,0)"),m&&u.transform("translate3d(0,"+-y+"px,0)")),m&&!I&&z(Math.abs(y)/x),Math.abs(y)>x?(I=!0,c.addClass("ptr-pull-up").removeClass("ptr-pull-down"),A()):(I=!1,c.removeClass("ptr-pull-up").addClass("ptr-pull-down")),E||(c.trigger("ptr:pullstart"),l.emit("local::pullStart ptrPullStart",c[0]),E=!0),c.trigger("ptr:pullmove",{event:t,scrollTop:M,translate:y,touchesDiff:C}),l.emit("local::pullMove ptrPullMove",c[0],{event:t,scrollTop:M,translate:y,touchesDiff:C});else E=!1,c.removeClass("ptr-pull-up ptr-pull-down"),I=!1;D=setTimeout(Q,300)}}}return j.length&&c.length?(c[0].f7PullToRefresh=l,l.attachEvents=function(){var t=!!p.passiveListener&&{passive:!0};c.on(e.touchEvents.start,F,t),e.on("touchmove:active",G),e.on("touchend:passive",J),l.mousewheel&&!l.bottom&&c.on("wheel",U)},l.detachEvents=function(){var t=!!p.passiveListener&&{passive:!0};c.off(e.touchEvents.start,F,t),e.off("touchmove:active",G),e.off("touchend:passive",J),l.mousewheel&&!l.bottom&&c.off("wheel",U)},l.useModules(),l.init(),l||h(s)):l||h(s)}o=t,(e=s).prototype=Object.create(o.prototype),e.prototype.constructor=e,f(e,o);var l=s.prototype;return l.init=function(){this.attachEvents()},l.destroy=function(){var t=this;t.emit("local::beforeDestroy ptrBeforeDestroy",t),t.$el.trigger("ptr:beforedestroy"),delete t.el.f7PullToRefresh,t.detachEvents(),i(t),t=null},s}(s),v={name:"pullToRefresh",create:function(){var t=this;t.ptr=p(l({defaultSelector:".ptr-content",constructor:d,app:t,domProp:"f7PullToRefresh"}),{done:function(e){var r=t.ptr.get(e);if(r)return r.done()},refresh:function(e){var r=t.ptr.get(e);if(r)return r.refresh()}})},static:{PullToRefresh:d},on:{tabMounted:function(t){var e=this,o=r(t),a=o.find(".ptr-content");o.is(".ptr-content")&&a.add(o),a.each((function(t){e.ptr.create(t)}))},tabBeforeRemove:function(t){var e=r(t),o=this,a=e.find(".ptr-content");e.is(".ptr-content")&&a.add(e),a.each((function(t){o.ptr.destroy(t)}))},pageInit:function(t){var e=this;t.$el.find(".ptr-content").each((function(t){e.ptr.create(t)}))},pageBeforeRemove:function(t){var e=this;t.$el.find(".ptr-content").each((function(t){e.ptr.destroy(t)}))}}};if(e){if(t.prototype.modules&&t.prototype.modules[v.name])return;t.use(v),t.instance&&(t.instance.useModuleParams(v,t.instance.params),t.instance.useModule(v))}return v}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { extend } from '../../shared/utils.js';
+import PullToRefresh from './pull-to-refresh-class.js';
+import ConstructorMethods from '../../shared/constructor-methods.js';
+export default {
+  name: 'pullToRefresh',
+
+  create() {
+    const app = this;
+    app.ptr = extend(ConstructorMethods({
+      defaultSelector: '.ptr-content',
+      constructor: PullToRefresh,
+      app,
+      domProp: 'f7PullToRefresh'
+    }), {
+      done(el) {
+        const ptr = app.ptr.get(el);
+        if (ptr) return ptr.done();
+        return undefined;
+      },
+
+      refresh(el) {
+        const ptr = app.ptr.get(el);
+        if (ptr) return ptr.refresh();
+        return undefined;
+      }
+
+    });
+  },
+
+  static: {
+    PullToRefresh
+  },
+  on: {
+    tabMounted(tabEl) {
+      const app = this;
+      const $tabEl = $(tabEl);
+      const $ptrEls = $tabEl.find('.ptr-content');
+      if ($tabEl.is('.ptr-content')) $ptrEls.add($tabEl);
+      $ptrEls.each(el => {
+        app.ptr.create(el);
+      });
+    },
+
+    tabBeforeRemove(tabEl) {
+      const $tabEl = $(tabEl);
+      const app = this;
+      const $ptrEls = $tabEl.find('.ptr-content');
+      if ($tabEl.is('.ptr-content')) $ptrEls.add($tabEl);
+      $ptrEls.each(el => {
+        app.ptr.destroy(el);
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.ptr-content').each(el => {
+        app.ptr.create(el);
+      });
+    },
+
+    pageBeforeRemove(page) {
+      const app = this;
+      page.$el.find('.ptr-content').each(el => {
+        app.ptr.destroy(el);
+      });
+    }
+
+  }
+};

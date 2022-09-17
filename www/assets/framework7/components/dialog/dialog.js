@@ -1,1 +1,278 @@
-(function framework7ComponentLoader(o,e){void 0===e&&(e=!0);var t=o.$,n=o.utils,a=o.getDevice,r=(o.getSupport,o.Class,o.Modal),l=(o.ConstructorMethods,o.ModalMethods);function i(o){this.wrapped=o}function s(o){var e,t;function n(e,t){try{var r=o[e](t),l=r.value,s=l instanceof i;Promise.resolve(s?l.wrapped:l).then((function(o){s?n("return"===e?"return":"next",o):a(r.done?"return":"normal",o)}),(function(o){n("throw",o)}))}catch(o){a("throw",o)}}function a(o,a){switch(o){case"return":e.resolve({value:a,done:!0});break;case"throw":e.reject(a);break;default:e.resolve({value:a,done:!1})}(e=e.next)?n(e.key,e.arg):t=null}this._invoke=function(o,a){return new Promise((function(r,l){var i={key:o,arg:a,resolve:r,reject:l,next:null};t?t=t.next=i:(e=t=i,n(o,a))}))},"function"!=typeof o.return&&(this.return=void 0)}function d(){return(d=Object.assign||function(o){for(var e=1;e<arguments.length;e++){var t=arguments[e];for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(o[n]=t[n])}return o}).apply(this,arguments)}function c(o,e){return(c=Object.setPrototypeOf||function(o,e){return o.__proto__=e,o})(o,e)}function u(o){if(void 0===o)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return o}s.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},s.prototype.next=function(o){return this._invoke("next",o)},s.prototype.throw=function(o){return this._invoke("throw",o)},s.prototype.return=function(o){return this._invoke("return",o)};var p=n.extend,f=n.iosPreloaderContent,g=n.mdPreloaderContent,v=n.auroraPreloaderContent,y=function(o){var e,n;function r(e,n){var r,l=p({title:e.params.dialog.title,text:void 0,content:"",buttons:[],verticalButtons:!1,onClick:void 0,cssClass:void 0,destroyOnClose:!1,on:{}},n);void 0===l.closeByBackdropClick&&(l.closeByBackdropClick=e.params.dialog.closeByBackdropClick),void 0===l.backdrop&&(l.backdrop=e.params.dialog.backdrop);var i,s,d,c=u(r=o.call(this,e,l)||this),f=a(),g=l.title,v=l.text,y=l.content,m=l.buttons,k=l.verticalButtons,h=l.cssClass,C=l.backdrop;if(c.params=l,c.params.el)i=t(c.params.el);else{var b=["dialog"];0===m.length&&b.push("dialog-no-buttons"),m.length>0&&b.push("dialog-buttons-"+m.length),k&&b.push("dialog-buttons-vertical"),h&&b.push(h);var w="";m.length>0&&(w=$jsx("div",{class:"dialog-buttons"},m.map((function(o){return $jsx("span",{class:"dialog-button"+(o.bold?" dialog-button-bold":"")+(o.color?" color-"+o.color:"")+(o.cssClass?" "+o.cssClass:"")},o.text)}))));var x=$jsx("div",{class:b.join(" ")},$jsx("div",{class:"dialog-inner"},g&&$jsx("div",{class:"dialog-title"},g),v&&$jsx("div",{class:"dialog-text"},v),y),w);i=t(x)}if(i&&i.length>0&&i[0].f7Modal)return i[0].f7Modal||u(r);if(0===i.length)return c.destroy()||u(r);function O(o){var e=t(this).index(),n=m[e];n.onClick&&n.onClick(c,o),c.params.onClick&&c.params.onClick(c,e),!1!==n.close&&c.close()}function P(o){var e=o.keyCode;m.forEach((function(t,n){t.keyCodes&&t.keyCodes.indexOf(e)>=0&&(document.activeElement&&document.activeElement.blur(),t.onClick&&t.onClick(c,o),c.params.onClick&&c.params.onClick(c,n),!1!==t.close&&c.close())}))}function B(o){var e=o.target;0===t(e).closest(c.el).length&&c.params.closeByBackdropClick&&c.backdropEl&&c.backdropEl===e&&c.close()}return C&&0===(s=e.$el.children(".dialog-backdrop")).length&&(s=t('<div class="dialog-backdrop"></div>'),e.$el.append(s)),m&&m.length>0&&(c.on("open",(function(){i.find(".dialog-button").each((function(o,e){m[e].keyCodes&&(d=!0),t(o).on("click",O)})),!d||f.ios||f.android||f.cordova||f.capacitor||t(document).on("keydown",P)})),c.on("close",(function(){i.find(".dialog-button").each((function(o){t(o).off("click",O)})),!d||f.ios||f.android||f.cordova||f.capacitor||t(document).off("keydown",P),d=!1}))),p(c,{app:e,$el:i,el:i[0],$backdropEl:s,backdropEl:s&&s[0],type:"dialog",setProgress:function(o,t){return e.progressbar.set(i.find(".progressbar"),o,t),c},setText:function(o){var e=i.find(".dialog-text");return 0===e.length&&(e=t('<div class="dialog-text"></div>'),void 0!==g?e.insertAfter(i.find(".dialog-title")):i.find(".dialog-inner").prepend(e)),e.html(o),c.params.text=o,c},setTitle:function(o){var e=i.find(".dialog-title");return 0===e.length&&(e=t('<div class="dialog-title"></div>'),i.find(".dialog-inner").prepend(e)),e.html(o),c.params.title=o,c}}),c.on("opened",(function(){c.params.closeByBackdropClick&&e.on("click",B)})),c.on("close",(function(){c.params.closeByBackdropClick&&e.off("click",B)})),i[0].f7Modal=c,c.params.destroyOnClose&&c.once("closed",(function(){setTimeout((function(){c.destroy()}),0)})),c||u(r)}return n=o,(e=r).prototype=Object.create(n.prototype),e.prototype.constructor=e,c(e,n),r}(r),m={name:"dialog",params:{dialog:{title:void 0,buttonOk:"OK",buttonCancel:"Cancel",usernamePlaceholder:"Username",passwordPlaceholder:"Password",preloaderTitle:"Loading... ",progressTitle:"Loading... ",backdrop:!0,closeByBackdropClick:!1,destroyPredefinedDialogs:!0,keyboardActions:!0,autoFocus:!0}},static:{Dialog:y},create:function(){var o=this;function e(){return o.params.dialog.title||o.name}var t=o.params.dialog.destroyPredefinedDialogs,n=o.params.dialog.keyboardActions,a=o.params.dialog.autoFocus?{on:{opened:function(o){o.$el.find("input").eq(0).focus()}}}:{};o.dialog=p(l({app:o,constructor:y,defaultSelector:".dialog.modal-in"}),{alert:function(){for(var a=arguments.length,r=new Array(a),l=0;l<a;l++)r[l]=arguments[l];var i=r[0],s=r[1],d=r[2];return 2===r.length&&"function"==typeof r[1]&&(i=r[0],d=r[1],s=r[2]),new y(o,{title:void 0===s?e():s,text:i,buttons:[{text:o.params.dialog.buttonOk,bold:!0,onClick:d,keyCodes:n?[13,27]:null}],destroyOnClose:t}).open()},prompt:function(){for(var r=arguments.length,l=new Array(r),i=0;i<r;i++)l[i]=arguments[i];var s=l[0],c=l[1],u=l[2],p=l[3],f=l[4];return"function"==typeof l[1]&&(s=l[0],u=l[1],p=l[2],f=l[3],c=l[4]),f=null==f?"":f,new y(o,d({title:void 0===c?e():c,text:s,content:'<div class="dialog-input-field input"><input type="text" class="dialog-input" value="'+f+'"></div>',buttons:[{text:o.params.dialog.buttonCancel,keyCodes:n?[27]:null,color:"aurora"===o.theme?"gray":null},{text:o.params.dialog.buttonOk,bold:!0,keyCodes:n?[13]:null}],onClick:function(o,e){var t=o.$el.find(".dialog-input").val();0===e&&p&&p(t),1===e&&u&&u(t)},destroyOnClose:t},a)).open()},confirm:function(){for(var a=arguments.length,r=new Array(a),l=0;l<a;l++)r[l]=arguments[l];var i=r[0],s=r[1],d=r[2],c=r[3];return"function"==typeof r[1]&&(i=r[0],d=r[1],c=r[2],s=r[3]),new y(o,{title:void 0===s?e():s,text:i,buttons:[{text:o.params.dialog.buttonCancel,onClick:c,keyCodes:n?[27]:null,color:"aurora"===o.theme?"gray":null},{text:o.params.dialog.buttonOk,bold:!0,onClick:d,keyCodes:n?[13]:null}],destroyOnClose:t}).open()},login:function(){for(var r=arguments.length,l=new Array(r),i=0;i<r;i++)l[i]=arguments[i];var s=l[0],c=l[1],u=l[2],p=l[3];return"function"==typeof l[1]&&(s=l[0],u=l[1],p=l[2],c=l[3]),new y(o,d({title:void 0===c?e():c,text:s,content:'\n              <div class="dialog-input-field dialog-input-double input">\n                <input type="text" name="dialog-username" placeholder="'+o.params.dialog.usernamePlaceholder+'" class="dialog-input">\n              </div>\n              <div class="dialog-input-field dialog-input-double input">\n                <input type="password" name="dialog-password" placeholder="'+o.params.dialog.passwordPlaceholder+'" class="dialog-input">\n              </div>',buttons:[{text:o.params.dialog.buttonCancel,keyCodes:n?[27]:null,color:"aurora"===o.theme?"gray":null},{text:o.params.dialog.buttonOk,bold:!0,keyCodes:n?[13]:null}],onClick:function(o,e){var t=o.$el.find('[name="dialog-username"]').val(),n=o.$el.find('[name="dialog-password"]').val();0===e&&p&&p(t,n),1===e&&u&&u(t,n)},destroyOnClose:t},a)).open()},password:function(){for(var r=arguments.length,l=new Array(r),i=0;i<r;i++)l[i]=arguments[i];var s=l[0],c=l[1],u=l[2],p=l[3];return"function"==typeof l[1]&&(s=l[0],u=l[1],p=l[2],c=l[3]),new y(o,d({title:void 0===c?e():c,text:s,content:'\n              <div class="dialog-input-field input">\n                <input type="password" name="dialog-password" placeholder="'+o.params.dialog.passwordPlaceholder+'" class="dialog-input">\n              </div>',buttons:[{text:o.params.dialog.buttonCancel,keyCodes:n?[27]:null,color:"aurora"===o.theme?"gray":null},{text:o.params.dialog.buttonOk,bold:!0,keyCodes:n?[13]:null}],onClick:function(o,e){var t=o.$el.find('[name="dialog-password"]').val();0===e&&p&&p(t),1===e&&u&&u(t)},destroyOnClose:t},a)).open()},preloader:function(e,n){var a={iosPreloaderContent:f,mdPreloaderContent:g,auroraPreloaderContent:v}[o.theme+"PreloaderContent"]||"";return new y(o,{title:null==e?o.params.dialog.preloaderTitle:e,content:'<div class="preloader'+(n?" color-"+n:"")+'">'+a+"</div>",cssClass:"dialog-preloader",destroyOnClose:t}).open()},progress:function(){for(var e=arguments.length,n=new Array(e),a=0;a<e;a++)n[a]=arguments[a];var r=n[0],l=n[1],i=n[2];2===n.length?"number"==typeof n[0]?(l=n[0],i=n[1],r=n[2]):"string"==typeof n[0]&&"string"==typeof n[1]&&(r=n[0],i=n[1],l=n[2]):1===n.length&&"number"==typeof n[0]&&(l=n[0],r=n[1],i=n[2]);var s=void 0===l,d=new y(o,{title:void 0===r?o.params.dialog.progressTitle:r,cssClass:"dialog-progress",content:'\n              <div class="progressbar'+(s?"-infinite":"")+(i?" color-"+i:"")+'">\n                '+(s?"":"<span></span>")+"\n              </div>\n            ",destroyOnClose:t});return s||d.setProgress(l),d.open()}})}};if(e){if(o.prototype.modules&&o.prototype.modules[m.name])return;o.use(m),o.instance&&(o.instance.useModuleParams(m,o.instance.params),o.instance.useModule(m))}return m}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import { extend, iosPreloaderContent, mdPreloaderContent, auroraPreloaderContent } from '../../shared/utils.js';
+import Dialog from './dialog-class.js';
+import ModalMethods from '../../shared/modal-methods.js';
+export default {
+  name: 'dialog',
+  params: {
+    dialog: {
+      title: undefined,
+      buttonOk: 'OK',
+      buttonCancel: 'Cancel',
+      usernamePlaceholder: 'Username',
+      passwordPlaceholder: 'Password',
+      preloaderTitle: 'Loading... ',
+      progressTitle: 'Loading... ',
+      backdrop: true,
+      closeByBackdropClick: false,
+      destroyPredefinedDialogs: true,
+      keyboardActions: true,
+      autoFocus: true
+    }
+  },
+  static: {
+    Dialog
+  },
+
+  create() {
+    const app = this;
+
+    function defaultDialogTitle() {
+      return app.params.dialog.title || app.name;
+    }
+
+    const destroyOnClose = app.params.dialog.destroyPredefinedDialogs;
+    const keyboardActions = app.params.dialog.keyboardActions;
+    const autoFocus = app.params.dialog.autoFocus;
+    const autoFocusHandler = autoFocus ? {
+      on: {
+        opened(dialog) {
+          dialog.$el.find('input').eq(0).focus();
+        }
+
+      }
+    } : {};
+    app.dialog = extend(ModalMethods({
+      app,
+      constructor: Dialog,
+      defaultSelector: '.dialog.modal-in'
+    }), {
+      // Shortcuts
+      alert() {
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        let [text, title, callbackOk] = args;
+
+        if (args.length === 2 && typeof args[1] === 'function') {
+          [text, callbackOk, title] = args;
+        }
+
+        return new Dialog(app, {
+          title: typeof title === 'undefined' ? defaultDialogTitle() : title,
+          text,
+          buttons: [{
+            text: app.params.dialog.buttonOk,
+            bold: true,
+            onClick: callbackOk,
+            keyCodes: keyboardActions ? [13, 27] : null
+          }],
+          destroyOnClose
+        }).open();
+      },
+
+      prompt() {
+        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+
+        let [text, title, callbackOk, callbackCancel, defaultValue] = args;
+
+        if (typeof args[1] === 'function') {
+          [text, callbackOk, callbackCancel, defaultValue, title] = args;
+        }
+
+        defaultValue = typeof defaultValue === 'undefined' || defaultValue === null ? '' : defaultValue;
+        return new Dialog(app, {
+          title: typeof title === 'undefined' ? defaultDialogTitle() : title,
+          text,
+          content: `<div class="dialog-input-field input"><input type="text" class="dialog-input" value="${defaultValue}"></div>`,
+          buttons: [{
+            text: app.params.dialog.buttonCancel,
+            keyCodes: keyboardActions ? [27] : null,
+            color: app.theme === 'aurora' ? 'gray' : null
+          }, {
+            text: app.params.dialog.buttonOk,
+            bold: true,
+            keyCodes: keyboardActions ? [13] : null
+          }],
+
+          onClick(dialog, index) {
+            const inputValue = dialog.$el.find('.dialog-input').val();
+            if (index === 0 && callbackCancel) callbackCancel(inputValue);
+            if (index === 1 && callbackOk) callbackOk(inputValue);
+          },
+
+          destroyOnClose,
+          ...autoFocusHandler
+        }).open();
+      },
+
+      confirm() {
+        for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+          args[_key3] = arguments[_key3];
+        }
+
+        let [text, title, callbackOk, callbackCancel] = args;
+
+        if (typeof args[1] === 'function') {
+          [text, callbackOk, callbackCancel, title] = args;
+        }
+
+        return new Dialog(app, {
+          title: typeof title === 'undefined' ? defaultDialogTitle() : title,
+          text,
+          buttons: [{
+            text: app.params.dialog.buttonCancel,
+            onClick: callbackCancel,
+            keyCodes: keyboardActions ? [27] : null,
+            color: app.theme === 'aurora' ? 'gray' : null
+          }, {
+            text: app.params.dialog.buttonOk,
+            bold: true,
+            onClick: callbackOk,
+            keyCodes: keyboardActions ? [13] : null
+          }],
+          destroyOnClose
+        }).open();
+      },
+
+      login() {
+        for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+          args[_key4] = arguments[_key4];
+        }
+
+        let [text, title, callbackOk, callbackCancel] = args;
+
+        if (typeof args[1] === 'function') {
+          [text, callbackOk, callbackCancel, title] = args;
+        }
+
+        return new Dialog(app, {
+          title: typeof title === 'undefined' ? defaultDialogTitle() : title,
+          text,
+          // prettier-ignore
+          content: `
+              <div class="dialog-input-field dialog-input-double input">
+                <input type="text" name="dialog-username" placeholder="${app.params.dialog.usernamePlaceholder}" class="dialog-input">
+              </div>
+              <div class="dialog-input-field dialog-input-double input">
+                <input type="password" name="dialog-password" placeholder="${app.params.dialog.passwordPlaceholder}" class="dialog-input">
+              </div>`,
+          buttons: [{
+            text: app.params.dialog.buttonCancel,
+            keyCodes: keyboardActions ? [27] : null,
+            color: app.theme === 'aurora' ? 'gray' : null
+          }, {
+            text: app.params.dialog.buttonOk,
+            bold: true,
+            keyCodes: keyboardActions ? [13] : null
+          }],
+
+          onClick(dialog, index) {
+            const username = dialog.$el.find('[name="dialog-username"]').val();
+            const password = dialog.$el.find('[name="dialog-password"]').val();
+            if (index === 0 && callbackCancel) callbackCancel(username, password);
+            if (index === 1 && callbackOk) callbackOk(username, password);
+          },
+
+          destroyOnClose,
+          ...autoFocusHandler
+        }).open();
+      },
+
+      password() {
+        for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+          args[_key5] = arguments[_key5];
+        }
+
+        let [text, title, callbackOk, callbackCancel] = args;
+
+        if (typeof args[1] === 'function') {
+          [text, callbackOk, callbackCancel, title] = args;
+        }
+
+        return new Dialog(app, {
+          title: typeof title === 'undefined' ? defaultDialogTitle() : title,
+          text,
+          // prettier-ignore
+          content: `
+              <div class="dialog-input-field input">
+                <input type="password" name="dialog-password" placeholder="${app.params.dialog.passwordPlaceholder}" class="dialog-input">
+              </div>`,
+          buttons: [{
+            text: app.params.dialog.buttonCancel,
+            keyCodes: keyboardActions ? [27] : null,
+            color: app.theme === 'aurora' ? 'gray' : null
+          }, {
+            text: app.params.dialog.buttonOk,
+            bold: true,
+            keyCodes: keyboardActions ? [13] : null
+          }],
+
+          onClick(dialog, index) {
+            const password = dialog.$el.find('[name="dialog-password"]').val();
+            if (index === 0 && callbackCancel) callbackCancel(password);
+            if (index === 1 && callbackOk) callbackOk(password);
+          },
+
+          destroyOnClose,
+          ...autoFocusHandler
+        }).open();
+      },
+
+      preloader(title, color) {
+        const preloaders = {
+          iosPreloaderContent,
+          mdPreloaderContent,
+          auroraPreloaderContent
+        };
+        const preloaderInner = preloaders[`${app.theme}PreloaderContent`] || '';
+        return new Dialog(app, {
+          title: typeof title === 'undefined' || title === null ? app.params.dialog.preloaderTitle : title,
+          // prettier-ignore
+          content: `<div class="preloader${color ? ` color-${color}` : ''}">${preloaderInner}</div>`,
+          cssClass: 'dialog-preloader',
+          destroyOnClose
+        }).open();
+      },
+
+      progress() {
+        for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+          args[_key6] = arguments[_key6];
+        }
+
+        let [title, progress, color] = args;
+
+        if (args.length === 2) {
+          if (typeof args[0] === 'number') {
+            [progress, color, title] = args;
+          } else if (typeof args[0] === 'string' && typeof args[1] === 'string') {
+            [title, color, progress] = args;
+          }
+        } else if (args.length === 1) {
+          if (typeof args[0] === 'number') {
+            [progress, title, color] = args;
+          }
+        }
+
+        const infinite = typeof progress === 'undefined';
+        const dialog = new Dialog(app, {
+          title: typeof title === 'undefined' ? app.params.dialog.progressTitle : title,
+          cssClass: 'dialog-progress',
+          // prettier-ignore
+          content: `
+              <div class="progressbar${infinite ? '-infinite' : ''}${color ? ` color-${color}` : ''}">
+                ${!infinite ? '<span></span>' : ''}
+              </div>
+            `,
+          destroyOnClose
+        });
+        if (!infinite) dialog.setProgress(progress);
+        return dialog.open();
+      }
+
+    });
+  }
+
+};

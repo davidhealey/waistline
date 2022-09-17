@@ -1,1 +1,179 @@
-(function framework7ComponentLoader(r,e){void 0===e&&(e=!0);var s=r.$,n=r.utils,t=(r.getDevice,r.getSupport,r.Class,r.Modal,r.ConstructorMethods,r.ModalMethods,n.bindMethods),a={set:function(){for(var r=this,e=arguments.length,n=new Array(e),t=0;t<e;t++)n[t]=arguments[t];var a=n[0],o=n[1],i=n[2];if("number"==typeof n[0]&&(o=n[0],i=n[1],a=r.$el),null==o)return a;o||(o=0);var p=s(a||r.$el);if(0===p.length)return a;var g,l=Math.min(Math.max(o,0),100);if(0===(g=p.hasClass("progressbar")?p.eq(0):p.children(".progressbar")).length||g.hasClass("progressbar-infinite"))return g;var f=g.children("span");return 0===f.length&&(f=s("<span></span>"),g.append(f)),f.transition(void 0!==i?i:"").transform("translate3d("+(-100+l)*(r.rtl?-1:1)+"%,0,0)"),g[0]},show:function(){for(var r=this,e=arguments.length,n=new Array(e),t=0;t<e;t++)n[t]=arguments[t];var a=n[0],o=n[1],i=n[2],p="determined";2===n.length?"string"!=typeof n[0]&&"object"!=typeof n[0]||"string"!=typeof n[1]?"number"==typeof n[0]&&"string"==typeof n[1]&&(o=n[0],i=n[1],a=r.$el):(a=n[0],i=n[1],o=n[2],p="infinite"):1===n.length?"number"==typeof n[0]?(a=r.$el,o=n[0]):"string"==typeof n[0]&&(p="infinite",a=r.$el,i=n[0]):0===n.length&&(p="infinite",a=r.$el);var g,l=s(a);if(0!==l.length)return l.hasClass("progressbar")||l.hasClass("progressbar-infinite")?g=l:0===(g=l.children(".progressbar:not(.progressbar-out), .progressbar-infinite:not(.progressbar-out)")).length&&(g=s('\n          <span class="progressbar'+("infinite"===p?"-infinite":"")+(i?" color-"+i:"")+' progressbar-in">\n            '+("infinite"===p?"":"<span></span>")+"\n          </span>"),l.append(g)),void 0!==o&&r.progressbar.set(g,o),g[0]},hide:function(r,e){void 0===e&&(e=!0);var n,t=s(r||this.$el);if(0!==t.length)return 0===(n=t.hasClass("progressbar")||t.hasClass("progressbar-infinite")?t:t.children(".progressbar, .progressbar-infinite")).length||!n.hasClass("progressbar-in")||n.hasClass("progressbar-out")||n.removeClass("progressbar-in").addClass("progressbar-out").animationEnd((function(){e&&n.remove()})),n}},o={name:"progressbar",create:function(){t(this,{progressbar:a})},on:{tabMounted:function(r){var e=this;s(r).find(".progressbar").each((function(r){var n=s(r);e.progressbar.set(n,n.attr("data-progress"))}))},pageInit:function(r){var e=this;r.$el.find(".progressbar").each((function(r){var n=s(r);e.progressbar.set(n,n.attr("data-progress"))}))}},vnode:{progressbar:{insert:function(r){var e=r.elm;this.progressbar.set(e,e.getAttribute("data-progress"))},update:function(r){var e=r.elm;this.progressbar.set(e,e.getAttribute("data-progress"))}}}};if(e){if(r.prototype.modules&&r.prototype.modules[o.name])return;r.use(o),r.instance&&(r.instance.useModuleParams(o,r.instance.params),r.instance.useModule(o))}return o}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { bindMethods } from '../../shared/utils.js';
+const Progressbar = {
+  set() {
+    const app = this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    let [el, progress, duration] = args;
+
+    if (typeof args[0] === 'number') {
+      [progress, duration] = args;
+      el = app.$el;
+    }
+
+    if (typeof progress === 'undefined' || progress === null) return el;
+    if (!progress) progress = 0;
+    const $el = $(el || app.$el);
+
+    if ($el.length === 0) {
+      return el;
+    }
+
+    const progressNormalized = Math.min(Math.max(progress, 0), 100);
+    let $progressbarEl;
+    if ($el.hasClass('progressbar')) $progressbarEl = $el.eq(0);else {
+      $progressbarEl = $el.children('.progressbar');
+    }
+
+    if ($progressbarEl.length === 0 || $progressbarEl.hasClass('progressbar-infinite')) {
+      return $progressbarEl;
+    }
+
+    let $progressbarLine = $progressbarEl.children('span');
+
+    if ($progressbarLine.length === 0) {
+      $progressbarLine = $('<span></span>');
+      $progressbarEl.append($progressbarLine);
+    }
+
+    $progressbarLine.transition(typeof duration !== 'undefined' ? duration : '').transform(`translate3d(${(-100 + progressNormalized) * (app.rtl ? -1 : 1)}%,0,0)`);
+    return $progressbarEl[0];
+  },
+
+  show() {
+    const app = this; // '.page', 50, 'multi'
+
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    let [el, progress, color] = args;
+    let type = 'determined';
+
+    if (args.length === 2) {
+      if ((typeof args[0] === 'string' || typeof args[0] === 'object') && typeof args[1] === 'string') {
+        // '.page', 'multi'
+        [el, color, progress] = args;
+        type = 'infinite';
+      } else if (typeof args[0] === 'number' && typeof args[1] === 'string') {
+        // 50, 'multi'
+        [progress, color] = args;
+        el = app.$el;
+      }
+    } else if (args.length === 1) {
+      if (typeof args[0] === 'number') {
+        el = app.$el;
+        progress = args[0];
+      } else if (typeof args[0] === 'string') {
+        type = 'infinite';
+        el = app.$el;
+        color = args[0];
+      }
+    } else if (args.length === 0) {
+      type = 'infinite';
+      el = app.$el;
+    }
+
+    const $el = $(el);
+    if ($el.length === 0) return undefined;
+    let $progressbarEl;
+
+    if ($el.hasClass('progressbar') || $el.hasClass('progressbar-infinite')) {
+      $progressbarEl = $el;
+    } else {
+      $progressbarEl = $el.children('.progressbar:not(.progressbar-out), .progressbar-infinite:not(.progressbar-out)');
+
+      if ($progressbarEl.length === 0) {
+        $progressbarEl = $(`
+          <span class="progressbar${type === 'infinite' ? '-infinite' : ''}${color ? ` color-${color}` : ''} progressbar-in">
+            ${type === 'infinite' ? '' : '<span></span>'}
+          </span>`);
+        $el.append($progressbarEl);
+      }
+    }
+
+    if (typeof progress !== 'undefined') {
+      app.progressbar.set($progressbarEl, progress);
+    }
+
+    return $progressbarEl[0];
+  },
+
+  hide(el, removeAfterHide) {
+    if (removeAfterHide === void 0) {
+      removeAfterHide = true;
+    }
+
+    const app = this;
+    const $el = $(el || app.$el);
+    if ($el.length === 0) return undefined;
+    let $progressbarEl;
+
+    if ($el.hasClass('progressbar') || $el.hasClass('progressbar-infinite')) {
+      $progressbarEl = $el;
+    } else {
+      $progressbarEl = $el.children('.progressbar, .progressbar-infinite');
+    }
+
+    if ($progressbarEl.length === 0 || !$progressbarEl.hasClass('progressbar-in') || $progressbarEl.hasClass('progressbar-out')) {
+      return $progressbarEl;
+    }
+
+    $progressbarEl.removeClass('progressbar-in').addClass('progressbar-out').animationEnd(() => {
+      if (removeAfterHide) {
+        $progressbarEl.remove();
+      }
+    });
+    return $progressbarEl;
+  }
+
+};
+export default {
+  name: 'progressbar',
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      progressbar: Progressbar
+    });
+  },
+
+  on: {
+    tabMounted(tabEl) {
+      const app = this;
+      $(tabEl).find('.progressbar').each(progressbarEl => {
+        const $progressbarEl = $(progressbarEl);
+        app.progressbar.set($progressbarEl, $progressbarEl.attr('data-progress'));
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.progressbar').each(progressbarEl => {
+        const $progressbarEl = $(progressbarEl);
+        app.progressbar.set($progressbarEl, $progressbarEl.attr('data-progress'));
+      });
+    }
+
+  },
+  vnode: {
+    progressbar: {
+      insert(vnode) {
+        const app = this;
+        const el = vnode.elm;
+        app.progressbar.set(el, el.getAttribute('data-progress'));
+      },
+
+      update(vnode) {
+        const app = this;
+        const el = vnode.elm;
+        app.progressbar.set(el, el.getAttribute('data-progress'));
+      }
+
+    }
+  }
+};

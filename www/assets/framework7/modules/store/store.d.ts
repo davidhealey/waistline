@@ -1,4 +1,4 @@
-import { Framework7Plugin } from '../../components/app/app-class';
+import { Framework7Plugin } from '../../components/app/app-class.js';
 
 interface StoreGetterValue {
   value: any;

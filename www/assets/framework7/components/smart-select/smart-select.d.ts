@@ -1,7 +1,11 @@
 import { Dom7Array } from 'dom7';
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
-import { View } from '../view/view';
-import { Searchbar } from '../searchbar/searchbar';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
+import { View } from '../view/view.js';
+import { Searchbar } from '../searchbar/searchbar.js';
 
 export namespace SmartSelect {
   interface Events {

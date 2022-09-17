@@ -1,1 +1,279 @@
-(function framework7ComponentLoader(a,t){void 0===t&&(t=!0);var e=a.$,n=a.utils,i=(a.getDevice,a.getSupport,a.Class,a.Modal,a.ConstructorMethods,a.ModalMethods,n.extend),r={show:function(){for(var a,t,n,i,r,s=this,l=arguments.length,o=new Array(l),b=0;b<l;b++)o[b]=arguments[b];1===o.length&&o[0]&&o[0].constructor===Object?(a=o[0].tabEl,t=o[0].tabLinkEl,n=o[0].animate,i=o[0].tabRoute,r=o[0].animatedInit):(a=o[0],t=o[1],n=o[2],i=o[3],"boolean"==typeof o[1]&&(a=o[0],n=o[1],t=o[2],i=o[3],o.length>2&&t.constructor===Object&&(a=o[0],n=o[1],i=o[2],t=o[3]))),void 0===n&&(n=!0);var h,d=e(a);if(i&&d[0]&&(d[0].f7TabRoute=i),!r&&(0===d.length||d.hasClass("tab-active")))return{$newTabEl:d,newTabEl:d[0]};t&&(h=e(t));var g=d.parent(".tabs");if(0===g.length)return{$newTabEl:d,newTabEl:d[0]};s.swipeout&&(s.swipeout.allowOpen=!0);var c=[];function p(a){c.push(a)}function u(){c.forEach((function(a){a()}))}var f,v=!1;if(g.parent().hasClass("tabs-animated-wrap")){g.parent()[n?"removeClass":"addClass"]("not-animated");var m=parseFloat(g.css("transition-duration").replace(",","."));n&&m&&(g.transitionEnd(u),v=!0);var w=100*(s.rtl?d.index():-d.index());g.transform("translate3d("+w+"%,0,0)")}g.parent().hasClass("tabs-swipeable-wrap")&&s.swiper&&((f=g.parent()[0].swiper)&&f.activeIndex!==d.index()?(v=!0,f.once("slideChangeTransitionEnd",(function(){u()})).slideTo(d.index(),n?void 0:0)):f&&f.animating&&(v=!0,f.once("slideChangeTransitionEnd",(function(){u()}))));var C=g.children(".tab-active");if(C.removeClass("tab-active"),!r&&(!f||f&&!f.animating||f&&i)&&(C.hasClass("view")&&C.children(".page").length&&C.children(".page").each((function(a){e(a).trigger("page:tabhide"),s.emit("pageTabHide",a)})),C.trigger("tab:hide"),s.emit("tabHide",C[0])),d.addClass("tab-active"),!r&&(!f||f&&!f.animating||f&&i)&&(d.hasClass("view")&&d.children(".page").length&&d.children(".page").each((function(a){e(a).trigger("page:tabshow"),s.emit("pageTabShow",a)})),d.trigger("tab:show"),s.emit("tabShow",d[0])),!h&&((!(h=e("string"==typeof a?'.tab-link[href="'+a+'"]':'.tab-link[href="#'+d.attr("id")+'"]'))||h&&0===h.length)&&e("[data-tab]").each((function(a){d.is(e(a).attr("data-tab"))&&(h=e(a))})),i&&(!h||h&&0===h.length)&&0===(h=e('[data-route-tab-id="'+i.route.tab.id+'"]')).length&&(h=e('.tab-link[href="'+i.url+'"]')),h.length>1&&d.parents(".page").length&&(h=h.filter((function(a){return e(a).parents(".page")[0]===d.parents(".page")[0]})),"ios"===s.theme&&0===h.length&&i))){var E=d.parents(".page"),k=e(s.navbar.getElByPage(E));0===(h=k.find('[data-route-tab-id="'+i.route.tab.id+'"]')).length&&(h=k.find('.tab-link[href="'+i.url+'"]'))}if(h.length>0){var T;if(C&&C.length>0){var x=C.attr("id");x&&(!(T=e('.tab-link[href="#'+x+'"]'))||T&&0===T.length)&&(T=e('.tab-link[data-route-tab-id="'+x+'"]')),(!T||T&&0===T.length)&&e("[data-tab]").each((function(a){C.is(e(a).attr("data-tab"))&&(T=e(a))})),(!T||T&&0===T.length)&&(T=h.siblings(".tab-link-active"))}else i&&(T=h.siblings(".tab-link-active"));if(T&&T.length>1&&C&&C.parents(".page").length&&(T=T.filter((function(a){return e(a).parents(".page")[0]===C.parents(".page")[0]}))),T&&T.length>0&&T.removeClass("tab-link-active"),h&&h.length>0){h.addClass("tab-link-active");var M=h.parents(".tabbar, .tabbar-labels"),y=s.toolbar&&M.length>0&&(M.hasClass("tabbar-highlight")||"ios"!==s.theme);y&&s.toolbar.setHighlight(M)}}return{$newTabEl:d,newTabEl:d[0],$oldTabEl:C,oldTabEl:C[0],onTabsChanged:p,animated:v}}},s={name:"tabs",create:function(){i(this,{tab:{show:r.show.bind(this)}})},on:{"pageInit tabMounted":function(a){var t=e(a.el||a).find(".tabs-animated-wrap > .tabs > .tab-active")[0];if(t){this.tab.show({tabEl:t,animatedInit:!0,animate:!1})}}},clicks:{".tab-link":function(a,t){if(void 0===t&&(t={}),a.attr("href")&&0===a.attr("href").indexOf("#")||a.attr("data-tab")){this.tab.show({tabEl:t.tab||a.attr("href"),tabLinkEl:a,animate:t.animate})}}}};if(t){if(a.prototype.modules&&a.prototype.modules[s.name])return;a.use(s),a.instance&&(a.instance.useModuleParams(s,a.instance.params),a.instance.useModule(s))}return s}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import { extend } from '../../shared/utils.js';
+const Tab = {
+  show() {
+    const app = this;
+    let tabEl;
+    let tabLinkEl;
+    let animate;
+    let tabRoute;
+    let animatedInit;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    if (args.length === 1 && args[0] && args[0].constructor === Object) {
+      tabEl = args[0].tabEl;
+      tabLinkEl = args[0].tabLinkEl;
+      animate = args[0].animate;
+      tabRoute = args[0].tabRoute;
+      animatedInit = args[0].animatedInit;
+    } else {
+      [tabEl, tabLinkEl, animate, tabRoute] = args;
+
+      if (typeof args[1] === 'boolean') {
+        [tabEl, animate, tabLinkEl, tabRoute] = args;
+
+        if (args.length > 2 && tabLinkEl.constructor === Object) {
+          [tabEl, animate, tabRoute, tabLinkEl] = args;
+        }
+      }
+    }
+
+    if (typeof animate === 'undefined') animate = true;
+    const $newTabEl = $(tabEl);
+
+    if (tabRoute && $newTabEl[0]) {
+      $newTabEl[0].f7TabRoute = tabRoute;
+    }
+
+    if (!animatedInit && ($newTabEl.length === 0 || $newTabEl.hasClass('tab-active'))) {
+      return {
+        $newTabEl,
+        newTabEl: $newTabEl[0]
+      };
+    }
+
+    let $tabLinkEl;
+    if (tabLinkEl) $tabLinkEl = $(tabLinkEl);
+    const $tabsEl = $newTabEl.parent('.tabs');
+
+    if ($tabsEl.length === 0) {
+      return {
+        $newTabEl,
+        newTabEl: $newTabEl[0]
+      };
+    } // Release swipeouts in hidden tabs
+
+
+    if (app.swipeout) app.swipeout.allowOpen = true; // Animated tabs
+
+    const tabsChangedCallbacks = [];
+
+    function onTabsChanged(callback) {
+      tabsChangedCallbacks.push(callback);
+    }
+
+    function tabsChanged() {
+      tabsChangedCallbacks.forEach(callback => {
+        callback();
+      });
+    }
+
+    let animated = false;
+
+    if ($tabsEl.parent().hasClass('tabs-animated-wrap')) {
+      $tabsEl.parent()[animate ? 'removeClass' : 'addClass']('not-animated');
+      const transitionDuration = parseFloat($tabsEl.css('transition-duration').replace(',', '.'));
+
+      if (animate && transitionDuration) {
+        $tabsEl.transitionEnd(tabsChanged);
+        animated = true;
+      }
+
+      const tabsTranslate = (app.rtl ? $newTabEl.index() : -$newTabEl.index()) * 100;
+      $tabsEl.transform(`translate3d(${tabsTranslate}%,0,0)`);
+    } // Swipeable tabs
+
+
+    let swiper;
+
+    if ($tabsEl.parent().hasClass('tabs-swipeable-wrap') && app.swiper) {
+      swiper = $tabsEl.parent()[0].swiper;
+
+      if (swiper && swiper.activeIndex !== $newTabEl.index()) {
+        animated = true;
+        swiper.once('slideChangeTransitionEnd', () => {
+          tabsChanged();
+        }).slideTo($newTabEl.index(), animate ? undefined : 0);
+      } else if (swiper && swiper.animating) {
+        animated = true;
+        swiper.once('slideChangeTransitionEnd', () => {
+          tabsChanged();
+        });
+      }
+    } // Remove active class from old tabs
+
+
+    const $oldTabEl = $tabsEl.children('.tab-active');
+    $oldTabEl.removeClass('tab-active');
+
+    if (!animatedInit && (!swiper || swiper && !swiper.animating || swiper && tabRoute)) {
+      if ($oldTabEl.hasClass('view') && $oldTabEl.children('.page').length) {
+        $oldTabEl.children('.page').each(pageEl => {
+          $(pageEl).trigger('page:tabhide');
+          app.emit('pageTabHide', pageEl);
+        });
+      }
+
+      $oldTabEl.trigger('tab:hide');
+      app.emit('tabHide', $oldTabEl[0]);
+    } // Trigger 'show' event on new tab
+
+
+    $newTabEl.addClass('tab-active');
+
+    if (!animatedInit && (!swiper || swiper && !swiper.animating || swiper && tabRoute)) {
+      if ($newTabEl.hasClass('view') && $newTabEl.children('.page').length) {
+        $newTabEl.children('.page').each(pageEl => {
+          $(pageEl).trigger('page:tabshow');
+          app.emit('pageTabShow', pageEl);
+        });
+      }
+
+      $newTabEl.trigger('tab:show');
+      app.emit('tabShow', $newTabEl[0]);
+    } // Find related link for new tab
+
+
+    if (!$tabLinkEl) {
+      // Search by id
+      if (typeof tabEl === 'string') $tabLinkEl = $(`.tab-link[href="${tabEl}"]`);else $tabLinkEl = $(`.tab-link[href="#${$newTabEl.attr('id')}"]`); // Search by data-tab
+
+      if (!$tabLinkEl || $tabLinkEl && $tabLinkEl.length === 0) {
+        $('[data-tab]').each(el => {
+          if ($newTabEl.is($(el).attr('data-tab'))) $tabLinkEl = $(el);
+        });
+      }
+
+      if (tabRoute && (!$tabLinkEl || $tabLinkEl && $tabLinkEl.length === 0)) {
+        $tabLinkEl = $(`[data-route-tab-id="${tabRoute.route.tab.id}"]`);
+
+        if ($tabLinkEl.length === 0) {
+          $tabLinkEl = $(`.tab-link[href="${tabRoute.url}"]`);
+        }
+      }
+
+      if ($tabLinkEl.length > 1 && $newTabEl.parents('.page').length) {
+        // eslint-disable-next-line
+        $tabLinkEl = $tabLinkEl.filter(tabLinkElement => {
+          return $(tabLinkElement).parents('.page')[0] === $newTabEl.parents('.page')[0];
+        });
+
+        if (app.theme === 'ios' && $tabLinkEl.length === 0 && tabRoute) {
+          const $pageEl = $newTabEl.parents('.page');
+          const $navbarEl = $(app.navbar.getElByPage($pageEl));
+          $tabLinkEl = $navbarEl.find(`[data-route-tab-id="${tabRoute.route.tab.id}"]`);
+
+          if ($tabLinkEl.length === 0) {
+            $tabLinkEl = $navbarEl.find(`.tab-link[href="${tabRoute.url}"]`);
+          }
+        }
+      }
+    }
+
+    if ($tabLinkEl.length > 0) {
+      // Find related link for old tab
+      let $oldTabLinkEl;
+
+      if ($oldTabEl && $oldTabEl.length > 0) {
+        // Search by id
+        const oldTabId = $oldTabEl.attr('id');
+
+        if (oldTabId) {
+          $oldTabLinkEl = $(`.tab-link[href="#${oldTabId}"]`); // Search by data-route-tab-id
+
+          if (!$oldTabLinkEl || $oldTabLinkEl && $oldTabLinkEl.length === 0) {
+            $oldTabLinkEl = $(`.tab-link[data-route-tab-id="${oldTabId}"]`);
+          }
+        } // Search by data-tab
+
+
+        if (!$oldTabLinkEl || $oldTabLinkEl && $oldTabLinkEl.length === 0) {
+          $('[data-tab]').each(tabLinkElement => {
+            if ($oldTabEl.is($(tabLinkElement).attr('data-tab'))) $oldTabLinkEl = $(tabLinkElement);
+          });
+        }
+
+        if (!$oldTabLinkEl || $oldTabLinkEl && $oldTabLinkEl.length === 0) {
+          $oldTabLinkEl = $tabLinkEl.siblings('.tab-link-active');
+        }
+      } else if (tabRoute) {
+        $oldTabLinkEl = $tabLinkEl.siblings('.tab-link-active');
+      }
+
+      if ($oldTabLinkEl && $oldTabLinkEl.length > 1 && $oldTabEl && $oldTabEl.parents('.page').length) {
+        // eslint-disable-next-line
+        $oldTabLinkEl = $oldTabLinkEl.filter(tabLinkElement => {
+          return $(tabLinkElement).parents('.page')[0] === $oldTabEl.parents('.page')[0];
+        });
+      }
+
+      if ($oldTabLinkEl && $oldTabLinkEl.length > 0) $oldTabLinkEl.removeClass('tab-link-active'); // Update links' classes
+
+      if ($tabLinkEl && $tabLinkEl.length > 0) {
+        $tabLinkEl.addClass('tab-link-active'); // Material Highlight
+
+        const $tabbarEl = $tabLinkEl.parents('.tabbar, .tabbar-labels');
+        const hasHighlight = app.toolbar && $tabbarEl.length > 0 && ($tabbarEl.hasClass('tabbar-highlight') || app.theme !== 'ios');
+
+        if (hasHighlight) {
+          app.toolbar.setHighlight($tabbarEl);
+        }
+      }
+    }
+
+    return {
+      $newTabEl,
+      newTabEl: $newTabEl[0],
+      $oldTabEl,
+      oldTabEl: $oldTabEl[0],
+      onTabsChanged,
+      animated
+    };
+  }
+
+};
+export default {
+  name: 'tabs',
+
+  create() {
+    const app = this;
+    extend(app, {
+      tab: {
+        show: Tab.show.bind(app)
+      }
+    });
+  },
+
+  on: {
+    'pageInit tabMounted': function onInit(pageOrTabEl) {
+      const $el = $(pageOrTabEl.el || pageOrTabEl);
+      const animatedTabEl = $el.find('.tabs-animated-wrap > .tabs > .tab-active')[0];
+      if (!animatedTabEl) return;
+      const app = this;
+      app.tab.show({
+        tabEl: animatedTabEl,
+        animatedInit: true,
+        animate: false
+      });
+    }
+  },
+  clicks: {
+    '.tab-link': function tabLinkClick($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      if ($clickedEl.attr('href') && $clickedEl.attr('href').indexOf('#') === 0 || $clickedEl.attr('data-tab')) {
+        const app = this;
+        app.tab.show({
+          tabEl: data.tab || $clickedEl.attr('href'),
+          tabLinkEl: $clickedEl,
+          animate: data.animate
+        });
+      }
+    }
+  }
+};

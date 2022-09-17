@@ -1,1 +1,50 @@
-(function framework7ComponentLoader(o,e){void 0===e&&(e=!0);var t=o.$,p=o.utils,s=o.getDevice,r=o.getSupport,a=(o.Class,o.Modal),n=(o.ConstructorMethods,o.ModalMethods);function i(o){this.wrapped=o}function l(o){var e,t;function p(e,t){try{var r=o[e](t),a=r.value,n=a instanceof i;Promise.resolve(n?a.wrapped:a).then((function(o){n?p("return"===e?"return":"next",o):s(r.done?"return":"normal",o)}),(function(o){p("throw",o)}))}catch(o){s("throw",o)}}function s(o,s){switch(o){case"return":e.resolve({value:s,done:!0});break;case"throw":e.reject(s);break;default:e.resolve({value:s,done:!1})}(e=e.next)?p(e.key,e.arg):t=null}this._invoke=function(o,s){return new Promise((function(r,a){var n={key:o,arg:s,resolve:r,reject:a,next:null};t?t=t.next=n:(e=t=n,p(o,s))}))},"function"!=typeof o.return&&(this.return=void 0)}function u(o,e){return(u=Object.setPrototypeOf||function(o,e){return o.__proto__=e,o})(o,e)}function c(o){if(void 0===o)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return o}l.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},l.prototype.next=function(o){return this._invoke("next",o)},l.prototype.throw=function(o){return this._invoke("throw",o)},l.prototype.return=function(o){return this._invoke("return",o)};var d=p.extend,h=p.now,f=p.nextTick,m=function(o){var e,p;function a(e,p){var a,n,i,l,u,m=d({on:{}},e.params.popup,p),v=c(a=o.call(this,e,m)||this),w=r(),y=s();if(v.params=m,(n=v.params.el?t(v.params.el).eq(0):t(v.params.content).filter((function(o){return 1===o.nodeType})).eq(0))&&n.length>0&&n[0].f7Modal)return n[0].f7Modal||c(a);if(0===n.length)return v.destroy()||c(a);function g(o){var e=o.target,p=t(e);if(!(!y.desktop&&y.cordova&&(window.Keyboard&&window.Keyboard.isVisible||window.cordova.plugins&&window.cordova.plugins.Keyboard&&window.cordova.plugins.Keyboard.isVisible))&&0===p.closest(v.el).length&&v.params&&v.params.closeByBackdropClick&&v.params.backdrop&&v.backdropEl&&v.backdropEl===e){var s=!0;v.$el.nextAll(".popup.modal-in").each((function(o){var e=o.f7Modal;e&&e.params.closeByBackdropClick&&e.params.backdrop&&e.backdropEl===v.backdropEl&&(s=!1)})),s&&v.close()}}function b(o){27===o.keyCode&&v.params.closeOnEscape&&v.close()}function k(o){return(e.height-2*o)/e.height}v.params.backdrop&&v.params.backdropEl?i=t(v.params.backdropEl):v.params.backdrop&&0===(i=v.$containerEl.children(".popup-backdrop")).length&&(i=t('<div class="popup-backdrop"></div>'),v.$containerEl.append(i)),d(v,{app:e,push:n.hasClass("popup-push")||v.params.push,$el:n,el:n[0],$backdropEl:i,backdropEl:i&&i[0],type:"popup",$htmlEl:t("html")}),v.params.push&&n.addClass("popup-push");var C,E,$,x,M,T,P,S,B,_,H,O=!0,A=!1,j=!1;function q(o){!A&&O&&v.params.swipeToClose&&(v.params.swipeHandler&&0===t(o.target).closest(v.params.swipeHandler).length||(A=!0,j=!1,C={x:"touchstart"===o.type?o.targetTouches[0].pageX:o.pageX,y:"touchstart"===o.type?o.targetTouches[0].pageY:o.pageY},x=h(),$=void 0,v.params.swipeHandler||"touchstart"!==o.type||(T=t(o.target).closest(".page-content")[0])))}function D(o){if(A){if(E={x:"touchmove"===o.type?o.targetTouches[0].pageX:o.pageX,y:"touchmove"===o.type?o.targetTouches[0].pageY:o.pageY},void 0===$&&($=!!($||Math.abs(E.x-C.x)>Math.abs(E.y-C.y))),$)return A=!1,void(j=!1);M=C.y-E.y,u&&l&&M>0&&(M=0);var t=M<0?"to-bottom":"to-top";if(n.transition(0),"string"==typeof v.params.swipeToClose&&t!==v.params.swipeToClose)return n.transform(""),void n.transition("");if(j)v.emit("local::swipeMove popupSwipeMove",v),v.$el.trigger("popup:swipemove");else{if(u&&l&&(_=n[0].offsetHeight,0===(H=n.prevAll(".popup.modal-in").eq(0)).length&&(H=e.$el.children(".view, .views"))),T&&(P=T.scrollTop,B=T.scrollHeight,S=T.offsetHeight,!(B===S||"to-bottom"===t&&0===P||"to-top"===t&&P===B-S)))return n.transform(""),n.transition(""),A=!1,void(j=!1);j=!0,v.emit("local::swipeStart popupSwipeStart",v),v.$el.trigger("popup:swipestart")}if(o.preventDefault(),u&&l){var p=1-Math.abs(M/_),s=1-(1-k(l))*p;H.hasClass("popup")?H.hasClass("popup-push")?H.transition(0).forEach((function(o){o.style.setProperty("transform","translate3d(0, calc(-1 * "+p+" * (var(--f7-popup-push-offset) + 10px)) , 0px) scale("+s+")","important")})):H.transition(0).forEach((function(o){o.style.setProperty("transform","translate3d(0, 0px , 0px) scale("+s+")","important")})):H.transition(0).forEach((function(o){o.style.setProperty("transform","translate3d(0,0,0) scale("+s+")","important")}))}n.transition(0).transform("translate3d(0,"+-M+"px,0)")}}function K(){if(A=!1,j){v.emit("local::swipeEnd popupSwipeEnd",v),v.$el.trigger("popup:swipeend"),j=!1,O=!1,n.transition(""),u&&l&&H.transition("").transform("");var o=M<=0?"to-bottom":"to-top";if("string"==typeof v.params.swipeToClose&&o!==v.params.swipeToClose)return n.transform(""),void(O=!0);var e=Math.abs(M),t=(new Date).getTime()-x;t<300&&e>20||t>=300&&e>100?f((function(){"to-bottom"===o?n.addClass("swipe-close-to-bottom"):n.addClass("swipe-close-to-top"),n.transform(""),v.emit("local::swipeclose popupSwipeClose",v),v.$el.trigger("popup:swipeclose"),v.close(),O=!0})):(O=!0,n.transform(""))}}var X,Y=!!w.passiveListener&&{passive:!0};v.params.swipeToClose&&(n.on(e.touchEvents.start,q,Y),e.on("touchmove",D),e.on("touchend:passive",K),v.once("popupDestroy",(function(){n.off(e.touchEvents.start,q,Y),e.off("touchmove",D),e.off("touchend:passive",K)})));var z=function(){var o=u;v.push&&(u=v.push&&(e.width<630||e.height<630||n.hasClass("popup-tablet-fullscreen"))),u&&!o?I():u&&o?v.$htmlEl[0].style.setProperty("--f7-popup-push-scale",k(l)):!u&&o&&(v.$htmlEl.removeClass("with-modal-popup-push"),v.$htmlEl[0].style.removeProperty("--f7-popup-push-scale"))},I=function(){e.off("resize",z),v.push&&(u=v.push&&(e.width<630||e.height<630||n.hasClass("popup-tablet-fullscreen"))),u&&(l=parseInt(n.css("--f7-popup-push-offset"),10),Number.isNaN(l)&&(l=0),l&&(n.addClass("popup-push"),v.$htmlEl.addClass("with-modal-popup-push"),v.$htmlEl[0].style.setProperty("--f7-popup-push-scale",k(l)))),e.on("resize",z)};return v.on("open",(function(){X=!1,v.params.closeOnEscape&&t(document).on("keydown",b),n.prevAll(".popup.modal-in").addClass("popup-behind"),I()})),v.on("opened",(function(){n.removeClass("swipe-close-to-bottom swipe-close-to-top"),v.params.closeByBackdropClick&&e.on("click",g)})),v.on("close",(function(){X=v.$el.prevAll(".popup-push.modal-in").length>0,v.params.closeOnEscape&&t(document).off("keydown",b),v.params.closeByBackdropClick&&e.off("click",g),n.prevAll(".popup.modal-in").eq(0).removeClass("popup-behind"),u&&l&&!X&&(v.$htmlEl.removeClass("with-modal-popup-push"),v.$htmlEl.addClass("with-modal-popup-push-closing")),e.off("resize",z)})),v.on("closed",(function(){n.removeClass("popup-behind"),u&&l&&!X&&(v.$htmlEl.removeClass("with-modal-popup-push-closing"),v.$htmlEl[0].style.removeProperty("--f7-popup-push-scale"))})),n[0].f7Modal=v,v||c(a)}return p=o,(e=a).prototype=Object.create(p.prototype),e.prototype.constructor=e,u(e,p),a}(a),v={name:"popup",params:{popup:{backdrop:!0,backdropEl:void 0,closeByBackdropClick:!0,closeOnEscape:!1,swipeToClose:!1,swipeHandler:null,push:!1,containerEl:null}},static:{Popup:m},create:function(){this.popup=n({app:this,constructor:m,defaultSelector:".popup.modal-in",parentSelector:".popup"})},clicks:{".popup-open":function(o,e){void 0===e&&(e={});this.popup.open(e.popup,e.animate,o)},".popup-close":function(o,e){void 0===e&&(e={});this.popup.close(e.popup,e.animate,o)}}};if(e){if(o.prototype.modules&&o.prototype.modules[v.name])return;o.use(v),o.instance&&(o.instance.useModuleParams(v,o.instance.params),o.instance.useModule(v))}return v}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import Popup from './popup-class.js';
+import ModalMethods from '../../shared/modal-methods.js';
+export default {
+  name: 'popup',
+  params: {
+    popup: {
+      backdrop: true,
+      backdropEl: undefined,
+      backdropUnique: false,
+      closeByBackdropClick: true,
+      closeOnEscape: false,
+      swipeToClose: false,
+      swipeHandler: null,
+      push: false,
+      containerEl: null
+    }
+  },
+  static: {
+    Popup
+  },
+
+  create() {
+    const app = this;
+    app.popup = ModalMethods({
+      app,
+      constructor: Popup,
+      defaultSelector: '.popup.modal-in',
+      parentSelector: '.popup'
+    });
+  },
+
+  clicks: {
+    '.popup-open': function openPopup($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.popup.open(data.popup, data.animate, $clickedEl);
+    },
+    '.popup-close': function closePopup($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.popup.close(data.popup, data.animate, $clickedEl);
+    }
+  }
+};

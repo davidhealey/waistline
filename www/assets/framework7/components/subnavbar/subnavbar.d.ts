@@ -1,4 +1,4 @@
-import { Framework7Plugin } from '../app/app-class';
+import { Framework7Plugin } from '../app/app-class.js';
 
 export namespace Subnavbar {
   interface AppMethods {}

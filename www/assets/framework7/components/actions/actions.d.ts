@@ -1,5 +1,9 @@
 import { Dom7Array } from 'dom7';
-import Framework7, { CSSSelector, Framework7EventsClass, Framework7Plugin } from '../app/app-class';
+import Framework7, {
+  CSSSelector,
+  Framework7EventsClass,
+  Framework7Plugin,
+} from '../app/app-class.js';
 
 export namespace Actions {
   interface Actions extends Framework7EventsClass<Events> {
@@ -56,6 +60,8 @@ export namespace Actions {
     backdrop?: boolean;
     /** Backdrop element to share across instances */
     backdropEl?: HTMLElement | CSSSelector;
+    /** If enabled it creates unique backdrop element exclusively for this modal (default false) */
+    backdropUnique?: boolean;
     /** Custom css class added to Actions Sheet element */
     cssClass?: string;
     /** When enabled, action sheet will be closed on backdrop click*/

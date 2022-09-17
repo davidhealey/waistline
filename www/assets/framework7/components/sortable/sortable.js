@@ -1,1 +1,330 @@
-(function framework7ComponentLoader(t,e){void 0===e&&(e=!0);var a=t.$,s=t.utils,o=(t.getDevice,t.getSupport),r=(t.Class,t.Modal,t.ConstructorMethods,t.ModalMethods,s.bindMethods),i={init:function(){var t,e,s,r,i,l,n,d,p,v,b,u,f,g,c,h,m,x,w,C,M,T=this;function I(o,r){e=!1,t=!0,M=!1,s="touchstart"===o.type?o.targetTouches[0].pageY:o.pageY,i=a(o.target).closest("li").eq(0),f=i.index(),n=i.parents(".sortable");var d=i.parents(".list-group");d.length&&d.parents(n).length&&(n=d),l=n.children("ul").children("li:not(.disallow-sorting):not(.no-sorting)"),T.panel&&(T.panel.allowOpen=!1),T.swipeout&&(T.swipeout.allow=!1),r&&(i.addClass("sorting"),n.addClass("sortable-sorting"),M=!0)}var L=!!o().passiveListener&&{passive:!1,capture:!1};a(document).on(T.touchEvents.start,".list.sortable .sortable-handler",I,L),T.on("touchmove:active",(function(o){if(t&&i){var f="touchmove"===o.type?o.targetTouches[0].pageY:o.pageY;if(!e){g=i.parents(".page"),c=i.parents(".page-content");var M=parseInt(c.css("padding-top"),10),I=parseInt(c.css("padding-bottom"),10);C=c[0].scrollTop,m=g.offset().top+M,h=g.height()-M-I,i.addClass("sorting"),n.addClass("sortable-sorting"),x=i[0].offsetTop,p=i[0].offsetTop,v=i.parent().height()-x-i.height(),d=i[0].offsetHeight,w=i.offset().top}e=!0,o.preventDefault(),o.f7PreventSwipePanel=!0,r=f-s;var L=c[0].scrollTop-C,E=Math.min(Math.max(r+L,-p),v);i.transform("translate3d(0,"+E+"px,0)");var y,V=44,Y=!0;r+L+V<-p&&(Y=!1),r+L-V>v&&(Y=!1),u=void 0,b=void 0,Y&&(w+r+d+V>m+h&&(y=w+r+d+V-(m+h)),w+r<m+V&&(y=w+r-m-V),y&&(c[0].scrollTop+=y)),l.each((function(t){var e=a(t);if(e[0]!==i[0]){var s,o=e[0].offsetTop,r=e.height(),l=x+E,p=e[0].f7Translate;l>=o-r/2&&i.index()<e.index()?(s=-d,e.transform("translate3d(0, "+s+"px,0)"),b=e,u=void 0):l<=o+r/2&&i.index()>e.index()?(s=d,e[0].f7Translate=s,e.transform("translate3d(0, "+s+"px,0)"),b=void 0,u||(u=e)):(s=void 0,e.transform("translate3d(0, 0%,0)")),p!==s&&(e.trigger("sortable:move"),T.emit("sortableMove",e[0],n[0])),e[0].f7Translate=s}}))}})),T.on("touchend:passive",(function(){if(!t||!e)return t&&!e&&(T.panel&&(T.panel.allowOpen=!0),T.swipeout&&(T.swipeout.allow=!0),M&&(i.removeClass("sorting"),n.removeClass("sortable-sorting"))),t=!1,void(e=!1);var a;T.panel&&(T.panel.allowOpen=!0),T.swipeout&&(T.swipeout.allow=!0),l.transform(""),i.removeClass("sorting"),n.removeClass("sortable-sorting"),b?a=b.index():u&&(a=u.index());var s=n.dataset().sortableMoveElements;if(void 0===s&&(s=T.params.sortable.moveElements),s&&(b&&i.insertAfter(b),u&&i.insertBefore(u)),(b||u)&&n.hasClass("virtual-list")){void 0===(f=i[0].f7VirtualListIndex)&&(f=i.attr("data-virtual-list-index")),u?void 0===(a=u[0].f7VirtualListIndex)&&(a=u.attr("data-virtual-list-index")):void 0===(a=b[0].f7VirtualListIndex)&&(a=b.attr("data-virtual-list-index")),a=null!==a?parseInt(a,10):void 0;var o=n[0].f7VirtualList;f&&(f=parseInt(f,10)),a&&(a=parseInt(a,10)),o&&o.moveItem(f,a)}void 0===a||Number.isNaN(a)||a===f||(i.trigger("sortable:sort",{from:f,to:a}),T.emit("sortableSort",i[0],{from:f,to:a,el:i[0]},n[0])),u=void 0,b=void 0,t=!1,e=!1})),a(document).on("taphold",".sortable-tap-hold",(function(t,e){I(e,!0)}))},enable:function(t){void 0===t&&(t=".list.sortable");var e=a(t);0!==e.length&&(e.addClass("sortable-enabled"),e.trigger("sortable:enable"),this.emit("sortableEnable",e[0]))},disable:function(t){void 0===t&&(t=".list.sortable");var e=a(t);0!==e.length&&(e.removeClass("sortable-enabled"),e.trigger("sortable:disable"),this.emit("sortableDisable",e[0]))},toggle:function(t){void 0===t&&(t=".list.sortable");var e=a(t);0!==e.length&&(e.hasClass("sortable-enabled")?this.sortable.disable(e):this.sortable.enable(e))}},l={name:"sortable",params:{sortable:{moveElements:!0}},create:function(){r(this,{sortable:i})},on:{init:function(){this.params.sortable&&this.sortable.init()}},clicks:{".sortable-enable":function(t,e){void 0===e&&(e={});this.sortable.enable(e.sortable)},".sortable-disable":function(t,e){void 0===e&&(e={});this.sortable.disable(e.sortable)},".sortable-toggle":function(t,e){void 0===e&&(e={});this.sortable.toggle(e.sortable)}}};if(e){if(t.prototype.modules&&t.prototype.modules[l.name])return;t.use(l),t.instance&&(t.instance.useModuleParams(l,t.instance.params),t.instance.useModule(l))}return l}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import { getDocument } from 'ssr-window';
+import $ from '../../shared/dom7.js';
+import { bindMethods } from '../../shared/utils.js';
+import { getSupport } from '../../shared/get-support.js';
+const Sortable = {
+  init() {
+    const app = this;
+    const document = getDocument();
+    let isTouched;
+    let isMoved;
+    let touchStartY;
+    let touchesDiff;
+    let $sortingEl;
+    let $sortingItems;
+    let $sortableContainer;
+    let sortingElHeight;
+    let minTop;
+    let maxTop;
+    let $insertAfterEl;
+    let $insertBeforeEl;
+    let indexFrom;
+    let $pageEl;
+    let $pageContentEl;
+    let pageHeight;
+    let pageOffset;
+    let sortingElOffsetLocal;
+    let sortingElOffsetTop;
+    let initialScrollTop;
+    let wasTapHold;
+
+    function handleTouchStart(e, isTapHold) {
+      isMoved = false;
+      isTouched = true;
+      wasTapHold = false;
+      touchStartY = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+      $sortingEl = $(e.target).closest('li').eq(0);
+      indexFrom = $sortingEl.index();
+      $sortableContainer = $sortingEl.parents('.sortable');
+      const $listGroup = $sortingEl.parents('.list-group');
+
+      if ($listGroup.length && $listGroup.parents($sortableContainer).length) {
+        $sortableContainer = $listGroup;
+      }
+
+      $sortingItems = $sortableContainer.children('ul').children('li:not(.disallow-sorting):not(.no-sorting)');
+      if (app.panel) app.panel.allowOpen = false;
+      if (app.swipeout) app.swipeout.allow = false;
+
+      if (isTapHold) {
+        $sortingEl.addClass('sorting');
+        $sortableContainer.addClass('sortable-sorting');
+        wasTapHold = true;
+      }
+    }
+
+    function handleTouchMove(e) {
+      if (!isTouched || !$sortingEl) return;
+      const pageY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+
+      if (!isMoved) {
+        $pageEl = $sortingEl.parents('.page');
+        $pageContentEl = $sortingEl.parents('.page-content');
+        const paddingTop = parseInt($pageContentEl.css('padding-top'), 10);
+        const paddingBottom = parseInt($pageContentEl.css('padding-bottom'), 10);
+        initialScrollTop = $pageContentEl[0].scrollTop;
+        pageOffset = $pageEl.offset().top + paddingTop;
+        pageHeight = $pageEl.height() - paddingTop - paddingBottom;
+        $sortingEl.addClass('sorting');
+        $sortableContainer.addClass('sortable-sorting');
+        sortingElOffsetLocal = $sortingEl[0].offsetTop;
+        minTop = $sortingEl[0].offsetTop;
+        maxTop = $sortingEl.parent().height() - sortingElOffsetLocal - $sortingEl.height();
+        sortingElHeight = $sortingEl[0].offsetHeight;
+        sortingElOffsetTop = $sortingEl.offset().top;
+      }
+
+      isMoved = true;
+      e.preventDefault();
+      e.f7PreventSwipePanel = true;
+      touchesDiff = pageY - touchStartY;
+      const translateScrollOffset = $pageContentEl[0].scrollTop - initialScrollTop;
+      const translate = Math.min(Math.max(touchesDiff + translateScrollOffset, -minTop), maxTop);
+      $sortingEl.transform(`translate3d(0,${translate}px,0)`);
+      const scrollAddition = 44;
+      let allowScroll = true;
+
+      if (touchesDiff + translateScrollOffset + scrollAddition < -minTop) {
+        allowScroll = false;
+      }
+
+      if (touchesDiff + translateScrollOffset - scrollAddition > maxTop) {
+        allowScroll = false;
+      }
+
+      $insertBeforeEl = undefined;
+      $insertAfterEl = undefined;
+      let scrollDiff;
+
+      if (allowScroll) {
+        if (sortingElOffsetTop + touchesDiff + sortingElHeight + scrollAddition > pageOffset + pageHeight) {
+          // To Bottom
+          scrollDiff = sortingElOffsetTop + touchesDiff + sortingElHeight + scrollAddition - (pageOffset + pageHeight);
+        }
+
+        if (sortingElOffsetTop + touchesDiff < pageOffset + scrollAddition) {
+          // To Top
+          scrollDiff = sortingElOffsetTop + touchesDiff - pageOffset - scrollAddition;
+        }
+
+        if (scrollDiff) {
+          $pageContentEl[0].scrollTop += scrollDiff;
+        }
+      }
+
+      $sortingItems.each(el => {
+        const $currentEl = $(el);
+        if ($currentEl[0] === $sortingEl[0]) return;
+        const currentElOffset = $currentEl[0].offsetTop;
+        const currentElHeight = $currentEl.height();
+        const sortingElOffset = sortingElOffsetLocal + translate;
+        let currentTranslate;
+        const prevTranslate = $currentEl[0].f7Translate;
+
+        if (sortingElOffset >= currentElOffset - currentElHeight / 2 && $sortingEl.index() < $currentEl.index()) {
+          currentTranslate = -sortingElHeight;
+          $currentEl.transform(`translate3d(0, ${currentTranslate}px,0)`);
+          $insertAfterEl = $currentEl;
+          $insertBeforeEl = undefined;
+        } else if (sortingElOffset <= currentElOffset + currentElHeight / 2 && $sortingEl.index() > $currentEl.index()) {
+          currentTranslate = sortingElHeight;
+          $currentEl[0].f7Translate = currentTranslate;
+          $currentEl.transform(`translate3d(0, ${currentTranslate}px,0)`);
+          $insertAfterEl = undefined;
+          if (!$insertBeforeEl) $insertBeforeEl = $currentEl;
+        } else {
+          currentTranslate = undefined;
+          $currentEl.transform('translate3d(0, 0%,0)');
+        }
+
+        if (prevTranslate !== currentTranslate) {
+          $currentEl.trigger('sortable:move');
+          app.emit('sortableMove', $currentEl[0], $sortableContainer[0]);
+        }
+
+        $currentEl[0].f7Translate = currentTranslate;
+      });
+    }
+
+    function handleTouchEnd() {
+      if (!isTouched || !isMoved) {
+        if (isTouched && !isMoved) {
+          if (app.panel) app.panel.allowOpen = true;
+          if (app.swipeout) app.swipeout.allow = true;
+
+          if (wasTapHold) {
+            $sortingEl.removeClass('sorting');
+            $sortableContainer.removeClass('sortable-sorting');
+          }
+        }
+
+        isTouched = false;
+        isMoved = false;
+        return;
+      }
+
+      if (app.panel) app.panel.allowOpen = true;
+      if (app.swipeout) app.swipeout.allow = true;
+      $sortingItems.transform('');
+      $sortingEl.removeClass('sorting');
+      $sortableContainer.removeClass('sortable-sorting');
+      let indexTo;
+      if ($insertAfterEl) indexTo = $insertAfterEl.index();else if ($insertBeforeEl) indexTo = $insertBeforeEl.index();
+      let moveElements = $sortableContainer.dataset().sortableMoveElements;
+
+      if (typeof moveElements === 'undefined') {
+        moveElements = app.params.sortable.moveElements;
+      }
+
+      if (moveElements) {
+        if ($insertAfterEl) {
+          $sortingEl.insertAfter($insertAfterEl);
+        }
+
+        if ($insertBeforeEl) {
+          $sortingEl.insertBefore($insertBeforeEl);
+        }
+      }
+
+      if (($insertAfterEl || $insertBeforeEl) && $sortableContainer.hasClass('virtual-list')) {
+        indexFrom = $sortingEl[0].f7VirtualListIndex;
+        if (typeof indexFrom === 'undefined') indexFrom = $sortingEl.attr('data-virtual-list-index');
+
+        if ($insertBeforeEl) {
+          indexTo = $insertBeforeEl[0].f7VirtualListIndex;
+          if (typeof indexTo === 'undefined') indexTo = $insertBeforeEl.attr('data-virtual-list-index');
+        } else {
+          indexTo = $insertAfterEl[0].f7VirtualListIndex;
+          if (typeof indexTo === 'undefined') indexTo = $insertAfterEl.attr('data-virtual-list-index');
+        }
+
+        if (indexTo !== null) indexTo = parseInt(indexTo, 10);else indexTo = undefined;
+        const virtualList = $sortableContainer[0].f7VirtualList;
+        if (indexFrom) indexFrom = parseInt(indexFrom, 10);
+        if (indexTo) indexTo = parseInt(indexTo, 10);
+        if (virtualList) virtualList.moveItem(indexFrom, indexTo);
+      }
+
+      if (typeof indexTo !== 'undefined' && !Number.isNaN(indexTo) && indexTo !== indexFrom) {
+        $sortingEl.trigger('sortable:sort', {
+          from: indexFrom,
+          to: indexTo
+        });
+        app.emit('sortableSort', $sortingEl[0], {
+          from: indexFrom,
+          to: indexTo,
+          el: $sortingEl[0]
+        }, $sortableContainer[0]);
+      }
+
+      $insertBeforeEl = undefined;
+      $insertAfterEl = undefined;
+      isTouched = false;
+      isMoved = false;
+    }
+
+    const activeListener = getSupport().passiveListener ? {
+      passive: false,
+      capture: false
+    } : false;
+    $(document).on(app.touchEvents.start, '.list.sortable .sortable-handler', handleTouchStart, activeListener);
+    app.on('touchmove:active', handleTouchMove);
+    app.on('touchend:passive', handleTouchEnd);
+    $(document).on('taphold', '.sortable-tap-hold', (e, pointerEvent) => {
+      handleTouchStart(pointerEvent, true);
+    });
+  },
+
+  enable(el) {
+    if (el === void 0) {
+      el = '.list.sortable';
+    }
+
+    const app = this;
+    const $el = $(el);
+    if ($el.length === 0) return;
+    $el.addClass('sortable-enabled');
+    $el.trigger('sortable:enable');
+    app.emit('sortableEnable', $el[0]);
+  },
+
+  disable(el) {
+    if (el === void 0) {
+      el = '.list.sortable';
+    }
+
+    const app = this;
+    const $el = $(el);
+    if ($el.length === 0) return;
+    $el.removeClass('sortable-enabled');
+    $el.trigger('sortable:disable');
+    app.emit('sortableDisable', $el[0]);
+  },
+
+  toggle(el) {
+    if (el === void 0) {
+      el = '.list.sortable';
+    }
+
+    const app = this;
+    const $el = $(el);
+    if ($el.length === 0) return;
+
+    if ($el.hasClass('sortable-enabled')) {
+      app.sortable.disable($el);
+    } else {
+      app.sortable.enable($el);
+    }
+  }
+
+};
+export default {
+  name: 'sortable',
+  params: {
+    sortable: {
+      moveElements: true
+    }
+  },
+
+  create() {
+    const app = this;
+    bindMethods(app, {
+      sortable: Sortable
+    });
+  },
+
+  on: {
+    init() {
+      const app = this;
+      if (!app.params.sortable) return;
+      app.sortable.init();
+    }
+
+  },
+  clicks: {
+    '.sortable-enable': function enable($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.sortable.enable(data.sortable);
+    },
+    '.sortable-disable': function disable($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.sortable.disable(data.sortable);
+    },
+    '.sortable-toggle': function toggle($clickedEl, data) {
+      if (data === void 0) {
+        data = {};
+      }
+
+      const app = this;
+      app.sortable.toggle(data.sortable);
+    }
+  }
+};

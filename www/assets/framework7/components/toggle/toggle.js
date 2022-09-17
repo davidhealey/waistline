@@ -1,1 +1,65 @@
-(function framework7ComponentLoader(e,t){void 0===t&&(t=!0);var o=e.$,n=e.utils,r=(e.getDevice,e.getSupport),a=e.Class,i=(e.Modal,e.ConstructorMethods);e.ModalMethods;function c(e){this.wrapped=e}function s(e){var t,o;function n(t,o){try{var a=e[t](o),i=a.value,s=i instanceof c;Promise.resolve(s?i.wrapped:i).then((function(e){s?n("return"===t?"return":"next",e):r(a.done?"return":"normal",e)}),(function(e){n("throw",e)}))}catch(e){r("throw",e)}}function r(e,r){switch(e){case"return":t.resolve({value:r,done:!0});break;case"throw":t.reject(r);break;default:t.resolve({value:r,done:!1})}(t=t.next)?n(t.key,t.arg):o=null}this._invoke=function(e,r){return new Promise((function(a,i){var c={key:e,arg:r,resolve:a,reject:i,next:null};o?o=o.next=c:(t=o=c,n(e,r))}))},"function"!=typeof e.return&&(this.return=void 0)}function u(e,t){return(u=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function l(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}s.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},s.prototype.next=function(e){return this._invoke("next",e)},s.prototype.throw=function(e){return this._invoke("throw",e)},s.prototype.return=function(e){return this._invoke("return",e)};var g=n.extend,f=n.now,h=n.nextTick,d=n.deleteProps,p=function(e){var t,n;function a(t,n){var a;void 0===n&&(n={});var i=l(a=e.call(this,n,[t])||this),c=r(),s={};i.useModulesParams(s),i.params=g(s,n);var u=i.params.el;if(!u)return i||l(a);var d=o(u);if(0===d.length)return i||l(a);if(d[0].f7Toggle)return d[0].f7Toggle||l(a);var p,v=d.children('input[type="checkbox"]');g(i,{app:t,$el:d,el:d[0],$inputEl:v,inputEl:v[0],disabled:d.hasClass("disabled")||v.hasClass("disabled")||v.attr("disabled")||v[0].disabled}),Object.defineProperty(i,"checked",{enumerable:!0,configurable:!0,set:function(e){i&&void 0!==i.$inputEl&&i.checked!==e&&(v[0].checked=e,i.$inputEl.trigger("change"))},get:function(){return v[0].checked}}),d[0].f7Toggle=i;var y,m,b,k,T,w={};function x(e){p||i.disabled||(w.x="touchstart"===e.type?e.targetTouches[0].pageX:e.pageX,w.y="touchstart"===e.type?e.targetTouches[0].pageY:e.pageY,m=0,p=!0,y=void 0,k=f(),T=i.checked,b=d[0].offsetWidth,h((function(){p&&d.addClass("toggle-active-state")})))}function E(e){if(p&&!i.disabled){var o,n="touchmove"===e.type?e.targetTouches[0].pageX:e.pageX,r="touchmove"===e.type?e.targetTouches[0].pageY:e.pageY,a=t.rtl?-1:1;if(void 0===y&&(y=!!(y||Math.abs(r-w.y)>Math.abs(n-w.x))),y)p=!1;else e.preventDefault(),(m=n-w.x)*a<0&&Math.abs(m)>b/3&&T&&(o=!0),m*a>0&&Math.abs(m)>b/3&&!T&&(o=!0),o&&(w.x=n,i.checked=!T,T=!T)}}function M(){if(!p||i.disabled)return y&&d.removeClass("toggle-active-state"),void(p=!1);var e,o=t.rtl?-1:1;p=!1,d.removeClass("toggle-active-state"),f()-k<300&&(m*o<0&&T&&(e=!0),m*o>0&&!T&&(e=!0),e&&(i.checked=!T))}function $(){i.$el.trigger("toggle:change"),i.emit("local::change toggleChange",i)}return i.attachEvents=function(){var e=!!c.passiveListener&&{passive:!0};d.on(t.touchEvents.start,x,e),t.on("touchmove",E),t.on("touchend:passive",M),i.$inputEl.on("change",$)},i.detachEvents=function(){var e=!!c.passiveListener&&{passive:!0};d.off(t.touchEvents.start,x,e),t.off("touchmove",E),t.off("touchend:passive",M),i.$inputEl.off("change",$)},i.useModules(),i.init(),a}n=e,(t=a).prototype=Object.create(n.prototype),t.prototype.constructor=t,u(t,n);var i=a.prototype;return i.toggle=function(){this.checked=!this.checked},i.init=function(){this.attachEvents()},i.destroy=function(){var e=this;e.$el.trigger("toggle:beforedestroy"),e.emit("local::beforeDestroy toggleBeforeDestroy",e),delete e.$el[0].f7Toggle,e.detachEvents(),d(e),e=null},a}(a),v={name:"toggle",create:function(){this.toggle=i({defaultSelector:".toggle",constructor:p,app:this,domProp:"f7Toggle"})},static:{Toggle:p},on:{tabMounted:function(e){var t=this;o(e).find(".toggle-init").each((function(e){return t.toggle.create({el:e})}))},tabBeforeRemove:function(e){o(e).find(".toggle-init").each((function(e){e.f7Toggle&&e.f7Toggle.destroy()}))},pageInit:function(e){var t=this;e.$el.find(".toggle-init").each((function(e){return t.toggle.create({el:e})}))},pageBeforeRemove:function(e){e.$el.find(".toggle-init").each((function(e){e.f7Toggle&&e.f7Toggle.destroy()}))}},vnode:{"toggle-init":{insert:function(e){var t=e.elm;this.toggle.create({el:t})},destroy:function(e){var t=e.elm;t.f7Toggle&&t.f7Toggle.destroy()}}}};if(t){if(e.prototype.modules&&e.prototype.modules[v.name])return;e.use(v),e.instance&&(e.instance.useModuleParams(v,e.instance.params),e.instance.useModule(v))}return v}(Framework7, typeof Framework7AutoInstallComponent === 'undefined' ? undefined : Framework7AutoInstallComponent))
+import $ from '../../shared/dom7.js';
+import ConstructorMethods from '../../shared/constructor-methods.js';
+import Toggle from './toggle-class.js';
+export default {
+  name: 'toggle',
+
+  create() {
+    const app = this;
+    app.toggle = ConstructorMethods({
+      defaultSelector: '.toggle',
+      constructor: Toggle,
+      app,
+      domProp: 'f7Toggle'
+    });
+  },
+
+  static: {
+    Toggle
+  },
+  on: {
+    tabMounted(tabEl) {
+      const app = this;
+      $(tabEl).find('.toggle-init').each(toggleEl => app.toggle.create({
+        el: toggleEl
+      }));
+    },
+
+    tabBeforeRemove(tabEl) {
+      $(tabEl).find('.toggle-init').each(toggleEl => {
+        if (toggleEl.f7Toggle) toggleEl.f7Toggle.destroy();
+      });
+    },
+
+    pageInit(page) {
+      const app = this;
+      page.$el.find('.toggle-init').each(toggleEl => app.toggle.create({
+        el: toggleEl
+      }));
+    },
+
+    pageBeforeRemove(page) {
+      page.$el.find('.toggle-init').each(toggleEl => {
+        if (toggleEl.f7Toggle) toggleEl.f7Toggle.destroy();
+      });
+    }
+
+  },
+  vnode: {
+    'toggle-init': {
+      insert(vnode) {
+        const app = this;
+        const toggleEl = vnode.elm;
+        app.toggle.create({
+          el: toggleEl
+        });
+      },
+
+      destroy(vnode) {
+        const toggleEl = vnode.elm;
+        if (toggleEl.f7Toggle) toggleEl.f7Toggle.destroy();
+      }
+
+    }
+  }
+};
