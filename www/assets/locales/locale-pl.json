@@ -190,7 +190,9 @@
     "invalid-value-message": "Nieprawidłowa wartość."
   },
   "goals": {
-    "title": "Cele"
+    "title": "Cele",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Ustal cel",
