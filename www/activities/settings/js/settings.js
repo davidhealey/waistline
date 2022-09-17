@@ -21,16 +21,11 @@
 // and implement the migration in the migrateSettings() function below
 const currentSettingsSchemaVersion = 6;
 
-var s;
 app.Settings = {
 
   settings: {},
 
   init: function() {
-    s = this.settings; //Assign settings object
-    if (!s.ready) {
-      s.ready = true;
-    }
     app.Settings.bindUIActions();
 
     const inputs = Array.from(document.querySelectorAll("input, select"));
@@ -116,13 +111,14 @@ app.Settings = {
       if (x.hasAttribute("field") && x.hasAttribute("name") && !x.hasChangeEvent) {
         x.addEventListener("change", (e) => {
           app.Settings.saveInputs(inputs);
-          app.Settings.resetModuleReadyStates(); //Reset modules for changes to take effect
+          if (x.classList.contains("reset-modules"))
+            app.Settings.resetModuleReadyStates(); // Reset modules for changes to take effect
         });
         x.hasChangeEvent = true;
       }
     });
 
-    // Open food facts credentials login button
+    // Open Food Facts credentials login button
     let offLogin = document.getElementById("off-login");
     if (offLogin) {
       offLogin.addEventListener("click", function(e) {
@@ -291,7 +287,7 @@ app.Settings = {
   },
 
   resetModuleReadyStates: function() {
-    app.Diary.setReadyState(false);
+    app.Diary.resetReadyState();
   },
 
   saveOFFCredentials: async function(username, password) {
