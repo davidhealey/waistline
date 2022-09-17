@@ -62,7 +62,7 @@ app.OpenFoodFacts = {
             data.products.forEach((x) => {
               let item = app.OpenFoodFacts.parseItem(x, preferDataPer100g, language);
               if (item != undefined) {
-                let nutritionValues = Object.values(item.nutrition).filter((v) => {return v != undefined});
+                let nutritionValues = Object.values(item.nutrition).filter((v) => v != undefined);
                 if (nutritionValues.length != 0) result.push(item);
               }
             });
@@ -242,7 +242,7 @@ app.OpenFoodFacts = {
         if (result.status == 1) {
 
           if (data.images !== undefined) {
-            let count = data.images.filter(x => x == undefined).length;
+            let count = data.images.filter((x) => x == undefined).length;
 
             if (data.images.length > 0 && count < 2) {
 
