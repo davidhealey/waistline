@@ -30,26 +30,30 @@ app.Diary = {
     this.getComponents();
     this.bindUIActions();
 
+    let render = false;
     let scrollPosition;
 
-    // If items have been passed, add them to the db
+    // If items have been passed, add them to the DB and render
     if (context) {
-      if (context.items || context.item) {
-        if (context.items) {
-          await this.addItems(context.items, context.category);
-          scrollPosition = { category: context.category };
-        } else {
-          await this.updateItem(context.item);
-          scrollPosition = { position: app.Diary.lastScrollPosition };
-        }
+      if (context.items) {
+        await this.addItems(context.items, context.category);
+        scrollPosition = { category: context.category };
+      } else if (context.item) {
+        await this.updateItem(context.item);
+        scrollPosition = { position: app.Diary.lastScrollPosition };
       }
+      render = true;
     }
 
+    // If the meal groups aren't ready, create them and render
     if (!app.Diary.ready) {
-      app.Diary.groups = this.createMealGroups(); // Create meal groups
-      app.Diary.render(scrollPosition);
+      app.Diary.groups = this.createMealGroups();
       app.Diary.ready = true;
+      render = true;
     }
+
+    if (render)
+      app.Diary.render(scrollPosition)
 
     if (document.querySelector(".page-current[data-name='diary']") != null)
       app.Diary.lastScrollPosition = 0; // Reset last scroll position
@@ -99,7 +103,7 @@ app.Diary = {
     app.Diary.ready = false;
   },
 
-  createCalendar: function() {
+  createCalendar: function(context) {
     let result = app.f7.calendar.create({
       inputEl: "#diary-date",
       openIn: "customModal",
@@ -117,7 +121,7 @@ app.Diary = {
         },
         change: function(c) {
           app.Diary.date = new Date(c.getValue());
-          if (app.Diary.ready)
+          if (app.Diary.ready == true && context == undefined)
             app.Diary.render();
           c.close();
           app.Diary.updateDateDisplay();
@@ -482,7 +486,6 @@ app.Diary = {
             app.Diary.addItemToEntry(x, category, entry);
           });
           await dbHandler.put(entry, "diary");
-          app.Diary.ready = false; // Trigger fresh render
         }
 
         resolve();
@@ -606,7 +609,6 @@ app.Diary = {
         entry.items.splice(item.index, 1, updatedItem);
 
         await dbHandler.put(entry, "diary");
-        app.Diary.ready = false; // Trigger fresh render
 
         resolve();
       } else {
@@ -975,7 +977,7 @@ document.addEventListener("page:init", function(event) {
     let context = app.data.context;
     app.data.context = undefined;
     app.Diary.bindCalendarControls();
-    app.Diary.calendar = app.Diary.createCalendar();
+    app.Diary.calendar = app.Diary.createCalendar(context);
     app.Diary.init(context);
   }
 });
