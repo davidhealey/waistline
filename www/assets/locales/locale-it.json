@@ -190,7 +190,9 @@
     "invalid-value-message": "Valore non valido."
   },
   "goals": {
-    "title": "Obiettivi"
+    "title": "Obiettivi",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Imposta obiettivi",
