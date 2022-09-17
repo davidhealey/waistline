@@ -21,16 +21,11 @@
 // and implement the migration in the migrateSettings() function below
 const currentSettingsSchemaVersion = 6;
 
-var s;
 app.Settings = {
 
   settings: {},
 
   init: function() {
-    s = this.settings; //Assign settings object
-    if (!s.ready) {
-      s.ready = true;
-    }
     app.Settings.bindUIActions();
 
     const inputs = Array.from(document.querySelectorAll("input, select"));
@@ -291,7 +286,7 @@ app.Settings = {
   },
 
   resetModuleReadyStates: function() {
-    app.Diary.setReadyState(false);
+    app.Diary.resetReadyState();
   },
 
   saveOFFCredentials: async function(username, password) {

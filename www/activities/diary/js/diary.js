@@ -95,10 +95,8 @@ app.Diary = {
     }
   },
 
-  setReadyState: function(state) {
-    if (state) {
-      app.Diary.ready = state;
-    }
+  resetReadyState: function() {
+    app.Diary.ready = false;
   },
 
   createCalendar: function() {
