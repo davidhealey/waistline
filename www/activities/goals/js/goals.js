@@ -23,15 +23,17 @@ app.Goals = {
 
   init: function() {
     this.getComponents();
-    this.populateGoalList();
+    this.populateGoalLists();
   },
 
   getComponents: function() {
-    app.Goals.el.list = document.querySelector(".page[data-name='goals'] #goal-list");
+    app.Goals.el.yourList = document.querySelector(".page[data-name='goals'] #your-goals-list");
+    app.Goals.el.allList = document.querySelector(".page[data-name='goals'] #all-fields-list");
   },
 
-  populateGoalList: function() {
-    app.Goals.el.list.innerHTML = "";
+  populateGoalLists: function() {
+    app.Goals.el.yourList.innerHTML = "";
+    app.Goals.el.allList.innerHTML = "";
 
     const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const units = app.Nutriments.getNutrimentUnits();
@@ -39,30 +41,42 @@ app.Goals = {
     const measurements = app.measurements;
     const stats = measurements.concat(nutriments);
 
-    for (let i in stats) {
-      let x = stats[i];
-
+    for (let x of stats) {
       if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) continue;
 
       let unit = app.Goals.getGoalUnit(x, true);
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
-      let li = document.createElement("li");
-      app.Goals.el.list.appendChild(li);
+      let li = app.Goals.createGoalListItem(x, unitSymbol);
+      app.Goals.el.allList.appendChild(li);
 
-      let a = document.createElement("a");
-      a.href = "#";
-
-      let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
-      a.innerText = app.Utils.tidyText(text, 50);
-      if (unitSymbol !== undefined)
-        a.innerText += " (" + unitSymbol + ")";
-      li.appendChild(a);
-
-      li.addEventListener("click", (e) => {
-        app.Goals.gotoEditor(x);
-      });
+      // Check if a goal has been set for this stat
+      let statGoal = app.Goals.getStatDateGoal(x);
+      let statGoalValues = statGoal["goal"] || [];
+      if (statGoalValues.filter((v) => v != "").length) {
+        let li2 = app.Goals.createGoalListItem(x, unitSymbol);
+        app.Goals.el.yourList.appendChild(li2);
+      }
     }
+  },
+
+  createGoalListItem: function(stat, unitSymbol) {
+    let li = document.createElement("li");
+
+    let a = document.createElement("a");
+    a.href = "#";
+
+    let text = app.strings.nutriments[stat] || app.strings.statistics[stat] || stat;
+    a.innerText = app.Utils.tidyText(text, 50);
+    if (unitSymbol !== undefined)
+      a.innerText += " (" + unitSymbol + ")";
+    li.appendChild(a);
+
+    li.addEventListener("click", (e) => {
+      app.Goals.gotoEditor(stat);
+    });
+
+    return li;
   },
 
   gotoEditor: function(stat) {

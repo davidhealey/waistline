@@ -1,4 +1,5 @@
 - added ability to export diary as CSV file
+- your active goals are now listed separately on the Goals page
 - improved Open Food Facts search integration
 - carbs values of items imported from USDA no longer include fiber
 - added support for Serbian language (Cyrillic and Latin)
