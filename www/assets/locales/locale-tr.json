@@ -190,7 +190,9 @@
     "invalid-value-message": "Geçersiz Değer."
   },
   "goals": {
-    "title": "Hedefler"
+    "title": "Hedefler",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Hedef Belirle",
