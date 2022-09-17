@@ -190,7 +190,9 @@
     "invalid-value-message": "ערך שגוי."
   },
   "goals": {
-    "title": "יעדים"
+    "title": "יעדים",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "הגדרת יעדים",
