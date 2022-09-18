@@ -174,25 +174,26 @@ app.Diary = {
     let address = app.Settings.get("developer", "data-sharing-address");
     let wifiOnly = app.Settings.get("developer", "data-sharing-wifi-only");
 
-    if (app.Settings.get("developer", "data-sharing-active") == true && !!address
-        && (wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-      let entry = await this.getEntryFromDB(); // Get diary entry from DB
-      if (entry) {
-        let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
+    if (app.Settings.get("developer", "data-sharing-active") == true && !!address) {
+      if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
+        let entry = await this.getEntryFromDB(); // Get diary entry from DB
+        if (entry) {
+          let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
 
-        let entryDetails = await Promise.all(entry.items.map(async (data) => {
-          return await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
-        }));
+          let entryDetails = await Promise.all(entry.items.map(async (data) => {
+            return await app.FoodsMealsRecipes.getItem(data.id, data.type, data.portion, data.quantity);
+          }));
 
-        // Send nutrition and diary to target service
-        await app.Utils.timeoutFetch(address, {
-          headers: {
-            "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
-            "Authorization": app.Settings.get("developer", "data-sharing-authorization")
-          },
-          method: 'POST',
-          body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
-        });
+          // Send nutrition and diary to target service
+          await app.Utils.timeoutFetch(address, {
+            headers: {
+              "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+              "Authorization": app.Settings.get("developer", "data-sharing-authorization")
+            },
+            method: 'POST',
+            body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
+          });
+        }
       }
     }
   },
