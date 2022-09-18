@@ -299,12 +299,12 @@
       "goal-line": "Linie für Ziel anzeigen"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Entwickler",
+      "data-sharing": "Datenübertragung",
+      "data-sharing-wifi-only": "Daten nur per Wi-Fi übertragen",
+      "data-sharing-active": "Daten an externen Dienst übertragen",
+      "data-sharing-address": "Adresse des Dienstes",
+      "data-sharing-authorization": "Authorization Header des Dienstes"
     },
     "import-export": {
       "title": "Importieren/Exportieren",
