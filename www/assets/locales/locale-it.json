@@ -191,8 +191,8 @@
   },
   "goals": {
     "title": "Obiettivi",
-    "your-goals": "Your Goals",
-    "all-fields": "All Fields"
+    "your-goals": "I tuoi obiettivi",
+    "all-fields": "Tutti i campi"
   },
   "goal-editor": {
     "title": "Imposta obiettivi",
@@ -299,12 +299,12 @@
       "goal-line": "Mostra obiettivo"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Sviluppatore",
+      "data-sharing": "Condivisione dati",
+      "data-sharing-wifi-only": "Condividi i dati solo su Wi-Fi",
+      "data-sharing-active": "Condividi i dati con servizio esterno",
+      "data-sharing-address": "Indirizzo del servizio",
+      "data-sharing-authorization": "Intestazione autorizzazione servizio"
     },
     "import-export": {
       "title": "Importa/esporta",
