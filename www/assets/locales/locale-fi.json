@@ -298,6 +298,14 @@
       "average-line": "Näytä keskiarvoviiva",
       "goal-line": "Näytä tavoiteviiva"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "Tuo / Vie",
       "auto-backup": "Automaattinen varmuuskopiointi",
