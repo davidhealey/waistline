@@ -20,6 +20,7 @@
 app.Diary = {
 
   ready: false,
+  processingContext: false,
   calendar: undefined,
   lastScrollPosition: 0,
   el: {},
@@ -42,13 +43,14 @@ app.Diary = {
         await this.updateItem(context.item);
         scrollPosition = { position: app.Diary.lastScrollPosition };
       }
+      app.Diary.processingContext = false; // Clear processingContext flag
       render = true;
     }
 
     // If the meal groups aren't ready, create them and render
     if (!app.Diary.ready) {
       app.Diary.groups = this.createMealGroups();
-      app.Diary.ready = true;
+      app.Diary.ready = true; // Set ready flag
       render = true;
     }
 
@@ -103,7 +105,7 @@ app.Diary = {
     app.Diary.ready = false;
   },
 
-  createCalendar: function(context) {
+  createCalendar: function() {
     let result = app.f7.calendar.create({
       inputEl: "#diary-date",
       openIn: "customModal",
@@ -121,7 +123,7 @@ app.Diary = {
         },
         change: function(c) {
           app.Diary.date = new Date(c.getValue());
-          if (app.Diary.ready == true && context == undefined)
+          if (app.Diary.ready == true && app.Diary.processingContext == false)
             app.Diary.render();
           c.close();
           app.Diary.updateDateDisplay();
@@ -1006,8 +1008,12 @@ document.addEventListener("page:init", function(event) {
   if (event.target.matches(".page[data-name='diary']")) {
     let context = app.data.context;
     app.data.context = undefined;
+
+    if (context)
+      app.Diary.processingContext = true;
     app.Diary.bindCalendarControls();
-    app.Diary.calendar = app.Diary.createCalendar(context);
+    app.Diary.calendar = app.Diary.createCalendar();
+
     app.Diary.init(context);
   }
 });
