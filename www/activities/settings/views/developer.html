@@ -1,0 +1,82 @@
+<!--
+  Copyright 2022 Kroseida
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="settings-developer">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left"><a class="link back"><i class="icon icon-back"></i></a></div>
+      <div class="title" data-localize="settings.developer.title">Developer</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="list multi-line-titles">
+      <ul>
+        <li class="item-divider" data-localize="settings.developer.data-sharing">Data Sharing</li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.developer.data-sharing-active">Share data with external service</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" id="data-sharing-active" field="developer" name="data-sharing-active" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.developer.data-sharing-wifi-only">Only share data over Wi-Fi</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" id="data-sharing-wifi-only" field="developer" name="data-sharing-wifi-only" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">
+                <span data-localize="settings.developer.data-sharing-address">Service Address</span>
+              </div>
+              <div class="item-input-wrap">
+                <input type="text" name="data-sharing-address" field="developer" placeholder="https://your.service.org/waistline/">
+              </div>
+            </div>
+          </div>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">
+                <span data-localize="settings.developer.data-sharing-authorization">Service Authorization Header</span>
+              </div>
+              <div class="item-input-wrap">
+                <input type="text" name="data-sharing-authorization" field="developer">
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
