@@ -298,6 +298,14 @@
       "average-line": "Show Average Line",
       "goal-line": "Show Goal Line"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "Importar/Exportar",
       "auto-backup": "Backup automático",
