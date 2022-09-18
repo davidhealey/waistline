@@ -298,6 +298,14 @@
       "average-line": "הצגת קו ממוצע",
       "goal-line": "הצגת קו יעד"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "ייבוא/ייצוא",
       "auto-backup": "גיבוי אוטומטי",
