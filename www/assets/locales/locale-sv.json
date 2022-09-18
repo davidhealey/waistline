@@ -221,7 +221,7 @@
     "needs-restart": "Starta om appen för att tillämpa ändringarna.",
     "appearance": {
       "title": "Utseende",
-      "app-mode": "App Mode",
+      "app-mode": "Appens läge",
       "system": "Använd systemtema",
       "light": "Ljust",
       "dark": "Mörkt",
@@ -299,12 +299,12 @@
       "goal-line": "Visa linje för målsättning"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Utvecklare",
+      "data-sharing": "Delning av data",
+      "data-sharing-wifi-only": "Dela data endast över Wi-Fi",
+      "data-sharing-active": "Dela data till extern tjänst",
+      "data-sharing-address": "Tjänstens adress",
+      "data-sharing-authorization": "Tjänstens \"Authorization Header\""
     },
     "import-export": {
       "title": "Importera/Exportera",
