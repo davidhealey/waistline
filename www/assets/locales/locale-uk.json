@@ -298,6 +298,14 @@
       "average-line": "Показувати рядок Середнє значення",
       "goal-line": "Показувати рядок цілей"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "Імпорт/Експорт",
       "auto-backup": "Автоматична резервна копія",
