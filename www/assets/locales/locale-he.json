@@ -191,8 +191,8 @@
   },
   "goals": {
     "title": "יעדים",
-    "your-goals": "Your Goals",
-    "all-fields": "All Fields"
+    "your-goals": "היעדים שלך",
+    "all-fields": "כל השדות"
   },
   "goal-editor": {
     "title": "הגדרת יעדים",
@@ -299,12 +299,12 @@
       "goal-line": "הצגת קו יעד"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "מפתח",
+      "data-sharing": "שיתוף נתונים",
+      "data-sharing-wifi-only": "לשתף נתונים רק דרך רשת אלחוטית",
+      "data-sharing-active": "שיתוף נתונים עם שירות חיצוני",
+      "data-sharing-address": "כתובת השירות",
+      "data-sharing-authorization": "כותרת אימות השירות"
     },
     "import-export": {
       "title": "ייבוא/ייצוא",
