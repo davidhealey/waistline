@@ -93,7 +93,7 @@ app.Goals = {
 
     if (stat == "body fat")
 	return "%";
-    if (stat == "ketons")
+    if (stat == "ketones")
 	return "mmol";
     if (stat == "blood glucose")
 	return "mmol";
