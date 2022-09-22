@@ -54,6 +54,7 @@
     "kJ": "kJ",
     "l": "l",
     "ml": "ml",
+    "mmol": "mmol",
     "g": "g",
     "mg": "mg",
     "µg": "µg",
@@ -132,6 +133,8 @@
     "waist": "Waist",
     "hips": "Hips",
     "body fat": "Body Fat",
+    "ketons": "Ketons",
+    "blood glucose": "Blood Glucose",
     "average": "Average"
   },
   "diary": {
