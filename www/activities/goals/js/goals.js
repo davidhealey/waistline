@@ -92,7 +92,11 @@ app.Goals = {
     const units = app.Utils.concatObjects(app.Nutriments.getNutrimentUnits(), preferredUnits);
 
     if (stat == "body fat")
-      return "%";
+	return "%";
+    if (stat == "ketons")
+	return "mmol";
+    if (stat == "blood glucose")
+	return "mmol";
     if (app.measurements.includes(stat))
       return (stat == "weight") ? units.weight : units.length;
     if (checkPercentGoal == true && app.Goals.isPercentGoal(stat))
