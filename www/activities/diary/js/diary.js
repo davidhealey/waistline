@@ -512,7 +512,7 @@ app.Diary = {
         let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
         if (app.Settings.get("diary", "prompt-add-items") == true) {
-          app.Diary.promptAddItems(items, category, entry, 0);
+          app.Diary.promptAddItems(items, category, entry, 0, false);
         } else {
           items.forEach((x) => {
             app.Diary.addItemToEntry(x, category, entry);
@@ -528,11 +528,14 @@ app.Diary = {
     });
   },
 
-  promptAddItems: async function(items, category, entry, index) {
+  promptAddItems: async function(items, category, entry, index, renderAfterwards) {
     let item = items[index];
 
     if (item !== undefined) {
       if (item.name !== undefined && item.unit !== undefined) {
+
+        // Re-render diary when prompts are done
+        renderAfterwards = true;
 
         // Create dialog content
         let title = app.Utils.escapeHtml(app.Utils.tidyText(item.name, 50));
@@ -587,7 +590,7 @@ app.Diary = {
             text: app.strings.dialogs.skip || "Skip",
             keyCodes: [27],
             onClick: async function(dialog) {
-              app.Diary.promptAddItems(items, category, entry, index + 1);
+              app.Diary.promptAddItems(items, category, entry, index + 1, renderAfterwards);
             }
           },
           {
@@ -604,7 +607,7 @@ app.Diary = {
                 item.quantity = quantity;
 
               app.Diary.addItemToEntry(item, category, entry);
-              app.Diary.promptAddItems(items, category, entry, index + 1);
+              app.Diary.promptAddItems(items, category, entry, index + 1, renderAfterwards);
             }
           }
           ]
@@ -613,13 +616,15 @@ app.Diary = {
       } else {
         // Item has no name (is a meal item) -> add it as is without prompt
         app.Diary.addItemToEntry(item, category, entry);
-        app.Diary.promptAddItems(items, category, entry, index + 1);
+        app.Diary.promptAddItems(items, category, entry, index + 1, renderAfterwards);
       }
     } else {
-      // No more items to process -> write entry to DB and refresh page
+      // No more items to process -> write entry to DB and render
       await dbHandler.put(entry, "diary");
-      let scrollPosition = { category: category };
-      app.Diary.render(scrollPosition);
+      if (renderAfterwards) {
+        let scrollPosition = { category: category };
+        app.Diary.render(scrollPosition);
+      }
     }
   },
 
