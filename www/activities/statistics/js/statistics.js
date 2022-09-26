@@ -355,6 +355,22 @@ app.Stats = {
         }
       }
 
+      // trim trailing and leading gaps
+      let valuesStartIndex = -1;
+      let valuesEndIndex = -1;
+      result.dataset.values.forEach((el, idx) => {
+        if (el) {
+          if (valuesStartIndex < 0) {
+            valuesStartIndex = idx;
+          }
+          valuesEndIndex = idx;
+        }
+      });
+      if (valuesStartIndex > 0 || valuesEndIndex < result.dataset.values.length-1) {
+        result.dataset.values = result.dataset.values.slice(valuesStartIndex, valuesEndIndex+1);
+        result.dates = result.dates.slice(valuesStartIndex, valuesEndIndex+1);
+      }
+
       let title = app.strings.nutriments[field] || app.strings.statistics[field] || field;
       let goal = app.Goals.getAverageGoal(field);
 
