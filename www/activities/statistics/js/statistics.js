@@ -235,7 +235,7 @@ app.Stats = {
   },
 
   renderStatLog: function() {
-    this.el.timeline.innerHTML = "";
+    app.Stats.el.timeline.innerHTML = "";
 
     // Build list from bottom to top
     for (let i = 0; i < app.Stats.data.dates.length; i++) {
@@ -265,8 +265,8 @@ app.Stats = {
       inner.appendChild(after);
     }
 
-    let avg = this.renderAverage(this.data.average, this.data.dataset.unit);
-    this.el.timeline.prepend(avg);
+    let avg = app.Stats.renderAverage(app.Stats.data.average, app.Stats.data.dataset.unit);
+    app.Stats.el.timeline.prepend(avg);
   },
 
   renderAverage: function(average, unit) {
