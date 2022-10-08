@@ -235,10 +235,14 @@ app.Stats = {
   },
 
   renderStatLog: function() {
-    this.el.timeline.innerHTML = "";
+    app.Stats.el.timeline.innerHTML = "";
 
     // Build list from bottom to top
     for (let i = 0; i < app.Stats.data.dates.length; i++) {
+
+      // Do not render data gaps in list
+      if (!app.Stats.data.dataset.values[i]) continue;
+
       let li = document.createElement("li");
       app.Stats.el.timeline.prepend(li);
 
@@ -261,8 +265,8 @@ app.Stats = {
       inner.appendChild(after);
     }
 
-    let avg = this.renderAverage(this.data.average, this.data.dataset.unit);
-    this.el.timeline.prepend(avg);
+    let avg = app.Stats.renderAverage(app.Stats.data.average, app.Stats.data.dataset.unit);
+    app.Stats.el.timeline.prepend(avg);
   },
 
   renderAverage: function(average, unit) {
@@ -306,6 +310,9 @@ app.Stats = {
         average: 0
       };
 
+      let valueCount = 0;
+      let previousTimestamp = null;
+
       for (let i = 0; i < data.timestamps.length; i++) {
         let value;
 
@@ -318,15 +325,29 @@ app.Stats = {
 
         if (value != undefined && value != 0 && !isNaN(value)) {
           let timestamp = data.timestamps[i];
-          let date = timestamp.toLocaleDateString([], {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            timeZone: "UTC"
-          });
+          let date = app.Utils.dateToLocaleDateString(timestamp);
+
+          // Fill data gaps between previous and current date with empty data
+          if (previousTimestamp) {
+            let missingTimestamp = new Date();
+            missingTimestamp.setTime(previousTimestamp.getTime());
+
+            while (true) {
+              missingTimestamp.setDate(missingTimestamp.getDate() + 1);
+              if (missingTimestamp.getTime() >= timestamp.getTime()) break;
+
+              let missingDate = app.Utils.dateToLocaleDateString(missingTimestamp);
+              result.dates.push(missingDate);
+              result.dataset.values.push(null);
+            }
+          }
+
           result.dates.push(date);
           result.dataset.values.push(Math.round(value * 100) / 100);
           result.average = result.average + value;
+
+          valueCount++;
+          previousTimestamp = timestamp;
         }
       }
 
@@ -336,7 +357,7 @@ app.Stats = {
       result.dataset.label = app.Utils.tidyText(title, 50);
       if (unitSymbol !== undefined)
         result.dataset.label += " (" + unitSymbol + ")";
-      result.average = result.average / result.dates.length || 0;
+      result.average = result.average / valueCount || 0;
       result.goal = goal;
 
       resolve(result);
@@ -396,7 +417,9 @@ app.Stats = {
           data: data.dataset.values,
           borderWidth: 2,
           backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 0.5)'
+          borderColor: 'rgba(54, 162, 235, 0.5)',
+          spanGaps: true,
+          lineTension: 0.2
         }]
       },
       options: {

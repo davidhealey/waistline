@@ -329,12 +329,7 @@ app.GoalEditor = {
     let text = goalString + " " + (i + 1);
     if (goal["effective-from"] !== undefined) {
       let date = new Date(goal["effective-from"]);
-      let dateString = date.toLocaleDateString([], {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        timeZone: "UTC"
-      });
+      let dateString = app.Utils.dateToLocaleDateString(date);
       text += " - " + effectiveFromString + " " + dateString;
     }
     option.innerText = app.Utils.tidyText(text, 50);
