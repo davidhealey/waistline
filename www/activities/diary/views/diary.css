@@ -22,7 +22,7 @@
 .page[data-name="diary"] .group-energy {font-weight: bold;}
 
 /* Nutrition/Goals display */
-.page[data-name="diary"] #diary-nutrition .swiper {width: 100%;}
+.page[data-name="diary"] #diary-nutrition .swiper {width: 100%; margin-top: 0.4em;}
 .page[data-name="diary"] #diary-nutrition .row {justify-content: space-around;}
 .page[data-name="diary"] #diary-nutrition .col {text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .page[data-name="diary"] #diary-nutrition .nutrition-total-title {font-weight: bold;}
