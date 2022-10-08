@@ -446,12 +446,7 @@ app.Settings = {
       csv += "\n";
 
       let timestamp = diaryData.timestamps[i];
-      csv += timestamp.toLocaleDateString([], {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        timeZone: "UTC"
-      });
+      csv += app.Utils.dateToLocaleDateString(timestamp);
 
       let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryData.items[i], "ignore");
       relevantFields.forEach((x) => {
