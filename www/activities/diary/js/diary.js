@@ -227,10 +227,9 @@ app.Diary = {
     for (group in app.Diary.groups)
       await app.Diary.groups[group].render(container);
 
-    // Render nutrition swiper card
+    // Nutrition swiper card
     let swiper = app.f7.swiper.get("#diary-nutrition .swiper");
-    let swiperWrapper = document.querySelector("#diary-nutrition .swiper-wrapper");
-    swiperWrapper.innerHTML = "";
+    swiper.removeAllSlides();
 
     await app.Diary.renderNutritionCard(totalNutrition, new Date(app.Diary.date), swiper);
 
