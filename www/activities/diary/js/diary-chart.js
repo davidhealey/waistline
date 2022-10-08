@@ -160,6 +160,7 @@ app.DiaryChart = {
         labels: data.labels
       },
       options: {
+        events: [],
         tooltips: {
           enabled: false
         },
