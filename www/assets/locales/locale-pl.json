@@ -190,7 +190,9 @@
     "invalid-value-message": "Nieprawidłowa wartość."
   },
   "goals": {
-    "title": "Cele"
+    "title": "Cele",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Ustal cel",
@@ -296,6 +298,14 @@
       "average-line": "Pokaż linie średnich",
       "goal-line": "Pokaż linię celu"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "Import/eksport",
       "auto-backup": "Automatyczna kopia zapasowa",
@@ -303,7 +313,10 @@
       "import": "Importuj z kopii zapasowej",
       "import-foods-title": "Importowanie żywności",
       "import-foods": "Import żywności z pliku JSON",
-      "import-foods-categories": "Kategorie dla importowanych elementów"
+      "import-foods-categories": "Kategorie dla importowanych elementów",
+      "export-diary-title": "Eksport dziennika",
+      "export-diary": "Eksportuj dziennik do pliku CSV",
+      "date": "Data"
     },
     "integration": {
       "title": "Integracja",
@@ -368,6 +381,8 @@
     "spanish": "Hiszpański",
     "dutch": "Holenderski",
     "turkish": "Turecki",
-    "ukrainian": "Ukraiński"
+    "ukrainian": "Ukraiński",
+    "serbian-cyrillic": "Serbski (cyrylica)",
+    "serbian-latin": "Serbski (alfabet łaciński)"
   }
 }

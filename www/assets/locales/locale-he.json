@@ -190,7 +190,9 @@
     "invalid-value-message": "ערך שגוי."
   },
   "goals": {
-    "title": "יעדים"
+    "title": "יעדים",
+    "your-goals": "היעדים שלך",
+    "all-fields": "כל השדות"
   },
   "goal-editor": {
     "title": "הגדרת יעדים",
@@ -296,6 +298,14 @@
       "average-line": "הצגת קו ממוצע",
       "goal-line": "הצגת קו יעד"
     },
+    "developer": {
+      "title": "מפתח",
+      "data-sharing": "שיתוף נתונים",
+      "data-sharing-wifi-only": "לשתף נתונים רק דרך רשת אלחוטית",
+      "data-sharing-active": "שיתוף נתונים עם שירות חיצוני",
+      "data-sharing-address": "כתובת השירות",
+      "data-sharing-authorization": "כותרת אימות השירות"
+    },
     "import-export": {
       "title": "ייבוא/ייצוא",
       "auto-backup": "גיבוי אוטומטי",
@@ -303,7 +313,10 @@
       "import": "ייבוא מגיבוי",
       "import-foods-title": "ייבוא מאכלים",
       "import-foods": "ייבוא מאכלים מ־JSON",
-      "import-foods-categories": "קטגוריות לפריטים המיובאים"
+      "import-foods-categories": "קטגוריות לפריטים המיובאים",
+      "export-diary-title": "ייצוא יומן",
+      "export-diary": "ייצוא יומן ל־CSV",
+      "date": "תאריך"
     },
     "integration": {
       "title": "שילוב",
@@ -368,6 +381,8 @@
     "spanish": "ספרדית",
     "dutch": "הולנדית",
     "turkish": "טורקית",
-    "ukrainian": "אוקראינית"
+    "ukrainian": "אוקראינית",
+    "serbian-cyrillic": "סרבית קירילית",
+    "serbian-latin": "סרבית לטינית"
   }
 }

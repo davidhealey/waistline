@@ -72,12 +72,12 @@
     "no": "Nee",
     "add": "Toevoegen",
     "skip": "Overslaan",
-    "clone-item": "Clone item",
-    "delete-item": "Delete item",
-    "archive-item": "Archive item",
-    "restore-item": "Restore item",
-    "clone-and-archive": "Clone item and archive original",
-    "confirm": "Are you sure?",
+    "clone-item": "Item kopiëren",
+    "delete-item": "Item verwijderen",
+    "archive-item": "Item archiveren",
+    "restore-item": "Item herstellen",
+    "clone-and-archive": "Kopieer item en archiveer origineel",
+    "confirm": "Weet u het zeker?",
     "confirm-delete": "Weet je zeker dat je dit wilt verwijderen?",
     "delete-title": "Verwijder opvoer",
     "required-fields": "Vul alle verplichte velden alsjeblieft in.",
@@ -190,7 +190,9 @@
     "invalid-value-message": "Ongeldige waarde."
   },
   "goals": {
-    "title": "Doelen"
+    "title": "Doelen",
+    "your-goals": "Uw doelen",
+    "all-fields": "Alle velden"
   },
   "goal-editor": {
     "title": "Doel stellen",
@@ -219,10 +221,10 @@
     "needs-restart": "Herstart app om wijzigingen door te voeren.",
     "appearance": {
       "title": "Weergave",
-      "app-mode": "App Mode",
-      "system": "Use System Theme",
-      "light": "Light",
-      "dark": "Dark",
+      "app-mode": "App-modus",
+      "system": "Systeemthema gebruiken",
+      "light": "Licht",
+      "dark": "Donker",
       "colour-theme": "Kleurenthema",
       "animations": "UI-animaties uitschakelen",
       "start-page": "Startpagina",
@@ -296,6 +298,14 @@
       "average-line": "Toon gemiddeldelijn",
       "goal-line": "Toon doellijn"
     },
+    "developer": {
+      "title": "Ontwikkelaar",
+      "data-sharing": "Gegevens delen",
+      "data-sharing-wifi-only": "Gegevens alleen delen via wifi",
+      "data-sharing-active": "Deel gegevens met externe dienst",
+      "data-sharing-address": "Adres van de dienst",
+      "data-sharing-authorization": "Authorization Header voor de dienst"
+    },
     "import-export": {
       "title": "Importeren/exporten",
       "auto-backup": "Automatische backup",
@@ -303,7 +313,10 @@
       "import": "Importeer uit backup",
       "import-foods-title": "Importeer voedsel",
       "import-foods": "Importeer voedsel uit JSON",
-      "import-foods-categories": "Categorieën voor geïmporteerde items"
+      "import-foods-categories": "Categorieën voor geïmporteerde items",
+      "export-diary-title": "Dagboek exporteren",
+      "export-diary": "Dagboek exporteren naar CSV",
+      "date": "Datum"
     },
     "integration": {
       "title": "Integratie",
@@ -368,6 +381,8 @@
     "spanish": "Spaans",
     "dutch": "Nederlands",
     "turkish": "Turks",
-    "ukrainian": "Oekraïens"
+    "ukrainian": "Oekraïens",
+    "serbian-cyrillic": "Servisch (cyrillisch)",
+    "serbian-latin": "Servisch (latijns)"
   }
 }

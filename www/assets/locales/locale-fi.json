@@ -190,7 +190,9 @@
     "invalid-value-message": "Virheellinen arvo."
   },
   "goals": {
-    "title": "Tavoitteet"
+    "title": "Tavoitteet",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Aseta tavoitteet",
@@ -296,6 +298,14 @@
       "average-line": "Näytä keskiarvoviiva",
       "goal-line": "Näytä tavoiteviiva"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "Tuo / Vie",
       "auto-backup": "Automaattinen varmuuskopiointi",
@@ -303,7 +313,10 @@
       "import": "Tuo varmuuskopiosta",
       "import-foods-title": "Tuo elintarvikkeita",
       "import-foods": "Tuo elintarvikkeita JSONista",
-      "import-foods-categories": "Tuotujen kohteiden luokat"
+      "import-foods-categories": "Tuotujen kohteiden luokat",
+      "export-diary-title": "Export Diary",
+      "export-diary": "Export Diary to CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Intergrointi",
@@ -368,6 +381,8 @@
     "spanish": "Espanja",
     "dutch": "Hollanti",
     "turkish": "Turkki",
-    "ukrainian": "Ukraina"
+    "ukrainian": "Ukraina",
+    "serbian-cyrillic": "Serbian (Cyrillic)",
+    "serbian-latin": "Serbian (Latin)"
   }
 }

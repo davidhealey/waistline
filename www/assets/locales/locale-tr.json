@@ -190,7 +190,9 @@
     "invalid-value-message": "Geçersiz Değer."
   },
   "goals": {
-    "title": "Hedefler"
+    "title": "Hedefler",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Hedef Belirle",
@@ -220,7 +222,7 @@
     "appearance": {
       "title": "Görünüm",
       "app-mode": "Uygulama Modu",
-      "system": "Sistem temasını kullan",
+      "system": "Sistem Temasını Kullan",
       "light": "Açık",
       "dark": "Koyu",
       "colour-theme": "Renk Teması",
@@ -296,6 +298,14 @@
       "average-line": "Ortalama Grafiğini Göster",
       "goal-line": "Hedef Grafiğini Göster"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "İçe Aktar/Dışa Aktar",
       "auto-backup": "Otomatik Yedekle",
@@ -303,7 +313,10 @@
       "import": "Yedeklemeyi İçe Aktar",
       "import-foods-title": "Yemekleri İçe Aktar",
       "import-foods": "Yemekleri JSON'dan İçe Aktar",
-      "import-foods-categories": "İçe aktarılan öğelerin kategorileri"
+      "import-foods-categories": "İçe aktarılan öğelerin kategorileri",
+      "export-diary-title": "Günlüğü dışa aktar",
+      "export-diary": "Günlüğü CSV'ye aktar",
+      "date": "Tarih"
     },
     "integration": {
       "title": "Entegrasyon",
@@ -368,6 +381,8 @@
     "spanish": "İspanyolca",
     "dutch": "Flemenkçe",
     "turkish": "Türkçe",
-    "ukrainian": "Ukraynaca"
+    "ukrainian": "Ukraynaca",
+    "serbian-cyrillic": "Sırpça (Kiril)",
+    "serbian-latin": "Sırpça (Latin)"
   }
 }

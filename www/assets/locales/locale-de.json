@@ -190,7 +190,9 @@
     "invalid-value-message": "Ungültiger Wert."
   },
   "goals": {
-    "title": "Ziele"
+    "title": "Ziele",
+    "your-goals": "Deine Ziele",
+    "all-fields": "Alle Felder"
   },
   "goal-editor": {
     "title": "Ziele setzen",
@@ -296,6 +298,14 @@
       "average-line": "Linie für Durchschnitt anzeigen",
       "goal-line": "Linie für Ziel anzeigen"
     },
+    "developer": {
+      "title": "Entwickler",
+      "data-sharing": "Datenübertragung",
+      "data-sharing-wifi-only": "Daten nur per Wi-Fi übertragen",
+      "data-sharing-active": "Daten an externen Dienst übertragen",
+      "data-sharing-address": "Adresse des Dienstes",
+      "data-sharing-authorization": "Authorization Header des Dienstes"
+    },
     "import-export": {
       "title": "Importieren/Exportieren",
       "auto-backup": "Automatische Sicherung",
@@ -303,7 +313,10 @@
       "import": "Aus Datenbanksicherung importieren",
       "import-foods-title": "Lebensmittel importieren",
       "import-foods": "Lebensmittel aus JSON importieren",
-      "import-foods-categories": "Kategorien für importierte Einträge"
+      "import-foods-categories": "Kategorien für importierte Einträge",
+      "export-diary-title": "Tagebuch exportieren",
+      "export-diary": "Tagebuch als CSV exportieren",
+      "date": "Datum"
     },
     "integration": {
       "title": "Integrationen",
@@ -368,6 +381,8 @@
     "spanish": "Spanisch",
     "dutch": "Niederländisch",
     "turkish": "Türkisch",
-    "ukrainian": "Ukrainisch"
+    "ukrainian": "Ukrainisch",
+    "serbian-cyrillic": "Serbisch (Kyrillisch)",
+    "serbian-latin": "Serbisch (Lateinisch)"
   }
 }

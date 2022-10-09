@@ -72,12 +72,12 @@
     "no": "Non",
     "add": "Ajouter",
     "skip": "Ignorer",
-    "clone-item": "Clone item",
-    "delete-item": "Delete item",
-    "archive-item": "Archive item",
-    "restore-item": "Restore item",
-    "clone-and-archive": "Clone item and archive original",
-    "confirm": "Are you sure?",
+    "clone-item": "Dupliquer l'élément",
+    "delete-item": "Supprimer l'élément",
+    "archive-item": "Archiver l'élément",
+    "restore-item": "Restaurer l'élément",
+    "clone-and-archive": "Cloner l'élément et archiver l'original",
+    "confirm": "Êtes-vous sûr ?",
     "confirm-delete": "Souhaitez-vous supprimer cet élément ?",
     "delete-title": "Supprimer élément",
     "required-fields": "Veuillez remplir les champs requis.",
@@ -190,7 +190,9 @@
     "invalid-value-message": "Valeur non valide."
   },
   "goals": {
-    "title": "Objectifs"
+    "title": "Objectifs",
+    "your-goals": "Your Goals",
+    "all-fields": "All Fields"
   },
   "goal-editor": {
     "title": "Modifier objectifs",
@@ -219,10 +221,10 @@
     "needs-restart": "Redémarrer l’application pour appliquer les changements.",
     "appearance": {
       "title": "Apparence",
-      "app-mode": "App Mode",
-      "system": "Use System Theme",
-      "light": "Light",
-      "dark": "Dark",
+      "app-mode": "Thème de l'app",
+      "system": "Thème du système",
+      "light": "Clair",
+      "dark": "Sombre",
       "colour-theme": "Thème de couleur",
       "animations": "Désactiver les animations",
       "start-page": "Page d’accueil",
@@ -296,6 +298,14 @@
       "average-line": "Afficher la ligne moyenne",
       "goal-line": "Afficher la ligne objectif"
     },
+    "developer": {
+      "title": "Developer",
+      "data-sharing": "Data Sharing",
+      "data-sharing-wifi-only": "Only share data over Wi-Fi",
+      "data-sharing-active": "Share data with external service",
+      "data-sharing-address": "Service Address",
+      "data-sharing-authorization": "Service Authorization Header"
+    },
     "import-export": {
       "title": "Importation/Exportation",
       "auto-backup": "Sauvegarde automatique",
@@ -303,7 +313,10 @@
       "import": "Importer à partir d’une sauvegarde",
       "import-foods-title": "Importer des Aliments",
       "import-foods": "Importer des Aliments depuis un fichier JSON",
-      "import-foods-categories": "Catégories pour les éléments importés"
+      "import-foods-categories": "Catégories pour les éléments importés",
+      "export-diary-title": "Exporter le journal",
+      "export-diary": "Exporter le journal au format CSV",
+      "date": "Date"
     },
     "integration": {
       "title": "Intégration",
@@ -341,7 +354,7 @@
       "import-success-title": "La sauvegarde a été restaurée",
       "import-success-message": "Importation réussie",
       "barcode-sound": "Son de scanner",
-      "edit-images": "Crop Photos",
+      "edit-images": "Modifier les images",
       "login-success": "Connexion réussie"
     }
   },
@@ -368,6 +381,8 @@
     "spanish": "Espagnol",
     "dutch": "Néerlandais",
     "turkish": "Turc",
-    "ukrainian": "Ukrainien"
+    "ukrainian": "Ukrainien",
+    "serbian-cyrillic": "Serbe (Cyrillique)",
+    "serbian-latin": "Serbe (Latin)"
   }
 }

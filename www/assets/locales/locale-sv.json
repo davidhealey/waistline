@@ -190,7 +190,9 @@
     "invalid-value-message": "Ogiltigt värde."
   },
   "goals": {
-    "title": "Målsättningar"
+    "title": "Målsättningar",
+    "your-goals": "Dina mål",
+    "all-fields": "Alla fält"
   },
   "goal-editor": {
     "title": "Sätt upp mål",
@@ -219,10 +221,10 @@
     "needs-restart": "Starta om appen för att tillämpa ändringarna.",
     "appearance": {
       "title": "Utseende",
-      "app-mode": "App Mode",
-      "system": "Use System Theme",
-      "light": "Light",
-      "dark": "Dark",
+      "app-mode": "Appens läge",
+      "system": "Använd systemtema",
+      "light": "Ljust",
+      "dark": "Mörkt",
       "colour-theme": "Färgtema",
       "animations": "Inaktivera UI-animeringar",
       "start-page": "Startsida",
@@ -296,6 +298,14 @@
       "average-line": "Visa linje för medelvärde",
       "goal-line": "Visa linje för målsättning"
     },
+    "developer": {
+      "title": "Utvecklare",
+      "data-sharing": "Delning av data",
+      "data-sharing-wifi-only": "Dela data endast över Wi-Fi",
+      "data-sharing-active": "Dela data till extern tjänst",
+      "data-sharing-address": "Tjänstens adress",
+      "data-sharing-authorization": "Tjänstens \"Authorization Header\""
+    },
     "import-export": {
       "title": "Importera/Exportera",
       "auto-backup": "Automatisk säkerhetskopiering",
@@ -303,7 +313,10 @@
       "import": "Importera säkerhetskopia",
       "import-foods-title": "Importera livsmedel",
       "import-foods": "Importera livsmedel från JSON",
-      "import-foods-categories": "Kategorier för importerade objekt"
+      "import-foods-categories": "Kategorier för importerade objekt",
+      "export-diary-title": "Exportera dagbok",
+      "export-diary": "Exportera dagbok till CSV-fil",
+      "date": "Datum"
     },
     "integration": {
       "title": "Integrationer",
@@ -368,6 +381,8 @@
     "spanish": "Spanska",
     "dutch": "Nederländska",
     "turkish": "Turkiska",
-    "ukrainian": "Ukrainska"
+    "ukrainian": "Ukrainska",
+    "serbian-cyrillic": "Serbiska (kyrilliskt)",
+    "serbian-latin": "Serbiska (latinskt)"
   }
 }
