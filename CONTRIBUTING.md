@@ -118,13 +118,18 @@ sudo docker restart waistline_browser
 To build for Android, you can use _android.Dockerfile_:
 ```sh
 sudo docker build -t waistline:android -f ./docker/android.Dockerfile .
-sudo docker run --rm -v $(pwd):/waistline/app/ --name waistline_android waistline:android
+sudo docker run -v $(pwd):/waistline/app/ --name waistline_android waistline:android
 ```
 If the build succeeded, you should find the APK under `./platforms/android/app/build/outputs/apk/debug/app-debug.apk`.
 
 You can also launch the container interactively to execute your own commands:
 ```sh
-sudo docker run -it --rm -v $(pwd):/waistline/app/ --name waistline_android waistline:android /bin/sh
+sudo docker run -it -v $(pwd):/waistline/app/ --name waistline_android waistline:android /bin/sh
+```
+
+To start the container again after it stopped, use the `docker start` command:
+```sh
+sudo docker start -i waistline_android
 ```
 
 We depend on an externally generated Docker image at the Android build. If you wish, you can build it locally in your repositories' directory by:
