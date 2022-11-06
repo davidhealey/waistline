@@ -36,8 +36,8 @@ app.Goals = {
     app.Goals.el.allList.innerHTML = "";
 
     const energyUnit = app.Settings.get("units", "energy");
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const nutriments = app.Nutriments.getNutriments();
+    const bodyStats = app.BodyStats.getBodyStats();
     const stats = bodyStats.concat(nutriments);
 
     for (let x of stats) {
@@ -241,7 +241,7 @@ app.Goals = {
     let statGoalValues = statGoal["goal"] || [];
     let goal;
 
-    const bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const bodyStats = app.BodyStats.getBodyStats();
 
     if (statGoal["shared-goal"] == true || bodyStats.includes(stat))
       goal = parseFloat(statGoalValues[0]);
@@ -262,7 +262,7 @@ app.Goals = {
     let statGoalValues = statGoal["goal"] || [];
     let averageGoal;
 
-    const bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const bodyStats = app.BodyStats.getBodyStats();
 
     if (statGoalValues.length) {
       if (statGoal["shared-goal"] == true || bodyStats.includes(stat)) {

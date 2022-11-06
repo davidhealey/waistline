@@ -21,6 +21,10 @@ app.Nutriments = {
 
   storeNames: ["foodList", "recipes"],
 
+  getNutriments: function() {
+    return app.Settings.get("nutriments", "order") || app.nutriments;
+  },
+
   getNutrimentUnits: function(alcoholVolPercent) {
     let nutrimentUnits = app.Utils.concatObjects(app.nutrimentUnits);
     let customUnits = app.Settings.get("nutriments", "units") || {};
@@ -30,7 +34,7 @@ app.Nutriments = {
   },
 
   populateNutrimentList: function() {
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    let nutriments = app.Nutriments.getNutriments();
     let ul = document.querySelector("#nutriment-list");
 
     for (let i in nutriments) {
@@ -177,8 +181,8 @@ app.Nutriments = {
   },
 
   addNutrimentField: function() {
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    let bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    let nutriments = app.Nutriments.getNutriments();
+    let bodyStats = app.BodyStats.getBodyStats();
     let units = app.Settings.get("nutriments", "units") || {};
     let visibility = app.Settings.getField("nutrimentVisibility");
 
@@ -201,8 +205,8 @@ app.Nutriments = {
   },
 
   editNutrimentField: function(oldField) {
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    let bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    let nutriments = app.Nutriments.getNutriments();
+    let bodyStats = app.BodyStats.getBodyStats();
     let units = app.Settings.get("nutriments", "units") || {};
     let visibility = app.Settings.getField("nutrimentVisibility");
 
@@ -279,7 +283,7 @@ app.Nutriments = {
           onClick: async () => {
             app.f7.preloader.show();
 
-            let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+            let nutriments = app.Nutriments.getNutriments();
             let units = app.Settings.get("nutriments", "units") || {};
             let visibility = app.Settings.getField("nutrimentVisibility");
 

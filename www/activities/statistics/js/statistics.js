@@ -176,8 +176,8 @@ app.Stats = {
 
   populateDropdownOptions: function() {
     const energyUnit = app.Settings.get("units", "energy");
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const nutriments = app.Nutriments.getNutriments();
+    const bodyStats = app.BodyStats.getBodyStats();
     const stats = bodyStats.concat(nutriments);
 
     stats.forEach((x, i) => {
@@ -298,7 +298,7 @@ app.Stats = {
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
-      const bodyStats =  app.Settings.get("bodyStats", "order") || app.bodyStats;
+      const bodyStats =  app.BodyStats.getBodyStats();
       const bodyStatsUnits = app.BodyStats.getBodyStatsUnits();
 
       const unit = app.Goals.getGoalUnit(field, false);

@@ -19,6 +19,10 @@
 
 app.BodyStats = {
 
+  getBodyStats: function() {
+    return app.Settings.get("bodyStats", "order") || app.bodyStats;
+  },
+
   getBodyStatsUnits: function() {
     let bodyStatsUnits = app.bodyStatsUnits;
     let customUnits = app.Settings.get("bodyStats", "units") || {};
@@ -26,7 +30,7 @@ app.BodyStats = {
   },
 
   populateBodyStatsList: function() {
-    let bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    let bodyStats = app.BodyStats.getBodyStats();
     let ul = document.querySelector("#body-stats-list");
 
     for (let i in bodyStats) {
@@ -157,8 +161,8 @@ app.BodyStats = {
   },
 
   addBodyStatField: function() {
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    let bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    let nutriments = app.Nutriments.getNutriments();
+    let bodyStats = app.BodyStats.getBodyStats();
     let units = app.Settings.get("bodyStats", "units") || {};
 
     let title = app.strings.settings["body-stats"]["add"] || "Add Field";
@@ -177,8 +181,8 @@ app.BodyStats = {
   },
 
   editBodyStatField: function(oldField) {
-    let nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    let bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    let nutriments = app.Nutriments.getNutriments();
+    let bodyStats = app.BodyStats.getBodyStats();
     let units = app.Settings.get("bodyStats", "units") || {};
 
     let oldUnit = units[oldField];
@@ -244,7 +248,7 @@ app.BodyStats = {
           onClick: async () => {
             app.f7.preloader.show();
 
-            let bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+            let bodyStats = app.BodyStats.getBodyStats();
             let units = app.Settings.get("bodyStats", "units") || {};
 
             let index = bodyStats.indexOf(field);

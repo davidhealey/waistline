@@ -406,8 +406,8 @@ app.Settings = {
   exportDiary: async function() {
     app.f7.preloader.show("red");
 
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const bodyStats =  app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const nutriments = app.Nutriments.getNutriments();
+    const bodyStats =  app.BodyStats.getBodyStats();
     const nutrimentUnits = app.Nutriments.getNutrimentUnits();
     const bodyStatsUnits = app.BodyStats.getBodyStatsUnits();
     const energyUnit = app.Settings.get("units", "energy");

@@ -160,7 +160,7 @@ app.GoalEditor = {
   },
 
   hideShowComponents: function() {
-    const bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const bodyStats = app.BodyStats.getBodyStats();
 
     if (bodyStats.includes(app.GoalEditor.stat)) {
       app.GoalEditor.el.showInDiaryOption.style.display = "none";

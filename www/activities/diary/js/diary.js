@@ -256,7 +256,7 @@ app.Diary = {
   },
 
   renderNutritionCard: async function(nutrition, date, swiper) {
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const nutriments = app.Nutriments.getNutriments();
     const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
 
@@ -787,7 +787,7 @@ app.Diary = {
 
   log: async function() {
     const title = app.strings.diary["log-title"] || "Today's Stats";
-    const fields = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const fields = app.BodyStats.getBodyStats();
     const internalUnits = app.BodyStats.getBodyStatsUnits();
 
     // Look for stats in the past 15 diary entries starting from the current date
@@ -913,7 +913,7 @@ app.Diary = {
     const mealName = mealNames[category];
     const dialogTitle = app.Utils.escapeHtml(app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName);
 
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const nutriments = app.Nutriments.getNutriments();
     const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const visible = app.Settings.getField("nutrimentVisibility");
