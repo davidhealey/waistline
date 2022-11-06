@@ -787,12 +787,13 @@ app.Diary = {
 
   log: async function() {
     const title = app.strings.diary["log-title"] || "Today's Stats";
-    const fields = app.measurements;
+    const fields = app.Settings.get("bodyStats", "order") || app.bodyStats;
+    const internalUnits = app.BodyStats.getBodyStatsUnits();
 
     // Look for stats in the past 15 diary entries starting from the current date
     const date = app.Diary.date;
     const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    const stats = await app.Diary.getLastStats(d, 15);
+    const lastStats = await app.Diary.getLastStats(d, 15);
 
     // Create dialog inputs
     let inputs = document.createElement("form");
@@ -807,7 +808,7 @@ app.Diary = {
       if (x !== "weight" && !app.Goals.showInStats(x)) continue;
 
       let unit = app.Goals.getGoalUnit(x, false);
-      let value = app.Utils.convertUnit(stats[x], app.measurementUnits[x], unit, 100);
+      let value = app.Utils.convertUnit(lastStats[x], internalUnits[x], unit, 100);
 
       let name = app.strings.statistics[x] || x;
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -885,13 +886,15 @@ app.Diary = {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
     let inputs = Array.from(dialog.el.getElementsByTagName("input"));
 
+    const internalUnits = app.BodyStats.getBodyStatsUnits();
+
     let stats = {};
 
     for (let i = 0; i < inputs.length; i++) {
       let x = inputs[i];
 
       let unit = app.Goals.getGoalUnit(x.id, false);
-      let value = app.Utils.convertUnit(parseFloat(x.value), unit, app.measurementUnits[x.id], 100);
+      let value = app.Utils.convertUnit(parseFloat(x.value), unit, internalUnits[x.id], 100);
 
       if (!isNaN(value))
         stats[x.id] = value;

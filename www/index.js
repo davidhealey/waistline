@@ -23,8 +23,8 @@ const app = {
   data: {}, // App wide object that can be used to store stuff
   strings: {}, // Localization strings
   standardUnits: ["kcal", "kJ", "ug", "µg", "mg", "g", "kg", "ul", "µl", "ml", "dl", "dL", "cl", "cL", "l", "L"],
-  measurements: ["weight", "neck", "waist", "hips", "body fat"],
-  measurementUnits: {
+  bodyStats: ["weight", "neck", "waist", "hips", "body fat"],
+  bodyStatsUnits: {
     "weight": "kg",
     "neck": "cm",
     "waist": "cm",
@@ -274,6 +274,13 @@ const app = {
           {
             path: "nutriments/",
             url: "activities/settings/views/nutriments.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
+            path: "body-stats/",
+            url: "activities/settings/views/body-stats.html",
             options: {
               transition: "f7-parallax"
             }

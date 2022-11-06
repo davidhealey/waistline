@@ -160,7 +160,9 @@ app.GoalEditor = {
   },
 
   hideShowComponents: function() {
-    if (app.measurements.includes(app.GoalEditor.stat)) {
+    const bodyStats = app.Settings.get("bodyStats", "order") || app.bodyStats;
+
+    if (bodyStats.includes(app.GoalEditor.stat)) {
       app.GoalEditor.el.showInDiaryOption.style.display = "none";
       app.GoalEditor.el.sharedGoalOption.style.display = "none";
       app.GoalEditor.el.autoAdjustOption.style.display = "none";
