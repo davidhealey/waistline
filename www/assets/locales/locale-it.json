@@ -258,6 +258,13 @@
       "add": "Aggiungi campo",
       "edit": "Modifica campo"
     },
+    "body-stats": {
+      "title": "Body Stats",
+      "field": "Name",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
+    },
     "diary-categories": {
       "title": "Categorie",
       "category": "Categoria"
