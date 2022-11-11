@@ -260,10 +260,10 @@
     },
     "body-stats": {
       "title": "Body Stats",
-      "field": "Name",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "field": "Назва",
+      "unit": "Одиниця",
+      "add": "Додати поле",
+      "edit": "Змінити поле"
     },
     "diary-categories": {
       "title": "Категорії",
