@@ -258,6 +258,13 @@
       "add": "Додај поље",
       "edit": "Измени поље"
     },
+    "body-stats": {
+      "title": "Body Stats",
+      "field": "Name",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
+    },
     "diary-categories": {
       "title": "Категорије",
       "category": "Категорија"
