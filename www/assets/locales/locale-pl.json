@@ -260,10 +260,10 @@
     },
     "body-stats": {
       "title": "Body Stats",
-      "field": "Name",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "field": "Nazwa",
+      "unit": "Jednostka",
+      "add": "Dodaj pole",
+      "edit": "Edytuj pole"
     },
     "diary-categories": {
       "title": "Kategorie",
