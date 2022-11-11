@@ -56,7 +56,7 @@ app.DiaryChart = {
   organiseData: function(data) {
     return new Promise(async function(resolve, reject) {
 
-      const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+      const nutriments = app.Nutriments.getNutriments();
       const units = app.Nutriments.getNutrimentUnits();
       const visible = app.Settings.getField("nutrimentVisibility");
       const showAll = app.Settings.get("diary", "show-all-nutriments");

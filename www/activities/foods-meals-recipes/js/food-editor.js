@@ -288,7 +288,7 @@ app.FoodEditor = {
   /* Nutrition fields are dynamically created for the nutriments of the item */
   renderNutritionFields: function(item) {
 
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const nutriments = app.Nutriments.getNutriments();
     const units = app.Nutriments.getNutrimentUnits(app.FoodEditor.scan == true);
     const energyUnit = app.Settings.get("units", "energy");
 
@@ -525,7 +525,7 @@ app.FoodEditor = {
         }
 
         //Nutrition 
-        const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+        const nutriments = app.Nutriments.getNutriments();
         for (let k of nutriments) {
           if (k != field) {
             try {
@@ -655,7 +655,7 @@ app.FoodEditor = {
       }
 
       if (origin == "foodlist") {
-        const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+        const nutriments = app.Nutriments.getNutriments();
         const units = app.Nutriments.getNutrimentUnits();
         const energyUnit = app.Settings.get("units", "energy");
         const inputs = document.querySelectorAll("#food-edit-form input:not(#barcode):not(#unit):not(#quantity), #food-edit-form textarea, #food-edit-form radio");

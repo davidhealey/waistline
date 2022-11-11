@@ -63,6 +63,7 @@ app.GoalEditor = {
     app.GoalEditor.el.autoAdjustOption = document.querySelector(".page[data-name='goal-editor'] #adjust");
     app.GoalEditor.el.minimumGoalOption = document.querySelector(".page[data-name='goal-editor'] #minimum");
     app.GoalEditor.el.percentGoalOption = document.querySelector(".page[data-name='goal-editor'] #percent");
+    app.GoalEditor.el.showOptionsContainer = document.querySelector(".page[data-name='goal-editor'] #goal-show-options-container");
     app.GoalEditor.el.showInDiary = document.querySelector(".page[data-name='goal-editor'] #show-in-diary");
     app.GoalEditor.el.showInStats = document.querySelector(".page[data-name='goal-editor'] #show-in-stats");
     app.GoalEditor.el.sharedGoal = document.querySelector(".page[data-name='goal-editor'] #shared-goal");
@@ -160,8 +161,10 @@ app.GoalEditor = {
   },
 
   hideShowComponents: function() {
-    if (app.measurements.includes(app.GoalEditor.stat)) {
-      app.GoalEditor.el.showInDiaryOption.style.display = "none";
+    const bodyStats = app.BodyStats.getBodyStats();
+
+    if (bodyStats.includes(app.GoalEditor.stat)) {
+      app.GoalEditor.el.showOptionsContainer.style.display = "none";
       app.GoalEditor.el.sharedGoalOption.style.display = "none";
       app.GoalEditor.el.autoAdjustOption.style.display = "none";
       app.GoalEditor.el.minimumGoalOption.style.display = "none";

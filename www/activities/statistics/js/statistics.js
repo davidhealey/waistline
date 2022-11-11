@@ -175,20 +175,28 @@ app.Stats = {
   },
 
   populateDropdownOptions: function() {
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
     const energyUnit = app.Settings.get("units", "energy");
-    const measurements = app.measurements;
-    const stats = measurements.concat(nutriments);
+    const nutriments = app.Nutriments.getNutriments();
+    const bodyStats = app.BodyStats.getBodyStats();
+    const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
 
-    stats.forEach((x, i) => {
-      if ((x == "calories" || x == "kilojoules") && app.nutrimentUnits[x] != energyUnit) return;
-      if (!app.Goals.showInStats(x)) return;
-
+    let addOption = (stat) => {
       let option = document.createElement("option");
-      option.value = x;
-      let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
+      option.value = stat;
+      let text = app.strings.nutriments[stat] || app.strings.statistics[stat] || stat;
       option.innerText = app.Utils.tidyText(text, 50);
       app.Stats.el.stat.appendChild(option);
+    };
+
+    bodyStats.forEach((x) => {
+      if (!bodyStatsVisibility[x]) return;
+      addOption(x);
+    });
+
+    nutriments.forEach((x) => {
+      if ((x == "calories" || x == "kilojoules") && app.nutrimentUnits[x] != energyUnit) return;
+      if (!app.Goals.showInStats(x)) return;
+      addOption(x);
     });
 
     app.Stats.el.stat.selectedIndex = 0;
@@ -298,8 +306,11 @@ app.Stats = {
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
-      let unit = app.Goals.getGoalUnit(field, false);
-      let unitSymbol = app.strings["unit-symbols"][unit] || unit;
+      const bodyStats =  app.BodyStats.getBodyStats();
+      const bodyStatsUnits = app.BodyStats.getBodyStatsUnits();
+
+      const unit = app.Goals.getGoalUnit(field, false);
+      const unitSymbol = app.strings["unit-symbols"][unit] || unit;
 
       let result = {
         dates: [],
@@ -316,8 +327,8 @@ app.Stats = {
       for (let i = 0; i < data.timestamps.length; i++) {
         let value;
 
-        if (app.measurements.includes(field)) {
-          value = app.Utils.convertUnit(data.stats[i][field], app.measurementUnits[field], unit);
+        if (bodyStats.includes(field)) {
+          value = app.Utils.convertUnit(data.stats[i][field], bodyStatsUnits[field], unit);
         } else {
           let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i], "ignore");
           value = nutrition[field];

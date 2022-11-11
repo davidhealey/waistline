@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 6;
+const currentSettingsSchemaVersion = 7;
 
 app.Settings = {
 
@@ -222,6 +222,19 @@ app.Settings = {
       });
     }
 
+    // Body stats list 
+    let bodyStatsList = document.getElementById("body-stats-list");
+    if (bodyStatsList != undefined) {
+      bodyStatsList.addEventListener("sortable:sort", (li) => {
+        let items = bodyStatsList.getElementsByTagName("li");
+        let newOrder = [];
+        for (let i = 0; i < items.length - 1; i++) {
+          newOrder.push(items[i].id);
+        }
+        app.Settings.put("bodyStats", "order", newOrder);
+      });
+    }
+
     // Food labels/categories list
     let categoriesList = document.getElementById("food-categories-list");
     if (categoriesList != undefined) {
@@ -393,8 +406,10 @@ app.Settings = {
   exportDiary: async function() {
     app.f7.preloader.show("red");
 
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const units = app.Nutriments.getNutrimentUnits();
+    const nutriments = app.Nutriments.getNutriments();
+    const bodyStats =  app.BodyStats.getBodyStats();
+    const nutrimentUnits = app.Nutriments.getNutrimentUnits();
+    const bodyStatsUnits = app.BodyStats.getBodyStatsUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const energyName = app.Utils.getEnergyUnitName(energyUnit);
     const visible = app.Settings.getField("nutrimentVisibility");
@@ -406,18 +421,18 @@ app.Settings = {
       if (x !== energyName && visible[x] !== true) return;
 
       let displayName = app.strings.nutriments[x] || x;
-      let unitSymbol = app.strings["unit-symbols"][units[x]] || units[x];
+      let unitSymbol = app.strings["unit-symbols"][nutrimentUnits[x]] || nutrimentUnits[x];
 
       let nutriment = {
         name: x,
-        unit: units[x],
+        unit: nutrimentUnits[x],
         displayName: displayName,
         unitSymbol: unitSymbol
       }
       relevantFields.push(nutriment);
     });
 
-    app.measurements.forEach((x) => {
+    bodyStats.forEach((x) => {
       let displayName = app.strings.statistics[x] || x;
       let unit = app.Goals.getGoalUnit(x, false);
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -456,8 +471,8 @@ app.Settings = {
         let unit = x.unit;
 
         let value;
-        if (app.measurements.includes(field))
-          value = app.Utils.convertUnit(diaryData.stats[i][field], app.measurementUnits[field], unit);
+        if (bodyStats.includes(field))
+          value = app.Utils.convertUnit(diaryData.stats[i][field], bodyStatsUnits[field], unit);
         else
           value = nutrition[field];
 
@@ -674,7 +689,11 @@ app.Settings = {
         }
       },
       nutriments: {
-        order: ["kilojoules", "calories", "fat", "saturated-fat", "carbohydrates", "sugars", "fiber", "proteins", "salt", "sodium", "cholesterol", "trans-fat", "monounsaturated-fat", "polyunsaturated-fat", "omega-3-fat", "omega-6-fat", "omega-9-fat", "vitamin-a", "vitamin-b1", "vitamin-b2", "vitamin-pp", "pantothenic-acid", "vitamin-b6", "biotin", "vitamin-b9", "vitamin-b12", "vitamin-c", "vitamin-d", "vitamin-e", "vitamin-k", "potassium", "chloride", "calcium", "phosphorus", "iron", "magnesium", "zinc", "copper", "manganese", "fluoride", "selenium", "iodine", "caffeine", "alcohol", "sucrose", "glucose", "fructose", "lactose"],
+        order: app.nutriments,
+        units: {}
+      },
+      bodyStats: {
+        order: app.bodyStats,
         units: {}
       },
       nutrimentVisibility: {
@@ -684,6 +703,9 @@ app.Settings = {
         "sugars": true,
         "proteins": true,
         "salt": true
+      },
+      bodyStatsVisibility: {
+        "weight": true
       },
       developer: {
         "data-sharing-active": false,
@@ -737,12 +759,26 @@ app.Settings = {
       }
 
       // Boolean value for dark-mode must be replaced with string value
-      if (settings.appearance !== undefined) {
+      if (settings.appearance !== undefined && settings.appearance["dark-mode"] !== undefined) {
         if (settings.appearance["dark-mode"] === true)
           settings.appearance.mode = "dark";
         else
           settings.appearance.mode = "light";
         delete settings.appearance["dark-mode"];
+      }
+
+      // Body stats 'Show in Statistics' must be migrated to bodyStatsVisibility
+      if (settings.bodyStatsVisibility === undefined) {
+        settings.bodyStatsVisibility = {};
+        if (settings.goals !== undefined) {
+          for (let key in settings.goals) {
+            if (app.bodyStats.includes(key) && settings.goals[key]["show-in-stats"] !== undefined) {
+              if (settings.goals[key]["show-in-stats"] === true)
+                settings.bodyStatsVisibility[key] = true;
+              delete settings.goals[key]["show-in-stats"];
+            }
+          }
+        }
       }
 
       settings.schemaVersion = currentSettingsSchemaVersion;
@@ -786,7 +822,7 @@ app.Settings = {
           continue;
         }
       }
-      if (nutriments.includes(key) || app.measurements.includes(key)) {
+      if (nutriments.includes(key) || app.bodyStats.includes(key)) {
         newGoals[key] = newGoals[key] || {};
         newGoals[key]["goal-list"] = newGoals[key]["goal-list"] || [{}];
         newGoals[key]["goal-list"][0]["goal"] = oldGoals[key];
@@ -803,6 +839,9 @@ document.addEventListener("page:init", async function(e) {
 
   if (pageName == "settings-nutriments")
     app.Nutriments.populateNutrimentList();
+  
+  if (pageName == "settings-body-stats")
+    app.BodyStats.populateBodyStatsList();
 
   if (pageName == "settings-foods-categories")
     app.FoodsCategories.populateFoodCategoriesList();

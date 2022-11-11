@@ -35,14 +35,13 @@ app.Goals = {
     app.Goals.el.yourList.innerHTML = "";
     app.Goals.el.allList.innerHTML = "";
 
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
-    const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
-    const measurements = app.measurements;
-    const stats = measurements.concat(nutriments);
+    const nutriments = app.Nutriments.getNutriments();
+    const bodyStats = app.BodyStats.getBodyStats();
+    const stats = bodyStats.concat(nutriments);
 
     for (let x of stats) {
-      if ((x == "calories" || x == "kilojoules") && units[x] != energyUnit) continue;
+      if ((x == "calories" || x == "kilojoules") && app.nutrimentUnits[x] != energyUnit) continue;
 
       let unit = app.Goals.getGoalUnit(x, true);
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -89,12 +88,16 @@ app.Goals = {
 
   getGoalUnit(stat, checkPercentGoal) {
     const preferredUnits = app.Settings.getField("units") || {};
-    const units = app.Utils.concatObjects(app.Nutriments.getNutrimentUnits(), preferredUnits);
+    const nutrimentUnits = app.Nutriments.getNutrimentUnits();
+    const bodyStatsUnits = app.BodyStats.getBodyStatsUnits();
+    const units = app.Utils.concatObjects(nutrimentUnits, bodyStatsUnits);
 
     if (stat == "body fat")
       return "%";
-    if (app.measurements.includes(stat))
-      return (stat == "weight") ? units.weight : units.length;
+    if (stat == "weight")
+      return preferredUnits.weight
+    if (app.bodyStats.includes(stat))
+      return preferredUnits.length;
     if (checkPercentGoal == true && app.Goals.isPercentGoal(stat))
       return "%"
     else
@@ -238,7 +241,9 @@ app.Goals = {
     let statGoalValues = statGoal["goal"] || [];
     let goal;
 
-    if (statGoal["shared-goal"] == true || app.measurements.includes(stat))
+    const bodyStats = app.BodyStats.getBodyStats();
+
+    if (statGoal["shared-goal"] == true || bodyStats.includes(stat))
       goal = parseFloat(statGoalValues[0]);
     else
       goal = parseFloat(statGoalValues[day]);
@@ -257,8 +262,10 @@ app.Goals = {
     let statGoalValues = statGoal["goal"] || [];
     let averageGoal;
 
+    const bodyStats = app.BodyStats.getBodyStats();
+
     if (statGoalValues.length) {
-      if (statGoal["shared-goal"] == true || app.measurements.includes(stat)) {
+      if (statGoal["shared-goal"] == true || bodyStats.includes(stat)) {
         averageGoal = parseFloat(statGoalValues[0]);
       } else {
         let goalSum = statGoalValues.reduce((a, b) => parseFloat(a) + parseFloat(b));

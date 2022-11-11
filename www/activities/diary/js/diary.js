@@ -30,6 +30,7 @@ app.Diary = {
 
     this.getComponents();
     this.bindUIActions();
+    this.setComponentVisibility();
 
     let render = false;
     let scrollPosition;
@@ -99,6 +100,21 @@ app.Diary = {
       });
       app.Diary.el.diaryNutrition.hasClickEvent = true;
     }
+  },
+
+  setComponentVisibility: function() {
+    const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
+    let logButtonVisible = false;
+
+    for (stat in bodyStatsVisibility) {
+      if (bodyStatsVisibility[stat] === true) {
+        logButtonVisible = true;
+        break;
+      }
+    }
+
+    if (!logButtonVisible)
+      app.Diary.el.log.style.display = "none";
   },
 
   resetReadyState: function() {
@@ -256,7 +272,7 @@ app.Diary = {
   },
 
   renderNutritionCard: async function(nutrition, date, swiper) {
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const nutriments = app.Nutriments.getNutriments();
     const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
 
@@ -787,12 +803,14 @@ app.Diary = {
 
   log: async function() {
     const title = app.strings.diary["log-title"] || "Today's Stats";
-    const fields = app.measurements;
+    const fields = app.BodyStats.getBodyStats();
+    const internalUnits = app.BodyStats.getBodyStatsUnits();
+    const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
 
     // Look for stats in the past 15 diary entries starting from the current date
     const date = app.Diary.date;
     const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    const stats = await app.Diary.getLastStats(d, 15);
+    const lastStats = await app.Diary.getLastStats(d, 15);
 
     // Create dialog inputs
     let inputs = document.createElement("form");
@@ -804,10 +822,10 @@ app.Diary = {
     for (let i = 0; i < fields.length; i++) {
       let x = fields[i];
 
-      if (x !== "weight" && !app.Goals.showInStats(x)) continue;
+      if (!bodyStatsVisibility[x]) continue;
 
       let unit = app.Goals.getGoalUnit(x, false);
-      let value = app.Utils.convertUnit(stats[x], app.measurementUnits[x], unit, 100);
+      let value = app.Utils.convertUnit(lastStats[x], internalUnits[x], unit, 100);
 
       let name = app.strings.statistics[x] || x;
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -823,7 +841,8 @@ app.Diary = {
       let title = document.createElement("div");
       title.className = "item-title item-label";
       title.innerText = app.Utils.tidyText(name, 50);
-      title.innerText += " (" + unitSymbol + ")";
+      if (unitSymbol !== undefined)
+        title.innerText += " (" + unitSymbol + ")";
       inner.appendChild(title);
 
       let inputWrap = document.createElement("div");
@@ -885,13 +904,15 @@ app.Diary = {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
     let inputs = Array.from(dialog.el.getElementsByTagName("input"));
 
+    const internalUnits = app.BodyStats.getBodyStatsUnits();
+
     let stats = {};
 
     for (let i = 0; i < inputs.length; i++) {
       let x = inputs[i];
 
       let unit = app.Goals.getGoalUnit(x.id, false);
-      let value = app.Utils.convertUnit(parseFloat(x.value), unit, app.measurementUnits[x.id], 100);
+      let value = app.Utils.convertUnit(parseFloat(x.value), unit, internalUnits[x.id], 100);
 
       if (!isNaN(value))
         stats[x.id] = value;
@@ -910,7 +931,7 @@ app.Diary = {
     const mealName = mealNames[category];
     const dialogTitle = app.Utils.escapeHtml(app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName);
 
-    const nutriments = app.Settings.get("nutriments", "order") || app.nutriments;
+    const nutriments = app.Nutriments.getNutriments();
     const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const visible = app.Settings.getField("nutrimentVisibility");
