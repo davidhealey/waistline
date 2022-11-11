@@ -258,6 +258,13 @@
       "add": "Lisää kenttä",
       "edit": "Muokkaa kenttää"
     },
+    "body-stats": {
+      "title": "Body Stats",
+      "field": "Name",
+      "unit": "Unit",
+      "add": "Add Field",
+      "edit": "Edit Field"
+    },
     "diary-categories": {
       "title": "Kategoriat",
       "category": "Kategoria"
