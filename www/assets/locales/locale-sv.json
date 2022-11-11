@@ -259,11 +259,11 @@
       "edit": "Redigera fält"
     },
     "body-stats": {
-      "title": "Body Stats",
-      "field": "Name",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "title": "Kroppsstatistik",
+      "field": "Namn",
+      "unit": "Enhet",
+      "add": "Lägg till fält",
+      "edit": "Redigera fält"
     },
     "diary-categories": {
       "title": "Kategorier",
