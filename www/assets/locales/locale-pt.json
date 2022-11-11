@@ -260,7 +260,7 @@
     },
     "body-stats": {
       "title": "Body Stats",
-      "field": "Name",
+      "field": "Nome",
       "unit": "Unit",
       "add": "Add Field",
       "edit": "Edit Field"
