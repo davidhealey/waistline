@@ -97,7 +97,7 @@ app.Nutriments = {
       let input = document.createElement("input");
       input.type = "checkbox";
       input.name = n;
-      input.setAttribute('field', 'nutrimentVisibility');
+      input.setAttribute("field", "nutrimentVisibility");
       label.appendChild(input);
 
       let span = document.createElement("span");

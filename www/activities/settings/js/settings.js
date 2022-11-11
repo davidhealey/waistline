@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 6;
+const currentSettingsSchemaVersion = 7;
 
 app.Settings = {
 
@@ -704,6 +704,9 @@ app.Settings = {
         "proteins": true,
         "salt": true
       },
+      bodyStatsVisibility: {
+        "weight": true
+      },
       developer: {
         "data-sharing-active": false,
         "data-sharing-wifi-only": true,
@@ -756,12 +759,26 @@ app.Settings = {
       }
 
       // Boolean value for dark-mode must be replaced with string value
-      if (settings.appearance !== undefined) {
+      if (settings.appearance !== undefined && settings.appearance["dark-mode"] !== undefined) {
         if (settings.appearance["dark-mode"] === true)
           settings.appearance.mode = "dark";
         else
           settings.appearance.mode = "light";
         delete settings.appearance["dark-mode"];
+      }
+
+      // Body stats 'Show in Statistics' must be migrated to bodyStatsVisibility
+      if (settings.bodyStatsVisibility === undefined) {
+        settings.bodyStatsVisibility = {};
+        if (settings.goals !== undefined) {
+          for (let key in settings.goals) {
+            if (app.bodyStats.includes(key) && settings.goals[key]["show-in-stats"] !== undefined) {
+              if (settings.goals[key]["show-in-stats"] === true)
+                settings.bodyStatsVisibility[key] = true;
+              delete settings.goals[key]["show-in-stats"];
+            }
+          }
+        }
       }
 
       settings.schemaVersion = currentSettingsSchemaVersion;

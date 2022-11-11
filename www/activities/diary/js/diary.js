@@ -30,6 +30,7 @@ app.Diary = {
 
     this.getComponents();
     this.bindUIActions();
+    this.setComponentVisibility();
 
     let render = false;
     let scrollPosition;
@@ -99,6 +100,21 @@ app.Diary = {
       });
       app.Diary.el.diaryNutrition.hasClickEvent = true;
     }
+  },
+
+  setComponentVisibility: function() {
+    const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
+    let logButtonVisible = false;
+
+    for (stat in bodyStatsVisibility) {
+      if (bodyStatsVisibility[stat] === true) {
+        logButtonVisible = true;
+        break;
+      }
+    }
+
+    if (!logButtonVisible)
+      app.Diary.el.log.style.display = "none";
   },
 
   resetReadyState: function() {
@@ -789,6 +805,7 @@ app.Diary = {
     const title = app.strings.diary["log-title"] || "Today's Stats";
     const fields = app.BodyStats.getBodyStats();
     const internalUnits = app.BodyStats.getBodyStatsUnits();
+    const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
 
     // Look for stats in the past 15 diary entries starting from the current date
     const date = app.Diary.date;
@@ -805,7 +822,7 @@ app.Diary = {
     for (let i = 0; i < fields.length; i++) {
       let x = fields[i];
 
-      if (x !== "weight" && !app.Goals.showInStats(x)) continue;
+      if (!bodyStatsVisibility[x]) continue;
 
       let unit = app.Goals.getGoalUnit(x, false);
       let value = app.Utils.convertUnit(lastStats[x], internalUnits[x], unit, 100);
@@ -824,7 +841,8 @@ app.Diary = {
       let title = document.createElement("div");
       title.className = "item-title item-label";
       title.innerText = app.Utils.tidyText(name, 50);
-      title.innerText += " (" + unitSymbol + ")";
+      if (unitSymbol !== undefined)
+        title.innerText += " (" + unitSymbol + ")";
       inner.appendChild(title);
 
       let inputWrap = document.createElement("div");

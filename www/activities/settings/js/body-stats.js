@@ -84,6 +84,20 @@ app.BodyStats = {
         deleteHandler.appendChild(deleteIcon);
       }
 
+      let label = document.createElement("label");
+      label.className = "toggle toggle-init";
+      after.appendChild(label);
+
+      let input = document.createElement("input");
+      input.type = "checkbox";
+      input.name = n;
+      input.setAttribute("field", "bodyStatsVisibility");
+      label.appendChild(input);
+
+      let span = document.createElement("span");
+      span.className = "toggle-icon";
+      label.appendChild(span);
+
       let sortHandler = document.createElement("div");
       sortHandler.className = "sortable-handler";
       li.appendChild(sortHandler);
@@ -164,16 +178,20 @@ app.BodyStats = {
     let nutriments = app.Nutriments.getNutriments();
     let bodyStats = app.BodyStats.getBodyStats();
     let units = app.Settings.get("bodyStats", "units") || {};
+    let visibility = app.Settings.getField("bodyStatsVisibility");
 
     let title = app.strings.settings["body-stats"]["add"] || "Add Field";
 
     app.BodyStats.showBodyStatDialog(title, "", "", (field, unit) => {
-      if (field !== "" && unit !== "" && !nutriments.includes(field) && !bodyStats.includes(field)) {
+      if (field !== "" && !nutriments.includes(field) && !bodyStats.includes(field)) {
         bodyStats.push(field);
-        units[field] = unit;
+        if (unit !== "")
+          units[field] = unit;
+        visibility[field] = true;
 
         app.Settings.put("bodyStats", "order", bodyStats);
         app.Settings.put("bodyStats", "units", units);
+        app.Settings.putField("bodyStatsVisibility", visibility);
 
         app.f7.views.main.router.refreshPage();
       }
@@ -184,12 +202,13 @@ app.BodyStats = {
     let nutriments = app.Nutriments.getNutriments();
     let bodyStats = app.BodyStats.getBodyStats();
     let units = app.Settings.get("bodyStats", "units") || {};
+    let visibility = app.Settings.getField("bodyStatsVisibility");
 
     let oldUnit = units[oldField];
     let title = app.strings.settings["body-stats"]["edit"] || "Edit Field";
 
     app.BodyStats.showBodyStatDialog(title, oldField, oldUnit, async (newField, newUnit) => {
-      if (newField !== "" && newUnit !== "" && (newField == oldField || (!nutriments.includes(newField) && !bodyStats.includes(newField)))) {
+      if (newField !== "" && (newField == oldField || (!nutriments.includes(newField) && !bodyStats.includes(newField)))) {
 
         if (newField !== oldField) {
           app.f7.preloader.show();
@@ -200,6 +219,11 @@ app.BodyStats = {
           if (index != -1)
             bodyStats.splice(index, 1, newField);
           app.Settings.put("bodyStats", "order", bodyStats);
+
+          // Migrate field visibility
+          visibility[newField] = visibility[oldField];
+          delete visibility[oldField];
+          app.Settings.putField("bodyStatsVisibility", visibility);
 
           // Migrate goals
           app.Goals.migrateStatGoalSettings(oldField, newField);
@@ -219,7 +243,10 @@ app.BodyStats = {
           app.f7.preloader.hide();
         }
 
-        units[newField] = newUnit;
+        if (newUnit !== "")
+          units[newField] = newUnit;
+        else
+          delete units[newField];
         app.Settings.put("bodyStats", "units", units);
 
         app.f7.views.main.router.refreshPage();
@@ -250,14 +277,17 @@ app.BodyStats = {
 
             let bodyStats = app.BodyStats.getBodyStats();
             let units = app.Settings.get("bodyStats", "units") || {};
+            let visibility = app.Settings.getField("bodyStatsVisibility");
 
             let index = bodyStats.indexOf(field);
             if (index != -1)
               bodyStats.splice(index, 1);
             delete units[field];
+            delete visibility[field];
 
             app.Settings.put("bodyStats", "order", bodyStats);
             app.Settings.put("bodyStats", "units", units);
+            app.Settings.putField("bodyStatsVisibility", visibility);
 
             // Delete goals
             app.Goals.migrateStatGoalSettings(field);

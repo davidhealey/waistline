@@ -178,17 +178,25 @@ app.Stats = {
     const energyUnit = app.Settings.get("units", "energy");
     const nutriments = app.Nutriments.getNutriments();
     const bodyStats = app.BodyStats.getBodyStats();
-    const stats = bodyStats.concat(nutriments);
+    const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
 
-    stats.forEach((x, i) => {
-      if ((x == "calories" || x == "kilojoules") && app.nutrimentUnits[x] != energyUnit) return;
-      if (!app.Goals.showInStats(x)) return;
-
+    let addOption = (stat) => {
       let option = document.createElement("option");
-      option.value = x;
-      let text = app.strings.nutriments[x] || app.strings.statistics[x] || x;
+      option.value = stat;
+      let text = app.strings.nutriments[stat] || app.strings.statistics[stat] || stat;
       option.innerText = app.Utils.tidyText(text, 50);
       app.Stats.el.stat.appendChild(option);
+    };
+
+    bodyStats.forEach((x) => {
+      if (!bodyStatsVisibility[x]) return;
+      addOption(x);
+    });
+
+    nutriments.forEach((x) => {
+      if ((x == "calories" || x == "kilojoules") && app.nutrimentUnits[x] != energyUnit) return;
+      if (!app.Goals.showInStats(x)) return;
+      addOption(x);
     });
 
     app.Stats.el.stat.selectedIndex = 0;
