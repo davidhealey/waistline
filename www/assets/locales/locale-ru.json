@@ -260,10 +260,10 @@
     },
     "body-stats": {
       "title": "Body Stats",
-      "field": "Name",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "field": "Название",
+      "unit": "Единица измерения",
+      "add": "Добавить поле",
+      "edit": "Редактировать поле"
     },
     "diary-categories": {
       "title": "Категории",
