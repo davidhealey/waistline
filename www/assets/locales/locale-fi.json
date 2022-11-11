@@ -260,10 +260,10 @@
     },
     "body-stats": {
       "title": "Body Stats",
-      "field": "Name",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "field": "Nimi",
+      "unit": "Yksikkö",
+      "add": "Lisää kenttä",
+      "edit": "Muokkaa kenttää"
     },
     "diary-categories": {
       "title": "Kategoriat",
