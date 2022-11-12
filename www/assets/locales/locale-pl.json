@@ -191,8 +191,8 @@
   },
   "goals": {
     "title": "Cele",
-    "your-goals": "Your Goals",
-    "all-fields": "All Fields"
+    "your-goals": "Twoje Cele",
+    "all-fields": "Wszystkie pola"
   },
   "goal-editor": {
     "title": "Ustal cel",
@@ -259,7 +259,7 @@
       "edit": "Edytuj pole"
     },
     "body-stats": {
-      "title": "Body Stats",
+      "title": "Statystyki ciała",
       "field": "Nazwa",
       "unit": "Jednostka",
       "add": "Dodaj pole",
@@ -306,12 +306,12 @@
       "goal-line": "Pokaż linię celu"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Programista",
+      "data-sharing": "Udostępnianie danych",
+      "data-sharing-wifi-only": "Udostępnij dane tylko przez Wi-Fi",
+      "data-sharing-active": "Udostępnij dane usługom zewnętrznym",
+      "data-sharing-address": "Adres usługi",
+      "data-sharing-authorization": "Nagłówek autoryzacji usługi"
     },
     "import-export": {
       "title": "Import/eksport",
