@@ -16,7 +16,7 @@
     <allow-intent href="market:*" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="20" />
-        <preference name="android-targetSdkVersion" value="30" />
+        <preference name="android-targetSdkVersion" value="31" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,sdcard,cache" />
         <preference name="AndroidInsecureFileModeEnabled" value="true" />
