@@ -23,14 +23,14 @@
         <preference name="AndroidXEnabled" value="true" />
         <preference name="GradlePluginKotlinEnabled" value="true" />
         <config-file after="uses-permission" parent="/manifest" target="AndroidManifest.xml">
-          <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-          <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
-          <application android:usesCleartextTraffic="true" />
-          <application android:requestLegacyExternalStorage="true" />
-          <application android:extractNativeLibs="true" />
-          <application android:largeHeap="true" />
+            <application android:usesCleartextTraffic="true" />
+            <application android:requestLegacyExternalStorage="true" />
+            <application android:extractNativeLibs="true" />
+            <application android:largeHeap="true" />
         </edit-config>
         <icon density="ldpi" background="res/icon/android/ldpi-background.png" foreground="res/icon/android/ldpi-foreground.png" src="res/android/ldpi.png" />
         <icon density="mdpi" background="res/icon/android/mdpi-background.png" foreground="res/icon/android/mdpi-foreground.png" src="res/android/mdpi.png" />
@@ -58,8 +58,8 @@
         <splash density="land-xxxhdpi" src="res/screen/android/splash-land-xxxhdpi.png" />
     </platform>
     <platform name="electron">
-    	<preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
-	</platform>
+        <preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
+    </platform>
     <preference name="loadUrlTimeoutValue" value="900000" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreenDuration" value="500" />
