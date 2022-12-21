@@ -1,0 +1,9 @@
+{
+  "name": "framework7/service-worker",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/service-worker/service-worker.js",
+  "module": "../../esm/modules/service-worker/service-worker.js",
+  "jsnext:main": "../../esm/modules/service-worker/service-worker.js",
+  "typings": "../../types/modules/service-worker/service-worker.d.ts"
+}

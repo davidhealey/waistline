@@ -1,0 +1,9 @@
+{
+  "name": "framework7/utils",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/utils/utils.js",
+  "module": "../../esm/modules/utils/utils.js",
+  "jsnext:main": "../../esm/modules/utils/utils.js",
+  "typings": "../../types/modules/utils/utils.d.ts"
+}

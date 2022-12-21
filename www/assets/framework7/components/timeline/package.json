@@ -1,0 +1,9 @@
+{
+  "name": "framework7/timeline",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/timeline/timeline.js",
+  "module": "../../esm/components/timeline/timeline.js",
+  "jsnext:main": "../../esm/components/timeline/timeline.js",
+  "typings": "../../types/components/timeline/timeline.d.ts"
+}

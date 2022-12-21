@@ -1,0 +1,8 @@
+{
+  "name": "framework7/lite",
+  "private": true,
+  "sideEffects": false,
+  "main": "../cjs/framework7-lite.js",
+  "module": "../esm/framework7-lite.js",
+  "typings": "../framework7.d.ts"
+}

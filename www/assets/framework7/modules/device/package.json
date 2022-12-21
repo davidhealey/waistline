@@ -1,0 +1,9 @@
+{
+  "name": "framework7/device",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/device/device.js",
+  "module": "../../esm/modules/device/device.js",
+  "jsnext:main": "../../esm/modules/device/device.js",
+  "typings": "../../types/modules/device/device.d.ts"
+}

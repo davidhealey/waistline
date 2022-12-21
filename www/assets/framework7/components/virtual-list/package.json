@@ -1,0 +1,9 @@
+{
+  "name": "framework7/virtual-list",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/virtual-list/virtual-list.js",
+  "module": "../../esm/components/virtual-list/virtual-list.js",
+  "jsnext:main": "../../esm/components/virtual-list/virtual-list.js",
+  "typings": "../../types/components/virtual-list/virtual-list.d.ts"
+}

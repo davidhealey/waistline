@@ -1,0 +1,9 @@
+{
+  "name": "framework7/text-editor",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/text-editor/text-editor.js",
+  "module": "../../esm/components/text-editor/text-editor.js",
+  "jsnext:main": "../../esm/components/text-editor/text-editor.js",
+  "typings": "../../types/components/text-editor/text-editor.d.ts"
+}

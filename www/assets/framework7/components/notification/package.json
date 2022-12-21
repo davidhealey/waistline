@@ -1,0 +1,9 @@
+{
+  "name": "framework7/notification",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/notification/notification.js",
+  "module": "../../esm/components/notification/notification.js",
+  "jsnext:main": "../../esm/components/notification/notification.js",
+  "typings": "../../types/components/notification/notification.d.ts"
+}

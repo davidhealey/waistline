@@ -1,0 +1,9 @@
+{
+  "name": "framework7/request",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/modules/request/request.js",
+  "module": "../../esm/modules/request/request.js",
+  "jsnext:main": "../../esm/modules/request/request.js",
+  "typings": "../../types/modules/request/request.d.ts"
+}

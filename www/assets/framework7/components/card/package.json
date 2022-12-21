@@ -1,0 +1,9 @@
+{
+  "name": "framework7/card",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/card/card.js",
+  "module": "../../esm/components/card/card.js",
+  "jsnext:main": "../../esm/components/card/card.js",
+  "typings": "../../types/components/card/card.d.ts"
+}

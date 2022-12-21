@@ -1,0 +1,9 @@
+{
+  "name": "framework7/modal",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/modal/modal.js",
+  "module": "../../esm/components/modal/modal.js",
+  "jsnext:main": "../../esm/components/modal/modal.js",
+  "typings": "../../types/components/modal/modal.d.ts"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "framework7/block",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/block/block.js",
+  "module": "../../esm/components/block/block.js",
+  "jsnext:main": "../../esm/components/block/block.js",
+  "typings": "../../types/components/block/block.d.ts"
+}

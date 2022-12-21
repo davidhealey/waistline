@@ -1,0 +1,9 @@
+{
+  "name": "framework7/popup",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/popup/popup.js",
+  "module": "../../esm/components/popup/popup.js",
+  "jsnext:main": "../../esm/components/popup/popup.js",
+  "typings": "../../types/components/popup/popup.d.ts"
+}

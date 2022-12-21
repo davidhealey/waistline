@@ -1,0 +1,9 @@
+{
+  "name": "framework7/smart-select",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/smart-select/smart-select.js",
+  "module": "../../esm/components/smart-select/smart-select.js",
+  "jsnext:main": "../../esm/components/smart-select/smart-select.js",
+  "typings": "../../types/components/smart-select/smart-select.d.ts"
+}

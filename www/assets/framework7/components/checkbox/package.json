@@ -1,0 +1,9 @@
+{
+  "name": "framework7/checkbox",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/checkbox/checkbox.js",
+  "module": "../../esm/components/checkbox/checkbox.js",
+  "jsnext:main": "../../esm/components/checkbox/checkbox.js",
+  "typings": "../../types/components/checkbox/checkbox.d.ts"
+}

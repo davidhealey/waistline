@@ -1,0 +1,9 @@
+{
+  "name": "framework7/calendar",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/calendar/calendar.js",
+  "module": "../../esm/components/calendar/calendar.js",
+  "jsnext:main": "../../esm/components/calendar/calendar.js",
+  "typings": "../../types/components/calendar/calendar.d.ts"
+}

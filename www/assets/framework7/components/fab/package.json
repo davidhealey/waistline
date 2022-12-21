@@ -1,0 +1,9 @@
+{
+  "name": "framework7/fab",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/fab/fab.js",
+  "module": "../../esm/components/fab/fab.js",
+  "jsnext:main": "../../esm/components/fab/fab.js",
+  "typings": "../../types/components/fab/fab.d.ts"
+}

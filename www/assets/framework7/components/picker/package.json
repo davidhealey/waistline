@@ -1,0 +1,9 @@
+{
+  "name": "framework7/picker",
+  "private": true,
+  "sideEffects": false,
+  "main": "../../cjs/components/picker/picker.js",
+  "module": "../../esm/components/picker/picker.js",
+  "jsnext:main": "../../esm/components/picker/picker.js",
+  "typings": "../../types/components/picker/picker.d.ts"
+}
