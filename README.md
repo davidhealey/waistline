@@ -78,8 +78,6 @@ Any use of this project's code by GitHub Copilot, past or present, is done
 without my permission. I do not consent to GitHub's use of this project's
 code in Copilot.
 
-I'm actively looking at other hosting solutions.
-
 ## Localization
 
 This project is localized using Crowdin: [![Crowdin](https://badges.crowdin.net/waistline/localized.svg)](https://crowdin.com/project/waistline)
