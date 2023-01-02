@@ -266,11 +266,11 @@ app.Settings = {
     let panel = document.getElementById("app-panel");
 
     if (appMode === "dark") {
-      html.classList.add("dark");
+      html.classList.add("dark-theme");
       panel.style["background-color"] = "black";
       Chart.defaults.global.defaultFontColor = "white";
     } else if (appMode === "light") {
-      html.classList.remove("dark");
+      html.classList.remove("dark-theme");
       panel.style["background-color"] = "white";
       Chart.defaults.global.defaultFontColor = "black";
     }
