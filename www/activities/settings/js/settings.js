@@ -456,7 +456,9 @@ app.Settings = {
     // CSV header row
     csv += app.strings.settings["import-export"]["date"] || "Date";
     relevantFields.forEach((field) => {
-      csv += ";" + field.displayName + " (" + field.unitSymbol + ")";
+      csv += ";" + field.displayName;
+      if (field.unitSymbol !== undefined)
+        csv += " (" + field.unitSymbol + ")";
     });
 
     // CSV data rows
