@@ -841,7 +841,7 @@ app.FoodsMealsRecipes = {
   setNutritionFieldsVisibility: function(listEl, button) {
     const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
-    const visible = app.Settings.getField("nutrimentVisibility");
+    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
 
     let allFieldsVisible = true;
 
@@ -851,10 +851,10 @@ app.FoodsMealsRecipes = {
       if (field !== undefined && field.id !== undefined) {
         let nutriment = field.id;
 
-        if (visible[nutriment] !== true && units[nutriment] !== energyUnit)
+        if (nutrimentVisibility[nutriment] !== true && units[nutriment] !== energyUnit)
           allFieldsVisible = false;
 
-        if (button.state === "show-less" || visible[nutriment] === true || units[nutriment] === energyUnit)
+        if (button.state === "show-less" || nutrimentVisibility[nutriment] === true || units[nutriment] === energyUnit)
           li.style.display = "block";
         else
           li.style.display = "none";
