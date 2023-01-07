@@ -36,6 +36,8 @@ i.searchbar-icon {margin: -12px 12px;}
 
 .photo-holder {width: 100%; text-align: center;}
 
+#food-edit-form .radio-label {vertical-align: middle;}
+
 #food-edit-form .form-inputs .item-input .item-title {width: 32vw;}
 #meal-edit-form .form-inputs .item-input .item-title {width: 32vw;}
 #recipe-edit-form .form-inputs .item-input .item-title {width: 32vw;}
