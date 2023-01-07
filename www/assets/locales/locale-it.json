@@ -178,6 +178,8 @@
     "category": "Categoria",
     "serving-size": "Quantità di una porzione",
     "serving-unit": "Unità della porzione",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Numero di porzioni",
     "notes": "Note",
     "nutrition": "Nutrizione",
