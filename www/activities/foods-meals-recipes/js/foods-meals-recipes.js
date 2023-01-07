@@ -58,10 +58,6 @@ app.FoodsMealsRecipes = {
       this.category = undefined;
       this.origin = undefined;
     }
-
-    if (!this.ready) {
-      this.ready = true;
-    }
   },
 
   getComponents: function() {

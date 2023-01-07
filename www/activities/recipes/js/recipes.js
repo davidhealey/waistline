@@ -203,8 +203,7 @@ app.Recipes = {
   gotoEditor: function(recipe) {
     app.data.context = {
       recipe: recipe,
-      origin: "/foods-meals-recipes/",
-      allNutriments: true
+      origin: "/foods-meals-recipes/"
     };
     app.f7.views.main.router.navigate("./recipe-editor/");
   },

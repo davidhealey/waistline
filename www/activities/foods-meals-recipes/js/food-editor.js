@@ -183,7 +183,6 @@ app.FoodEditor = {
       app.FoodEditor.el.brand.disabled = true;
       app.FoodEditor.el.unit.disabled = true;
       app.FoodEditor.el.link.style.display = "none";
-      app.FoodEditor.linked = true;
       app.FoodEditor.el.quantityContainer.style.display = "block";
 
       app.FoodEditor.el.name.style.color = "grey";
