@@ -248,11 +248,11 @@ app.OpenFoodFacts = {
 
               await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
 
-              // Get image URL from OFF
+              // Get result from OFF
               let result = await app.OpenFoodFacts.search(data.barcode);
 
-              if (result.length > 0 && result[0] !== undefined && result[0].image_url !== undefined)
-                return resolve(result[0].image_url);
+              if (result !== undefined && result.length > 0)
+                resolve(result[0]);
             }
           }
         }

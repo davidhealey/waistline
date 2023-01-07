@@ -801,12 +801,12 @@ app.FoodEditor = {
             data.images = app.FoodEditor.images;
             app.f7.preloader.show();
 
-            let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
+            let uploadedItem = await app.OpenFoodFacts.upload(data).catch((e) => {
               let msg = app.strings.dialogs["upload-failed"] || "Upload Failed";
               app.Utils.toast(msg);
             });
 
-            if (imgUrl !== undefined) {
+            if (uploadedItem !== undefined) {
               let msg = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
               app.Utils.toast(msg, 2500);
             }
