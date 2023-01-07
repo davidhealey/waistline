@@ -92,6 +92,7 @@
     "download-title": "משיכת הפרטים הכי עדכניים",
     "download-text": "הערכים המקומיים שלך יוחלפו בפרטים העדכניים ביותר לפריט הזה",
     "upload-success": "המוצר נוסף בהצלחה אל Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
     "what-meal": "איזו מנה זו?",
     "press-back-again": "לחיצה על חזרה שוב תצא מהיישומון"
@@ -185,6 +186,9 @@
     "nutrition": "תזונה",
     "per-100": "ל־100ג׳/100מ״ל",
     "per-serving": "להגשה",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "עריכת פריט מזון",
     "edit-meal": "עריכת פריט ארוחה",
     "edit-recipe": "עריכת פריט מתכון",
