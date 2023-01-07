@@ -92,6 +92,7 @@
     "download-title": "Povrati poslednju informaciju",
     "download-text": "Vaše lokalne vrednosti će biti prepisane najnovijim informacijama o ovoj stavci",
     "upload-success": "Proizvod uspešno dodat u Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Na žalost, slanje nije uspelo. Pokušajte ponovo ili kontaktirajte programera.",
     "what-meal": "Koji obrok je ovo?",
     "press-back-again": "Pritisne Unazad ponovo da biste napustili aplikaciju"
@@ -185,6 +186,9 @@
     "nutrition": "Nutritivne vrednosti",
     "per-100": "Na 100g/100ml",
     "per-serving": "Po posluženju",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Izmeni stavku hrane",
     "edit-meal": "Izmeni stavku obroka",
     "edit-recipe": "Izmeni stavku recepta",
