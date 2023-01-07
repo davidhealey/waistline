@@ -294,7 +294,7 @@ app.OpenFoodFacts = {
     string += data.nutrition_per;
 
     if (data.portion != "100" || data.unit != "g" || data.nutrition_per == "&nutrition_data_per=serving")
-      string += "&serving_size=" + encodeURIComponent(data.portion + data.unit);
+      string += "&serving_size=" + encodeURIComponent(data.portion + " " + data.unit);
 
     // Energy
     if (data.nutrition.kilojoules !== undefined) {
