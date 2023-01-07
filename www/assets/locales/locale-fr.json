@@ -92,6 +92,7 @@
     "download-title": "Récupérer les dernières infos",
     "download-text": "Vos valeurs locales seront remplacées par les dernières informations disponibles pour cet élément",
     "upload-success": "Produit ajouté à Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?",
     "press-back-again": "Appuyez à nouveau sur le bouton Retour pour quitter l'application"
@@ -185,6 +186,9 @@
     "nutrition": "Nutrition",
     "per-100": "Pour 100g/100mL",
     "per-serving": "Par portion",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Modifier aliment",
     "edit-meal": "Modifier Repas",
     "edit-recipe": "Modifier Recette",
