@@ -178,6 +178,8 @@
     "category": "Категория",
     "serving-size": "Размер порции",
     "serving-unit": "Ед. измерения",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Количество порций",
     "notes": "Примечания",
     "nutrition": "Пищевая ценность",
