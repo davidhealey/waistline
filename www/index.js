@@ -443,7 +443,7 @@ document.addEventListener("page:reinit", function(event) {
 
 app.f7.on("init", async function(event) {});
 
-app.f7.on("DarkThemeChange", function(isDark) {
+app.f7.on("darkThemeChange", function(isDark) {
   let appMode = isDark ? "dark" : "light";
   app.Settings.applyAppMode(appMode);
 });
