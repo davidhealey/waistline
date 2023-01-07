@@ -590,7 +590,7 @@ app.FoodEditor = {
 
     function onError(err) {
       let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-      app.Utils.toast(msg, 2500);
+      app.Utils.toast(msg);
       console.error(err);
     }
   },

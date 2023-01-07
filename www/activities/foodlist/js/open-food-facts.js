@@ -350,7 +350,7 @@ app.OpenFoodFacts = {
   },
 
   getImageData: function(blob, index) {
-    const imagefields = ["front", "nutrition"];
+    const imagefields = ["front", "nutrition", "ingredients", "packaging"];
 
     let data = new FormData();
     data.append("imgupload_" + imagefields[index], blob);
