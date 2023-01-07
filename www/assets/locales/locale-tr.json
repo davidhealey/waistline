@@ -178,6 +178,8 @@
     "category": "Kategori",
     "serving-size": "Porsiyon Boyutu",
     "serving-unit": "Porsiyon Birimi",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Porsiyon Adedi",
     "notes": "Notlar",
     "nutrition": "Besin Değeri",
