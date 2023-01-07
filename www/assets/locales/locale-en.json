@@ -92,6 +92,7 @@
     "download-title": "Retrieve latest information",
     "download-text": "Your local values will be replaced by the latest information available for this item",
     "upload-success": "Product successfully added to Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
     "what-meal": "What meal is this?",
     "press-back-again": "Press Back again to exit the app"
