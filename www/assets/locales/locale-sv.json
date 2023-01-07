@@ -92,6 +92,7 @@
     "download-title": "Hämta senaste informationen",
     "download-text": "Dina lokala värden kommer att ersättas av den senaste informationen som finns tillgänglig för detta livsmedel",
     "upload-success": "Produkten har lagts till i Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
     "what-meal": "Vilken måltid är detta?",
     "press-back-again": "Tryck på \"bakåt\" igen för att stänga appen"
@@ -185,6 +186,9 @@
     "nutrition": "Näringsvärden",
     "per-100": "Per 100 g / 100 ml",
     "per-serving": "Per portion",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Redigera livsmedel",
     "edit-meal": "Redigera livsmedel i måltid",
     "edit-recipe": "\"Redigera ingrediens i recept",
