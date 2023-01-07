@@ -92,6 +92,7 @@
     "download-title": "Отримати останні дані",
     "download-text": "Ваші локальні значення заміняться на останні дані, доступні для цього елемента",
     "upload-success": "Продукт успішно додано до Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "На жаль, відвантаження не вдалося. Будь ласка, спробуйте ще раз або звʼяжіться з розробником.",
     "what-meal": "Що це за їжа?",
     "press-back-again": "Натисніть ще раз Назад для виходу"
@@ -185,6 +186,9 @@
     "nutrition": "Поживна цінність",
     "per-100": "На 100г/100мл",
     "per-serving": "На порцію",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Змінити пункт продукту",
     "edit-meal": "Змінити пункт страви",
     "edit-recipe": "Змінити пункт рецепту",
