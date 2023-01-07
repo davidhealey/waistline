@@ -142,8 +142,7 @@ app.FoodEditor = {
     // Upload
     if (!app.FoodEditor.el.upload.hasClickEvent) {
       app.FoodEditor.el.upload.addEventListener("click", async (e) => {
-        await app.FoodEditor.upload();
-        app.f7.views.main.router.navigate("/foods-meals-recipes/");
+        app.FoodEditor.upload();
       });
       app.FoodEditor.el.upload.hasClickEvent = true;
     }
@@ -586,7 +585,7 @@ app.FoodEditor = {
 
     function onError(err) {
       let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-      app.Utils.toast(msg, 2500);
+      app.Utils.toast(msg);
       console.error(err);
     }
   },
@@ -788,36 +787,71 @@ app.FoodEditor = {
     }
   },
 
-  upload: function() {
-    return new Promise(async function(resolve, reject) {
-      if (app.Utils.isInternetConnected()) {
-        let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
+  upload: async function() {
+    if (app.Utils.isInternetConnected()) {
+      let data = app.FoodEditor.gatherFormData(app.FoodEditor.item, app.FoodEditor.origin);
 
-        if (data !== undefined) {
-          if (app.FoodEditor.images[0] !== undefined) {
-            data.images = app.FoodEditor.images;
-            app.f7.preloader.show();
+      if (data !== undefined) {
+        if (app.FoodEditor.images[0] !== undefined) {
+          data.images = app.FoodEditor.images;
 
-            let imgUrl = await app.OpenFoodFacts.upload(data).catch((e) => {
-              let msg = app.strings.dialogs["upload-failed"] || "Upload Failed";
-              app.Utils.toast(msg);
-            });
+          app.f7.preloader.show();
 
-            if (imgUrl !== undefined) {
-              let msg = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
-              app.Utils.toast(msg, 2500);
-            }
+          let uploadedItem = await app.OpenFoodFacts.upload(data).catch((e) => {
+            let msg = app.strings.dialogs["upload-failed"] || "Upload Failed";
+            app.Utils.toast(msg);
+          });
 
-            app.f7.preloader.hide();
+          app.f7.preloader.hide();
 
-            resolve();
+          if (uploadedItem !== undefined) {
+            app.FoodEditor.afterUploadPrompt(uploadedItem);
           } else {
-            let msg = app.strings.dialogs["main-image"] || "Please add a main image";
-            app.Utils.toast(msg, 2500);
+            app.FoodEditor.afterUploadNavigate();
           }
+
+        } else {
+          let msg = app.strings.dialogs["main-image"] || "Please add a main image";
+          app.Utils.toast(msg);
         }
       }
-    });
+    }
+  },
+
+  afterUploadNavigate: function() {
+    app.f7.views.main.router.back();
+  },
+
+  afterUploadPrompt: async function(uploadedItem) {
+    let title = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
+    let text = app.strings.dialogs["upload-add-to-foodlist"] || "Do you want to add the uploaded item to your list of foods?";
+
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      buttons: [{
+          text: app.strings.dialogs.no || "No",
+          keyCodes: [27],
+          onClick: () => {
+            app.FoodEditor.afterUploadNavigate();
+          }
+        },
+        {
+          text: app.strings.dialogs.yes || "Yes",
+          keyCodes: [13],
+          onClick: () => {
+            app.data.context = {
+              item: uploadedItem
+            };
+            app.FoodEditor.afterUploadNavigate();
+          }
+        }
+      ]
+    }).open();
   }
 };
 
