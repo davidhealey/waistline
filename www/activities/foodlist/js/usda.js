@@ -78,10 +78,16 @@ app.USDA = {
 
         if (response) {
           let data = await response.json();
+          let result = [];
 
-          resolve(data.foods.map((x) => {
-            return app.USDA.parseItem(x, preferDataPer100g);
-          }));
+          data.foods.forEach((x) => {
+            let item = app.USDA.parseItem(x, preferDataPer100g);
+            if (item != undefined) {
+              result.push(item);
+            }
+          });
+
+          resolve(result);
         }
       }
       resolve(undefined);
@@ -156,18 +162,14 @@ app.USDA = {
 
     // Energy
     for (let n of item.foodNutrients) {
-      if (n.nutrientName == "Energy") {
-        if (n.unitName.toLowerCase() == units.calories)
-          result.nutrition.calories = Math.round(n.value * multiplier);
-        else
-          result.nutrition.kilojoules = Math.round(n.value * multiplier);
+      if (n.nutrientName.startsWith("Energy") && n.unitName.toLowerCase() == units.calories) {
+        result.nutrition.calories = Math.round(n.value * multiplier);
+        result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, 1);
+        break;
       }
     }
 
-    if (result.nutrition.calories && result.nutrition.kilojoules == undefined)
-      result.nutrition.kilojoules = app.Utils.convertUnit(result.nutrition.calories, units.calories, units.kilojoules, 1);
-    else if (result.nutrition.kilojoules && result.nutrition.calories == undefined)
-      result.nutrition.calories = app.Utils.convertUnit(result.nutrition.kilojoules, units.kilojoules, units.calories, 1);
+    if (result.nutrition.calories == undefined) return undefined;
 
     // Nutriments
     offNutriments.forEach((x, i) => {
