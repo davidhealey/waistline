@@ -431,11 +431,7 @@ app.FoodEditor = {
     }
 
     // Quantity (number of servings)
-    if (item.type == "recipe") {
-      // number of servings field not needed for recipes
-      app.FoodEditor.el.quantityContainer.style.display = "none";
-      app.FoodEditor.el.quantity.value = 1;
-    } else if (item.quantity != undefined) {
+    if (item.quantity != undefined) {
       app.FoodEditor.el.quantity.value = parseFloat(item.quantity);
     } else {
       app.FoodEditor.el.quantity.value = 1;
