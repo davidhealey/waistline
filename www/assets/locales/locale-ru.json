@@ -92,6 +92,7 @@
     "download-title": "Получить последнюю информацию",
     "download-text": "Ваши локальные значения будут заменены самой последней информацией, доступной для этого элемента",
     "upload-success": "Продукт успешно добавлен в Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "К сожалению, загрузка не удалась. Пожалуйста, попробуйте еще раз или свяжитесь с разработчиком.",
     "what-meal": "Что это за блюдо?",
     "press-back-again": "Чтобы выйти из приложения, снова нажмите Назад"
@@ -185,6 +186,9 @@
     "nutrition": "Пищевая ценность",
     "per-100": "На 100г/100мл",
     "per-serving": "На порцию",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Редактировать еду",
     "edit-meal": "Редактировать блюдо",
     "edit-recipe": "Редактировать рецепт",
