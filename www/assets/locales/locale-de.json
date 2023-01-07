@@ -92,6 +92,7 @@
     "download-title": "Neueste Daten abrufen",
     "download-text": "Deine lokalen Werte werden mit den neuesten verfügbaren Daten für den Artikel überschrieben",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
     "what-meal": "Welche Mahlzeit ist das?",
     "press-back-again": "Drücke erneut Zurück, um die App zu beenden"
@@ -185,6 +186,9 @@
     "nutrition": "Nährwerte",
     "per-100": "Pro 100 g / 100 ml",
     "per-serving": "Pro Portion",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Lebensmittel bearbeiten",
     "edit-meal": "Mahlzeit-Eintrag bearbeiten",
     "edit-recipe": "Rezept-Eintrag bearbeiten",
