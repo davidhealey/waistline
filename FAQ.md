@@ -33,12 +33,6 @@ There are two parameters you can use the specify the quantity of an item: the `s
 - The `serving size` must be specified in the unit which the nutrition information is based on. For example, if the nutrition information is per 100g, but your serving was only 60g, then enter `60`.
 - The `number of servings` functions as a multiplication factor. For example, if you ate two and a halve servings of the food, enter `2.5`.
 
-When you add a recipe to the Diary, you can only enter a serving size and no number of servings. Below are some examples for how to use this field for different types of recipes:
-
-- If the recipe unit is `cookies` and the recipe serving size is `20` (i.e. the recipe makes 20 cookies), enter the number of cookies you ate.
-- If the recipe unit is `servings` and the recipe serving size is `4` (i.e. the recipe makes 4 servings), enter the number of servings you ate.
-- If the recipe unit is `cake` and the recipe serving size is `1` (i.e. the recipe makes 1 cake), enter the share of the cake you ate, e.g. `0.333`.
-
 ## Specifying the quantities of diary entries requires too much switching back and forth. Isn't there a more convenient way?
 
 Check out the `Prompt for quantity when adding items` option under `Settings > Diary`.
