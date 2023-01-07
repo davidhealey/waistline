@@ -787,6 +787,9 @@ app.FoodEditor = {
       if (!barcode.startsWith("fdcId_"))
         app.FoodEditor.populateImage(item);
       app.FoodEditor.renderNutritionFields(item);
+    } else {
+      let msg = app.strings.dialogs["no-results"] || "No matching results";
+      app.Utils.toast(msg);
     }
   },
 
