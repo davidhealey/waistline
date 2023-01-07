@@ -178,6 +178,8 @@
     "category": "Kategorija",
     "serving-size": "Jedinica posluženja",
     "serving-unit": "Jedinica mere",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Broj posluživanja",
     "notes": "Beleške",
     "nutrition": "Nutritivne vrednosti",
