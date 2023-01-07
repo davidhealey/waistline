@@ -412,13 +412,14 @@ app.Settings = {
     const bodyStatsUnits = app.BodyStats.getBodyStatsUnits();
     const energyUnit = app.Settings.get("units", "energy");
     const energyName = app.Utils.getEnergyUnitName(energyUnit);
-    const visible = app.Settings.getField("nutrimentVisibility");
+    const nutrimentVisibility = app.Settings.getField("nutrimentVisibility");
+    const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
 
     // Collect relevant nutriments and stats to be included in the CSV
     let relevantFields = [];
 
     nutriments.forEach((x) => {
-      if (x !== energyName && visible[x] !== true) return;
+      if (x !== energyName && nutrimentVisibility[x] !== true) return;
 
       let displayName = app.strings.nutriments[x] || x;
       let unitSymbol = app.strings["unit-symbols"][nutrimentUnits[x]] || nutrimentUnits[x];
@@ -433,6 +434,8 @@ app.Settings = {
     });
 
     bodyStats.forEach((x) => {
+      if (bodyStatsVisibility[x] !== true) return;
+
       let displayName = app.strings.statistics[x] || x;
       let unit = app.Goals.getGoalUnit(x, false);
       let unitSymbol = app.strings["unit-symbols"][unit] || unit;
@@ -453,7 +456,9 @@ app.Settings = {
     // CSV header row
     csv += app.strings.settings["import-export"]["date"] || "Date";
     relevantFields.forEach((field) => {
-      csv += ";" + field.displayName + " (" + field.unitSymbol + ")";
+      csv += ";" + field.displayName;
+      if (field.unitSymbol !== undefined)
+        csv += " (" + field.unitSymbol + ")";
     });
 
     // CSV data rows
