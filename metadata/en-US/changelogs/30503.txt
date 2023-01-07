@@ -1,0 +1,7 @@
+- you can now take additional photos when uploading items to Open Food Facts
+- after uploading an item, you can immediately add it to your list of foods
+- the diary CSV export now respects your body stats visibility settings
+- various bugfixes
+
+You can find the full changelog at 
+https://github.com/davidhealey/waistline/releases
