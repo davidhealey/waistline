@@ -92,6 +92,7 @@
     "download-title": "Hae viimeisimmät tiedot",
     "download-text": "Paikalliset arvot korvataan uusimmilla tiedoilla, jotka ovat saatavilla tästä tuotteesta",
     "upload-success": "Tuote lisätty Open Food Factsiin",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Valitettavasti lataus epäonnistui. Yritä uudelleen tai ota yhteyttä kehittäjään.",
     "what-meal": "Mikä ateria tämä on?",
     "press-back-again": "Paina paluu-painiketta uudelleen sulkeaksesi sovelluksen"
@@ -185,6 +186,9 @@
     "nutrition": "Ravintosisältö",
     "per-100": "100 g / 100 ml kohden",
     "per-serving": "Annosta kohden",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Muokkaa ruokaa",
     "edit-meal": "Muokkaa ateriaa",
     "edit-recipe": "Muokkaa reseptiä",
