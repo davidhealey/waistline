@@ -178,6 +178,8 @@
     "category": "Kategoria",
     "serving-size": "Annoskoko",
     "serving-unit": "Annosyksikkö",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Annosten määrä",
     "notes": "Muistiinpanot",
     "nutrition": "Ravintosisältö",
