@@ -362,10 +362,7 @@ app.Foodlist = {
         let dbData = await dbHandler.getFirstNonArchived("foodList", "barcode", data.barcode);
 
         if (dbData) {
-          // Use data from DB
           data = dbData;
-          data.archived = false;
-          await app.Foodlist.putItem(data);
         }
       }
 

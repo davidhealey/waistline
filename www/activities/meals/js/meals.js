@@ -242,8 +242,7 @@ app.Meals = {
   gotoEditor: function(meal) {
     app.data.context = {
       meal: meal,
-      origin: "/foods-meals-recipes/",
-      allNutriments: true
+      origin: "/foods-meals-recipes/"
     };
     app.f7.views.main.router.navigate("./meal-editor/");
   },

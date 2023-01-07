@@ -58,10 +58,6 @@ app.FoodsMealsRecipes = {
       this.category = undefined;
       this.origin = undefined;
     }
-
-    if (!this.ready) {
-      this.ready = true;
-    }
   },
 
   getComponents: function() {
@@ -491,7 +487,7 @@ app.FoodsMealsRecipes = {
         inner.className = "item-inner food-item-inner noselect";
         label.appendChild(inner);
 
-        if (clickable !== false && item.name !== "Quick Add") {
+        if (clickable !== false && item.barcode !== "quick-add") {
           inner.addEventListener("click", function(e) {
             e.preventDefault();
             if (clickCallback !== undefined)
@@ -516,7 +512,7 @@ app.FoodsMealsRecipes = {
         //Title
         let title = document.createElement("div");
         title.className = "item-title";
-        if (item.name == "Quick Add") {
+        if (item.barcode === "quick-add") {
           if (item.description !== undefined)
             title.innerText = item.description;
           else
@@ -554,7 +550,7 @@ app.FoodsMealsRecipes = {
         }
 
         //Portion
-        if (item.name != "Quick Add" && item.portion !== undefined && !isNaN(item.portion)) {
+        if (item.barcode !== "quick-add" && item.portion !== undefined && !isNaN(item.portion)) {
           let portion = document.createElement("div");
           portion.className = "item-text";
           portion.innerText = app.Utils.tidyNumber(parseFloat(item.portion), item.unit);

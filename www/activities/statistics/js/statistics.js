@@ -344,7 +344,7 @@ app.Stats = {
             missingTimestamp.setTime(previousTimestamp.getTime());
 
             while (true) {
-              missingTimestamp.setDate(missingTimestamp.getDate() + 1);
+              missingTimestamp.setUTCDate(missingTimestamp.getUTCDate() + 1);
               if (missingTimestamp.getTime() >= timestamp.getTime()) break;
 
               let missingDate = app.Utils.dateToLocaleDateString(missingTimestamp);

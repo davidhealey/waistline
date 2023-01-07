@@ -183,7 +183,6 @@ app.FoodEditor = {
       app.FoodEditor.el.brand.disabled = true;
       app.FoodEditor.el.unit.disabled = true;
       app.FoodEditor.el.link.style.display = "none";
-      app.FoodEditor.linked = true;
       app.FoodEditor.el.quantityContainer.style.display = "block";
 
       app.FoodEditor.el.name.style.color = "grey";
@@ -731,63 +730,65 @@ app.FoodEditor = {
   },
 
   download: function() {
-    if (app.Utils.isInternetConnected()) {
+    let title = app.strings.dialogs["download-title"] || "Retrieve latest information";
+    let text = app.strings.dialogs["download-text"] || "Your local values will be replaced by the latest information available for this item";
 
-      let title = app.strings.dialogs["download-title"] || "Retrieve latest information";
-      let text = app.strings.dialogs["download-text"] || "Your local values will be replaced by the latest information available for this item";
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
 
-      let div = document.createElement("div");
-      div.className = "dialog-text";
-      div.innerText = text;
-
-      let dialog = app.f7.dialog.create({
-        title: title,
-        content: div.outerHTML,
-        verticalButtons: true,
-        buttons: [{
-            text: app.strings["food-editor"]["per-serving"] || "Per Serving",
-            keyCodes: [13],
-            onClick: async () => {
-              app.FoodEditor.downloadItemInfo(false);
-            }
-          },
-          {
-            text: app.strings["food-editor"]["per-100"] || "Per 100g/100ml",
-            onClick: async () => {
-              app.FoodEditor.downloadItemInfo(true);
-            }
-          },
-          {
-            text: app.strings.dialogs.cancel || "Cancel",
-            keyCodes: [27]
+    let dialog = app.f7.dialog.create({
+      title: title,
+      content: div.outerHTML,
+      verticalButtons: true,
+      buttons: [{
+          text: app.strings["food-editor"]["per-serving"] || "Per Serving",
+          keyCodes: [13],
+          onClick: async () => {
+            app.FoodEditor.downloadItemInfo(false);
           }
-        ]
-      }).open();
-    }
+        },
+        {
+          text: app.strings["food-editor"]["per-100"] || "Per 100g/100ml",
+          onClick: async () => {
+            app.FoodEditor.downloadItemInfo(true);
+          }
+        },
+        {
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: [27]
+        }
+      ]
+    }).open();
   },
 
   downloadItemInfo: async function(preferDataPer100g) {
-    let barcode = app.FoodEditor.item.barcode;
-    let result;
+    if (app.Utils.isInternetConnected()) {
+      let barcode = app.FoodEditor.item.barcode;
+      let result;
 
-    app.f7.preloader.show();
+      app.f7.preloader.show();
 
-    if (barcode !== undefined) {
-      if (barcode.startsWith("fdcId_"))
-        result = await app.USDA.search(barcode.replace("fdcId_", ""), preferDataPer100g);
-      else
-        result = await app.OpenFoodFacts.search(barcode, preferDataPer100g);
-    }
+      if (barcode !== undefined) {
+        if (barcode.startsWith("fdcId_"))
+          result = await app.USDA.search(barcode.replace("fdcId_", ""), preferDataPer100g);
+        else
+          result = await app.OpenFoodFacts.search(barcode, preferDataPer100g);
+      }
 
-    app.f7.preloader.hide();
+      app.f7.preloader.hide();
 
-    if (result !== undefined && result.length > 0) {
-      item = result[0];
-      item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
-      app.FoodEditor.populateFields(item);
-      if (!barcode.startsWith("fdcId_"))
-        app.FoodEditor.populateImage(item);
-      app.FoodEditor.renderNutritionFields(item);
+      if (result !== undefined && result.length > 0) {
+        item = result[0];
+        item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
+        app.FoodEditor.populateFields(item);
+        if (!barcode.startsWith("fdcId_"))
+          app.FoodEditor.populateImage(item);
+        app.FoodEditor.renderNutritionFields(item);
+      } else {
+        let msg = app.strings.dialogs["no-results"] || "No matching results";
+        app.Utils.toast(msg);
+      }
     }
   },
 
