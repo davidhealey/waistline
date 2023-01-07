@@ -178,6 +178,8 @@
     "category": "Kategori",
     "serving-size": "Portionsstorlek",
     "serving-unit": "Portionsenhet",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Antal portioner",
     "notes": "Anteckningar",
     "nutrition": "Näringsvärden",
