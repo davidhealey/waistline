@@ -130,8 +130,8 @@ app.Foodlist = {
 
       app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
 
-      let offList = [];
-      let usdaList = [];
+      let offList;
+      let usdaList;
 
       let offEnabled = app.Settings.get("integration", "off") || true;
       let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
@@ -144,12 +144,13 @@ app.Foodlist = {
         if (usdaEnabled)
           usdaList = await app.USDA.search(query);
 
-        let result;
+        let result = [];
 
-        if (usdaList != undefined && usdaList != false)
-          result = usdaList.concat(offList);
-        else
-          result = offList;
+        if (usdaList !== undefined)
+          result = result.concat(usdaList);
+
+        if (offList !== undefined)
+          result = result.concat(offList);
 
         if (result.length > 0) {
           app.Foodlist.list = result;
