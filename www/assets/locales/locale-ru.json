@@ -92,7 +92,7 @@
     "download-title": "Получить последнюю информацию",
     "download-text": "Ваши локальные значения будут заменены самой последней информацией, доступной для этого элемента",
     "upload-success": "Продукт успешно добавлен в Open Food Facts",
-    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
+    "upload-add-to-foodlist": "Вы хотите добавить загруженный товар в ваш список продуктов?",
     "upload-failed": "К сожалению, загрузка не удалась. Пожалуйста, попробуйте еще раз или свяжитесь с разработчиком.",
     "what-meal": "Что это за блюдо?",
     "press-back-again": "Чтобы выйти из приложения, снова нажмите Назад"
@@ -179,16 +179,16 @@
     "category": "Категория",
     "serving-size": "Размер порции",
     "serving-unit": "Ед. измерения",
-    "recipe-size": "Recipe Amount",
-    "recipe-unit": "Recipe Unit",
+    "recipe-size": "Количество рецептов",
+    "recipe-unit": "Единица рецепта",
     "number-of-servings": "Количество порций",
     "notes": "Примечания",
     "nutrition": "Пищевая ценность",
     "per-100": "На 100г/100мл",
     "per-serving": "На порцию",
-    "additional-photos": "Additional Photos",
-    "ingredients": "Ingredients list",
-    "packaging": "Recycling instructions / packaging information",
+    "additional-photos": "Дополнительные фотографии",
+    "ingredients": "Список ингредиентов",
+    "packaging": "Инструкции по переработке / информация об упаковке",
     "edit-food": "Редактировать еду",
     "edit-meal": "Редактировать блюдо",
     "edit-recipe": "Редактировать рецепт",
@@ -197,8 +197,8 @@
   },
   "goals": {
     "title": "Цели",
-    "your-goals": "Your Goals",
-    "all-fields": "All Fields"
+    "your-goals": "Ваши цели",
+    "all-fields": "Все поля"
   },
   "goal-editor": {
     "title": "Установить цели",
@@ -227,10 +227,10 @@
     "needs-restart": "Перезапустите приложение, чтобы применить изменения.",
     "appearance": {
       "title": "Внешний вид",
-      "app-mode": "App Mode",
-      "system": "Use System Theme",
-      "light": "Light",
-      "dark": "Dark",
+      "app-mode": "Режим приложения",
+      "system": "Использовать системную тему",
+      "light": "Светлая",
+      "dark": "Тёмная",
       "colour-theme": "Цветовая схема",
       "animations": "Отключить анимацию интерфейса",
       "start-page": "Начальная страница",
@@ -265,7 +265,7 @@
       "edit": "Редактировать поле"
     },
     "body-stats": {
-      "title": "Body Stats",
+      "title": "Статистика тела",
       "field": "Название",
       "unit": "Единица измерения",
       "add": "Добавить поле",
@@ -312,12 +312,12 @@
       "goal-line": "Показать линию цели"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Разработчик",
+      "data-sharing": "Обмен данными",
+      "data-sharing-wifi-only": "Обмен данными только по Wi-Fi",
+      "data-sharing-active": "Поделиться данными с внешним сервисом",
+      "data-sharing-address": "Адрес сервера",
+      "data-sharing-authorization": "Заголовок авторизации сервиса"
     },
     "import-export": {
       "title": "Импорт/Экспорт",
@@ -327,9 +327,9 @@
       "import-foods-title": "Импорт еды",
       "import-foods": "Импорт еды из JSON",
       "import-foods-categories": "Категории импортированных элементов",
-      "export-diary-title": "Export Diary",
-      "export-diary": "Export Diary to CSV",
-      "date": "Date"
+      "export-diary-title": "Экспорт дневника",
+      "export-diary": "Экспорт дневника в CSV",
+      "date": "Дата"
     },
     "integration": {
       "title": "Интеграция",
@@ -395,7 +395,7 @@
     "dutch": "Голландский",
     "turkish": "Турецкий",
     "ukrainian": "Украинский",
-    "serbian-cyrillic": "Serbian (Cyrillic)",
-    "serbian-latin": "Serbian (Latin)"
+    "serbian-cyrillic": "Сербский (Кириллица)",
+    "serbian-latin": "Сербский (Латиница)"
   }
 }
