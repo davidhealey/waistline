@@ -4,7 +4,7 @@
 
 Use the Diary to keep a record of the food you eat every day. Waistline automatically adds up the calories and other nutriments of the food to calculate your total nutrition intake. You can also define goals for certain nutriments and have them displayed at the bottom of the Diary. On the Statstics page, you can see your nutrition intake over time.
 
-Waistline also lets you to track additional body stats such as your weight. Tap on the scale button in the menu bar at the top of the Diary to log your stats for a particular day. Go to the Statistics page to see your stats over time.
+Waistline also lets you track additional body stats such as your weight. Tap on the scale button in the menu bar at the top of the Diary to log your stats for a particular day. Go to the Statistics page to see your stats over time.
 
 Before you can add a food item to the Diary, you first have to create the item in your local database. To do this, navigate to `Foods, Meals, Recipes` and tap the `+` button. This will open the Food Editor that lets you add and edit food items. You can also download food product information from Open Food Facts or from the USDA database. More on this below.
 
