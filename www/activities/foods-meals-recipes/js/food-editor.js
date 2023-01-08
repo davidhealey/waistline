@@ -798,7 +798,7 @@ app.FoodEditor = {
           app.f7.preloader.show();
 
           let uploadedItem = await app.OpenFoodFacts.upload(data).catch((e) => {
-            let msg = app.strings.dialogs["upload-failed"] || "Upload Failed";
+            let msg = app.strings.dialogs["upload-failed"] || "Unfortunately the upload failed. Please try again or contact the developer.";
             app.Utils.toast(msg);
           });
 
@@ -806,8 +806,6 @@ app.FoodEditor = {
 
           if (uploadedItem !== undefined) {
             app.FoodEditor.afterUploadPrompt(uploadedItem);
-          } else {
-            app.FoodEditor.afterUploadNavigate();
           }
 
         } else {
