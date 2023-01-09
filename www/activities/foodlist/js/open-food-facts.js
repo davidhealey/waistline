@@ -241,20 +241,17 @@ app.OpenFoodFacts = {
         let result = await response.json();
         if (result.status == 1) {
 
+          // Upload images
           if (data.images !== undefined) {
-            let count = data.images.filter((x) => x == undefined).length;
-
-            if (data.images.length > 0 && count < 2) {
-
-              await app.OpenFoodFacts.uploadImages(data.images, data.barcode);
-
-              // Get result from OFF
-              let result = await app.OpenFoodFacts.search(data.barcode);
-
-              if (result !== undefined && result.length > 0)
-                resolve(result[0]);
-            }
+            await app.OpenFoodFacts.uploadImages(data.images, data.barcode).catch((err) => {
+              reject();
+            });
           }
+
+          // Get result from OFF
+          let result = await app.OpenFoodFacts.search(data.barcode);
+          if (result !== undefined && result.length > 0)
+            resolve(result[0]);
         }
       }
       reject();
@@ -326,27 +323,22 @@ app.OpenFoodFacts = {
   },
 
   uploadImages: function(imageURIs, barcode) {
-    return new Promise(async function(resolve, reject) {
-      let username = app.Settings.get("integration", "off-username") || "waistline-app";
-      let password = app.Settings.get("integration", "off-password") || "waistline";
-      let promises = [];
+    let username = app.Settings.get("integration", "off-username") || "waistline-app";
+    let password = app.Settings.get("integration", "off-password") || "waistline";
+    let promises = [];
 
-      for (let i = 0; i < imageURIs.length; i++) {
-        let x = imageURIs[i];
-        if (x != undefined) {
-          let data = app.OpenFoodFacts.getImageData(x, i);
-          data.append("code", barcode);
-          data.append("user_id", username);
-          data.append("password", password);
-          promises.push(app.OpenFoodFacts.postImage(data));
-        }
+    for (let i = 0; i < imageURIs.length; i++) {
+      let x = imageURIs[i];
+      if (x != undefined) {
+        let data = app.OpenFoodFacts.getImageData(x, i);
+        data.append("code", barcode);
+        data.append("user_id", username);
+        data.append("password", password);
+        promises.push(app.OpenFoodFacts.postImage(data));
       }
+    }
 
-      await Promise.all(promises).then((values) => {
-        console.log(values);
-        resolve();
-      });
-    });
+    return Promise.all(promises);
   },
 
   getImageData: function(blob, index) {
@@ -377,8 +369,6 @@ app.OpenFoodFacts = {
       credentials: 'include',
       headers: headers,
       body: data
-    }).catch((err) => {
-      console.error(err);
     });
 
     return promise;

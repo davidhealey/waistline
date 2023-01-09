@@ -482,7 +482,7 @@ var dbHandler = {
           };
         });
 
-        await Promise.all(promises).then((values) => {
+        Promise.all(promises).then(() => {
           console.log("Database Upgrade Complete");
           resolve();
         });

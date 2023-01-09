@@ -812,6 +812,9 @@ app.FoodEditor = {
           let msg = app.strings.dialogs["main-image"] || "Please add a main image";
           app.Utils.toast(msg);
         }
+      } else {
+        let msg = app.strings.dialogs["required-fields"] || "Please complete all required fields.";
+        app.Utils.toast(msg);
       }
     }
   },
