@@ -76,7 +76,7 @@ app.USDA = {
           resolve(undefined);
         });
 
-        if (response) {
+        if (response && response.ok) {
           let data = await response.json();
           let result = [];
 
@@ -214,7 +214,7 @@ app.USDA = {
         resolve(false);
       });
 
-      if (response) {
+      if (response && response.ok) {
         let data = await response.json();
         if (data.error && data.error.code == "API_KEY_INVALID")
           resolve(false);
