@@ -53,7 +53,7 @@ app.OpenFoodFacts = {
           resolve(undefined);
         });
 
-        if (response) {
+        if (response && response.ok) {
           let data = await response.json();
           let result = [];
 
@@ -237,7 +237,7 @@ app.OpenFoodFacts = {
         reject();
       });
 
-      if (response) {
+      if (response && response.ok) {
         let result = await response.json();
         if (result.status == 1) {
 
@@ -257,7 +257,7 @@ app.OpenFoodFacts = {
           }
         }
       }
-      resolve();
+      reject();
     });
   },
 
@@ -372,7 +372,7 @@ app.OpenFoodFacts = {
 
     headers["Content-Type"] = "multipart/form-data";
 
-    let response = fetch(endPoint, {
+    let promise = fetch(endPoint, {
       method: 'POST',
       credentials: 'include',
       headers: headers,
@@ -381,7 +381,7 @@ app.OpenFoodFacts = {
       console.error(err);
     });
 
-    return response;
+    return promise;
   },
 
   testCredentials: function(username, password) {
@@ -397,7 +397,7 @@ app.OpenFoodFacts = {
         resolve(false);
       });
 
-      if (response) {
+      if (response && response.ok) {
         let html = await response.text();
         if (html == null || html.includes("Incorrect user name or password.") || html.includes("See you soon!"))
           resolve(false);
