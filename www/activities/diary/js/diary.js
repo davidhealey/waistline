@@ -603,14 +603,14 @@ app.Diary = {
           content: div.outerHTML + inputs.outerHTML,
           buttons: [{
             text: app.strings.dialogs.skip || "Skip",
-            keyCodes: [27],
+            keyCodes: app.Utils.escapeKeyCode,
             onClick: async function(dialog) {
               app.Diary.promptAddItems(items, category, entry, index + 1, renderAfterwards);
             }
           },
           {
             text: app.strings.dialogs.add || "Add",
-            keyCodes: [13],
+            keyCodes: app.Utils.enterKeyCode,
             onClick: async function(dialog) {
               let inputs = Array.from(dialog.el.getElementsByTagName("input"));
               let portion = inputs[0].value;
@@ -675,20 +675,16 @@ app.Diary = {
     let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
-
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: app.Utils.getDialogTextDiv(text),
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.delete || "Delete",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: async () => {
             let entry = await app.Diary.getEntryFromDB();
 
@@ -756,11 +752,11 @@ app.Diary = {
       content: inputs.outerHTML,
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.ok || "OK",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: async function(dialog) {
             let inputs = Array.from(dialog.el.getElementsByTagName("input"));
             let energy = inputs[0].value;
@@ -863,11 +859,11 @@ app.Diary = {
       content: inputs.outerHTML,
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.ok || "OK",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: function(dialog, e) {
             app.Diary.saveStats(dialog, e);
           }
@@ -997,7 +993,7 @@ app.Diary = {
         content: div.outerHTML,
         buttons: [{
             text: app.strings.dialogs.ok || "OK",
-            keyCodes: [13]
+            keyCodes: app.Utils.enterKeyCode
           }
         ]
       }).open();

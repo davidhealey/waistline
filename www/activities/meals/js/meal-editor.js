@@ -154,20 +154,16 @@ app.MealEditor = {
     let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
-
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: app.Utils.getDialogTextDiv(text),
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.delete || "Delete",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: () => {
             let index = $(li).index();
             app.MealEditor.meal.items.splice(index, 1);

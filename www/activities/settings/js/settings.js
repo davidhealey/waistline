@@ -372,20 +372,16 @@ app.Settings = {
         let title = app.strings.settings.integration.import || "Import";
         let text = app.strings.settings.integration["confirm-import"] || "Are you sure? This will overwrite your current database.";
 
-        let div = document.createElement("div");
-        div.className = "dialog-text";
-        div.innerText = text;
-
         let dialog = app.f7.dialog.create({
           title: title,
-          content: div.outerHTML,
+          content: app.Utils.getDialogTextDiv(text),
           buttons: [{
               text: app.strings.dialogs.cancel || "Cancel",
-              keyCodes: [27]
+              keyCodes: app.Utils.escapeKeyCode
             },
             {
               text: app.strings.dialogs.ok || "OK",
-              keyCodes: [13],
+              keyCodes: app.Utils.enterKeyCode,
               onClick: async () => {
                 await dbHandler.import(data);
 
@@ -575,20 +571,16 @@ app.Settings = {
         let title = app.strings.settings.integration.import || "Import";
         let text = app.strings.settings["integration"]["confirm-import-foods"] || "Are you sure? This action cannot be undone. Please backup your database first.";
 
-        let div = document.createElement("div");
-        div.className = "dialog-text";
-        div.innerText = text;
-
         let dialog = app.f7.dialog.create({
           title: title,
-          content: div.outerHTML,
+          content: app.Utils.getDialogTextDiv(text),
           buttons: [{
               text: app.strings.dialogs.cancel || "Cancel",
-              keyCodes: [27]
+              keyCodes: app.Utils.escapeKeyCode
             },
             {
               text: app.strings.dialogs.ok || "OK",
-              keyCodes: [13],
+              keyCodes: app.Utils.enterKeyCode,
               onClick: async () => {
                 await this.updateFoodItems(data.foodList);
                 let msg = app.strings.settings.integration["import-success-message"] || "Import Complete";

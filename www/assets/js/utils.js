@@ -19,6 +19,16 @@
 
 app.Utils = {
 
+  enterKeyCode: [13],
+  escapeKeyCode: [27],
+
+  getDialogTextDiv: function(text) {
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+    div.innerText = text;
+    return div.outerHTML;
+  },
+
   tidyText: function(text, maxLength) {
     if (text) {
       if (text.length > maxLength)
