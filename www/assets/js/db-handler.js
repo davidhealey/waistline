@@ -756,17 +756,13 @@ var dbHandler = {
         const title = app.strings.settings.integration["import-success-title"] || "The backup has been restored";
         const text = app.strings.settings.integration["import-success-message"] || "Import Complete";
 
-        let div = document.createElement("div");
-        div.className = "dialog-text";
-        div.innerText = text;
-
         app.f7.preloader.hide();
         app.f7.dialog.create({
           title: title,
-          content: div.outerHTML,
+          content: app.Utils.getDialogTextDiv(text),
           buttons: [{
               text: app.strings.dialogs.ok || "OK",
-              keyCodes: [13]
+              keyCodes: app.Utils.enterKeyCode
             }
           ]
         }).open();

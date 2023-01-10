@@ -594,20 +594,16 @@ app.FoodEditor = {
     let title = app.strings.dialogs.delete || "Delete";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
-
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: app.Utils.getDialogTextDiv(text),
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.delete || "Delete",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: () => {
             app.FoodEditor.el.addPhoto[index].style.display = "flex";
             app.FoodEditor.el.photoHolder[index].innerHTML = "";
@@ -728,17 +724,12 @@ app.FoodEditor = {
     let title = app.strings.dialogs["download-title"] || "Retrieve latest information";
     let text = app.strings.dialogs["download-text"] || "Your local values will be replaced by the latest information available for this item";
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
-
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: app.Utils.getDialogTextDiv(text),
       verticalButtons: true,
       buttons: [{
           text: app.strings["food-editor"]["per-serving"] || "Per Serving",
-          keyCodes: [13],
           onClick: async () => {
             app.FoodEditor.downloadItemInfo(false);
           }
@@ -751,7 +742,7 @@ app.FoodEditor = {
         },
         {
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         }
       ]
     }).open();
@@ -819,39 +810,32 @@ app.FoodEditor = {
     }
   },
 
-  afterUploadNavigate: function() {
-    app.f7.views.main.router.back();
-  },
-
   afterUploadPrompt: async function(uploadedItem) {
     let title = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
     let text = app.strings.dialogs["upload-add-to-foodlist"] || "Do you want to add the uploaded item to your list of foods?";
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
-
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: app.Utils.getDialogTextDiv(text),
       buttons: [{
           text: app.strings.dialogs.no || "No",
-          keyCodes: [27],
-          onClick: () => {
-            app.FoodEditor.afterUploadNavigate();
-          }
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.yes || "Yes",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: () => {
             app.data.context = {
               item: uploadedItem
             };
-            app.FoodEditor.afterUploadNavigate();
           }
         }
-      ]
+      ],
+      on: {
+        closed: () => {
+          app.f7.views.main.router.back();
+        }
+      }
     }).open();
   }
 };

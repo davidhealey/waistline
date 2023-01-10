@@ -150,20 +150,16 @@ app.Recipes = {
     let title = app.strings.dialogs[action] || action;
     let text = app.strings.dialogs.confirm || "Are you sure?";
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
-
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: app.Utils.getDialogTextDiv(text),
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.yes || "Yes",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: async () => {
             switch (action) {
               case "archive-item":

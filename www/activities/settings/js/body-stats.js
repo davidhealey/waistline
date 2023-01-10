@@ -158,11 +158,11 @@ app.BodyStats = {
       content: inputs.outerHTML,
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.ok || "OK",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: function(dialog) {
             let inputs = Array.from(dialog.el.getElementsByTagName("input"));
             let field = inputs[0].value;
@@ -258,20 +258,16 @@ app.BodyStats = {
     let title = (app.strings.dialogs.delete || "Delete") + ": " + app.Utils.escapeHtml(field);
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
-    let div = document.createElement("div");
-    div.className = "dialog-text";
-    div.innerText = text;
-
     let dialog = app.f7.dialog.create({
       title: title,
-      content: div.outerHTML,
+      content: app.Utils.getDialogTextDiv(text),
       buttons: [{
           text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: [27]
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.delete || "Delete",
-          keyCodes: [13],
+          keyCodes: app.Utils.enterKeyCode,
           onClick: async () => {
             app.f7.preloader.show();
 

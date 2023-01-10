@@ -322,13 +322,13 @@ app.OpenFoodFacts = {
     return string;
   },
 
-  uploadImages: function(imageURIs, barcode) {
+  uploadImages: function(images, barcode) {
     let username = app.Settings.get("integration", "off-username") || "waistline-app";
     let password = app.Settings.get("integration", "off-password") || "waistline";
     let promises = [];
 
-    for (let i = 0; i < imageURIs.length; i++) {
-      let x = imageURIs[i];
+    for (let i = 0; i < images.length; i++) {
+      let x = images[i];
       if (x != undefined) {
         let data = app.OpenFoodFacts.getImageData(x, i);
         data.append("code", barcode);
