@@ -810,10 +810,6 @@ app.FoodEditor = {
     }
   },
 
-  afterUploadNavigate: function() {
-    app.f7.views.main.router.back();
-  },
-
   afterUploadPrompt: async function(uploadedItem) {
     let title = app.strings.dialogs["upload-success"] || "Product successfully added to Open Food Facts";
     let text = app.strings.dialogs["upload-add-to-foodlist"] || "Do you want to add the uploaded item to your list of foods?";
@@ -823,10 +819,7 @@ app.FoodEditor = {
       content: app.Utils.getDialogTextDiv(text),
       buttons: [{
           text: app.strings.dialogs.no || "No",
-          keyCodes: app.Utils.escapeKeyCode,
-          onClick: () => {
-            app.FoodEditor.afterUploadNavigate();
-          }
+          keyCodes: app.Utils.escapeKeyCode
         },
         {
           text: app.strings.dialogs.yes || "Yes",
@@ -835,10 +828,14 @@ app.FoodEditor = {
             app.data.context = {
               item: uploadedItem
             };
-            app.FoodEditor.afterUploadNavigate();
           }
         }
-      ]
+      ],
+      on: {
+        closed: () => {
+          app.f7.views.main.router.back();
+        }
+      }
     }).open();
   }
 };
