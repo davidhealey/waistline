@@ -164,8 +164,8 @@
     "selected": "Выбрано",
     "search": "Поиск",
     "scan-prompt": "Поместите штрих-код в область сканирования",
-    "show-more-nutriments": "Показать больше питательных веществ",
-    "show-less-nutriments": "Показать меньше питательных веществ",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Отсканированный элемент добавлен к выбору"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Показать метки времени",
       "thumbnails": "Показывать миниатюры",
       "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
-      "show-all-nutriments": "Показать все питательные вещества на странице обзора",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Показать единицы питания",
       "prompt-add-items": "Спрашивать количество при добавлении элемента"
     },
     "nutriments": {
-      "title": "Питательные вещества",
+      "title": "Nutrients",
       "field": "Название",
       "unit": "Единица измерения",
       "add": "Добавить поле",
