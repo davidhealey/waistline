@@ -164,8 +164,8 @@
     "selected": "Вибрані",
     "search": "Пошук",
     "scan-prompt": "Помістіть штрих-код в область сканування",
-    "show-more-nutriments": "Показати більше поживних речовин",
-    "show-less-nutriments": "Показувати менше поживних речовин",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Сканований елемент додано до виділеного"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Показувати часові мітки",
       "thumbnails": "Показувати ескізи",
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
-      "show-all-nutriments": "Показувати всі поживні речовини на сторінці Огляду",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Показувати одиниці поживності",
       "prompt-add-items": "Запитувати кількість елементів під час додавання"
     },
     "nutriments": {
-      "title": "Поживні речовини",
+      "title": "Nutrients",
       "field": "Назва",
       "unit": "Одиниця",
       "add": "Додати поле",
