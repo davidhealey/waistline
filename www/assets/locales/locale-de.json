@@ -164,8 +164,8 @@
     "selected": "Ausgewählt",
     "search": "Suchen",
     "scan-prompt": "Platziere einen Strichcode im Scanbereich",
-    "show-more-nutriments": "Show more nutrients",
-    "show-less-nutriments": "Show fewer nutrients",
+    "show-more-nutriments": "Mehr Nährstoffe anzeigen",
+    "show-less-nutriments": "Weniger Nährstoffe anzeigen",
     "added-to-selection": "Gescannter Artikel zur Auswahl hinzugefügt"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Uhrzeiten anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
-      "show-all-nutriments": "Show all nutrients on Overview page",
+      "show-all-nutriments": "Alle Nährstoffe auf Übersichtsseite anzeigen",
       "show-units": "Nährstoffeinheiten anzeigen",
       "prompt-add-items": "Beim Hinzufügen von Einträgen Menge abfragen"
     },
     "nutriments": {
-      "title": "Nutrients",
+      "title": "Nährstoffe",
       "field": "Name",
       "unit": "Einheit",
       "add": "Feld hinzufügen",
