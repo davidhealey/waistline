@@ -164,8 +164,8 @@
     "selected": "Seleccionados",
     "search": "Búsqueda",
     "scan-prompt": "Place a barcode inside the scan area",
-    "show-more-nutriments": "Show more nutriments",
-    "show-less-nutriments": "Show less nutriments",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Mostrar fecha y hora",
       "thumbnails": "Mostrar miniaturas",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
-      "show-all-nutriments": "Show all nutriments on Overview page",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Mostrar unidades nutricionales",
       "prompt-add-items": "Prompt for quantity when adding items"
     },
     "nutriments": {
-      "title": "Nutriments",
+      "title": "Nutrients",
       "field": "Nombre",
       "unit": "Unit",
       "add": "Add Field",
