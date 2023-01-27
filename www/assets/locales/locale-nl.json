@@ -164,8 +164,8 @@
     "selected": "Geselecteerd",
     "search": "Zoeken",
     "scan-prompt": "Plaats een streepjescode in het scangebied",
-    "show-more-nutriments": "Meer voedingsstoffen tonen",
-    "show-less-nutriments": "Minder voedingsstoffen tonen",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Gescande item toegevoegd aan selectie"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Toon tijdstempel",
       "thumbnails": "Toon voorvertoning",
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
-      "show-all-nutriments": "Toon alle voedingsstoffen op de overzichtspagina",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Toon voedingswaarde-eenheden",
       "prompt-add-items": "Hoeveelheid vragen bij het toevoegen van items"
     },
     "nutriments": {
-      "title": "Voedingsstoffen",
+      "title": "Nutrients",
       "field": "Naam",
       "unit": "Eenheid",
       "add": "Veld toevoegen",
