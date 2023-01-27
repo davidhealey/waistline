@@ -164,8 +164,8 @@
     "selected": "Valitut",
     "search": "Etsi",
     "scan-prompt": "Aseta viivakoodi kuvausalueen sisälle",
-    "show-more-nutriments": "Näytä enemmän ravinteita",
-    "show-less-nutriments": "Näytä vähemmän ravinteita",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Scanned item added to selection"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
-      "show-all-nutriments": "Näytä kaikki ravinteet yleiskatsauksessa",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Näytä ravintoyksiköt",
       "prompt-add-items": "Pyydä määrä tuotteita lisättäessä"
     },
     "nutriments": {
-      "title": "Ravinteet",
+      "title": "Nutrients",
       "field": "Nimi",
       "unit": "Yksikkö",
       "add": "Lisää kenttä",
