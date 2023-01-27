@@ -164,8 +164,8 @@
     "selected": "Seçildi",
     "search": "Ara",
     "scan-prompt": "Barkodu tarama alanına hizalayın",
-    "show-more-nutriments": "Daha fazla besin değeri göster",
-    "show-less-nutriments": "Daha az besin değeri göster",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Taranan öğe seçime eklendi"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Zaman Bilgisini Göster",
       "thumbnails": "Küçük Resimleri Göster",
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
-      "show-all-nutriments": "Genel Bakış sayfasında tüm besin değerlerini göster",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Besin değerlerinin birimlerini göster",
       "prompt-add-items": "Öğe eklerken miktar sor"
     },
     "nutriments": {
-      "title": "Besin Değerleri",
+      "title": "Nutrients",
       "field": "İsim",
       "unit": "Birim",
       "add": "Alan Ekle",
