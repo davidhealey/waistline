@@ -164,8 +164,8 @@
     "selected": "Označeno",
     "search": "Pretraži",
     "scan-prompt": "Postavite bar-kod u polje za skeniranje",
-    "show-more-nutriments": "Prikaži više nutrijenata",
-    "show-less-nutriments": "Prikaži manje nutrijenata",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Skenirana stavka dodata u odabir"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Prikaži vremena",
       "thumbnails": "Prikaži sličice",
       "wifi-thumbnails": "Prikaži sličice samo na Wi-Fi-ju",
-      "show-all-nutriments": "Prikaži sve nutrijente na pregledu",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Prikaži nutritivne jedinice",
       "prompt-add-items": "Traži unos količine pri dodavanju stavki"
     },
     "nutriments": {
-      "title": "Nutrijenti",
+      "title": "Nutrients",
       "field": "Ime",
       "unit": "Jedinica",
       "add": "Dodaj polje",
