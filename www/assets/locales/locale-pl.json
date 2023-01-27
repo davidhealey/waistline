@@ -164,8 +164,8 @@
     "selected": "Wybrane",
     "search": "Szukaj",
     "scan-prompt": "Umieść kod kreskowy w obrębie pola skanowania",
-    "show-more-nutriments": "Pokaż więcej składników odżywczych",
-    "show-less-nutriments": "Pokaż mniej składników odżywczych",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Zeskanowany element został dodany do zaznaczenia"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Pokaż znaczniki czasu",
       "thumbnails": "Pokaż miniatury",
       "wifi-thumbnails": "Pokazuj miniatury tylko przez Wi-Fi",
-      "show-all-nutriments": "Pokaż wszystkie składniki odżywcze na stronie podglądu",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Pokaż jednostki odżywcze",
       "prompt-add-items": "Pytaj o ilość podczas dodawania produktów"
     },
     "nutriments": {
-      "title": "Wartości odżywcze",
+      "title": "Nutrients",
       "field": "Nazwa",
       "unit": "Jednostka",
       "add": "Dodaj pole",
