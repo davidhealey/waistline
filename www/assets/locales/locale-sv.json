@@ -164,8 +164,8 @@
     "selected": "Valda",
     "search": "Sök",
     "scan-prompt": "Placera en streckkod innanför skanningsområdet",
-    "show-more-nutriments": "Show more nutrients",
-    "show-less-nutriments": "Show fewer nutrients",
+    "show-more-nutriments": "Visa fler näringsämnen",
+    "show-less-nutriments": "Visa färre näringsämnen",
     "added-to-selection": "Skannat objekt har lagts till i markeringen"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "Visa tidsstämplar",
       "thumbnails": "Visa miniatyrbilder",
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",
-      "show-all-nutriments": "Show all nutrients on Overview page",
+      "show-all-nutriments": "Visa alla näringsämnen på översiktssidan",
       "show-units": "Visa enheter för näringsämnen",
       "prompt-add-items": "Fråga efter kvantitet vid nytt inlägg"
     },
     "nutriments": {
-      "title": "Nutrients",
+      "title": "Näringsämnen",
       "field": "Namn",
       "unit": "Enhet",
       "add": "Lägg till fält",
