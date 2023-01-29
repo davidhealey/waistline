@@ -164,8 +164,8 @@
     "selected": "נבחרו",
     "search": "חיפוש",
     "scan-prompt": "נא להציב ברקוד בתוך אזור הסריקה",
-    "show-more-nutriments": "Show more nutrients",
-    "show-less-nutriments": "Show fewer nutrients",
+    "show-more-nutriments": "הצגת חומרי הזנה נוספים",
+    "show-less-nutriments": "הצגת פחות חומרי הזנה",
     "added-to-selection": "הפריט שנסרק נוסף לבחירה"
   },
   "food-editor": {
@@ -253,12 +253,12 @@
       "timestamps": "הצגת חותמות זמן",
       "thumbnails": "הצגת תמונות ממוזערות",
       "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
-      "show-all-nutriments": "Show all nutrients on Overview page",
+      "show-all-nutriments": "הצגת כל חומרי ההזנה בעמוד הסקירה",
       "show-units": "הצגת יחידות תזונה",
       "prompt-add-items": "לבקש כמות בהוספת פריטים"
     },
     "nutriments": {
-      "title": "Nutrients",
+      "title": "חומרי הזנה",
       "field": "שם",
       "unit": "יחידה",
       "add": "הוספת שדה",
