@@ -629,7 +629,7 @@ app.Settings = {
         usda: false
       },
       appearance: {
-        mode: "light",
+        mode: (window.matchMedia) ? "system" : "light",
         theme: "color-theme-red",
         animations: false,
         locale: "auto",
