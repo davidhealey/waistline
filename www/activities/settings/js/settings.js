@@ -390,7 +390,8 @@ app.Settings = {
                 if (data.settings !== undefined) {
                   let settings = app.Settings.migrateSettings(data.settings, false);
                   window.localStorage.setItem("settings", JSON.stringify(settings));
-                  this.changeTheme(settings.appearance.mode, settings.appearance.theme);
+                  app.Settings.changeTheme(settings.appearance.mode, settings.appearance.theme);
+                  app.Settings.resetModuleReadyStates();
                   app.f7.views.main.router.refreshPage();
                 }
               }
