@@ -464,7 +464,7 @@ app.Settings = {
       let timestamp = diaryData.timestamps[i];
       csv += app.Utils.dateToLocaleDateString(timestamp);
 
-      let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryData.items[i], "ignore");
+      let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(diaryData.items[i], "subtract");
       relevantFields.forEach((x) => {
         csv += ";"
 
