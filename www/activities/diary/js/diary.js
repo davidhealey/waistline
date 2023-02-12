@@ -117,10 +117,6 @@ app.Diary = {
       app.Diary.el.log.style.display = "none";
   },
 
-  resetReadyState: function() {
-    app.Diary.ready = false;
-  },
-
   createCalendar: function() {
     let result = app.f7.calendar.create({
       inputEl: "#diary-date",

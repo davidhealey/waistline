@@ -300,7 +300,7 @@ app.Settings = {
   },
 
   resetModuleReadyStates: function() {
-    app.Diary.resetReadyState();
+    app.Diary.ready = false;
   },
 
   saveOFFCredentials: async function(username, password) {
