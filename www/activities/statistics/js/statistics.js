@@ -330,7 +330,7 @@ app.Stats = {
         if (bodyStats.includes(field)) {
           value = app.Utils.convertUnit(data.stats[i][field], bodyStatsUnits[field], unit);
         } else {
-          let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i], "ignore");
+          let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(data.items[i], "subtract");
           value = nutrition[field];
         }
 
