@@ -24,6 +24,7 @@ const currentSettingsSchemaVersion = 7;
 app.Settings = {
 
   settings: {},
+  ready: false,
 
   init: function() {
     app.Settings.bindUIActions();
@@ -300,6 +301,7 @@ app.Settings = {
   },
 
   resetModuleReadyStates: function() {
+    app.Settings.ready = false;
     app.Diary.ready = false;
   },
 
