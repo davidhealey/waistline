@@ -24,6 +24,7 @@ const currentSettingsSchemaVersion = 7;
 app.Settings = {
 
   settings: {},
+  ready: false,
 
   init: function() {
     app.Settings.bindUIActions();
@@ -300,7 +301,8 @@ app.Settings = {
   },
 
   resetModuleReadyStates: function() {
-    app.Diary.resetReadyState();
+    app.Settings.ready = false;
+    app.Diary.ready = false;
   },
 
   saveOFFCredentials: async function(username, password) {
@@ -388,7 +390,8 @@ app.Settings = {
                 if (data.settings !== undefined) {
                   let settings = app.Settings.migrateSettings(data.settings, false);
                   window.localStorage.setItem("settings", JSON.stringify(settings));
-                  this.changeTheme(settings.appearance.mode, settings.appearance.theme);
+                  app.Settings.changeTheme(settings.appearance.mode, settings.appearance.theme);
+                  app.Settings.resetModuleReadyStates();
                   app.f7.views.main.router.refreshPage();
                 }
               }

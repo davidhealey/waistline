@@ -164,10 +164,15 @@ app.Utils = {
   },
 
   concatObjects: function(...sources) {
-    const target = {};
-    sources.forEach(el => {
-      Object.keys(el).forEach(key => {
-        target[key] = el[key];
+    let target = {};
+    sources.forEach((object) => {
+      Object.keys(object).forEach((key) => {
+        const targetValue = target[key];
+        const objectValue = object[key];
+        if (typeof targetValue === "object" && typeof objectValue === "object")
+          target[key] = app.Utils.concatObjects(targetValue, objectValue);
+        else
+          target[key] = objectValue;
       });
     });
     return target;

@@ -97,25 +97,29 @@ const app = {
   localize: function() {
     let lang = app.getLanguage(app.Settings.get("appearance", "locale"));
 
-    // Get default/fallback locale data
-    if (Object.keys(app.strings).length == 0) {
-      $.getJSON("assets/locales/locale-en.json", function(data) {
-        app.strings = data;
-      });
-    }
+    if (app.Settings.ready === false) {
 
+      // Get default/fallback locale strings
+      $.getJSON("assets/locales/locale-en.json", (enStrings) => {
+        app.strings = enStrings;
+        app.Settings.ready = true;
+        app.doLocalize(lang, (localeStrings, defaultCallback) => {
+          // Merge default strings with locale strings in case there are any missing values
+          app.strings = app.Utils.concatObjects(app.strings, localeStrings);
+          defaultCallback(localeStrings);
+        });
+      });
+
+    } else {
+      app.doLocalize(lang);
+    }
+  },
+
+  doLocalize: function(lang, callback) {
     $("[data-localize]").localize("assets/locales/locale", {
       language: lang,
       skipLanguage: /^en/,
-      callback: function(data, defaultCallback) {
-
-        // Get localized strings
-        let locale = $.localize.data["assets/locales/locale"];
-
-        // Merge the default strings with the locale in case there are any missing values
-        app.strings = Object.assign(app.strings, locale);
-        defaultCallback(data);
-      }
+      callback: callback
     });
   },
 
