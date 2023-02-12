@@ -92,6 +92,7 @@
     "download-title": "Povrati poslednju informaciju",
     "download-text": "Vaše lokalne vrednosti će biti prepisane najnovijim informacijama o ovoj stavci",
     "upload-success": "Proizvod uspešno dodat u Open Food Facts",
+    "upload-add-to-foodlist": "Da li želite da dodate poslatu stavku na vašu listu hrane?",
     "upload-failed": "Na žalost, slanje nije uspelo. Pokušajte ponovo ili kontaktirajte programera.",
     "what-meal": "Koji obrok je ovo?",
     "press-back-again": "Pritisne Unazad ponovo da biste napustili aplikaciju"
@@ -178,11 +179,16 @@
     "category": "Kategorija",
     "serving-size": "Jedinica posluženja",
     "serving-unit": "Jedinica mere",
+    "recipe-size": "Količina u receptu",
+    "recipe-unit": "Jedinica mere recepta",
     "number-of-servings": "Broj posluživanja",
     "notes": "Beleške",
     "nutrition": "Nutritivne vrednosti",
     "per-100": "Na 100g/100ml",
     "per-serving": "Po posluženju",
+    "additional-photos": "Dodatne fotografije",
+    "ingredients": "Sastojci",
+    "packaging": "Uputstva za reciklažu / informacije na pakovanju",
     "edit-food": "Izmeni stavku hrane",
     "edit-meal": "Izmeni stavku obroka",
     "edit-recipe": "Izmeni stavku recepta",
@@ -253,6 +259,13 @@
     },
     "nutriments": {
       "title": "Nutrijenti",
+      "field": "Ime",
+      "unit": "Jedinica",
+      "add": "Dodaj polje",
+      "edit": "Izmeni polje"
+    },
+    "body-stats": {
+      "title": "Statistike tela",
       "field": "Ime",
       "unit": "Jedinica",
       "add": "Dodaj polje",

@@ -92,6 +92,7 @@
     "download-title": "Neueste Daten abrufen",
     "download-text": "Deine lokalen Werte werden mit den neuesten verfügbaren Daten für den Artikel überschrieben",
     "upload-success": "Produkt wurde zu Open Food Facts hinzugefügt",
+    "upload-add-to-foodlist": "Möchtest du das Produkt in deine Lebensmittelliste aufnehmen?",
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
     "what-meal": "Welche Mahlzeit ist das?",
     "press-back-again": "Drücke erneut Zurück, um die App zu beenden"
@@ -178,11 +179,16 @@
     "category": "Kategorie",
     "serving-size": "Portionsgröße",
     "serving-unit": "Portionseinheit",
+    "recipe-size": "Rezeptmenge",
+    "recipe-unit": "Rezepteinheit",
     "number-of-servings": "Anzahl Portionen",
     "notes": "Notizen",
     "nutrition": "Nährwerte",
     "per-100": "Pro 100 g / 100 ml",
     "per-serving": "Pro Portion",
+    "additional-photos": "Zusätzliche Bilder",
+    "ingredients": "Zutatenliste",
+    "packaging": "Recyclinghinweise / Verpackungsinformationen",
     "edit-food": "Lebensmittel bearbeiten",
     "edit-meal": "Mahlzeit-Eintrag bearbeiten",
     "edit-recipe": "Rezept-Eintrag bearbeiten",
@@ -253,6 +259,13 @@
     },
     "nutriments": {
       "title": "Nährstoffe",
+      "field": "Name",
+      "unit": "Einheit",
+      "add": "Feld hinzufügen",
+      "edit": "Feld bearbeiten"
+    },
+    "body-stats": {
+      "title": "Körperwerte",
       "field": "Name",
       "unit": "Einheit",
       "add": "Feld hinzufügen",

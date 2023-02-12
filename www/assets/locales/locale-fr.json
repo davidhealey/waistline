@@ -92,6 +92,7 @@
     "download-title": "Récupérer les dernières infos",
     "download-text": "Vos valeurs locales seront remplacées par les dernières informations disponibles pour cet élément",
     "upload-success": "Produit ajouté à Open Food Facts",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?",
     "press-back-again": "Appuyez à nouveau sur le bouton Retour pour quitter l'application"
@@ -163,8 +164,8 @@
     "selected": "Sélectionnées",
     "search": "Recherche",
     "scan-prompt": "Placez un code barre devant le scanner",
-    "show-more-nutriments": "Afficher plus de nutriments",
-    "show-less-nutriments": "Afficher moins de nutriments",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Élément scanné ajouté à la sélection"
   },
   "food-editor": {
@@ -178,11 +179,16 @@
     "category": "Catégorie",
     "serving-size": "Portion",
     "serving-unit": "Portion (Unité)",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Quantité de portions",
     "notes": "Notes",
     "nutrition": "Nutrition",
     "per-100": "Pour 100g/100mL",
     "per-serving": "Par portion",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Modifier aliment",
     "edit-meal": "Modifier Repas",
     "edit-recipe": "Modifier Recette",
@@ -191,8 +197,8 @@
   },
   "goals": {
     "title": "Objectifs",
-    "your-goals": "Your Goals",
-    "all-fields": "All Fields"
+    "your-goals": "Vos objectifs",
+    "all-fields": "Tous les champs"
   },
   "goal-editor": {
     "title": "Modifier objectifs",
@@ -247,12 +253,19 @@
       "timestamps": "Afficher les dates",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
-      "show-all-nutriments": "Afficher tous les nutriments dans la vue d'ensemble",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Afficher les unités nutritionnelles",
       "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments"
     },
     "nutriments": {
-      "title": "Nutriments",
+      "title": "Nutrients",
+      "field": "Nom",
+      "unit": "Unité",
+      "add": "Ajouter un champ",
+      "edit": "Modifier le champ"
+    },
+    "body-stats": {
+      "title": "Stats du corps",
       "field": "Nom",
       "unit": "Unité",
       "add": "Ajouter un champ",
@@ -299,12 +312,12 @@
       "goal-line": "Afficher la ligne objectif"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Développeur",
+      "data-sharing": "Partage des données",
+      "data-sharing-wifi-only": "Ne partager les données qu'en Wi-Fi",
+      "data-sharing-active": "Partager les données avec un service externe",
+      "data-sharing-address": "Adresse du service",
+      "data-sharing-authorization": "En-tête d'autorisation du service"
     },
     "import-export": {
       "title": "Importation/Exportation",

@@ -92,6 +92,7 @@
     "download-title": "En son bilgileri al",
     "download-text": "Yerelde bulunan değerler, bu öğe için mevcut olan en son bilgilerle değiştirilecektir",
     "upload-success": "Ürün başarılı bir şekilde Open Food Facts veritabanına eklendi",
+    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Malesef yükleme başarısız oldu. Lütfen tekrar deneyin veya uygulama geliştiricisi ile iletişime geçin.",
     "what-meal": "Bu hangi yemek?",
     "press-back-again": "Çıkmak için Geri Tuşuna tekrar basın"
@@ -163,8 +164,8 @@
     "selected": "Seçildi",
     "search": "Ara",
     "scan-prompt": "Barkodu tarama alanına hizalayın",
-    "show-more-nutriments": "Daha fazla besin değeri göster",
-    "show-less-nutriments": "Daha az besin değeri göster",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Taranan öğe seçime eklendi"
   },
   "food-editor": {
@@ -178,11 +179,16 @@
     "category": "Kategori",
     "serving-size": "Porsiyon Boyutu",
     "serving-unit": "Porsiyon Birimi",
+    "recipe-size": "Recipe Amount",
+    "recipe-unit": "Recipe Unit",
     "number-of-servings": "Porsiyon Adedi",
     "notes": "Notlar",
     "nutrition": "Besin Değeri",
     "per-100": "100g/100ml için",
     "per-serving": "Porsiyon Başına",
+    "additional-photos": "Additional Photos",
+    "ingredients": "Ingredients list",
+    "packaging": "Recycling instructions / packaging information",
     "edit-food": "Gıdayı Düzenle",
     "edit-meal": "Öğünü Düzenle",
     "edit-recipe": "Tarifi Düzenle",
@@ -247,12 +253,19 @@
       "timestamps": "Zaman Bilgisini Göster",
       "thumbnails": "Küçük Resimleri Göster",
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
-      "show-all-nutriments": "Genel Bakış sayfasında tüm besin değerlerini göster",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Besin değerlerinin birimlerini göster",
       "prompt-add-items": "Öğe eklerken miktar sor"
     },
     "nutriments": {
-      "title": "Besin Değerleri",
+      "title": "Nutrients",
+      "field": "İsim",
+      "unit": "Birim",
+      "add": "Alan Ekle",
+      "edit": "Alanı Düzenle"
+    },
+    "body-stats": {
+      "title": "Body Stats",
       "field": "İsim",
       "unit": "Birim",
       "add": "Alan Ekle",

@@ -92,6 +92,7 @@
     "download-title": "Meest recente informatie ophalen",
     "download-text": "Lokaal opgeslagen waarden zullen worden vervangen met de meest recente informatie voor dit artikel",
     "upload-success": "Product succesvol toegevoegd aan Open Food Facts",
+    "upload-add-to-foodlist": "Wil je het geüploade item toevoegen aan je voedsellijst?",
     "upload-failed": "Het uploaden is helaas mislukt. Probeer het opnieuw of neem contact op met de ontwikkelaar.",
     "what-meal": "Welke maaltijd is dit?",
     "press-back-again": "Druk nogmaals op Terug om de app te sluiten"
@@ -163,8 +164,8 @@
     "selected": "Geselecteerd",
     "search": "Zoeken",
     "scan-prompt": "Plaats een streepjescode in het scangebied",
-    "show-more-nutriments": "Meer voedingsstoffen tonen",
-    "show-less-nutriments": "Minder voedingsstoffen tonen",
+    "show-more-nutriments": "Show more nutrients",
+    "show-less-nutriments": "Show fewer nutrients",
     "added-to-selection": "Gescande item toegevoegd aan selectie"
   },
   "food-editor": {
@@ -178,11 +179,16 @@
     "category": "Categorie",
     "serving-size": "Portiegrootte",
     "serving-unit": "Portie-eenheid",
+    "recipe-size": "Hoeveelheid",
+    "recipe-unit": "Eenheid",
     "number-of-servings": "Aantal porties",
     "notes": "Notities",
     "nutrition": "Voedingswaarde",
     "per-100": "Per 100g/100ml",
     "per-serving": "Per portie",
+    "additional-photos": "Extra afbeeldingen",
+    "ingredients": "Ingrediëntenlijst",
+    "packaging": "Recyclinginstructies / verpakkingsinformatie",
     "edit-food": "Bewerk voeding",
     "edit-meal": "Bewerk maaltijd",
     "edit-recipe": "Bewerk recept",
@@ -247,12 +253,19 @@
       "timestamps": "Toon tijdstempel",
       "thumbnails": "Toon voorvertoning",
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
-      "show-all-nutriments": "Toon alle voedingsstoffen op de overzichtspagina",
+      "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Toon voedingswaarde-eenheden",
       "prompt-add-items": "Hoeveelheid vragen bij het toevoegen van items"
     },
     "nutriments": {
-      "title": "Voedingsstoffen",
+      "title": "Nutrients",
+      "field": "Naam",
+      "unit": "Eenheid",
+      "add": "Veld toevoegen",
+      "edit": "Veld bewerken"
+    },
+    "body-stats": {
+      "title": "Lichaamsstatistieken",
       "field": "Naam",
       "unit": "Eenheid",
       "add": "Veld toevoegen",
