@@ -121,19 +121,19 @@
   "statistics": {
     "title": "Statistiky",
     "range": "Rozsah",
-    "stat": "Stat",
+    "stat": "Statistika",
     "week": "1 týden",
     "month": "1 měsíc",
     "3month": "3 měsíce",
     "6month": "6 měsíců",
     "12month": "1 rok",
-    "timeline": "Timeline",
+    "timeline": "Časová osa",
     "weight": "Váha",
     "neck": "Krk",
     "waist": "Pas",
     "hips": "Boky",
     "body fat": "Tělesný tuk",
-    "average": "Average"
+    "average": "Průměr"
   },
   "diary": {
     "title": "Diář",
@@ -152,7 +152,7 @@
   },
   "diary-chart": {
     "title": "Přehled",
-    "including-saturated-fat": "including sat fat",
+    "including-saturated-fat": "včetně nas. tuku",
     "including-sugars": "včetně cukrů",
     "no-data": "Žádné údaje"
   },
@@ -161,7 +161,7 @@
     "foods": "Potraviny",
     "meals": "Jídla",
     "recipes": "Recepty",
-    "selected": "Selected",
+    "selected": "vybraných",
     "search": "Hledat",
     "scan-prompt": "Umístěte čárový kód do oblasti skenování",
     "show-more-nutriments": "Zobrazit více živin",
@@ -171,7 +171,7 @@
   "food-editor": {
     "edit-item": "Upravit položku",
     "add-new-item": "Přidat novou položku",
-    "details": "Details",
+    "details": "Podrobnosti",
     "barcode": "Čárový kód",
     "categories": "Kategorie",
     "name": "Název",
@@ -209,7 +209,7 @@
     "auto-adjust": "Automaticky upravit pro dosažení průměrného cíle",
     "minimum-goal": "Je minimální cíl",
     "percent-goal": "Cíl jako procentuální podíl z energetického přijmu",
-    "effective-from": "Effective from",
+    "effective-from": "Účinné od",
     "new-goal": "Nový cíl",
     "delete-goal": "Odstranit cíl",
     "goal-deleted": "Cíl odstraněn"
@@ -253,7 +253,7 @@
       "timestamps": "Zobrazovat časové údaje",
       "thumbnails": "Zobrazit miniatury",
       "wifi-thumbnails": "Zobrazit miniatury pouze přes Wi-Fi",
-      "show-all-nutriments": "Show all nutrients on Overview page",
+      "show-all-nutriments": "Zobrazit všechny živiny na stránce Přehledu",
       "show-units": "Zobrazit nutriční jednotky",
       "prompt-add-items": "Ptát se na množství při přidávání položek"
     },
@@ -265,7 +265,7 @@
       "edit": "Upravit pole"
     },
     "body-stats": {
-      "title": "Body Stats",
+      "title": "Tělesné statistiky",
       "field": "Název",
       "unit": "Jednotka",
       "add": "Přidat pole",
@@ -300,8 +300,8 @@
     },
     "foods-categories": {
       "title": "Štítky a kategorie",
-      "label": "Label / Icon",
-      "description": "Description",
+      "label": "Štítek/ikona",
+      "description": "Popis",
       "add": "Přidat kategorii",
       "edit": "Upravit kategorii"
     },
@@ -317,7 +317,7 @@
       "data-sharing-wifi-only": "Sdílet údaje pouze přes Wi-Fi",
       "data-sharing-active": "Sdílet data s externí službou",
       "data-sharing-address": "Adresa služby",
-      "data-sharing-authorization": "Service Authorization Header"
+      "data-sharing-authorization": "Hlavička ověření služby"
     },
     "import-export": {
       "title": "Import/export",
