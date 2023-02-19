@@ -98,13 +98,13 @@
     "press-back-again": "Press Back again to exit the app"
   },
   "days": {
-    "0": "Sunday",
-    "1": "Monday",
-    "2": "Tuesday",
-    "3": "Wednesday",
-    "4": "Thursday",
-    "5": "Friday",
-    "6": "Saturday"
+    "0": "Neděle",
+    "1": "Pondělí",
+    "2": "Úterý",
+    "3": "Středa",
+    "4": "Čtvrtek",
+    "5": "Pátek",
+    "6": "Sobota"
   },
   "colours": {
     "red": "Red",
@@ -128,10 +128,10 @@
     "6month": "6 Months",
     "12month": "1 Year",
     "timeline": "Timeline",
-    "weight": "Weight",
-    "neck": "Neck",
+    "weight": "Váha",
+    "neck": "Krk",
     "waist": "Waist",
-    "hips": "Hips",
+    "hips": "Boky",
     "body fat": "Body Fat",
     "average": "Average"
   },
@@ -184,8 +184,8 @@
     "number-of-servings": "Number of Servings",
     "notes": "Notes",
     "nutrition": "Nutrition",
-    "per-100": "Per 100g/100ml",
-    "per-serving": "Per Serving",
+    "per-100": "Na 100g/100ml",
+    "per-serving": "Na porci",
     "additional-photos": "Additional Photos",
     "ingredients": "Ingredients list",
     "packaging": "Recycling instructions / packaging information",
@@ -239,7 +239,7 @@
     "units": {
       "title": "Units",
       "energy": "Energy",
-      "weight": "Weight",
+      "weight": "Váha",
       "length": "Length",
       "kilograms": "Kilograms",
       "pounds": "Pounds",
