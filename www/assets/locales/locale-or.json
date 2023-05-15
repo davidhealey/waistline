@@ -67,11 +67,11 @@
   "dialogs": {
     "delete": "Delete",
     "cancel": "Cancel",
-    "ok": "OK",
+    "ok": "ଠିକ୍ ଅଛି",
     "yes": "Yes",
     "no": "No",
     "add": "Add",
-    "skip": "Skip",
+    "skip": "ବାଦ୍ ଦିଅ",
     "clone-item": "Clone item",
     "delete-item": "Delete item",
     "archive-item": "Archive item",
