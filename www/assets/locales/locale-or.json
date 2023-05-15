@@ -98,16 +98,16 @@
     "press-back-again": "Press Back again to exit the app"
   },
   "days": {
-    "0": "Sunday",
-    "1": "Monday",
-    "2": "Tuesday",
-    "3": "Wednesday",
-    "4": "Thursday",
-    "5": "Friday",
-    "6": "Saturday"
+    "0": "ରଵିଵାର",
+    "1": "ସୋମଵାର",
+    "2": "ମଙ୍ଗଳଵାର",
+    "3": "ବୁଧଵାର",
+    "4": "ଗୁରୁଵାର",
+    "5": "ଶୁକ୍ରଵାର",
+    "6": "ଶନିଵାର"
   },
   "colours": {
-    "red": "Red",
+    "red": "ନାଲି",
     "blue": "Blue",
     "green": "Green",
     "pink": "Pink",
@@ -121,16 +121,16 @@
   "statistics": {
     "title": "Statistics",
     "range": "Range",
-    "stat": "Stat",
-    "week": "1 Week",
-    "month": "1 Month",
-    "3month": "3 Months",
-    "6month": "6 Months",
-    "12month": "1 Year",
-    "timeline": "Timeline",
-    "weight": "Weight",
-    "neck": "Neck",
-    "waist": "Waist",
+    "stat": "ପରିସଂଖ୍ୟାନ",
+    "week": "୧ ସପ୍ତାହ",
+    "month": "୧ ମାସ",
+    "3month": "୩ ମାସ",
+    "6month": "୬ ମାସ",
+    "12month": "୧ ଵର୍ଷ",
+    "timeline": "ସମୟରେଖା",
+    "weight": "ଓଜନ",
+    "neck": "ବେକ",
+    "waist": "ଅଣ୍ଟା",
     "hips": "Hips",
     "body fat": "Body Fat",
     "average": "Average"
@@ -138,9 +138,9 @@
   "diary": {
     "title": "Diary",
     "quick-add": "Quick Add",
-    "quick-add-description": "Description (optional)",
-    "yesterdays-meal": "Yesterday's %s",
-    "log-title": "Today's Stats",
+    "quick-add-description": "ଵର୍ଣ୍ଣନା (ଵୈକଳ୍ପିକ)",
+    "yesterdays-meal": "ଗତକାଲିର %s",
+    "log-title": "ଆଜିର ପରିସଂଖ୍ୟାନ",
     "log-saved": "Saved",
     "no-data": "No Data",
     "default-meals": {
@@ -171,10 +171,10 @@
   "food-editor": {
     "edit-item": "Edit Item",
     "add-new-item": "Add New Item",
-    "details": "Details",
+    "details": "ଵିଵରଣୀ",
     "barcode": "Barcode",
     "categories": "Categories",
-    "name": "Name",
+    "name": "ନାମ",
     "brand": "Brand",
     "category": "Category",
     "serving-size": "Serving Size",
@@ -223,14 +223,14 @@
     "notes": "Notes"
   },
   "settings": {
-    "title": "Settings",
+    "title": "ସେଟିଂ",
     "needs-restart": "Restart app to apply changes.",
     "appearance": {
-      "title": "Appearance",
+      "title": "ରୂପ",
       "app-mode": "App Mode",
-      "system": "Use System Theme",
-      "light": "Light",
-      "dark": "Dark",
+      "system": "ସିଷ୍ଟମ୍ ଥିମ୍ ଵ୍ୟଵହାର କରିବା",
+      "light": "ହାଲୁକା",
+      "dark": "ଗାଢ଼",
       "colour-theme": "Colour Theme",
       "animations": "Disable UI Animations",
       "start-page": "Start Page",
@@ -239,7 +239,7 @@
     "units": {
       "title": "Units",
       "energy": "Energy",
-      "weight": "Weight",
+      "weight": "ଓଜନ",
       "length": "Length",
       "kilograms": "Kilograms",
       "pounds": "Pounds",
@@ -259,14 +259,14 @@
     },
     "nutriments": {
       "title": "Nutrients",
-      "field": "Name",
+      "field": "ନାମ",
       "unit": "Unit",
       "add": "Add Field",
       "edit": "Edit Field"
     },
     "body-stats": {
       "title": "Body Stats",
-      "field": "Name",
+      "field": "ନାମ",
       "unit": "Unit",
       "add": "Add Field",
       "edit": "Edit Field"
@@ -277,19 +277,19 @@
     },
     "goals": {
       "title": "Goals",
-      "first-day-of-week": "First day of the week",
+      "first-day-of-week": "ସପ୍ତାହର ପ୍ରଥମ ଵାର",
       "average-goal-base": "Compute average goals based on",
-      "current-week": "Current Week",
-      "last-3-days": "Last 3 Days",
-      "last-5-days": "Last 5 Days",
-      "last-7-days": "Last 7 Days",
-      "last-10-days": "Last 10 Days",
+      "current-week": "ଚଳିତ ସପ୍ତାହ",
+      "last-3-days": "ଗତ ୩ ଦିନ",
+      "last-5-days": "ଗତ ୫ ଦିନ",
+      "last-7-days": "ଗତ ୭ ଦିନ",
+      "last-10-days": "ଗତ ୧୦ ଦିନ",
       "goals-link": "Set Goals"
     },
     "foods": {
       "title": "Foods, Meals, Recipes",
       "sort": "Sort Foods",
-      "sort-date": "By last used",
+      "sort-date": "ଗତ ଵ୍ୟଵହାର ଅନୁଯାୟୀ",
       "sort-alpha": "Alphabetically",
       "category-labels": "Show Category Labels",
       "thumbnails": "Show Thumbnails",
@@ -301,12 +301,12 @@
     "foods-categories": {
       "title": "Labels and Categories",
       "label": "Label / Icon",
-      "description": "Description",
+      "description": "ଵର୍ଣ୍ଣନା",
       "add": "Add Category",
       "edit": "Edit Category"
     },
     "statistics": {
-      "title": "Statistics",
+      "title": "ପରିସଂଖ୍ୟାନ",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
       "goal-line": "Show Goal Line"
@@ -320,8 +320,8 @@
       "data-sharing-authorization": "Service Authorization Header"
     },
     "import-export": {
-      "title": "Import/Export",
-      "auto-backup": "Automatic Backup",
+      "title": "ଆମଦାନୀ/ରପ୍ତାନି",
+      "auto-backup": "ସ୍ୱଚାଳିତ ବ୍ୟାକଅପ୍",
       "backup": "Backup Database",
       "import": "Import From Backup",
       "import-foods-title": "Import Foods",
@@ -329,7 +329,7 @@
       "import-foods-categories": "Categories for imported items",
       "export-diary-title": "Export Diary",
       "export-diary": "Export Diary to CSV",
-      "date": "Date"
+      "date": "ତାରିଖ"
     },
     "integration": {
       "title": "Integration",
@@ -350,7 +350,7 @@
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
       "usda-note-1": "to request a free API Key.",
       "username": "Username",
-      "password": "Password",
+      "password": "ପାସ୍‌ୱର୍ଡ଼",
       "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
       "sign-in": "Sign In",
       "exit": "Exit",
