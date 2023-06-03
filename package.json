@@ -18,7 +18,6 @@
     "cordova-plugin-inappbrowser": "^5.0.0",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-network-information": "^3.0.0",
-    "cordova-plugin-splashscreen": "^6.0.0",
     "patch-package": "^7.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0"
   },
@@ -29,7 +28,6 @@
         "ANDROIDX_CORE_VERSION": "1.6.+"
       },
       "cordova-plugin-network-information": {},
-      "cordova-plugin-splashscreen": {},
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
