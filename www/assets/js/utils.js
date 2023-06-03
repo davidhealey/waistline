@@ -169,7 +169,9 @@ app.Utils = {
       Object.keys(object).forEach((key) => {
         const targetValue = target[key];
         const objectValue = object[key];
-        if (typeof targetValue === "object" && typeof objectValue === "object")
+        if (targetValue instanceof Date && objectValue instanceof Date)
+          target[key] = objectValue;
+        else if (typeof targetValue === "object" && typeof objectValue === "object")
           target[key] = app.Utils.concatObjects(targetValue, objectValue);
         else
           target[key] = objectValue;
