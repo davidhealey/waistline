@@ -707,6 +707,9 @@ app.Settings = {
       bodyStatsVisibility: {
         "weight": true
       },
+      "import-export": {
+        "auto-backup": true
+      },
       developer: {
         "data-sharing-active": false,
         "data-sharing-wifi-only": true,
