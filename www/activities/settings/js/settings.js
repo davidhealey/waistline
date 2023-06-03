@@ -598,6 +598,13 @@ app.Settings = {
 
   firstTimeSetup: function() {
     let defaults = {
+      appearance: {
+        mode: (window.matchMedia) ? "system" : "light",
+        theme: "color-theme-red",
+        animations: false,
+        locale: "auto",
+        "start-page": "/settings/"
+      },
       statistics: {
         "y-zero": false,
         "average-line": true,
@@ -622,26 +629,6 @@ app.Settings = {
         "show-images": true,
         "wifi-images": true,
         "show-notes": false
-      },
-      integration: {
-        "barcode-sound": false,
-        "edit-images": false,
-        "search-language": "Default",
-        "search-country": "All",
-        "upload-country": "Auto",
-        usda: false
-      },
-      appearance: {
-        mode: (window.matchMedia) ? "system" : "light",
-        theme: "color-theme-red",
-        animations: false,
-        locale: "auto",
-        "start-page": "/settings/"
-      },
-      units: {
-        energy: "kcal",
-        weight: "kg",
-        length: "cm"
       },
       goals: {
         migrated: true,
@@ -688,6 +675,11 @@ app.Settings = {
           }]
         }
       },
+      units: {
+        energy: "kcal",
+        weight: "kg",
+        length: "cm"
+      },
       nutriments: {
         order: app.nutriments,
         units: {}
@@ -707,6 +699,17 @@ app.Settings = {
       bodyStatsVisibility: {
         "weight": true
       },
+      integration: {
+        "barcode-sound": false,
+        "edit-images": false,
+        "search-language": "Default",
+        "search-country": "All",
+        "upload-country": "Auto",
+        usda: false
+      },
+      "import-export": {
+        "auto-backup": true
+      },
       developer: {
         "data-sharing-active": false,
         "data-sharing-wifi-only": true,
@@ -716,6 +719,8 @@ app.Settings = {
       firstTimeSetup: true,
       schemaVersion: currentSettingsSchemaVersion
     };
+
+    app.Settings.changeTheme(defaults.appearance.mode, defaults.appearance.theme);
 
     window.localStorage.setItem("settings", JSON.stringify(defaults));
   },

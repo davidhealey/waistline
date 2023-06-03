@@ -456,11 +456,35 @@ document.addEventListener("page:beforein", (e) => {
   app.localize();
 });
 
-document.addEventListener('deviceready', async function() {
+let isAutoBackupDue = function() {
+  let autoBackup = app.Settings.get("import-export", "auto-backup");
+  let lastBackup = app.Settings.get("import-export", "last-backup");
+  let now = Date.now();
+  if (autoBackup === true && (lastBackup === undefined || now - lastBackup > 60 * 60 * 1000)) {
+    app.Settings.put("import-export", "last-backup", now);
+    return true;
+  }
+  return false;
+}
 
+let triggerAutoBackup = function() {
+  if (device.platform !== "browser" && isAutoBackupDue()) {
+    setTimeout(async () => {
+      let data = await dbHandler.export();
+      let settings = JSON.parse(window.localStorage.getItem("settings"));
+      data.settings = settings;
+      let json = JSON.stringify(data);
+
+      let weekday = (new Date()).toLocaleDateString("en", {weekday: "long"}).toLowerCase();
+      let filename = "waistline_backup_" + weekday + ".json";
+      let path = await app.Utils.writeFile(json, filename);
+    }, 2000);
+  }
+}
+
+document.addEventListener("deviceready", async function() {
   app.localize();
 
-  // Database setup
   await dbHandler.initializeDb();
 
   if (settings == undefined || settings.firstTimeSetup == undefined) {
@@ -472,21 +496,12 @@ document.addEventListener('deviceready', async function() {
     app.f7.views.main.router.navigate(settings.appearance["start-page"]);
   }
 
-  // Backup database
-  setTimeout(async () => {
-    let autoBackup = app.Settings.get("import-export", "auto-backup");
+  triggerAutoBackup();
+});
 
-    if (settings != undefined && settings.firstTimeSetup != undefined && autoBackup == true && device.platform !== "browser") {
-      let data = await dbHandler.export();
-      data.settings = settings;
-      let json = JSON.stringify(data);
-
-      let weekday = (new Date()).toLocaleDateString("en", {weekday: "long"}).toLowerCase();
-      let filename = "waistline_backup_" + weekday + ".json";
-      let path = await app.Utils.writeFile(json, filename);
-    }
-  }, 2000);
-}, false);
+document.addEventListener("resume", async function() {
+  triggerAutoBackup();
+});
 
 // Prevent chrome displaying context menu on long click
 window.addEventListener("contextmenu", (e) => {
