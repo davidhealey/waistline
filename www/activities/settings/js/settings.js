@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 7;
+const currentSettingsSchemaVersion = 8;
 
 app.Settings = {
 
@@ -785,6 +785,13 @@ app.Settings = {
           }
         }
       }
+
+      // "last-stat" from localStorage must be migrated to settings
+      const lastStat = window.localStorage.getItem("last-stat");
+      if (lastStat && settings.statistics !== undefined) {
+        settings.statistics["last-stat"] = lastStat;
+      }
+      window.localStorage.removeItem("last-stat");
 
       settings.schemaVersion = currentSettingsSchemaVersion;
 
