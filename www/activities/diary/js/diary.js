@@ -204,7 +204,8 @@ app.Diary = {
           await app.Utils.timeoutFetch(address, {
             headers: {
               "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
-              "Authorization": app.Settings.get("developer", "data-sharing-authorization")
+              "Authorization": app.Settings.get("developer", "data-sharing-authorization"),
+              "Content-Type": "application/json"
             },
             method: 'POST',
             body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
