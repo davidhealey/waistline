@@ -1,0 +1,13 @@
+diff --git a/node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle b/node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle
+index 93c8d61..7b51bc8 100644
+--- a/node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle
++++ b/node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle
+@@ -6,7 +6,7 @@ repositories{
+ }
+ 
+ dependencies {
+-    compile(name:'barcodescanner-release-2.1.5', ext:'aar')
++    implementation(name:'barcodescanner-release-2.1.5', ext:'aar')
+ }
+ 
+ android {
