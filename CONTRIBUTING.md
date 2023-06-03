@@ -87,43 +87,46 @@ Do you have ideas of some new cool functionalities, a bug fix, or other code you
 
 Make sure your project is building and running on your local machine and every change you made doesn't explicitly affect another feature of the project. Also, check for any gradle or runtime errors.
 
-If you have Docker, you can use _browser.Dockerfile_ to build and run this project locally:
+If you have Docker, you can use the _Dockerfile_ to set up the development environment with all required dependencies:
 ```sh
-sudo docker build -t waistline:browser -f ./docker/browser.Dockerfile .
-sudo docker run -d -p 80:8000 -v $(pwd):/usr/src/ --name waistline_browser waistline:browser
+sudo docker build -t waistline -f ./docker/Dockerfile .
 ```
-Once the app has been built, you should be able to access it in your browser via [localhost](http://localhost:80).
-
-You can check the build status using the `docker logs` command:
+Then execute the following command to start a container with an interactive shell:
 ```sh
-sudo docker logs --follow waistline_browser
+sudo docker run -it -p 8000:8000 -v $(pwd):/waistline/app/ --name waistline_app waistline /bin/sh
+```
+If you don't want to use Docker, you need to install the dependencies manually. Hava a look at the _Dockerfile_ in the _docker/_ directory to see which dependencies you need.
+
+Before you can build the project for the first time, you need to install the node packages and add the platforms:
+```sh
+npm install
+cordova platform add browser
+cordova platform add android
 ```
 
-To apply any local code changes, simply restart the Docker container:
+Now you should be able to build and run the app in the browser on [localhost](http://localhost:8000):
 ```sh
-sudo docker restart waistline_browser
+cordova run browser
 ```
 
-To build for Android, you can use _android.Dockerfile_:
+To build an APK for Android, use the following command:
 ```sh
-sudo docker build -t waistline:android -f ./docker/android.Dockerfile .
-sudo docker run -v $(pwd):/waistline/app/ --name waistline_android waistline:android
+cordova build android
 ```
 If the build succeeded, you should find the APK under `./platforms/android/app/build/outputs/apk/debug/app-debug.apk`.
 
-You can also launch the container interactively to execute your own commands:
+You can also run the app on an emulator or on your phone connected via adb:
 ```sh
-sudo docker run -it -v $(pwd):/waistline/app/ --name waistline_android waistline:android /bin/sh
+cordova run android  # to build first and then run
+cordova run android --nobuild --noprepare  # if you already built
 ```
 
-To start the container again after it stopped, use the `docker start` command:
+To start the Docker container again after it stopped, use the `docker start` command:
 ```sh
-sudo docker start -i waistline_android
+sudo docker start -i waistline_app
 ```
 
-To stop any container use `sudo docker stop <container-name>`. Check [Docker docs](https://docs.docker.com/) for more info on Docker.
-
-To build for Android or the browser on the command line (without Docker), you can adapt the commands from the files in the _docker/_ directory.
+Check [Docker docs](https://docs.docker.com/) for more info on Docker.
 
 ### Explain your work
 

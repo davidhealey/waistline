@@ -1,7 +1,7 @@
-FROM alvrme/alpine-android:android-31-jdk11
+FROM alvrme/alpine-android:android-33-jdk11
 
 # Set up some environment variables
-ENV GRADLE_VERSION 7.1.1
+ENV GRADLE_VERSION 7.6
 ENV GRADLE_HOME /opt/gradle-$GRADLE_VERSION
 ENV ANDROID_HOME /opt/sdk
 ENV PATH $PATH:$GRADLE_HOME/bin
@@ -19,12 +19,5 @@ RUN npm install -g cordova
 # Because some commands ask if we want to opt in
 RUN cordova telemetry off
 
-# Cordova needs Android build tools 30.0.3
-RUN sdkmanager "build-tools;30.0.3"
-ENV PATH $PATH:$ANDROID_HOME/build-tools/30.0.3
-
-# Create app directory
+# Go to app directory
 WORKDIR /waistline/app
-
-# Build the app when the container is run
-CMD ["./docker/android.start.sh"]
