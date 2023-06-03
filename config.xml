@@ -15,8 +15,9 @@
     <allow-navigation href="*" />
     <allow-intent href="market:*" />
     <platform name="android">
-        <preference name="android-minSdkVersion" value="20" />
-        <preference name="android-targetSdkVersion" value="31" />
+        <preference name="android-minSdkVersion" value="21" />
+        <preference name="android-compileSdkVersion" value="33" />
+        <preference name="android-targetSdkVersion" value="33" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,sdcard,cache" />
         <preference name="AndroidInsecureFileModeEnabled" value="true" />
@@ -32,30 +33,14 @@
             <application android:extractNativeLibs="true" />
             <application android:largeHeap="true" />
         </edit-config>
-        <icon density="ldpi" background="res/icon/android/ldpi-background.png" foreground="res/icon/android/ldpi-foreground.png" src="res/android/ldpi.png" />
-        <icon density="mdpi" background="res/icon/android/mdpi-background.png" foreground="res/icon/android/mdpi-foreground.png" src="res/android/mdpi.png" />
-        <icon density="hdpi" background="res/icon/android/hdpi-background.png" foreground="res/icon/android/hdpi-foreground.png" src="res/android/hdpi.png" />
-        <icon density="xhdpi" background="res/icon/android/xhdpi-background.png" foreground="res/icon/android/xhdpi-foreground.png" src="res/android/xhdpi.png" />
-        <icon density="xxhdpi" background="res/icon/android/xxhdpi-background.png" foreground="res/icon/android/xxhdpi-foreground.png" src="res/android/xxhdpi.png" />
-        <icon density="xxxhdpi" background="res/icon/android/xxxhdpi-background.png" foreground="res/icon/android/xxxhdpi-foreground.png" src="res/android/xxxhdpi.png" />
-        <splash density="ldpi" src="res/screen/android/splash-port-ldpi.png" />
-        <splash density="mdpi" src="res/screen/android/splash-port-mdpi.png" />
-        <splash density="hdpi" src="res/screen/android/splash-port-hdpi.png" />
-        <splash density="xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
-        <splash density="xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
-        <splash density="xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
-        <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
-        <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
-        <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
-        <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
-        <splash density="port-xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
-        <splash density="port-xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
-        <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
-        <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
-        <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
-        <splash density="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
-        <splash density="land-xxhdpi" src="res/screen/android/splash-land-xxhdpi.png" />
-        <splash density="land-xxxhdpi" src="res/screen/android/splash-land-xxxhdpi.png" />
+        <icon density="ldpi" background="res/icon/android/ldpi-background.png" foreground="res/icon/android/ldpi-foreground.png" monochrome="res/icon/android/ldpi-monochrome.png" src="res/android/ldpi.png" />
+        <icon density="mdpi" background="res/icon/android/mdpi-background.png" foreground="res/icon/android/mdpi-foreground.png" monochrome="res/icon/android/mdpi-monochrome.png" src="res/android/mdpi.png" />
+        <icon density="hdpi" background="res/icon/android/hdpi-background.png" foreground="res/icon/android/hdpi-foreground.png" monochrome="res/icon/android/hdpi-monochrome.png" src="res/android/hdpi.png" />
+        <icon density="xhdpi" background="res/icon/android/xhdpi-background.png" foreground="res/icon/android/xhdpi-foreground.png" monochrome="res/icon/android/xhdpi-monochrome.png" src="res/android/xhdpi.png" />
+        <icon density="xxhdpi" background="res/icon/android/xxhdpi-background.png" foreground="res/icon/android/xxhdpi-foreground.png" monochrome="res/icon/android/xxhdpi-monochrome.png" src="res/android/xxhdpi.png" />
+        <icon density="xxxhdpi" background="res/icon/android/xxxhdpi-background.png" foreground="res/icon/android/xxxhdpi-foreground.png" monochrome="res/icon/android/xxxhdpi-monochrome.png" src="res/android/xxxhdpi.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splashscreen.xml" />
+        <preference name="AndroidWindowSplashScreenBackground" value="#973939" />
     </platform>
     <platform name="electron">
         <preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
