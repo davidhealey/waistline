@@ -720,6 +720,8 @@ app.Settings = {
       schemaVersion: currentSettingsSchemaVersion
     };
 
+    app.Settings.changeTheme(defaults.appearance.mode, defaults.appearance.theme);
+
     window.localStorage.setItem("settings", JSON.stringify(defaults));
   },
 
