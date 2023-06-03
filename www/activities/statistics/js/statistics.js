@@ -34,19 +34,20 @@ app.Stats = {
     ct == 0 ? app.Stats.chartType = "bar" : app.Stats.chartType = "line";
 
     this.setChartTypeButtonVisibility();
+
+    let lastRange = app.Settings.get("statistics", "last-range");
+    if (lastRange)
+      app.Stats.el.range.value = lastRange;
+
+    let lastStat = app.Settings.get("statistics", "last-stat");
+    if (lastStat)
+      app.Stats.el.stat.value = lastStat;
+
     this.chart = undefined;
     this.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
 
     if (this.dbData !== undefined) {
-      let laststat = window.localStorage.getItem("last-stat");
-
-      if (laststat != undefined && laststat != "")
-        app.Stats.el.stat.value = laststat;
-
-      // Organise db data and render chart
       this.data = await this.organiseData(this.dbData, this.el.stat.value);
-      window.localStorage.setItem("last-stat", this.el.stat.value);
-
       this.updateChart();
       this.renderStatLog();
     }
@@ -69,6 +70,7 @@ app.Stats = {
         app.Stats.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
         if (app.Stats.dbData !== undefined) {
           app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+          app.Settings.put("statistics", "last-range", app.Stats.el.range.value);
           app.Stats.updateChart();
           app.Stats.renderStatLog();
         }
@@ -79,10 +81,9 @@ app.Stats = {
     // Stat field
     if (!app.Stats.el.stat.hasChangedEvent) {
       app.Stats.el.stat.addEventListener("change", async (e) => {
-        let value = e.target.value;
         if (app.Stats.dbData !== undefined) {
-          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, value);
-          window.localStorage.setItem("last-stat", value);
+          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+          app.Settings.put("statistics", "last-stat", app.Stats.el.stat.value);
           app.Stats.updateChart();
           app.Stats.renderStatLog();
         }
