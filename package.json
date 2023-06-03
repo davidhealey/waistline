@@ -23,21 +23,21 @@
   },
   "cordova": {
     "plugins": {
+      "cordova-plugin-android-dark-mode-support": {},
       "cordova-plugin-browsersync-gen2": {},
       "cordova-plugin-camera": {
         "ANDROIDX_CORE_VERSION": "1.6.+"
       },
+      "cordova-plugin-chooser": {},
+      "cordova-plugin-crop": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-network-information": {},
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
-      "cordova-plugin-file": {},
-      "cordova-plugin-device": {},
-      "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-chooser": {},
-      "cordova-plugin-crop": {},
-      "cordova-plugin-android-dark-mode-support": {}
+      }
     },
     "platforms": [
       "android",
