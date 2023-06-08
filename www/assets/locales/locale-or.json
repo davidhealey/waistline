@@ -82,11 +82,11 @@
     "delete-title": "Delete Entry",
     "required-fields": "Please complete all required fields.",
     "camera-problem": "There was a problem accessing your camera.",
-    "no-internet": "No Internet Connection",
+    "no-internet": "କୌଣସି ଇଣ୍ଟର୍‌ନେଟ୍ ସଂଯୋଗ ନାହିଁ",
     "no-results": "No matching results",
     "no-search-providers": "No search providers are enabled",
     "scan-failed": "Scan Failed",
-    "search": "Search",
+    "search": "ସନ୍ଧାନ",
     "add-to-off": "Would you like to add this product to the Open Food Facts database?",
     "main-image": "Please add a main image",
     "download-title": "Retrieve latest information",
@@ -108,18 +108,18 @@
   },
   "colours": {
     "red": "ନାଲି",
-    "blue": "Blue",
-    "green": "Green",
-    "pink": "Pink",
-    "orange": "Orange",
+    "blue": "ନୀଳ",
+    "green": "ସବୁଜ",
+    "pink": "ଗୋଲାପି",
+    "orange": "କମଳା",
     "gray": "Gray",
-    "yellow": "Yellow",
+    "yellow": "ହଳଦିଆ",
     "purple": "Purple",
     "eink": "E-ink",
     "camino": "Camino"
   },
   "statistics": {
-    "title": "Statistics",
+    "title": "ପରିସଂଖ୍ୟାନ",
     "range": "Range",
     "stat": "ପରିସଂଖ୍ୟାନ",
     "week": "୧ ସପ୍ତାହ",
@@ -151,18 +151,18 @@
     }
   },
   "diary-chart": {
-    "title": "Overview",
+    "title": "ଅଵଲୋକନ",
     "including-saturated-fat": "including sat fat",
     "including-sugars": "including sugars",
-    "no-data": "No data"
+    "no-data": "କୌଣସି ଡାଟା ନାହିଁ"
   },
   "foods-meals-recipes": {
-    "title": "Foods, Meals, Recipes",
-    "foods": "Foods",
-    "meals": "Meals",
-    "recipes": "Recipes",
+    "title": "ଖାଦ୍ୟ, ଭୋଜନ, ପାକ ଵିଧି",
+    "foods": "ଖାଦ୍ୟ",
+    "meals": "ଭୋଜନ",
+    "recipes": "ପାକ ଵିଧି",
     "selected": "Selected",
-    "search": "Search",
+    "search": "ସନ୍ଧାନ",
     "scan-prompt": "Place a barcode inside the scan area",
     "show-more-nutriments": "Show more nutrients",
     "show-less-nutriments": "Show fewer nutrients",
@@ -193,7 +193,7 @@
     "edit-meal": "Edit Meal Item",
     "edit-recipe": "Edit Recipe Item",
     "required-field-message": "Please fill out this field.",
-    "invalid-value-message": "Invalid Value."
+    "invalid-value-message": "ଅଵୈଧ ମୂଲ୍ୟ।"
   },
   "goals": {
     "title": "Goals",
@@ -240,7 +240,7 @@
       "title": "Units",
       "energy": "Energy",
       "weight": "ଓଜନ",
-      "length": "Length",
+      "length": "ଦୈର୍ଘ୍ୟ",
       "kilograms": "Kilograms",
       "pounds": "Pounds",
       "stones": "Stones",
@@ -287,7 +287,7 @@
       "goals-link": "Set Goals"
     },
     "foods": {
-      "title": "Foods, Meals, Recipes",
+      "title": "ଖାଦ୍ୟ, ଭୋଜନ, ପାକ ଵିଧି",
       "sort": "Sort Foods",
       "sort-date": "ଗତ ଵ୍ୟଵହାର ଅନୁଯାୟୀ",
       "sort-alpha": "Alphabetically",
@@ -312,7 +312,7 @@
       "goal-line": "Show Goal Line"
     },
     "developer": {
-      "title": "Developer",
+      "title": "ଵିକାଶକ",
       "data-sharing": "Data Sharing",
       "data-sharing-wifi-only": "Only share data over Wi-Fi",
       "data-sharing-active": "Share data with external service",
@@ -353,13 +353,13 @@
       "password": "ପାସ୍‌ୱର୍ଡ଼",
       "off-account-note": "This is entirely optional. You do not need an OFF account to use app.",
       "sign-in": "Sign In",
-      "exit": "Exit",
+      "exit": "ପ୍ରସ୍ଥାନ",
       "save": "Save",
       "invalid-credentials": "Invalid Credentials",
       "invalid-api-key": "API Key Invalid",
       "export-success": "Database Exported",
-      "export-fail": "Export Failed",
-      "import-fail": "Import Failed",
+      "export-fail": "ରପ୍ତାନି ଵିଫଳ ହେଲା",
+      "import-fail": "ଆମଦାନୀ ଵିଫଳ ହେଲା",
       "import": "Import",
       "confirm-import": "Are you sure? This will overwrite your current database.",
       "confirm-import-foods": "Are you sure? This action cannot be undone. Please backup your database first.",
@@ -376,14 +376,14 @@
     "p0": "Waistline was created by David Healey with suggestions and contributions from users.",
     "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
     "p2": "The source code for Waistline can be found at",
-    "p3": "Current version:"
+    "p3": "ଚଳିତ ସଂସ୍କରଣ:"
   },
   "locale": {
     "auto": "Detect Automatically",
     "english": "English",
     "german": "German",
     "italian": "Italian",
-    "french": "French",
+    "french": "ଫରାସୀ",
     "swedish": "Swedish",
     "russian": "Russian",
     "polish": "Polish",
