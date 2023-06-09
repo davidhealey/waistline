@@ -179,21 +179,21 @@
     "category": "Categorie",
     "serving-size": "Mărime porție",
     "serving-unit": "Unitate de măsură",
-    "recipe-size": "Recipe Amount",
-    "recipe-unit": "Recipe Unit",
-    "number-of-servings": "Number of Servings",
+    "recipe-size": "Cantitate rețetă",
+    "recipe-unit": "Unitate de măsură rețetă",
+    "number-of-servings": "Numărul de porții",
     "notes": "Notițe",
-    "nutrition": "Nutrition",
-    "per-100": "Per 100g/100ml",
-    "per-serving": "Per Serving",
-    "additional-photos": "Additional Photos",
-    "ingredients": "Ingredients list",
-    "packaging": "Recycling instructions / packaging information",
-    "edit-food": "Edit Food Item",
-    "edit-meal": "Edit Meal Item",
-    "edit-recipe": "Edit Recipe Item",
-    "required-field-message": "Please fill out this field.",
-    "invalid-value-message": "Invalid Value."
+    "nutrition": "Informații nutriționale",
+    "per-100": "Pentru 100g/100ml",
+    "per-serving": "Pe porție",
+    "additional-photos": "Fotografii suplimentare",
+    "ingredients": "Listă de ingrediente",
+    "packaging": "Instrucțiuni de reciclare/informaţii privind ambalarea",
+    "edit-food": "Editare aliment",
+    "edit-meal": "Editează mâncarea",
+    "edit-recipe": "Editează rețeta",
+    "required-field-message": "Vă rugăm să completați acest câmp.",
+    "invalid-value-message": "Valoare invalidă."
   },
   "goals": {
     "title": "Obiective",
@@ -215,8 +215,8 @@
     "goal-deleted": "Obiectiv șters"
   },
   "meal-editor": {
-    "title": "Edit Meal",
-    "foods-recipes": "Foods & Recipes"
+    "title": "Editează mâncarea",
+    "foods-recipes": "Alimente și rețete"
   },
   "recipe-editor": {
     "title": "Editează rețetă",
@@ -243,17 +243,17 @@
       "length": "Lungime",
       "kilograms": "Kilograme",
       "pounds": "Livre",
-      "stones": "Stones",
+      "stones": "Pietre",
       "centimeters": "Centimetri",
       "inches": "Inch"
     },
     "diary": {
       "title": "Jurnal",
       "categories": "Categorii",
-      "timestamps": "Show Timestamps",
-      "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
-      "show-all-nutriments": "Show all nutrients on Overview page",
+      "timestamps": "Arată marcajele de timp",
+      "thumbnails": "Arată pictogramele",
+      "wifi-thumbnails": "Arată pictogramele numai prin Wi-Fi",
+      "show-all-nutriments": "Arată toate valorile nutriționale pe pagina principală",
       "show-units": "Arată unitățile nutriționale",
       "prompt-add-items": "Solicită cantitatea la adăugarea articolelor"
     },
@@ -265,7 +265,7 @@
       "edit": "Editează câmp"
     },
     "body-stats": {
-      "title": "Body Stats",
+      "title": "Statistici legate de corp",
       "field": "Nume",
       "unit": "Unitate",
       "add": "Adaugă câmp",
@@ -278,7 +278,7 @@
     "goals": {
       "title": "Obiective",
       "first-day-of-week": "Prima zi a săptămânii",
-      "average-goal-base": "Compute average goals based on",
+      "average-goal-base": "Calculează obiectivele medii bazate pe",
       "current-week": "Săptămâna în curs",
       "last-3-days": "Ultimele 3 zile",
       "last-5-days": "Ultimele 5 zile",
@@ -287,23 +287,23 @@
       "goals-link": "Setează obiective"
     },
     "foods": {
-      "title": "Alimente, Mâncăruri, Rețete",
-      "sort": "Sort Foods",
-      "sort-date": "By last used",
-      "sort-alpha": "Alphabetically",
-      "category-labels": "Show Category Labels",
-      "thumbnails": "Show Thumbnails",
-      "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
-      "images": "Show Food Images",
-      "wifi-images": "Only show images over Wi-Fi",
-      "show-notes": "Show Food Notes"
+      "title": "Alimente, mâncăruri, rețete",
+      "sort": "Sortează alimentele",
+      "sort-date": "După ultima utilizare",
+      "sort-alpha": "În ordine alfabetică",
+      "category-labels": "Arată etichetele categoriei",
+      "thumbnails": "Arată pictogramele",
+      "wifi-thumbnails": "Arată pictogramele numai prin Wi-Fi",
+      "images": "Afișare imagini alimente",
+      "wifi-images": "Arată imaginile doar prin Wi-Fi",
+      "show-notes": "Arată notițele alimentelor"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Etichete şi categorii",
+      "label": "Etichetă / Pictogramă",
+      "description": "Descriere",
+      "add": "Adaugă categorie",
+      "edit": "Editează categoria"
     },
     "statistics": {
       "title": "Statistici",
