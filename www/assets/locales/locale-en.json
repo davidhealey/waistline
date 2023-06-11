@@ -381,6 +381,7 @@
   "locale": {
     "auto": "Detect Automatically",
     "bulgarian": "Bulgarian",
+    "czech": "Czech",
     "dutch": "Dutch",
     "english": "English",
     "finnish": "Finnish",
@@ -390,6 +391,7 @@
     "italian": "Italian",
     "polish": "Polish",
     "portuguese": "Portuguese",
+    "romanian": "Romanian",
     "russian": "Russian",
     "serbian-cyrillic": "Serbian (Cyrillic)",
     "serbian-latin": "Serbian (Latin)",
