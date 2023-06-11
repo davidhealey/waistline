@@ -458,10 +458,10 @@ document.addEventListener("page:beforein", (e) => {
 
 let isAutoBackupDue = function() {
   let autoBackup = app.Settings.get("import-export", "auto-backup");
-  let lastBackup = app.Settings.get("import-export", "last-backup");
+  let lastBackup = window.localStorage.getItem("last-backup");
   let now = Date.now();
-  if (autoBackup === true && (lastBackup === undefined || now - lastBackup > 60 * 60 * 1000)) {
-    app.Settings.put("import-export", "last-backup", now);
+  if (autoBackup === true && (lastBackup == undefined || now - lastBackup > 60 * 60 * 1000)) {
+    window.localStorage.setItem("last-backup", now);
     return true;
   }
   return false;
