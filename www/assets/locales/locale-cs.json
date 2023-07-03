@@ -139,9 +139,9 @@
     "title": "Diář",
     "quick-add": "Rychlé přidání",
     "quick-add-description": "Popis (volitelný)",
-    "yesterdays-meal": "Yesterday's %s",
+    "yesterdays-meal": "Včerejší %s",
     "log-title": "Dnešní statistiky",
-    "log-saved": "Saved",
+    "log-saved": "Uloženo",
     "no-data": "Žádné údaje",
     "default-meals": {
       "breakfast": "Snídaně",
