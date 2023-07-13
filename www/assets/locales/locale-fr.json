@@ -2,7 +2,7 @@
   "nutriments": {
     "kilojoules": "Kilojoules",
     "calories": "Kilocalories",
-    "fat": "Matières grasses",
+    "fat": "Lipides",
     "saturated-fat": "Acides gras saturés",
     "carbohydrates": "Glucides",
     "sugars": "Sucres",
@@ -129,10 +129,10 @@
     "12month": "1 an",
     "timeline": "Chronologie",
     "weight": "Masse",
-    "neck": "Cou",
+    "neck": "Tour de cou",
     "waist": "Tour de taille",
     "hips": "Tour de hanches",
-    "body fat": "Graisse",
+    "body fat": "Graisse corporelle",
     "average": "Moyenne"
   },
   "diary": {
@@ -241,7 +241,7 @@
       "energy": "Énergie",
       "weight": "Masse",
       "length": "Longueur",
-      "kilograms": "Kilograms",
+      "kilograms": "Kilogrammes",
       "pounds": "Livres",
       "stones": "Stones",
       "centimeters": "Centimètres",
@@ -307,7 +307,7 @@
     },
     "statistics": {
       "title": "Statistiques",
-      "y-zero": "Commencer l’axe y à 0",
+      "y-zero": "Commencer l’axe Y à 0",
       "average-line": "Afficher la ligne moyenne",
       "goal-line": "Afficher la ligne objectif"
     },
@@ -351,7 +351,7 @@
       "usda-note-1": "pour obtenir une clé API gratuite.",
       "username": "Nom d’utilisateur",
       "password": "Mot de passe",
-      "off-account-note": "This is entirely optional. You do not need an OFF account to use the app.",
+      "off-account-note": "Ceci est entièrement optionnel. Vous n'avez pas besoin d'un compte OFF pour utiliser l'application.",
       "sign-in": "Connexion",
       "exit": "Quitter",
       "save": "Sauvegarder",
@@ -381,7 +381,7 @@
   "locale": {
     "auto": "Détection automatique",
     "bulgarian": "Bulgare",
-    "czech": "Czech",
+    "czech": "Tchèque",
     "dutch": "Néerlandais",
     "english": "Anglais",
     "finnish": "Finnois",
@@ -391,7 +391,7 @@
     "italian": "Italien",
     "polish": "Polonais",
     "portuguese": "Portuguais",
-    "romanian": "Romanian",
+    "romanian": "Roumain",
     "russian": "Russe",
     "serbian-cyrillic": "Serbe (Cyrillique)",
     "serbian-latin": "Serbe (Latin)",
