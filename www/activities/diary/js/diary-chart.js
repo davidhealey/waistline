@@ -25,7 +25,8 @@ app.DiaryChart = {
     'rgba(213, 11, 11, 0.5)',
     'rgba(8, 118, 184, 0.5)',
     'rgba(0, 151, 225, 0.5)',
-    'rgba(255, 206, 86, 0.5)'
+    'rgba(255, 206, 86, 0.5)',
+    'rgba(111, 208, 140,0.5)'
   ],
   chartType: "pie",
   dbData: undefined,
