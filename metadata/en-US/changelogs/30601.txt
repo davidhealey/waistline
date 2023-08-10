@@ -1,7 +1,0 @@
-- added language options for Czech and Romanian
-- added new splashscreen and app icon, including monochrome support
-- the statistics page now remembers both the selected stat and range
-- various bugfixes
-
-You can find the full changelog at 
-https://github.com/davidhealey/waistline/releases
