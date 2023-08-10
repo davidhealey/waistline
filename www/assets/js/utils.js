@@ -371,66 +371,6 @@ app.Utils = {
     });
   },
 
-  readFile: function(filename) {
-    return new Promise(function(resolve, reject) {
-      if (app.mode !== "development" && device.platform !== "browser") {
-
-        let base = cordova.file.externalRootDirectory;
-        let dirname = app.Utils.getBackupDirectoryName();
-        let path = base + `Documents/Waistline/${dirname}/${filename}`;
-
-        console.log("Reading file: " + path);
-
-        window.resolveLocalFileSystemURL(base, (baseDir) => {
-          baseDir.getDirectory("Documents", { create: true }, function (documentsDir) {
-            documentsDir.getDirectory("Waistline", { create: true }, function (waistlineDir) {
-              waistlineDir.getDirectory(dirname, { create: true }, function (backupDir) {
-                backupDir.getFile(filename, {}, (file) => {
-
-                  file.file((file) => {
-                    let fileReader = new FileReader();
-
-                    fileReader.readAsText(file);
-
-                    fileReader.onloadend = (e) => {
-                      console.log("Successful file read", e);
-                      resolve(e.target.result);
-                    };
-
-                    fileReader.onerror = (e) => {
-                      console.warn("Failed to read file", e);
-                      resolve();
-                    };
-                  });
-
-                }, (e) => {
-                  console.warn("Failed to access file", e);
-                  switch (e.code) {
-                    case 1:
-                      alert("File not found: " + path);
-                      break;
-                  }
-                  resolve();
-                });
-              }, (e) => {
-                resolve();
-              });
-            }, (e) => {
-              resolve();
-            });
-          }, (e) => {
-            resolve();
-          });
-        }, (e) => {
-          resolve();
-        });
-      } else {
-        console.warn("Read file doesn't work in browser");
-        resolve();
-      }
-    });
-  },
-
   checkIfFileExists: function(path) {
     window.resolveLocalFileSystemURL(path, () => {
       return true;
