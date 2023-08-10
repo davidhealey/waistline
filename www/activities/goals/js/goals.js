@@ -302,6 +302,9 @@ app.Goals = {
     // Each gram of fat and saturated-fat has 9 calories
     if (nutriment == "fat" || nutriment == "saturated-fat")
       return 9;
+    // Each gram of alcohol has 7 calories
+    if (nutriment == "alcohol")
+    return 7;
   },
 
   getDiaryEntryFromDB: function(date) {
