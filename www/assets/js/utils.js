@@ -328,28 +328,9 @@ app.Utils = {
           baseDir.getDirectory("Documents", { create: true }, function (documentsDir) {
             documentsDir.getDirectory("Waistline", { create: true }, function (waistlineDir) {
               waistlineDir.getDirectory(dirname, { create: true }, function (backupDir) {
-                backupDir.getFile(filename, { create: true }, (file) => {
-
-                  // Write to the file, overwriting existing content
-                  file.createWriter((fileWriter) => {
-                    let blob = new Blob([data], {
-                      type: "text/plain"
-                    });
-
-                    fileWriter.write(blob);
-
-                    fileWriter.onwriteend = () => {
-                      console.log("Successul file write");
-                      resolve(file.fullPath);
-                    };
-
-                    fileWriter.onerror = (e) => {
-                      console.warn("Failed to write file", e);
-                      resolve();
-                    };
-                  });
-
-                }, (e) => {
+                app.Utils.writeFileInBackupDir(backupDir, filename, data).then((fullPath) => {
+                  resolve(fullPath);
+                }).catch(() => {
                   resolve();
                 });
               }, (e) => {
@@ -368,6 +349,36 @@ app.Utils = {
         console.warn("Write to file doesn't work in browser");
         resolve();
       }
+    });
+  },
+
+  writeFileInBackupDir: function(backupDir, filename, data) {
+    return new Promise(function(resolve, reject) {
+      backupDir.getFile(filename, { create: true }, (file) => {
+
+        // Write to the file, overwriting existing content
+        file.createWriter((fileWriter) => {
+          let blob = new Blob([data], {
+            type: "text/plain"
+          });
+
+          fileWriter.write(blob);
+
+          fileWriter.onwriteend = () => {
+            console.log("Successul file write");
+            resolve(file.fullPath);
+          };
+
+          fileWriter.onerror = (e) => {
+            console.error("Failed to write file", e);
+            reject();
+          };
+        });
+
+      }, (e) => {
+        console.error("Error resolving file", e);
+        reject();
+      });
     });
   },
 
