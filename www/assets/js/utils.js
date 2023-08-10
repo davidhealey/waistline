@@ -316,13 +316,27 @@ app.Utils = {
 
   writeFile: function(data, filename) {
     return new Promise(function(resolve, reject) {
-      if (app.mode !== "development" && device.platform !== "browser") {
+      if (app.mode === "development" || device.platform === "browser") {
+        console.warn("Write to file doesn't work in browser");
+        resolve();
+      }
 
+      // Android 13 and above needs different backup location because of permission issues
+      if (device.version.split('.')[0] >= 13) {
+        let base = cordova.file.externalDataDirectory;
+
+        window.resolveLocalFileSystemURL(base, (backupDir) => {
+          app.Utils.writeFileInBackupDir(backupDir, filename, data).then((fullPath) => {
+            resolve(fullPath);
+          }).catch(() => {
+            resolve();
+          });
+        }, (e) => {
+          resolve();
+        });
+      } else {
         let base = cordova.file.externalRootDirectory;
         let dirname = app.Utils.getBackupDirectoryName();
-        let path = base + `Documents/Waistline/${dirname}/${filename}`;
-
-        console.log("Writing data to file: " + path);
 
         window.resolveLocalFileSystemURL(base, (baseDir) => {
           baseDir.getDirectory("Documents", { create: true }, function (documentsDir) {
@@ -345,9 +359,6 @@ app.Utils = {
         }, (e) => {
           resolve();
         });
-      } else {
-        console.warn("Write to file doesn't work in browser");
-        resolve();
       }
     });
   },
