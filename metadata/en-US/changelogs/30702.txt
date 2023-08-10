@@ -1,0 +1,5 @@
+- added alcohol as macro nutrient to the diary pie chart
+- fixed camera and backup not working on Android 13
+
+You can find the full changelog at 
+https://github.com/davidhealey/waistline/releases

@@ -316,40 +316,35 @@ app.Utils = {
 
   writeFile: function(data, filename) {
     return new Promise(function(resolve, reject) {
-      if (app.mode !== "development" && device.platform !== "browser") {
+      if (app.mode === "development" || device.platform === "browser") {
+        console.warn("Write to file doesn't work in browser");
+        resolve();
+      }
 
+      // Android 13 and above needs different backup location because of permission issues
+      if (device.version.split('.')[0] >= 13) {
+        let base = cordova.file.externalDataDirectory;
+
+        window.resolveLocalFileSystemURL(base, (backupDir) => {
+          app.Utils.writeFileInBackupDir(backupDir, filename, data).then((fullPath) => {
+            resolve(fullPath);
+          }).catch(() => {
+            resolve();
+          });
+        }, (e) => {
+          resolve();
+        });
+      } else {
         let base = cordova.file.externalRootDirectory;
         let dirname = app.Utils.getBackupDirectoryName();
-        let path = base + `Documents/Waistline/${dirname}/${filename}`;
-
-        console.log("Writing data to file: " + path);
 
         window.resolveLocalFileSystemURL(base, (baseDir) => {
           baseDir.getDirectory("Documents", { create: true }, function (documentsDir) {
             documentsDir.getDirectory("Waistline", { create: true }, function (waistlineDir) {
               waistlineDir.getDirectory(dirname, { create: true }, function (backupDir) {
-                backupDir.getFile(filename, { create: true }, (file) => {
-
-                  // Write to the file, overwriting existing content
-                  file.createWriter((fileWriter) => {
-                    let blob = new Blob([data], {
-                      type: "text/plain"
-                    });
-
-                    fileWriter.write(blob);
-
-                    fileWriter.onwriteend = () => {
-                      console.log("Successul file write");
-                      resolve(file.fullPath);
-                    };
-
-                    fileWriter.onerror = (e) => {
-                      console.warn("Failed to write file", e);
-                      resolve();
-                    };
-                  });
-
-                }, (e) => {
+                app.Utils.writeFileInBackupDir(backupDir, filename, data).then((fullPath) => {
+                  resolve(fullPath);
+                }).catch(() => {
                   resolve();
                 });
               }, (e) => {
@@ -364,70 +359,37 @@ app.Utils = {
         }, (e) => {
           resolve();
         });
-      } else {
-        console.warn("Write to file doesn't work in browser");
-        resolve();
       }
     });
   },
 
-  readFile: function(filename) {
+  writeFileInBackupDir: function(backupDir, filename, data) {
     return new Promise(function(resolve, reject) {
-      if (app.mode !== "development" && device.platform !== "browser") {
+      backupDir.getFile(filename, { create: true }, (file) => {
 
-        let base = cordova.file.externalRootDirectory;
-        let dirname = app.Utils.getBackupDirectoryName();
-        let path = base + `Documents/Waistline/${dirname}/${filename}`;
-
-        console.log("Reading file: " + path);
-
-        window.resolveLocalFileSystemURL(base, (baseDir) => {
-          baseDir.getDirectory("Documents", { create: true }, function (documentsDir) {
-            documentsDir.getDirectory("Waistline", { create: true }, function (waistlineDir) {
-              waistlineDir.getDirectory(dirname, { create: true }, function (backupDir) {
-                backupDir.getFile(filename, {}, (file) => {
-
-                  file.file((file) => {
-                    let fileReader = new FileReader();
-
-                    fileReader.readAsText(file);
-
-                    fileReader.onloadend = (e) => {
-                      console.log("Successful file read", e);
-                      resolve(e.target.result);
-                    };
-
-                    fileReader.onerror = (e) => {
-                      console.warn("Failed to read file", e);
-                      resolve();
-                    };
-                  });
-
-                }, (e) => {
-                  console.warn("Failed to access file", e);
-                  switch (e.code) {
-                    case 1:
-                      alert("File not found: " + path);
-                      break;
-                  }
-                  resolve();
-                });
-              }, (e) => {
-                resolve();
-              });
-            }, (e) => {
-              resolve();
-            });
-          }, (e) => {
-            resolve();
+        // Write to the file, overwriting existing content
+        file.createWriter((fileWriter) => {
+          let blob = new Blob([data], {
+            type: "text/plain"
           });
-        }, (e) => {
-          resolve();
+
+          fileWriter.write(blob);
+
+          fileWriter.onwriteend = () => {
+            console.log("Successul file write");
+            resolve(file.fullPath);
+          };
+
+          fileWriter.onerror = (e) => {
+            console.error("Failed to write file", e);
+            reject();
+          };
         });
-      } else {
-        console.warn("Read file doesn't work in browser");
-        resolve();
-      }
+
+      }, (e) => {
+        console.error("Error resolving file", e);
+        reject();
+      });
     });
   },
 
