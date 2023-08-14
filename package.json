@@ -31,7 +31,9 @@
       "cordova-plugin-chooser": {},
       "cordova-plugin-crop": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-file": {},
+      "cordova-plugin-file": {
+        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+      },
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-network-information": {},
@@ -44,5 +46,9 @@
       "browser",
       "electron"
     ]
+  },
+  "dependencies": {
+    "cordova": "^12.0.0",
+    "update": "^0.7.4"
   }
 }
