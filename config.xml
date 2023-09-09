@@ -41,6 +41,7 @@
         <icon density="xxxhdpi" background="res/icon/android/xxxhdpi-background.png" foreground="res/icon/android/xxxhdpi-foreground.png" monochrome="res/icon/android/xxxhdpi-monochrome.png" src="res/android/xxxhdpi.png" />
         <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splashscreen.xml" />
         <preference name="AndroidWindowSplashScreenBackground" value="#973939" />
+        <preference name="AndroidPostSplashScreenTheme" value="@style/Theme.AppCompat.DayNight.NoActionBar" />
     </platform>
     <platform name="electron">
         <preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
