@@ -406,20 +406,17 @@ app.FoodEditor = {
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = code;
 
-      if (navigator.connection.type !== "none") {
-        let url;
-        if (item.barcode.startsWith("fdcId_"))
-          url = "https://fdc.nal.usda.gov/fdc-app.html#/food-details/" + code + "/nutrients";
-        else
-          url = "https://world.openfoodfacts.org/product/" + code;
+      let url;
+      if (item.barcode.startsWith("fdcId_"))
+        url = "https://fdc.nal.usda.gov/fdc-app.html#/food-details/" + code + "/nutrients";
+      else
+        url = "https://world.openfoodfacts.org/product/" + code;
 
-        if (!app.FoodEditor.el.barcode.hasClickEvent) {
-          app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
-            cordova.InAppBrowser.open(url, '_system');
-            return false;
-          });
-          app.FoodEditor.el.barcode.hasClickEvent = true;
-        }
+      if (!app.FoodEditor.el.barcode.hasClickEvent) {
+        app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
+          cordova.InAppBrowser.open(url, '_system');
+        });
+        app.FoodEditor.el.barcode.hasClickEvent = true;
       }
     }
 

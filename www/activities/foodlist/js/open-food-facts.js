@@ -20,64 +20,61 @@
 app.OpenFoodFacts = {
   search: function(query, preferDataPer100g) {
     return new Promise(async function(resolve, reject) {
-      if (navigator.connection.type !== "none") {
-        //Build search string
-        let url;
+      //Build search string
+      let url;
 
-        // If query is a number, assume it's a barcode
-        if (isNaN(query))
-          url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=unique_scans_n&action=process&json=1";
-        else
-          url = "https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
+      // If query is a number, assume it's a barcode
+      if (isNaN(query))
+        url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=unique_scans_n&action=process&json=1";
+      else
+        url = "https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
 
-        //Get country name
-        let country = app.Settings.get("integration", "search-country") || undefined;
+      //Get country name
+      let country = app.Settings.get("integration", "search-country") || undefined;
 
-        //Limit search to selected country
-        if (country && country != "All")
-          url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + encodeURIComponent(country);
+      //Limit search to selected country
+      if (country && country != "All")
+        url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + encodeURIComponent(country);
 
-        //Get language
-        let language = app.Settings.get("integration", "search-language") || undefined;
+      //Get language
+      let language = app.Settings.get("integration", "search-language") || undefined;
 
-        if (language != undefined && language != "Default")
-          url += "&lang=" + encodeURIComponent(language) + "&lc=" + encodeURIComponent(language);
-        else
-          language = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
+      if (language != undefined && language != "Default")
+        url += "&lang=" + encodeURIComponent(language) + "&lc=" + encodeURIComponent(language);
+      else
+        language = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
 
-        let response = await app.Utils.timeoutFetch(url, {
-          headers: {
-            "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
-          }
-        }).catch((err) => {
-          resolve(undefined);
-        });
-
-        if (response && response.ok) {
-          let data = await response.json();
-          let result = [];
-
-          // Multiple results (hide results where all nutrition values are undefined)
-          if (data.products !== undefined) {
-            data.products.forEach((x) => {
-              let item = app.OpenFoodFacts.parseItem(x, preferDataPer100g, language);
-              if (item != undefined) {
-                let nutritionValues = Object.values(item.nutrition).filter((v) => v != undefined);
-                if (nutritionValues.length != 0) result.push(item);
-              }
-            });
-          }
-
-          // Single result (presumably from a barcode)
-          if (data.product !== undefined) {
-            let item = app.OpenFoodFacts.parseItem(data.product, preferDataPer100g, language);
-            if (item != undefined) result.push(item);
-          }
-
-          resolve(result);
+      let response = await app.Utils.timeoutFetch(url, {
+        headers: {
+          "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
         }
+      }).catch((err) => {
+        resolve(undefined);
+      });
+
+      if (response && response.ok) {
+        let data = await response.json();
+        let result = [];
+
+        // Multiple results (hide results where all nutrition values are undefined)
+        if (data.products !== undefined) {
+          data.products.forEach((x) => {
+            let item = app.OpenFoodFacts.parseItem(x, preferDataPer100g, language);
+            if (item != undefined) {
+              let nutritionValues = Object.values(item.nutrition).filter((v) => v != undefined);
+              if (nutritionValues.length != 0) result.push(item);
+            }
+          });
+        }
+
+        // Single result (presumably from a barcode)
+        if (data.product !== undefined) {
+          let item = app.OpenFoodFacts.parseItem(data.product, preferDataPer100g, language);
+          if (item != undefined) result.push(item);
+        }
+
+        resolve(result);
       }
-      resolve(undefined);
     });
   },
 
