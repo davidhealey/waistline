@@ -41,9 +41,9 @@
       }
     },
     "platforms": [
-      "android",
       "browser",
-      "electron"
+      "electron",
+      "android"
     ]
   }
 }
