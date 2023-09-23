@@ -421,7 +421,7 @@ app.FoodsMealsRecipes = {
     return 0;
   },
 
-  renderItem: async function(data, el, checkbox, sortable, clickable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnailSetting) {
+  renderItem: async function(data, el, checkbox, sortable, clickable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnailSetting, showBrand) {
 
     if (data !== undefined) {
 
@@ -542,7 +542,7 @@ app.FoodsMealsRecipes = {
         }
 
         //Brand
-        if (item.brand && item.brand != "" && item.brand != "undefined") {
+        if (item.brand && item.brand != "" && item.brand != "undefined" && showBrand == true) {
           let subtitle = document.createElement("div");
           subtitle.className = "item-subtitle";
           subtitle.innerText = item.brand || "";
