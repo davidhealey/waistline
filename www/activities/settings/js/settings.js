@@ -613,7 +613,7 @@ app.Settings = {
       diary: {
         "meal-names": ["Breakfast", "Lunch", "Dinner", "Snacks", "", "", ""],
         timestamps: false,
-        "show-brand": false,
+        "show-brands": false,
         "show-thumbnails": false,
         "wifi-thumbnails": true,
         "show-all-nutriments": false,

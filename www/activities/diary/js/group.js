@@ -74,7 +74,7 @@ app.Group = {
 
     // Render items
     let showTimestamps = app.Settings.get("diary", "timestamps");
-    let showBrand = app.Settings.get("diary", "brands");
+    let showBrand = app.Settings.get("diary", "show-brands");
     this.items.forEach((x) => {
       app.FoodsMealsRecipes.renderItem(x, innerUl, false, false, true, undefined, self.removeItem, undefined, showTimestamps, "diary", showBrand);
     });
