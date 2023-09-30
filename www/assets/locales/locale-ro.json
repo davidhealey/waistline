@@ -250,6 +250,7 @@
     "diary": {
       "title": "Jurnal",
       "categories": "Categorii",
+      "brands": "Arată mărci",
       "timestamps": "Arată marcajele de timp",
       "thumbnails": "Arată pictogramele",
       "wifi-thumbnails": "Arată pictogramele numai prin Wi-Fi",

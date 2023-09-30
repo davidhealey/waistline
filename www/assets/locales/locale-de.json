@@ -250,6 +250,7 @@
     "diary": {
       "title": "Tagebuch",
       "categories": "Kategorien",
+      "brands": "Marken anzeigen",
       "timestamps": "Uhrzeiten anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",

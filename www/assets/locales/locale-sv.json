@@ -250,6 +250,7 @@
     "diary": {
       "title": "Dagbok",
       "categories": "Kategorier",
+      "brands": "Visa varumärken",
       "timestamps": "Visa tidsstämplar",
       "thumbnails": "Visa miniatyrbilder",
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",

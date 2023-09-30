@@ -250,6 +250,7 @@
     "diary": {
       "title": "Diario",
       "categories": "Categorie",
+      "brands": "Mostra marchi",
       "timestamps": "Mostra i marcatori temporali",
       "thumbnails": "Mostra le anteprime",
       "wifi-thumbnails": "Mostra le anteprime solo con la Wi-Fi",

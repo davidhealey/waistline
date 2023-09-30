@@ -249,7 +249,8 @@
     },
     "diary": {
       "title": "Diary",
-      "categories": "ප්‍රවර්ග",
+      "categories": "Categories",
+      "brands": "Show Brands",
       "timestamps": "Show Timestamps",
       "thumbnails": "Show Thumbnails",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",

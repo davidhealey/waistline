@@ -250,6 +250,7 @@
     "diary": {
       "title": "Dnevnik",
       "categories": "Kategorije",
+      "brands": "Prikaži robne marke",
       "timestamps": "Prikaži vremena",
       "thumbnails": "Prikaži sličice",
       "wifi-thumbnails": "Prikaži sličice samo na Wi-Fi-ju",

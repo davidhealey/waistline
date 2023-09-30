@@ -250,6 +250,7 @@
     "diary": {
       "title": "Diář",
       "categories": "Kategorie",
+      "brands": "Zobrazit značky",
       "timestamps": "Zobrazovat časové údaje",
       "thumbnails": "Zobrazit miniatury",
       "wifi-thumbnails": "Zobrazit miniatury pouze přes Wi-Fi",
