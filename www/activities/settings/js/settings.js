@@ -19,7 +19,7 @@
 
 // After a breaking change to the settings schema, increment this constant
 // and implement the migration in the migrateSettings() function below
-const currentSettingsSchemaVersion = 8;
+const currentSettingsSchemaVersion = 9;
 
 app.Settings = {
 
