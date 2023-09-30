@@ -421,7 +421,7 @@ app.FoodsMealsRecipes = {
     return 0;
   },
 
-  renderItem: async function(data, el, checkbox, sortable, clickable, clickCallback, tapholdCallback, checkboxCallback, timestamp, thumbnailSetting, showBrand) {
+  renderItem: async function(data, el, checkbox, sortable, clickable, clickCallback, tapholdCallback, checkboxCallback, timestamp, showBrand, thumbnailSetting) {
 
     if (data !== undefined) {
 

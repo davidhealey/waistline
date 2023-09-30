@@ -613,7 +613,7 @@ app.Settings = {
       diary: {
         "meal-names": ["Breakfast", "Lunch", "Dinner", "Snacks", "", "", ""],
         timestamps: false,
-        "show-brands": false,
+        "show-brands": true,
         "show-thumbnails": false,
         "wifi-thumbnails": true,
         "show-all-nutriments": false,
@@ -793,6 +793,11 @@ app.Settings = {
         settings.statistics["last-stat"] = lastStat;
       }
       window.localStorage.removeItem("last-stat");
+      
+      // Show Brands setting should be initialized to "true", as is the historical default behaviour 
+      if (settings.diary["show-brands"] === undefined) {
+        settings.diary["show-brands"] = true;
+      }
 
       settings.schemaVersion = currentSettingsSchemaVersion;
 
