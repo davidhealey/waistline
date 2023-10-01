@@ -250,6 +250,7 @@
     "diary": {
       "title": "Щоденник",
       "categories": "Категорії",
+      "brands": "Show Brands",
       "timestamps": "Показувати часові мітки",
       "thumbnails": "Показувати ескізи",
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
