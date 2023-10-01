@@ -250,6 +250,7 @@
     "diary": {
       "title": "יומן",
       "categories": "קטגוריות",
+      "brands": "Show Brands",
       "timestamps": "הצגת חותמות זמן",
       "thumbnails": "הצגת תמונות ממוזערות",
       "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
