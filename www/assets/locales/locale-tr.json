@@ -250,6 +250,7 @@
     "diary": {
       "title": "Günlük",
       "categories": "Kategoriler",
+      "brands": "Show Brands",
       "timestamps": "Zaman Bilgisini Göster",
       "thumbnails": "Küçük Resimleri Göster",
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
