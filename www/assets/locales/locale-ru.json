@@ -250,6 +250,7 @@
     "diary": {
       "title": "Дневник",
       "categories": "Категории",
+      "brands": "Show Brands",
       "timestamps": "Показать метки времени",
       "thumbnails": "Показывать миниатюры",
       "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
