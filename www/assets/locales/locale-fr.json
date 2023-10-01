@@ -250,6 +250,7 @@
     "diary": {
       "title": "Journal",
       "categories": "Catégories",
+      "brands": "Show Brands",
       "timestamps": "Afficher les dates",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
