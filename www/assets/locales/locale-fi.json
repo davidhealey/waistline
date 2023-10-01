@@ -250,6 +250,7 @@
     "diary": {
       "title": "Päiväkirja",
       "categories": "Kategoriat",
+      "brands": "Show Brands",
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
