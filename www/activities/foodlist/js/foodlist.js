@@ -187,7 +187,7 @@ app.Foodlist = {
         let item = app.Foodlist.list[i];
 
         if (item != undefined) {
-          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, app.Foodlist.handleTapHold, undefined, false, "foodlist");
+          app.FoodsMealsRecipes.renderItem(item, app.Foodlist.el.list, true, false, clickable, undefined, app.Foodlist.handleTapHold, undefined, false, true, "foodlist");
         }
       }
     }

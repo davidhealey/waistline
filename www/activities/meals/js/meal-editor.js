@@ -264,7 +264,7 @@ app.MealEditor = {
       let clickable = (app.MealEditor.editingEnabled == true);
 
       app.MealEditor.meal.items.forEach(async (x, i) => {
-        app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, true, clickable, app.MealEditor.mealItemClickHandler, app.MealEditor.removeItem, undefined, false, "foodlist");
+        app.FoodsMealsRecipes.renderItem(x, app.MealEditor.el.foodlist, false, true, clickable, app.MealEditor.mealItemClickHandler, app.MealEditor.removeItem, undefined, false, true, "foodlist");
       });
       app.f7.sortable.disable(app.MealEditor.el.foodlist);
 
