@@ -250,6 +250,7 @@
     "diary": {
       "title": "Дневник",
       "categories": "Категорије",
+      "brands": "Show Brands",
       "timestamps": "Прикажи времена",
       "thumbnails": "Прикажи сличице",
       "wifi-thumbnails": "Прикажи сличице само на Wi-Fi-ју",
