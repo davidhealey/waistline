@@ -376,8 +376,9 @@
     "title": "Tietoja",
     "p0": "Waistlinen on kehittänyt David Healey, työssä hyödynnetty myös käyttäjäehdotuksia ja osallistumisia kehitykseen.",
     "p1": "Waistline rakennettiin käyttäen Cordovaa, joka on saatavilla Apache-lisenssin alaisena. Mukana ovat myös Framework7, jQuery, jQuery localize ja ChartJS, jotka ovat MIT-lisenssin alaisia. Sovelluksen pääosan muodostavat HTML, CSS ja muu javascript ovat GPLv3-lisenssin alaisia.",
-    "p2": "Waistline lähdekoodi on saatavilla osoitteessa",
-    "p3": "Nykyinen versio:"
+    "source-code": "Source Code",
+    "user-guide": "User Guide / FAQ",
+    "version": "Current version:"
   },
   "locale": {
     "auto": "Tunnista Automaattisesti",
