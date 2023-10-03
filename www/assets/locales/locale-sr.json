@@ -376,8 +376,9 @@
     "title": "О програму",
     "p0": "Waistline је направио Дејвид Хејли са саветима и доприносима од стране корисника.",
     "p1": "Waistline је изграђен употребом Cordova-е доступне под Apache дозволом. У програму су такође Framework7, jQuery, jQuery локализација, и ChartJS који су под MIT дозволом. HTML, CSS, и JavaScript који сачињавају главно тело апликације су под GPLv3 дозволом.",
-    "p2": "Изворни код за Waistline може да се пронађе на",
-    "p3": "Тренутна верзија:"
+    "source-code": "Source Code",
+    "user-guide": "User Guide / FAQ",
+    "version": "Current version:"
   },
   "locale": {
     "auto": "Откриј аутоматски",
