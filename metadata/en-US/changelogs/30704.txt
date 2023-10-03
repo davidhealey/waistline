@@ -1,4 +1,6 @@
 - added option to hide item brands in diary
+- added link to user guide on About page
+- the app now uses the kilojoule value if no calorie value is entered
 - various bugfixes
 
 You can find the full changelog at 
