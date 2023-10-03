@@ -376,8 +376,9 @@
     "title": "Sobre",
     "p0": "Waistline fue creado por David Healey con sugerencias y contribuciones de los usuarios.",
     "p1": "Waistline fue construido usando Cordova disponible bajo la licencia Apache. También se incluyen Framework7, jQuery, jQuery localize y ChartJS que están bajo la licencia MIT. El HTML, CSS y otros Javascript que componen el cuerpo principal de la aplicación están bajo la licencia GPLv3.",
-    "p2": "The source code for Waistline can be found at",
-    "p3": "Current version:"
+    "source-code": "Source Code",
+    "user-guide": "User Guide / FAQ",
+    "version": "Current version:"
   },
   "locale": {
     "auto": "Detectar automáticamente",
