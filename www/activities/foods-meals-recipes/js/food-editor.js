@@ -291,7 +291,7 @@ app.FoodEditor = {
     const energyUnit = app.Settings.get("units", "energy");
 
     if (item !== undefined && item.nutrition.kilojoules == undefined && energyUnit == units.kilojoules)
-      item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules);
+      item.nutrition.kilojoules = app.Utils.convertUnit(item.nutrition.calories, units.calories, units.kilojoules, 1);
 
     let ul = app.FoodEditor.el.nutrition;
     ul.innerHTML = "";
@@ -663,8 +663,12 @@ app.FoodEditor = {
         item.nutrition = {};
 
         // Always store a calorie value
-        if (energyUnit == units.kilojoules && kilojoulesEl.value)
-          caloriesEl.value = app.Utils.convertUnit(kilojoulesEl.value, units.kilojoules, units.calories);
+        if (!caloriesEl.value || energyUnit == units.kilojoules) {
+          if (kilojoulesEl.value)
+            caloriesEl.value = app.Utils.convertUnit(kilojoulesEl.value, units.kilojoules, units.calories, 1);
+          else
+            caloriesEl.value = "";
+        }
 
         for (let i = 0; i < inputs.length; i++) {
           let x = inputs[i];
