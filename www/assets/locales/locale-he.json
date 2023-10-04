@@ -376,9 +376,9 @@
     "title": "על אודות",
     "p0": "היישומון Waistline נוצר על ידי David Healey בחיזוק הצעות ותרומות משתמשים.",
     "p1": "היישומון Waistline נבנה על גבי Cordova שזמינה בכפוף לרישיון Apache. בנוסף נכללות המערכות Framework7,‏ jQuery,‏ jQuery localize ו־ChartJS שכפופות לרישיון MIT. תשתיות ה־HTML,‏ ה־CSS ושאר ה־javascript שמרכיבות את הגוף הראשי של היישומון כפופות לרישיון GPLv3.",
-    "source-code": "Source Code",
-    "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "source-code": "קוד מקור",
+    "user-guide": "מדריך למשתמשים / שו״ת",
+    "version": "גרסה נוכחית:"
   },
   "locale": {
     "auto": "זיהוי אוטומטי",
