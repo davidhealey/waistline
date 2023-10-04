@@ -144,8 +144,8 @@
     "log-saved": "Saved",
     "no-data": "No Data",
     "default-meals": {
-      "breakfast": "Breakfast",
-      "lunch": "Lunch",
+      "breakfast": "ଜଳଖିଆ",
+      "lunch": "ଦୋଓଡ଼ା",
       "dinner": "Dinner",
       "snacks": "Snacks"
     }
@@ -339,7 +339,7 @@
       "language": "Preferred Language",
       "country": "Search Country",
       "upload-country": "Upload Country",
-      "all-countries": "All",
+      "all-countries": "ସମସ୍ତ",
       "default": "Default",
       "auto": "Detect Automatically",
       "usda-title": "U.S. DEPARTMENT OF AGRICULTURE",
@@ -378,7 +378,7 @@
     "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
     "source-code": "Source Code",
     "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "version": "ଚଳିତ ସଂସ୍କରଣ:"
   },
   "locale": {
     "auto": "Detect Automatically",
