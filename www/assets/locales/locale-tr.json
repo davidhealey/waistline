@@ -250,7 +250,7 @@
     "diary": {
       "title": "Günlük",
       "categories": "Kategoriler",
-      "brands": "Show Brands",
+      "brands": "Markaları Göster",
       "timestamps": "Zaman Bilgisini Göster",
       "thumbnails": "Küçük Resimleri Göster",
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
@@ -376,9 +376,9 @@
     "title": "Hakkında",
     "p0": "Waistline, kullanıcıların önerileri ve katkılarıyla birlikte David Healey tarafından oluşturuldu.",
     "p1": "Waistline, Apache lisansı altında bulunan Cordova kullanılarak oluşturulmuştur. Ayrıca MIT lisansı altındaki Framework7, jQuery, jQuery localize ve ChartJS kullanılmıştır. Uygulamanın temel yapısını oluşturan HTML, CSS ve diğer javascript, GPLv3 lisansı altındadır.",
-    "source-code": "Source Code",
-    "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "source-code": "Kaynak Kodu",
+    "user-guide": "Kullanıcı Kılavuzu / SSS",
+    "version": "Mevcut sürüm:"
   },
   "locale": {
     "auto": "Otomatik Algıla",
