@@ -320,6 +320,15 @@
       "data-sharing-address": "Adres van de dienst",
       "data-sharing-authorization": "Authorization Header voor de dienst"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Standaard",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Importeren/exporten",
       "auto-backup": "Automatische backup",
