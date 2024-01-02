@@ -320,6 +320,15 @@
       "data-sharing-address": "Адрес сервера",
       "data-sharing-authorization": "Заголовок авторизации сервиса"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "По умолчанию",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Импорт/Экспорт",
       "auto-backup": "Автоматическое резервное копирование",
