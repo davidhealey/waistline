@@ -320,6 +320,15 @@
       "data-sharing-address": "כתובת השירות",
       "data-sharing-authorization": "כותרת אימות השירות"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "בררת מחדל",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "ייבוא/ייצוא",
       "auto-backup": "גיבוי אוטומטי",
