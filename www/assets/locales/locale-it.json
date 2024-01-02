@@ -320,6 +320,15 @@
       "data-sharing-address": "Indirizzo del servizio",
       "data-sharing-authorization": "Intestazione autorizzazione servizio"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Predefinito",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Importa/esporta",
       "auto-backup": "Backup automatico",
