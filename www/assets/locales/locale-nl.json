@@ -321,13 +321,13 @@
       "data-sharing-authorization": "Authorization Header voor de dienst"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "title": "Tekst-naar-spraak",
+      "test": "Huidige instellingen controleren",
+      "speed": "Snelheid",
+      "pitch": "Toonhoogte stem",
+      "voice": "Stem",
       "default": "Standaard",
-      "locale": "Number formatting locale (optional)"
+      "locale": "Lokalisatie voor nummeropmaak (optioneel)"
     },
     "import-export": {
       "title": "Importeren/exporten",
