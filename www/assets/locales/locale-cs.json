@@ -320,6 +320,15 @@
       "data-sharing-address": "Adresa služby",
       "data-sharing-authorization": "Hlavička ověření služby"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Výchozí",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Import/export",
       "auto-backup": "Automatické Zálohování",
