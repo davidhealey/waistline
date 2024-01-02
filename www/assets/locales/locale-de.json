@@ -321,13 +321,13 @@
       "data-sharing-authorization": "Authorization Header des Dienstes"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "title": "Text zu Sprache",
+      "test": "Aktuelle Einstellungen testen",
+      "speed": "Geschwindigkeit",
+      "pitch": "Stimmhöhe",
+      "voice": "Stimme",
       "default": "Standard",
-      "locale": "Number formatting locale (optional)"
+      "locale": "Zahlenformat Gebietsschema (optional)"
     },
     "import-export": {
       "title": "Importieren/Exportieren",
