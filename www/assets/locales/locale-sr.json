@@ -320,6 +320,15 @@
       "data-sharing-address": "Адреса сервиса",
       "data-sharing-authorization": "Заглавље ауторизације сервиса"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Подразумевано",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Увоз/Извоз",
       "auto-backup": "Аутоматске резервне копије",
