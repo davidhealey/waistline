@@ -320,6 +320,15 @@
       "data-sharing-address": "Adresă de service",
       "data-sharing-authorization": "Service Authorization Header"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Implicit",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Import/export",
       "auto-backup": "Backup automat",
