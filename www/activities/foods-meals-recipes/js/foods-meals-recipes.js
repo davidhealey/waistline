@@ -851,9 +851,9 @@ app.FoodsMealsRecipes = {
           allFieldsVisible = false;
 
         if (button.state === "show-less" || nutrimentVisibility[nutriment] === true || units[nutriment] === energyUnit)
-          li.style.display = "block";
+          li.classList.remove("item-hidden");
         else
-          li.style.display = "none";
+          li.classList.add("item-hidden");
       }
     });
 

@@ -361,12 +361,12 @@ app.OpenFoodFacts = {
 
     headers["Content-Type"] = "multipart/form-data";
 
-    let promise = fetch(endPoint, {
+    let promise = app.Utils.timeoutFetch(endPoint, {
       method: 'POST',
       credentials: 'include',
       headers: headers,
       body: data
-    });
+    }, 60000);
 
     return promise;
   },

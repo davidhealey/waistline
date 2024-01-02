@@ -18,6 +18,7 @@
     "cordova-plugin-inappbrowser": "^5.0.0",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-network-information": "^3.0.0",
+    "cordova-plugin-tts-advanced": "^0.5.3",
     "patch-package": "^7.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0"
   },
@@ -36,6 +37,7 @@
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-network-information": {},
+      "cordova-plugin-tts-advanced": {},
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       }
