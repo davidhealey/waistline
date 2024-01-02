@@ -320,6 +320,15 @@
       "data-sharing-address": "Kaynak Adresi",
       "data-sharing-authorization": "Hizmet Yetkilendirme Başlığı"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Varsayılan",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "İçe Aktar/Dışa Aktar",
       "auto-backup": "Otomatik Yedekle",
