@@ -297,6 +297,13 @@ const app = {
             }
           },
           {
+            path: "text-to-speech/",
+            url: "activities/settings/views/text-to-speech.html",
+            options: {
+              transition: "f7-parallax"
+            }
+          },
+          {
             path: "import-export/",
             url: "activities/settings/views/import-export.html",
             options: {

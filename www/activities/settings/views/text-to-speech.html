@@ -1,0 +1,103 @@
+<!--
+  Copyright 2024 David Healey
+
+  This file is part of Waistline.
+
+  Waistline is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Waistline is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with app.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="page" data-name="settings-text-to-speech">
+
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="left"><a class="link back"><i class="icon icon-back"></i></a></div>
+      <div class="title" data-localize="settings.text-to-speech.title">Text To Speech</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <div class="list multi-line-titles no-hairlines">
+      <ul>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.text-to-speech.test">Test current settings</div>
+              <div class="item-after">
+                <a class="link icon-only" id="tts-test-button">
+                  <i class="icon material-icons" id="tts-test-icon">play_circle</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="list multi-line-titles">
+      <ul>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="settings.text-to-speech.speed">Speed</div>
+              <div class="item-input-wrap">
+                <input type="number" value="1" name="speed" field="tts">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="settings.text-to-speech.pitch">Voice Pitch</div>
+              <div class="item-input-wrap">
+                <input type="number" value="1" name="pitch" field="tts">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="settings.text-to-speech.voice">Voice</div>
+              <div class="item-input-wrap input-dropdown-wrap">
+                <select id="tts-voice" name="voice" field="tts"></select>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label" data-localize="settings.text-to-speech.locale">Number formatting locale (optional)</div>
+              <div class="item-input-wrap">
+                <input type="text" name="locale" field="tts" placeholder="en-US" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</div>

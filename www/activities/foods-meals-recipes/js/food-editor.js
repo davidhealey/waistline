@@ -96,6 +96,8 @@ app.FoodEditor = {
     app.FoodEditor.el.notes = document.querySelector(".page[data-name='food-editor'] #notes");
     app.FoodEditor.el.notesContainer = document.querySelector(".page[data-name='food-editor'] #notes-container");
     app.FoodEditor.el.nutrition = document.querySelector(".page[data-name='food-editor'] #nutrition");
+    app.FoodEditor.el.ttsButton = document.querySelector(".page[data-name='food-editor'] #tts-button");
+    app.FoodEditor.el.ttsIcon = document.querySelector(".page[data-name='food-editor'] #tts-icon");
     app.FoodEditor.el.nutritionButton = document.querySelector(".page[data-name='food-editor'] #nutrition-button");
     app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
     app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
@@ -145,6 +147,25 @@ app.FoodEditor = {
         app.FoodEditor.upload();
       });
       app.FoodEditor.el.upload.hasClickEvent = true;
+    }
+
+    // Read nutrition values loud TTS button
+    if (!app.FoodEditor.el.ttsButton.hasClickEvent) {
+      app.FoodEditor.el.ttsButton.addEventListener("click", async (e) => {
+        if (app.FoodEditor.el.ttsIcon.innerText === "do_not_disturb_on") {
+          app.TTS.stop();
+          app.FoodEditor.el.ttsIcon.innerText = "play_circle";
+          return;
+        }
+        app.FoodEditor.el.ttsIcon.innerText = "do_not_disturb_on";
+        const text = app.FoodEditor.getNutrimentValuesTextToSpeechString();
+        app.TTS.speak(text).then(() => {
+          app.FoodEditor.el.ttsIcon.innerText = "play_circle";
+        }).catch(() => {
+          app.FoodEditor.el.ttsIcon.innerText = "play_circle";
+        });
+      });
+      app.FoodEditor.el.ttsButton.hasClickEvent = true;
     }
 
     // Nutrition fields visibility toggle button
@@ -366,6 +387,16 @@ app.FoodEditor = {
     }
 
     app.FoodsMealsRecipes.setNutritionFieldsVisibility(app.FoodEditor.el.nutrition, app.FoodEditor.el.nutritionButton);
+  },
+
+  getNutrimentValuesTextToSpeechString: function() {
+    const values = [];
+    document.querySelectorAll("#food-edit-form #nutrition li:not(.item-hidden) input").forEach((input) => {
+      const value = parseFloat(input.value);
+      if (!isNaN(value))
+        values.push(value);
+    });
+    return app.TTS.formatNumbersForTTS(values).join("\n");
   },
 
   populateCategoryField: function(item) {

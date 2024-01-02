@@ -138,6 +138,14 @@ app.Settings = {
       });
     }
 
+    // TTS test button
+    let ttsTestButton = document.getElementById("tts-test-button");
+    if (ttsTestButton) {
+      ttsTestButton.addEventListener("click", function(e) {
+        app.TTS.testSettings();
+      });
+    }
+
     // Import/Export 
     let exportDb = document.getElementById("export-db");
     if (exportDb) {
@@ -708,6 +716,12 @@ app.Settings = {
         "upload-country": "Auto",
         usda: false
       },
+      tts: {
+        "speed": 1,
+        "pitch": 1,
+        "voice": "",
+        "locale": ""
+      },
       "import-export": {
         "auto-backup": true
       },
@@ -863,6 +877,9 @@ document.addEventListener("page:init", async function(e) {
 
   if (pageName == "settings-foods-categories")
     app.FoodsCategories.populateFoodCategoriesList();
+
+  if (pageName == "settings-text-to-speech")
+    app.TTS.populateVoicesSelect();
 
   //Settings and all settings subpages
   if (pageName.indexOf("settings") != -1) {
