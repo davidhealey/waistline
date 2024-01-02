@@ -46,6 +46,8 @@ i.searchbar-icon {margin: -12px 12px;}
 #quantity-container.item-input .item-title {width: 60vw;}
 #nutrition .item-input .item-title {width: 60vw;}
 
+#nutrition .item-hidden {display: none;}
+
 #import-export-settings .item-input .item-title {width: 60vw;}
 
 div.food-thumbnail {width: 30%; margin: 0.2em 1em 0.2em 0; text-align: center;}
