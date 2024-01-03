@@ -321,13 +321,13 @@
       "data-sharing-authorization": "כותרת אימות השירות"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
-      "default": "בררת מחדל",
-      "locale": "Number formatting locale (optional)"
+      "title": "הקראה",
+      "test": "בדיקת ההגדרות הנוכחיות",
+      "speed": "מהירות",
+      "pitch": "גובה קול",
+      "voice": "קול",
+      "default": "ברירת מחדל",
+      "locale": "הגדרות אזוריות למספרים (רשות)"
     },
     "import-export": {
       "title": "ייבוא/ייצוא",
@@ -349,7 +349,7 @@
       "country": "מדינת חיפוש",
       "upload-country": "מדינת ההעלאה",
       "all-countries": "הכול",
-      "default": "בררת מחדל",
+      "default": "ברירת מחדל",
       "auto": "זיהוי אוטומטי",
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
