@@ -321,11 +321,11 @@
       "data-sharing-authorization": "Nagłówek autoryzacji usługi"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "title": "Zamiana tekstu na mowę",
+      "test": "Przetestuj obecne ustawienia",
+      "speed": "Szybkość",
+      "pitch": "Wysokość głosu",
+      "voice": "Głos",
       "default": "Domyślne",
       "locale": "Number formatting locale (optional)"
     },
