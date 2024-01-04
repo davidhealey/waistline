@@ -250,7 +250,7 @@
     "diary": {
       "title": "Diář",
       "categories": "Kategorie",
-      "brands": "Show Brands",
+      "brands": "Zobrazit značky",
       "timestamps": "Zobrazovat časové údaje",
       "thumbnails": "Zobrazit miniatury",
       "wifi-thumbnails": "Zobrazit miniatury pouze přes Wi-Fi",
@@ -321,11 +321,11 @@
       "data-sharing-authorization": "Hlavička ověření služby"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "title": "Převod textu na řeč",
+      "test": "Otestovat aktuální nastavení",
+      "speed": "Rychlost",
+      "pitch": "Výška hlasu",
+      "voice": "Hlas",
       "default": "Výchozí",
       "locale": "Number formatting locale (optional)"
     },
@@ -385,9 +385,9 @@
     "title": "O aplikaci",
     "p0": "Waistline bylo vytvořeno Daviden Healeyem s nápady a příspěvky uživatelů.",
     "p1": "Waistline bylo sestaveno pomocí Cordova pod licencí Apache. Též obsahuje Framework7, jQuery, jQuery localize, a ChartJS pod licencí MIT. HTML, CSS a JS jsou pod licencí GPLv3.",
-    "source-code": "Source Code",
-    "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "source-code": "Zdrojový kód",
+    "user-guide": "Uživatelská příručka / Časté otázky",
+    "version": "Aktuální verze:"
   },
   "locale": {
     "auto": "Rozpoznat automaticky",
