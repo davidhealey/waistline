@@ -322,12 +322,12 @@
     },
     "text-to-speech": {
       "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "test": "Testează setările curente",
+      "speed": "Viteză",
+      "pitch": "Tonul vocii",
+      "voice": "Voce",
       "default": "Implicit",
-      "locale": "Number formatting locale (optional)"
+      "locale": "Formatul numerelor (opțional)"
     },
     "import-export": {
       "title": "Import/export",
