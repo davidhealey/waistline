@@ -448,7 +448,7 @@ app.Foodlist = {
 
                 if (result !== undefined && result[0] !== undefined) {
                   item = result[0];
-                } else if (app.FoodsMealsRecipes.editItems != "disabled") {
+                } else if (result !== undefined && app.FoodsMealsRecipes.editItems != "disabled") {
                   app.Foodlist.gotoUploadEditor(code);
                 } else {
                   let msg = app.strings.dialogs["no-results"] || "No matching results";
