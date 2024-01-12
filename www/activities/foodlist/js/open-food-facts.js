@@ -75,6 +75,7 @@ app.OpenFoodFacts = {
 
         resolve(result);
       }
+      resolve(undefined);
     });
   },
 
