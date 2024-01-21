@@ -1,0 +1,13 @@
+diff --git a/node_modules/cordova-plugin-crop/plugin.xml b/node_modules/cordova-plugin-crop/plugin.xml
+index 349c25b..adb5e10 100644
+--- a/node_modules/cordova-plugin-crop/plugin.xml
++++ b/node_modules/cordova-plugin-crop/plugin.xml
+@@ -62,7 +62,7 @@
+     </config-file>
+ 
+     <config-file target="AndroidManifest.xml" parent="/manifest">
+-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
++        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+     </config-file>
+ 
+     <source-file src="src/android/CropPlugin.java" target-dir="src/com/jeduan/crop" />

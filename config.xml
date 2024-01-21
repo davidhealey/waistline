@@ -23,10 +23,6 @@
         <preference name="AndroidInsecureFileModeEnabled" value="true" />
         <preference name="AndroidXEnabled" value="true" />
         <preference name="GradlePluginKotlinEnabled" value="true" />
-        <config-file after="uses-permission" parent="/manifest" target="AndroidManifest.xml">
-            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        </config-file>
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:usesCleartextTraffic="true" />
             <application android:requestLegacyExternalStorage="true" />
