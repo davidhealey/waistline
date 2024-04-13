@@ -263,6 +263,8 @@ app.FoodsMealsRecipes = {
     if (archivedFilter !== -1)
       categoriesFilter.splice(archivedFilter, 1); // Remove it since it's not an actual food category
 
+    let noCategoryFilter = categoriesFilter.indexOf(app.FoodsCategories.noCategoryLabel);
+
     // Filter the list of items
     result = result.filter((item) => {
       if (item) {
@@ -290,7 +292,10 @@ app.FoodsMealsRecipes = {
           if (item.categories) {
             if (!item.categories.includes(category))
               return false;
-          } else {
+          } else if (noCategoryFilter !== -1 && !item.categories) {
+            return true;
+          }
+          else {
             return false;
           }
         }
@@ -698,13 +703,15 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  populateCategoriesField: function(element, item, appendArchivedCategory, enablePicker, enableRipple, pickerEventHandlers) {
+  populateCategoriesField: function(element, item, appendArchivedAndEmptyCategory, enablePicker, enableRipple, pickerEventHandlers) {
     let labels = app.Settings.get("foodlist", "labels") || [];
     let categories = app.Settings.get("foodlist", "categories") || {};
 
-    if (appendArchivedCategory) {
+    if (appendArchivedAndEmptyCategory) {
       labels.push(app.FoodsCategories.archivedLabel);
+      labels.push(app.FoodsCategories.noCategoryLabel);
     }
+
 
     if (enablePicker) {
       let select = document.createElement("select");
