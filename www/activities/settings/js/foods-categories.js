@@ -23,6 +23,7 @@ app.FoodsCategories = {
   defaultLabels: ["🌳", "🏪"],
   defaultCategories: {"🌳": "", "🏪": ""},
   archivedLabel: "🗑️",
+  noCategoryLabel: "⚠",
 
   populateFoodCategoriesList: function() {
     let labels = app.Settings.get("foodlist", "labels") || [];
@@ -282,6 +283,6 @@ app.FoodsCategories = {
   },
 
   isAllowedLabel: function(label) {
-    return (label !== "" && label !== app.FoodsCategories.archivedLabel)
+    return (label !== "" && label !== app.FoodsCategories.archivedLabel && label !== app.FoodsCategories.noCategoryLabel)
   }
 };
