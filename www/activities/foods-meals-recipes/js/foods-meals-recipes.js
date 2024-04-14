@@ -292,10 +292,7 @@ app.FoodsMealsRecipes = {
           if (item.categories) {
             if (!item.categories.includes(category))
               return false;
-          } else if (noCategoryFilter !== -1 && !item.categories) {
-            return true;
-          }
-          else {
+          } else if (noCategoryFilter === -1) {
             return false;
           }
         }
