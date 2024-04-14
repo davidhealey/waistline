@@ -23,7 +23,7 @@ app.FoodsCategories = {
   defaultLabels: ["🌳", "🏪"],
   defaultCategories: {"🌳": "", "🏪": ""},
   archivedLabel: "🗑️",
-  noCategoryLabel: "⚠",
+  noCategoryLabel: "⚠️",
 
   populateFoodCategoriesList: function() {
     let labels = app.Settings.get("foodlist", "labels") || [];
