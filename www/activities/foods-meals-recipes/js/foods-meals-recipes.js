@@ -705,10 +705,9 @@ app.FoodsMealsRecipes = {
     let categories = app.Settings.get("foodlist", "categories") || {};
 
     if (appendArchivedAndEmptyCategory) {
-      labels.push(app.FoodsCategories.archivedLabel);
       labels.push(app.FoodsCategories.noCategoryLabel);
+      labels.push(app.FoodsCategories.archivedLabel);
     }
-
 
     if (enablePicker) {
       let select = document.createElement("select");
