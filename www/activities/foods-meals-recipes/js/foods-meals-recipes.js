@@ -704,7 +704,7 @@ app.FoodsMealsRecipes = {
     let labels = app.Settings.get("foodlist", "labels") || [];
     let categories = app.Settings.get("foodlist", "categories") || {};
 
-    if (appendNoCategory) {
+    if (appendNoCategory && labels.length > 0) {
       labels.push(app.FoodsCategories.noCategoryLabel);
     }
 
