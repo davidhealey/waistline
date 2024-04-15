@@ -700,12 +700,15 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  populateCategoriesField: function(element, item, appendArchivedAndEmptyCategory, enablePicker, enableRipple, pickerEventHandlers) {
+  populateCategoriesField: function(element, item, appendNoCategory, appendArchived, enablePicker, enableRipple, pickerEventHandlers) {
     let labels = app.Settings.get("foodlist", "labels") || [];
     let categories = app.Settings.get("foodlist", "categories") || {};
 
-    if (appendArchivedAndEmptyCategory) {
+    if (appendNoCategory) {
       labels.push(app.FoodsCategories.noCategoryLabel);
+    }
+
+    if (appendArchived) {
       labels.push(app.FoodsCategories.archivedLabel);
     }
 
