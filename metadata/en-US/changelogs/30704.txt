@@ -1,5 +1,6 @@
 - added possibility to take photos of meals and recipes
 - added ability to read nutrition values aloud with text to speech
+- allow user to choose which fields to replace in re-download
 - added filter for items with no category
 - added option to hide item brands in diary
 - added link to user guide on About page
