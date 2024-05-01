@@ -1,4 +1,5 @@
 - added ability to read nutrition values aloud with text to speech
+- added filter for items with no category
 - added option to hide item brands in diary
 - added link to user guide on About page
 - the app now uses the kilojoule value if no calorie value is entered
