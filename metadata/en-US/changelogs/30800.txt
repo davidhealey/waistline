@@ -1,3 +1,4 @@
+- added possibility to take photos of meals and recipes
 - added ability to read nutrition values aloud with text to speech
 - added filter for items with no category
 - added option to hide item brands in diary
