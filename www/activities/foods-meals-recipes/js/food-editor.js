@@ -474,6 +474,7 @@ app.FoodEditor = {
     if (item.image_url !== undefined && item.image_url !== "" && item.image_url !== "undefined") {
 
       if (app.Settings.get("foodlist", "show-images")) {
+        let removable = (app.FoodEditor.origin == "foodlist");
 
         if (item.image_url.startsWith("http")) {
           let wifiOnly = app.Settings.get("foodlist", "wifi-images");
@@ -482,11 +483,10 @@ app.FoodEditor = {
           if (navigator.connection.type !== "none") {
             if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
               let src = unescape(item.image_url);
-              app.FoodEditor.insertImageEl(0, src, false);
+              app.FoodEditor.insertImageEl(0, src, removable);
             }
           }
         } else {
-          let removable = (app.FoodEditor.origin == "foodlist");
           app.FoodEditor.insertImageEl(0, item.image_url, removable);
         }
       }
