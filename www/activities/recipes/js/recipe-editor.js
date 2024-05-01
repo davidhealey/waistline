@@ -20,6 +20,7 @@
 app.RecipeEditor = {
 
   editingEnabled: undefined,
+  recipe_image_url: undefined,
   recipe: {},
   el: {},
 
@@ -32,6 +33,7 @@ app.RecipeEditor = {
       if (context.recipe) {
         app.RecipeEditor.recipe = context.recipe;
         app.RecipeEditor.populateInputs(context.recipe);
+        app.RecipeEditor.populateMainImage(context.recipe);
       }
 
       app.FoodsMealsRecipes.populateCategoriesField(app.RecipeEditor.el.categories, app.RecipeEditor.recipe, false, true, true);
@@ -63,6 +65,11 @@ app.RecipeEditor = {
     app.RecipeEditor.el.add = document.querySelector(".page[data-name='recipe-editor'] #add-food");
     app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #nutrition");
     app.RecipeEditor.el.nutritionButton = document.querySelector(".page[data-name='recipe-editor'] #nutrition-button");
+    app.RecipeEditor.el.mainPhoto = document.querySelector(".page[data-name='recipe-editor'] #main-photo");
+    app.RecipeEditor.el.addPhoto = document.querySelector(".page[data-name='recipe-editor'] .add-photo");
+    app.RecipeEditor.el.addPhotoCamera = document.querySelector(".page[data-name='recipe-editor'] .add-photo-camera");
+    app.RecipeEditor.el.addPhotoLibrary = document.querySelector(".page[data-name='recipe-editor'] .add-photo-library");
+    app.RecipeEditor.el.photoHolder = document.querySelector(".page[data-name='recipe-editor'] .photo-holder");
   },
 
   setComponentVisibility: function() {
@@ -82,6 +89,22 @@ app.RecipeEditor = {
         app.RecipeEditor.save();
       });
       app.RecipeEditor.el.submit.hasClickEvent = true;
+    }
+
+    // Take photo
+    if (!app.RecipeEditor.el.addPhotoCamera.hasClickEvent) {
+      app.RecipeEditor.el.addPhotoCamera.addEventListener("click", (e) => {
+        app.RecipeEditor.takePicture(Camera.PictureSourceType.CAMERA);
+      });
+      app.RecipeEditor.el.addPhotoCamera.hasClickEvent = true;
+    }
+
+    // Add photo from library
+    if (!app.RecipeEditor.el.addPhotoLibrary.hasClickEvent) {
+      app.RecipeEditor.el.addPhotoLibrary.addEventListener("click", (e) => {
+        app.RecipeEditor.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
+      });
+      app.RecipeEditor.el.addPhotoLibrary.hasClickEvent = true;
     }
 
     // Add food button
@@ -140,6 +163,33 @@ app.RecipeEditor = {
     });
   },
 
+  populateMainImage: function(recipe) {
+    app.RecipeEditor.recipe_image_url = recipe.image_url;
+
+    let mainPhotoEl = app.RecipeEditor.el.mainPhoto;
+    let addPhotoEl = app.RecipeEditor.el.addPhoto;
+    let photoHolderEl = app.RecipeEditor.el.photoHolder;
+    let removedCallback = () => app.RecipeEditor.removePicture();
+    app.FoodImages.populateMainImage(mainPhotoEl, addPhotoEl, photoHolderEl, recipe, true, removedCallback);
+  },
+
+  takePicture: function(sourceType) {
+    let addPhotoEl = app.RecipeEditor.el.addPhoto;
+    let photoHolderEl = app.RecipeEditor.el.photoHolder;
+    let addedCallback = (blob) => app.RecipeEditor.addPicture(blob);
+    let removedCallback = () => app.RecipeEditor.removePicture();
+    app.FoodImages.takePicture(sourceType, addPhotoEl, photoHolderEl, addedCallback, removedCallback);
+  },
+
+  addPicture: async function(blob) {
+    let sourceString = await app.FoodImages.imageBlobToBase64(blob);
+    app.RecipeEditor.recipe_image_url = sourceString;
+  },
+
+  removePicture: function() {
+    app.RecipeEditor.recipe_image_url = undefined;
+  },
+
   addItems: function(data) {
     let result = app.RecipeEditor.recipe.items;
 
@@ -182,6 +232,8 @@ app.RecipeEditor = {
 
       if (app.RecipeEditor.recipe.id !== undefined) data.id = app.RecipeEditor.recipe.id;
       if (app.RecipeEditor.recipe.items !== undefined) data.items = app.RecipeEditor.recipe.items;
+
+      if (app.RecipeEditor.recipe_image_url !== undefined) data.image_url = app.RecipeEditor.recipe_image_url;
 
       // If recipe was archived, keep it archived
       if (app.RecipeEditor.recipe.archived === true) data.archived = true;
@@ -291,6 +343,7 @@ document.addEventListener("page:init", function(event) {
     app.RecipeEditor.recipe = {
       items: []
     };
+    app.RecipeEditor.recipe_image_url = undefined;
 
     app.RecipeEditor.init(context);
   }
