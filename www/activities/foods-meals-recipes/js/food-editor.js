@@ -756,20 +756,71 @@ app.FoodEditor = {
     let title = app.strings.dialogs["download-title"] || "Retrieve latest information";
     let text = app.strings.dialogs["download-text"] || "Your local values will be replaced by the latest information available for this item";
 
+    let div = document.createElement("div");
+    div.className = "dialog-text";
+
+    let p = document.createElement("p");
+    p.innerText = text;
+    div.appendChild(p);
+
+    // Create dialog inputs
+    let inputs = document.createElement("form");
+    inputs.className = "list no-hairlines no-hairlines-between no-margin";
+    div.appendChild(inputs);
+
+    let ul = document.createElement("ul");
+    inputs.appendChild(ul);
+
+    ["image", "name-and-brand", "nutriments-per-serving", "nutriments-per-100"].forEach((field) => {
+      let li = document.createElement("li");
+      ul.appendChild(li);
+
+      let label = document.createElement("label");
+      label.className = "item-checkbox item-content";
+      li.appendChild(label);
+
+      let input = document.createElement("input");
+      input.type = "checkbox";
+      input.id = field;
+      if (field === "image" && app.FoodEditor.item.barcode.startsWith("fdcId_")) {
+        // USDA database has no images
+        label.classList.add("disabled");
+        input.setAttribute("disabled", "");
+      } else if (field !== "nutriments-per-100") {
+        // All fields are selected by default, except nutriments-per-100
+        input.setAttribute("checked", "");
+      }
+      label.appendChild(input);
+
+      let i = document.createElement("i");
+      i.className = "icon icon-checkbox";
+      label.appendChild(i);
+
+      let div = document.createElement("div");
+      div.className = "item-inner";
+      div.innerText = app.strings["food-editor"][field] || field;
+      label.appendChild(div);
+    });
+
     let dialog = app.f7.dialog.create({
       title: title,
-      content: app.Utils.getDialogTextDiv(text),
-      verticalButtons: true,
+      content: div.outerHTML,
+      on: {
+        opened: () => {
+          ["nutriments-per-serving", "nutriments-per-100"].forEach((field) => {
+            // At most one nutriments field can be selected at a time
+            let otherNutrimentFieldId = field === "nutriments-per-serving" ? "nutriments-per-100" : "nutriments-per-serving";
+            document.getElementById(field).addEventListener("change", (e) => {
+              if (e.target.checked) document.getElementById(otherNutrimentFieldId).checked = false;
+            });
+          });
+        }
+      },
       buttons: [{
-          text: app.strings["food-editor"]["per-serving"] || "Per Serving",
-          onClick: async () => {
-            app.FoodEditor.downloadItemInfo(false);
-          }
-        },
-        {
-          text: app.strings["food-editor"]["per-100"] || "Per 100g/100ml",
-          onClick: async () => {
-            app.FoodEditor.downloadItemInfo(true);
+          text: app.strings.dialogs.ok || "OK",
+          onClick: async (dialog) => {
+            let valuesToGet = Array.from(dialog.el.getElementsByTagName("input")).map((input) => input.checked);
+            app.FoodEditor.downloadItemInfo(valuesToGet);
           }
         },
         {
@@ -780,7 +831,10 @@ app.FoodEditor = {
     }).open();
   },
 
-  downloadItemInfo: async function(preferDataPer100g) {
+  downloadItemInfo: async function(valuesToGet) {
+    let [getImage, getNameAndBrand, getNutrimentsServing, getNutriments100] = valuesToGet;
+    let getNutriments = getNutrimentsServing || getNutriments100;
+
     if (app.Utils.isInternetConnected()) {
       let barcode = app.FoodEditor.item.barcode;
       let result;
@@ -789,20 +843,31 @@ app.FoodEditor = {
 
       if (barcode !== undefined) {
         if (barcode.startsWith("fdcId_"))
-          result = await app.USDA.search(barcode.replace("fdcId_", ""), preferDataPer100g);
+          result = await app.USDA.search(barcode.replace("fdcId_", ""), getNutriments100);
         else
-          result = await app.OpenFoodFacts.search(barcode, preferDataPer100g);
+          result = await app.OpenFoodFacts.search(barcode, getNutriments100);
       }
 
       app.f7.preloader.hide();
 
       if (result !== undefined && result.length > 0) {
         item = result[0];
-        item.notes = app.FoodEditor.el.notes.value; // Keep local notes, do not overwrite
+        item.notes = app.FoodEditor.el.notes.value; // Always keep local notes, do not overwrite
+        if (!getNameAndBrand) {
+          item.name = app.FoodEditor.el.name.value; // Keep local name
+          item.brand = app.FoodEditor.el.brand.value; // Keep local brand
+        }
+        if (!getNutriments) {
+          item.portion = app.FoodEditor.el.portion.value; // Keep local serving size
+          item.unit = app.FoodEditor.el.unit.value; // Keep local unit
+        }
         app.FoodEditor.populateFields(item);
-        if (!barcode.startsWith("fdcId_"))
+        if (getImage) {
           app.FoodEditor.populateImage(item);
-        app.FoodEditor.renderNutritionFields(item);
+        }
+        if (getNutriments) {
+          app.FoodEditor.renderNutritionFields(item);
+        }
       } else {
         let msg = app.strings.dialogs["no-results"] || "No matching results";
         app.Utils.toast(msg);
