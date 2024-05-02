@@ -21,6 +21,7 @@ app.Recipes = {
 
   list: [], //Main list of recipes
   filterList: [], //Copy of the list for filtering
+  isRendering: false,
   el: {}, //UI elements
 
   init: async function(context) {
@@ -63,14 +64,15 @@ app.Recipes = {
     // Infinite list - render more items
     if (!app.Recipes.el.infinite.hasInfiniteEvent) {
       app.Recipes.el.infinite.addEventListener("infinite", (e) => {
-        app.Recipes.renderList();
+        if (!app.Recipes.isRendering)
+          app.Recipes.renderList();
       });
       app.Recipes.el.infinite.hasInfiniteEvent = true;
     }
 
     // Search filter - reset category filter on long press
     if (!app.Recipes.el.searchFilter.hasTapholdEvent) {
-      app.Recipes.el.searchFilter.addEventListener("taphold", async (e) => {
+      app.Recipes.el.searchFilter.addEventListener("taphold", (e) => {
         app.FoodsMealsRecipes.clearSelectedCategories(app.Recipes.el.searchFilter, app.Recipes.el.searchFilterIcon);
         app.Recipes.list = app.FoodsMealsRecipes.filterList(app.Recipes.el.search.value, undefined, app.Recipes.filterList);
         app.Recipes.renderList(true);
@@ -89,6 +91,8 @@ app.Recipes = {
   },
 
   renderList: async function(clear) {
+    app.Recipes.isRendering = true;
+
     if (clear) app.Utils.deleteChildNodes(app.Recipes.el.list);
 
     //List settings 
@@ -108,6 +112,8 @@ app.Recipes = {
         app.FoodsMealsRecipes.renderItem(item, app.Recipes.el.list, true, false, clickable, app.Recipes.gotoEditor, app.Recipes.handleTapHold, undefined, false, false, "foodlist");
       }
     }
+
+    app.Recipes.isRendering = false;
   },
 
   getListFromDB: function() {
