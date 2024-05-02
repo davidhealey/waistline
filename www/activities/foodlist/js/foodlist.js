@@ -21,6 +21,7 @@ app.Foodlist = {
 
   list: [], //Main list of foods
   filterList: [], //Copy of the list for filtering
+  isRendering: false,
   el: {}, //UI elements
 
   init: async function(context) {
@@ -65,7 +66,8 @@ app.Foodlist = {
     // Infinite list - render more items
     if (!app.Foodlist.el.infinite.hasInfiniteEvent) {
       app.Foodlist.el.infinite.addEventListener("infinite", (e) => {
-        this.renderList();
+        if (!app.Foodlist.isRendering)
+          app.Foodlist.renderList();
       });
       app.Foodlist.el.infinite.hasInfiniteEvent = true;
     }
@@ -75,14 +77,14 @@ app.Foodlist = {
       app.Foodlist.el.searchForm.addEventListener("submit", (e) => {
         app.Utils.hideKeyboard();
         if (app.Utils.isInternetConnected())
-          this.search(app.Foodlist.el.search.value);
+          app.Foodlist.search(app.Foodlist.el.search.value);
       });
       app.Foodlist.el.searchForm.hasSubmitEvent = true;
     }
 
     // Search filter - reset category filter on long press
     if (!app.Foodlist.el.searchFilter.hasTapholdEvent) {
-      app.Foodlist.el.searchFilter.addEventListener("taphold", async (e) => {
+      app.Foodlist.el.searchFilter.addEventListener("taphold", (e) => {
         app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
         app.Foodlist.list = app.FoodsMealsRecipes.filterList(app.Foodlist.el.search.value, undefined, app.Foodlist.filterList);
         app.Foodlist.renderList(true);
@@ -171,6 +173,8 @@ app.Foodlist = {
   },
 
   renderList: async function(clear) {
+    app.Foodlist.isRendering = true;
+
     if (clear) app.Utils.deleteChildNodes(app.Foodlist.el.list);
 
     //List settings
@@ -192,6 +196,8 @@ app.Foodlist = {
       }
     }
     app.f7.preloader.hide();
+
+    app.Foodlist.isRendering = false;
   },
 
   getListFromDB: function() {
