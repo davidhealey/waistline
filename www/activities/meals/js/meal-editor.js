@@ -20,6 +20,7 @@
 app.MealEditor = {
 
   editingEnabled: undefined,
+  meal_image_url: undefined,
   meal: {},
   el: {},
 
@@ -32,6 +33,7 @@ app.MealEditor = {
       if (context.meal) {
         app.MealEditor.meal = context.meal;
         app.MealEditor.populateInputs(context.meal);
+        app.MealEditor.populateMainImage(context.meal);
       }
 
       app.FoodsMealsRecipes.populateCategoriesField(app.MealEditor.el.categories, app.MealEditor.meal, false, true, true);
@@ -63,6 +65,11 @@ app.MealEditor = {
     app.MealEditor.el.add = document.querySelector(".page[data-name='meal-editor'] #add-food");
     app.MealEditor.el.nutrition = document.querySelector(".page[data-name='meal-editor'] #nutrition");
     app.MealEditor.el.nutritionButton = document.querySelector(".page[data-name='meal-editor'] #nutrition-button");
+    app.MealEditor.el.mainPhoto = document.querySelector(".page[data-name='meal-editor'] #main-photo");
+    app.MealEditor.el.addPhoto = document.querySelector(".page[data-name='meal-editor'] .add-photo");
+    app.MealEditor.el.addPhotoCamera = document.querySelector(".page[data-name='meal-editor'] .add-photo-camera");
+    app.MealEditor.el.addPhotoLibrary = document.querySelector(".page[data-name='meal-editor'] .add-photo-library");
+    app.MealEditor.el.photoHolder = document.querySelector(".page[data-name='meal-editor'] .photo-holder");
   },
 
   setComponentVisibility: function() {
@@ -82,6 +89,22 @@ app.MealEditor = {
         app.MealEditor.save();
       });
       app.MealEditor.el.submit.hasClickEvent = true;
+    }
+
+    // Take photo
+    if (!app.MealEditor.el.addPhotoCamera.hasClickEvent) {
+      app.MealEditor.el.addPhotoCamera.addEventListener("click", (e) => {
+        app.MealEditor.takePicture(Camera.PictureSourceType.CAMERA);
+      });
+      app.MealEditor.el.addPhotoCamera.hasClickEvent = true;
+    }
+
+    // Add photo from library
+    if (!app.MealEditor.el.addPhotoLibrary.hasClickEvent) {
+      app.MealEditor.el.addPhotoLibrary.addEventListener("click", (e) => {
+        app.MealEditor.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
+      });
+      app.MealEditor.el.addPhotoLibrary.hasClickEvent = true;
     }
 
     // Add food button
@@ -140,6 +163,33 @@ app.MealEditor = {
     });
   },
 
+  populateMainImage: function(meal) {
+    app.MealEditor.meal_image_url = meal.image_url;
+
+    let mainPhotoEl = app.MealEditor.el.mainPhoto;
+    let addPhotoEl = app.MealEditor.el.addPhoto;
+    let photoHolderEl = app.MealEditor.el.photoHolder;
+    let removedCallback = () => app.MealEditor.removePicture();
+    app.FoodImages.populateMainImage(mainPhotoEl, addPhotoEl, photoHolderEl, meal, true, removedCallback);
+  },
+
+  takePicture: function(sourceType) {
+    let addPhotoEl = app.MealEditor.el.addPhoto;
+    let photoHolderEl = app.MealEditor.el.photoHolder;
+    let addedCallback = (blob) => app.MealEditor.addPicture(blob);
+    let removedCallback = () => app.MealEditor.removePicture();
+    app.FoodImages.takePicture(sourceType, addPhotoEl, photoHolderEl, addedCallback, removedCallback);
+  },
+
+  addPicture: async function(blob) {
+    let sourceString = await app.FoodImages.imageBlobToBase64(blob);
+    app.MealEditor.meal_image_url = sourceString;
+  },
+
+  removePicture: function() {
+    app.MealEditor.meal_image_url = undefined;
+  },
+
   addItems: function(data) {
     let result = app.MealEditor.meal.items;
 
@@ -182,6 +232,8 @@ app.MealEditor = {
 
       if (app.MealEditor.meal.id !== undefined) data.id = app.MealEditor.meal.id;
       if (app.MealEditor.meal.items !== undefined) data.items = app.MealEditor.meal.items;
+
+      if (app.MealEditor.meal_image_url !== undefined) data.image_url = app.MealEditor.meal_image_url;
 
       data.dateTime = new Date();
 
@@ -284,6 +336,7 @@ document.addEventListener("page:init", function(event) {
     app.MealEditor.meal = {
       items: []
     };
+    app.MealEditor.meal_image_url = undefined;
 
     app.MealEditor.init(context);
   }
