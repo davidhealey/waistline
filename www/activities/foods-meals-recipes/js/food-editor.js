@@ -66,7 +66,7 @@ app.FoodEditor = {
 
     if (app.FoodEditor.item) {
       this.populateFields(app.FoodEditor.item);
-      this.populateImage(app.FoodEditor.item);
+      this.populateMainImage(app.FoodEditor.item);
     }
 
     if (app.FoodEditor.item && app.FoodEditor.item.category !== undefined)
@@ -100,10 +100,10 @@ app.FoodEditor = {
     app.FoodEditor.el.ttsIcon = document.querySelector(".page[data-name='food-editor'] #tts-icon");
     app.FoodEditor.el.nutritionButton = document.querySelector(".page[data-name='food-editor'] #nutrition-button");
     app.FoodEditor.el.mainPhoto = document.querySelector(".page[data-name='food-editor'] #main-photo");
-    app.FoodEditor.el.addPhoto = Array.from(document.getElementsByClassName("add-photo"));
-    app.FoodEditor.el.addPhotoCamera = Array.from(document.getElementsByClassName("add-photo-camera"));
-    app.FoodEditor.el.addPhotoLibrary = Array.from(document.getElementsByClassName("add-photo-library"));
-    app.FoodEditor.el.photoHolder = Array.from(document.getElementsByClassName("photo-holder"));
+    app.FoodEditor.el.addPhoto = Array.from(document.querySelectorAll(".page[data-name='food-editor'] .add-photo"));
+    app.FoodEditor.el.addPhotoCamera = Array.from(document.querySelectorAll(".page[data-name='food-editor'] .add-photo-camera"));
+    app.FoodEditor.el.addPhotoLibrary = Array.from(document.querySelectorAll(".page[data-name='food-editor'] .add-photo-library"));
+    app.FoodEditor.el.photoHolder = Array.from(document.querySelectorAll(".page[data-name='food-editor'] .photo-holder"));
   },
 
   bindUIActions: function() {
@@ -466,59 +466,16 @@ app.FoodEditor = {
     app.FoodEditor.el.quantity.oldValue = app.FoodEditor.el.quantity.value;
   },
 
-  populateImage: function(item) {
+  populateMainImage: function(item) {
     app.FoodEditor.item_image_url = item.image_url;
 
-    app.FoodEditor.el.mainPhoto.style.display = "none";
+    let mainPhotoEl = app.FoodEditor.el.mainPhoto;
+    let addPhotoEl = app.FoodEditor.el.addPhoto[0];
+    let photoHolderEl = app.FoodEditor.el.photoHolder[0];
+    let removable = (app.FoodEditor.origin == "foodlist");
+    let removedCallback = () => app.FoodEditor.removePicture(0);
 
-    if (item.image_url !== undefined && item.image_url !== "" && item.image_url !== "undefined") {
-
-      if (app.Settings.get("foodlist", "show-images")) {
-
-        if (item.image_url.startsWith("http")) {
-          let wifiOnly = app.Settings.get("foodlist", "wifi-images");
-          if (app.mode == "development") wifiOnly = false;
-
-          if (navigator.connection.type !== "none") {
-            if ((wifiOnly && navigator.connection.type == "wifi") || !wifiOnly) {
-              let src = unescape(item.image_url);
-              app.FoodEditor.insertImageEl(0, src, false);
-            }
-          }
-        } else {
-          let removable = (app.FoodEditor.origin == "foodlist");
-          app.FoodEditor.insertImageEl(0, item.image_url, removable);
-        }
-      }
-    } else if (app.FoodEditor.origin == "foodlist") {
-      app.FoodEditor.el.mainPhoto.style.display = "block";
-      app.FoodEditor.el.addPhoto[0].style.display = "flex";
-      app.FoodEditor.el.photoHolder[0].innerHTML = "";
-    }
-  },
-
-  insertImageEl: function(index, src, removable) {
-    const holder = app.FoodEditor.el.photoHolder[index];
-    holder.innerHTML = "";
-
-    app.FoodEditor.el.mainPhoto.style.display = "block";
-    app.FoodEditor.el.addPhoto[index].style.display = "none";
-
-    let img = document.createElement("img");
-    img.src = src;
-    img.style["max-width"] = "80vw";
-    img.style["max-height"] = "40vh";
-
-    if (removable == true) {
-      holder.classList.add("ripple");
-      img.addEventListener("taphold", function(e) {
-        app.FoodEditor.removePicture(index);
-      });
-    } else {
-      holder.classList.remove("ripple");
-    }
-
-    holder.appendChild(img);
+    app.FoodImages.populateMainImage(mainPhotoEl, addPhotoEl, photoHolderEl, item, removable, removedCallback);
   },
 
   changeServing: function(item, field, newValue) {
@@ -563,87 +520,28 @@ app.FoodEditor = {
   },
 
   takePicture: function(index, sourceType) {
+    let addPhotoEl = app.FoodEditor.el.addPhoto[index];
+    let photoHolderEl = app.FoodEditor.el.photoHolder[index];
+    let addedCallback = (blob) => app.FoodEditor.addPicture(index, blob);
+    let removedCallback = () => app.FoodEditor.removePicture(index);
+    app.FoodImages.takePicture(sourceType, addPhotoEl, photoHolderEl, addedCallback, removedCallback);
+  },
 
-    let destinationType = Camera.DestinationType.FILE_URI;
-
-    // Pictures from the library must be retrieved as base64 data to avoid permission errors
-    if (sourceType === Camera.PictureSourceType.PHOTOLIBRARY)
-      destinationType = Camera.DestinationType.DATA_URL;
-
-    let options = {
-      "sourceType": sourceType,
-      "destinationType": destinationType,
-      "saveToPhotoAlbum": false,
-      "quality": 25
-    };
-
-    navigator.camera.getPicture(onSuccess, onError, options);
-
-    function onSuccess(image) {
-      (async () => {
-
-        let blob;
-        if (sourceType === Camera.PictureSourceType.PHOTOLIBRARY) {
-          let uri = "data:image/jpeg;base64," + image;
-          let res = await fetch(uri);
-          blob = await res.blob();
-        } else {
-          if (app.Settings.get("integration", "edit-images") == true) {
-            let newPath = await app.Utils.cropImage(image);
-            blob = await app.Utils.fileToBlob(newPath);
-          } else {
-            blob = await app.Utils.fileToBlob(image);
-          }
-        }
-
-        if (app.FoodEditor.scan == true) {
-          app.FoodEditor.images[index] = blob;
-        } else {
-          app.f7.preloader.show();
-          let resizedBlob = await app.Utils.resizeImageBlob(blob, "jpeg");
-          let sourceString = await app.Utils.blobToBase64(resizedBlob);
-          app.f7.preloader.hide();
-          app.FoodEditor.item_image_url = sourceString;
-        }
-
-        let blobUrl = URL.createObjectURL(blob);
-        app.FoodEditor.insertImageEl(index, blobUrl, true);
-      })();
-    }
-
-    function onError(err) {
-      let msg = app.strings.dialogs["camera-problem"] || "There was a problem accessing your camera.";
-      app.Utils.toast(msg);
-      console.error(err);
+  addPicture: async function(index, blob) {
+    if (app.FoodEditor.scan == true) {
+      app.FoodEditor.images[index] = blob;
+    } else {
+      let sourceString = await app.FoodImages.imageBlobToBase64(blob);
+      app.FoodEditor.item_image_url = sourceString;
     }
   },
 
   removePicture: function(index) {
-    let title = app.strings.dialogs.delete || "Delete";
-    let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
-
-    let dialog = app.f7.dialog.create({
-      title: title,
-      content: app.Utils.getDialogTextDiv(text),
-      buttons: [{
-          text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: app.Utils.escapeKeyCode
-        },
-        {
-          text: app.strings.dialogs.delete || "Delete",
-          keyCodes: app.Utils.enterKeyCode,
-          onClick: () => {
-            app.FoodEditor.el.addPhoto[index].style.display = "flex";
-            app.FoodEditor.el.photoHolder[index].innerHTML = "";
-
-            if (app.FoodEditor.scan == true)
-              app.FoodEditor.images[index] = undefined;
-            else
-              app.FoodEditor.item_image_url = undefined;
-          }
-        }
-      ]
-    }).open();
+    if (app.FoodEditor.scan == true) {
+      app.FoodEditor.images[index] = undefined;
+    } else {
+      app.FoodEditor.item_image_url = undefined;
+    }
   },
 
   gatherFormData: function(data, origin) {
@@ -863,7 +761,7 @@ app.FoodEditor = {
         }
         app.FoodEditor.populateFields(item);
         if (getImage) {
-          app.FoodEditor.populateImage(item);
+          app.FoodEditor.populateMainImage(item);
         }
         if (getNutriments) {
           app.FoodEditor.renderNutritionFields(item);
