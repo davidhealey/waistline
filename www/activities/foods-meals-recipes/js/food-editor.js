@@ -944,3 +944,9 @@ document.addEventListener("page:init", function(event) {
     app.FoodEditor.init(context);
   }
 });
+
+document.addEventListener("page:beforeout", function(event) {
+  if (event.target.matches(".page[data-name='food-editor']")) {
+    app.TTS.stop();
+  }
+});
