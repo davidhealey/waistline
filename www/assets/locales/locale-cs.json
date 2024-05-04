@@ -186,6 +186,10 @@
     "nutrition": "Výživové hodnoty",
     "per-100": "Na 100g/100ml",
     "per-serving": "Na porci",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Další fotografie",
     "ingredients": "Složení",
     "packaging": "Pokyny pro recyklaci / informace o balení",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Diář",
       "categories": "Kategorie",
+      "brands": "Zobrazit značky",
       "timestamps": "Zobrazovat časové údaje",
       "thumbnails": "Zobrazit miniatury",
       "wifi-thumbnails": "Zobrazit miniatury pouze přes Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Adresa služby",
       "data-sharing-authorization": "Hlavička ověření služby"
     },
+    "text-to-speech": {
+      "title": "Převod textu na řeč",
+      "test": "Otestovat aktuální nastavení",
+      "speed": "Rychlost",
+      "pitch": "Výška hlasu",
+      "voice": "Hlas",
+      "default": "Výchozí",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Import/export",
       "auto-backup": "Automatické Zálohování",
@@ -375,8 +389,9 @@
     "title": "O aplikaci",
     "p0": "Waistline bylo vytvořeno Daviden Healeyem s nápady a příspěvky uživatelů.",
     "p1": "Waistline bylo sestaveno pomocí Cordova pod licencí Apache. Též obsahuje Framework7, jQuery, jQuery localize, a ChartJS pod licencí MIT. HTML, CSS a JS jsou pod licencí GPLv3.",
-    "p2": "Zdrojový kód Waistline lze najít na",
-    "p3": "Současná verze:"
+    "source-code": "Zdrojový kód",
+    "user-guide": "Uživatelská příručka / Časté otázky",
+    "version": "Aktuální verze:"
   },
   "locale": {
     "auto": "Rozpoznat automaticky",

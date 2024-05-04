@@ -186,6 +186,10 @@
     "nutrition": "Wartości odżywcze",
     "per-100": "Na 100g/100ml",
     "per-serving": "Na porcję",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Dodatkowe zdjęcia",
     "ingredients": "Lista składników",
     "packaging": "Instrukcje dotyczące recyklingu / informacje o opakowaniu",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Dziennik",
       "categories": "Kategorie",
+      "brands": "Pokaż marki",
       "timestamps": "Pokaż znaczniki czasu",
       "thumbnails": "Pokaż miniatury",
       "wifi-thumbnails": "Pokazuj miniatury tylko przez Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Adres usługi",
       "data-sharing-authorization": "Nagłówek autoryzacji usługi"
     },
+    "text-to-speech": {
+      "title": "Zamiana tekstu na mowę",
+      "test": "Przetestuj obecne ustawienia",
+      "speed": "Szybkość",
+      "pitch": "Wysokość głosu",
+      "voice": "Głos",
+      "default": "Domyślne",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Import/eksport",
       "auto-backup": "Automatyczna kopia zapasowa",
@@ -351,7 +365,7 @@
       "usda-note-1": "aby poprosić o darmowy klucz API.",
       "username": "Nazwa użytkownika",
       "password": "Hasło",
-      "off-account-note": "This is entirely optional. You do not need an OFF account to use the app.",
+      "off-account-note": "To jest całkowicie opcjonalne. Nie potrzebujesz konta OFF, aby używać aplikacji.",
       "sign-in": "Zaloguj się",
       "exit": "Wyjście",
       "save": "Zapisz",
@@ -375,13 +389,14 @@
     "title": "O aplikacji",
     "p0": "Waistline został utworzony przez Davida Healey z sugestiami i wkładami użytkowników.",
     "p1": "Waistline został zbudowany przy użyciu Cordova dostępnej na licencji Apache. Zawiera również Framework7, jQuery, jQuery localize i ChartJS, które są na licencji MIT. HTML, CSS i inne javascript stanowiące główny element aplikacji są na licencji GPLv3.",
-    "p2": "Kod źródłowy dla Waistline można znaleźć na",
-    "p3": "Bieżąca wersja:"
+    "source-code": "Kod źródłowy",
+    "user-guide": "Instrukcja obsługi / FAQ",
+    "version": "Obecna wersja:"
   },
   "locale": {
     "auto": "Wykrywaj automatycznie",
     "bulgarian": "Bułgarski",
-    "czech": "Czech",
+    "czech": "czeski",
     "dutch": "Holenderski",
     "english": "Angielski",
     "finnish": "Fiński",
@@ -391,7 +406,7 @@
     "italian": "Włoski",
     "polish": "Polski",
     "portuguese": "Portugalski",
-    "romanian": "Romanian",
+    "romanian": "rumuński",
     "russian": "Rosyjski",
     "serbian-cyrillic": "Serbski (cyrylica)",
     "serbian-latin": "Serbski (alfabet łaciński)",

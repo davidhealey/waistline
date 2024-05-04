@@ -186,6 +186,10 @@
     "nutrition": "Ravintosisältö",
     "per-100": "100 g / 100 ml kohden",
     "per-serving": "Annosta kohden",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Additional Photos",
     "ingredients": "Ingredients list",
     "packaging": "Recycling instructions / packaging information",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Päiväkirja",
       "categories": "Kategoriat",
+      "brands": "Show Brands",
       "timestamps": "Näytä aikaleimat",
       "thumbnails": "Näytä esikatselukuvat",
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Service Address",
       "data-sharing-authorization": "Service Authorization Header"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Oletus",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Tuo / Vie",
       "auto-backup": "Automaattinen varmuuskopiointi",
@@ -375,8 +389,9 @@
     "title": "Tietoja",
     "p0": "Waistlinen on kehittänyt David Healey, työssä hyödynnetty myös käyttäjäehdotuksia ja osallistumisia kehitykseen.",
     "p1": "Waistline rakennettiin käyttäen Cordovaa, joka on saatavilla Apache-lisenssin alaisena. Mukana ovat myös Framework7, jQuery, jQuery localize ja ChartJS, jotka ovat MIT-lisenssin alaisia. Sovelluksen pääosan muodostavat HTML, CSS ja muu javascript ovat GPLv3-lisenssin alaisia.",
-    "p2": "Waistline lähdekoodi on saatavilla osoitteessa",
-    "p3": "Nykyinen versio:"
+    "source-code": "Source Code",
+    "user-guide": "User Guide / FAQ",
+    "version": "Current version:"
   },
   "locale": {
     "auto": "Tunnista Automaattisesti",

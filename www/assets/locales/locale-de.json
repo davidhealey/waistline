@@ -186,6 +186,10 @@
     "nutrition": "Nährwerte",
     "per-100": "Pro 100 g / 100 ml",
     "per-serving": "Pro Portion",
+    "image": "Bild",
+    "name-and-brand": "Name und Marke",
+    "nutriments-per-serving": "Nährstoffe pro Portion",
+    "nutriments-per-100": "Nährstoffe pro 100g/100ml",
     "additional-photos": "Zusätzliche Bilder",
     "ingredients": "Zutatenliste",
     "packaging": "Recyclinghinweise / Verpackungsinformationen",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Tagebuch",
       "categories": "Kategorien",
+      "brands": "Marken anzeigen",
       "timestamps": "Uhrzeiten anzeigen",
       "thumbnails": "Vorschaubilder anzeigen",
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Adresse des Dienstes",
       "data-sharing-authorization": "Authorization Header des Dienstes"
     },
+    "text-to-speech": {
+      "title": "Text zu Sprache",
+      "test": "Aktuelle Einstellungen testen",
+      "speed": "Geschwindigkeit",
+      "pitch": "Stimmhöhe",
+      "voice": "Stimme",
+      "default": "Standard",
+      "locale": "Zahlenformat Gebietsschema (optional)"
+    },
     "import-export": {
       "title": "Importieren/Exportieren",
       "auto-backup": "Automatische Sicherung",
@@ -375,8 +389,9 @@
     "title": "Über",
     "p0": "Waistline wurde von David Healey entwickelt und von verschiedenen GitHub-Nutzern durch Vorschläge und Anpassungen unterstützt.",
     "p1": "Waistline wurde mit dem Cordova Framework und OnsenUI erstellt, was unter der Apache Lizenz verfügbar ist. Ebenfalls verwendet wurden jQuery, jQuery localize und ChartJS, welche unter der MIT Lizenz stehen. HTML, CSS und JavaScript, die das Hauptgerüst der App bilden, gehören zur GPLv3 Lizenz.",
-    "p2": "Den Quellcode von Waistline findest du unter",
-    "p3": "Aktuelle Version:"
+    "source-code": "Quellcode",
+    "user-guide": "Anleitung / FAQ",
+    "version": "Aktuelle Version:"
   },
   "locale": {
     "auto": "Automatisch erkennen",

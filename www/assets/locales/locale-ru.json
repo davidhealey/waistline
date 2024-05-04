@@ -186,6 +186,10 @@
     "nutrition": "Пищевая ценность",
     "per-100": "На 100г/100мл",
     "per-serving": "На порцию",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Дополнительные фотографии",
     "ingredients": "Список ингредиентов",
     "packaging": "Инструкции по переработке / информация об упаковке",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Дневник",
       "categories": "Категории",
+      "brands": "Show Brands",
       "timestamps": "Показать метки времени",
       "thumbnails": "Показывать миниатюры",
       "wifi-thumbnails": "Показывать миниатюры только по Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Адрес сервера",
       "data-sharing-authorization": "Заголовок авторизации сервиса"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "По умолчанию",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Импорт/Экспорт",
       "auto-backup": "Автоматическое резервное копирование",
@@ -375,8 +389,9 @@
     "title": "О программе",
     "p0": "Waistline был создан David Healey с предложениями и вкладами пользователей.",
     "p1": "Waistline был собран с использованием фреймворка Cordova и OnsenUI, которые доступны по лицензии Apache. Также включены jQuery, jQuery localize и ChartJS, которые находятся под лицензией MIT. HTML, CSS и JavaScript, составляющие основную часть приложения, находятся под лицензией GPLv3.",
-    "p2": "Исходный код Waistline можно найти на",
-    "p3": "Текущая версия:"
+    "source-code": "Source Code",
+    "user-guide": "User Guide / FAQ",
+    "version": "Current version:"
   },
   "locale": {
     "auto": "Определять автоматически",

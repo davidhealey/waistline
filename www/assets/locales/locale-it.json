@@ -186,6 +186,10 @@
     "nutrition": "Nutrizione",
     "per-100": "Per 100g/100ml",
     "per-serving": "Per porzione",
+    "image": "Immagine",
+    "name-and-brand": "Nome e marchio",
+    "nutriments-per-serving": "Nutrienti per porzione",
+    "nutriments-per-100": "Nutrienti per 100g/100ml",
     "additional-photos": "Foto ulteriori",
     "ingredients": "Lista degli ingredienti",
     "packaging": "Istruzioni per il riciclaggio e/o informazioni sull'imballaggio",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Diario",
       "categories": "Categorie",
+      "brands": "Mostra marchi",
       "timestamps": "Mostra i marcatori temporali",
       "thumbnails": "Mostra le anteprime",
       "wifi-thumbnails": "Mostra le anteprime solo con la Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Indirizzo del servizio",
       "data-sharing-authorization": "Intestazione autorizzazione servizio"
     },
+    "text-to-speech": {
+      "title": "Sintesi vocale",
+      "test": "Prova le impostazioni correnti",
+      "speed": "Velocità",
+      "pitch": "Tono voce",
+      "voice": "Voce",
+      "default": "Predefinito",
+      "locale": "Località per la formattazione dei numeri (opzionale)"
+    },
     "import-export": {
       "title": "Importa/esporta",
       "auto-backup": "Backup automatico",
@@ -375,8 +389,9 @@
     "title": "Riguardo",
     "p0": "Waistline è stata creata da David Healey con i suggerimenti e i contributi degli utenti.",
     "p1": "Waistline è stata realizzata utilizzando Cordova, disponibile sotto la licenza Apache. L'applicazione include anche: Framework7, jQuery, jQuery localize, e ChartJS i quali sono sotto licenza MIT. L'HTML, CSS, e altro javascript che fanno parte del corpo principale dell'applicazione sono sotto la licenza GPLv3.",
-    "p2": "Il codice sorgente di waistline può essere trovato a",
-    "p3": "Versione attuale:"
+    "source-code": "Codice sorgente",
+    "user-guide": "Guida utente / domande frequenti",
+    "version": "Versione attuale:"
   },
   "locale": {
     "auto": "Rileva automaticamente",

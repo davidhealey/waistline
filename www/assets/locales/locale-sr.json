@@ -186,6 +186,10 @@
     "nutrition": "Нутритивне вредности",
     "per-100": "На 100g/100ml",
     "per-serving": "По послужењу",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Додатне фотографије",
     "ingredients": "Састојци",
     "packaging": "Упутства за рециклажу / информације на поковању",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Дневник",
       "categories": "Категорије",
+      "brands": "Прикажи марке",
       "timestamps": "Прикажи времена",
       "thumbnails": "Прикажи сличице",
       "wifi-thumbnails": "Прикажи сличице само на Wi-Fi-ју",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Адреса сервиса",
       "data-sharing-authorization": "Заглавље ауторизације сервиса"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Подразумевано",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Увоз/Извоз",
       "auto-backup": "Аутоматске резервне копије",
@@ -351,7 +365,7 @@
       "usda-note-1": "да затражите бесплатан АПИ кључ.",
       "username": "Корисничко име",
       "password": "Лозинка",
-      "off-account-note": "This is entirely optional. You do not need an OFF account to use the app.",
+      "off-account-note": "Ово је у потпуности изборно. Није вам потребан ОФФ налог да би сте користили ову апликацију.",
       "sign-in": "Пријави се",
       "exit": "Изађи",
       "save": "Сачувај",
@@ -375,13 +389,14 @@
     "title": "О програму",
     "p0": "Waistline је направио Дејвид Хејли са саветима и доприносима од стране корисника.",
     "p1": "Waistline је изграђен употребом Cordova-е доступне под Apache дозволом. У програму су такође Framework7, jQuery, jQuery локализација, и ChartJS који су под MIT дозволом. HTML, CSS, и JavaScript који сачињавају главно тело апликације су под GPLv3 дозволом.",
-    "p2": "Изворни код за Waistline може да се пронађе на",
-    "p3": "Тренутна верзија:"
+    "source-code": "Изворни код",
+    "user-guide": "Корисничко упутство/ЧПП",
+    "version": "Тренутна верзија:"
   },
   "locale": {
     "auto": "Откриј аутоматски",
     "bulgarian": "Бугарски",
-    "czech": "Czech",
+    "czech": "Чешки",
     "dutch": "Холандски",
     "english": "Енглески",
     "finnish": "Фински",
@@ -391,7 +406,7 @@
     "italian": "Италијански",
     "polish": "Пољски",
     "portuguese": "Португалски",
-    "romanian": "Romanian",
+    "romanian": "Румунски",
     "russian": "Руски",
     "serbian-cyrillic": "Српски (ћирилица)",
     "serbian-latin": "Српски (латиница)",

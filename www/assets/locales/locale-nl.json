@@ -186,6 +186,10 @@
     "nutrition": "Voedingswaarde",
     "per-100": "Per 100g/100ml",
     "per-serving": "Per portie",
+    "image": "Afbeelding",
+    "name-and-brand": "Naam en merk",
+    "nutriments-per-serving": "Voedingswaarden per portie",
+    "nutriments-per-100": "Voedingswaarden per 100g/100ml",
     "additional-photos": "Extra afbeeldingen",
     "ingredients": "Ingrediëntenlijst",
     "packaging": "Recyclinginstructies / verpakkingsinformatie",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Dagboek",
       "categories": "Categorieën",
+      "brands": "Toon merken",
       "timestamps": "Toon tijdstempel",
       "thumbnails": "Toon voorvertoning",
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Adres van de dienst",
       "data-sharing-authorization": "Authorization Header voor de dienst"
     },
+    "text-to-speech": {
+      "title": "Tekst-naar-spraak",
+      "test": "Huidige instellingen controleren",
+      "speed": "Snelheid",
+      "pitch": "Toonhoogte stem",
+      "voice": "Stem",
+      "default": "Standaard",
+      "locale": "Lokalisatie voor nummeropmaak (optioneel)"
+    },
     "import-export": {
       "title": "Importeren/exporten",
       "auto-backup": "Automatische backup",
@@ -375,8 +389,9 @@
     "title": "Over",
     "p0": "Waistline is ontwikkeld door David Healey met suggesties en bijdragen van gebruikers.",
     "p1": "Waistline gebouwd met Cordova en is beschikbaar gesteld via de Apache-licentie. Ook meegeleverd zijn Framework7, jQuery, jQuery localize, en ChartJS, beschikbaar gesteld via de MIT-licentie. De HTML, CSS en overige javascript die de app opmaken zijn beschikbaar gesteld via de GPLv3-licentie.",
-    "p2": "De broncode van Waistline is beschikbaar op",
-    "p3": "Huidige versie:"
+    "source-code": "Broncode",
+    "user-guide": "Gebruikershandleiding / FAQ",
+    "version": "Huidige versie:"
   },
   "locale": {
     "auto": "Automatisch detecteren",

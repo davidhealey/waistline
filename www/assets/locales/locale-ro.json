@@ -186,6 +186,10 @@
     "nutrition": "Informații nutriționale",
     "per-100": "Pentru 100g/100ml",
     "per-serving": "Pe porție",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Fotografii suplimentare",
     "ingredients": "Listă de ingrediente",
     "packaging": "Instrucțiuni de reciclare/informaţii privind ambalarea",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Jurnal",
       "categories": "Categorii",
+      "brands": "Arată brandul",
       "timestamps": "Arată marcajele de timp",
       "thumbnails": "Arată pictogramele",
       "wifi-thumbnails": "Arată pictogramele numai prin Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Adresă de service",
       "data-sharing-authorization": "Service Authorization Header"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Testează setările curente",
+      "speed": "Viteză",
+      "pitch": "Tonul vocii",
+      "voice": "Voce",
+      "default": "Implicit",
+      "locale": "Formatul numerelor (opțional)"
+    },
     "import-export": {
       "title": "Import/export",
       "auto-backup": "Backup automat",
@@ -375,8 +389,9 @@
     "title": "Despre",
     "p0": "Waistline a fost creat de David Healey cu sugestii și contribuții din partea utilizatorilor.",
     "p1": "Waistline a fost construit folosind Cordova disponibil sub licența Apache. De asemenea, sunt incluse Framework7, jQuery, jQuery localize și ChartJS care sunt sub licența MIT. HTML, CSS și alte JavaScript care formează corpul principal al aplicației sunt sub licența GPLv3.",
-    "p2": "Codul sursă pentru Waistline poate fi găsit la",
-    "p3": "Versiunea actuală:"
+    "source-code": "Cod sursă",
+    "user-guide": "Manual de utilizare / FAQ",
+    "version": "Versiunea actuală:"
   },
   "locale": {
     "auto": "Detectează automat",

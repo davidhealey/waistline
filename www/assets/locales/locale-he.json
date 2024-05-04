@@ -186,6 +186,10 @@
     "nutrition": "תזונה",
     "per-100": "ל־100ג׳/100מ״ל",
     "per-serving": "להגשה",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "תמונות נוספות",
     "ingredients": "רשימת רכיבים",
     "packaging": "הנחיות מיחזור / פרטי אריזה",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "יומן",
       "categories": "קטגוריות",
+      "brands": "הצגת מותגים",
       "timestamps": "הצגת חותמות זמן",
       "thumbnails": "הצגת תמונות ממוזערות",
       "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
@@ -319,6 +324,15 @@
       "data-sharing-address": "כתובת השירות",
       "data-sharing-authorization": "כותרת אימות השירות"
     },
+    "text-to-speech": {
+      "title": "הקראה",
+      "test": "בדיקת ההגדרות הנוכחיות",
+      "speed": "מהירות",
+      "pitch": "גובה קול",
+      "voice": "קול",
+      "default": "ברירת מחדל",
+      "locale": "הגדרות אזוריות למספרים (רשות)"
+    },
     "import-export": {
       "title": "ייבוא/ייצוא",
       "auto-backup": "גיבוי אוטומטי",
@@ -339,7 +353,7 @@
       "country": "מדינת חיפוש",
       "upload-country": "מדינת ההעלאה",
       "all-countries": "הכול",
-      "default": "בררת מחדל",
+      "default": "ברירת מחדל",
       "auto": "זיהוי אוטומטי",
       "usda-title": "משרד החקלאות של ארה״ב",
       "usda": "הפעלת חיפוש ב־USDA",
@@ -375,8 +389,9 @@
     "title": "על אודות",
     "p0": "היישומון Waistline נוצר על ידי David Healey בחיזוק הצעות ותרומות משתמשים.",
     "p1": "היישומון Waistline נבנה על גבי Cordova שזמינה בכפוף לרישיון Apache. בנוסף נכללות המערכות Framework7,‏ jQuery,‏ jQuery localize ו־ChartJS שכפופות לרישיון MIT. תשתיות ה־HTML,‏ ה־CSS ושאר ה־javascript שמרכיבות את הגוף הראשי של היישומון כפופות לרישיון GPLv3.",
-    "p2": "את קוד המקור של Waistline אפשר למצוא תחת",
-    "p3": "גרסה נוכחית:"
+    "source-code": "קוד מקור",
+    "user-guide": "מדריך למשתמשים / שו״ת",
+    "version": "גרסה נוכחית:"
   },
   "locale": {
     "auto": "זיהוי אוטומטי",

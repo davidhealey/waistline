@@ -186,6 +186,10 @@
     "nutrition": "Поживна цінність",
     "per-100": "На 100г/100мл",
     "per-serving": "На порцію",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Additional Photos",
     "ingredients": "Ingredients list",
     "packaging": "Recycling instructions / packaging information",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Щоденник",
       "categories": "Категорії",
+      "brands": "Show Brands",
       "timestamps": "Показувати часові мітки",
       "thumbnails": "Показувати ескізи",
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Service Address",
       "data-sharing-authorization": "Service Authorization Header"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Типово",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Імпорт/Експорт",
       "auto-backup": "Автоматична резервна копія",
@@ -375,8 +389,9 @@
     "title": "Про застосунок",
     "p0": "Waistline створив David Healey з пропозиціями та співпрацею користувачів.",
     "p1": "Waistline побудовано з використанням Cordova і знаходиться під ліцензією Apache. Також містить Framework7, jQuery, jQuery localize та ChartJS, що під ліцензією MIT. HTML, CSS та інший javascript складають основне тіло програми й знаходяться під ліцензією GPLv3.",
-    "p2": "Вихідний код Waistline можна знайти за адресою",
-    "p3": "Поточна версія:"
+    "source-code": "Source Code",
+    "user-guide": "User Guide / FAQ",
+    "version": "Current version:"
   },
   "locale": {
     "auto": "Визначити автоматично",

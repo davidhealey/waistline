@@ -186,6 +186,10 @@
     "nutrition": "Besin Değeri",
     "per-100": "100g/100ml için",
     "per-serving": "Porsiyon Başına",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Ek Fotoğraflar",
     "ingredients": "İçindekiler listesi",
     "packaging": "Geri dönüşüm talimatları / paketleme bilgileri",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Günlük",
       "categories": "Kategoriler",
+      "brands": "Markaları Göster",
       "timestamps": "Zaman Bilgisini Göster",
       "thumbnails": "Küçük Resimleri Göster",
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Kaynak Adresi",
       "data-sharing-authorization": "Hizmet Yetkilendirme Başlığı"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Varsayılan",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "İçe Aktar/Dışa Aktar",
       "auto-backup": "Otomatik Yedekle",
@@ -375,8 +389,9 @@
     "title": "Hakkında",
     "p0": "Waistline, kullanıcıların önerileri ve katkılarıyla birlikte David Healey tarafından oluşturuldu.",
     "p1": "Waistline, Apache lisansı altında bulunan Cordova kullanılarak oluşturulmuştur. Ayrıca MIT lisansı altındaki Framework7, jQuery, jQuery localize ve ChartJS kullanılmıştır. Uygulamanın temel yapısını oluşturan HTML, CSS ve diğer javascript, GPLv3 lisansı altındadır.",
-    "p2": "Waistline'in kaynak kodlarına bu adresten ulaşabilirsiniz",
-    "p3": "Mevcut sürüm:"
+    "source-code": "Kaynak Kodu",
+    "user-guide": "Kullanıcı Kılavuzu / SSS",
+    "version": "Mevcut sürüm:"
   },
   "locale": {
     "auto": "Otomatik Algıla",

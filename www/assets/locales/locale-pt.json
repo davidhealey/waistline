@@ -186,6 +186,10 @@
     "nutrition": "Fatos nutricionais",
     "per-100": "Por 100g/100ml",
     "per-serving": "Por porção",
+    "image": "Image",
+    "name-and-brand": "Name and Brand",
+    "nutriments-per-serving": "Nutrients per serving",
+    "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Additional Photos",
     "ingredients": "Ingredients list",
     "packaging": "Recycling instructions / packaging information",
@@ -250,6 +254,7 @@
     "diary": {
       "title": "Diário",
       "categories": "Categorias",
+      "brands": "Show Brands",
       "timestamps": "Mostrar Horários",
       "thumbnails": "Mostrar miniaturas",
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
@@ -319,6 +324,15 @@
       "data-sharing-address": "Service Address",
       "data-sharing-authorization": "Service Authorization Header"
     },
+    "text-to-speech": {
+      "title": "Text To Speech",
+      "test": "Test current settings",
+      "speed": "Speed",
+      "pitch": "Voice Pitch",
+      "voice": "Voice",
+      "default": "Default",
+      "locale": "Number formatting locale (optional)"
+    },
     "import-export": {
       "title": "Importar/Exportar",
       "auto-backup": "Backup automático",
@@ -375,8 +389,9 @@
     "title": "Sobre",
     "p0": "O Waistline foi criado por David Healey com sugestões e contribuições de usuários.",
     "p1": "Waistline foi feito usando Cordova, disponível sob a licença Apache. Também foram usados Framework7, jQuery, jQuery localize e ChartJS que estão sob a licença MIT. HTML, CSS e outros códigos javascript que compõem o corpo principal da aplicação foram licenciados pela GPLv3.",
-    "p2": "The source code for Waistline can be found at",
-    "p3": "Current version:"
+    "source-code": "Source Code",
+    "user-guide": "User Guide / FAQ",
+    "version": "Current version:"
   },
   "locale": {
     "auto": "Detectar automaticamente",
