@@ -36,7 +36,7 @@ app.MealEditor = {
         app.MealEditor.populateMainImage(context.meal);
       }
 
-      app.FoodsMealsRecipes.populateCategoriesField(app.MealEditor.el.categories, app.MealEditor.meal, false, true, true);
+      app.FoodsMealsRecipes.populateCategoriesField(app.MealEditor.el.categories, app.MealEditor.meal, false, false, true, true);
 
       // From food list
       if (context.items)

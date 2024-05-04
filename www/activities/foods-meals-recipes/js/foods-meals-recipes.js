@@ -292,10 +292,7 @@ app.FoodsMealsRecipes = {
           if (item.categories) {
             if (!item.categories.includes(category))
               return false;
-          } else if (noCategoryFilter !== -1 && !item.categories) {
-            return true;
-          }
-          else {
+          } else if (noCategoryFilter === -1 || categoriesFilter.length >= 2) {
             return false;
           }
         }
@@ -703,15 +700,17 @@ app.FoodsMealsRecipes = {
     });
   },
 
-  populateCategoriesField: function(element, item, appendArchivedAndEmptyCategory, enablePicker, enableRipple, pickerEventHandlers) {
+  populateCategoriesField: function(element, item, appendNoCategory, appendArchived, enablePicker, enableRipple, pickerEventHandlers) {
     let labels = app.Settings.get("foodlist", "labels") || [];
     let categories = app.Settings.get("foodlist", "categories") || {};
 
-    if (appendArchivedAndEmptyCategory) {
-      labels.push(app.FoodsCategories.archivedLabel);
+    if (appendNoCategory && labels.length > 0) {
       labels.push(app.FoodsCategories.noCategoryLabel);
     }
 
+    if (appendArchived) {
+      labels.push(app.FoodsCategories.archivedLabel);
+    }
 
     if (enablePicker) {
       let select = document.createElement("select");
