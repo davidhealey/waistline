@@ -325,11 +325,11 @@
       "data-sharing-authorization": "En-tête d'autorisation du service"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
+      "title": "Synthèse vocale",
+      "test": "Tester les paramètres actuels",
+      "speed": "Vitesse",
       "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "voice": "Voix",
       "default": "Défault",
       "locale": "Number formatting locale (optional)"
     },
@@ -389,9 +389,9 @@
     "title": "À propos",
     "p0": "Waistline a été créé par David Healey avec les suggestions et contributions des utilisateurs·rices.",
     "p1": "Waistline a été construit à l’aide de Cordova disponible sous licence Apache. Sont inclus Framework7, jQuery, jQuery localize, et ChartJS sous licence MIT. Les composants HTML, CSS et Javascript sont sous licence GPLv3.",
-    "source-code": "Source Code",
-    "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "source-code": "Code source",
+    "user-guide": "Guide de l'utilisateur / FAQ",
+    "version": "Version actuelle :"
   },
   "locale": {
     "auto": "Détection automatique",
