@@ -337,12 +337,14 @@
       "title": "İçe Aktar/Dışa Aktar",
       "auto-backup": "Otomatik Yedekle",
       "backup": "Veritabanını Yedekle",
+      "share": "Share Backup File",
       "import": "Yedeklemeyi İçe Aktar",
       "import-foods-title": "Yemekleri İçe Aktar",
       "import-foods": "Yemekleri JSON'dan İçe Aktar",
       "import-foods-categories": "İçe aktarılan öğelerin kategorileri",
       "export-diary-title": "Günlüğü dışa aktar",
       "export-diary": "Günlüğü CSV'ye aktar",
+      "share-diary": "Share CSV File",
       "date": "Tarih"
     },
     "integration": {
