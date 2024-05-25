@@ -344,7 +344,7 @@ app.Settings = {
     }
   },
 
-  exportDatabase: async function() {
+  writeDatabaseBackupToFile: async function() {
     app.f7.preloader.show();
 
     let data = await dbHandler.export();
@@ -355,6 +355,12 @@ app.Settings = {
     let path = await app.Utils.writeFile(json, filename);
 
     app.f7.preloader.hide();
+
+    return path;
+  },
+
+  exportDatabase: async function() {
+    let path = await app.Settings.writeDatabaseBackupToFile();
 
     if (path !== undefined) {
       let msg = app.strings.settings.integration["export-success"] || "Database Exported";
@@ -410,7 +416,7 @@ app.Settings = {
     }
   },
 
-  exportDiary: async function() {
+  writeDiaryToCsvFile: async function() {
     app.f7.preloader.show();
 
     const nutriments = app.Nutriments.getNutriments();
@@ -498,6 +504,12 @@ app.Settings = {
     let path = await app.Utils.writeFile(csv, filename);
 
     app.f7.preloader.hide();
+
+    return path;
+  },
+
+  exportDiary: async function() {
+    let path = await app.Settings.writeDiaryToCsvFile();
 
     if (path !== undefined) {
       let msg = app.strings.settings.integration["export-success"] || "Database Exported";
