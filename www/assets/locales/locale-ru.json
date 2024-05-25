@@ -337,12 +337,14 @@
       "title": "Импорт/Экспорт",
       "auto-backup": "Автоматическое резервное копирование",
       "backup": "Резервное копирование базы данных",
+      "share": "Share Backup File",
       "import": "Импорт из резервной копии",
       "import-foods-title": "Импорт еды",
       "import-foods": "Импорт еды из JSON",
       "import-foods-categories": "Категории импортированных элементов",
       "export-diary-title": "Экспорт дневника",
       "export-diary": "Экспорт дневника в CSV",
+      "share-diary": "Share CSV File",
       "date": "Дата"
     },
     "integration": {
