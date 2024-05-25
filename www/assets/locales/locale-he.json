@@ -337,12 +337,14 @@
       "title": "ייבוא/ייצוא",
       "auto-backup": "גיבוי אוטומטי",
       "backup": "גיבוי מסד נתונים",
+      "share": "Share Backup File",
       "import": "ייבוא מגיבוי",
       "import-foods-title": "ייבוא מאכלים",
       "import-foods": "ייבוא מאכלים מ־JSON",
       "import-foods-categories": "קטגוריות לפריטים המיובאים",
       "export-diary-title": "ייצוא יומן",
       "export-diary": "ייצוא יומן ל־CSV",
+      "share-diary": "Share CSV File",
       "date": "תאריך"
     },
     "integration": {
