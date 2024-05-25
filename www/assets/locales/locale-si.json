@@ -337,12 +337,14 @@
       "title": "ආයාත/නිර්යාත",
       "auto-backup": "ස්වයංක්‍රීය උපස්ථය",
       "backup": "දත්තසමුදාය උපස්ථකරන්න",
+      "share": "Share Backup File",
       "import": "උපස්ථයකින් ආයාතකරන්න",
       "import-foods-title": "Import Foods",
       "import-foods": "Import Foods from JSON",
       "import-foods-categories": "Categories for imported items",
       "export-diary-title": "Export Diary",
       "export-diary": "Export Diary to CSV",
+      "share-diary": "Share CSV File",
       "date": "Date"
     },
     "integration": {
