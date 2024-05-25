@@ -337,12 +337,14 @@
       "title": "Import/export",
       "auto-backup": "Backup automat",
       "backup": "Backup bază de date",
+      "share": "Share Backup File",
       "import": "Importă din backup",
       "import-foods-title": "Importă alimente",
       "import-foods": "Importă alimente din fișier JSON",
       "import-foods-categories": "Categorii pentru articole importate",
       "export-diary-title": "Exportă jurnalul",
       "export-diary": "Exportă jurnalul în CSV",
+      "share-diary": "Share CSV File",
       "date": "Dată"
     },
     "integration": {
