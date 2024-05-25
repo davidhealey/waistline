@@ -337,12 +337,14 @@
       "title": "Importera/Exportera",
       "auto-backup": "Automatisk säkerhetskopiering",
       "backup": "Säkerhetskopiera databasen",
+      "share": "Share Backup File",
       "import": "Importera säkerhetskopia",
       "import-foods-title": "Importera livsmedel",
       "import-foods": "Importera livsmedel från JSON",
       "import-foods-categories": "Kategorier för importerade objekt",
       "export-diary-title": "Exportera dagbok",
       "export-diary": "Exportera dagbok till CSV-fil",
+      "share-diary": "Share CSV File",
       "date": "Datum"
     },
     "integration": {
