@@ -337,12 +337,14 @@
       "title": "Import/export",
       "auto-backup": "Automatické Zálohování",
       "backup": "Zálohovat databázi",
+      "share": "Share Backup File",
       "import": "Nahrát ze zálohy",
       "import-foods-title": "Importovat potraviny",
       "import-foods": "Importovat jídla z JSON",
       "import-foods-categories": "Kategorie pro importované položky",
       "export-diary-title": "Exportovat diář",
       "export-diary": "Exportovat diář do CSV",
+      "share-diary": "Share CSV File",
       "date": "Datum"
     },
     "integration": {
