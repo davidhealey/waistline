@@ -337,14 +337,14 @@
       "title": "Importeren/exporten",
       "auto-backup": "Automatische backup",
       "backup": "Backup database",
-      "share": "Share Backup File",
+      "share": "Deel back-upbestand",
       "import": "Importeer uit backup",
       "import-foods-title": "Importeer voedsel",
       "import-foods": "Importeer voedsel uit JSON",
       "import-foods-categories": "Categorieën voor geïmporteerde items",
       "export-diary-title": "Dagboek exporteren",
       "export-diary": "Dagboek exporteren naar CSV",
-      "share-diary": "Share CSV File",
+      "share-diary": "Deel CSV-bestand",
       "date": "Datum"
     },
     "integration": {
