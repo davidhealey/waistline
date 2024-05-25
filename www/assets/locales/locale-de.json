@@ -337,14 +337,14 @@
       "title": "Importieren/Exportieren",
       "auto-backup": "Automatische Sicherung",
       "backup": "Datenbanksicherung",
-      "share": "Share Backup File",
+      "share": "Backup-Datei teilen",
       "import": "Aus Datenbanksicherung importieren",
       "import-foods-title": "Lebensmittel importieren",
       "import-foods": "Lebensmittel aus JSON importieren",
       "import-foods-categories": "Kategorien für importierte Einträge",
       "export-diary-title": "Tagebuch exportieren",
       "export-diary": "Tagebuch als CSV exportieren",
-      "share-diary": "Share CSV File",
+      "share-diary": "CSV-Datei teilen",
       "date": "Datum"
     },
     "integration": {
