@@ -303,6 +303,12 @@ app.Utils = {
     return Object.keys(app.nutrimentUnits).find(key => app.nutrimentUnits[key] === energyUnit);
   },
 
+  shareFile: function(path) {
+    window.plugins.socialsharing.shareWithOptions({
+      files: [cordova.file.externalRootDirectory + path]
+    });
+  },
+
   getBackupDirectoryName: function() {
     let dirname = window.localStorage.getItem("backup-dir");
 

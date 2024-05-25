@@ -154,6 +154,13 @@ app.Settings = {
       });
     }
 
+    let shareDb = document.getElementById("share-db");
+    if (shareDb) {
+      shareDb.addEventListener("click", function(e) {
+        app.Settings.shareDatabase();
+      });
+    }
+
     let importDb = document.getElementById("import-db");
     if (importDb) {
       importDb.addEventListener("click", function(e) {
@@ -173,6 +180,13 @@ app.Settings = {
     if (exportDiary) {
       exportDiary.addEventListener("click", function(e) {
         app.Settings.exportDiary();
+      });
+    }
+
+    let shareDiary = document.getElementById("share-diary");
+    if (shareDiary) {
+      shareDiary.addEventListener("click", function(e) {
+        app.Settings.shareDiary();
       });
     }
 
@@ -344,8 +358,8 @@ app.Settings = {
     }
   },
 
-  exportDatabase: async function() {
-    app.f7.preloader.show("red");
+  writeDatabaseBackupToFile: async function() {
+    app.f7.preloader.show();
 
     let data = await dbHandler.export();
     data.settings = JSON.parse(window.localStorage.getItem("settings"));
@@ -356,12 +370,26 @@ app.Settings = {
 
     app.f7.preloader.hide();
 
+    return path;
+  },
+
+  exportDatabase: async function() {
+    let path = await app.Settings.writeDatabaseBackupToFile();
+
     if (path !== undefined) {
       let msg = app.strings.settings.integration["export-success"] || "Database Exported";
       app.Utils.notify(msg + ": " + path);
     } else {
       let msg = app.strings.settings.integration["export-fail"] || "Export Failed";
       app.Utils.toast(msg);
+    }
+  },
+
+  shareDatabase: async function() {
+    let path = await app.Settings.writeDatabaseBackupToFile();
+
+    if (path !== undefined) {
+      app.Utils.shareFile(path);
     }
   },
 
@@ -410,8 +438,8 @@ app.Settings = {
     }
   },
 
-  exportDiary: async function() {
-    app.f7.preloader.show("red");
+  writeDiaryToCsvFile: async function() {
+    app.f7.preloader.show();
 
     const nutriments = app.Nutriments.getNutriments();
     const bodyStats =  app.BodyStats.getBodyStats();
@@ -499,12 +527,26 @@ app.Settings = {
 
     app.f7.preloader.hide();
 
+    return path;
+  },
+
+  exportDiary: async function() {
+    let path = await app.Settings.writeDiaryToCsvFile();
+
     if (path !== undefined) {
       let msg = app.strings.settings.integration["export-success"] || "Database Exported";
       app.Utils.notify(msg + ": " + path);
     } else {
       let msg = app.strings.settings.integration["export-fail"] || "Export Failed";
       app.Utils.toast(msg);
+    }
+  },
+
+  shareDiary: async function() {
+    let path = await app.Settings.writeDiaryToCsvFile();
+
+    if (path !== undefined) {
+      app.Utils.shareFile(path);
     }
   },
 

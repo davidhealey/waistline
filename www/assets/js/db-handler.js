@@ -784,7 +784,7 @@ var dbHandler = {
       delete data.version;
       delete data._version;
 
-      app.f7.preloader.show("red");
+      app.f7.preloader.show();
 
       // Add quick add item to foodlist data if it isn't already there
       if (data.foodList == undefined)

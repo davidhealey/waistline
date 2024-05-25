@@ -1,0 +1,5 @@
+- added backup share feature to make the backup file easier to access
+- various bugfixes
+
+You can find the full changelog at 
+https://github.com/davidhealey/waistline/releases

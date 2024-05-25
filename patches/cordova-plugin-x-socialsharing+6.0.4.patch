@@ -1,0 +1,22 @@
+diff --git a/node_modules/cordova-plugin-x-socialsharing/plugin.xml b/node_modules/cordova-plugin-x-socialsharing/plugin.xml
+index b688ed3..fc89b9b 100755
+--- a/node_modules/cordova-plugin-x-socialsharing/plugin.xml
++++ b/node_modules/cordova-plugin-x-socialsharing/plugin.xml
+@@ -25,8 +25,6 @@
+     <engine name="cordova" version=">=3.0.0"/>
+   </engines>
+ 
+-  <dependency id="es6-promise-plugin" version="^4.1.0" />
+-
+   <js-module src="www/SocialSharing.js" name="SocialSharing">
+     <clobbers target="window.plugins.socialsharing" />
+   </js-module>
+@@ -80,7 +78,7 @@
+     </config-file>
+ 
+     <config-file target="AndroidManifest.xml" parent="/*">
+-      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
++      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+     </config-file>
+ 
+     <config-file target="AndroidManifest.xml" parent="/manifest/application">
