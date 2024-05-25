@@ -345,7 +345,7 @@ app.Settings = {
   },
 
   exportDatabase: async function() {
-    app.f7.preloader.show("red");
+    app.f7.preloader.show();
 
     let data = await dbHandler.export();
     data.settings = JSON.parse(window.localStorage.getItem("settings"));
@@ -411,7 +411,7 @@ app.Settings = {
   },
 
   exportDiary: async function() {
-    app.f7.preloader.show("red");
+    app.f7.preloader.show();
 
     const nutriments = app.Nutriments.getNutriments();
     const bodyStats =  app.BodyStats.getBodyStats();
