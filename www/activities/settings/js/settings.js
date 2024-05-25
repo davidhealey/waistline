@@ -154,6 +154,13 @@ app.Settings = {
       });
     }
 
+    let shareDb = document.getElementById("share-db");
+    if (shareDb) {
+      shareDb.addEventListener("click", function(e) {
+        app.Settings.shareDatabase();
+      });
+    }
+
     let importDb = document.getElementById("import-db");
     if (importDb) {
       importDb.addEventListener("click", function(e) {
@@ -173,6 +180,13 @@ app.Settings = {
     if (exportDiary) {
       exportDiary.addEventListener("click", function(e) {
         app.Settings.exportDiary();
+      });
+    }
+
+    let shareDiary = document.getElementById("share-diary");
+    if (shareDiary) {
+      shareDiary.addEventListener("click", function(e) {
+        app.Settings.shareDiary();
       });
     }
 
@@ -371,6 +385,14 @@ app.Settings = {
     }
   },
 
+  shareDatabase: async function() {
+    let path = await app.Settings.writeDatabaseBackupToFile();
+
+    if (path !== undefined) {
+      app.Utils.shareFile(path);
+    }
+  },
+
   importDatabase: async function() {
     let file = await chooser.getFile();
 
@@ -517,6 +539,14 @@ app.Settings = {
     } else {
       let msg = app.strings.settings.integration["export-fail"] || "Export Failed";
       app.Utils.toast(msg);
+    }
+  },
+
+  shareDiary: async function() {
+    let path = await app.Settings.writeDiaryToCsvFile();
+
+    if (path !== undefined) {
+      app.Utils.shareFile(path);
     }
   },
 
