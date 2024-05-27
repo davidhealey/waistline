@@ -337,14 +337,14 @@
       "title": "Importa/esporta",
       "auto-backup": "Backup automatico",
       "backup": "Backup del database",
-      "share": "Share Backup File",
+      "share": "Condividi file di backup",
       "import": "Importa dal backup",
       "import-foods-title": "Importa Alimenti",
       "import-foods": "Importa alimenti da JSON",
       "import-foods-categories": "Categorie per articoli importati",
       "export-diary-title": "Esporta il diario",
       "export-diary": "Esporta il diario in CSV",
-      "share-diary": "Share CSV File",
+      "share-diary": "Condividi file CSV",
       "date": "Data"
     },
     "integration": {
