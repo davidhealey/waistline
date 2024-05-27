@@ -337,12 +337,14 @@
       "title": "Uvoz/Izvoz",
       "auto-backup": "Automatske rezervne kopije",
       "backup": "Rezervna kopija baze",
+      "share": "Share Backup File",
       "import": "Uvoz iz rezervne kopije",
       "import-foods-title": "Uvezi hranu",
       "import-foods": "Uvezi hranu iz JSON-a",
       "import-foods-categories": "Kategorije za uvezene stavke",
       "export-diary-title": "Izvoz dnevnika",
       "export-diary": "Izvezi dnevnik u CSV",
+      "share-diary": "Share CSV File",
       "date": "Datum"
     },
     "integration": {

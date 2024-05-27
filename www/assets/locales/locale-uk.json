@@ -337,12 +337,14 @@
       "title": "Імпорт/Експорт",
       "auto-backup": "Автоматична резервна копія",
       "backup": "Резервна копія бази даних",
+      "share": "Share Backup File",
       "import": "Імпортувати з резервної копії",
       "import-foods-title": "Імпортувати продукти",
       "import-foods": "Імпортувати продукти з JSON",
       "import-foods-categories": "Категорії для імпортованих елементів",
       "export-diary-title": "Export Diary",
       "export-diary": "Export Diary to CSV",
+      "share-diary": "Share CSV File",
       "date": "Date"
     },
     "integration": {
