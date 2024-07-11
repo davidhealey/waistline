@@ -23,10 +23,15 @@ app.OpenFoodFacts = {
       //Build search string
       let url;
 
+      let barcodeOnlySearch = app.Settings.get("integration", "off-only-barcode") || false;
+
       // If query is a number, assume it's a barcode
-      if (isNaN(query))
+      if (isNaN(query)){
+        // If the user only wants to use OFF for barcode scans return empty list and hope the next provider has the data
+        if (barcodeOnlySearch)
+          return resolve(undefined);
         url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=unique_scans_n&action=process&json=1";
-      else
+      } else
         url = "https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
 
       //Get country name
