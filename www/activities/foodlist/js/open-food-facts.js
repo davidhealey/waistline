@@ -23,7 +23,8 @@ app.OpenFoodFacts = {
       //Build search string
       let url;
 
-      let barcodeOnlySearch = app.Settings.get("integration", "off-only-barcode") || false;
+      let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
+      let barcodeOnlySearch = (app.Settings.get("integration", "off-only-barcode") || false) && usdaEnabled;
 
       // If query is a number, assume it's a barcode
       if (isNaN(query)){
