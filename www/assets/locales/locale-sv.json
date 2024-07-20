@@ -186,8 +186,8 @@
     "nutrition": "Näringsvärden",
     "per-100": "Per 100 g / 100 ml",
     "per-serving": "Per portion",
-    "image": "Image",
-    "name-and-brand": "Name and Brand",
+    "image": "Bild",
+    "name-and-brand": "Namn och varumärke",
     "nutriments-per-serving": "Nutrients per serving",
     "nutriments-per-100": "Nutrients per 100g/100ml",
     "additional-photos": "Fler bilder",
@@ -325,11 +325,11 @@
       "data-sharing-authorization": "Tjänstens \"Authorization Header\""
     },
     "text-to-speech": {
-      "title": "Text To Speech",
+      "title": "Text till tal",
       "test": "Test current settings",
       "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "pitch": "Röstens tonhöjd",
+      "voice": "Röst",
       "default": "Standard",
       "locale": "Number formatting locale (optional)"
     },
@@ -337,14 +337,14 @@
       "title": "Importera/Exportera",
       "auto-backup": "Automatisk säkerhetskopiering",
       "backup": "Säkerhetskopiera databasen",
-      "share": "Share Backup File",
+      "share": "Dela säkerhetskopia",
       "import": "Importera säkerhetskopia",
       "import-foods-title": "Importera livsmedel",
       "import-foods": "Importera livsmedel från JSON",
       "import-foods-categories": "Kategorier för importerade objekt",
       "export-diary-title": "Exportera dagbok",
       "export-diary": "Exportera dagbok till CSV-fil",
-      "share-diary": "Share CSV File",
+      "share-diary": "Dela CSV fil",
       "date": "Datum"
     },
     "integration": {
