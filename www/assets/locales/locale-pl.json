@@ -337,12 +337,14 @@
       "title": "Import/eksport",
       "auto-backup": "Automatyczna kopia zapasowa",
       "backup": "Wykonaj kopie",
+      "share": "Share Backup File",
       "import": "Importuj z kopii zapasowej",
       "import-foods-title": "Importowanie żywności",
       "import-foods": "Import żywności z pliku JSON",
       "import-foods-categories": "Kategorie dla importowanych elementów",
       "export-diary-title": "Eksport dziennika",
       "export-diary": "Eksportuj dziennik do pliku CSV",
+      "share-diary": "Share CSV File",
       "date": "Data"
     },
     "integration": {

@@ -337,12 +337,14 @@
       "title": "Tuo / Vie",
       "auto-backup": "Automaattinen varmuuskopiointi",
       "backup": "Varmuuskopioi tietokanta",
+      "share": "Share Backup File",
       "import": "Tuo varmuuskopiosta",
       "import-foods-title": "Tuo elintarvikkeita",
       "import-foods": "Tuo elintarvikkeita JSONista",
       "import-foods-categories": "Tuotujen kohteiden luokat",
       "export-diary-title": "Export Diary",
       "export-diary": "Export Diary to CSV",
+      "share-diary": "Share CSV File",
       "date": "Date"
     },
     "integration": {
