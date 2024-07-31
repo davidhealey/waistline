@@ -1,3 +1,4 @@
+- added language option for Bulgarian
 - added backup share feature to make the backup file easier to access
 - various bugfixes
 
