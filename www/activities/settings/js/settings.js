@@ -756,7 +756,8 @@ app.Settings = {
         "search-language": "Default",
         "search-country": "All",
         "upload-country": "Auto",
-        usda: false
+        usda: false,
+        "off-only-barcode": false
       },
       tts: {
         "speed": 1,
