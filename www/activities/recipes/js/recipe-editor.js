@@ -190,15 +190,129 @@ app.RecipeEditor = {
     app.RecipeEditor.recipe_image_url = undefined;
   },
 
-  addItems: function(data) {
-    let result = app.RecipeEditor.recipe.items;
+// New AddItems function to utilize promptAddItems
+addItems: function(items) {
+  return new Promise(async function(resolve, reject) {
+    try{
+      if (app.Settings.get("diary", "prompt-add-items") == true) {
+        app.RecipeEditor.promptAddItems(items, 0, false);
+      } else {
+        items.forEach((x) => {
+          app.RecipeEditor.addItemToEntry(x);
+        });
+      }
+      resolve();
+    } catch(err){
+      reject(err);
+    }
+  });
+},
 
-    data.forEach((x) => {
-      let item = app.FoodsMealsRecipes.flattenItem(x);
-      result.push(item);
-    });
-    app.RecipeEditor.recipe.items = result;
-  },
+
+promptAddItems: async function(items, index, renderAfterwards) {
+  let item = items[index];
+
+  if (item !== undefined) {
+    if (item.name !== undefined && item.unit !== undefined) {
+
+      // Re-render diary when prompts are done
+      renderAfterwards = true;
+
+      // Create dialog content
+      let title = app.Utils.escapeHtml(app.Utils.tidyText(item.name, 50));
+
+      let div = document.createElement("div");
+      div.className = "dialog-text";
+
+      if (item.notes && app.Settings.get("foodlist", "show-notes") == true)
+        div.innerText = app.Utils.tidyText(item.notes, 50);
+
+      // Input fields
+      let inputs = document.createElement("form");
+      inputs.className = "list no-hairlines scroll-dialog";
+      let ul = document.createElement("ul");
+      inputs.appendChild(ul);
+
+      ["serving-size", "number-of-servings"].forEach((field) => {
+        let li = document.createElement("li");
+        li.className = "item-content item-input";
+        ul.appendChild(li);
+
+        let inner = document.createElement("div");
+        inner.className = "item-inner";
+        li.appendChild(inner);
+
+        let fieldTitle = document.createElement("div");
+        fieldTitle.className = "item-title item-label";
+        fieldTitle.innerText = app.strings["food-editor"][field] || field;
+        if (field == "serving-size")
+          fieldTitle.innerText += " (" + item.unit + ")";
+        inner.appendChild(fieldTitle);
+
+        let inputWrap = document.createElement("div");
+        inputWrap.className = "item-input-wrap";
+        inner.appendChild(inputWrap);
+
+        let input = document.createElement("input");
+        input.className = "dialog-input auto-select";
+        input.type = "number";
+        if (field == "serving-size")
+          input.setAttribute("value", item.portion || "");
+        else
+          input.setAttribute("value", "1");
+        inputWrap.appendChild(input);
+      });
+
+      // Open dialog
+      let dialog = app.f7.dialog.create({
+        title: title,
+        content: div.outerHTML + inputs.outerHTML,
+        buttons: [{
+          text: app.strings.dialogs.skip || "Skip",
+          keyCodes: app.Utils.escapeKeyCode,
+          onClick: async function(dialog) {
+            app.RecipeEditor.promptAddItems(items, index + 1, renderAfterwards);
+          }
+        },
+        {
+          text: app.strings.dialogs.add || "Add",
+          keyCodes: app.Utils.enterKeyCode,
+          onClick: async function(dialog) {
+            let inputs = Array.from(dialog.el.getElementsByTagName("input"));
+            let portion = inputs[0].value;
+            let quantity = inputs[1].value;
+
+            if (portion !== "" && portion >= 0 && !isNaN(portion))
+              item.portion = portion;
+            if (quantity !== "" && quantity >= 0 && !isNaN(quantity))
+              item.quantity = quantity;
+
+            app.RecipeEditor.addItemToEntry(item);
+            app.RecipeEditor.promptAddItems(items, index + 1, renderAfterwards);
+          }
+        }
+        ]
+      }).open();
+
+    } else {
+      // Item has no name (is a meal item) -> add it as is without prompt
+      app.RecipeEditor.addItemToEntry(item);
+      app.RecipeEditor.promptAddItems(items, index + 1, renderAfterwards);
+    }
+  } else {
+    // No more items to process -> write entry to DB and render
+    if (renderAfterwards) {
+      app.RecipeEditor.renderItems();
+    }
+  }
+},
+
+addItemToEntry: function(item) {
+  let result = app.RecipeEditor.recipe.items;
+  item = app.FoodsMealsRecipes.flattenItem(item);  
+  result.push(item);
+  app.RecipeEditor.recipe.items = result;
+},
 
   removeItem: function(item, li) {
     let title = app.strings.dialogs["delete-title"] || "Delete Entry";
