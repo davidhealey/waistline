@@ -439,9 +439,9 @@ app.FoodEditor = {
 
       let url;
       if (item.barcode.startsWith("fdcId_"))
-        url = "http://localhost:8001/https://fdc.nal.usda.gov/fdc-app.html#/food-details/" + code + "/nutrients";
+        url = "https://fdc.nal.usda.gov/fdc-app.html#/food-details/" + code + "/nutrients";
       else
-        url = "http://localhost:8001/https://world.openfoodfacts.org/product/" + code;
+        url = "https://world.openfoodfacts.org/product/" + code;
 
       if (!app.FoodEditor.el.barcode.hasClickEvent) {
         app.FoodEditor.el.barcode.parentElement.addEventListener("click", (e) => {
