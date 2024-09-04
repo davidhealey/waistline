@@ -47,4 +47,5 @@
     <preference name="FadeSplashScreenDuration" value="500" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <hook src="hooks/read_app_version.js" type="after_prepare" />
+    <hook src="hooks/set_cors_proxy.js" type="after_prepare" />
 </widget>

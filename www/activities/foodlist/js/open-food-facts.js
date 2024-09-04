@@ -25,9 +25,9 @@ app.OpenFoodFacts = {
 
       // If query is a number, assume it's a barcode
       if (isNaN(query))
-        url = "http://localhost:8001/https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=unique_scans_n&action=process&json=1";
+        url = "%%PROXY%%https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=unique_scans_n&action=process&json=1";
       else
-        url = "http://localhost:8001/https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
+        url = "%%PROXY%%https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
 
       //Get country name
       let country = app.Settings.get("integration", "search-country") || undefined;
@@ -217,9 +217,9 @@ app.OpenFoodFacts = {
       // Make request to OFF
       let endPoint;
       if (app.mode != "release")
-        endPoint = "http://localhost:8001/https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; // Testing server
+        endPoint = "%%PROXY%%https://world.openfoodfacts.net/cgi/product_jqm2.pl?"; // Testing server
       else
-        endPoint = "http://localhost:8001/https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
+        endPoint = "%%PROXY%%https://world.openfoodfacts.org/cgi/product_jqm2.pl?"; // Real server
 
       let headers = {
         'content-type': 'text/html; charset=UTF-8'
@@ -352,9 +352,9 @@ app.OpenFoodFacts = {
   postImage: function(data) {
     let endPoint;
     if (app.mode == "development")
-      endPoint = "http://localhost:8001/https://world.openfoodfacts.net/cgi/product_image_upload.pl"; // Testing server
+      endPoint = "%%PROXY%%https://world.openfoodfacts.net/cgi/product_image_upload.pl"; // Testing server
     else
-      endPoint = "http://localhost:8001/https://world.openfoodfacts.org/cgi/product_image_upload.pl"; // Real server
+      endPoint = "%%PROXY%%https://world.openfoodfacts.org/cgi/product_image_upload.pl"; // Real server
 
     let headers = {};
     if (app.mode == "development")
@@ -374,7 +374,7 @@ app.OpenFoodFacts = {
 
   testCredentials: function(username, password) {
     return new Promise(async function(resolve, reject) {
-      let url = "http://localhost:8001/https://world.openfoodfacts.org/cgi/session.pl?user_id=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
+      let url = "%%PROXY%%https://world.openfoodfacts.org/cgi/session.pl?user_id=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
 
       let response = await app.Utils.timeoutFetch(url, {
         method: "GET",

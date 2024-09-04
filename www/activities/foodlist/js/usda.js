@@ -70,7 +70,7 @@ app.USDA = {
         apiKey = app.Settings.get("integration", "usda-key");
 
       if (apiKey != undefined) {
-        let url = "http://localhost:8001/https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(apiKey) + "&query=" + encodeURIComponent(query) + "&pageSize=15";
+        let url = "%%PROXY%%https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(apiKey) + "&query=" + encodeURIComponent(query) + "&pageSize=15";
 
         let response = await app.Utils.timeoutFetch(url).catch((err) => {
           resolve(undefined);
@@ -208,7 +208,7 @@ app.USDA = {
 
   testApiKey: function(key) {
     return new Promise(async function(resolve, reject) {
-      let url = "http://localhost:8001/https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(key) + "&query=cheese";
+      let url = "%%PROXY%%https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(key) + "&query=cheese";
 
       let response = await app.Utils.timeoutFetch(url).catch((err) => {
         resolve(false);
