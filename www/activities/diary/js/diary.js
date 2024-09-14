@@ -121,6 +121,10 @@ app.Diary = {
     let result = app.f7.calendar.create({
       inputEl: "#diary-date",
       openIn: "customModal",
+      footer: true,
+      renderFooter: function() {
+        return app.Diary.getCalendarFooter();
+      },
       on: {
         init: function(c) {
           if (app.Diary.date)
@@ -139,10 +143,34 @@ app.Diary = {
             app.Diary.render();
           c.close();
           app.Diary.updateDateDisplay();
+        },
+        open: function(c) {
+          const todayButton = document.querySelector(".today-button");
+            if (todayButton != null) {
+              todayButton.addEventListener("click", (e) => {
+              app.Diary.resetDate();
+            });
+          }
         }
       }
     });
     return result;
+  },
+
+  getCalendarFooter: function() {
+    const customFooterHTML = `
+      <div class="calendar-footer">
+        <div class="footer-inner" style="width:100%; display: flex; justify-content: space-between;">
+          <a class="button today-button">
+            <i class="icons material-icons">today</i>
+          </a>
+          <a class="button calendar-close sheet-close popover-close">
+            <i class="icons material-icons">done</i>
+          </a>
+        </div>
+      </div>
+    `
+    return customFooterHTML;
   },
 
   bindCalendarControls: function() {
@@ -172,6 +200,10 @@ app.Diary = {
     let now = new Date();
     let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     app.Diary.date = today;
+
+    if (app.Diary.calendar !== undefined)
+      app.Diary.calendar.setValue([today]);
+
     app.Diary.updateDateDisplay();
   },
 
