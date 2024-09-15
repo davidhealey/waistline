@@ -751,6 +751,7 @@ app.Settings = {
         "weight": true
       },
       integration: {
+        "barcode-flashlight": false,
         "barcode-sound": false,
         "edit-images": false,
         "search-language": "Default",

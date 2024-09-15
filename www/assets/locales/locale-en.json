@@ -383,6 +383,7 @@
       "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "The backup has been restored",
       "import-success-message": "Import Complete",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Barcode Scan Beep",
       "edit-images": "Crop Photos",
       "login-success": "Login Successful"
