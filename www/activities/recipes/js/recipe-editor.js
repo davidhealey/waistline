@@ -60,7 +60,6 @@ app.RecipeEditor = {
     app.RecipeEditor.el.sort = document.querySelector(".page[data-name='recipe-editor'] #sort");
     app.RecipeEditor.el.categoriesContainer = document.querySelector(".page[data-name='recipe-editor'] #categories-container");
     app.RecipeEditor.el.categories = document.querySelector(".page[data-name='recipe-editor'] #categories");
-    app.RecipeEditor.el.nameInput = document.querySelector(".page[data-name='recipe-editor'] #name");
     app.RecipeEditor.el.foodlist = document.querySelector(".page[data-name='recipe-editor'] #recipe-food-list");
     app.RecipeEditor.el.add = document.querySelector(".page[data-name='recipe-editor'] #add-food");
     app.RecipeEditor.el.nutrition = document.querySelector(".page[data-name='recipe-editor'] #nutrition");
@@ -245,7 +244,7 @@ app.RecipeEditor = {
 
       inputs.forEach((x) => {
         if (x.value !== undefined && x.value != "")
-          data[x.name] = x.value;
+          data[x.name] = x.hasAttribute("trim") ? x.value.trim() : x.value;
       });
 
       let categories = app.FoodsMealsRecipes.getSelectedCategories(app.RecipeEditor.el.categories);

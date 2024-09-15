@@ -574,17 +574,21 @@ app.FoodEditor = {
         const nutriments = app.Nutriments.getNutriments();
         const units = app.Nutriments.getNutrimentUnits();
         const energyUnit = app.Settings.get("units", "energy");
-        const inputs = document.querySelectorAll("#food-edit-form input:not(#barcode):not(#unit):not(#quantity), #food-edit-form textarea, #food-edit-form radio");
+        const inputs = document.querySelectorAll("#food-edit-form #nutrition input, #food-edit-form input[type='radio'], #food-edit-form textarea");
         const caloriesEl = document.getElementById("calories");
         const kilojoulesEl = document.getElementById("kilojoules");
 
         if (data !== undefined && data.barcode !== undefined)
           item.barcode = data.barcode;
 
+        item.name = app.FoodEditor.el.name.value.trim();
+
+        item.brand = app.FoodEditor.el.brand.value.trim();
+
         if (app.FoodEditor.scan == true)
           item.unit = app.FoodEditor.el.uploadUnit.value;
         else
-          item.unit = app.FoodEditor.el.unit.value;
+          item.unit = app.FoodEditor.el.unit.value.trim();
 
         if (app.FoodEditor.item_image_url !== undefined)
           item.image_url = app.FoodEditor.item_image_url;
