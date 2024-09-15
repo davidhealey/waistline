@@ -84,7 +84,7 @@
     "camera-problem": "Beim Zugriff auf deine Kamera ist ein Problem aufgetreten.",
     "no-internet": "Keine Internetverbindung",
     "no-results": "Keine passenden Ergebnisse gefunden",
-    "no-response": "No response from server",
+    "no-response": "Keine Antwort vom Server",
     "no-search-providers": "Keine Suchanbieter aktiviert",
     "scan-failed": "Scan fehlgeschlagen",
     "search": "Suchen",
@@ -96,8 +96,8 @@
     "upload-add-to-foodlist": "Möchtest du das Produkt in deine Lebensmittelliste aufnehmen?",
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
     "what-meal": "Welche Mahlzeit ist das?",
-    "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-exit": "Drücke erneut Zurück, um die App zu beenden",
+    "press-back-again-editor": "Drücke erneut Zurück, um den Editor zu verlassen"
   },
   "days": {
     "0": "Sonntag",
@@ -384,7 +384,7 @@
       "import-foods-category-fail": "Bitte wähle mindestens eine Kategorie aus",
       "import-success-title": "Die Sicherung wurde wiederhergestellt",
       "import-success-message": "Import abgeschlossen",
-      "barcode-flashlight": "Barcode Scan Flashlight",
+      "barcode-flashlight": "Taschenlampe beim Scannen von Strichcodes",
       "barcode-sound": "Ton wenn Strichcode gescannt wird",
       "edit-images": "Fotos zuschneiden",
       "login-success": "Anmeldung erfolgreich"
