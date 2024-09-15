@@ -57,6 +57,7 @@ app.FoodEditor = {
     this.updateTitle();
     this.renderNutritionFields(app.FoodEditor.item);
     this.setComponentVisibility(app.FoodEditor.origin);
+    this.setupHardwareBackButtonExitHandling();
     this.setUploadFieldVisibility();
     this.setRequiredFieldErrorMessage();
     this.setLinkButtonIcon();
@@ -74,6 +75,7 @@ app.FoodEditor = {
   },
 
   getComponents: function() {
+    app.FoodEditor.el.page = document.querySelector(".page[data-name='food-editor']");
     app.FoodEditor.el.title = document.querySelector(".page[data-name='food-editor'] #title");
     app.FoodEditor.el.link = document.querySelector(".page[data-name='food-editor'] #link");
     app.FoodEditor.el.linkIcon = document.querySelector(".page[data-name='food-editor'] #link-icon");
@@ -268,6 +270,13 @@ app.FoodEditor = {
         x.validate = false;
       }
     });
+  },
+
+  setupHardwareBackButtonExitHandling: function() {
+    if (app.FoodEditor.origin == "foodlist")
+      app.FoodEditor.el.page.setAttribute("confirm-backbutton", "");
+    else
+      app.FoodEditor.el.page.removeAttribute("confirm-backbutton");
   },
 
   setRequiredFieldErrorMessage: function() {

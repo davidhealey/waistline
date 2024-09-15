@@ -50,12 +50,14 @@ app.RecipeEditor = {
       await app.RecipeEditor.renderItems();
     }
 
+    app.RecipeEditor.setupHardwareBackButtonExitHandling();
     app.RecipeEditor.setRequiredFieldErrorMessage();
     app.RecipeEditor.bindUIActions();
     app.RecipeEditor.setComponentVisibility();
   },
 
   getComponents: function() {
+    app.RecipeEditor.el.page = document.querySelector(".page[data-name='recipe-editor']");
     app.RecipeEditor.el.submit = document.querySelector(".page[data-name='recipe-editor'] #submit");
     app.RecipeEditor.el.sort = document.querySelector(".page[data-name='recipe-editor'] #sort");
     app.RecipeEditor.el.categoriesContainer = document.querySelector(".page[data-name='recipe-editor'] #categories-container");
@@ -141,6 +143,13 @@ app.RecipeEditor = {
       });
       app.RecipeEditor.el.foodlist.hasSortableEvent = true;
     }
+  },
+
+  setupHardwareBackButtonExitHandling: function() {
+    if (app.RecipeEditor.editingEnabled)
+      app.RecipeEditor.el.page.setAttribute("confirm-backbutton", "");
+    else
+      app.RecipeEditor.el.page.removeAttribute("confirm-backbutton");
   },
 
   setRequiredFieldErrorMessage: function() {
