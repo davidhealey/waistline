@@ -84,6 +84,7 @@
     "camera-problem": "Nastal problém při přístupu k vaší kameře.",
     "no-internet": "Bez internetového připojení",
     "no-results": "Žádné odpovídající výsledky",
+    "no-response": "No response from server",
     "no-search-providers": "Nejsou povoleni žádní poskytovatelé vyhledávání",
     "scan-failed": "Skenování se nezdařilo",
     "search": "Hledat",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Chcete přidat nahranou položku do vašeho seznamu potravin?",
     "upload-failed": "Nahrávání se bohužel nezdařilo. Zkuste to prosím znovu nebo kontaktujte vývojáře.",
     "what-meal": "Co je to za jídlo?",
-    "press-back-again": "Opětovnou akcí Zpět zavřete aplikaci"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Neděle",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Prosím vyberte alespoň jednu kategorii",
       "import-success-title": "Záloha byla obnovena",
       "import-success-message": "Import dokončen",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Pípnutí skenu čárového kódu",
       "edit-images": "Oříznout fotografie",
       "login-success": "Přihlášení úspěšné"
