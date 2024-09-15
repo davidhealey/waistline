@@ -84,6 +84,7 @@
     "camera-problem": "Desio se problem pri pristupanju kameri.",
     "no-internet": "Nema internet veze",
     "no-results": "Nema odgovarajućih rezultata",
+    "no-response": "No response from server",
     "no-search-providers": "Nisu podešeni pružaoci pretraga",
     "scan-failed": "Neuspešno skeniranje",
     "search": "Pretraži",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Da li želite da dodate poslatu stavku na vašu listu hrane?",
     "upload-failed": "Na žalost, slanje nije uspelo. Pokušajte ponovo ili kontaktirajte programera.",
     "what-meal": "Koji obrok je ovo?",
-    "press-back-again": "Pritisne Unazad ponovo da biste napustili aplikaciju"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Nedelja",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Molim odaberite makar jednu kategoriju",
       "import-success-title": "Rezervna kopija je uspešno povraćena",
       "import-success-message": "Uvoz uspešan",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Zvuk za bar-kod skeniranje",
       "edit-images": "Isecanje slika",
       "login-success": "Uspešna prijava"
