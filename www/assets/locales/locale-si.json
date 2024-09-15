@@ -84,6 +84,7 @@
     "camera-problem": "There was a problem accessing your camera.",
     "no-internet": "අන්තර්ජාල සම්බන්ධතාවයක් නැත",
     "no-results": "ගැළපෙන ප්‍රතිඵල නැත",
+    "no-response": "No response from server",
     "no-search-providers": "No search providers are enabled",
     "scan-failed": "Scan Failed",
     "search": "සොයන්න",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
     "what-meal": "What meal is this?",
-    "press-back-again": "Press Back again to exit the app"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "ඉරිදා",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Please select at least one category",
       "import-success-title": "The backup has been restored",
       "import-success-message": "ආයාත කිරීම සම්පුර්ණයි",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Barcode Scan Beep",
       "edit-images": "Crop Photos",
       "login-success": "Login Successful"
