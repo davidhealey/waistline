@@ -84,6 +84,7 @@
     "camera-problem": "Виникла проблема доступу до камери.",
     "no-internet": "Нема зʼєднання з Інтернетом",
     "no-results": "Немає відповідних результатів",
+    "no-response": "No response from server",
     "no-search-providers": "Нема ввімкнених постачальників пошуку",
     "scan-failed": "Невдале сканування",
     "search": "Пошук",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "На жаль, відвантаження не вдалося. Будь ласка, спробуйте ще раз або звʼяжіться з розробником.",
     "what-meal": "Що це за їжа?",
-    "press-back-again": "Натисніть ще раз Назад для виходу"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Неділя",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Виберіть щонайменше одну категорію",
       "import-success-title": "Резервну копію відновлено",
       "import-success-message": "Імпортування завершено",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Звук сканування штрих-коду",
       "edit-images": "Обрізати фото",
       "login-success": "Вхід виконано"
