@@ -38,6 +38,10 @@ app.Utils = {
     return "";
   },
 
+  normalizeText: function(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // remove diacritical marks from text, e.g. é -> e
+  },
+
   tidyNumber: function(number, unit) {
     let text = "";
     if (number !== undefined) {

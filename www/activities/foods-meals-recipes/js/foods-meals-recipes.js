@@ -252,7 +252,7 @@ app.FoodsMealsRecipes = {
   filterList: function(query, categories, list) {
     let result = list;
 
-    let queryRegExp = query.trim().split(/\s+/).map((w) => {return new RegExp(w, "i")});
+    let queryRegExp = app.Utils.normalizeText(query).trim().split(/\s+/).map((w) => new RegExp(w, "i"));
     let categoriesFilter = categories || [];
 
     // Hidden items should only be shown when a category filter is active
@@ -278,13 +278,16 @@ app.FoodsMealsRecipes = {
           return false; // Hidden items should not be shown but the item is hidden
         }
         if (item.name && item.brand) {
+          const itemName = app.Utils.normalizeText(item.name);
+          const itemBrand = app.Utils.normalizeText(item.brand);
           for (let regExp of queryRegExp) {
-            if (!item.name.match(regExp) && !item.brand.match(regExp))
+            if (!itemName.match(regExp) && !itemBrand.match(regExp))
               return false;
           }
         } else if (item.name) {
+          const itemName = app.Utils.normalizeText(item.name);
           for (let regExp of queryRegExp) {
-            if (!item.name.match(regExp))
+            if (!itemName.match(regExp))
               return false;
           }
         }
