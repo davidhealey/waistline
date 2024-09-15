@@ -935,7 +935,7 @@ app.Diary = {
       let x = inputs[i];
 
       let unit = app.Goals.getGoalUnit(x.id, false);
-      let value = app.Utils.convertUnit(parseFloat(x.value), unit, internalUnits[x.id], 100);
+      let value = app.Utils.convertUnit(parseFloat(x.value), unit, internalUnits[x.id]);
 
       if (!isNaN(value))
         stats[x.id] = value;
