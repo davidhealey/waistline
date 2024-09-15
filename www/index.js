@@ -531,7 +531,19 @@ $(document).on("blur", "input.auto-select", (e) => {
 });
 
 // Android back button
-let backButtonExitApp = false;
+let backButtonPressedFlag = false;
+const handleBackButtonWithConfirm = (confirmMessage, backAction) => {
+  if (backButtonPressedFlag === true) {
+    backAction();
+    backButtonPressedFlag = false;
+  } else {
+    app.Utils.toast(confirmMessage, 2500, "bottom", () => {
+      backButtonPressedFlag = false;
+    });
+    backButtonPressedFlag = true;
+  }
+}
+
 document.addEventListener("backbutton", (e) => {
 
   let dialogs = document.querySelectorAll(".dialog");
@@ -578,16 +590,14 @@ document.addEventListener("backbutton", (e) => {
   }
 
   let history = new Set(app.f7.views.main.history);
-  if (history.size > 1) {
-    app.f7.views.main.router.back();
-  } else if (backButtonExitApp === true) {
-    navigator.app.exitApp();
+  if (history.size < 2) {
+    let confirmMessage = app.strings.dialogs["press-back-again-exit"] || "Press Back again to exit the app";
+    handleBackButtonWithConfirm(confirmMessage, () => navigator.app.exitApp());
+  } else if (document.querySelector('.page-current').hasAttribute('confirm-backbutton')) {
+    let confirmMessage = app.strings.dialogs["press-back-again-editor"] || "Press Back again to leave the editor";
+    handleBackButtonWithConfirm(confirmMessage, () => app.f7.views.main.router.back());
   } else {
-    backButtonExitApp = true;
-    let msg = app.strings.dialogs["press-back-again"] || "Press Back again to exit the app";
-    app.Utils.toast(msg, 2500, "bottom", () => {
-      backButtonExitApp = false;
-    });
+    app.f7.views.main.router.back();
   }
 });
 

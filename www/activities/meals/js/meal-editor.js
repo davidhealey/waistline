@@ -50,12 +50,14 @@ app.MealEditor = {
       await app.MealEditor.renderItems();
     }
 
+    app.MealEditor.setupHardwareBackButtonExitHandling();
     app.MealEditor.setRequiredFieldErrorMessage();
     app.MealEditor.bindUIActions();
     app.MealEditor.setComponentVisibility();
   },
 
   getComponents: function() {
+    app.MealEditor.el.page = document.querySelector(".page[data-name='meal-editor']");
     app.MealEditor.el.submit = document.querySelector(".page[data-name='meal-editor'] #submit");
     app.MealEditor.el.sort = document.querySelector(".page[data-name='meal-editor'] #sort");
     app.MealEditor.el.categoriesContainer = document.querySelector(".page[data-name='meal-editor'] #categories-container");
@@ -142,6 +144,13 @@ app.MealEditor = {
       });
       app.MealEditor.el.foodlist.hasSortableEvent = true;
     }
+  },
+
+  setupHardwareBackButtonExitHandling: function() {
+    if (app.MealEditor.editingEnabled)
+      app.MealEditor.el.page.setAttribute("confirm-backbutton", "");
+    else
+      app.MealEditor.el.page.removeAttribute("confirm-backbutton");
   },
 
   setRequiredFieldErrorMessage: function() {
