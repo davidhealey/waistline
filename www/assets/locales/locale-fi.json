@@ -84,6 +84,7 @@
     "camera-problem": "Ongelma kameraan pääsyssä.",
     "no-internet": "Ei internetyhteyttä",
     "no-results": "Ei vastaavia hakutuloksia",
+    "no-response": "No response from server",
     "no-search-providers": "Yhtään hakupalveluntarjoajaa ei ole käytössä",
     "scan-failed": "Skannaus epäonnistui",
     "search": "Etsi",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
     "upload-failed": "Valitettavasti lataus epäonnistui. Yritä uudelleen tai ota yhteyttä kehittäjään.",
     "what-meal": "Mikä ateria tämä on?",
-    "press-back-again": "Paina paluu-painiketta uudelleen sulkeaksesi sovelluksen"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Sunnuntai",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Valitse vähintään yksi kategoria",
       "import-success-title": "Varmuuskopio on palautettu",
       "import-success-message": "Tuonti valmis",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Viivakoodin lukemisen äänimerkki",
       "edit-images": "Crop Photos",
       "login-success": "Kirjautuminen onnistui"
