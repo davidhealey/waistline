@@ -1,5 +1,10 @@
 - added language option for Bulgarian
 - added backup share feature to make the backup file easier to access
+- the app now ignores diacritical marks (like é) when searching
+- added today button in the diary calendar
+- added option to turn on flashlight by default during barcode scan
+- prevent users from accidently leaving food editor via hardware back button
+- fixed weight stats rounding issue for units other than kilogram
 - various bugfixes
 
 You can find the full changelog at 
