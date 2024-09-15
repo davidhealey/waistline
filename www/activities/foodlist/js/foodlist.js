@@ -127,47 +127,35 @@ app.Foodlist = {
   },
 
   search: async function(query) {
-    if (query != "") {
-      app.f7.preloader.show();
+    if (query === "") return;
 
-      app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
+    app.f7.preloader.show();
 
-      let offList;
-      let usdaList;
+    app.FoodsMealsRecipes.clearSelectedCategories(app.Foodlist.el.searchFilter, app.Foodlist.el.searchFilterIcon);
 
-      let offEnabled = app.Settings.get("integration", "off") || true;
-      let usdaEnabled = app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != "");
+    let offList = await app.OpenFoodFacts.search(query);
+    let usdaList = undefined;
 
-      if (offEnabled == true || usdaEnabled == true) {
+    if (app.Settings.get("integration", "usda") && (app.Settings.get("integration", "usda-key") != ""))
+      usdaList = await app.USDA.search(query);
 
-        if (offEnabled)
-          offList = await app.OpenFoodFacts.search(query);
+    let result = [];
 
-        if (usdaEnabled)
-          usdaList = await app.USDA.search(query);
+    if (usdaList !== undefined)
+      result = result.concat(usdaList);
 
-        let result = [];
-
-        if (usdaList !== undefined)
-          result = result.concat(usdaList);
-
-        if (offList !== undefined)
-          result = result.concat(offList);
-
-        if (result.length > 0) {
-          app.Foodlist.list = result;
-          app.Foodlist.filterList = app.Foodlist.list;
-        } else {
-          let msg = app.strings.dialogs["no-results"] || "No matching results";
-          app.Utils.toast(msg);
-        }
-      } else {
-        let msg = app.strings.dialogs["no-search-providers"] || "No search providers are enabled";
-        app.Utils.toast(msg);
-      }
-    }
+    if (offList !== undefined)
+      result = result.concat(offList);
 
     app.f7.preloader.hide();
+
+    if (result.length > 0) {
+      app.Foodlist.list = result;
+      app.Foodlist.filterList = app.Foodlist.list;
+    } else {
+      let msg = app.strings.dialogs["no-results"] || "No matching results";
+      app.Utils.toast(msg);
+    }
 
     this.renderList(true);
   },
