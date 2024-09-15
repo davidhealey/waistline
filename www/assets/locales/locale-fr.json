@@ -84,6 +84,7 @@
     "camera-problem": "Une erreur est survenue en essayant d’accéder à l’appareil photo.",
     "no-internet": "Pas de connexion internet",
     "no-results": "Pas de résultats",
+    "no-response": "No response from server",
     "no-search-providers": "Pas de moteur de recherche activé",
     "scan-failed": "Code non reconnu",
     "search": "Recherche",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Voulez-vous ajouter l'élément téléchargé à votre liste de denrées alimentaires ?",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?",
-    "press-back-again": "Appuyez à nouveau sur le bouton Retour pour quitter l'application"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Dimanche",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Veuillez sélectionner au moins une catégorie",
       "import-success-title": "La sauvegarde a été restaurée",
       "import-success-message": "Importation réussie",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Son de scanner",
       "edit-images": "Modifier les images",
       "login-success": "Connexion réussie"
