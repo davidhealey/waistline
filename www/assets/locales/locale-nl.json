@@ -84,6 +84,7 @@
     "camera-problem": "Er is een fout opgetreden bij het benaderen van je camera.",
     "no-internet": "Geen internetverbinding",
     "no-results": "Geen resultaten gevonden",
+    "no-response": "No response from server",
     "no-search-providers": "Geen zoekaanbieder ingeschakeld",
     "scan-failed": "Scan mislukt",
     "search": "Zoeken",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Wil je het geüploade item toevoegen aan je voedsellijst?",
     "upload-failed": "Het uploaden is helaas mislukt. Probeer het opnieuw of neem contact op met de ontwikkelaar.",
     "what-meal": "Welke maaltijd is dit?",
-    "press-back-again": "Druk nogmaals op Terug om de app te sluiten"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Zondag",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Selecteer ten minste één categorie",
       "import-success-title": "De backup is hersteld",
       "import-success-message": "Import afgerond",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Geluid bij het scannen",
       "edit-images": "Foto's bijsnijden",
       "login-success": "Login succesvol"
