@@ -84,6 +84,7 @@
     "camera-problem": "Det gick inte att komma åt din kamera.",
     "no-internet": "Ingen Internetanslutning",
     "no-results": "Inga matchande resultat",
+    "no-response": "No response from server",
     "no-search-providers": "Inga sökleverantörer är aktiverade",
     "scan-failed": "Skanningen misslyckades",
     "search": "Sök",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Vill du lägga till det uppladdade objektet i din lista över livsmedel?",
     "upload-failed": "Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
     "what-meal": "Vilken måltid är detta?",
-    "press-back-again": "Tryck på \"bakåt\" igen för att stänga appen"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Söndag",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Välj minst en kategori",
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Ljudsignal vid streckkodsskanning",
       "edit-images": "Beskär bilder",
       "login-success": "Inloggningen lyckades"
