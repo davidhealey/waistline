@@ -84,6 +84,7 @@
     "camera-problem": "Wystąpił problem z dostępem do aparatu.",
     "no-internet": "Brak połączenia z Internetem",
     "no-results": "Brak pasujących wyników",
+    "no-response": "No response from server",
     "no-search-providers": "Żaden dostawca wyszukiwania nie jest włączony",
     "scan-failed": "Skanowanie nie powiodło się",
     "search": "Szukaj",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Czy chcesz dodać przesłany element do swojej listy żywności?",
     "upload-failed": "Niestety przesłanie nie powiodło się, spróbuj ponownie lub skontaktuj się z programistą.",
     "what-meal": "Co to za posiłek?",
-    "press-back-again": "Dotknij ponownie 'Wstecz', aby wyjść z aplikacji"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Niedziela",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Proszę wybrać przynajmniej jedną kategorię",
       "import-success-title": "Kopia zapasowa została przywrócona",
       "import-success-message": "Import Zakończony",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Sygnał skanera kodu kreskowego",
       "edit-images": "Przytnij zdjęcie",
       "login-success": "Zalogowano pomyślnie"
