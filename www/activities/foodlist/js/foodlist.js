@@ -471,6 +471,7 @@ app.Foodlist = {
           resolve(undefined);
         }, {
           showTorchButton: true,
+          torchOn: app.Settings.get("integration", "barcode-flashlight"),
           disableSuccessBeep: !app.Settings.get("integration", "barcode-sound"),
           prompt: app.strings["foods-meals-recipes"]["scan-prompt"] || "Place a barcode inside the scan area"
         });
