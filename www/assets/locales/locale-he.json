@@ -84,7 +84,7 @@
     "camera-problem": "הגישה למצלמה שלך נכשלה.",
     "no-internet": "אין חיבור לאינטרנט",
     "no-results": "אין תוצאות מתאימות",
-    "no-response": "No response from server",
+    "no-response": "אין תגובה מהשרת",
     "no-search-providers": "אין ספקי חיפוש פעילים",
     "scan-failed": "הסריקה נכשלה",
     "search": "חיפוש",
@@ -96,8 +96,8 @@
     "upload-add-to-foodlist": "להוסיף את הפריט שהועלה לרשימת המאכלים שלך?",
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
     "what-meal": "איזו מנה זו?",
-    "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-exit": "לחיצה על חזרה שוב תצא מהיישומון",
+    "press-back-again-editor": "לחיצה על חזרה שוב תצא מהעורך"
   },
   "days": {
     "0": "יום ראשון",
@@ -384,7 +384,7 @@
       "import-foods-category-fail": "נא לבחור בקטגוריה אחת לפחות",
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
-      "barcode-flashlight": "Barcode Scan Flashlight",
+      "barcode-flashlight": "מבזק לסריקת ברקודים",
       "barcode-sound": "צפצוף סריקת ברקוד",
       "edit-images": "חיתוך תמונות",
       "login-success": "הכניסה הצליחה"
