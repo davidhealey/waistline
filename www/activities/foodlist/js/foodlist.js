@@ -153,7 +153,9 @@ app.Foodlist = {
       app.Foodlist.list = result;
       app.Foodlist.filterList = app.Foodlist.list;
     } else {
-      let msg = app.strings.dialogs["no-results"] || "No matching results";
+      let msg = (offList === undefined) ?
+        app.strings.dialogs["no-response"] || "No response from server" :
+        app.strings.dialogs["no-results"] || "No matching results";
       app.Utils.toast(msg);
     }
 
@@ -445,7 +447,9 @@ app.Foodlist = {
                 } else if (result !== undefined && app.FoodsMealsRecipes.editItems != "disabled") {
                   app.Foodlist.gotoUploadEditor(code);
                 } else {
-                  let msg = app.strings.dialogs["no-results"] || "No matching results";
+                  let msg = (result === undefined) ?
+                    app.strings.dialogs["no-response"] || "No response from server" :
+                    app.strings.dialogs["no-results"] || "No matching results";
                   app.Utils.toast(msg);
                 }
               }
