@@ -84,6 +84,7 @@
     "camera-problem": "Kameranıza erişim esnasında bir hata oluştu.",
     "no-internet": "İnternet Bağlantısı Yok",
     "no-results": "Sonuç bulunamadı",
+    "no-response": "No response from server",
     "no-search-providers": "Hiçbir arama sağlayıcısı etkinleştirilmedi",
     "scan-failed": "Tarama Başarısız Oldu",
     "search": "Ara",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Yüklenen öğeyi yiyecek listenize eklemek istiyor musunuz?",
     "upload-failed": "Malesef yükleme başarısız oldu. Lütfen tekrar deneyin veya uygulama geliştiricisi ile iletişime geçin.",
     "what-meal": "Bu hangi yemek?",
-    "press-back-again": "Çıkmak için Geri Tuşuna tekrar basın"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Pazar",
@@ -382,6 +384,7 @@
       "import-foods-category-fail": "Lütfen en az bir kategori seçin",
       "import-success-title": "Yedekleme geri yüklendi",
       "import-success-message": "İçe Aktarma Tamamlandı",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Barkod Tarama Sesi",
       "edit-images": "Fotoğrafları Kırp",
       "login-success": "Başarıyla Giriş Yapıldı"
