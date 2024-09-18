@@ -262,21 +262,21 @@
       "wifi-thumbnails": "Mostrar imagens apenas por Wi-Fi",
       "show-all-nutriments": "Mostrar todos os nutrientes na página inicial",
       "show-units": "Mostrar informação nutricional",
-      "prompt-add-items": "Prompt for quantity when adding items"
+      "prompt-add-items": "Solicitar quantidade ao adicionar itens"
     },
     "nutriments": {
-      "title": "Nutrients",
+      "title": "Nutrientes",
       "field": "Nome",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Unidade",
+      "add": "Adicionar campo",
+      "edit": "Editar campo"
     },
     "body-stats": {
-      "title": "Body Stats",
+      "title": "Estatísticas corporais",
       "field": "Nome",
-      "unit": "Unit",
-      "add": "Add Field",
-      "edit": "Edit Field"
+      "unit": "Unidade",
+      "add": "Adicionar campo",
+      "edit": "Editar campo"
     },
     "diary-categories": {
       "title": "Categorias",
@@ -284,66 +284,66 @@
     },
     "goals": {
       "title": "Objetivos",
-      "first-day-of-week": "First day of the week",
-      "average-goal-base": "Compute average goals based on",
-      "current-week": "Current Week",
-      "last-3-days": "Last 3 Days",
-      "last-5-days": "Last 5 Days",
-      "last-7-days": "Last 7 Days",
-      "last-10-days": "Last 10 Days",
+      "first-day-of-week": "Primeiro dia da semana",
+      "average-goal-base": "Calcular objetivos médios com base em",
+      "current-week": "Semana Atual",
+      "last-3-days": "Últimos 3 dias",
+      "last-5-days": "Últimos 5 dias",
+      "last-7-days": "Últimos 7 dias",
+      "last-10-days": "Últimos 10 dias",
       "goals-link": "Defina objetivos"
     },
     "foods": {
       "title": "Alimentos, Refeições, Receitas",
-      "sort": "Sort Foods",
+      "sort": "Ordenar alimentos",
       "sort-date": "Por último uso",
       "sort-alpha": "Ordem alfabética",
-      "category-labels": "Show Category Labels",
+      "category-labels": "Mostrar Rótulos de Categoria",
       "thumbnails": "Mostrar miniaturas",
       "wifi-thumbnails": "Mostrar imagens apenas por Wi-Fi",
       "images": "Mostrar Imagens dos Alimentos",
       "wifi-images": "Mostrar imagens apenas por Wi-Fi",
-      "show-notes": "Show Food Notes"
+      "show-notes": "Exibir Anotações de Alimentos"
     },
     "foods-categories": {
-      "title": "Labels and Categories",
-      "label": "Label / Icon",
-      "description": "Description",
-      "add": "Add Category",
-      "edit": "Edit Category"
+      "title": "Rótulos e Categorias",
+      "label": "Rótulo / Ícone",
+      "description": "Descrição",
+      "add": "Adicionar Categoria",
+      "edit": "Editar Categoria"
     },
     "statistics": {
       "title": "Estatísticas",
-      "y-zero": "Begin Y Axis at Zero",
-      "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "y-zero": "Começar o Eixo Y em Zero",
+      "average-line": "Mostrar Linha Média",
+      "goal-line": "Mostrar Linha Meta"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Desenvolvedor",
+      "data-sharing": "Compartilhamento de Dados",
+      "data-sharing-wifi-only": "Compartilhar dados apenas por Wi-Fi",
+      "data-sharing-active": "Compartilhar dados com serviços externos",
+      "data-sharing-address": "Endereço de Serviço",
+      "data-sharing-authorization": "Cabeçalho de Serviço de Autorização"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
-      "default": "Default",
-      "locale": "Number formatting locale (optional)"
+      "title": "Texto para Fala",
+      "test": "Testar configurações atuais",
+      "speed": "Velocidade",
+      "pitch": "Tom de voz",
+      "voice": "Voz",
+      "default": "Padrão",
+      "locale": "Localização da formatação numérica (opcional)"
     },
     "import-export": {
       "title": "Importar/Exportar",
       "auto-backup": "Backup automático",
       "backup": "Cópia de segurança dos dados",
-      "share": "Share Backup File",
+      "share": "Compartilhar arquivo de backup",
       "import": "Importar da cópia de segurança dos dados",
-      "import-foods-title": "Import Foods",
-      "import-foods": "Import Foods from JSON",
-      "import-foods-categories": "Categories for imported items",
+      "import-foods-title": "Importar Alimentos",
+      "import-foods": "Importar Alimentos de JSON",
+      "import-foods-categories": "Categorias para itens importados",
       "export-diary-title": "Export Diary",
       "export-diary": "Export Diary to CSV",
       "share-diary": "Share CSV File",
