@@ -21,6 +21,7 @@ app.FoodEditor = {
 
   item: undefined,
   item_image_url: undefined,
+  addingNewItem: undefined,
   index: undefined,
   scan: false,
   origin: undefined,
@@ -32,10 +33,13 @@ app.FoodEditor = {
 
     app.FoodEditor.item = undefined;
     app.FoodEditor.item_image_url = undefined;
+    app.FoodEditor.addingNewItem = true;
     app.FoodEditor.scan = false;
     app.FoodEditor.images = [];
 
     if (context) {
+
+      app.FoodEditor.addingNewItem = (context.item == undefined || context.item.id == undefined);
 
       if (context.item !== undefined)
         app.FoodEditor.item = context.item;
@@ -43,7 +47,7 @@ app.FoodEditor = {
       if (context.index !== undefined)
         app.FoodEditor.index = context.index;
 
-      if (context.item == undefined || (context.item != undefined && context.item.id == undefined))
+      if (app.FoodEditor.addingNewItem)
         app.FoodEditor.linked = false; //Unlinked by default for adding new items
       else
         app.FoodEditor.linked = true;
@@ -273,7 +277,7 @@ app.FoodEditor = {
   },
 
   setupHardwareBackButtonExitHandling: function() {
-    if (app.FoodEditor.origin == "foodlist")
+    if (app.FoodEditor.addingNewItem)
       app.FoodEditor.el.page.setAttribute("confirm-backbutton", "");
     else
       app.FoodEditor.el.page.removeAttribute("confirm-backbutton");
