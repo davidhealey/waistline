@@ -19,6 +19,7 @@
 
 app.RecipeEditor = {
 
+  addingNewRecipe: undefined,
   editingEnabled: undefined,
   recipe_image_url: undefined,
   recipe: {},
@@ -146,7 +147,7 @@ app.RecipeEditor = {
   },
 
   setupHardwareBackButtonExitHandling: function() {
-    if (app.RecipeEditor.editingEnabled)
+    if (app.RecipeEditor.addingNewRecipe)
       app.RecipeEditor.el.page.setAttribute("confirm-backbutton", "");
     else
       app.RecipeEditor.el.page.removeAttribute("confirm-backbutton");
@@ -345,6 +346,7 @@ document.addEventListener("page:init", function(event) {
     let context = app.data.context;
     app.data.context = undefined;
 
+    app.RecipeEditor.addingNewRecipe = (context == undefined || context.recipe == undefined);
     app.RecipeEditor.editingEnabled = (app.FoodsMealsRecipes.editItems == "enabled");
 
     // Clear old recipe
