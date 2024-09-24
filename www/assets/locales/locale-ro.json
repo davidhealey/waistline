@@ -84,6 +84,7 @@
     "camera-problem": "A apărut o problemă la accesarea camerei video.",
     "no-internet": "Fără conexiune la internet",
     "no-results": "Niciun rezultat potrivit",
+    "no-response": "Niciun răspuns de la server",
     "no-search-providers": "Niciun motor de căutare nu este activat",
     "scan-failed": "Scanarea a eșuat",
     "search": "Caută",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Vrei să adaugi articolul încărcat în lista ta de alimente?",
     "upload-failed": "Din păcate, încărcarea nu a reușit. Încercați din nou sau contactați dezvoltatorul.",
     "what-meal": "Ce mâncare este asta?",
-    "press-back-again": "Apăsați Înapoi din nou pentru a ieși din aplicație"
+    "press-back-again-exit": "Apăsați înapoi din nou pentru a ieși din aplicație",
+    "press-back-again-editor": "Apăsați înapoi din nou pentru a ieși din aplicație"
   },
   "days": {
     "0": "Duminică",
@@ -186,10 +188,10 @@
     "nutrition": "Informații nutriționale",
     "per-100": "Pentru 100g/100ml",
     "per-serving": "Pe porție",
-    "image": "Image",
-    "name-and-brand": "Name and Brand",
-    "nutriments-per-serving": "Nutrients per serving",
-    "nutriments-per-100": "Nutrients per 100g/100ml",
+    "image": "Imagine",
+    "name-and-brand": "Nume și brand",
+    "nutriments-per-serving": "Nutrienți pe porție",
+    "nutriments-per-100": "Nutrienți per 100g/100ml",
     "additional-photos": "Fotografii suplimentare",
     "ingredients": "Listă de ingrediente",
     "packaging": "Instrucțiuni de reciclare/informaţii privind ambalarea",
@@ -337,12 +339,14 @@
       "title": "Import/export",
       "auto-backup": "Backup automat",
       "backup": "Backup bază de date",
+      "share": "Distribuie fișierul de backup",
       "import": "Importă din backup",
       "import-foods-title": "Importă alimente",
       "import-foods": "Importă alimente din fișier JSON",
       "import-foods-categories": "Categorii pentru articole importate",
       "export-diary-title": "Exportă jurnalul",
       "export-diary": "Exportă jurnalul în CSV",
+      "share-diary": "Distribuie fișierul CSV",
       "date": "Dată"
     },
     "integration": {
@@ -380,6 +384,7 @@
       "import-foods-category-fail": "Selectați cel puțin o categorie",
       "import-success-title": "Backup-ul tău a fost restaurat",
       "import-success-message": "Import finalizat",
+      "barcode-flashlight": "Lanternă pentru codul de bare",
       "barcode-sound": "Sunet la scanarea codului de bare",
       "edit-images": "Trunchiați poza",
       "login-success": "Autentificare reușită"

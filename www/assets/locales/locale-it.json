@@ -84,6 +84,7 @@
     "camera-problem": "C'è stato un problema nell'uso della fotocamera.",
     "no-internet": "Nessuna connessione ad internet",
     "no-results": "Nessun risultato riscontrato",
+    "no-response": "Nessuna risposta da parte del server",
     "no-search-providers": "Nessun provider di ricerca è attivo",
     "scan-failed": "Scansione fallita",
     "search": "Ricerca",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Vuoi aggiungere l'elemento caricato alla tua lista degli alimenti?",
     "upload-failed": "Sfortunatamente l'upload è fallito. Riprova o contatta lo sviluppatore per favore.",
     "what-meal": "Che pasto è questo?",
-    "press-back-again": "Premi di nuovo indietro per uscire dall'app"
+    "press-back-again-exit": "Premi di nuovo Indietro per uscire dall'app",
+    "press-back-again-editor": "Premi di nuovo Indietro per uscire dall'editor"
   },
   "days": {
     "0": "Domenica",
@@ -337,12 +339,14 @@
       "title": "Importa/esporta",
       "auto-backup": "Backup automatico",
       "backup": "Backup del database",
+      "share": "Condividi file di backup",
       "import": "Importa dal backup",
       "import-foods-title": "Importa Alimenti",
       "import-foods": "Importa alimenti da JSON",
       "import-foods-categories": "Categorie per articoli importati",
       "export-diary-title": "Esporta il diario",
       "export-diary": "Esporta il diario in CSV",
+      "share-diary": "Condividi file CSV",
       "date": "Data"
     },
     "integration": {
@@ -380,6 +384,7 @@
       "import-foods-category-fail": "Per favore seleziona almeno una categoria",
       "import-success-title": "Il tuo backup è stato ripristinato",
       "import-success-message": "Importazione completa",
+      "barcode-flashlight": "Torcia per scansione codice a barre",
       "barcode-sound": "Verifica codice a barre suono",
       "edit-images": "Ritaglia la foto",
       "login-success": "Accesso Riuscito"
