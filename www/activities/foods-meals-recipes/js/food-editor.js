@@ -784,7 +784,9 @@ app.FoodEditor = {
           app.FoodEditor.renderNutritionFields(item);
         }
       } else {
-        let msg = app.strings.dialogs["no-results"] || "No matching results";
+        let msg = (result === undefined) ?
+          app.strings.dialogs["no-response"] || "No response from server" :
+          app.strings.dialogs["no-results"] || "No matching results";
         app.Utils.toast(msg);
       }
     }
