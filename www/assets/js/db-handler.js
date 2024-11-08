@@ -254,7 +254,7 @@ var dbHandler = {
                 items: [],
               };
 
-              // Add weight 
+              // Add weight
               let weight = weights[index];
 
               if (weight !== undefined) {
@@ -632,13 +632,15 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       let objectStore = DB.transaction(storeName).objectStore(storeName).index(index);
 
-      let request = objectStore.getAll(key);
+      let request = objectStore.getAll();
+      let keyNum = Number(key);
 
       request.onsuccess = function() {
         if (request.result) {
           for (const item of request.result) {
-            if (item.archived !== true)
+            if ((Number(item.barcode) === keyNum) && (item.archived !== true)) {
               resolve(item);
+	    }
           }
         }
         resolve(undefined);
@@ -713,7 +715,7 @@ var dbHandler = {
             storeNames.splice(index, 1);
           }
 
-          // Get values from each store 
+          // Get values from each store
           storeNames.forEach(function(x) {
             let data = [];
 
@@ -770,7 +772,7 @@ var dbHandler = {
       };
 
       let storeNames = Array.from(DB.objectStoreNames);
-      let version = data.version; // Get version from json data 
+      let version = data.version; // Get version from json data
 
       // If no version is found then JSON must be from older version export
       if (version === undefined) {
@@ -780,7 +782,7 @@ var dbHandler = {
           version = 24;
       }
 
-      // Remove version key from import data 
+      // Remove version key from import data
       delete data.version;
       delete data._version;
 
@@ -814,7 +816,7 @@ var dbHandler = {
               if (d.dateTime !== undefined)
                 entry.dateTime = new Date(d.dateTime);
 
-              // Remove empty barcodes 
+              // Remove empty barcodes
               if (entry.barcode == "" || entry.barcode == undefined || entry.barcode == "undefined")
                 delete entry.barcode;
 
