@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "cordova": "^12.0.0",
-    "cordova-android": "^12.0.1",
+    "cordova-android": "^13.0.0",
     "cordova-browser": "^7.0.0",
     "cordova-electron": "^3.1.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
@@ -15,6 +15,7 @@
     "cordova-plugin-crop": "github:rastafan/cordova-plugin-crop",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-file": "^8.0.0",
+    "cordova-plugin-health": "^3.2.1",
     "cordova-plugin-inappbrowser": "^5.0.0",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-network-information": "^3.0.0",
@@ -42,6 +43,10 @@
       "cordova-plugin-x-socialsharing": {},
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-health": {
+        "HEALTH_READ_PERMISSION": "App needs read access",
+        "HEALTH_WRITE_PERMISSION": "App needs write access"
       }
     },
     "platforms": [
