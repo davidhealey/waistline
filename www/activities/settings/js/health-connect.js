@@ -48,4 +48,28 @@ app.HealthConnect = {
   
   document.addEventListener("page:init", function(e) {
     app.HealthConnect.init();
+    dbHandler.getAllItems("diary").then(response => {
+      const meals = ["breakfast" ,"lunch" ,"dinner" ,"snack"]
+      response.forEach(day => {
+        day.items.forEach(item => {
+          app.FoodsMealsRecipes.getItem(item.id, item.type, item.portion, item.quantity).then((data) => {
+            alert(data.dateTime, data.name, data.nutrition.calories, meals[item.category])
+            cordova.plugins.health.store({
+              startDate: data.dateTime,
+              endDate: new Date(data.dateTime.getTime() + 10000), // startDate and endDate must be different.
+              dataType: 'nutrition',
+              value: {
+                item: data.name,
+                meal_type: meals[item.category],
+                calories: data.nutrition.calories || 0,
+                protein: data.nutrition.protein || 0,
+                "fat.total": data.nutrition.calories || 0,
+                "carbs.total": data.nutrition.calories || 0
+              },
+            })
+          })
+        })
+      })
+    })
+
   });
