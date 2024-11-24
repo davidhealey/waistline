@@ -23,7 +23,7 @@ app.USDA = {
     "fat": "Total lipid (fat)",
     "saturated-fat": "Fatty acids, total saturated",
     "carbohydrates": "Carbohydrate, by difference",
-    "sugars": "Sugars, total including NLEA",
+    "sugars": "Total Sugars",
     "fiber": "Fiber, total dietary",
     "proteins": "Protein",
     "monounsaturated-fat": "Fatty acids, total monounsaturated",
