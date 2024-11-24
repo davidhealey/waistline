@@ -11,7 +11,7 @@
     "salt": "Sel",
     "sodium": "Sodium",
     "cholesterol": "Cholestérol",
-    "trans-fat": "Acides gras transaturés",
+    "trans-fat": "Acides gras trans",
     "monounsaturated-fat": "Acides gras mono-insaturés",
     "polyunsaturated-fat": "Acides gras poly-insaturés",
     "omega-3-fat": "Oméga-3",
@@ -84,6 +84,7 @@
     "camera-problem": "Une erreur est survenue en essayant d’accéder à l’appareil photo.",
     "no-internet": "Pas de connexion internet",
     "no-results": "Pas de résultats",
+    "no-response": "Aucune réponse du serveur",
     "no-search-providers": "Pas de moteur de recherche activé",
     "scan-failed": "Code non reconnu",
     "search": "Recherche",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Voulez-vous ajouter l'élément téléchargé à votre liste de denrées alimentaires ?",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?",
-    "press-back-again": "Appuyez à nouveau sur le bouton Retour pour quitter l'application"
+    "press-back-again-exit": "Press Back again to exit the app",
+    "press-back-again-editor": "Press Back again to leave the editor"
   },
   "days": {
     "0": "Dimanche",
@@ -187,9 +189,9 @@
     "per-100": "Pour 100g/100mL",
     "per-serving": "Par portion",
     "image": "Image",
-    "name-and-brand": "Name and Brand",
-    "nutriments-per-serving": "Nutrients per serving",
-    "nutriments-per-100": "Nutrients per 100g/100ml",
+    "name-and-brand": "Nom et marque",
+    "nutriments-per-serving": "Nutriments par portion",
+    "nutriments-per-100": "Nutriments par 100g/100ml",
     "additional-photos": "Photos supplémentaires",
     "ingredients": "Liste d'ingrédients",
     "packaging": "Consignes de recyclage / informations d'emballage",
@@ -254,7 +256,7 @@
     "diary": {
       "title": "Journal",
       "categories": "Catégories",
-      "brands": "Show Brands",
+      "brands": "Afficher les marques",
       "timestamps": "Afficher les dates",
       "thumbnails": "Afficher les vignettes",
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
@@ -325,11 +327,11 @@
       "data-sharing-authorization": "En-tête d'autorisation du service"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "title": "Synthèse vocale",
+      "test": "Tester les paramètres actuels",
+      "speed": "Vitesse",
+      "pitch": "Hauteur de la voix",
+      "voice": "Voix",
       "default": "Défault",
       "locale": "Number formatting locale (optional)"
     },
@@ -337,12 +339,14 @@
       "title": "Importation/Exportation",
       "auto-backup": "Sauvegarde automatique",
       "backup": "Sauvegarder la base de données",
+      "share": "Share Backup File",
       "import": "Importer à partir d’une sauvegarde",
       "import-foods-title": "Importer des Aliments",
       "import-foods": "Importer des Aliments depuis un fichier JSON",
       "import-foods-categories": "Catégories pour les éléments importés",
       "export-diary-title": "Exporter le journal",
       "export-diary": "Exporter le journal au format CSV",
+      "share-diary": "Share CSV File",
       "date": "Date"
     },
     "integration": {
@@ -380,6 +384,7 @@
       "import-foods-category-fail": "Veuillez sélectionner au moins une catégorie",
       "import-success-title": "La sauvegarde a été restaurée",
       "import-success-message": "Importation réussie",
+      "barcode-flashlight": "Barcode Scan Flashlight",
       "barcode-sound": "Son de scanner",
       "edit-images": "Modifier les images",
       "login-success": "Connexion réussie"
@@ -389,9 +394,9 @@
     "title": "À propos",
     "p0": "Waistline a été créé par David Healey avec les suggestions et contributions des utilisateurs·rices.",
     "p1": "Waistline a été construit à l’aide de Cordova disponible sous licence Apache. Sont inclus Framework7, jQuery, jQuery localize, et ChartJS sous licence MIT. Les composants HTML, CSS et Javascript sont sous licence GPLv3.",
-    "source-code": "Source Code",
-    "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "source-code": "Code source",
+    "user-guide": "Guide de l'utilisateur / FAQ",
+    "version": "Version actuelle :"
   },
   "locale": {
     "auto": "Détection automatique",
