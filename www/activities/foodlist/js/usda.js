@@ -106,6 +106,7 @@ app.USDA = {
     result.name = item.description;
     result.brand = item.brandOwner;
     result.barcode = "fdcId_" + item.fdcId; // Use fdcId as barcode
+    result.originalBarcode = item.fdcId;
     result.portion = "100";
     result.unit = app.strings["unit-symbols"]["g"] || "g";
 
