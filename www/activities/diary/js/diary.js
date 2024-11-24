@@ -311,10 +311,10 @@ app.Diary = {
     // Optimize column count for screen width
     let columnsToShow = 4;
 
-    if (window.innerWidth > 500)
+    if (window.innerWidth > 480)
       columnsToShow = 5;
 
-    if (window.innerWidth < 400)
+    if (window.innerWidth < 360)
       columnsToShow--;
 
     if (app.Settings.get("diary", "show-nutrition-units"))
