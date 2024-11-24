@@ -452,7 +452,7 @@ app.FoodEditor = {
 
       let url;
       if (item.barcode.startsWith("fdcId_"))
-        url = "https://fdc.nal.usda.gov/fdc-app.html#/food-details/" + code + "/nutrients";
+        url = "https://fdc.nal.usda.gov/food-details/" + code + "/nutrients";
       else
         url = "https://world.openfoodfacts.org/product/" + code;
 
