@@ -104,7 +104,13 @@ app.OpenFoodFacts = {
       result.name = item.code;
 
     result.image_url = escape(item.image_url);
-    result.barcode = item.code;
+
+    if (item.code.startsWith("0")) {
+      result.barcode = item.code.substring(1); // if barcode begins with a zero, remove it
+      result.originalBarcode = item.code;
+    } else {
+      result.barcode = item.code;
+    }
 
     // Get first brand if there is more than one
     let brands = item.brands || "";

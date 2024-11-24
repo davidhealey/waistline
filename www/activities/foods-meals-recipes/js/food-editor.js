@@ -445,7 +445,7 @@ app.FoodEditor = {
     app.FoodEditor.el.notes.value = item.notes || "";
 
     if (item.barcode !== undefined && !item.barcode.startsWith("custom_")) {
-      let code = item.barcode.replace("fdcId_", "");
+      let code = item.originalBarcode || item.barcode; // prioritize originalBarcode if it exists, else show normal barcode
 
       app.FoodEditor.el.barcodeContainer.style.display = "block";
       app.FoodEditor.el.barcode.value = code;
@@ -752,15 +752,16 @@ app.FoodEditor = {
 
     if (app.Utils.isInternetConnected()) {
       let barcode = app.FoodEditor.item.barcode;
+      let originalBarcode = app.FoodEditor.item.originalBarcode || app.FoodEditor.item.barcode;
       let result;
 
       app.f7.preloader.show();
 
       if (barcode !== undefined) {
         if (barcode.startsWith("fdcId_"))
-          result = await app.USDA.search(barcode.replace("fdcId_", ""), getNutriments100);
+          result = await app.USDA.search(originalBarcode, getNutriments100);
         else
-          result = await app.OpenFoodFacts.search(barcode, getNutriments100);
+          result = await app.OpenFoodFacts.search(originalBarcode, getNutriments100);
       }
 
       app.f7.preloader.hide();
