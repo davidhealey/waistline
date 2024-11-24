@@ -84,6 +84,7 @@
     "camera-problem": "Nastal problém při přístupu k vaší kameře.",
     "no-internet": "Bez internetového připojení",
     "no-results": "Žádné odpovídající výsledky",
+    "no-response": "Žádná odezva ze serveru",
     "no-search-providers": "Nejsou povoleni žádní poskytovatelé vyhledávání",
     "scan-failed": "Skenování se nezdařilo",
     "search": "Hledat",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "Chcete přidat nahranou položku do vašeho seznamu potravin?",
     "upload-failed": "Nahrávání se bohužel nezdařilo. Zkuste to prosím znovu nebo kontaktujte vývojáře.",
     "what-meal": "Co je to za jídlo?",
-    "press-back-again": "Opětovnou akcí Zpět zavřete aplikaci"
+    "press-back-again-exit": "Stiskněte znovu Zpět pro ukončení aplikace",
+    "press-back-again-editor": "Stiskněte znovu Zpět pro opuštění editoru"
   },
   "days": {
     "0": "Neděle",
@@ -186,10 +188,10 @@
     "nutrition": "Výživové hodnoty",
     "per-100": "Na 100g/100ml",
     "per-serving": "Na porci",
-    "image": "Image",
-    "name-and-brand": "Name and Brand",
-    "nutriments-per-serving": "Nutrients per serving",
-    "nutriments-per-100": "Nutrients per 100g/100ml",
+    "image": "Obrázek",
+    "name-and-brand": "Název a značka",
+    "nutriments-per-serving": "Živiny na porci",
+    "nutriments-per-100": "Živiny na 100 g/100 ml",
     "additional-photos": "Další fotografie",
     "ingredients": "Složení",
     "packaging": "Pokyny pro recyklaci / informace o balení",
@@ -331,18 +333,20 @@
       "pitch": "Výška hlasu",
       "voice": "Hlas",
       "default": "Výchozí",
-      "locale": "Number formatting locale (optional)"
+      "locale": "Formátování čísla (volitelné)"
     },
     "import-export": {
       "title": "Import/export",
       "auto-backup": "Automatické Zálohování",
       "backup": "Zálohovat databázi",
+      "share": "Sdílet záložní soubor",
       "import": "Nahrát ze zálohy",
       "import-foods-title": "Importovat potraviny",
       "import-foods": "Importovat jídla z JSON",
       "import-foods-categories": "Kategorie pro importované položky",
       "export-diary-title": "Exportovat diář",
       "export-diary": "Exportovat diář do CSV",
+      "share-diary": "Sdílet soubor CSV",
       "date": "Datum"
     },
     "integration": {
@@ -380,6 +384,7 @@
       "import-foods-category-fail": "Prosím vyberte alespoň jednu kategorii",
       "import-success-title": "Záloha byla obnovena",
       "import-success-message": "Import dokončen",
+      "barcode-flashlight": "Osvícení při skenování čárového kódu",
       "barcode-sound": "Pípnutí skenu čárového kódu",
       "edit-images": "Oříznout fotografie",
       "login-success": "Přihlášení úspěšné"

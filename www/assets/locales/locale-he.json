@@ -84,6 +84,7 @@
     "camera-problem": "הגישה למצלמה שלך נכשלה.",
     "no-internet": "אין חיבור לאינטרנט",
     "no-results": "אין תוצאות מתאימות",
+    "no-response": "אין תגובה מהשרת",
     "no-search-providers": "אין ספקי חיפוש פעילים",
     "scan-failed": "הסריקה נכשלה",
     "search": "חיפוש",
@@ -95,7 +96,8 @@
     "upload-add-to-foodlist": "להוסיף את הפריט שהועלה לרשימת המאכלים שלך?",
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
     "what-meal": "איזו מנה זו?",
-    "press-back-again": "לחיצה על חזרה שוב תצא מהיישומון"
+    "press-back-again-exit": "לחיצה על חזרה שוב תצא מהיישומון",
+    "press-back-again-editor": "לחיצה על חזרה שוב תצא מהעורך"
   },
   "days": {
     "0": "יום ראשון",
@@ -186,10 +188,10 @@
     "nutrition": "תזונה",
     "per-100": "ל־100ג׳/100מ״ל",
     "per-serving": "להגשה",
-    "image": "Image",
-    "name-and-brand": "Name and Brand",
-    "nutriments-per-serving": "Nutrients per serving",
-    "nutriments-per-100": "Nutrients per 100g/100ml",
+    "image": "תמונה",
+    "name-and-brand": "תמונה ומותג",
+    "nutriments-per-serving": "חומרי הזנה בהגשה",
+    "nutriments-per-100": "חומרי הזנה ב־100 גר׳ או מ״ל",
     "additional-photos": "תמונות נוספות",
     "ingredients": "רשימת רכיבים",
     "packaging": "הנחיות מיחזור / פרטי אריזה",
@@ -337,12 +339,14 @@
       "title": "ייבוא/ייצוא",
       "auto-backup": "גיבוי אוטומטי",
       "backup": "גיבוי מסד נתונים",
+      "share": "שיתוף קובץ גיבוי",
       "import": "ייבוא מגיבוי",
       "import-foods-title": "ייבוא מאכלים",
       "import-foods": "ייבוא מאכלים מ־JSON",
       "import-foods-categories": "קטגוריות לפריטים המיובאים",
       "export-diary-title": "ייצוא יומן",
       "export-diary": "ייצוא יומן ל־CSV",
+      "share-diary": "שיתוף קובץ CSV",
       "date": "תאריך"
     },
     "integration": {
@@ -380,6 +384,7 @@
       "import-foods-category-fail": "נא לבחור בקטגוריה אחת לפחות",
       "import-success-title": "הגיבוי שוחזר",
       "import-success-message": "הייבוא הושלם",
+      "barcode-flashlight": "מבזק לסריקת ברקודים",
       "barcode-sound": "צפצוף סריקת ברקוד",
       "edit-images": "חיתוך תמונות",
       "login-success": "הכניסה הצליחה"
