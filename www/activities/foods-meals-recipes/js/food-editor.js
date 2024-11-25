@@ -591,8 +591,13 @@ app.FoodEditor = {
         const caloriesEl = document.getElementById("calories");
         const kilojoulesEl = document.getElementById("kilojoules");
 
-        if (data !== undefined && data.barcode !== undefined)
-          item.barcode = data.barcode;
+        if (data !== undefined) {
+          if (data.barcode !== undefined)
+            item.barcode = data.barcode;
+
+          if (data.originalBarcode !== undefined)
+            item.originalBarcode = data.originalBarcode;
+        }
 
         item.name = app.FoodEditor.el.name.value.trim();
 
