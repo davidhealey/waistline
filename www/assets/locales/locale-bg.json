@@ -84,7 +84,7 @@
     "camera-problem": "Имаше проблем с достъпа до вашата камера.",
     "no-internet": "Няма интернет връзка",
     "no-results": "Няма намерени резултати",
-    "no-response": "No response from server",
+    "no-response": "Няма отговор от сървъра",
     "no-search-providers": "Не са активирани доставчици за търсене",
     "scan-failed": "Неуспешно сканиране",
     "search": "Търсене",
@@ -96,8 +96,8 @@
     "upload-add-to-foodlist": "Искате ли да добавите качения продукт към вашия списък с храни?",
     "upload-failed": "За съжаления качването беше неуспешно. Моля опитайте отново или се свържете с разработчика.",
     "what-meal": "Какво хранене е това?",
-    "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-exit": "Натиснете Назад отново, за да затворите приложението",
+    "press-back-again-editor": "Натиснете Назад отново, за да затворите редактора"
   },
   "days": {
     "0": "Неделя",
@@ -179,10 +179,10 @@
     "name": "Име",
     "brand": "Марка",
     "category": "Категория",
-    "serving-size": "Порция, размер",
-    "serving-unit": "Порция, единици",
-    "recipe-size": "Рецепта, размер",
-    "recipe-unit": "Рецепта, единици",
+    "serving-size": "Количество на порцията",
+    "serving-unit": "Мерни единици за порцията",
+    "recipe-size": "Количество за рецептата",
+    "recipe-unit": "Мерни единици за рецептата",
     "number-of-servings": "Брой порции",
     "notes": "Бележки",
     "nutrition": "Хранителни стойности",
@@ -384,7 +384,7 @@
       "import-foods-category-fail": "Моля изберете поне една категория",
       "import-success-title": "Резервното копие е възстановено",
       "import-success-message": "Внасянето завърши",
-      "barcode-flashlight": "Barcode Scan Flashlight",
+      "barcode-flashlight": "Сканиране на баркод с фенерче",
       "barcode-sound": "Звук при сканиране на баркод",
       "edit-images": "Изрежи снимките",
       "login-success": "Успешен вход"
