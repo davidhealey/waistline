@@ -1,0 +1,2 @@
+- shortened display time of the splash screen
+- various bugfixes
