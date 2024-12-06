@@ -136,10 +136,11 @@ app.FoodImages = {
     img.src = src;
     img.style["max-width"] = "80vw";
     img.style["max-height"] = "40vh";
+    img.style["pointer-events"] = "none";
 
     if (removable == true) {
       photoHolderEl.classList.add("ripple");
-      img.addEventListener("taphold", function(e) {
+      photoHolderEl.addEventListener("taphold", function(e) {
         app.FoodImages.removePicture(addPhotoEl, photoHolderEl, removedCallback);
       });
     } else {
