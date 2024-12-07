@@ -47,8 +47,6 @@
       "cordova-plugin-health": {}
     },
     "platforms": [
-      "browser",
-      "electron",
       "android"
     ]
   }

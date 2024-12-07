@@ -23,7 +23,7 @@ app.USDA = {
     "fat": "Total lipid (fat)",
     "saturated-fat": "Fatty acids, total saturated",
     "carbohydrates": "Carbohydrate, by difference",
-    "sugars": "Sugars, total including NLEA",
+    "sugars": "Total Sugars",
     "fiber": "Fiber, total dietary",
     "proteins": "Protein",
     "monounsaturated-fat": "Fatty acids, total monounsaturated",
@@ -106,6 +106,7 @@ app.USDA = {
     result.name = item.description;
     result.brand = item.brandOwner;
     result.barcode = "fdcId_" + item.fdcId; // Use fdcId as barcode
+    result.originalBarcode = item.fdcId;
     result.portion = "100";
     result.unit = app.strings["unit-symbols"]["g"] || "g";
 

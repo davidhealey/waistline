@@ -24,7 +24,7 @@ var dbHandler = {
     return new Promise(async function(resolve, reject) {
       //Open database
       var databaseName = 'waistlineDb';
-      var databaseVersion = 33;
+      var databaseVersion = 34;
       var openRequest = indexedDB.open(databaseName, databaseVersion);
 
       //Error handler
@@ -173,6 +173,36 @@ var dbHandler = {
 
       if (!oldVersion)
         resolve();
+
+      if (oldVersion < 34) {
+        // Remove leading zero from barcodes and add originalBarcode property
+        await new Promise(function(resolve, reject) {
+          store = transaction.objectStore('foodList');
+
+          store.openCursor().onsuccess = function(event) {
+            let cursor = event.target.result;
+
+            if (cursor) {
+              let value = cursor.value;
+
+              if (value.barcode !== undefined) {
+                if (value.barcode.startsWith("0")) {
+                  value.originalBarcode = value.barcode;
+                  value.barcode = value.barcode.substring(1);
+                }
+                if (value.barcode.startsWith("fdcId_")) {
+                  value.originalBarcode = value.barcode.replace("fdcId_", "");
+                }
+              }
+
+              cursor.update(value);
+              cursor.continue();
+            } else {
+              resolve();
+            }
+          };
+        });
+      }
 
       if (oldVersion < 31) {
         // Set hours and minutes of diary dateTime to 00:00 in UTC
