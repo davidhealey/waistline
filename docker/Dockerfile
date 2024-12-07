@@ -1,7 +1,7 @@
-FROM alvrme/alpine-android:android-34-jdk17
+FROM alvrme/alpine-android:android-35-jdk17
 
 # Set up some environment variables
-ENV GRADLE_VERSION 8.4
+ENV GRADLE_VERSION 8.5
 ENV GRADLE_HOME /opt/gradle-$GRADLE_VERSION
 ENV ANDROID_HOME /opt/sdk
 ENV PATH $PATH:$GRADLE_HOME/bin

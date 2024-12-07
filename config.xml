@@ -16,14 +16,14 @@
     <allow-intent href="market:*" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="26" />
-        <preference name="android-compileSdkVersion" value="34" />
-        <preference name="android-targetSdkVersion" value="34" />
+        <preference name="android-compileSdkVersion" value="35" />
+        <preference name="android-targetSdkVersion" value="35" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,sdcard,cache" />
         <preference name="AndroidInsecureFileModeEnabled" value="true" />
         <preference name="AndroidXEnabled" value="true" />
         <preference name="GradlePluginKotlinEnabled" value="true" />
-        <preference name="GradleVersion" value="8.4" />
+        <preference name="GradleVersion" value="8.5" />
         <preference name="AndroidGradlePluginVersion" value="8.1.1" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:usesCleartextTraffic="true" />
