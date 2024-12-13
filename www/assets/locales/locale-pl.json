@@ -262,7 +262,8 @@
       "wifi-thumbnails": "Pokazuj miniatury tylko przez Wi-Fi",
       "show-all-nutriments": "Pokaż wszystkie składniki odżywcze na stronie podglądu",
       "show-units": "Pokaż jednostki odżywcze",
-      "prompt-add-items": "Pytaj o ilość podczas dodawania produktów"
+      "prompt-add-items": "Pytaj o ilość podczas dodawania produktów",
+      "show-macro-elements-summary": "Pokazuj podsumowanie makroelementów per kategoria"
     },
     "nutriments": {
       "title": "Składniki odżywcze",

@@ -30,7 +30,7 @@ app.Group = {
     let ul = document.createElement("ul");
     list.appendChild(ul);
 
-    //Collapsable list item 
+    //Collapsable list item
     let li = document.createElement("li");
     li.className = "accordion-item";
 
@@ -94,7 +94,7 @@ app.Group = {
     row.className = "row item-content";
     li.appendChild(row);
 
-    //Add button 
+    //Add button
     let left = document.createElement("div");
     left.className = "add-button";
     left.id = "add-button-" + id;
@@ -116,21 +116,40 @@ app.Group = {
     icon.innerText = "add";
     a.appendChild(icon);
 
-    //Energy 
+    //Energy
     const energyUnit = app.Settings.get("units", "energy");
     const energyName = app.Utils.getEnergyUnitName(energyUnit);
 
     let right = document.createElement("div");
     right.className = "margin-horizontal group-energy link icon-only";
-    let value = nutrition[energyName] || 0;
+    let categoryEnergyTotal = nutrition[energyName] || 0;
     let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
 
     right.addEventListener("click", function(e) {
       app.Diary.showCategoryNutriments(id, nutrition);
     });
 
-    right.innerText = app.Utils.tidyNumber(Math.round(value), energyUnitSymbol);
+    let macroElementsTexts = app.Settings.get("diary", "show-macro-elements-summary") ? [
+      this.getMacroElementFooterText('P', nutrition.proteins, categoryEnergyTotal),
+      this.getMacroElementFooterText('F', nutrition.fat, categoryEnergyTotal),
+      this.getMacroElementFooterText('C', nutrition.carbohydrates, categoryEnergyTotal)
+    ].filter(text => text !== '') : [];
+
+    right.innerText = macroElementsTexts.join(' / ') +
+        (macroElementsTexts.length > 0 ? ' / ' : '') +
+        app.Utils.tidyNumber(Math.round(categoryEnergyTotal), energyUnitSymbol);
     row.appendChild(right);
+  },
+
+  getMacroElementFooterText: function(prefix/*: string*/, grams/*: number | undefined*/, categoryEnergyTotal/*: number*/) {
+    if (categoryEnergyTotal === 0) {
+      return '';
+    }
+    if (grams === undefined || isNaN(grams)) {
+      return '';
+    }  else {
+      return prefix  + Math.round(grams);
+    }
   },
 
   addItem: function(item) {
