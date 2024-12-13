@@ -130,9 +130,9 @@ app.Group = {
     });
 
     let macroElementsTexts = app.Settings.get("diary", "show-macro-elements-summary") ? [
-      this.getMacroElementFooterText('P', nutrition.proteins, categoryEnergyTotal),
       this.getMacroElementFooterText('F', nutrition.fat, categoryEnergyTotal),
-      this.getMacroElementFooterText('C', nutrition.carbohydrates, categoryEnergyTotal)
+      this.getMacroElementFooterText('C', nutrition.carbohydrates, categoryEnergyTotal),
+      this.getMacroElementFooterText('P', nutrition.proteins, categoryEnergyTotal)
     ].filter(text => text !== '') : [];
 
     right.innerText = macroElementsTexts.join(' / ') +
