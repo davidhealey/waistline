@@ -129,19 +129,19 @@ app.Group = {
       app.Diary.showCategoryNutriments(id, nutrition);
     });
 
-    let macroElementsTexts = app.Settings.get("diary", "show-macro-elements-summary") ? [
-      this.getMacroElementFooterText('F', nutrition.fat, categoryEnergyTotal),
-      this.getMacroElementFooterText('C', nutrition.carbohydrates, categoryEnergyTotal),
-      this.getMacroElementFooterText('P', nutrition.proteins, categoryEnergyTotal)
+    let categoryMacroNutriments = app.Settings.get("diary", "show-macro-nutriments-summary") ? [
+      this.getMacroNutrimentFooterText('F', nutrition.fat, categoryEnergyTotal),
+      this.getMacroNutrimentFooterText('C', nutrition.carbohydrates, categoryEnergyTotal),
+      this.getMacroNutrimentFooterText('P', nutrition.proteins, categoryEnergyTotal)
     ].filter(text => text !== '') : [];
 
-    right.innerText = macroElementsTexts.join(' / ') +
-        (macroElementsTexts.length > 0 ? ' / ' : '') +
+    right.innerText = categoryMacroNutriments.join(' / ') +
+        (categoryMacroNutriments.length > 0 ? ' / ' : '') +
         app.Utils.tidyNumber(Math.round(categoryEnergyTotal), energyUnitSymbol);
     row.appendChild(right);
   },
 
-  getMacroElementFooterText: function(prefix/*: string*/, grams/*: number | undefined*/, categoryEnergyTotal/*: number*/) {
+  getMacroNutrimentFooterText: function(prefix/*: string*/, grams/*: number | undefined*/, categoryEnergyTotal/*: number*/) {
     if (categoryEnergyTotal === 0) {
       return '';
     }

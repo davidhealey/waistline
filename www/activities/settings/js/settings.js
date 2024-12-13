@@ -667,7 +667,7 @@ app.Settings = {
         "show-thumbnails": false,
         "wifi-thumbnails": true,
         "show-all-nutriments": false,
-        "show-macro-elements-summary": false,
+        "show-macro-nutriments-summary": false,
         "show-nutrition-units": false,
         "prompt-add-items": false
       },
