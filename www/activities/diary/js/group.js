@@ -148,7 +148,7 @@ app.Group = {
     if (grams === undefined || isNaN(grams)) {
       return '';
     }  else {
-      return prefix  + Math.round(grams);
+      return prefix  + app.Utils.tidyNumber(Math.round(grams));
     }
   },
 
