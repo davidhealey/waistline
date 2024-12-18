@@ -130,10 +130,10 @@ app.Group = {
     });
 
     let categoryMacroNutriments = app.Settings.get("diary", "show-macro-nutriments-summary") ? [
-      this.getMacroNutrimentFooterText('F', nutrition.fat, categoryEnergyTotal),
-      this.getMacroNutrimentFooterText('C', nutrition.carbohydrates, categoryEnergyTotal),
-      this.getMacroNutrimentFooterText('P', nutrition.proteins, categoryEnergyTotal)
-    ].filter(text => text !== '') : [];
+      this.getMacroNutrimentFooterText('fat', nutrition.fat, categoryEnergyTotal),
+      this.getMacroNutrimentFooterText('carbohydrates', nutrition.carbohydrates, categoryEnergyTotal),
+      this.getMacroNutrimentFooterText('proteins', nutrition.proteins, categoryEnergyTotal)
+    ].filter(text => text !== null) : [];
 
     right.innerText = categoryMacroNutriments.join(' / ') +
         (categoryMacroNutriments.length > 0 ? ' / ' : '') +
@@ -141,14 +141,18 @@ app.Group = {
     row.appendChild(right);
   },
 
-  getMacroNutrimentFooterText: function(prefix/*: string*/, grams/*: number | undefined*/, categoryEnergyTotal/*: number*/) {
+  getMacroNutrimentFooterText: function (nutriment/*: string*/, grams/*: number | undefined*/, categoryEnergyTotal/*: number*/) {
     if (categoryEnergyTotal === 0) {
-      return '';
+      return null;
+    }
+    if (!app.Goals.showInDiary(nutriment)) {
+      return null;
     }
     if (grams === undefined || isNaN(grams)) {
-      return '';
-    }  else {
-      return prefix  + app.Utils.tidyNumber(Math.round(grams));
+      return null;
+    } else {
+      const nutrimentPrefix = nutriment.charAt(0).toUpperCase();
+      return nutrimentPrefix + app.Utils.tidyNumber(Math.round(grams));
     }
   },
 
