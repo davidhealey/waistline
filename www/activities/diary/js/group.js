@@ -151,8 +151,8 @@ app.Group = {
     if (grams === undefined || isNaN(grams)) {
       return null;
     } else {
-      const nutrimentPrefix = app.strings["nutriments-abbreviations"][nutriment] || nutriment.charAt(0).toUpperCase();
-      return nutrimentPrefix + app.Utils.tidyNumber(Math.round(grams));
+      const nutrimentAbbreviation = app.strings["nutriments-abbreviations"][nutriment] || nutriment.charAt(0).toUpperCase();
+      return  app.Utils.tidyNumber(Math.round(grams)) + ' ' + nutrimentAbbreviation;
     }
   },
 
