@@ -30,7 +30,7 @@ app.Group = {
     let ul = document.createElement("ul");
     list.appendChild(ul);
 
-    //Collapsable list item 
+    //Collapsable list item
     let li = document.createElement("li");
     li.className = "accordion-item";
 
@@ -94,7 +94,7 @@ app.Group = {
     row.className = "row item-content";
     li.appendChild(row);
 
-    //Add button 
+    //Add button
     let left = document.createElement("div");
     left.className = "add-button";
     left.id = "add-button-" + id;
@@ -116,21 +116,44 @@ app.Group = {
     icon.innerText = "add";
     a.appendChild(icon);
 
-    //Energy 
+    //Energy
     const energyUnit = app.Settings.get("units", "energy");
     const energyName = app.Utils.getEnergyUnitName(energyUnit);
 
     let right = document.createElement("div");
     right.className = "margin-horizontal group-energy link icon-only";
-    let value = nutrition[energyName] || 0;
+    let categoryEnergyTotal = nutrition[energyName] || 0;
     let energyUnitSymbol = app.strings["unit-symbols"][energyUnit] || energyUnit;
 
     right.addEventListener("click", function(e) {
       app.Diary.showCategoryNutriments(id, nutrition);
     });
 
-    right.innerText = app.Utils.tidyNumber(Math.round(value), energyUnitSymbol);
+    let categoryMacroNutriments = app.Settings.get("diary", "show-macro-nutriments-summary") ? [
+      this.getMacroNutrimentFooterText('fat', nutrition.fat, categoryEnergyTotal),
+      this.getMacroNutrimentFooterText('carbohydrates', nutrition.carbohydrates, categoryEnergyTotal),
+      this.getMacroNutrimentFooterText('proteins', nutrition.proteins, categoryEnergyTotal)
+    ].filter(text => text !== null) : [];
+
+    right.innerText = categoryMacroNutriments.join(' / ') +
+        (categoryMacroNutriments.length > 0 ? ' / ' : '') +
+        app.Utils.tidyNumber(Math.round(categoryEnergyTotal), energyUnitSymbol);
     row.appendChild(right);
+  },
+
+  getMacroNutrimentFooterText: function (nutriment/*: string*/, grams/*: number | undefined*/, categoryEnergyTotal/*: number*/) {
+    if (categoryEnergyTotal === 0) {
+      return null;
+    }
+    if (!app.Goals.showInDiary(nutriment)) {
+      return null;
+    }
+    if (grams === undefined || isNaN(grams)) {
+      return null;
+    } else {
+      const nutrimentAbbreviation = app.strings["nutriments-abbreviations"][nutriment] || nutriment.charAt(0).toUpperCase();
+      return  app.Utils.tidyNumber(Math.round(grams)) + ' ' + nutrimentAbbreviation;
+    }
   },
 
   addItem: function(item) {

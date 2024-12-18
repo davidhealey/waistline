@@ -146,7 +146,7 @@ app.Settings = {
       });
     }
 
-    // Import/Export 
+    // Import/Export
     let exportDb = document.getElementById("export-db");
     if (exportDb) {
       exportDb.addEventListener("click", function(e) {
@@ -221,7 +221,7 @@ app.Settings = {
       locale.hasSecondaryChangeEvent = true;
     }
 
-    // Animations 
+    // Animations
     let toggleAnimations = document.querySelector(".page[data-name='settings-appearance'] #toggle-animations");
 
     if (toggleAnimations != undefined && !toggleAnimations.hasSecondaryChangeEvent) {
@@ -232,7 +232,7 @@ app.Settings = {
       toggleAnimations.hasSecondaryChangeEvent = true;
     }
 
-    // Nutriment list 
+    // Nutriment list
     let nutrimentList = document.getElementById("nutriment-list");
     if (nutrimentList != undefined) {
       nutrimentList.addEventListener("sortable:sort", (li) => {
@@ -245,7 +245,7 @@ app.Settings = {
       });
     }
 
-    // Body stats list 
+    // Body stats list
     let bodyStatsList = document.getElementById("body-stats-list");
     if (bodyStatsList != undefined) {
       bodyStatsList.addEventListener("sortable:sort", (li) => {
@@ -667,6 +667,7 @@ app.Settings = {
         "show-thumbnails": false,
         "wifi-thumbnails": true,
         "show-all-nutriments": false,
+        "show-macro-nutriments-summary": false,
         "show-nutrition-units": false,
         "prompt-add-items": false
       },
@@ -850,8 +851,8 @@ app.Settings = {
         settings.statistics["last-stat"] = lastStat;
       }
       window.localStorage.removeItem("last-stat");
-      
-      // Show Brands setting should be initialized to "true", as is the historical default behaviour 
+
+      // Show Brands setting should be initialized to "true", as is the historical default behaviour
       if (settings.diary["show-brands"] === undefined) {
         settings.diary["show-brands"] = true;
       }
@@ -914,7 +915,7 @@ document.addEventListener("page:init", async function(e) {
 
   if (pageName == "settings-nutriments")
     app.Nutriments.populateNutrimentList();
-  
+
   if (pageName == "settings-body-stats")
     app.BodyStats.populateBodyStatsList();
 
