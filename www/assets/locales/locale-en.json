@@ -49,6 +49,11 @@
     "fructose": "Fructose",
     "lactose": "Lactose"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
