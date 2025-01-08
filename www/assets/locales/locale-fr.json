@@ -96,8 +96,8 @@
     "upload-add-to-foodlist": "Voulez-vous ajouter l'élément téléchargé à votre liste de denrées alimentaires ?",
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?",
-    "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-exit": "Appuyer à nouveau sur Retour pour quitter l'application",
+    "press-back-again-editor": "Appuyer à nouveau sur Retour pour quitter l'éditeur"
   },
   "days": {
     "0": "Dimanche",
@@ -207,7 +207,7 @@
     "all-fields": "Tous les champs"
   },
   "goal-editor": {
-    "title": "Modifier objectifs",
+    "title": "Modifier les objectifs",
     "goal": "Objectif",
     "show-in-diary": "Afficher dans le journal",
     "show-in-stats": "Montrer les statistiques",
@@ -221,11 +221,11 @@
     "goal-deleted": "Objectif supprimé"
   },
   "meal-editor": {
-    "title": "Modifier Repas",
+    "title": "Modifier le repas",
     "foods-recipes": "Aliments et Recettes"
   },
   "recipe-editor": {
-    "title": "Modifier Recette",
+    "title": "Modifier la recette",
     "notes": "Notes"
   },
   "settings": {
@@ -233,7 +233,7 @@
     "needs-restart": "Redémarrer l’application pour appliquer les changements.",
     "appearance": {
       "title": "Apparence",
-      "app-mode": "Thème de l'app",
+      "app-mode": "Thème de l'application",
       "system": "Thème du système",
       "light": "Clair",
       "dark": "Sombre",
@@ -333,20 +333,20 @@
       "pitch": "Hauteur de la voix",
       "voice": "Voix",
       "default": "Défault",
-      "locale": "Number formatting locale (optional)"
+      "locale": "Langue de formatage des nombres (optionnel)"
     },
     "import-export": {
       "title": "Importation/Exportation",
       "auto-backup": "Sauvegarde automatique",
       "backup": "Sauvegarder la base de données",
-      "share": "Share Backup File",
+      "share": "Partager le fichier de sauvegarde",
       "import": "Importer à partir d’une sauvegarde",
       "import-foods-title": "Importer des Aliments",
       "import-foods": "Importer des Aliments depuis un fichier JSON",
       "import-foods-categories": "Catégories pour les éléments importés",
       "export-diary-title": "Exporter le journal",
       "export-diary": "Exporter le journal au format CSV",
-      "share-diary": "Share CSV File",
+      "share-diary": "Partager le fichier CSV",
       "date": "Date"
     },
     "integration": {
@@ -384,7 +384,7 @@
       "import-foods-category-fail": "Veuillez sélectionner au moins une catégorie",
       "import-success-title": "La sauvegarde a été restaurée",
       "import-success-message": "Importation réussie",
-      "barcode-flashlight": "Barcode Scan Flashlight",
+      "barcode-flashlight": "Lampe torche à code barre",
       "barcode-sound": "Son de scanner",
       "edit-images": "Modifier les images",
       "login-success": "Connexion réussie"
