@@ -49,6 +49,11 @@
     "fructose": "ෆ්රුක්ටෝස්",
     "lactose": "ලැක්ටෝස්"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Show nutrition units",
-      "prompt-add-items": "Prompt for quantity when adding items"
+      "prompt-add-items": "Prompt for quantity when adding items",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Nutrients",
