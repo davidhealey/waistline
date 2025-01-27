@@ -49,6 +49,11 @@
     "fructose": "פרוקטוז",
     "lactose": "לקטוז"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "קק״ל",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "הצגת תמונות ממוזערות בחיבור אלחוטי בלבד",
       "show-all-nutriments": "הצגת כל חומרי ההזנה בעמוד הסקירה",
       "show-units": "הצגת יחידות תזונה",
-      "prompt-add-items": "לבקש כמות בהוספת פריטים"
+      "prompt-add-items": "לבקש כמות בהוספת פריטים",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "חומרי הזנה",
