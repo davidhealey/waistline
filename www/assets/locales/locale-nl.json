@@ -50,9 +50,9 @@
     "lactose": "Lactose"
   },
   "nutriments-abbreviations": {
-    "fat": "F",
-    "carbohydrates": "C",
-    "proteins": "P"
+    "fat": "V",
+    "carbohydrates": "K",
+    "proteins": "E"
   },
   "unit-symbols": {
     "kcal": "kcal",
@@ -268,7 +268,7 @@
       "show-all-nutriments": "Toon alle voedingsstoffen op de overzichtspagina",
       "show-units": "Toon voedingswaarde-eenheden",
       "prompt-add-items": "Hoeveelheid vragen bij het toevoegen van items",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Samenvatting macro's per categorie weergeven"
     },
     "nutriments": {
       "title": "Voedingsstoffen",
