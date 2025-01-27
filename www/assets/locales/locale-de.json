@@ -51,7 +51,7 @@
   },
   "nutriments-abbreviations": {
     "fat": "F",
-    "carbohydrates": "C",
+    "carbohydrates": "K",
     "proteins": "P"
   },
   "unit-symbols": {
@@ -268,7 +268,7 @@
       "show-all-nutriments": "Alle Nährstoffe auf Übersichtsseite anzeigen",
       "show-units": "Nährstoffeinheiten anzeigen",
       "prompt-add-items": "Beim Hinzufügen von Einträgen Menge abfragen",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Makro-Nährstoffe pro Kategorie anzeigen"
     },
     "nutriments": {
       "title": "Nährstoffe",
