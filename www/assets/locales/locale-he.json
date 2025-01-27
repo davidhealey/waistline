@@ -50,9 +50,9 @@
     "lactose": "לקטוז"
   },
   "nutriments-abbreviations": {
-    "fat": "F",
-    "carbohydrates": "C",
-    "proteins": "P"
+    "fat": "ש",
+    "carbohydrates": "פ",
+    "proteins": "ח"
   },
   "unit-symbols": {
     "kcal": "קק״ל",
@@ -268,7 +268,7 @@
       "show-all-nutriments": "הצגת כל חומרי ההזנה בעמוד הסקירה",
       "show-units": "הצגת יחידות תזונה",
       "prompt-add-items": "לבקש כמות בהוספת פריטים",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "הצגת תקצירים כוללניים לכל קטגוריה"
     },
     "nutriments": {
       "title": "חומרי הזנה",
