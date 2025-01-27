@@ -49,6 +49,11 @@
     "fructose": "Fructose",
     "lactose": "Lactose"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Afficher les vignettes en WiFi seulement",
       "show-all-nutriments": "Afficher tous les nutriments dans la vue d'ensemble",
       "show-units": "Afficher les unités nutritionnelles",
-      "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments"
+      "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Nutriments",
