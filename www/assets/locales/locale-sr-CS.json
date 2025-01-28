@@ -49,6 +49,11 @@
     "fructose": "Fruktoza",
     "lactose": "Laktoza"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Prikaži sličice samo na Wi-Fi-ju",
       "show-all-nutriments": "Prikaži sve nutrijente na pregledu",
       "show-units": "Prikaži nutritivne jedinice",
-      "prompt-add-items": "Traži unos količine pri dodavanju stavki"
+      "prompt-add-items": "Traži unos količine pri dodavanju stavki",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Nutrijenti",

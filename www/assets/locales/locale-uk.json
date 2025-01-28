@@ -49,6 +49,11 @@
     "fructose": "Фруктоза",
     "lactose": "Лактоза"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "ккал",
     "kJ": "кДж",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
       "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Показувати одиниці поживності",
-      "prompt-add-items": "Запитувати кількість елементів під час додавання"
+      "prompt-add-items": "Запитувати кількість елементів під час додавання",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Nutrients",

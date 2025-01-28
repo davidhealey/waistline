@@ -49,6 +49,11 @@
     "fructose": "Fruktóza",
     "lactose": "Laktóza"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Zobrazit miniatury pouze přes Wi-Fi",
       "show-all-nutriments": "Zobrazit všechny živiny na stránce Přehledu",
       "show-units": "Zobrazit nutriční jednotky",
-      "prompt-add-items": "Ptát se na množství při přidávání položek"
+      "prompt-add-items": "Ptát se na množství při přidávání položek",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Živiny",

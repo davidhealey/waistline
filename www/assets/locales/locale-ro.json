@@ -49,6 +49,11 @@
     "fructose": "Fructoză",
     "lactose": "Lactoză"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kilocalorii",
     "kJ": "kj",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Arată pictogramele numai prin Wi-Fi",
       "show-all-nutriments": "Arată toate valorile nutriționale pe pagina principală",
       "show-units": "Arată unitățile nutriționale",
-      "prompt-add-items": "Solicită cantitatea la adăugarea articolelor"
+      "prompt-add-items": "Solicită cantitatea la adăugarea articolelor",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Nutrienți",
