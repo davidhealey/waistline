@@ -190,6 +190,29 @@ app.Settings = {
       });
     }
 
+    // Health Connect Settings
+
+    let enableHealthConnect = document.getElementById("enable-health-connect");
+    if (enableHealthConnect) {
+      enableHealthConnect.addEventListener("click", function(e) {
+        app.Settings.enableHealthConnect();
+      });
+    }
+
+    let disableHealthConnect = document.getElementById("disable-health-connect");
+    if (disableHealthConnect) {
+      disableHealthConnect.addEventListener("click", function(e) {
+        app.Settings.disableHealthConnect();
+      });
+    }
+
+    let openHealthConnect = document.getElementById("open-health-connect");
+    if (openHealthConnect) {
+      openHealthConnect.addEventListener("click", function(e) {
+        cordova.plugins.health.openHealthSettings()
+      });
+    }
+
     // Mode
     let modeSelect = document.querySelector(".page[data-name='settings-appearance'] #mode");
 
@@ -270,6 +293,27 @@ app.Settings = {
         app.Settings.put("foodlist", "labels", newOrder);
       });
     }
+  },
+
+  enableHealthConnect: function() {
+    cordova.plugins.health.requestAuthorization({
+      read: ['nutrition'],
+      write: ['nutrition'],
+    }, (result) => {
+      if (result) {
+        app.Settings.put("healthConnect", "enabled", true);
+        app.HealthConnect.toggleVisibility();
+      } else {
+        let msg = app.strings.settings["health-connect"]["permission-fail"] || "Please allow the Nutrition permissions in Health Connect";
+        app.Utils.toast(msg);
+        cordova.plugins.health.openHealthSettings()
+      }
+    },)
+  },
+
+  disableHealthConnect: function() {
+    app.Settings.put("healthConnect", "enabled", false);
+    app.HealthConnect.toggleVisibility();
   },
 
   changeTheme: function(appMode, colourTheme) {
@@ -670,6 +714,9 @@ app.Settings = {
         "show-macro-nutriments-summary": false,
         "show-nutrition-units": false,
         "prompt-add-items": false
+      },
+      healthConnect: {
+        "enabled": false,
       },
       foodlist: {
         labels: app.FoodsCategories.defaultLabels,

@@ -258,6 +258,13 @@
       "centimeters": "Centimeters",
       "inches": "Inches"
     },
+    "health-connect": {
+      "title": "Health Connect",
+      "enable": "Enable Health Connect",
+      "disable": "Disable Health Connect",
+      "open": "Open Health Connect",
+      "permission-fail": "Please allow the Nutrition permissions in Health Connect"
+    },
     "diary": {
       "title": "Diary",
       "categories": "Categories",
