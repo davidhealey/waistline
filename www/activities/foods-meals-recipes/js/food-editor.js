@@ -17,35 +17,6 @@
   along with app.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-function evalInpEquation(strIn)
-{
-  let ret = 0;
-  let strInTmp = strIn.trim();
-
-  if (strInTmp.length == 0 || strInTmp == "+" || strInTmp == "-")
-    return NaN;
-
-  let cleanStr = strInTmp.replaceAll("+", " + ").replaceAll("-", " - ").replaceAll("  ", " ");
-  let tokens = cleanStr.split(/\s+/);
-
-  if (tokens[0] == "" && (tokens[1] == "+" || tokens[1] == "-"))
-      tokens[0] = "0";
-
-  ret = parseInt(tokens[0]);
-  for (let i = 1; i < (tokens.length - 1); i+=2)
-  {
-    if (tokens[i] == "+")
-        ret += (parseInt(tokens[i+1]) || 0);
-    else if (tokens[i] == "-")
-        ret -= (parseInt(tokens[i+1]) || 0);
-  }
-
-  return ret;
-}
-
-
 app.FoodEditor = {
 
   item: undefined,
@@ -155,22 +126,6 @@ app.FoodEditor = {
     app.FoodEditor.el.portion.addEventListener("change", (e) => {
       if (e.target.oldValue == undefined && e.target.value != 0)
         e.target.oldValue = e.target.value;
-
-      // Force to only allow the given pattern as input
-      if (!app.FoodEditor.el.portion.validity.valid)
-      {
-        e.target.value = e.target.oldValue;
-        return;
-      }
-
-      if (!/^\d+$/.test(e.target.value))
-      {
-        let newValue = evalInpEquation(e.target.value)
-        if (!isNaN(newValue))
-        {
-          e.target.value = newValue;
-        }
-      }
     });
 
     // Quantity
