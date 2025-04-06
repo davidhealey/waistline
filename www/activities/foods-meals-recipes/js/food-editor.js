@@ -21,8 +21,9 @@
 
 function evalInpEquation(strIn)
 {
-  let ret = 0;
-  let strInTmp = strIn.trim();
+  let ret = 0.0;
+  // account for ',' as decimal seperator
+  let strInTmp = strIn.trim().replaceAll(",", ".");
 
   if (strInTmp.length == 0 || strInTmp == "+" || strInTmp == "-")
     return NaN;
@@ -33,16 +34,16 @@ function evalInpEquation(strIn)
   if (tokens[0] == "" && (tokens[1] == "+" || tokens[1] == "-"))
       tokens[0] = "0";
 
-  ret = parseInt(tokens[0]);
+  ret = parseFloat(tokens[0]);
   for (let i = 1; i < (tokens.length - 1); i+=2)
   {
     if (tokens[i] == "+")
-        ret += (parseInt(tokens[i+1]) || 0);
+        ret += (parseFloat(tokens[i+1]) || 0);
     else if (tokens[i] == "-")
-        ret -= (parseInt(tokens[i+1]) || 0);
+        ret -= (parseFloat(tokens[i+1]) || 0);
   }
 
-  return ret;
+  return parseFloat(ret.toFixed(2));
 }
 
 
@@ -163,12 +164,12 @@ app.FoodEditor = {
         return;
       }
 
-      if (!/^\d+$/.test(e.target.value))
+      if (/[+\-,]+/.test(e.target.value))
       {
         let newValue = evalInpEquation(e.target.value)
         if (!isNaN(newValue))
         {
-          e.target.value = newValue;
+          e.target.value = newValue.toString();
         }
       }
     });

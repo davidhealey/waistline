@@ -618,7 +618,7 @@ app.Diary = {
 
           let input = document.createElement("input");
           input.className = "dialog-input auto-select";
-          input.type = "tel";
+          input.type = "number";
           if (field == "serving-size")
             input.setAttribute("value", item.portion || "");
           else
