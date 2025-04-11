@@ -70,7 +70,7 @@ Please spread the word and share this app with anyone you think could benefit fr
 ### GitHub
 
 This project is currently hosted on GitHub. This is not ideal; GitHub is a
-proprietary, trade-secret system that is not Free and Open Souce Software
+proprietary, trade-secret system that is not Free and Open Source Software
 (FOSS). I am deeply concerned about using a proprietary system like GitHub
 to develop FOSS projects.
 
