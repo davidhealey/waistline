@@ -48,7 +48,7 @@ app.OpenFoodFacts = {
         headers: {
           "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
         }
-      }).catch((err) => {
+      }, 30000).catch((err) => {
         resolve(undefined);
       });
 
