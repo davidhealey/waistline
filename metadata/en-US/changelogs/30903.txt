@@ -1,0 +1,4 @@
+- added macro nutruments summary for each diary category
+- added support for math expressions in portion size
+- fixed issues with scanning and searching OFF items
+- various bugfixes
