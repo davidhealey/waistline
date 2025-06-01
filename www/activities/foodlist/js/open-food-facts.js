@@ -24,7 +24,8 @@ app.OpenFoodFacts = {
       let url;
 
       // If query is a number, assume it's a barcode
-      if (isNaN(query))
+      let isSearchQuery = isNaN(query);
+      if (isSearchQuery)
         url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(query) + "&search_simple=1&page_size=50&sort_by=unique_scans_n&action=process&json=1";
       else
         url = "https://world.openfoodfacts.org/api/v0/product/" + encodeURIComponent(query) + ".json";
@@ -33,13 +34,13 @@ app.OpenFoodFacts = {
       let country = app.Settings.get("integration", "search-country") || undefined;
 
       //Limit search to selected country
-      if (country && country != "All")
+      if (isSearchQuery && country && country != "All")
         url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + encodeURIComponent(country);
 
       //Get language
       let language = app.Settings.get("integration", "search-language") || undefined;
 
-      if (language != undefined && language != "Default")
+      if (isSearchQuery && language != undefined && language != "Default")
         url += "&lang=" + encodeURIComponent(language) + "&lc=" + encodeURIComponent(language);
       else
         language = app.getLanguage(app.Settings.get("appearance", "locale")).substring(0, 2);
@@ -48,7 +49,7 @@ app.OpenFoodFacts = {
         headers: {
           "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline"
         }
-      }).catch((err) => {
+      }, 30000).catch((err) => {
         resolve(undefined);
       });
 
