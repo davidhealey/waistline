@@ -1,10 +1,10 @@
-FROM alvrme/alpine-android:android-33-jdk11
+FROM alvrme/alpine-android:android-35-jdk17
 
 # Set up some environment variables
-ENV GRADLE_VERSION 7.6
-ENV GRADLE_HOME /opt/gradle-$GRADLE_VERSION
-ENV ANDROID_HOME /opt/sdk
-ENV PATH $PATH:$GRADLE_HOME/bin
+ENV GRADLE_VERSION=8.13
+ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION
+ENV ANDROID_HOME=/opt/sdk
+ENV PATH=$PATH:$GRADLE_HOME/bin
 
 # Install dependencies
 WORKDIR /opt
