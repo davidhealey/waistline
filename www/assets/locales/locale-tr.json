@@ -49,6 +49,11 @@
     "fructose": "Fruktoz",
     "lactose": "Laktoz"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
       "show-all-nutriments": "Genel Bakış sayfasında tüm besin değerlerini göster",
       "show-units": "Besin değerlerinin birimlerini göster",
-      "prompt-add-items": "Öğe eklerken miktar sor"
+      "prompt-add-items": "Öğe eklerken miktar sor",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Besin Maddeleri",

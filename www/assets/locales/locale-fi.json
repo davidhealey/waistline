@@ -49,6 +49,11 @@
     "fructose": "Fruktoosi",
     "lactose": "Laktoosi"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "kcal",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
       "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Näytä ravintoyksiköt",
-      "prompt-add-items": "Pyydä määrä tuotteita lisättäessä"
+      "prompt-add-items": "Pyydä määrä tuotteita lisättäessä",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Nutrients",

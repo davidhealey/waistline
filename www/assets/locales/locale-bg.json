@@ -49,6 +49,11 @@
     "fructose": "Фруктоза",
     "lactose": "Лактоза"
   },
+  "nutriments-abbreviations": {
+    "fat": "F",
+    "carbohydrates": "C",
+    "proteins": "P"
+  },
   "unit-symbols": {
     "kcal": "ккал",
     "kJ": "kJ",
@@ -262,7 +267,8 @@
       "wifi-thumbnails": "Покажи умалени изображения само през Wi-Fi",
       "show-all-nutriments": "Покажи всички хранителни стойности на страницата за Общ Преглед",
       "show-units": "Покажи единиците на хранителните стойности",
-      "prompt-add-items": "Показвай прозорец за количество при добавяне на елементи"
+      "prompt-add-items": "Показвай прозорец за количество при добавяне на елементи",
+      "show-macro-nutriments-summary": "Show macros summary per category"
     },
     "nutriments": {
       "title": "Хранителни стойности",
