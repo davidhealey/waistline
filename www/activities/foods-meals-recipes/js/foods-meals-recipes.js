@@ -567,6 +567,12 @@ app.FoodsMealsRecipes = {
               portion.innerText += " \u00D7 "; // times symbol
 
             portion.innerText += app.Utils.tidyNumber(parseFloat(item.quantity));
+
+            if (app.Settings.get("diary", "show-total-portion-size") == true) {
+              let totalPortionSize = item.portion * item.quantity;
+              let totalPortionSizeText = " (= " + app.Utils.tidyNumber(parseFloat(totalPortionSize), item.unit) + ")";
+              portion.innerText += totalPortionSizeText;
+            }
           }
 
           inner.appendChild(portion);

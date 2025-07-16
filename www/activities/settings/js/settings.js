@@ -669,7 +669,8 @@ app.Settings = {
         "show-all-nutriments": false,
         "show-macro-nutriments-summary": false,
         "show-nutrition-units": false,
-        "prompt-add-items": false
+        "prompt-add-items": false,
+        "show-total-portion-size": false
       },
       foodlist: {
         labels: app.FoodsCategories.defaultLabels,
