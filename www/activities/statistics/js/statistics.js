@@ -240,6 +240,22 @@ app.Stats = {
       });
     }
 
+    if (app.Settings.get("statistics", "trend-line") == true && app.Stats.data.trend !== undefined) {
+      let m = app.Stats.data.trend.slope;
+      let b = app.Stats.data.trend.intercept;
+      app.Stats.chart.options.annotation.annotations.push({
+        id: "trend",
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: m * 0 + b,
+        endValue: m * app.Stats.data.dates.length + b,
+        borderColor: 'orange',
+        borderWidth: 2,
+        borderDash: [3, 5]
+      });
+    }
+
     app.Stats.chart.update();
   },
 
@@ -274,13 +290,27 @@ app.Stats = {
       inner.appendChild(after);
     }
 
+    if (app.Settings.get("statistics", "trend-line") == true && app.Stats.data.trend !== undefined) {
+      let trend = app.Stats.renderTrend(app.Stats.data.trend.slope, app.Stats.data.dataset.unit);
+      app.Stats.el.timeline.prepend(trend);
+    }
+    
     let avg = app.Stats.renderAverage(app.Stats.data.average, app.Stats.data.dataset.unit);
     app.Stats.el.timeline.prepend(avg);
   },
 
   renderAverage: function(average, unit) {
-    let roundedAverage = Math.round(average * 100) / 100;
+    let averageInfoName = app.strings.statistics["average"] || "Average";
+    return app.Stats.renderTimelineInfo(averageInfoName, average, unit);
+  },
 
+  renderTrend: function(trendSlope, unit) {
+    let trendInfoName = app.strings.statistics["trend"] || "Trend";
+    return app.Stats.renderTimelineInfo(trendInfoName, trendSlope, unit);
+  },
+
+  renderTimelineInfo: function(infoName, infoValue, infoUnit) {
+    let roundedValue = Math.round(infoValue * 100) / 100;
     let li = document.createElement("li");
 
     let content = document.createElement("div");
@@ -293,15 +323,42 @@ app.Stats = {
 
     let title = document.createElement("div");
     title.className = "item-title";
-    title.innerText = app.strings.statistics["average"] || "Average";
+    title.innerText = infoName;
     inner.appendChild(title);
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerText = app.Utils.tidyNumber(roundedAverage, unit);
+    after.innerText = app.Utils.tidyNumber(roundedValue, infoUnit);
     inner.appendChild(after);
 
     return li;
+  },
+
+  calcSimpleLinearRegression: function(result) {
+    // calculate linear regression using method of least squares
+
+    // dates without data will have null values so we need to skip them
+    let validIndices = result.dataset.values.map((val, index) => val !== null ? index : null)
+                                            .filter(index => index !== null);
+    let n = validIndices.length;
+    let xAvg = validIndices.reduce((sum, val) => sum + val, 0) / n;
+    let xDiff = validIndices.map(val => xAvg - val);
+    let sumOfSquares = xDiff.map(diff => diff * diff)
+                    .reduce((sum, diff) => sum + diff, 0);
+
+    let yValues = validIndices.map(index => result.dataset.values[index]);
+    let yAvg = yValues.reduce((sum, val) => sum + val, 0) / n;
+    let yDiff = yValues.map(val => yAvg - val);
+
+    let sumOfProducts = xDiff.map((val, index) => val * yDiff[index])
+                       .reduce((sum, val) => sum + val, 0);
+    // y = mx + b, with m being the slope and b being the y-intercept
+    let m = sumOfProducts / sumOfSquares;
+    let b = yAvg - m * xAvg;
+    return {
+      slope: m,
+      intercept: b
+    };
   },
 
   organiseData: function(data, field) {
@@ -319,7 +376,8 @@ app.Stats = {
           values: [],
           unit: unitSymbol
         },
-        average: 0
+        average: 0,
+        trend: undefined
       };
 
       let valueCount = 0;
@@ -371,6 +429,10 @@ app.Stats = {
         result.dataset.label += " (" + unitSymbol + ")";
       result.average = result.average / valueCount || 0;
       result.goal = goal;
+
+      if (app.Settings.get("statistics", "trend-line") == true && result.dataset.values.length >= 2) {
+        result.trend = app.Stats.calcSimpleLinearRegression(result);
+      }
 
       resolve(result);
     }).catch(err => {
