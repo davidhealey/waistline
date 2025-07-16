@@ -268,7 +268,8 @@
       "show-all-nutriments": "Prikaži sve nutrijente na pregledu",
       "show-units": "Prikaži nutritivne jedinice",
       "prompt-add-items": "Traži unos količine pri dodavanju stavki",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrijenti",
