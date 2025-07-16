@@ -344,14 +344,14 @@ app.Stats = {
     let xAvg = validIndices.reduce((sum, val) => sum + val, 0) / n;
     let xDiff = validIndices.map(val => xAvg - val);
     let sumOfSquares = xDiff.map(diff => diff * diff)
-                    .reduce((sum, diff) => sum + diff, 0);
+                            .reduce((sum, diff) => sum + diff, 0);
 
     let yValues = validIndices.map(index => result.dataset.values[index]);
     let yAvg = yValues.reduce((sum, val) => sum + val, 0) / n;
     let yDiff = yValues.map(val => yAvg - val);
 
     let sumOfProducts = xDiff.map((val, index) => val * yDiff[index])
-                       .reduce((sum, val) => sum + val, 0);
+                             .reduce((sum, val) => sum + val, 0);
     // y = mx + b, with m being the slope and b being the y-intercept
     let m = sumOfProducts / sumOfSquares;
     let b = yAvg - m * xAvg;
