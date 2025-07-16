@@ -268,7 +268,8 @@
       "show-all-nutriments": "Afficher tous les nutriments dans la vue d'ensemble",
       "show-units": "Afficher les unités nutritionnelles",
       "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments",
-      "show-macro-nutriments-summary": "Afficher le résumé des nutriments par catégorie"
+      "show-macro-nutriments-summary": "Afficher le résumé des nutriments par catégorie",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutriments",
