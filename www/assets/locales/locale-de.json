@@ -268,7 +268,8 @@
       "show-all-nutriments": "Alle Nährstoffe auf Übersichtsseite anzeigen",
       "show-units": "Nährstoffeinheiten anzeigen",
       "prompt-add-items": "Beim Hinzufügen von Einträgen Menge abfragen",
-      "show-macro-nutriments-summary": "Makro-Nährstoffe pro Kategorie anzeigen"
+      "show-macro-nutriments-summary": "Makro-Nährstoffe pro Kategorie anzeigen",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nährstoffe",
