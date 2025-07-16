@@ -268,7 +268,8 @@
       "show-all-nutriments": "Visualizza tutti i nutrienti nella pagina Panoramica",
       "show-units": "Mostra le unità nutrizionali",
       "prompt-add-items": "Chiede la quantità quando aggiungi articoli",
-      "show-macro-nutriments-summary": "Mostra riepilogo macro per categoria"
+      "show-macro-nutriments-summary": "Mostra riepilogo macro per categoria",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrienti",
