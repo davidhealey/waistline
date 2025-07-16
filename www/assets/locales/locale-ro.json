@@ -268,7 +268,8 @@
       "show-all-nutriments": "Arată toate valorile nutriționale pe pagina principală",
       "show-units": "Arată unitățile nutriționale",
       "prompt-add-items": "Solicită cantitatea la adăugarea articolelor",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrienți",
