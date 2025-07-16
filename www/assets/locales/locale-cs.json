@@ -268,8 +268,8 @@
       "show-all-nutriments": "Zobrazit všechny živiny na stránce Přehledu",
       "show-units": "Zobrazit nutriční jednotky",
       "prompt-add-items": "Ptát se na množství při přidávání položek",
-      "show-macro-nutriments-summary": "Show macros summary per category",
-      "show-total-portion-size": "Show Total Portion Size"
+      "show-macro-nutriments-summary": "Zobrazit přehled maker podle kategorie",
+      "show-total-portion-size": "Zobrazit celkovou velikost porce"
     },
     "nutriments": {
       "title": "Živiny",
