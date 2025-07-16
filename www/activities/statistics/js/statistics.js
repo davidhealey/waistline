@@ -249,7 +249,7 @@ app.Stats = {
         mode: 'horizontal',
         scaleID: 'y-axis-0',
         value: m * 0 + b,
-        endValue: m * app.Stats.data.dates.length + b,
+        endValue: m * (app.Stats.data.dates.length - 1) + b,
         borderColor: 'orange',
         borderWidth: 2,
         borderDash: [3, 5]
