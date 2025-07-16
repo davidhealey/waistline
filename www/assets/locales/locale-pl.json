@@ -268,7 +268,8 @@
       "show-all-nutriments": "Pokaż wszystkie składniki odżywcze na stronie podglądu",
       "show-units": "Pokaż jednostki odżywcze",
       "prompt-add-items": "Pytaj o ilość podczas dodawania produktów",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Składniki odżywcze",
