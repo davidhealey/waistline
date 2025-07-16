@@ -268,7 +268,8 @@
       "show-all-nutriments": "Показать все питательные вещества на странице обзора",
       "show-units": "Показать единицы питания",
       "prompt-add-items": "Спрашивать количество при добавлении элемента",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Питательные вещества",
