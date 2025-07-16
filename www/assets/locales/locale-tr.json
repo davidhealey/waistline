@@ -268,7 +268,8 @@
       "show-all-nutriments": "Genel Bakış sayfasında tüm besin değerlerini göster",
       "show-units": "Besin değerlerinin birimlerini göster",
       "prompt-add-items": "Öğe eklerken miktar sor",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Besin Maddeleri",
