@@ -568,9 +568,11 @@ app.FoodsMealsRecipes = {
 
             portion.innerText += app.Utils.tidyNumber(parseFloat(item.quantity));
 
-            let totalPortionSize = item.portion * item.quantity;
-            let totalPortionSizeText = " (= " + app.Utils.tidyNumber(parseFloat(totalPortionSize), item.unit) + ")";
-            portion.innerText += totalPortionSizeText;
+            if (app.Settings.get("diary", "show-total-portion-size") == true) {
+              let totalPortionSize = item.portion * item.quantity;
+              let totalPortionSizeText = " (= " + app.Utils.tidyNumber(parseFloat(totalPortionSize), item.unit) + ")";
+              portion.innerText += totalPortionSizeText;
+            }
           }
 
           inner.appendChild(portion);
