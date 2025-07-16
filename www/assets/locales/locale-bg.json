@@ -268,7 +268,8 @@
       "show-all-nutriments": "Покажи всички хранителни стойности на страницата за Общ Преглед",
       "show-units": "Покажи единиците на хранителните стойности",
       "prompt-add-items": "Показвай прозорец за количество при добавяне на елементи",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Хранителни стойности",
