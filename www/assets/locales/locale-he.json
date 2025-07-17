@@ -141,7 +141,7 @@
     "hips": "ירכיים",
     "body fat": "שומן גוף",
     "average": "ממוצע",
-    "trend": "Trend"
+    "trend": "מגמה"
   },
   "diary": {
     "title": "יומן",
@@ -325,7 +325,7 @@
       "y-zero": "להתחיל את ציר Y באפס",
       "average-line": "הצגת קו ממוצע",
       "goal-line": "הצגת קו יעד",
-      "trend-line": "Show Trend Line"
+      "trend-line": "הצגת קו מגמה"
     },
     "developer": {
       "title": "מפתח",
