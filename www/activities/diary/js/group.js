@@ -121,7 +121,7 @@ app.Group = {
 
     if (app.Settings.get("diary", "timestamps") == true) {
       actions.push({
-        name: app.strings.dialogs["set-group-time"] || "Update timestamps",
+        name: app.strings.dialogs["set-meal-time"] || "Update timestamps",
         callback: app.Group.setGroupTimestamps,
         disabled: isGroupEmpty
       });
