@@ -305,8 +305,8 @@ app.Stats = {
   },
 
   renderTrend: function(trendSlope, unit) {
-    let trendInfoName = app.strings.statistics["trend"] || "Trend";
     return app.Stats.renderTimelineInfo(trendInfoName, trendSlope, unit);
+    let trendInfoName = app.strings.statistics["trend"] || "Daily Trend";
   },
 
   renderTimelineInfo: function(infoName, infoValue, infoUnit) {
