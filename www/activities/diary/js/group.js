@@ -107,16 +107,25 @@ app.Group = {
   },
 
   openActionMenu: function(self) {
+    let isGroupEmpty = self.items.length == 0;
     let actions = [{
         name: app.strings.dialogs["clear-group-items"] || "Remove all items from meal",
         callback: app.Group.clearGroupItems,
-        disabled: self.items.length == 0
+        disabled: isGroupEmpty
       }, {
         name: app.strings.dialogs["move-group-items"] || "Move items to another meal",
         callback: app.Group.moveGroupItems,
-        disabled: self.items.length == 0
+        disabled: isGroupEmpty
       }
     ];
+
+    if (app.Settings.get("diary", "timestamps") == true) {
+      actions.push({
+        name: app.strings.dialogs["set-group-time"] || "Update timestamps",
+        callback: app.Group.setGroupTimestamps,
+        disabled: isGroupEmpty
+      });
+    }
 
     let options = [];
     actions.forEach((action) => {
@@ -239,6 +248,132 @@ app.Group = {
     await dbHandler.put(entry, "diary");
     let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
     app.Diary.render(scrollPosition);
+  },
+
+  setGroupTimestamps: function(self) {
+    let locale = app.Settings.get("appearance", "locale");
+    let formatter = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit" });
+    let hourCycle = formatter.resolvedOptions().hourCycle;
+    switch (hourCycle) {
+      case "h11": 
+        app.Group.openTimePicker(self, formatter, 0, 11);
+        break;
+      case "h12":
+        app.Group.openTimePicker(self, formatter, 1, 12);
+        break;
+      case "h24":
+        app.Group.openTimePicker(self, formatter, 1, 24);
+        break;
+      case "h23":
+      default:
+        app.Group.openTimePicker(self, formatter, 0, 23);
+        break;
+    };
+  },
+
+  openTimePicker: function(self, formatter, minHour, maxHour) {
+    let dateNow = Date.now();
+    let parts = formatter.formatToParts(dateNow)
+    let currentHour = parts.find(part => part.type == "hour").value;
+    let currentMinute = parts.find(part => part.type == "minute").value;
+    let currentTime = [currentHour, currentMinute];
+
+    let hourValues = Array.from({ length: (maxHour - minHour) + 1 }, (_, i) => (minHour + i).toString().padStart(2, "0"));
+    let minuteValues = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
+    let columns = [{
+        values: hourValues
+      }, {
+        divider: true,
+        content: ':'
+      }, {
+        values: minuteValues
+    }];
+
+    if (hourValues.length == 12) {
+      let dayPeriod = parts.find(part => part.type == "dayPeriod")?.value || "AM";
+      currentTime.push(dayPeriod);
+      columns.push({
+        values: ["AM", "PM"]
+      });
+    }
+
+    let picker = app.f7.picker.create({
+      rotateEffect: true,
+      value: currentTime,
+      cols: columns,
+      on: {
+        closed: (selection) => {
+          let input = selection.value;
+          selection.destroy();
+          app.Group.updateTimestamps(self, formatter, input);
+        }
+      }
+    });
+
+    picker.open();
+  },
+
+  updateTimestamps: async function(self, formatter, selection) {
+    let mealNames = app.Settings.get("diary", "meal-names") || [];
+    let currentMealIndex = mealNames.findIndex(mealName => mealName == self.name);
+    if (currentMealIndex == -1) {
+      return;
+    } 
+
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry === undefined) {
+      return;
+    }
+
+    let dateStr = app.Group.getDateString(entry.dateTime);
+    let timeStr = app.Group.getTimeString(formatter, selection);
+    let newDate = new Date(dateStr + "T" + timeStr);
+    let mealItems = entry.items.filter(item => item.category == currentMealIndex);
+    mealItems.forEach(item => {
+      item.dateTime = newDate;
+    });
+
+    await dbHandler.put(entry, "diary");
+    let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+    app.Diary.render(scrollPosition);
+  },
+
+  getDateString: function(dateTime) {
+    let year = dateTime.getFullYear();
+    let month = dateTime.getMonth() + 1;
+    let day = dateTime.getDate();
+    return year + "-" + month.toString().padStart(2, "0") + "-" + day.toString().padStart(2, "0");
+  },
+
+  getTimeString: function(formatter, parts) {
+    let hour = parseInt(parts[0], 10);
+    let minute = parseInt(parts[1], 10);
+    let dayPeriod = parts[2];
+
+    let hourCycle = formatter.resolvedOptions().hourCycle;
+    switch (hourCycle) {
+      case "h11": 
+        if (hour == 0 && dayPeriod == "PM") {
+          hour = 12;
+        } else if (dayPeriod == "PM") {
+          hour += 12;
+        }
+        
+        break;
+      case "h12":
+        if (hour == 12 && dayPeriod == "AM") {
+          hour = 0;
+        } else if (hour != 12 && dayPeriod == "PM") {
+          hour += 12;
+        }
+
+        break;
+      case "h24":
+        hour--;
+        break;
+    };
+
+    return hour.toString().padStart(2, "0") + ":" + minute.toString().padStart(2, "0") + ":00";
   },
 
   renderFooter: function(ul, id, nutrition) {
