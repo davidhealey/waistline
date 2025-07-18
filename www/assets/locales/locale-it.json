@@ -141,7 +141,7 @@
     "hips": "Fianchi",
     "body fat": "Grasso corporeo",
     "average": "Media",
-    "trend": "Trend"
+    "trend": "Tendenza"
   },
   "diary": {
     "title": "Diario",
@@ -270,7 +270,7 @@
       "show-units": "Mostra le unità nutrizionali",
       "prompt-add-items": "Chiede la quantità quando aggiungi articoli",
       "show-macro-nutriments-summary": "Mostra riepilogo macro per categoria",
-      "show-total-portion-size": "Show Total Portion Size"
+      "show-total-portion-size": "Mostra la dimensione totale della porzione"
     },
     "nutriments": {
       "title": "Nutrienti",
@@ -325,7 +325,7 @@
       "y-zero": "Inizia l'asse Y a Zero",
       "average-line": "Mostra media",
       "goal-line": "Mostra obiettivo",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Mostra la linea di tendenza"
     },
     "developer": {
       "title": "Sviluppatore",
