@@ -60,6 +60,8 @@ app.Group = {
     innerDiv.innerText = this.name;
     div.appendChild(innerDiv);
 
+    app.Group.addActionMenu(self, div);
+
     let content = document.createElement("div");
     content.className = "accordion-item-content";
 
@@ -82,6 +84,161 @@ app.Group = {
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items, "subtract");
 
     app.Group.renderFooter(ul, this.id, nutrition);
+  },
+
+  addActionMenu: function(self, div) {
+    let rightIconDiv = document.createElement("div");
+    rightIconDiv.className = "right";
+    div.appendChild(rightIconDiv);
+
+    let iconAnchor = document.createElement("a");
+    iconAnchor.className = "link icon-only";
+    rightIconDiv.appendChild(iconAnchor);
+
+    let icon = document.createElement("i");
+    icon.className = "icon material-icons";
+    icon.textContent = "menu_open";
+    iconAnchor.appendChild(icon);
+
+    iconAnchor.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      app.Group.openActionMenu(self);
+    });
+  },
+
+  openActionMenu: function(self) {
+    let actions = [{
+        name: app.strings.dialogs["clear-group-items"] || "Remove all items from meal",
+        callback: app.Group.clearGroupItems,
+        disabled: self.items.length == 0
+      }, {
+        name: app.strings.dialogs["move-group-items"] || "Move items to another meal",
+        callback: app.Group.moveGroupItems,
+        disabled: self.items.length == 0
+      }
+    ];
+
+    let options = [];
+    actions.forEach((action) => {
+      options.push({
+        text: action.name,
+        onClick: () => { action.callback(self) },
+        disabled: action.disabled
+      });
+    });
+
+    let actionMenu = app.f7.actions.create({
+      buttons: options,
+      closeOnEscape: true,
+      animate: !app.Settings.get("appearance", "animations")
+    });
+
+    actionMenu.open();
+  },
+
+  clearGroupItems: function(self) {
+    let title = app.strings.dialogs["clear-meal-items"] || "Remove all items";
+    let text = app.strings.dialogs["confirm"] || "Are you sure?";
+
+    let confirmDialog = app.f7.dialog.create({
+      title: title,
+      content: app.Utils.getDialogTextDiv(text),
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: app.Utils.escapeKeyCode
+        },
+        {
+          text: app.strings.dialogs.yes || "Yes",
+          keyCodes: app.Utils.enterKeyCode,
+          onClick: async () => {
+            let entry = await app.Diary.getEntryFromDB();
+            if (entry === undefined) {
+              return;
+            }
+
+            self.items.forEach(item => {
+              let index = entry.items.findIndex(x => x === item);
+              if (index !== -1) {
+                entry.items.splice(index, 1);
+              }
+            });
+
+            await dbHandler.put(entry, "diary");
+            let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+            app.Diary.render(scrollPosition);
+          }
+        }]
+    })
+    
+    confirmDialog.open();
+  },
+
+  moveGroupItems: function(self) {
+    let mealNames = app.Settings.get("diary", "meal-names") || [];
+    if (mealNames.length == 0) {
+      return;
+    }
+
+    let validMealNames = mealNames.filter(mealName => mealName != "")
+    let smartSelect = app.Group.createSelectStructure(self, validMealNames);
+    let mealSelection = app.f7.smartSelect.create({
+      el: smartSelect,
+      openIn: "sheet",
+      on: {
+        closed: (selection) => {
+          let selectedMealName = validMealNames[selection.$selectEl.val()];
+          selection.destroy();
+          smartSelect.remove();
+          app.Group.updateItemGroup(self, mealNames, selectedMealName);
+        }
+      }
+    });
+
+    mealSelection.open();
+  },
+
+  createSelectStructure: function(self, mealNames) {
+    let span = document.createElement("span");
+    span.className = "item-link smart-select"
+
+    let select = document.createElement("select");
+    select.className = "group-select";
+    span.appendChild(select);
+
+    mealNames.forEach((mealName, index) => {
+      let option = document.createElement("option");
+      option.value = index;
+      option.innerText = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+      if (mealName == self.name) {
+        option.setAttribute("selected", "")
+      };
+      select.appendChild(option);
+    });
+
+    document.body.appendChild(span);
+    return span;
+  },
+
+  updateItemGroup: async function(self, mealNames, targetMeal) {
+    let currentMealIndex = mealNames.findIndex(mealName => mealName == self.name);
+    let targetMealIndex = mealNames.findIndex(mealName => mealName == targetMeal);
+    if (currentMealIndex == -1 || targetMealIndex == -1) {
+      return;
+    } 
+
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry === undefined) {
+      return;
+    }
+
+    let mealItems = entry.items.filter(item => item.category == currentMealIndex);
+    mealItems.forEach(item => {
+      item.category = targetMealIndex;
+    });
+
+    await dbHandler.put(entry, "diary");
+    let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+    app.Diary.render(scrollPosition);
   },
 
   renderFooter: function(ul, id, nutrition) {
