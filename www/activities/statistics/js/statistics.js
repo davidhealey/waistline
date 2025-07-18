@@ -249,7 +249,7 @@ app.Stats = {
         mode: 'horizontal',
         scaleID: 'y-axis-0',
         value: m * 0 + b,
-        endValue: m * app.Stats.data.dates.length + b,
+        endValue: m * (app.Stats.data.dates.length - 1) + b,
         borderColor: 'orange',
         borderWidth: 2,
         borderDash: [3, 5]
@@ -300,17 +300,20 @@ app.Stats = {
   },
 
   renderAverage: function(average, unit) {
-    let averageInfoName = app.strings.statistics["average"] || "Average";
-    return app.Stats.renderTimelineInfo(averageInfoName, average, unit);
+    let title = app.strings.statistics["average"] || "Average";
+    let roundedValue = Math.round(average * 100) / 100;
+    let text = app.Utils.tidyNumber(roundedValue, unit);
+    return app.Stats.renderTimelineInfo(title, text);
   },
 
   renderTrend: function(trendSlope, unit) {
-    let trendInfoName = app.strings.statistics["trend"] || "Trend";
-    return app.Stats.renderTimelineInfo(trendInfoName, trendSlope, unit);
+    let title = app.strings.statistics["trend"] || "Daily Trend";
+    let roundedValue = Math.round(trendSlope * 100) / 100;
+    let text = app.Utils.tidySignedNumber(roundedValue, unit);
+    return app.Stats.renderTimelineInfo(title, text);
   },
 
-  renderTimelineInfo: function(infoName, infoValue, infoUnit) {
-    let roundedValue = Math.round(infoValue * 100) / 100;
+  renderTimelineInfo: function(infoTitle, infoText) {
     let li = document.createElement("li");
 
     let content = document.createElement("div");
@@ -323,12 +326,12 @@ app.Stats = {
 
     let title = document.createElement("div");
     title.className = "item-title";
-    title.innerText = infoName;
+    title.innerText = infoTitle;
     inner.appendChild(title);
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerText = app.Utils.tidyNumber(roundedValue, infoUnit);
+    after.innerText = infoText;
     inner.appendChild(after);
 
     return li;
@@ -344,14 +347,14 @@ app.Stats = {
     let xAvg = validIndices.reduce((sum, val) => sum + val, 0) / n;
     let xDiff = validIndices.map(val => xAvg - val);
     let sumOfSquares = xDiff.map(diff => diff * diff)
-                    .reduce((sum, diff) => sum + diff, 0);
+                            .reduce((sum, diff) => sum + diff, 0);
 
     let yValues = validIndices.map(index => result.dataset.values[index]);
     let yAvg = yValues.reduce((sum, val) => sum + val, 0) / n;
     let yDiff = yValues.map(val => yAvg - val);
 
     let sumOfProducts = xDiff.map((val, index) => val * yDiff[index])
-                       .reduce((sum, val) => sum + val, 0);
+                             .reduce((sum, val) => sum + val, 0);
     // y = mx + b, with m being the slope and b being the y-intercept
     let m = sumOfProducts / sumOfSquares;
     let b = yAvg - m * xAvg;

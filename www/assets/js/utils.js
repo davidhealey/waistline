@@ -47,13 +47,37 @@ app.Utils = {
     if (number !== undefined) {
       text += "\u200E" + number.toLocaleString([], { useGrouping: false }).replace("-", "\u2212");
     }
+    
+    return app.Utils.appendUnit(text, unit);
+  },
+
+  appendUnit: function(text, unit) {
     if (unit !== undefined) {
       if (app.standardUnits.includes(unit))
         text += "\u2009" + unit; // Thin Space
       else
         text += " " + unit;
     }
+
     return text;
+  },
+
+  tidySignedNumber: function(number, unit) {
+    let text = "";
+    if (number !== undefined) {
+      let sign = "";
+      if (number < 0) {
+        sign = "\u2212"; // minus sign
+      } else if (number == 0) {
+        sign = "\u00B1"; // plusminus sign
+      } else if (number > 0) {
+        sign = "\u002B"; // plus sign
+      }
+
+      text += "\u200E" + sign + Math.abs(number).toLocaleString([], { useGrouping: false });
+    }
+    
+    return app.Utils.appendUnit(text, unit);
   },
 
   dateToLocaleDateString: function(date) {
