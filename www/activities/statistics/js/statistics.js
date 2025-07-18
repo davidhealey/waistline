@@ -300,17 +300,20 @@ app.Stats = {
   },
 
   renderAverage: function(average, unit) {
-    let averageInfoName = app.strings.statistics["average"] || "Average";
-    return app.Stats.renderTimelineInfo(averageInfoName, average, unit);
+    let title = app.strings.statistics["average"] || "Average";
+    let roundedValue = Math.round(average * 100) / 100;
+    let text = app.Utils.tidyNumber(roundedValue, unit);
+    return app.Stats.renderTimelineInfo(title, text);
   },
 
   renderTrend: function(trendSlope, unit) {
-    return app.Stats.renderTimelineInfo(trendInfoName, trendSlope, unit);
-    let trendInfoName = app.strings.statistics["trend"] || "Daily Trend";
+    let title = app.strings.statistics["trend"] || "Daily Trend";
+    let roundedValue = Math.round(trendSlope * 100) / 100;
+    let text = app.Utils.tidySignedNumber(roundedValue, unit);
+    return app.Stats.renderTimelineInfo(title, text);
   },
 
-  renderTimelineInfo: function(infoName, infoValue, infoUnit) {
-    let roundedValue = Math.round(infoValue * 100) / 100;
+  renderTimelineInfo: function(infoTitle, infoText) {
     let li = document.createElement("li");
 
     let content = document.createElement("div");
@@ -323,12 +326,12 @@ app.Stats = {
 
     let title = document.createElement("div");
     title.className = "item-title";
-    title.innerText = infoName;
+    title.innerText = infoTitle;
     inner.appendChild(title);
 
     let after = document.createElement("div");
     after.className = "item-after";
-    after.innerText = app.Utils.tidyNumber(roundedValue, infoUnit);
+    after.innerText = infoText;
     inner.appendChild(after);
 
     return li;
