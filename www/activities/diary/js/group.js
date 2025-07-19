@@ -103,6 +103,10 @@ app.Group = {
   openActionMenu: function(self) {
     let isGroupEmpty = self.items.length == 0;
     let actions = [{
+        name: app.strings.diary["quick-add"] || "Quick Add",
+        callback: app.Diary.quickAdd,
+        disabled: false
+      }, {
         name: app.strings.dialogs["clear-group-items"] || "Remove all items from meal",
         callback: app.Group.clearGroupItems,
         disabled: isGroupEmpty
@@ -137,6 +141,11 @@ app.Group = {
     });
 
     actionMenu.open();
+  },
+
+  quickAddAction: function(self) {
+    // wrapping quick add call since actions only receive `self`
+    app.Diary.quickAdd(self.id);
   },
 
   clearGroupItems: function(self) {
@@ -370,7 +379,7 @@ app.Group = {
     return hour.toString().padStart(2, "0") + ":" + minute.toString().padStart(2, "0") + ":00";
   },
 
-  renderFooter: function(ul, id, nutrition) {
+  renderFooter: function(self, ul, id, nutrition) {
 
     let li = document.createElement("li");
     li.className = "noselect";
