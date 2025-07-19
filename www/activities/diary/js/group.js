@@ -104,7 +104,7 @@ app.Group = {
     let isGroupEmpty = self.items.length == 0;
     let actions = [{
         name: app.strings.diary["quick-add"] || "Quick Add",
-        callback: app.Diary.quickAdd,
+        callback: app.Group.quickAddAction,
         disabled: false
       }, {
         name: app.strings.dialogs["clear-group-items"] || "Remove all items from meal",
