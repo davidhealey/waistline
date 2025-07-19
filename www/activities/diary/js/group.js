@@ -60,8 +60,6 @@ app.Group = {
     innerDiv.innerText = this.name;
     div.appendChild(innerDiv);
 
-    app.Group.addActionMenu(self, div);
-
     let content = document.createElement("div");
     content.className = "accordion-item-content";
 
@@ -83,21 +81,17 @@ app.Group = {
 
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items, "subtract");
 
-    app.Group.renderFooter(ul, this.id, nutrition);
+    app.Group.renderFooter(self, ul, this.id, nutrition);
   },
 
-  addActionMenu: function(self, div) {
-    let rightIconDiv = document.createElement("div");
-    rightIconDiv.className = "right";
-    div.appendChild(rightIconDiv);
-
+  addActionMenu: function(self, leftDiv) {
     let iconAnchor = document.createElement("a");
-    iconAnchor.className = "link icon-only";
-    rightIconDiv.appendChild(iconAnchor);
+    iconAnchor.style = "margin-left: 15px";
+    leftDiv.appendChild(iconAnchor);
 
     let icon = document.createElement("i");
     icon.className = "icon material-icons";
-    icon.textContent = "menu_open";
+    icon.textContent = "more_horiz";
     iconAnchor.appendChild(icon);
 
     iconAnchor.addEventListener("touchstart", function(e) {
@@ -407,6 +401,9 @@ app.Group = {
     icon.className = "icon material-icons ripple";
     icon.innerText = "add";
     a.appendChild(icon);
+
+    // Action Menu
+    app.Group.addActionMenu(self, left);
 
     //Energy
     const energyUnit = app.Settings.get("units", "energy");
