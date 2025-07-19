@@ -252,6 +252,10 @@ app.Group = {
 
   setGroupTimestamps: function(self) {
     let locale = app.Settings.get("appearance", "locale");
+    if (locale == "auto") {
+      locale = app.getLanguage();
+    }
+
     let formatter = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit" });
     let hourCycle = formatter.resolvedOptions().hourCycle;
     switch (hourCycle) {
@@ -267,7 +271,6 @@ app.Group = {
       case "h23":
       default:
         app.Group.openTimePicker(self, formatter, 0, 23);
-        break;
     };
   },
 
