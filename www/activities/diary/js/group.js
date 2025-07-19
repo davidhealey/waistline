@@ -86,7 +86,7 @@ app.Group = {
 
   addActionMenu: function(self, buttonsDiv) {
     let actionMenuDiv = document.createElement("div");
-    actionMenuDiv.className = "action-menu";
+    actionMenuDiv.className = "action-menu margin-horizontal-half";
     buttonsDiv.appendChild(actionMenuDiv);
 
     let iconAnchor = document.createElement("a");
