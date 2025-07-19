@@ -97,7 +97,7 @@ app.Group = {
     icon.textContent = "more_horiz";
     iconAnchor.appendChild(icon);
 
-    actionMenuDiv.addEventListener("touchstart", function(e) {
+    actionMenuDiv.addEventListener("click", function(e) {
       e.preventDefault();
       app.Group.openActionMenu(self);
     });
