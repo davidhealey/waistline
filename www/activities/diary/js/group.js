@@ -193,6 +193,7 @@ app.Group = {
     let mealSelection = app.f7.smartSelect.create({
       el: smartSelect,
       openIn: "sheet",
+      sheetBackdrop: true,
       on: {
         closed: (selection) => {
           let selectedMealName = validMealNames[selection.$selectEl.val()];
@@ -302,6 +303,7 @@ app.Group = {
 
     let picker = app.f7.picker.create({
       rotateEffect: true,
+      backdrop: true,
       value: currentTime,
       cols: columns,
       on: {
