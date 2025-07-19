@@ -126,11 +126,10 @@ app.Group = {
     }
 
     let options = [];
-    actions.forEach((action) => {
+    actions.filter(action => action.disabled == false).forEach((action) => {
       options.push({
         text: action.name,
-        onClick: () => { action.callback(self) },
-        disabled: action.disabled
+        onClick: () => { action.callback(self) }
       });
     });
 
