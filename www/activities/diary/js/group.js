@@ -81,10 +81,301 @@ app.Group = {
 
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items, "subtract");
 
-    app.Group.renderFooter(ul, this.id, nutrition);
+    app.Group.renderFooter(self, ul, this.id, nutrition);
   },
 
-  renderFooter: function(ul, id, nutrition) {
+  addActionMenu: function(self, buttonsDiv) {
+    let actionMenuDiv = document.createElement("div");
+    actionMenuDiv.className = "action-menu margin-horizontal-half";
+    buttonsDiv.appendChild(actionMenuDiv);
+
+    let iconAnchor = document.createElement("a");
+    actionMenuDiv.appendChild(iconAnchor);
+
+    let icon = document.createElement("i");
+    icon.className = "icon material-icons";
+    icon.textContent = "more_horiz";
+    iconAnchor.appendChild(icon);
+
+    actionMenuDiv.addEventListener("click", function(e) {
+      e.preventDefault();
+      app.Group.openActionMenu(self);
+    });
+  },
+
+  openActionMenu: function(self) {
+    let isGroupEmpty = self.items.length == 0;
+    let actions = [{
+        name: app.strings.diary["quick-add"] || "Quick Add",
+        callback: app.Group.quickAddAction,
+        disabled: false
+      }, {
+        name: app.strings.dialogs["clear-group-items"] || "Remove all items from meal",
+        callback: app.Group.clearGroupItems,
+        disabled: isGroupEmpty
+      }, {
+        name: app.strings.dialogs["move-group-items"] || "Move items to another meal",
+        callback: app.Group.moveGroupItems,
+        disabled: isGroupEmpty
+      }
+    ];
+
+    if (app.Settings.get("diary", "timestamps") == true) {
+      actions.push({
+        name: app.strings.dialogs["set-meal-time"] || "Update timestamps",
+        callback: app.Group.setGroupTimestamps,
+        disabled: isGroupEmpty
+      });
+    }
+
+    let options = [];
+    actions.filter(action => action.disabled == false).forEach((action) => {
+      options.push({
+        text: action.name,
+        onClick: () => { action.callback(self) }
+      });
+    });
+
+    let actionMenu = app.f7.actions.create({
+      buttons: options,
+      closeOnEscape: true,
+      animate: !app.Settings.get("appearance", "animations")
+    });
+
+    actionMenu.open();
+  },
+
+  quickAddAction: function(self) {
+    // wrapping quick add call since actions only receive `self`
+    app.Diary.quickAdd(self.id);
+  },
+
+  clearGroupItems: function(self) {
+    let title = app.strings.dialogs["clear-meal-items"] || "Remove all items";
+    let text = app.strings.dialogs["confirm"] || "Are you sure?";
+
+    let confirmDialog = app.f7.dialog.create({
+      title: title,
+      content: app.Utils.getDialogTextDiv(text),
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: app.Utils.escapeKeyCode
+        },
+        {
+          text: app.strings.dialogs.yes || "Yes",
+          keyCodes: app.Utils.enterKeyCode,
+          onClick: async () => {
+            let entry = await app.Diary.getEntryFromDB();
+            if (entry === undefined) {
+              return;
+            }
+
+            entry.items = entry.items.filter(item => item.category != self.id);
+
+            await dbHandler.put(entry, "diary");
+            let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+            app.Diary.render(scrollPosition);
+          }
+        }]
+    })
+    
+    confirmDialog.open();
+  },
+
+  moveGroupItems: function(self) {
+    let mealNames = app.Settings.get("diary", "meal-names") || [];
+    if (mealNames.length == 0) {
+      return;
+    }
+
+    let validMealNames = mealNames.filter(mealName => mealName != "")
+    let smartSelect = app.Group.createSelectStructure(self, validMealNames);
+    let mealSelection = app.f7.smartSelect.create({
+      el: smartSelect,
+      openIn: "sheet",
+      sheetBackdrop: true,
+      on: {
+        closed: (selection) => {
+          let selectedMealName = validMealNames[selection.$selectEl.val()];
+          selection.destroy();
+          smartSelect.remove();
+          app.Group.updateItemGroup(self, mealNames, selectedMealName);
+        }
+      }
+    });
+
+    mealSelection.open();
+  },
+
+  createSelectStructure: function(self, mealNames) {
+    let span = document.createElement("span");
+    span.className = "item-link smart-select"
+
+    let select = document.createElement("select");
+    select.className = "group-select";
+    span.appendChild(select);
+
+    mealNames.forEach((mealName, index) => {
+      let option = document.createElement("option");
+      option.value = index;
+      option.innerText = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+      if (mealName == self.name) {
+        option.setAttribute("selected", "")
+      };
+      select.appendChild(option);
+    });
+
+    document.body.appendChild(span);
+    return span;
+  },
+
+  updateItemGroup: async function(self, mealNames, targetMeal) {
+    let targetMealIndex = mealNames.findIndex(mealName => mealName == targetMeal);
+    if (targetMealIndex == -1) {
+      return;
+    } 
+
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry === undefined) {
+      return;
+    }
+
+    entry.items.forEach(item => {
+      if (item.category == self.id) {
+        item.category = targetMealIndex;
+      }
+    });
+
+    await dbHandler.put(entry, "diary");
+    let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+    app.Diary.render(scrollPosition);
+  },
+
+  setGroupTimestamps: function(self) {
+    let locale = app.Settings.get("appearance", "locale");
+    if (locale == "auto") {
+      locale = app.getLanguage();
+    }
+
+    let formatter = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit" });
+    let hourCycle = formatter.resolvedOptions().hourCycle;
+    switch (hourCycle) {
+      case "h11": 
+        app.Group.openTimePicker(self, formatter, 0, 11);
+        break;
+      case "h12":
+        app.Group.openTimePicker(self, formatter, 1, 12);
+        break;
+      case "h24":
+        app.Group.openTimePicker(self, formatter, 1, 24);
+        break;
+      case "h23":
+      default:
+        app.Group.openTimePicker(self, formatter, 0, 23);
+    };
+  },
+
+  openTimePicker: function(self, formatter, minHour, maxHour) {
+    let dateNow = Date.now();
+    let parts = formatter.formatToParts(dateNow)
+    let currentHour = parts.find(part => part.type == "hour").value;
+    let currentMinute = parts.find(part => part.type == "minute").value;
+    let currentTime = [currentHour, currentMinute];
+
+    let hourValues = Array.from({ length: (maxHour - minHour) + 1 }, (_, i) => (minHour + i).toString().padStart(2, "0"));
+    let minuteValues = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
+    let columns = [{
+        values: hourValues
+      }, {
+        divider: true,
+        content: ':'
+      }, {
+        values: minuteValues
+    }];
+
+    if (hourValues.length == 12) {
+      let dayPeriod = parts.find(part => part.type == "dayPeriod")?.value || "AM";
+      currentTime.push(dayPeriod);
+      columns.push({
+        values: ["AM", "PM"]
+      });
+    }
+
+    let picker = app.f7.picker.create({
+      rotateEffect: true,
+      backdrop: true,
+      value: currentTime,
+      cols: columns,
+      on: {
+        closed: (selection) => {
+          let input = selection.value;
+          selection.destroy();
+          app.Group.updateTimestamps(self, formatter, input);
+        }
+      }
+    });
+
+    picker.open();
+  },
+
+  updateTimestamps: async function(self, formatter, selection) {
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry === undefined) {
+      return;
+    }
+
+    let dateStr = app.Group.getDateString(entry.dateTime);
+    let timeStr = app.Group.getTimeString(formatter, selection);
+    let newDate = new Date(dateStr + "T" + timeStr);
+    let mealItems = entry.items.filter(item => item.category == self.id);
+    mealItems.forEach(item => {
+      item.dateTime = newDate;
+    });
+
+    await dbHandler.put(entry, "diary");
+    let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+    app.Diary.render(scrollPosition);
+  },
+
+  getDateString: function(dateTime) {
+    let year = dateTime.getFullYear();
+    let month = dateTime.getMonth() + 1;
+    let day = dateTime.getDate();
+    return year + "-" + month.toString().padStart(2, "0") + "-" + day.toString().padStart(2, "0");
+  },
+
+  getTimeString: function(formatter, parts) {
+    let hour = parseInt(parts[0], 10);
+    let minute = parseInt(parts[1], 10);
+    let dayPeriod = parts[2];
+
+    let hourCycle = formatter.resolvedOptions().hourCycle;
+    switch (hourCycle) {
+      case "h11": 
+        if (hour == 0 && dayPeriod == "PM") {
+          hour = 12;
+        } else if (dayPeriod == "PM") {
+          hour += 12;
+        }
+        
+        break;
+      case "h12":
+        if (hour == 12 && dayPeriod == "AM") {
+          hour = 0;
+        } else if (hour != 12 && dayPeriod == "PM") {
+          hour += 12;
+        }
+
+        break;
+      case "h24":
+        hour--;
+        break;
+    };
+
+    return hour.toString().padStart(2, "0") + ":" + minute.toString().padStart(2, "0") + ":00";
+  },
+
+  renderFooter: function(self, ul, id, nutrition) {
 
     let li = document.createElement("li");
     li.className = "noselect";
@@ -94,11 +385,15 @@ app.Group = {
     row.className = "row item-content";
     li.appendChild(row);
 
+    let buttons = document.createElement("div");
+    buttons.className = "display-inline-flex";
+    row.appendChild(buttons);
+
     //Add button
     let left = document.createElement("div");
     left.className = "add-button";
     left.id = "add-button-" + id;
-    row.appendChild(left);
+    buttons.appendChild(left);
 
     let a = document.createElement("a");
     left.addEventListener("click", function(e) {
@@ -115,6 +410,9 @@ app.Group = {
     icon.className = "icon material-icons ripple";
     icon.innerText = "add";
     a.appendChild(icon);
+
+    // Action Menu
+    app.Group.addActionMenu(self, buttons);
 
     //Energy
     const energyUnit = app.Settings.get("units", "energy");
