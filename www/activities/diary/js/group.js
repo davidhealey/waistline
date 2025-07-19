@@ -167,13 +167,8 @@ app.Group = {
               return;
             }
 
-            self.items.forEach(item => {
-              let index = entry.items.findIndex(x => x === item);
-              if (index !== -1) {
-                entry.items.splice(index, 1);
-              }
-            });
-
+            entry.items = entry.items.filter(item => item.category != self.id);
+            
             await dbHandler.put(entry, "diary");
             let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
             app.Diary.render(scrollPosition);
@@ -231,9 +226,8 @@ app.Group = {
   },
 
   updateItemGroup: async function(self, mealNames, targetMeal) {
-    let currentMealIndex = mealNames.findIndex(mealName => mealName == self.name);
     let targetMealIndex = mealNames.findIndex(mealName => mealName == targetMeal);
-    if (currentMealIndex == -1 || targetMealIndex == -1) {
+    if (targetMealIndex == -1) {
       return;
     } 
 
@@ -242,9 +236,10 @@ app.Group = {
       return;
     }
 
-    let mealItems = entry.items.filter(item => item.category == currentMealIndex);
-    mealItems.forEach(item => {
-      item.category = targetMealIndex;
+    entry.items.forEach(item => {
+      if (item.category == self.id) {
+        item.category = targetMealIndex;
+      }
     });
 
     await dbHandler.put(entry, "diary");
@@ -316,12 +311,6 @@ app.Group = {
   },
 
   updateTimestamps: async function(self, formatter, selection) {
-    let mealNames = app.Settings.get("diary", "meal-names") || [];
-    let currentMealIndex = mealNames.findIndex(mealName => mealName == self.name);
-    if (currentMealIndex == -1) {
-      return;
-    } 
-
     let entry = await app.Diary.getEntryFromDB();
     if (entry === undefined) {
       return;
@@ -330,7 +319,7 @@ app.Group = {
     let dateStr = app.Group.getDateString(entry.dateTime);
     let timeStr = app.Group.getTimeString(formatter, selection);
     let newDate = new Date(dateStr + "T" + timeStr);
-    let mealItems = entry.items.filter(item => item.category == currentMealIndex);
+    let mealItems = entry.items.filter(item => item.category == self.id);
     mealItems.forEach(item => {
       item.dateTime = newDate;
     });
