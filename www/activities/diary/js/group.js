@@ -84,17 +84,20 @@ app.Group = {
     app.Group.renderFooter(self, ul, this.id, nutrition);
   },
 
-  addActionMenu: function(self, leftDiv) {
+  addActionMenu: function(self, buttonsDiv) {
+    let actionMenuDiv = document.createElement("div");
+    actionMenuDiv.className = "action-menu";
+    buttonsDiv.appendChild(actionMenuDiv);
+
     let iconAnchor = document.createElement("a");
-    iconAnchor.style = "margin-left: 15px";
-    leftDiv.appendChild(iconAnchor);
+    actionMenuDiv.appendChild(iconAnchor);
 
     let icon = document.createElement("i");
     icon.className = "icon material-icons";
     icon.textContent = "more_horiz";
     iconAnchor.appendChild(icon);
 
-    iconAnchor.addEventListener("touchstart", function(e) {
+    actionMenuDiv.addEventListener("touchstart", function(e) {
       e.preventDefault();
       app.Group.openActionMenu(self);
     });
@@ -168,7 +171,7 @@ app.Group = {
             }
 
             entry.items = entry.items.filter(item => item.category != self.id);
-            
+
             await dbHandler.put(entry, "diary");
             let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
             app.Diary.render(scrollPosition);
@@ -377,11 +380,15 @@ app.Group = {
     row.className = "row item-content";
     li.appendChild(row);
 
+    let buttons = document.createElement("div");
+    buttons.className = "display-inline-flex";
+    row.appendChild(buttons);
+
     //Add button
     let left = document.createElement("div");
     left.className = "add-button";
     left.id = "add-button-" + id;
-    row.appendChild(left);
+    buttons.appendChild(left);
 
     let a = document.createElement("a");
     left.addEventListener("click", function(e) {
@@ -400,7 +407,7 @@ app.Group = {
     a.appendChild(icon);
 
     // Action Menu
-    app.Group.addActionMenu(self, left);
+    app.Group.addActionMenu(self, buttons);
 
     //Energy
     const energyUnit = app.Settings.get("units", "energy");
