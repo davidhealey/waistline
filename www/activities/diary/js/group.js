@@ -286,27 +286,30 @@ app.Group = {
       backdrop: true,
       animate: !app.Settings.get("appearance", "animations"),
       timePicker: true,
-      weekHeader: false,
       value: [Date.now()],
-      renderToolbar: app.Group.renderTimePickerToolbar,
       on: {
         open: (calendar) => {
-          let container = calendar.$el[0];
-          let cancelButton = container.querySelector("#calendar-cancel-btn");
+          // force the time picker to open to hide the calender
+          calendar.openTimePicker();
+
+          let timePicker = document.querySelector(".calendar-time-picker");
+          let left = timePicker.querySelector(".left");
+          let cancelButton = document.createElement("a");
           cancelButton.innerText = app.strings.dialogs["cancel"] || "Cancel";
-          cancelButton.parentElement.addEventListener("click", () => {
+          cancelButton.className = "link calendar-time-picker-close"
+          left.appendChild(cancelButton);
+          left.addEventListener("click", () => {
             hasUserCanceled = true;
+            calendar.closeTimePicker();
             calendar.close();
           });
 
-          let okButton = container.querySelector("#calendar-ok-btn");
+          let okButton = timePicker.querySelector(".right .link.calendar-time-picker-close");
           okButton.innerText = app.strings.dialogs["ok"] || "OK";
           okButton.parentElement.addEventListener("click", () => {
+            calendar.closeTimePicker();
             calendar.close();
           });
-
-          let calendarMonths = container.querySelector(".calendar-months");
-          calendarMonths.remove();
         },
         close: (calendar) => {
           if (hasUserCanceled == false) {
@@ -317,21 +320,6 @@ app.Group = {
     });
 
     timePicker.open();
-  },
-
-  renderTimePickerToolbar: function() {
-    return `
-      <div class="toolbar toolbar-top no-shadow">
-        <div class="toolbar-inner">
-          <div class="left">
-            <a class="link sheet-close" id="calendar-cancel-btn"></a>
-          </div>
-          <div class="right">
-            <a class="link sheet-close" id="calendar-ok-btn"></a>
-          </div>
-        </div>
-      </div>
-    `;
   },
 
   updateTimestamps: async function(self, newDate) {
