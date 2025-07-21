@@ -190,16 +190,41 @@ app.Group = {
 
     let validMealNames = mealNames.filter(mealName => mealName != "")
     let smartSelect = app.Group.createSelectStructure(self, validMealNames);
+    let hasUserChangedSelection = false;
+    let hasUserCanceledSelection = false;
     let mealSelection = app.f7.smartSelect.create({
       el: smartSelect,
       openIn: "sheet",
       sheetBackdrop: true,
+      sheetCloseLinkText: app.strings.dialogs["ok"] || "OK",
       on: {
+        open: (selection) => {
+          // add custom cancel button
+          let smartSelectContainers = selection.$containerEl[0];
+          let leftToolbar = smartSelectContainers.querySelector(".left");
+          if (leftToolbar != null) {
+            let cancelButton = document.createElement("a");
+            cancelButton.className = "link sheet-close";
+            cancelButton.innerText = app.strings.dialogs["cancel"] || "Cancel";
+            leftToolbar.appendChild(cancelButton);
+
+            leftToolbar.addEventListener("click", (e) => {
+              hasUserCanceledSelection = true;
+              selection.close();
+            });
+          }
+        },
+        change: (selection) => {
+          hasUserChangedSelection = true;
+        },
         closed: (selection) => {
           let selectedMealName = validMealNames[selection.$selectEl.val()];
           selection.destroy();
           smartSelect.remove();
-          app.Group.updateItemGroup(self, mealNames, selectedMealName);
+
+          if (hasUserChangedSelection == true && hasUserCanceledSelection == false) {
+            app.Group.updateItemGroup(self, mealNames, selectedMealName);
+          }
         }
       }
     });
