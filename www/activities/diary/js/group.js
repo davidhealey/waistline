@@ -310,6 +310,10 @@ app.Group = {
             calendar.closeTimePicker();
             calendar.close();
           });
+
+          // force LeftToRight layout for the time picker columns so hours stay left and minutes stay right
+          let columns = timePicker.querySelector(".picker-columns");
+          columns.style.direction = "ltr";
         },
         close: (calendar) => {
           if (hasUserCanceled == false) {
