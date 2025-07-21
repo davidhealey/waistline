@@ -188,8 +188,7 @@ app.Group = {
       return;
     }
 
-    let validMealNames = mealNames.filter(mealName => mealName != "")
-    let smartSelect = app.Group.createSelectStructure(self, validMealNames);
+    let smartSelect = app.Group.createSelectStructure(self, mealNames);
     let hasUserChangedSelection = false;
     let hasUserCanceledSelection = false;
     let mealSelection = app.f7.smartSelect.create({
@@ -218,12 +217,12 @@ app.Group = {
           hasUserChangedSelection = true;
         },
         closed: (selection) => {
-          let selectedMealName = validMealNames[selection.$selectEl.val()];
+          let selectedMealIndex = selection.$selectEl.val();
           selection.destroy();
           smartSelect.remove();
 
           if (hasUserChangedSelection == true && hasUserCanceledSelection == false) {
-            app.Group.updateItemGroup(self, mealNames, selectedMealName);
+            app.Group.updateItemGroup(self, selectedMealIndex);
           }
         }
       }
@@ -241,10 +240,14 @@ app.Group = {
     span.appendChild(select);
 
     mealNames.forEach((mealName, index) => {
+      if(mealName == null || mealName == "") {
+        return;
+      }
+
       let option = document.createElement("option");
       option.value = index;
       option.innerText = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
-      if (mealName == self.name) {
+      if (index == self.id) {
         option.setAttribute("selected", "")
       };
       select.appendChild(option);
@@ -254,12 +257,7 @@ app.Group = {
     return span;
   },
 
-  updateItemGroup: async function(self, mealNames, targetMeal) {
-    let targetMealIndex = mealNames.findIndex(mealName => mealName == targetMeal);
-    if (targetMealIndex == -1) {
-      return;
-    } 
-
+  updateItemGroup: async function(self, targetMealIndex) {
     let entry = await app.Diary.getEntryFromDB();
     if (entry === undefined) {
       return;
