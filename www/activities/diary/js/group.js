@@ -207,7 +207,7 @@ app.Group = {
             cancelButton.innerText = app.strings.dialogs["cancel"] || "Cancel";
             leftToolbar.appendChild(cancelButton);
 
-            leftToolbar.addEventListener("click", (e) => {
+            leftToolbar.addEventListener("click", () => {
               hasUserCanceledSelection = true;
               selection.close();
             });
@@ -280,76 +280,66 @@ app.Group = {
       locale = app.getLanguage();
     }
 
-    let formatter = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit" });
-    let hourCycle = formatter.resolvedOptions().hourCycle;
-    switch (hourCycle) {
-      case "h11": 
-        app.Group.openTimePicker(self, formatter, 0, 11);
-        break;
-      case "h12":
-        app.Group.openTimePicker(self, formatter, 1, 12);
-        break;
-      case "h24":
-        app.Group.openTimePicker(self, formatter, 1, 24);
-        break;
-      case "h23":
-      default:
-        app.Group.openTimePicker(self, formatter, 0, 23);
-    };
-  },
-
-  openTimePicker: function(self, formatter, minHour, maxHour) {
-    let dateNow = Date.now();
-    let parts = formatter.formatToParts(dateNow)
-    let currentHour = parts.find(part => part.type == "hour").value;
-    let currentMinute = parts.find(part => part.type == "minute").value;
-    let currentTime = [currentHour, currentMinute];
-
-    let hourValues = Array.from({ length: (maxHour - minHour) + 1 }, (_, i) => (minHour + i).toString().padStart(2, "0"));
-    let minuteValues = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
-    let columns = [{
-        values: hourValues
-      }, {
-        divider: true,
-        content: ':'
-      }, {
-        values: minuteValues
-    }];
-
-    if (hourValues.length == 12) {
-      let dayPeriod = parts.find(part => part.type == "dayPeriod")?.value || "AM";
-      currentTime.push(dayPeriod);
-      columns.push({
-        values: ["AM", "PM"]
-      });
-    }
-
-    let picker = app.f7.picker.create({
-      rotateEffect: true,
+    let hasUserCanceled = false;
+    let timePicker = app.f7.calendar.create({
+      locale: locale,
       backdrop: true,
-      value: currentTime,
-      cols: columns,
+      animate: !app.Settings.get("appearance", "animations"),
+      timePicker: true,
+      weekHeader: false,
+      value: [Date.now()],
+      renderToolbar: app.Group.renderTimePickerToolbar,
       on: {
-        closed: (selection) => {
-          let input = selection.value;
-          selection.destroy();
-          app.Group.updateTimestamps(self, formatter, input);
+        open: (calendar) => {
+          let container = calendar.$el[0];
+          let cancelButton = container.querySelector("#calendar-cancel-btn");
+          cancelButton.innerText = app.strings.dialogs["cancel"] || "Cancel";
+          cancelButton.parentElement.addEventListener("click", () => {
+            hasUserCanceled = true;
+            calendar.close();
+          });
+
+          let okButton = container.querySelector("#calendar-ok-btn");
+          okButton.innerText = app.strings.dialogs["ok"] || "OK";
+          okButton.parentElement.addEventListener("click", () => {
+            calendar.close();
+          });
+
+          let calendarMonths = container.querySelector(".calendar-months");
+          calendarMonths.remove();
+        },
+        close: (calendar) => {
+          if (hasUserCanceled == false) {
+            app.Group.updateTimestamps(self, calendar.value[0]);
+          }
         }
       }
     });
 
-    picker.open();
+    timePicker.open();
   },
 
-  updateTimestamps: async function(self, formatter, selection) {
+  renderTimePickerToolbar: function() {
+    return `
+      <div class="toolbar toolbar-top no-shadow">
+        <div class="toolbar-inner">
+          <div class="left">
+            <a class="link sheet-close" id="calendar-cancel-btn"></a>
+          </div>
+          <div class="right">
+            <a class="link sheet-close" id="calendar-ok-btn"></a>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  updateTimestamps: async function(self, newDate) {
     let entry = await app.Diary.getEntryFromDB();
     if (entry === undefined) {
       return;
     }
 
-    let dateStr = app.Group.getDateString(entry.dateTime);
-    let timeStr = app.Group.getTimeString(formatter, selection);
-    let newDate = new Date(dateStr + "T" + timeStr);
     let mealItems = entry.items.filter(item => item.category == self.id);
     mealItems.forEach(item => {
       item.dateTime = newDate;
@@ -358,44 +348,6 @@ app.Group = {
     await dbHandler.put(entry, "diary");
     let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
     app.Diary.render(scrollPosition);
-  },
-
-  getDateString: function(dateTime) {
-    let year = dateTime.getFullYear();
-    let month = dateTime.getMonth() + 1;
-    let day = dateTime.getDate();
-    return year + "-" + month.toString().padStart(2, "0") + "-" + day.toString().padStart(2, "0");
-  },
-
-  getTimeString: function(formatter, parts) {
-    let hour = parseInt(parts[0], 10);
-    let minute = parseInt(parts[1], 10);
-    let dayPeriod = parts[2];
-
-    let hourCycle = formatter.resolvedOptions().hourCycle;
-    switch (hourCycle) {
-      case "h11": 
-        if (hour == 0 && dayPeriod == "PM") {
-          hour = 12;
-        } else if (dayPeriod == "PM") {
-          hour += 12;
-        }
-        
-        break;
-      case "h12":
-        if (hour == 12 && dayPeriod == "AM") {
-          hour = 0;
-        } else if (hour != 12 && dayPeriod == "PM") {
-          hour += 12;
-        }
-
-        break;
-      case "h24":
-        hour--;
-        break;
-    };
-
-    return hour.toString().padStart(2, "0") + ":" + minute.toString().padStart(2, "0") + ":00";
   },
 
   renderFooter: function(self, ul, id, nutrition) {
