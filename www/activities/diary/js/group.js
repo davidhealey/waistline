@@ -198,7 +198,6 @@ app.Group = {
       sheetCloseLinkText: app.strings.dialogs["ok"] || "OK",
       on: {
         open: (selection) => {
-          // add custom cancel button
           let smartSelectContainers = selection.$containerEl[0];
           let leftToolbar = smartSelectContainers.querySelector(".left");
           if (leftToolbar != null) {
@@ -280,7 +279,7 @@ app.Group = {
       locale = app.getLanguage();
     }
 
-    let mealDate = app.Group.getEntryDateWithCurrentTime(self);
+    let mealDate = app.Group.getEntryDateWithCurrentTime();
     let hasUserCanceled = false;
     let timePicker = app.f7.calendar.create({
       locale: locale,
@@ -312,9 +311,16 @@ app.Group = {
             calendar.close();
           });
 
-          // force LeftToRight layout for the time picker columns so hours stay left and minutes stay right
-          let columns = timePicker.querySelector(".picker-columns");
-          columns.style.direction = "ltr";
+          if (calendar.inverter == -1) {
+            // app is in rtl mode, we still need to display time in ltr
+            let columnWrapper = timePicker.querySelector(".picker-columns");
+            columnWrapper.style.direction = "ltr";
+
+            // change the last and first class, so the scroll events get passed to the correct column
+            let columns = timePicker.querySelectorAll(".picker-column");
+            columns[0].className = "picker-column picker-column-last";
+            columns[columns.length - 1].className = "picker-column picker-column-first";
+          }
         },
         close: (calendar) => {
           if (hasUserCanceled == false) {
@@ -327,7 +333,7 @@ app.Group = {
     timePicker.open();
   },
 
-  getEntryDateWithCurrentTime: function(self) {
+  getEntryDateWithCurrentTime: function() {
     if (app.Diary == null || app.Diary.date == null) {
       return new Date();
     }
