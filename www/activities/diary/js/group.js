@@ -280,13 +280,14 @@ app.Group = {
       locale = app.getLanguage();
     }
 
+    let mealDate = app.Group.getEntryDateWithCurrentTime(self);
     let hasUserCanceled = false;
     let timePicker = app.f7.calendar.create({
       locale: locale,
       backdrop: true,
       animate: !app.Settings.get("appearance", "animations"),
       timePicker: true,
-      value: [Date.now()],
+      value: [mealDate],
       on: {
         open: (calendar) => {
           // force the time picker to open to hide the calender
@@ -324,6 +325,19 @@ app.Group = {
     });
 
     timePicker.open();
+  },
+
+  getEntryDateWithCurrentTime: function(self) {
+    if (app.Diary == null || app.Diary.date == null) {
+      return new Date();
+    }
+
+    let entryDate = app.Diary.date;
+    let currentTime = new Date();
+    currentTime.setFullYear(entryDate.getFullYear());
+    currentTime.setMonth(entryDate.getMonth());
+    currentTime.setDate(entryDate.getDate());
+    return currentTime;
   },
 
   updateTimestamps: async function(self, newDate) {
