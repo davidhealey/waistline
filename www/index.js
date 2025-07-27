@@ -552,7 +552,7 @@ document.addEventListener("backbutton", (e) => {
     return false;
   }
 
-  let smartSelects = document.querySelectorAll(".smart-select-popover");
+  let smartSelects = document.querySelectorAll(".smart-select-popover,.smart-select-sheet");
   if (smartSelects.length) {
     document.querySelectorAll(".smart-select").forEach((el) => { app.f7.smartSelect.close(el) });
     return false;
