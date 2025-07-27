@@ -189,8 +189,7 @@ app.Group = {
     }
 
     let smartSelect = app.Group.createSelectStructure(self, mealNames);
-    let hasUserChangedSelection = false;
-    let hasUserCanceledSelection = false;
+    let hasUserConfirmedSelection = false;
     let mealSelection = app.f7.smartSelect.create({
       el: smartSelect,
       openIn: "sheet",
@@ -207,20 +206,24 @@ app.Group = {
             leftToolbar.appendChild(cancelButton);
 
             leftToolbar.addEventListener("click", () => {
-              hasUserCanceledSelection = true;
               selection.close();
             });
           }
-        },
-        change: (selection) => {
-          hasUserChangedSelection = true;
+
+          let rightToolbar = smartSelectContainers.querySelector(".right");
+          if (leftToolbar != null) {
+            rightToolbar.addEventListener("click", () => {
+              hasUserConfirmedSelection = true;
+              selection.close();
+            });
+          }
         },
         closed: (selection) => {
           let selectedMealIndex = selection.$selectEl.val();
           selection.destroy();
           smartSelect.remove();
 
-          if (hasUserChangedSelection == true && hasUserCanceledSelection == false) {
+          if (selectedMealIndex != self.id && hasUserConfirmedSelection == true) {
             app.Group.updateItemGroup(self, selectedMealIndex);
           }
         }
@@ -280,7 +283,7 @@ app.Group = {
     }
 
     let mealDate = app.Group.getEntryDateWithCurrentTime();
-    let hasUserCanceled = false;
+    let hasUserConfirmedSelection = false;
     let timePicker = app.f7.calendar.create({
       locale: locale,
       backdrop: true,
@@ -299,7 +302,6 @@ app.Group = {
           cancelButton.className = "link calendar-time-picker-close"
           left.appendChild(cancelButton);
           left.addEventListener("click", () => {
-            hasUserCanceled = true;
             calendar.closeTimePicker();
             calendar.close();
           });
@@ -307,6 +309,7 @@ app.Group = {
           let okButton = timePicker.querySelector(".right .link.calendar-time-picker-close");
           okButton.innerText = app.strings.dialogs["ok"] || "OK";
           okButton.parentElement.addEventListener("click", () => {
+            hasUserConfirmedSelection = true;
             calendar.closeTimePicker();
             calendar.close();
           });
@@ -323,7 +326,7 @@ app.Group = {
           }
         },
         close: (calendar) => {
-          if (hasUserCanceled == false) {
+          if (hasUserConfirmedSelection == true) {
             app.Group.updateTimestamps(self, calendar.value[0]);
           }
         }
