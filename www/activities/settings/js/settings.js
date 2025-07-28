@@ -682,7 +682,8 @@ app.Settings = {
         "wifi-thumbnails": true,
         "show-images": true,
         "wifi-images": true,
-        "show-notes": false
+        "show-notes": false,
+        "add-leftovers": false,
       },
       goals: {
         migrated: true,

@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Show Food Images",
       "wifi-images": "Only show images over Wi-Fi",
-      "show-notes": "Show Food Notes"
+      "show-notes": "Show Food Notes",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Labels and Categories",
