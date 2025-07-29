@@ -141,7 +141,7 @@
     "hips": "Tour de hanches",
     "body fat": "Graisse corporelle",
     "average": "Moyenne",
-    "trend": "Daily Trend"
+    "trend": "Tendance quotidienne"
   },
   "diary": {
     "title": "Journal",
@@ -270,7 +270,7 @@
       "show-units": "Afficher les unités nutritionnelles",
       "prompt-add-items": "Demander la quantité lors de l'ajout d'éléments",
       "show-macro-nutriments-summary": "Afficher le résumé des nutriments par catégorie",
-      "show-total-portion-size": "Show Total Portion Size"
+      "show-total-portion-size": "Afficher la taille totale de la portion"
     },
     "nutriments": {
       "title": "Nutriments",
@@ -325,7 +325,7 @@
       "y-zero": "Commencer l’axe Y à 0",
       "average-line": "Afficher la ligne moyenne",
       "goal-line": "Afficher la ligne objectif",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Afficher la ligne de tendance"
     },
     "developer": {
       "title": "Développeur",
