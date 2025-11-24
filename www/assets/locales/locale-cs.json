@@ -141,7 +141,7 @@
     "hips": "Boky",
     "body fat": "Tělesný tuk",
     "average": "Průměr",
-    "trend": "Daily Trend"
+    "trend": "Denní trend"
   },
   "diary": {
     "title": "Diář",
@@ -325,7 +325,7 @@
       "y-zero": "Začít osu Y v nule",
       "average-line": "Zobrazit přímku průměru",
       "goal-line": "Zobrazit přímku cíle",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Zobrazit trendovou linii"
     },
     "developer": {
       "title": "Vývojář",
