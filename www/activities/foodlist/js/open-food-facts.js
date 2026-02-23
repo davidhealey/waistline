@@ -88,6 +88,9 @@ app.OpenFoodFacts = {
       "nutrition": {}
     };
 
+    // Ensure nutriments object exists
+    item.nutriments = item.nutriments || {};
+
     // Get item name, try the preferred language first
     let key = "product_name_" + preferredLanguage;
     if (item[key] !== undefined && item[key].length > 1) {
