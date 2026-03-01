@@ -37,6 +37,14 @@ app.OpenFoodFacts = {
       if (isSearchQuery && country && country != "All")
         url += "&tagtype_0=countries&tag_contains_0=contains&tag_0=" + encodeURIComponent(country);
 
+      //Filter by dietary preference using ingredients_analysis_tags
+      let dietaryFilter = app.Settings.get("integration", "dietary-filter") || undefined;
+
+      if (isSearchQuery && dietaryFilter && dietaryFilter != "none") {
+        let tagIndex = (country && country != "All") ? 1 : 0;
+        url += "&tagtype_" + tagIndex + "=ingredients_analysis&tag_contains_" + tagIndex + "=contains&tag_" + tagIndex + "=" + encodeURIComponent(dietaryFilter);
+      }
+
       //Get language
       let language = app.Settings.get("integration", "search-language") || undefined;
 
