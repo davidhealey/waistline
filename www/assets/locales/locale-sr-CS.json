@@ -140,7 +140,8 @@
     "waist": "Pojas",
     "hips": "Kukovi",
     "body fat": "Telesna masnoća",
-    "average": "Prosek"
+    "average": "Prosek",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Dnevnik",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Prikaži sve nutrijente na pregledu",
       "show-units": "Prikaži nutritivne jedinice",
       "prompt-add-items": "Traži unos količine pri dodavanju stavki",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrijenti",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Prikaži sličice samo na Wi-Fi-ju",
       "images": "Prikaži slike hrane",
       "wifi-images": "Prikaži slike samo na Wi-Fi-ju",
-      "show-notes": "Prikaži beleške o hrani"
+      "show-notes": "Prikaži beleške o hrani",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Oznake i kategorije",
@@ -322,7 +325,8 @@
       "title": "Statistike",
       "y-zero": "Počni Y osu na nuli",
       "average-line": "Prikaži prosečnu liniju",
-      "goal-line": "Prikaži liniju cilja"
+      "goal-line": "Prikaži liniju cilja",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "Programer",

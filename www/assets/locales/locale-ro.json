@@ -140,7 +140,8 @@
     "waist": "Talie",
     "hips": "Șolduri",
     "body fat": "Grăsime corporală",
-    "average": "Medie"
+    "average": "Medie",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Jurnal",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Arată toate valorile nutriționale pe pagina principală",
       "show-units": "Arată unitățile nutriționale",
       "prompt-add-items": "Solicită cantitatea la adăugarea articolelor",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrienți",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Arată pictogramele numai prin Wi-Fi",
       "images": "Afișare imagini alimente",
       "wifi-images": "Arată imaginile doar prin Wi-Fi",
-      "show-notes": "Arată notițele alimentelor"
+      "show-notes": "Arată notițele alimentelor",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Etichete şi categorii",
@@ -322,7 +325,8 @@
       "title": "Statistici",
       "y-zero": "Începe axa Y la zero",
       "average-line": "Arată linia medie",
-      "goal-line": "Arată linia de obiectiv"
+      "goal-line": "Arată linia de obiectiv",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "Dezvoltator",

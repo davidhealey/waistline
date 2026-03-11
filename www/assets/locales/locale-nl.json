@@ -140,7 +140,8 @@
     "waist": "Taille",
     "hips": "Heupen",
     "body fat": "Lichaamsvet",
-    "average": "Gemiddelde"
+    "average": "Gemiddelde",
+    "trend": "Dagelijkse Trend"
   },
   "diary": {
     "title": "Dagboek",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Toon alle voedingsstoffen op de overzichtspagina",
       "show-units": "Toon voedingswaarde-eenheden",
       "prompt-add-items": "Hoeveelheid vragen bij het toevoegen van items",
-      "show-macro-nutriments-summary": "Samenvatting macro's per categorie weergeven"
+      "show-macro-nutriments-summary": "Samenvatting macro's per categorie weergeven",
+      "show-total-portion-size": "Toon volledige portiegrootte"
     },
     "nutriments": {
       "title": "Voedingsstoffen",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
       "images": "Toon voedselfafbeeldingen",
       "wifi-images": "Toon afbeeldingen enkel over Wi-Fi",
-      "show-notes": "Toon voedselnotities"
+      "show-notes": "Toon voedselnotities",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Labels en categorieën",
@@ -322,7 +325,8 @@
       "title": "Statistieken",
       "y-zero": "Begin Y-as op nul",
       "average-line": "Toon gemiddeldelijn",
-      "goal-line": "Toon doellijn"
+      "goal-line": "Toon doellijn",
+      "trend-line": "Toon trendlijn"
     },
     "developer": {
       "title": "Ontwikkelaar",

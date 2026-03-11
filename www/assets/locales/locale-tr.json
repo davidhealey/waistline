@@ -140,7 +140,8 @@
     "waist": "Bel",
     "hips": "Kalça",
     "body fat": "Vücut Yağı",
-    "average": "Ortalama"
+    "average": "Ortalama",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Günlük",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Genel Bakış sayfasında tüm besin değerlerini göster",
       "show-units": "Besin değerlerinin birimlerini göster",
       "prompt-add-items": "Öğe eklerken miktar sor",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Besin Maddeleri",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
       "images": "Gıda Resimlerini Göster",
       "wifi-images": "Resimleri sadece Wi-Fi bağlıyken göster",
-      "show-notes": "Yemek Notlarını Göster"
+      "show-notes": "Yemek Notlarını Göster",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Etiketler ve Kategoriler",
@@ -322,7 +325,8 @@
       "title": "İstatistikler",
       "y-zero": "Y-Eksenini Sıfırdan Başlat",
       "average-line": "Ortalama Grafiğini Göster",
-      "goal-line": "Hedef Grafiğini Göster"
+      "goal-line": "Hedef Grafiğini Göster",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "Geliştirici",

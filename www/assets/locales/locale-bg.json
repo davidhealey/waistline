@@ -140,7 +140,8 @@
     "waist": "Талия",
     "hips": "Бедра",
     "body fat": "Мазнини на тялото",
-    "average": "Средно аритметично"
+    "average": "Средно аритметично",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Дневник",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Покажи всички хранителни стойности на страницата за Общ Преглед",
       "show-units": "Покажи единиците на хранителните стойности",
       "prompt-add-items": "Показвай прозорец за количество при добавяне на елементи",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Хранителни стойности",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Покажи умалени изображения само през Wi-Fi",
       "images": "Покажи снимки на храните",
       "wifi-images": "Покажи снимки само през Wi-Fi",
-      "show-notes": "Покажи бележки за храните"
+      "show-notes": "Покажи бележки за храните",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Етикети и категории",
@@ -322,7 +325,8 @@
       "title": "Статистика",
       "y-zero": "Започни оста Y от нула",
       "average-line": "Покажи средноаритметична линия",
-      "goal-line": "Покажи линия на целите"
+      "goal-line": "Покажи линия на целите",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "Разработчик",

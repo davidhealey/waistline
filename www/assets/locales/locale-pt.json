@@ -140,7 +140,8 @@
     "waist": "Cintura",
     "hips": "Quadril",
     "body fat": "Gordura corporal",
-    "average": "Média"
+    "average": "Média",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Diário",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Mostrar todos os nutrientes na página inicial",
       "show-units": "Mostrar informação nutricional",
       "prompt-add-items": "Solicitar quantidade ao adicionar itens",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrientes",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Mostrar imagens apenas por Wi-Fi",
       "images": "Mostrar Imagens dos Alimentos",
       "wifi-images": "Mostrar imagens apenas por Wi-Fi",
-      "show-notes": "Exibir Anotações de Alimentos"
+      "show-notes": "Exibir Anotações de Alimentos",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Rótulos e Categorias",
@@ -322,7 +325,8 @@
       "title": "Estatísticas",
       "y-zero": "Começar o Eixo Y em Zero",
       "average-line": "Mostrar Linha Média",
-      "goal-line": "Mostrar Linha Meta"
+      "goal-line": "Mostrar Linha Meta",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "Desenvolvedor",

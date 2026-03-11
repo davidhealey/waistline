@@ -140,7 +140,8 @@
     "waist": "Pas",
     "hips": "Boky",
     "body fat": "Tělesný tuk",
-    "average": "Průměr"
+    "average": "Průměr",
+    "trend": "Denní trend"
   },
   "diary": {
     "title": "Diář",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Zobrazit všechny živiny na stránce Přehledu",
       "show-units": "Zobrazit nutriční jednotky",
       "prompt-add-items": "Ptát se na množství při přidávání položek",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Zobrazit přehled maker podle kategorie",
+      "show-total-portion-size": "Zobrazit celkovou velikost porce"
     },
     "nutriments": {
       "title": "Živiny",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Zobrazit miniatury pouze přes Wi-Fi",
       "images": "Zobrazovat obrázky potravin",
       "wifi-images": "Zobrazovat obrázky pouze přes Wi-Fi",
-      "show-notes": "Zobrazovat poznámky potravin"
+      "show-notes": "Zobrazovat poznámky potravin",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Štítky a kategorie",
@@ -322,7 +325,8 @@
       "title": "Statistiky",
       "y-zero": "Začít osu Y v nule",
       "average-line": "Zobrazit přímku průměru",
-      "goal-line": "Zobrazit přímku cíle"
+      "goal-line": "Zobrazit přímku cíle",
+      "trend-line": "Zobrazit trendovou linii"
     },
     "developer": {
       "title": "Vývojář",

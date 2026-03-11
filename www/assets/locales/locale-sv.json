@@ -140,7 +140,8 @@
     "waist": "Midja",
     "hips": "Höfter",
     "body fat": "Kroppsfett",
-    "average": "Medelvärde"
+    "average": "Medelvärde",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Dagbok",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Visa alla näringsämnen på översiktssidan",
       "show-units": "Visa enheter för näringsämnen",
       "prompt-add-items": "Fråga efter kvantitet vid nytt inlägg",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Näringsämnen",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",
       "images": "Visa bilder på livsmedel",
       "wifi-images": "Visa bilder på livsmedel endast över Wi-Fi",
-      "show-notes": "Visa anteckningar om livsmedel"
+      "show-notes": "Visa anteckningar om livsmedel",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Etiketter och kategorier",
@@ -322,7 +325,8 @@
       "title": "Statistik",
       "y-zero": "Starta Y-axeln på noll",
       "average-line": "Visa linje för medelvärde",
-      "goal-line": "Visa linje för målsättning"
+      "goal-line": "Visa linje för målsättning",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "Utvecklare",

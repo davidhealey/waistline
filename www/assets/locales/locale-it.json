@@ -140,7 +140,8 @@
     "waist": "Vita",
     "hips": "Fianchi",
     "body fat": "Grasso corporeo",
-    "average": "Media"
+    "average": "Media",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Diario",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Visualizza tutti i nutrienti nella pagina Panoramica",
       "show-units": "Mostra le unità nutrizionali",
       "prompt-add-items": "Chiede la quantità quando aggiungi articoli",
-      "show-macro-nutriments-summary": "Mostra riepilogo macro per categoria"
+      "show-macro-nutriments-summary": "Mostra riepilogo macro per categoria",
+      "show-total-portion-size": "Mostra la dimensione totale della porzione"
     },
     "nutriments": {
       "title": "Nutrienti",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Mostra le anteprime solo con la Wi-Fi",
       "images": "Mostra l'immagine dei cibi",
       "wifi-images": "Mostra le immagini solo con connessione Wi-Fi",
-      "show-notes": "Mostra le note dei cibi"
+      "show-notes": "Mostra le note dei cibi",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Etichette e Categorie",
@@ -322,7 +325,8 @@
       "title": "Statistiche",
       "y-zero": "Inizia l'asse Y a Zero",
       "average-line": "Mostra media",
-      "goal-line": "Mostra obiettivo"
+      "goal-line": "Mostra obiettivo",
+      "trend-line": "Mostra la linea di tendenza"
     },
     "developer": {
       "title": "Sviluppatore",

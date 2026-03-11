@@ -140,7 +140,8 @@
     "waist": "Vyötärö",
     "hips": "Lantio",
     "body fat": "Kehon rasva",
-    "average": "Keskimäärin"
+    "average": "Keskimäärin",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Päiväkirja",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Näytä ravintoyksiköt",
       "prompt-add-items": "Pyydä määrä tuotteita lisättäessä",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrients",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Näytä esikatselukuvat vain Wi-Fi-yhteyttä käytettäessä",
       "images": "Näytä ruokakuvat",
       "wifi-images": "Näytä kuvat vain Wi-Fi-yhteyttä käytettäessä",
-      "show-notes": "Näytä ateriamerkinnät"
+      "show-notes": "Näytä ateriamerkinnät",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Tunnisteet ja luokat",
@@ -322,7 +325,8 @@
       "title": "Tilastot",
       "y-zero": "Aloita Y-akseli nollasta",
       "average-line": "Näytä keskiarvoviiva",
-      "goal-line": "Näytä tavoiteviiva"
+      "goal-line": "Näytä tavoiteviiva",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "Developer",

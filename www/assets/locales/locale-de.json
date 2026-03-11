@@ -140,7 +140,8 @@
     "waist": "Taille",
     "hips": "Hüften",
     "body fat": "Körperfettanteil",
-    "average": "Durchschnitt"
+    "average": "Durchschnitt",
+    "trend": "Täglicher Trend"
   },
   "diary": {
     "title": "Tagebuch",
@@ -310,7 +311,8 @@
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
       "images": "Lebensmittelbilder anzeigen",
       "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen",
-      "show-notes": "Notizen für Lebensmittel anzeigen"
+      "show-notes": "Notizen für Lebensmittel anzeigen",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Kennzeichnungen und Kategorien",
@@ -323,7 +325,8 @@
       "title": "Statistik",
       "y-zero": "Y-Achse bei Null beginnen",
       "average-line": "Linie für Durchschnitt anzeigen",
-      "goal-line": "Linie für Ziel anzeigen"
+      "goal-line": "Linie für Ziel anzeigen",
+      "trend-line": "Trendlinie anzeigen"
     },
     "developer": {
       "title": "Entwickler",

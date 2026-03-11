@@ -3,25 +3,25 @@
     "kilojoules": "Кілоджоулі",
     "calories": "Калорії",
     "fat": "Жири",
-    "saturated-fat": "Sat Fat",
+    "saturated-fat": "Насичені жири",
     "carbohydrates": "Вуглеводи",
     "sugars": "Цукор",
     "fiber": "Клітковина",
-    "proteins": "Protein",
+    "proteins": "Білок",
     "salt": "Сіль",
     "sodium": "Натрій",
     "cholesterol": "Холестерин",
-    "trans-fat": "Trans Fat",
-    "monounsaturated-fat": "Monounsat Fat",
-    "polyunsaturated-fat": "Polyunsat Fat",
-    "omega-3-fat": "Omega-3 Fat",
-    "omega-6-fat": "Omega-6 Fat",
-    "omega-9-fat": "Omega-9 Fat",
+    "trans-fat": "Трансжири",
+    "monounsaturated-fat": "Мононенасичені жири",
+    "polyunsaturated-fat": "Поліненасичені жири",
+    "omega-3-fat": "Жир Омега-3",
+    "omega-6-fat": "Жир Омега-6",
+    "omega-9-fat": "Жир Омега-9",
     "vitamin-a": "Вітамін A",
     "vitamin-b1": "Вітамін B1 (Тіамін)",
     "vitamin-b2": "Вітамін B2 (Рибофлавін)",
     "vitamin-pp": "Вітамін B3 (Ніацин)",
-    "pantothenic-acid": "Vitamin B5 (Pantothenic Acid)",
+    "pantothenic-acid": "Вітамін B5 (Пантотенова кислота)",
     "vitamin-b6": "Вітамін B6 (Піридоксин)",
     "biotin": "Вітамін B7 (Біотин)",
     "vitamin-b9": "Вітамін B9 (Фолієва кислота)",
@@ -50,9 +50,9 @@
     "lactose": "Лактоза"
   },
   "nutriments-abbreviations": {
-    "fat": "F",
-    "carbohydrates": "C",
-    "proteins": "P"
+    "fat": "Ж",
+    "carbohydrates": "В",
+    "proteins": "Б"
   },
   "unit-symbols": {
     "kcal": "ккал",
@@ -89,7 +89,7 @@
     "camera-problem": "Виникла проблема доступу до камери.",
     "no-internet": "Нема зʼєднання з Інтернетом",
     "no-results": "Немає відповідних результатів",
-    "no-response": "No response from server",
+    "no-response": "Немає відповіді від сервера",
     "no-search-providers": "Нема ввімкнених постачальників пошуку",
     "scan-failed": "Невдале сканування",
     "search": "Пошук",
@@ -98,11 +98,11 @@
     "download-title": "Отримати останні дані",
     "download-text": "Ваші локальні значення заміняться на останні дані, доступні для цього елемента",
     "upload-success": "Продукт успішно додано до Open Food Facts",
-    "upload-add-to-foodlist": "Do you want to add the uploaded item to your list of foods?",
+    "upload-add-to-foodlist": "Ви хочете додати завантажений елемент до свого списку продуктів?",
     "upload-failed": "На жаль, відвантаження не вдалося. Будь ласка, спробуйте ще раз або звʼяжіться з розробником.",
     "what-meal": "Що це за їжа?",
-    "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-exit": "Натисніть ще раз Назад для виходу",
+    "press-back-again-editor": "Натисніть \"Назад\" ще раз, щоб вийти з редактора"
   },
   "days": {
     "0": "Неділя",
@@ -140,7 +140,8 @@
     "waist": "Талія",
     "hips": "Стегна",
     "body fat": "Жир тіла",
-    "average": "Середнє значення"
+    "average": "Середнє значення",
+    "trend": "Щоденний тренд"
   },
   "diary": {
     "title": "Щоденник",
@@ -171,8 +172,8 @@
     "selected": "Вибрані",
     "search": "Пошук",
     "scan-prompt": "Помістіть штрих-код в область сканування",
-    "show-more-nutriments": "Show more nutrients",
-    "show-less-nutriments": "Show fewer nutrients",
+    "show-more-nutriments": "Показати більше поживних речовин",
+    "show-less-nutriments": "Показати менше поживних речовин",
     "added-to-selection": "Сканований елемент додано до виділеного"
   },
   "food-editor": {
@@ -186,20 +187,20 @@
     "category": "Категорія",
     "serving-size": "Розмір порції",
     "serving-unit": "Одиниця порції",
-    "recipe-size": "Recipe Amount",
-    "recipe-unit": "Recipe Unit",
+    "recipe-size": "Кількість рецепту",
+    "recipe-unit": "Одиниця рецепту",
     "number-of-servings": "Кількість порцій",
     "notes": "Нотатки",
     "nutrition": "Поживна цінність",
     "per-100": "На 100г/100мл",
     "per-serving": "На порцію",
-    "image": "Image",
-    "name-and-brand": "Name and Brand",
-    "nutriments-per-serving": "Nutrients per serving",
-    "nutriments-per-100": "Nutrients per 100g/100ml",
-    "additional-photos": "Additional Photos",
-    "ingredients": "Ingredients list",
-    "packaging": "Recycling instructions / packaging information",
+    "image": "Зображення",
+    "name-and-brand": "Ім'я та Бренд",
+    "nutriments-per-serving": "Поживні речовини в порції",
+    "nutriments-per-100": "Поживні речовини на 100г/100мл",
+    "additional-photos": "Додаткові фотографії",
+    "ingredients": "Список інгредієнтів",
+    "packaging": "Інструкції з переробки / інформація про упаковку",
     "edit-food": "Змінити пункт продукту",
     "edit-meal": "Змінити пункт страви",
     "edit-recipe": "Змінити пункт рецепту",
@@ -208,8 +209,8 @@
   },
   "goals": {
     "title": "Цілі",
-    "your-goals": "Your Goals",
-    "all-fields": "All Fields"
+    "your-goals": "Ваші цілі",
+    "all-fields": "Всі поля"
   },
   "goal-editor": {
     "title": "Задати ціль",
@@ -261,24 +262,25 @@
     "diary": {
       "title": "Щоденник",
       "categories": "Категорії",
-      "brands": "Show Brands",
+      "brands": "Показати бренди",
       "timestamps": "Показувати часові мітки",
       "thumbnails": "Показувати ескізи",
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
-      "show-all-nutriments": "Show all nutrients on Overview page",
+      "show-all-nutriments": "Показати всі поживні речовини на сторінці огляду",
       "show-units": "Показувати одиниці поживності",
       "prompt-add-items": "Запитувати кількість елементів під час додавання",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Показати зведення макронутрієнтів за категоріями",
+      "show-total-portion-size": "Показати загальний розмір порції"
     },
     "nutriments": {
-      "title": "Nutrients",
+      "title": "Поживні речовини",
       "field": "Назва",
       "unit": "Одиниця",
       "add": "Додати поле",
       "edit": "Змінити поле"
     },
     "body-stats": {
-      "title": "Body Stats",
+      "title": "Статистика тіла",
       "field": "Назва",
       "unit": "Одиниця",
       "add": "Додати поле",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
       "images": "Показувати зображення продуктів",
       "wifi-images": "Показувати зображення лише через Wi-Fi",
-      "show-notes": "Показувати нотатки продуктів"
+      "show-notes": "Показувати нотатки продуктів",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Мітки та категорії",
@@ -322,38 +325,39 @@
       "title": "Статистика",
       "y-zero": "Починати вісь Y з нуля",
       "average-line": "Показувати рядок Середнє значення",
-      "goal-line": "Показувати рядок цілей"
+      "goal-line": "Показувати рядок цілей",
+      "trend-line": "Показати лінію тренду"
     },
     "developer": {
-      "title": "Developer",
-      "data-sharing": "Data Sharing",
-      "data-sharing-wifi-only": "Only share data over Wi-Fi",
-      "data-sharing-active": "Share data with external service",
-      "data-sharing-address": "Service Address",
-      "data-sharing-authorization": "Service Authorization Header"
+      "title": "Розробник",
+      "data-sharing": "Обмін даними",
+      "data-sharing-wifi-only": "Передача даних тільки через Wi-Fi",
+      "data-sharing-active": "Обмін даними із зовнішнім сервісом",
+      "data-sharing-address": "Адреса служби",
+      "data-sharing-authorization": "Заголовок служби авторизації"
     },
     "text-to-speech": {
-      "title": "Text To Speech",
-      "test": "Test current settings",
-      "speed": "Speed",
-      "pitch": "Voice Pitch",
-      "voice": "Voice",
+      "title": "Синтезатор мовлення",
+      "test": "Перевірка поточних налаштувань",
+      "speed": "Швидкість",
+      "pitch": "Висота голосу",
+      "voice": "Голосом",
       "default": "Типово",
-      "locale": "Number formatting locale (optional)"
+      "locale": "Регіональні налаштування чисел (необов’язково)"
     },
     "import-export": {
       "title": "Імпорт/Експорт",
       "auto-backup": "Автоматична резервна копія",
       "backup": "Резервна копія бази даних",
-      "share": "Share Backup File",
+      "share": "Поділитися резервною копією",
       "import": "Імпортувати з резервної копії",
       "import-foods-title": "Імпортувати продукти",
       "import-foods": "Імпортувати продукти з JSON",
       "import-foods-categories": "Категорії для імпортованих елементів",
-      "export-diary-title": "Export Diary",
-      "export-diary": "Export Diary to CSV",
-      "share-diary": "Share CSV File",
-      "date": "Date"
+      "export-diary-title": "Експорт щоденника",
+      "export-diary": "Експорт щоденника до CSV",
+      "share-diary": "Поділитися CSV файлом",
+      "date": "Дата"
     },
     "integration": {
       "title": "Інтегрування",
@@ -375,7 +379,7 @@
       "usda-note-1": "щоб запитати безплатний ключ API.",
       "username": "Імʼя користувача",
       "password": "Пароль",
-      "off-account-note": "This is entirely optional. You do not need an OFF account to use the app.",
+      "off-account-note": "Це абсолютно необов'язково. Для використання програми не потрібно мати обліковий запис OFF.",
       "sign-in": "Вхід",
       "exit": "Вийти",
       "save": "Зберегти",
@@ -390,7 +394,7 @@
       "import-foods-category-fail": "Виберіть щонайменше одну категорію",
       "import-success-title": "Резервну копію відновлено",
       "import-success-message": "Імпортування завершено",
-      "barcode-flashlight": "Barcode Scan Flashlight",
+      "barcode-flashlight": "Штрих-код з ліхтариком",
       "barcode-sound": "Звук сканування штрих-коду",
       "edit-images": "Обрізати фото",
       "login-success": "Вхід виконано"
@@ -400,14 +404,14 @@
     "title": "Про застосунок",
     "p0": "Waistline створив David Healey з пропозиціями та співпрацею користувачів.",
     "p1": "Waistline побудовано з використанням Cordova і знаходиться під ліцензією Apache. Також містить Framework7, jQuery, jQuery localize та ChartJS, що під ліцензією MIT. HTML, CSS та інший javascript складають основне тіло програми й знаходяться під ліцензією GPLv3.",
-    "source-code": "Source Code",
-    "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "source-code": "Програмний код",
+    "user-guide": "Керівництво користувача / FAQ",
+    "version": "Поточна версія:"
   },
   "locale": {
     "auto": "Визначити автоматично",
     "bulgarian": "Болгарська",
-    "czech": "Czech",
+    "czech": "Чеська",
     "dutch": "Голландська",
     "english": "Англійська",
     "finnish": "Фінська",
@@ -417,10 +421,10 @@
     "italian": "Італійська",
     "polish": "Польська",
     "portuguese": "Португальська",
-    "romanian": "Romanian",
+    "romanian": "Румунська",
     "russian": "Російська",
-    "serbian-cyrillic": "Serbian (Cyrillic)",
-    "serbian-latin": "Serbian (Latin)",
+    "serbian-cyrillic": "Сербська (кирилиця)",
+    "serbian-latin": "Сербська (латиниця)",
     "spanish": "Іспанська",
     "swedish": "Шведська",
     "turkish": "Турецька",

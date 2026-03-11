@@ -140,7 +140,8 @@
     "waist": "ଅଣ୍ଟା",
     "hips": "Hips",
     "body fat": "Body Fat",
-    "average": "Average"
+    "average": "Average",
+    "trend": "Daily Trend"
   },
   "diary": {
     "title": "Diary",
@@ -268,7 +269,8 @@
       "show-all-nutriments": "Show all nutrients on Overview page",
       "show-units": "Show nutrition units",
       "prompt-add-items": "Prompt for quantity when adding items",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Show macros summary per category",
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Nutrients",
@@ -309,7 +311,8 @@
       "wifi-thumbnails": "Only show thumbnails over Wi-Fi",
       "images": "Show Food Images",
       "wifi-images": "Only show images over Wi-Fi",
-      "show-notes": "Show Food Notes"
+      "show-notes": "Show Food Notes",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Labels and Categories",
@@ -322,7 +325,8 @@
       "title": "ପରିସଂଖ୍ୟାନ",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "goal-line": "Show Goal Line",
+      "trend-line": "Show Trend Line"
     },
     "developer": {
       "title": "ଵିକାଶକ",
