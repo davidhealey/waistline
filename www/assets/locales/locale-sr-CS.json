@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Prikaži sličice samo na Wi-Fi-ju",
       "images": "Prikaži slike hrane",
       "wifi-images": "Prikaži slike samo na Wi-Fi-ju",
-      "show-notes": "Prikaži beleške o hrani"
+      "show-notes": "Prikaži beleške o hrani",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Oznake i kategorije",
