@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Mostra le anteprime solo con la Wi-Fi",
       "images": "Mostra l'immagine dei cibi",
       "wifi-images": "Mostra le immagini solo con connessione Wi-Fi",
-      "show-notes": "Mostra le note dei cibi"
+      "show-notes": "Mostra le note dei cibi",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Etichette e Categorie",
