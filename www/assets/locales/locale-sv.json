@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",
       "images": "Visa bilder på livsmedel",
       "wifi-images": "Visa bilder på livsmedel endast över Wi-Fi",
-      "show-notes": "Visa anteckningar om livsmedel"
+      "show-notes": "Visa anteckningar om livsmedel",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Etiketter och kategorier",
