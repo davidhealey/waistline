@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Küçük resimleri sadece Wi-Fi bağlıyken göster",
       "images": "Gıda Resimlerini Göster",
       "wifi-images": "Resimleri sadece Wi-Fi bağlıyken göster",
-      "show-notes": "Yemek Notlarını Göster"
+      "show-notes": "Yemek Notlarını Göster",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Etiketler ve Kategoriler",
