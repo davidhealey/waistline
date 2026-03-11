@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Toon voorvertoningen enkel over Wi-Fi",
       "images": "Toon voedselfafbeeldingen",
       "wifi-images": "Toon afbeeldingen enkel over Wi-Fi",
-      "show-notes": "Toon voedselnotities"
+      "show-notes": "Toon voedselnotities",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Labels en categorieën",
