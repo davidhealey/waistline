@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Zobrazit miniatury pouze přes Wi-Fi",
       "images": "Zobrazovat obrázky potravin",
       "wifi-images": "Zobrazovat obrázky pouze přes Wi-Fi",
-      "show-notes": "Zobrazovat poznámky potravin"
+      "show-notes": "Zobrazovat poznámky potravin",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Štítky a kategorie",
