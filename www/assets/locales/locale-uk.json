@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Показувати ескізи лише через Wi-Fi",
       "images": "Показувати зображення продуктів",
       "wifi-images": "Показувати зображення лише через Wi-Fi",
-      "show-notes": "Показувати нотатки продуктів"
+      "show-notes": "Показувати нотатки продуктів",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Мітки та категорії",
