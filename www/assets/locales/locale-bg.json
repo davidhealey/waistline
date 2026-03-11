@@ -311,7 +311,8 @@
       "wifi-thumbnails": "Покажи умалени изображения само през Wi-Fi",
       "images": "Покажи снимки на храните",
       "wifi-images": "Покажи снимки само през Wi-Fi",
-      "show-notes": "Покажи бележки за храните"
+      "show-notes": "Покажи бележки за храните",
+      "add-leftovers": "Show past day's meals of all categories"
     },
     "foods-categories": {
       "title": "Етикети и категории",
