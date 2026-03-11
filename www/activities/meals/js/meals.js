@@ -123,10 +123,26 @@ app.Meals = {
 
       // Get yesterday's meal if there is a diary category
       let category = app.FoodsMealsRecipes.getCategory();
-      let yesterdaysMeal = false;
 
-      if (category !== false) {
-        yesterdaysMeal = await app.Meals.getYesterdaysMeal(category);
+      let startCategory = 0;
+      let endCategory = 0;
+      const mealNames = await app.Settings.get("diary", "meal-names");
+      if (app.Settings.get("foodlist", "add-leftovers") !== true)
+      {
+        startCategory = category;
+        endCategory = category;
+      }
+      else
+        startCategory = mealNames.length;
+
+      for (let meal =startCategory; meal >= endCategory ; meal--)
+      {
+        if (mealNames[meal] == "" || mealNames[meal] == undefined)
+          continue;
+
+        let yesterdaysMeal = false;
+
+        yesterdaysMeal = await app.Meals.getYesterdaysMeal(meal);
 
         // Add meal to top of list
         if (yesterdaysMeal)
