@@ -39,6 +39,20 @@ app.Stats = {
     if (lastRange)
       app.Stats.el.range.value = lastRange;
 
+    let lastRangeStart = app.Settings.get("statistics", "last-range-start")
+    if (lastRangeStart) {
+      app.Stats.el.rangestart.value = lastRangeStart;
+    } else {
+      app.Stats.el.rangestart.value = Date();
+    }
+
+    let lastRangeEnd = app.Settings.get("statistics", "last-range-end")
+    if (lastRangeEnd) {
+      app.Stats.el.rangeend.value = lastRangeEnd
+    } else {
+      app.Stats.el.rangeend.value = Date();
+    }
+
     let lastStat = app.Settings.get("statistics", "last-stat");
     if (lastStat)
       app.Stats.el.stat.value = lastStat;
@@ -55,6 +69,8 @@ app.Stats = {
 
   getComponents: function() {
     app.Stats.el.range = document.querySelector(".page[data-name='statistics'] #range");
+    app.Stats.el.rangestart = document.querySelector(".page[data-name='statistics'] #rangestart");
+    app.Stats.el.rangeend = document.querySelector(".page[data-name='statistics'] #rangeend");
     app.Stats.el.stat = document.querySelector(".page[data-name='statistics'] #stat");
     app.Stats.el.chart = document.querySelector(".page[data-name='statistics'] #chart");
     app.Stats.el.barType = document.querySelector(".page[data-name='statistics'] #bar-type");
@@ -71,6 +87,8 @@ app.Stats = {
         if (app.Stats.dbData !== undefined) {
           app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
           app.Settings.put("statistics", "last-range", app.Stats.el.range.value);
+          app.Settings.put("statistics", "last-range-start", app.Stats.el.rangestart.value)
+          app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value)
           app.Stats.updateChart();
           app.Stats.renderStatLog();
         }
