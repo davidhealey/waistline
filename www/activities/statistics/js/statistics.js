@@ -35,10 +35,6 @@ app.Stats = {
 
     this.setChartTypeButtonVisibility();
 
-    let lastRange = app.Settings.get("statistics", "last-range");
-    if (lastRange)
-      app.Stats.el.range.value = lastRange;
-
     let lastRangeStart = app.Settings.get("statistics", "last-range-start")
     if (lastRangeStart) {
       app.Stats.el.rangestart.value = lastRangeStart;
@@ -62,7 +58,7 @@ app.Stats = {
         app.Stats.el.rangestart.value = this.dateToString(fromDate);
         app.Stats.el.rangeend.value = this.dateToString(toDate);
         }
-    }
+      }
 
     let lastStat = app.Settings.get("statistics", "last-stat");
     if (lastStat)
@@ -90,29 +86,35 @@ app.Stats = {
     app.Stats.el.timeline = document.querySelector(".page[data-name='statistics'] #timeline");
   },
 
+  updateRange: async function() {
+    if (app.Stats.el.range.value != "custom") {
+    let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
+      app.Stats.el.rangestart.value = this.dateToString(fromDate);
+      app.Stats.el.rangeend.value = this.dateToString(toDate);
+    }
+    app.Stats.dbData = await this.getDataFromDb(new Date(app.Stats.el.rangestart.value), new Date(app.Stats.el.rangeend.value));
+    if (app.Stats.dbData !== undefined) {
+      app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+      app.Settings.put("statistics", "last-range", app.Stats.el.range.value);
+      app.Settings.put("statistics", "last-range-start", app.Stats.el.rangestart.value);
+      if (this.dateToString(new Date(app.Stats.el.rangeend.value)) == this.dateToString(new Date())) {
+        // If the end is set to "today", most likely the user wants it to
+        // *stay* "today" for future values of "today"
+        app.Stats.el.rangeend.value = undefined;
+      } else {
+          app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value);
+      }
+      app.Stats.updateChart();
+      app.Stats.renderStatLog();
+    }
+  } ,
+
   bindUIActions: function() {
 
     // Date range
     if (!app.Stats.el.range.hasChangedEvent) {
       app.Stats.el.range.addEventListener("change", async (e) => {
-        let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
-        app.Stats.el.rangestart.value = this.dateToString(fromDate);
-        app.Stats.el.rangeend.value = this.dateToString(toDate);
-        app.Stats.dbData = await this.getDataFromDb(fromDate, toDate);
-        if (app.Stats.dbData !== undefined) {
-          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
-          app.Settings.put("statistics", "last-range", app.Stats.el.range.value);
-          app.Settings.put("statistics", "last-range-start", app.Stats.el.rangestart.value);
-          if (this.dateToString(new Date(app.Stats.el.rangeend.value)) == this.dateToString(new Date())) {
-            // If the end is set to "today", most likely the user wants it to
-            // *stay* "today" for future values of "today"
-            app.Stats.el.rangeend.value = undefined;
-          } else {
-             app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value);
-          }
-          app.Stats.updateChart();
-          app.Stats.renderStatLog();
-        }
+        this.updateRange();
       });
       app.Stats.el.range.hasChangedEvent = true;
     }
