@@ -57,8 +57,12 @@ app.Stats = {
         let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
         app.Stats.el.rangestart.value = this.dateToString(fromDate);
         app.Stats.el.rangeend.value = this.dateToString(toDate);
-        }
       }
+    }
+
+    // Constrain range start and end
+    app.Stats.el.rangeend.min = app.Stats.el.rangestart.value;
+    app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
 
     let lastStat = app.Settings.get("statistics", "last-stat");
     if (lastStat)
@@ -124,6 +128,7 @@ app.Stats = {
       app.Stats.el.rangestart.addEventListener("change", async (e) => {
         app.Stats.el.range.value = "custom";
         this.updateRange();
+        app.Stats.el.rangeend.min = app.Stats.el.rangeend.value;
       });
       app.Stats.el.rangestart.hasChangedEvent = true;
     }
@@ -133,6 +138,7 @@ app.Stats = {
       app.Stats.el.rangeend.addEventListener("change", async (e) => {
         app.Stats.el.range.value = "custom";
         this.updateRange();
+        app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
       });
       app.Stats.el.rangeend.hasChangedEvent = true;
     }
