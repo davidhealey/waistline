@@ -119,6 +119,24 @@ app.Stats = {
       app.Stats.el.range.hasChangedEvent = true;
     }
 
+    // Start range
+    if (!app.Stats.el.rangestart.hasChangedEvent) {
+      app.Stats.el.rangestart.addEventListener("change", async (e) => {
+        app.Stats.el.range.value = "custom";
+        this.updateRange();
+      });
+      app.Stats.el.rangestart.hasChangedEvent = true;
+    }
+
+    // End range
+    if (!app.Stats.el.rangeend.hasChangedEvent) {
+      app.Stats.el.rangeend.addEventListener("change", async (e) => {
+        app.Stats.el.range.value = "custom";
+        this.updateRange();
+      });
+      app.Stats.el.rangeend.hasChangedEvent = true;
+    }
+
     // Stat field
     if (!app.Stats.el.stat.hasChangedEvent) {
       app.Stats.el.stat.addEventListener("change", async (e) => {
