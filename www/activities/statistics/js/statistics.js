@@ -58,7 +58,8 @@ app.Stats = {
       app.Stats.el.stat.value = lastStat;
 
     this.chart = undefined;
-    this.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
+    let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value)
+    this.dbData = await this.getDataFromDb(fromDate, toDate);
 
     if (this.dbData !== undefined) {
       this.data = await this.organiseData(this.dbData, this.el.stat.value);
@@ -83,7 +84,8 @@ app.Stats = {
     // Date range
     if (!app.Stats.el.range.hasChangedEvent) {
       app.Stats.el.range.addEventListener("change", async (e) => {
-        app.Stats.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
+        let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value)
+        app.Stats.dbData = await this.getDataFromDb(fromDate, toDate);
         if (app.Stats.dbData !== undefined) {
           app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
           app.Settings.put("statistics", "last-range", app.Stats.el.range.value);
@@ -461,7 +463,20 @@ app.Stats = {
     });
   },
 
-  getDataFromDb: function(from, range) {
+  datesFromRange: function(range) {
+    let now = new Date();
+    let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    let toDate = new Date(fromDate);
+    toDate.setUTCHours(toDate.getUTCHours() + 24);
+    fromDate.setHours(0, 0, 0, 0);
+    if (range !== undefined)
+      range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
+    else
+      fromDate = new Date(0); // No range specified, so use earliest possible date
+    return [fromDate, toDate]
+  },
+
+  getDataFromDb: function(fromDate, toDate) {
     return new Promise(async function(resolve, reject) {
       let result = {
         "timestamps": [],
@@ -469,16 +484,10 @@ app.Stats = {
         "stats": []
       };
 
-      let fromDate = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate()));
-      fromDate.setHours(0, 0, 0, 0);
-      let toDate = new Date(fromDate);
-      toDate.setUTCHours(toDate.getUTCHours() + 24);
 
-      if (range !== undefined)
-        range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
-      else
-        fromDate = new Date(0); // No range specified, so use earliest possible date
-
+      if (!toDate) {
+        toDate = new Date();
+      }
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e) {
         let cursor = e.target.result;
 
