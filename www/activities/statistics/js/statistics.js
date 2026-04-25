@@ -53,6 +53,17 @@ app.Stats = {
       app.Stats.el.rangeend.value = Date();
     }
 
+    let lastRange = app.Settings.get("statistics", "last-range");
+    if (lastRange) {
+      app.Stats.el.range.value = lastRange;
+      if (range != "custom") {
+        // Set ranges unless "Custom" is selected
+        let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
+        app.Stats.el.rangestart.value = this.dateToString(fromDate);
+        app.Stats.el.rangeend.value = this.dateToString(toDate);
+        }
+    }
+
     let lastStat = app.Settings.get("statistics", "last-stat");
     if (lastStat)
       app.Stats.el.stat.value = lastStat;
