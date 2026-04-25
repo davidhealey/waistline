@@ -463,6 +463,16 @@ app.Stats = {
     });
   },
 
+  dateToString: function(date) {
+    // Formats a Date() object in a form that can be consumed by the html input
+    // type=date value field (yyyy-mm-dd with 0 padding).
+    return date.getFullYear().toString().padStart(4, '0') 
+    + "-" 
+    + (date.getMonth() + 1).toString().padStart(2, '0') 
+    + "-" 
+    + date.getDate().toString().padStart(2, '0');
+  },
+
   datesFromRange: function(range) {
     let now = new Date();
     let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
