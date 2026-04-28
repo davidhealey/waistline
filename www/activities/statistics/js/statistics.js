@@ -35,16 +35,42 @@ app.Stats = {
 
     this.setChartTypeButtonVisibility();
 
+    let lastRangeStart = app.Settings.get("statistics", "last-range-start")
+    if (lastRangeStart) {
+      app.Stats.el.rangestart.value = lastRangeStart;
+    } else {
+      app.Stats.el.rangestart.value = Date();
+    }
+
+    let lastRangeEnd = app.Settings.get("statistics", "last-range-end")
+    if (lastRangeEnd) {
+      app.Stats.el.rangeend.value = lastRangeEnd
+    } else {
+      app.Stats.el.rangeend.value = Date();
+    }
+
     let lastRange = app.Settings.get("statistics", "last-range");
-    if (lastRange)
+    if (lastRange) {
       app.Stats.el.range.value = lastRange;
+      if (range != "custom") {
+        // Set ranges unless "Custom" is selected
+        let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
+        app.Stats.el.rangestart.value = this.dateToString(fromDate);
+        app.Stats.el.rangeend.value = this.dateToString(toDate);
+      }
+    }
+
+    // Constrain range start and end
+    app.Stats.el.rangeend.min = app.Stats.el.rangestart.value;
+    app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
 
     let lastStat = app.Settings.get("statistics", "last-stat");
     if (lastStat)
       app.Stats.el.stat.value = lastStat;
 
     this.chart = undefined;
-    this.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
+    let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value)
+    this.dbData = await this.getDataFromDb(fromDate, toDate);
 
     if (this.dbData !== undefined) {
       this.data = await this.organiseData(this.dbData, this.el.stat.value);
@@ -55,6 +81,8 @@ app.Stats = {
 
   getComponents: function() {
     app.Stats.el.range = document.querySelector(".page[data-name='statistics'] #range");
+    app.Stats.el.rangestart = document.querySelector(".page[data-name='statistics'] #rangestart");
+    app.Stats.el.rangeend = document.querySelector(".page[data-name='statistics'] #rangeend");
     app.Stats.el.stat = document.querySelector(".page[data-name='statistics'] #stat");
     app.Stats.el.chart = document.querySelector(".page[data-name='statistics'] #chart");
     app.Stats.el.barType = document.querySelector(".page[data-name='statistics'] #bar-type");
@@ -62,20 +90,57 @@ app.Stats = {
     app.Stats.el.timeline = document.querySelector(".page[data-name='statistics'] #timeline");
   },
 
+  updateRange: async function() {
+    if (app.Stats.el.range.value != "custom") {
+    let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
+      app.Stats.el.rangestart.value = this.dateToString(fromDate);
+      app.Stats.el.rangeend.value = this.dateToString(toDate);
+    }
+    app.Stats.dbData = await this.getDataFromDb(new Date(app.Stats.el.rangestart.value), new Date(app.Stats.el.rangeend.value));
+    if (app.Stats.dbData !== undefined) {
+      app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
+      app.Settings.put("statistics", "last-range", app.Stats.el.range.value);
+      app.Settings.put("statistics", "last-range-start", app.Stats.el.rangestart.value);
+      if (this.dateToString(new Date(app.Stats.el.rangeend.value)) == this.dateToString(new Date())) {
+        // If the end is set to "today", most likely the user wants it to
+        // *stay* "today" for future values of "today"
+        app.Stats.el.rangeend.value = undefined;
+      } else {
+          app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value);
+      }
+      app.Stats.updateChart();
+      app.Stats.renderStatLog();
+    }
+  } ,
+
   bindUIActions: function() {
 
     // Date range
     if (!app.Stats.el.range.hasChangedEvent) {
       app.Stats.el.range.addEventListener("change", async (e) => {
-        app.Stats.dbData = await this.getDataFromDb(new Date(), app.Stats.el.range.value);
-        if (app.Stats.dbData !== undefined) {
-          app.Stats.data = await app.Stats.organiseData(app.Stats.dbData, app.Stats.el.stat.value);
-          app.Settings.put("statistics", "last-range", app.Stats.el.range.value);
-          app.Stats.updateChart();
-          app.Stats.renderStatLog();
-        }
+        this.updateRange();
       });
       app.Stats.el.range.hasChangedEvent = true;
+    }
+
+    // Start range
+    if (!app.Stats.el.rangestart.hasChangedEvent) {
+      app.Stats.el.rangestart.addEventListener("change", async (e) => {
+        app.Stats.el.range.value = "custom";
+        this.updateRange();
+        app.Stats.el.rangeend.min = app.Stats.el.rangeend.value;
+      });
+      app.Stats.el.rangestart.hasChangedEvent = true;
+    }
+
+    // End range
+    if (!app.Stats.el.rangeend.hasChangedEvent) {
+      app.Stats.el.rangeend.addEventListener("change", async (e) => {
+        app.Stats.el.range.value = "custom";
+        this.updateRange();
+        app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
+      });
+      app.Stats.el.rangeend.hasChangedEvent = true;
     }
 
     // Stat field
@@ -443,7 +508,30 @@ app.Stats = {
     });
   },
 
-  getDataFromDb: function(from, range) {
+  dateToString: function(date) {
+    // Formats a Date() object in a form that can be consumed by the html input
+    // type=date value field (yyyy-mm-dd with 0 padding).
+    return date.getFullYear().toString().padStart(4, '0') 
+    + "-" 
+    + (date.getMonth() + 1).toString().padStart(2, '0') 
+    + "-" 
+    + date.getDate().toString().padStart(2, '0');
+  },
+
+  datesFromRange: function(range) {
+    let now = new Date();
+    let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    let toDate = new Date(fromDate);
+    toDate.setUTCHours(toDate.getUTCHours() + 24);
+    fromDate.setHours(0, 0, 0, 0);
+    if (range !== undefined)
+      range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
+    else
+      fromDate = new Date(0); // No range specified, so use earliest possible date
+    return [fromDate, toDate]
+  },
+
+  getDataFromDb: function(fromDate, toDate) {
     return new Promise(async function(resolve, reject) {
       let result = {
         "timestamps": [],
@@ -451,16 +539,10 @@ app.Stats = {
         "stats": []
       };
 
-      let fromDate = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate()));
-      fromDate.setHours(0, 0, 0, 0);
-      let toDate = new Date(fromDate);
-      toDate.setUTCHours(toDate.getUTCHours() + 24);
 
-      if (range !== undefined)
-        range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
-      else
-        fromDate = new Date(0); // No range specified, so use earliest possible date
-
+      if (!toDate) {
+        toDate = new Date();
+      }
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e) {
         let cursor = e.target.result;
 
