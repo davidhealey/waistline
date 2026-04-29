@@ -128,7 +128,7 @@ app.Stats = {
       app.Stats.el.rangestart.addEventListener("change", async (e) => {
         app.Stats.el.range.value = "custom";
         this.updateRange();
-        app.Stats.el.rangeend.min = app.Stats.el.rangeend.value;
+        app.Stats.el.rangeend.min = app.Stats.el.rangestart.value;
       });
       app.Stats.el.rangestart.hasChangedEvent = true;
     }
