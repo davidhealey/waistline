@@ -111,6 +111,11 @@ app.Stats = {
       app.Stats.updateChart();
       app.Stats.renderStatLog();
     }
+
+    // Constrain range start and end
+    app.Stats.el.rangeend.min = app.Stats.el.rangestart.value;
+    app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
+
   } ,
 
   bindUIActions: function() {
@@ -128,7 +133,6 @@ app.Stats = {
       app.Stats.el.rangestart.addEventListener("change", async (e) => {
         app.Stats.el.range.value = "custom";
         this.updateRange();
-        app.Stats.el.rangeend.min = app.Stats.el.rangestart.value;
       });
       app.Stats.el.rangestart.hasChangedEvent = true;
     }
@@ -138,7 +142,6 @@ app.Stats = {
       app.Stats.el.rangeend.addEventListener("change", async (e) => {
         app.Stats.el.range.value = "custom";
         this.updateRange();
-        app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
       });
       app.Stats.el.rangeend.hasChangedEvent = true;
     }
