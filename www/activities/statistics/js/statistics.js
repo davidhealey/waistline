@@ -104,9 +104,9 @@ app.Stats = {
       if (this.dateToString(new Date(app.Stats.el.rangeend.value)) == this.dateToString(new Date())) {
         // If the end is set to "today", most likely the user wants it to
         // *stay* "today" for future values of "today"
-        app.Stats.el.rangeend.value = undefined;
+        app.Settings.put("statistics", "last-range-end", undefined);
       } else {
-          app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value);
+        app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value);
       }
       app.Stats.updateChart();
       app.Stats.renderStatLog();
