@@ -39,14 +39,14 @@ app.Stats = {
     if (lastRangeStart) {
       app.Stats.el.rangestart.value = lastRangeStart;
     } else {
-      app.Stats.el.rangestart.value = Date();
+      app.Stats.el.rangestart.value = this.dateToString(new Date());
     }
 
     let lastRangeEnd = app.Settings.get("statistics", "last-range-end")
     if (lastRangeEnd) {
       app.Stats.el.rangeend.value = lastRangeEnd
     } else {
-      app.Stats.el.rangeend.value = Date();
+      app.Stats.el.rangeend.value = this.dateToString(new Date());
     }
 
     let lastRange = app.Settings.get("statistics", "last-range");
