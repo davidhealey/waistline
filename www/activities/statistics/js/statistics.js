@@ -52,7 +52,7 @@ app.Stats = {
     let lastRange = app.Settings.get("statistics", "last-range");
     if (lastRange) {
       app.Stats.el.range.value = lastRange;
-      if (range != "custom") {
+      if (app.Stats.el.range.value != "custom") {
         // Set ranges unless "Custom" is selected
         let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
         app.Stats.el.rangestart.value = this.dateToString(fromDate);
@@ -69,8 +69,7 @@ app.Stats = {
       app.Stats.el.stat.value = lastStat;
 
     this.chart = undefined;
-    let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value)
-    this.dbData = await this.getDataFromDb(fromDate, toDate);
+    this.dbData = await this.getDataFromDb(new Date(app.Stats.el.rangestart.value), new Date(app.Stats.el.rangeend.value));
 
     if (this.dbData !== undefined) {
       this.data = await this.organiseData(this.dbData, this.el.stat.value);
