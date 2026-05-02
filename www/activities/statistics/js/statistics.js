@@ -533,7 +533,7 @@ app.Stats = {
     return [fromDate, toDate]
   },
 
-  getDataFromDb: function(fromDate, toDate) {
+  getDataFromDb: function(from, to) {
     return new Promise(async function(resolve, reject) {
       let result = {
         "timestamps": [],
@@ -542,9 +542,17 @@ app.Stats = {
       };
 
 
-      if (!toDate) {
-        toDate = new Date();
+      if (!to) {
+        to = new Date();
       }
+
+      // Make date range inclusive of the whole days at either end
+      let toDate = new Date(Date.UTC(to.getFullYear(), to.getMonth(), to.getDate()));
+      toDate.setHours(0, 0, 0, 0);
+      let fromDate = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate()));
+      fromDate.setHours(0, 0, 0, 0);
+      toDate.setUTCHours(toDate.getUTCHours() + 24);
+
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e) {
         let cursor = e.target.result;
 
