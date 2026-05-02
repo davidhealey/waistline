@@ -521,10 +521,9 @@ app.Stats = {
   },
 
   datesFromRange: function(range) {
-    let now = new Date();
-    let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    let toDate = new Date(fromDate);
-    toDate.setUTCHours(toDate.getUTCHours() + 24);
+    let fromDate = new Date();
+    let toDate = new Date();
+    toDate.setHours(0, 0, 0, 0);
     fromDate.setHours(0, 0, 0, 0);
     if (range !== undefined)
       range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
