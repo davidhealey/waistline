@@ -39,20 +39,20 @@ app.Stats = {
     if (lastRangeStart) {
       app.Stats.el.rangestart.value = lastRangeStart;
     } else {
-      app.Stats.el.rangestart.value = Date();
+      app.Stats.el.rangestart.value = this.dateToString(new Date());
     }
 
     let lastRangeEnd = app.Settings.get("statistics", "last-range-end")
     if (lastRangeEnd) {
       app.Stats.el.rangeend.value = lastRangeEnd
     } else {
-      app.Stats.el.rangeend.value = Date();
+      app.Stats.el.rangeend.value = this.dateToString(new Date());
     }
 
     let lastRange = app.Settings.get("statistics", "last-range");
     if (lastRange) {
       app.Stats.el.range.value = lastRange;
-      if (range != "custom") {
+      if (app.Stats.el.range.value != "custom") {
         // Set ranges unless "Custom" is selected
         let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value);
         app.Stats.el.rangestart.value = this.dateToString(fromDate);
@@ -69,8 +69,7 @@ app.Stats = {
       app.Stats.el.stat.value = lastStat;
 
     this.chart = undefined;
-    let [fromDate, toDate] = this.datesFromRange(app.Stats.el.range.value)
-    this.dbData = await this.getDataFromDb(fromDate, toDate);
+    this.dbData = await this.getDataFromDb(new Date(app.Stats.el.rangestart.value), new Date(app.Stats.el.rangeend.value));
 
     if (this.dbData !== undefined) {
       this.data = await this.organiseData(this.dbData, this.el.stat.value);
@@ -104,13 +103,18 @@ app.Stats = {
       if (this.dateToString(new Date(app.Stats.el.rangeend.value)) == this.dateToString(new Date())) {
         // If the end is set to "today", most likely the user wants it to
         // *stay* "today" for future values of "today"
-        app.Stats.el.rangeend.value = undefined;
+        app.Settings.put("statistics", "last-range-end", undefined);
       } else {
-          app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value);
+        app.Settings.put("statistics", "last-range-end", app.Stats.el.rangeend.value);
       }
       app.Stats.updateChart();
       app.Stats.renderStatLog();
     }
+
+    // Constrain range start and end
+    app.Stats.el.rangeend.min = app.Stats.el.rangestart.value;
+    app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
+
   } ,
 
   bindUIActions: function() {
@@ -128,7 +132,6 @@ app.Stats = {
       app.Stats.el.rangestart.addEventListener("change", async (e) => {
         app.Stats.el.range.value = "custom";
         this.updateRange();
-        app.Stats.el.rangeend.min = app.Stats.el.rangeend.value;
       });
       app.Stats.el.rangestart.hasChangedEvent = true;
     }
@@ -138,7 +141,6 @@ app.Stats = {
       app.Stats.el.rangeend.addEventListener("change", async (e) => {
         app.Stats.el.range.value = "custom";
         this.updateRange();
-        app.Stats.el.rangestart.max = app.Stats.el.rangeend.value;
       });
       app.Stats.el.rangeend.hasChangedEvent = true;
     }
@@ -519,10 +521,9 @@ app.Stats = {
   },
 
   datesFromRange: function(range) {
-    let now = new Date();
-    let fromDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    let toDate = new Date(fromDate);
-    toDate.setUTCHours(toDate.getUTCHours() + 24);
+    let fromDate = new Date();
+    let toDate = new Date();
+    toDate.setHours(0, 0, 0, 0);
     fromDate.setHours(0, 0, 0, 0);
     if (range !== undefined)
       range == 7 ? fromDate.setUTCDate(fromDate.getUTCDate() - 6) : fromDate.setUTCMonth(fromDate.getUTCMonth() - range);
@@ -531,7 +532,7 @@ app.Stats = {
     return [fromDate, toDate]
   },
 
-  getDataFromDb: function(fromDate, toDate) {
+  getDataFromDb: function(from, to) {
     return new Promise(async function(resolve, reject) {
       let result = {
         "timestamps": [],
@@ -540,9 +541,17 @@ app.Stats = {
       };
 
 
-      if (!toDate) {
-        toDate = new Date();
+      if (!to) {
+        to = new Date();
       }
+
+      // Make date range inclusive of the whole days at either end
+      let toDate = new Date(Date.UTC(to.getFullYear(), to.getMonth(), to.getDate()));
+      toDate.setHours(0, 0, 0, 0);
+      let fromDate = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate()));
+      fromDate.setHours(0, 0, 0, 0);
+      toDate.setUTCHours(toDate.getUTCHours() + 24);
+
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e) {
         let cursor = e.target.result;
 
