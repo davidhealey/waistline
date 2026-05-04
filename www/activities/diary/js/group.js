@@ -81,10 +81,291 @@ app.Group = {
 
     let nutrition = await app.FoodsMealsRecipes.getTotalNutrition(this.items, "subtract");
 
-    app.Group.renderFooter(ul, this.id, nutrition);
+    app.Group.renderFooter(self, ul, this.id, nutrition);
   },
 
-  renderFooter: function(ul, id, nutrition) {
+  addActionMenu: function(self, buttonsDiv) {
+    let actionMenuDiv = document.createElement("div");
+    actionMenuDiv.className = "action-menu margin-horizontal-half";
+    buttonsDiv.appendChild(actionMenuDiv);
+
+    let iconAnchor = document.createElement("a");
+    actionMenuDiv.appendChild(iconAnchor);
+
+    let icon = document.createElement("i");
+    icon.className = "icon material-icons";
+    icon.textContent = "more_horiz";
+    iconAnchor.appendChild(icon);
+
+    actionMenuDiv.addEventListener("click", function(e) {
+      e.preventDefault();
+      app.Group.openActionMenu(self);
+    });
+  },
+
+  openActionMenu: function(self) {
+    let isGroupEmpty = self.items.length == 0;
+    let actions = [{
+        name: app.strings.diary["quick-add"] || "Quick Add",
+        callback: app.Group.quickAddAction,
+        disabled: false
+      }, {
+        name: app.strings.dialogs["clear-group-items"] || "Remove all items from meal",
+        callback: app.Group.clearGroupItems,
+        disabled: isGroupEmpty
+      }, {
+        name: app.strings.dialogs["move-group-items"] || "Move items to another meal",
+        callback: app.Group.moveGroupItems,
+        disabled: isGroupEmpty
+      }
+    ];
+
+    if (app.Settings.get("diary", "timestamps") == true) {
+      actions.push({
+        name: app.strings.dialogs["set-meal-time"] || "Update timestamps",
+        callback: app.Group.setGroupTimestamps,
+        disabled: isGroupEmpty
+      });
+    }
+
+    let options = [];
+    actions.filter(action => action.disabled == false).forEach((action) => {
+      options.push({
+        text: action.name,
+        onClick: () => { action.callback(self) }
+      });
+    });
+
+    let actionMenu = app.f7.actions.create({
+      buttons: options,
+      closeOnEscape: true,
+      animate: !app.Settings.get("appearance", "animations")
+    });
+
+    actionMenu.open();
+  },
+
+  quickAddAction: function(self) {
+    // wrapping quick add call since actions only receive `self`
+    app.Diary.quickAdd(self.id);
+  },
+
+  clearGroupItems: function(self) {
+    let title = app.strings.dialogs["clear-meal-items"] || "Remove all items";
+    let text = app.strings.dialogs["confirm"] || "Are you sure?";
+
+    let confirmDialog = app.f7.dialog.create({
+      title: title,
+      content: app.Utils.getDialogTextDiv(text),
+      buttons: [{
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: app.Utils.escapeKeyCode
+        },
+        {
+          text: app.strings.dialogs.yes || "Yes",
+          keyCodes: app.Utils.enterKeyCode,
+          onClick: async () => {
+            let entry = await app.Diary.getEntryFromDB();
+            if (entry === undefined) {
+              return;
+            }
+
+            entry.items = entry.items.filter(item => item.category != self.id);
+
+            await dbHandler.put(entry, "diary");
+            let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+            app.Diary.render(scrollPosition);
+          }
+        }]
+    })
+    
+    confirmDialog.open();
+  },
+
+  moveGroupItems: function(self) {
+    let mealNames = app.Settings.get("diary", "meal-names") || [];
+    if (mealNames.length == 0) {
+      return;
+    }
+
+    let smartSelect = app.Group.createSelectStructure(self, mealNames);
+    let hasUserConfirmedSelection = false;
+    let mealSelection = app.f7.smartSelect.create({
+      el: smartSelect,
+      openIn: "sheet",
+      sheetBackdrop: true,
+      sheetCloseLinkText: app.strings.dialogs["ok"] || "OK",
+      on: {
+        open: (selection) => {
+          let smartSelectContainers = selection.$containerEl[0];
+          let leftToolbar = smartSelectContainers.querySelector(".left");
+          if (leftToolbar != null) {
+            let cancelButton = document.createElement("a");
+            cancelButton.className = "link sheet-close";
+            cancelButton.innerText = app.strings.dialogs["cancel"] || "Cancel";
+            leftToolbar.appendChild(cancelButton);
+
+            leftToolbar.addEventListener("click", () => {
+              selection.close();
+            });
+          }
+
+          let rightToolbar = smartSelectContainers.querySelector(".right");
+          if (leftToolbar != null) {
+            rightToolbar.addEventListener("click", () => {
+              hasUserConfirmedSelection = true;
+              selection.close();
+            });
+          }
+        },
+        closed: (selection) => {
+          let selectedMealIndex = selection.$selectEl.val();
+          selection.destroy();
+          smartSelect.remove();
+
+          if (selectedMealIndex != self.id && hasUserConfirmedSelection == true) {
+            app.Group.updateItemGroup(self, selectedMealIndex);
+          }
+        }
+      }
+    });
+
+    mealSelection.open();
+  },
+
+  createSelectStructure: function(self, mealNames) {
+    let span = document.createElement("span");
+    span.className = "item-link smart-select"
+
+    let select = document.createElement("select");
+    select.className = "group-select";
+    span.appendChild(select);
+
+    mealNames.forEach((mealName, index) => {
+      if(mealName == null || mealName == "") {
+        return;
+      }
+
+      let option = document.createElement("option");
+      option.value = index;
+      option.innerText = app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName;
+      if (index == self.id) {
+        option.setAttribute("selected", "")
+      };
+      select.appendChild(option);
+    });
+
+    document.body.appendChild(span);
+    return span;
+  },
+
+  updateItemGroup: async function(self, targetMealIndex) {
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry === undefined) {
+      return;
+    }
+
+    entry.items.forEach(item => {
+      if (item.category == self.id) {
+        item.category = targetMealIndex;
+      }
+    });
+
+    await dbHandler.put(entry, "diary");
+    let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+    app.Diary.render(scrollPosition);
+  },
+
+  setGroupTimestamps: function(self) {
+    let locale = app.Settings.get("appearance", "locale");
+    if (locale == "auto") {
+      locale = app.getLanguage();
+    }
+
+    let mealDate = app.Group.getEntryDateWithCurrentTime();
+    let hasUserConfirmedSelection = false;
+    let timePicker = app.f7.calendar.create({
+      locale: locale,
+      backdrop: true,
+      animate: !app.Settings.get("appearance", "animations"),
+      timePicker: true,
+      value: [mealDate],
+      on: {
+        open: (calendar) => {
+          // force the time picker to open to hide the calender
+          calendar.openTimePicker();
+
+          let timePicker = document.querySelector(".calendar-time-picker");
+          let left = timePicker.querySelector(".left");
+          let cancelButton = document.createElement("a");
+          cancelButton.innerText = app.strings.dialogs["cancel"] || "Cancel";
+          cancelButton.className = "link calendar-time-picker-close"
+          left.appendChild(cancelButton);
+          left.addEventListener("click", () => {
+            calendar.closeTimePicker();
+            calendar.close();
+          });
+
+          let okButton = timePicker.querySelector(".right .link.calendar-time-picker-close");
+          okButton.innerText = app.strings.dialogs["ok"] || "OK";
+          okButton.parentElement.addEventListener("click", () => {
+            hasUserConfirmedSelection = true;
+            calendar.closeTimePicker();
+            calendar.close();
+          });
+
+          if (calendar.inverter == -1) {
+            // app is in rtl mode, we still need to display time in ltr
+            let columnWrapper = timePicker.querySelector(".picker-columns");
+            columnWrapper.style.direction = "ltr";
+
+            // change the last and first class, so the scroll events get passed to the correct column
+            let columns = timePicker.querySelectorAll(".picker-column");
+            columns[0].className = "picker-column picker-column-last";
+            columns[columns.length - 1].className = "picker-column picker-column-first";
+          }
+        },
+        close: (calendar) => {
+          if (hasUserConfirmedSelection == true) {
+            app.Group.updateTimestamps(self, calendar.value[0]);
+          }
+        }
+      }
+    });
+
+    timePicker.open();
+  },
+
+  getEntryDateWithCurrentTime: function() {
+    if (app.Diary == null || app.Diary.date == null) {
+      return new Date();
+    }
+
+    let entryDate = app.Diary.date;
+    let currentTime = new Date();
+    currentTime.setFullYear(entryDate.getFullYear());
+    currentTime.setMonth(entryDate.getMonth());
+    currentTime.setDate(entryDate.getDate());
+    return currentTime;
+  },
+
+  updateTimestamps: async function(self, newDate) {
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry === undefined) {
+      return;
+    }
+
+    let mealItems = entry.items.filter(item => item.category == self.id);
+    mealItems.forEach(item => {
+      item.dateTime = newDate;
+    });
+
+    await dbHandler.put(entry, "diary");
+    let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+    app.Diary.render(scrollPosition);
+  },
+
+  renderFooter: function(self, ul, id, nutrition) {
 
     let li = document.createElement("li");
     li.className = "noselect";
@@ -94,11 +375,15 @@ app.Group = {
     row.className = "row item-content";
     li.appendChild(row);
 
+    let buttons = document.createElement("div");
+    buttons.className = "display-inline-flex";
+    row.appendChild(buttons);
+
     //Add button
     let left = document.createElement("div");
     left.className = "add-button";
     left.id = "add-button-" + id;
-    row.appendChild(left);
+    buttons.appendChild(left);
 
     let a = document.createElement("a");
     left.addEventListener("click", function(e) {
@@ -115,6 +400,9 @@ app.Group = {
     icon.className = "icon material-icons ripple";
     icon.innerText = "add";
     a.appendChild(icon);
+
+    // Action Menu
+    app.Group.addActionMenu(self, buttons);
 
     //Energy
     const energyUnit = app.Settings.get("units", "energy");
