@@ -387,6 +387,13 @@
       "usda-click-here": "Click here",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
       "usda-note-1": "to request a free API Key.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Username",
       "password": "Password",
       "off-account-note": "This is entirely optional. You do not need an OFF account to use the app.",
@@ -395,6 +402,7 @@
       "save": "Save",
       "invalid-credentials": "Invalid Credentials",
       "invalid-api-key": "API Key Invalid",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Database Exported",
       "export-fail": "Export Failed",
       "import-fail": "Import Failed",
@@ -441,4 +449,3 @@
     "ukrainian": "Ukrainian"
   }
 }
-

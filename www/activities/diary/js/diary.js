@@ -26,7 +26,7 @@ app.Diary = {
   el: {},
   groups: {},
 
-  init: async function(context) {
+  init: async function (context) {
 
     this.getComponents();
     this.bindUIActions();
@@ -62,14 +62,15 @@ app.Diary = {
       app.Diary.lastScrollPosition = 0; // Reset last scroll position
   },
 
-  getComponents: function() {
+  getComponents: function () {
     app.Diary.el.log = document.querySelector(".page[data-name='diary'] #log");
     app.Diary.el.date = document.querySelector(".page[data-name='diary'] #diary-date");
     app.Diary.el.showChart = document.querySelector(".page[data-name='diary'] #show-chart");
     app.Diary.el.diaryNutrition = document.querySelector(".page[data-name='diary'] #diary-nutrition");
+    app.Diary.el.syncIcu = document.querySelector(".page[data-name='diary'] #sync-icu");
   },
 
-  bindUIActions: function() {
+  bindUIActions: function () {
 
     // Log button
     if (!app.Diary.el.log.hasClickEvent) {
@@ -87,6 +88,14 @@ app.Diary = {
       app.Diary.el.showChart.hasClickEvent = true;
     }
 
+    // Sync with ICU
+    if (!app.Diary.el.syncIcu.hasClickEvent) {
+      app.Diary.el.syncIcu.addEventListener("click", (e) => {
+        app.Diary.syncIcu();
+      });
+      app.Diary.el.syncIcu.hasClickEvent = true;
+    }
+
     // Toggle nutrition swiper card
     if (!app.Diary.el.diaryNutrition.hasClickEvent) {
       app.Diary.el.diaryNutrition.addEventListener("click", (e) => {
@@ -102,7 +111,7 @@ app.Diary = {
     }
   },
 
-  setComponentVisibility: function() {
+  setComponentVisibility: function () {
     const bodyStatsVisibility = app.Settings.getField("bodyStatsVisibility");
     let logButtonVisible = false;
 
@@ -115,18 +124,22 @@ app.Diary = {
 
     if (!logButtonVisible)
       app.Diary.el.log.style.display = "none";
+
+    if (!app.Settings.get("integration", "icu")) {
+      app.Diary.el.syncIcu.style.display = "none";
+    }
   },
 
-  createCalendar: function() {
+  createCalendar: function () {
     let result = app.f7.calendar.create({
       inputEl: "#diary-date",
       openIn: "customModal",
       footer: true,
-      renderFooter: function() {
+      renderFooter: function () {
         return app.Diary.getCalendarFooter();
       },
       on: {
-        init: function(c) {
+        init: function (c) {
           if (app.Diary.date)
             c.setValue([app.Diary.date]);
           else {
@@ -137,17 +150,17 @@ app.Diary = {
           }
           app.Diary.updateDateDisplay();
         },
-        change: function(c) {
+        change: function (c) {
           app.Diary.date = new Date(c.getValue());
           if (app.Diary.ready == true && app.Diary.processingContext == false)
             app.Diary.render();
           c.close();
           app.Diary.updateDateDisplay();
         },
-        open: function(c) {
+        open: function (c) {
           const todayButton = document.querySelector(".today-button");
-            if (todayButton != null) {
-              todayButton.addEventListener("click", (e) => {
+          if (todayButton != null) {
+            todayButton.addEventListener("click", (e) => {
               app.Diary.resetDate();
             });
           }
@@ -157,7 +170,7 @@ app.Diary = {
     return result;
   },
 
-  getCalendarFooter: function() {
+  getCalendarFooter: function () {
     const customFooterHTML = `
       <div class="calendar-footer">
         <div class="footer-inner" style="width:100%; display: flex; justify-content: space-between;">
@@ -173,7 +186,7 @@ app.Diary = {
     return customFooterHTML;
   },
 
-  bindCalendarControls: function() {
+  bindCalendarControls: function () {
     // Bind actions for previous/next buttons
     const buttons = document.querySelectorAll(".page[data-name='diary'] .change-date");
     buttons.forEach((x, i) => {
@@ -196,7 +209,7 @@ app.Diary = {
     }
   },
 
-  resetDate: function() {
+  resetDate: function () {
     let now = new Date();
     let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     app.Diary.date = today;
@@ -207,7 +220,7 @@ app.Diary = {
     app.Diary.updateDateDisplay();
   },
 
-  updateDateDisplay: function() {
+  updateDateDisplay: function () {
     let el = document.querySelector(".page[data-name='diary'] #diary-date");
     let dateString = app.Diary.date.toLocaleDateString([], {
       weekday: "short",
@@ -240,14 +253,14 @@ app.Diary = {
               "Content-Type": "application/json"
             },
             method: 'POST',
-            body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
+            body: JSON.stringify({ "nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry })
           });
         }
       }
     }
   },
 
-  render: async function(scrollPosition) {
+  render: async function (scrollPosition) {
     let entry = await this.getEntryFromDB(); // Get diary entry from DB
     let totalNutrition;
 
@@ -300,7 +313,7 @@ app.Diary = {
     this.sendStatistics();
   },
 
-  renderNutritionCard: async function(nutrition, date, swiper) {
+  renderNutritionCard: async function (nutrition, date, swiper) {
     const nutriments = app.Nutriments.getNutriments();
     const units = app.Nutriments.getNutrimentUnits();
     const energyUnit = app.Settings.get("units", "energy");
@@ -488,7 +501,7 @@ app.Diary = {
     });
   },
 
-  createMealGroups: function() {
+  createMealGroups: function () {
     const mealNames = app.Settings.get("diary", "meal-names");
     let groups = {};
 
@@ -510,8 +523,8 @@ app.Diary = {
     return groups;
   },
 
-  getEntryFromDB: function() {
-    return new Promise(async function(resolve, reject) {
+  getEntryFromDB: function () {
+    return new Promise(async function (resolve, reject) {
       if (app.Diary.date !== undefined) {
         let date = app.Diary.date;
         let d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
@@ -523,7 +536,7 @@ app.Diary = {
     });
   },
 
-  getNewEntry: function() {
+  getNewEntry: function () {
     let date = app.Diary.date;
     let entry = {
       dateTime: new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())),
@@ -533,8 +546,8 @@ app.Diary = {
     return entry;
   },
 
-  populateGroups: function(entry) {
-    return new Promise(async function(resolve, reject) {
+  populateGroups: function (entry) {
+    return new Promise(async function (resolve, reject) {
       entry.items.forEach(async (x, i) => {
         if (x.category !== undefined) {
           x.index = i; // Index in array, not stored in DB
@@ -549,8 +562,8 @@ app.Diary = {
     });
   },
 
-  addItems: function(items, category) {
-    return new Promise(async function(resolve, reject) {
+  addItems: function (items, category) {
+    return new Promise(async function (resolve, reject) {
       if (category !== undefined) {
         // Get current entry or create a new one
         let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
@@ -572,7 +585,7 @@ app.Diary = {
     });
   },
 
-  promptAddItems: async function(items, category, entry, index, renderAfterwards) {
+  promptAddItems: async function (items, category, entry, index, renderAfterwards) {
     let item = items[index];
 
     if (item !== undefined) {
@@ -633,14 +646,14 @@ app.Diary = {
           buttons: [{
             text: app.strings.dialogs.skip || "Skip",
             keyCodes: app.Utils.escapeKeyCode,
-            onClick: async function(dialog) {
+            onClick: async function (dialog) {
               app.Diary.promptAddItems(items, category, entry, index + 1, renderAfterwards);
             }
           },
           {
             text: app.strings.dialogs.add || "Add",
             keyCodes: app.Utils.enterKeyCode,
-            onClick: async function(dialog) {
+            onClick: async function (dialog) {
               let inputs = Array.from(dialog.el.getElementsByTagName("input"));
               let portion = inputs[0].value;
               let quantity = inputs[1].value;
@@ -672,15 +685,15 @@ app.Diary = {
     }
   },
 
-  addItemToEntry: function(item, category, entry) {
+  addItemToEntry: function (item, category, entry) {
     let newItem = app.FoodsMealsRecipes.flattenItem(item);
     newItem.dateTime = new Date();
     newItem.category = category;
     entry.items.push(newItem);
   },
 
-  updateItem: function(item) {
-    return new Promise(async function(resolve, reject) {
+  updateItem: function (item) {
+    return new Promise(async function (resolve, reject) {
       let entry = await app.Diary.getEntryFromDB();
 
       if (entry) {
@@ -700,7 +713,7 @@ app.Diary = {
     });
   },
 
-  deleteItem: function(item, li) {
+  deleteItem: function (item, li) {
     let title = app.strings.dialogs["delete-title"] || "Delete Entry";
     let text = app.strings.dialogs["confirm-delete"] || "Are you sure you want to delete this?";
 
@@ -708,28 +721,28 @@ app.Diary = {
       title: title,
       content: app.Utils.getDialogTextDiv(text),
       buttons: [{
-          text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: app.Utils.escapeKeyCode
-        },
-        {
-          text: app.strings.dialogs.delete || "Delete",
-          keyCodes: app.Utils.enterKeyCode,
-          onClick: async () => {
-            let entry = await app.Diary.getEntryFromDB();
+        text: app.strings.dialogs.cancel || "Cancel",
+        keyCodes: app.Utils.escapeKeyCode
+      },
+      {
+        text: app.strings.dialogs.delete || "Delete",
+        keyCodes: app.Utils.enterKeyCode,
+        onClick: async () => {
+          let entry = await app.Diary.getEntryFromDB();
 
-            if (entry !== undefined)
-              entry.items.splice(item.index, 1);
+          if (entry !== undefined)
+            entry.items.splice(item.index, 1);
 
-            await dbHandler.put(entry, "diary");
-            let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
-            app.Diary.render(scrollPosition);
-          }
+          await dbHandler.put(entry, "diary");
+          let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+          app.Diary.render(scrollPosition);
         }
+      }
       ]
     }).open();
   },
 
-  quickAdd: function(category) {
+  quickAdd: function (category) {
     let title = app.strings.diary["quick-add"] || "Quick Add";
     let energyUnit = app.Settings.get("units", "energy");
 
@@ -780,41 +793,41 @@ app.Diary = {
       title: title,
       content: inputs.outerHTML,
       buttons: [{
-          text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: app.Utils.escapeKeyCode
-        },
-        {
-          text: app.strings.dialogs.ok || "OK",
-          keyCodes: app.Utils.enterKeyCode,
-          onClick: async function(dialog) {
-            let inputs = Array.from(dialog.el.getElementsByTagName("input"));
-            let energy = inputs[0].value;
-            let description = inputs[1].value;
+        text: app.strings.dialogs.cancel || "Cancel",
+        keyCodes: app.Utils.escapeKeyCode
+      },
+      {
+        text: app.strings.dialogs.ok || "OK",
+        keyCodes: app.Utils.enterKeyCode,
+        onClick: async function (dialog) {
+          let inputs = Array.from(dialog.el.getElementsByTagName("input"));
+          let energy = inputs[0].value;
+          let description = inputs[1].value;
 
-            let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+          let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-            if (energyUnit == app.nutrimentUnits.kilojoules)
-              energy = app.Utils.convertUnit(energy, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
+          if (energyUnit == app.nutrimentUnits.kilojoules)
+            energy = app.Utils.convertUnit(energy, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
 
-            if (!isNaN(energy)) {
-              let item = await app.Foodlist.getQuickAddItem(); // Get food item
+          if (!isNaN(energy)) {
+            let item = await app.Foodlist.getQuickAddItem(); // Get food item
 
-              if (item !== undefined) {
-                item.dateTime = new Date();
-                item.category = category;
-                item.quantity = parseFloat(energy);
-                if (description !== "")
-                  item.description = description;
+            if (item !== undefined) {
+              item.dateTime = new Date();
+              item.category = category;
+              item.quantity = parseFloat(energy);
+              if (description !== "")
+                item.description = description;
 
-                entry.items.push(item);
+              entry.items.push(item);
 
-                await dbHandler.put(entry, "diary");
-                let scrollPosition = { category: category };
-                app.Diary.render(scrollPosition);
-              }
+              await dbHandler.put(entry, "diary");
+              let scrollPosition = { category: category };
+              app.Diary.render(scrollPosition);
             }
           }
         }
+      }
       ],
       on: {
         opened: function (dialog) {
@@ -824,7 +837,7 @@ app.Diary = {
     }).open();
   },
 
-  log: async function() {
+  log: async function () {
     const title = app.strings.diary["log-title"] || "Today's Stats";
     const fields = app.BodyStats.getBodyStats();
     const internalUnits = app.BodyStats.getBodyStatsUnits();
@@ -887,26 +900,26 @@ app.Diary = {
       title: title,
       content: inputs.outerHTML,
       buttons: [{
-          text: app.strings.dialogs.cancel || "Cancel",
-          keyCodes: app.Utils.escapeKeyCode
-        },
-        {
-          text: app.strings.dialogs.ok || "OK",
-          keyCodes: app.Utils.enterKeyCode,
-          onClick: function(dialog, e) {
-            app.Diary.saveStats(dialog, e);
-          }
+        text: app.strings.dialogs.cancel || "Cancel",
+        keyCodes: app.Utils.escapeKeyCode
+      },
+      {
+        text: app.strings.dialogs.ok || "OK",
+        keyCodes: app.Utils.enterKeyCode,
+        onClick: function (dialog, e) {
+          app.Diary.saveStats(dialog, e);
         }
+      }
       ]
     }).open();
   },
 
-  getLastStats: async function(date, limit) {
-    return new Promise(function(resolve, reject) {
+  getLastStats: async function (date, limit) {
+    return new Promise(function (resolve, reject) {
       let index = dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.upperBound(date), "prev");
       let counter = 0;
 
-      index.onsuccess = function(e) {
+      index.onsuccess = function (e) {
         let cursor = e.target.result;
         if (cursor) {
           counter++;
@@ -923,7 +936,7 @@ app.Diary = {
     });
   },
 
-  saveStats: async function(dialog) {
+  saveStats: async function (dialog) {
     let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
     let inputs = Array.from(dialog.el.getElementsByTagName("input"));
 
@@ -943,13 +956,13 @@ app.Diary = {
 
     entry.stats = stats;
 
-    dbHandler.put(entry, "diary").onsuccess = function(e) {
+    dbHandler.put(entry, "diary").onsuccess = function (e) {
       let msg = app.strings.diary["log-saved"] || "Saved";
       app.Utils.toast(msg);
     };
   },
 
-  showCategoryNutriments: function(category, nutrition) {
+  showCategoryNutriments: function (category, nutrition) {
     const mealNames = app.Settings.get("diary", "meal-names");
     const mealName = mealNames[category];
     const dialogTitle = app.Utils.escapeHtml(app.strings.diary["default-meals"][mealName.toLowerCase()] || mealName);
@@ -1021,15 +1034,15 @@ app.Diary = {
         title: dialogTitle,
         content: div.outerHTML,
         buttons: [{
-            text: app.strings.dialogs.ok || "OK",
-            keyCodes: app.Utils.enterKeyCode
-          }
+          text: app.strings.dialogs.ok || "OK",
+          keyCodes: app.Utils.enterKeyCode
+        }
         ]
       }).open();
     }
   },
 
-  gotoFoodlist: function(category) {
+  gotoFoodlist: function (category) {
     app.data.context = {
       origin: "/diary/",
       category: category,
@@ -1039,7 +1052,7 @@ app.Diary = {
     app.f7.views.main.router.navigate("/foods-meals-recipes/");
   },
 
-  showChart: async function() {
+  showChart: async function () {
     let entry = await app.Diary.getEntryFromDB();
 
     if (entry != undefined && entry.items.length > 0) {
@@ -1051,10 +1064,77 @@ app.Diary = {
       let msg = app.strings.diary["no-data"] || "No Data";
       app.Utils.toast(msg);
     }
+  },
+
+  syncIcu: async function () {
+    // Implementation for syncing with ICU
+
+    let athleteId = app.Settings.get("integration", "icu-athlete-id");
+    let apiKey = app.Settings.get("integration", "icu-key");
+
+    const date = app.Diary.date.toISOString().split('T')[0];
+
+    // Fetch activities for the selected date from ICU API
+    let url = "https://intervals.icu/api/v1/athlete/" + encodeURIComponent(athleteId) + "/activities?oldest=" + date + "&newest=" + date;
+    let response = await app.Utils.timeoutFetch(url, {
+      headers: {
+        "content-type": "application/json",
+        "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+        "authorization": "Basic " + btoa("API_KEY:" + apiKey)
+      }
+    }).catch((err) => {
+      resolve(undefined);
+    });
+
+    if (response && response.ok) {
+      let activities = await response.json();
+      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+
+      for (const activity of activities) {
+        let item = await app.Foodlist.getQuickAddItem(); // Get food item
+        if (item !== undefined) {
+          item.dateTime = activity.start_date;
+          item.category = 0;  // Arbitrary category choice for activities
+          item.quantity = -1 * activity.calories; // Negative quantity to indicate calories burned
+          item.description = activity.name;
+
+          // Check if activity already exists (by values) in diary to prevent duplicates
+          const exists = entry.items.some(i => JSON.stringify(i) === JSON.stringify(item));
+          if (!exists) {
+            entry.items.push(item);
+          }
+        }
+      }
+      await dbHandler.put(entry, "diary");
+      let scrollPosition = { category: 0 };
+      app.Diary.render(scrollPosition);
+    }
+
+    // Push consumed calories to ICU
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry != undefined && entry.items.length > 0) {
+      let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
+      let caloriesConsumed = totalNutrition.calories || 0;
+
+      if (caloriesConsumed > 0) {
+        let url = "https://intervals.icu/api/v1/athlete/" + encodeURIComponent(athleteId) + "/wellness/" + date;
+        await app.Utils.timeoutFetch(url, {
+          method: 'PUT',
+          headers: {
+            "content-type": "application/json",
+            "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+            "authorization": "Basic " + btoa("API_KEY:" + apiKey)
+          },
+          body: JSON.stringify({
+            kcalConsumed: caloriesConsumed
+          })
+        });
+      }
+    }
   }
 };
 
-document.addEventListener("page:init", function(event) {
+document.addEventListener("page:init", function (event) {
   if (event.target.matches(".page[data-name='diary']")) {
     let context = app.data.context;
     app.data.context = undefined;
@@ -1068,7 +1148,7 @@ document.addEventListener("page:init", function(event) {
   }
 });
 
-document.addEventListener("page:reinit", function(event) {
+document.addEventListener("page:reinit", function (event) {
   if (event.target.matches(".page[data-name='diary']")) {
     let context = app.data.context;
     app.data.context = undefined;
@@ -1076,7 +1156,7 @@ document.addEventListener("page:reinit", function(event) {
   }
 });
 
-document.addEventListener("page:afterout", function(event) {
+document.addEventListener("page:afterout", function (event) {
   if (event.target.matches(".page[data-name='diary']")) {
     if (app.Diary.el.date != undefined)
       app.f7.calendar.destroy(app.Diary.el.date);
