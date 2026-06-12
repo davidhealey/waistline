@@ -26,21 +26,21 @@ app.Settings = {
   settings: {},
   ready: false,
 
-  init: function () {
+  init: function() {
     app.Settings.bindUIActions();
 
     const inputs = Array.from(document.querySelectorAll("input, select"));
     app.Settings.restoreInputValues(inputs);
   },
 
-  put: function (field, setting, value) {
+  put: function(field, setting, value) {
     let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
     settings[field] = settings[field] || {};
     settings[field][setting] = value;
     window.localStorage.setItem("settings", JSON.stringify(settings));
   },
 
-  get: function (field, setting) {
+  get: function(field, setting) {
     let settings = JSON.parse(window.localStorage.getItem("settings"));
     if (settings && settings[field] && settings[field][setting] !== undefined) {
       return settings[field][setting];
@@ -48,7 +48,7 @@ app.Settings = {
     return undefined;
   },
 
-  getField: function (field) {
+  getField: function(field) {
     let settings = JSON.parse(window.localStorage.getItem("settings"));
     if (settings && settings[field] !== undefined) {
       return settings[field];
@@ -56,14 +56,14 @@ app.Settings = {
     return undefined;
   },
 
-  putField: function (field, value) {
+  putField: function(field, value) {
     let settings = JSON.parse(window.localStorage.getItem("settings")) || {};
     settings[field] = settings[field] || {};
     settings[field] = value;
     window.localStorage.setItem("settings", JSON.stringify(settings));
   },
 
-  restoreInputValues: function (inputs) {
+  restoreInputValues: function(inputs) {
     for (let i = 0; i < inputs.length; i++) {
       let x = inputs[i];
       let field = x.getAttribute("field");
@@ -103,7 +103,7 @@ app.Settings = {
     }
   },
 
-  bindUIActions: function () {
+  bindUIActions: function() {
 
     // Input fields (including selects)
     const inputs = Array.from(document.querySelectorAll("input:not(.manual-bind), select"));
@@ -122,7 +122,7 @@ app.Settings = {
     // Open Food Facts credentials login button
     let offLogin = document.getElementById("off-login");
     if (offLogin) {
-      offLogin.addEventListener("click", function (e) {
+      offLogin.addEventListener("click", function(e) {
         let username = document.querySelector(".off-login #off-username").value;
         let password = document.querySelector(".off-login #off-password").value;
         app.Settings.saveOFFCredentials(username, password);
@@ -132,7 +132,7 @@ app.Settings = {
     // USDA API Key save link
     let usdaSave = document.getElementById("usda-save");
     if (usdaSave) {
-      usdaSave.addEventListener("click", function (e) {
+      usdaSave.addEventListener("click", function(e) {
         let key = document.querySelector(".usda-login #usda-key").value;
         app.Settings.saveUSDAKey(key);
       });
@@ -141,7 +141,7 @@ app.Settings = {
     // ICU API Key save link
     let icuSave = document.getElementById("icu-save");
     if (icuSave) {
-      icuSave.addEventListener("click", function (e) {
+      icuSave.addEventListener("click", function(e) {
         let key = document.querySelector(".icu-login #icu-key").value;
         let athleteId = document.querySelector(".icu-login #icu-athlete-id").value;
         app.Settings.saveICUIntegration(key, athleteId);
@@ -151,7 +151,7 @@ app.Settings = {
     // TTS test button
     let ttsTestButton = document.getElementById("tts-test-button");
     if (ttsTestButton) {
-      ttsTestButton.addEventListener("click", function (e) {
+      ttsTestButton.addEventListener("click", function(e) {
         app.TTS.testSettings();
       });
     }
@@ -159,28 +159,28 @@ app.Settings = {
     // Import/Export
     let exportDb = document.getElementById("export-db");
     if (exportDb) {
-      exportDb.addEventListener("click", function (e) {
+      exportDb.addEventListener("click", function(e) {
         app.Settings.exportDatabase();
       });
     }
 
     let shareDb = document.getElementById("share-db");
     if (shareDb) {
-      shareDb.addEventListener("click", function (e) {
+      shareDb.addEventListener("click", function(e) {
         app.Settings.shareDatabase();
       });
     }
 
     let importDb = document.getElementById("import-db");
     if (importDb) {
-      importDb.addEventListener("click", function (e) {
+      importDb.addEventListener("click", function(e) {
         app.Settings.importDatabase();
       });
     }
 
     let importFoods = document.getElementById("import-foods");
     if (importFoods) {
-      importFoods.addEventListener("click", function (e) {
+      importFoods.addEventListener("click", function(e) {
         app.Settings.importFoods();
       });
       app.FoodsMealsRecipes.populateCategoriesField(document.getElementById("categories"), {}, false, false, true, true);
@@ -188,14 +188,14 @@ app.Settings = {
 
     let exportDiary = document.getElementById("export-diary");
     if (exportDiary) {
-      exportDiary.addEventListener("click", function (e) {
+      exportDiary.addEventListener("click", function(e) {
         app.Settings.exportDiary();
       });
     }
 
     let shareDiary = document.getElementById("share-diary");
     if (shareDiary) {
-      shareDiary.addEventListener("click", function (e) {
+      shareDiary.addEventListener("click", function(e) {
         app.Settings.shareDiary();
       });
     }
@@ -282,7 +282,7 @@ app.Settings = {
     }
   },
 
-  changeTheme: function (appMode, colourTheme) {
+  changeTheme: function(appMode, colourTheme) {
     let body = document.getElementsByTagName("body")[0];
     body.className = colourTheme;
 
@@ -294,7 +294,7 @@ app.Settings = {
     }
   },
 
-  applyAppMode: function (appMode) {
+  applyAppMode: function(appMode) {
     let html = document.getElementsByTagName("html")[0];
     let panel = document.getElementById("app-panel");
 
@@ -309,7 +309,7 @@ app.Settings = {
     }
   },
 
-  saveInputs: function (inputs) {
+  saveInputs: function(inputs) {
     inputs.forEach((x) => {
       // If input has same name as other inputs group them into an array
       let value = inputs.reduce((result, y) => {
@@ -332,12 +332,12 @@ app.Settings = {
     });
   },
 
-  resetModuleReadyStates: function () {
+  resetModuleReadyStates: function() {
     app.Settings.ready = false;
     app.Diary.ready = false;
   },
 
-  saveOFFCredentials: async function (username, password) {
+  saveOFFCredentials: async function(username, password) {
     let screen = document.querySelector(".off-login");
     if (app.Utils.isInternetConnected()) {
       if ((username == "" && password == "") || await app.OpenFoodFacts.testCredentials(username, password)) {
@@ -353,7 +353,7 @@ app.Settings = {
     }
   },
 
-  saveUSDAKey: async function (key) {
+  saveUSDAKey: async function(key) {
     let screen = document.querySelector(".usda-login");
     if (app.Utils.isInternetConnected()) {
       if (key == "" || await app.USDA.testApiKey(key)) {
@@ -368,7 +368,7 @@ app.Settings = {
     }
   },
 
-  saveICUIntegration: async function (key, athleteId) {
+  saveICUIntegration: async function(key, athleteId) {
     let screen = document.querySelector(".icu-login");
     if (app.Utils.isInternetConnected()) {
       if (key == "" || await app.Settings.testIcuIntegration(key, athleteId)) {
@@ -384,9 +384,9 @@ app.Settings = {
     }
   },
 
-  testIcuIntegration: function (key, athleteId) {
+  testIcuIntegration: function(key, athleteId) {
 
-    return new Promise(async function (resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       let url = "https://intervals.icu/api/v1/athlete/" + encodeURIComponent(athleteId);
 
       let response = await app.Utils.timeoutFetch(url, {
@@ -410,7 +410,7 @@ app.Settings = {
     });
   },
 
-  writeDatabaseBackupToFile: async function () {
+  writeDatabaseBackupToFile: async function() {
     app.f7.preloader.show();
 
     let data = await dbHandler.export();
@@ -425,7 +425,7 @@ app.Settings = {
     return path;
   },
 
-  exportDatabase: async function () {
+  exportDatabase: async function() {
     let path = await app.Settings.writeDatabaseBackupToFile();
 
     if (path !== undefined) {
@@ -437,7 +437,7 @@ app.Settings = {
     }
   },
 
-  shareDatabase: async function () {
+  shareDatabase: async function() {
     let path = await app.Settings.writeDatabaseBackupToFile();
 
     if (path !== undefined) {
@@ -445,7 +445,7 @@ app.Settings = {
     }
   },
 
-  importDatabase: async function () {
+  importDatabase: async function() {
     let file = await chooser.getFile();
 
     if (file !== undefined && file.data !== undefined) {
@@ -490,7 +490,7 @@ app.Settings = {
     }
   },
 
-  writeDiaryToCsvFile: async function () {
+  writeDiaryToCsvFile: async function() {
     app.f7.preloader.show();
 
     const nutriments = app.Nutriments.getNutriments();
@@ -582,7 +582,7 @@ app.Settings = {
     return path;
   },
 
-  exportDiary: async function () {
+  exportDiary: async function() {
     let path = await app.Settings.writeDiaryToCsvFile();
 
     if (path !== undefined) {
@@ -594,7 +594,7 @@ app.Settings = {
     }
   },
 
-  shareDiary: async function () {
+  shareDiary: async function() {
     let path = await app.Settings.writeDiaryToCsvFile();
 
     if (path !== undefined) {
@@ -602,8 +602,8 @@ app.Settings = {
     }
   },
 
-  putFoodItem: function (item) {
-    return new Promise(async function (resolve, reject) {
+  putFoodItem: function(item) {
+    return new Promise(async function(resolve, reject) {
       if (item.id == undefined) {
         item.hidden = true; // Hide newly imported items by default
 
@@ -625,13 +625,13 @@ app.Settings = {
     })
   },
 
-  updateFoodItems: function (items) {
+  updateFoodItems: function(items) {
     items.forEach((x) => {
       this.putFoodItem(x);
     });
   },
 
-  importFoods: async function () {
+  importFoods: async function() {
     let categories = app.FoodsMealsRecipes.getSelectedCategories(document.getElementById("categories"));
 
     if (categories == undefined) {
@@ -698,7 +698,7 @@ app.Settings = {
     }
   },
 
-  firstTimeSetup: function () {
+  firstTimeSetup: function() {
     let defaults = {
       appearance: {
         mode: (window.matchMedia) ? "system" : "light",
@@ -840,7 +840,7 @@ app.Settings = {
     window.localStorage.setItem("settings", JSON.stringify(defaults));
   },
 
-  migrateSettings: function (settings, saveChanges = true) {
+  migrateSettings: function(settings, saveChanges = true) {
     if (settings !== undefined && (settings.schemaVersion === undefined || settings.schemaVersion < currentSettingsSchemaVersion)) {
 
       // Theme settings must be renamed to Appearance
@@ -922,7 +922,7 @@ app.Settings = {
     return settings;
   },
 
-  migrateGoalSettings: function (oldGoals, nutriments) {
+  migrateGoalSettings: function(oldGoals, nutriments) {
 
     let newGoals = {
       migrated: true
@@ -966,7 +966,7 @@ app.Settings = {
   }
 };
 
-document.addEventListener("page:init", async function (e) {
+document.addEventListener("page:init", async function(e) {
   const pageName = e.target.attributes["data-name"].value;
 
   if (pageName == "settings-nutriments")
