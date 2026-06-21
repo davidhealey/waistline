@@ -140,7 +140,8 @@
     "waist": "Tour de taille",
     "hips": "Tour de hanches",
     "body fat": "Graisse corporelle",
-    "average": "Moyenne"
+    "average": "Moyenne",
+    "moving-average": "Moyenne mobile"
   },
   "diary": {
     "title": "Journal",
@@ -322,7 +323,9 @@
       "title": "Statistiques",
       "y-zero": "Commencer l’axe Y à 0",
       "average-line": "Afficher la ligne moyenne",
-      "goal-line": "Afficher la ligne objectif"
+      "goal-line": "Afficher la ligne objectif",
+      "moving-average": "Afficher la moyenne mobile",
+      "moving-average-period": "Période de la moyenne mobile"
     },
     "developer": {
       "title": "Développeur",

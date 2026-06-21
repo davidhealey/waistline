@@ -140,7 +140,8 @@
     "waist": "ଅଣ୍ଟା",
     "hips": "Hips",
     "body fat": "Body Fat",
-    "average": "Average"
+    "average": "Average",
+    "moving-average": "ଚଳମାନ ହାରାହାରି"
   },
   "diary": {
     "title": "Diary",
@@ -322,7 +323,9 @@
       "title": "ପରିସଂଖ୍ୟାନ",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line"
+      "goal-line": "Show Goal Line",
+      "moving-average": "ଚଳମାନ ହାରାହାରି ଦେଖାନ୍ତୁ",
+      "moving-average-period": "ଚଳମାନ ହାରାହାରି ଅବଧି"
     },
     "developer": {
       "title": "ଵିକାଶକ",

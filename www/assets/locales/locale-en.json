@@ -144,7 +144,8 @@
     "hips": "Hips",
     "body fat": "Body Fat",
     "average": "Average",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Diary",
@@ -329,7 +330,9 @@
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
       "goal-line": "Show Goal Line",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Developer",

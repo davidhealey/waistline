@@ -140,7 +140,8 @@
     "waist": "Taille",
     "hips": "Hüften",
     "body fat": "Körperfettanteil",
-    "average": "Durchschnitt"
+    "average": "Durchschnitt",
+    "moving-average": "Gleitender Durchschnitt"
   },
   "diary": {
     "title": "Tagebuch",
@@ -323,7 +324,9 @@
       "title": "Statistik",
       "y-zero": "Y-Achse bei Null beginnen",
       "average-line": "Linie für Durchschnitt anzeigen",
-      "goal-line": "Linie für Ziel anzeigen"
+      "goal-line": "Linie für Ziel anzeigen",
+      "moving-average": "Gleitenden Durchschnitt anzeigen",
+      "moving-average-period": "Zeitraum des gleitenden Durchschnitts"
     },
     "developer": {
       "title": "Entwickler",

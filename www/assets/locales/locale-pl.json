@@ -140,7 +140,8 @@
     "waist": "Talia",
     "hips": "Biodra",
     "body fat": "Tłuszcz",
-    "average": "Średnia"
+    "average": "Średnia",
+    "moving-average": "Średnia krocząca"
   },
   "diary": {
     "title": "Dziennik",
@@ -322,7 +323,9 @@
       "title": "Statystyki",
       "y-zero": "Rozpocznij oś Y od Zera",
       "average-line": "Pokaż linie średnich",
-      "goal-line": "Pokaż linię celu"
+      "goal-line": "Pokaż linię celu",
+      "moving-average": "Pokaż średnią kroczącą",
+      "moving-average-period": "Okres średniej kroczącej"
     },
     "developer": {
       "title": "Programista",
