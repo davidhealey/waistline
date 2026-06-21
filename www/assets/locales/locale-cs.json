@@ -140,8 +140,7 @@
     "waist": "Pas",
     "hips": "Boky",
     "body fat": "Tělesný tuk",
-    "average": "Průměr",
-    "moving-average": "Klouzavý průměr"
+    "average": "Průměr"
   },
   "diary": {
     "title": "Diář",
@@ -323,9 +322,7 @@
       "title": "Statistiky",
       "y-zero": "Začít osu Y v nule",
       "average-line": "Zobrazit přímku průměru",
-      "goal-line": "Zobrazit přímku cíle",
-      "moving-average": "Zobrazit klouzavý průměr",
-      "moving-average-period": "Perioda klouzavého průměru"
+      "goal-line": "Zobrazit přímku cíle"
     },
     "developer": {
       "title": "Vývojář",

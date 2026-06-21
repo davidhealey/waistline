@@ -140,8 +140,7 @@
     "waist": "Waist",
     "hips": "Hips",
     "body fat": "Body Fat",
-    "average": "Average",
-    "moving-average": "චලනය වන සාමාන්‍යය"
+    "average": "Average"
   },
   "diary": {
     "title": "Diary",
@@ -323,9 +322,7 @@
       "title": "සංඛ්‍යාලේඛන",
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
-      "goal-line": "Show Goal Line",
-      "moving-average": "චලනය වන සාමාන්‍යය පෙන්වන්න",
-      "moving-average-period": "චලනය වන සාමාන්‍ය කාලය"
+      "goal-line": "Show Goal Line"
     },
     "developer": {
       "title": "Developer",

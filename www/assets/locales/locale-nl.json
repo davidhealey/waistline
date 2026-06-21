@@ -140,8 +140,7 @@
     "waist": "Taille",
     "hips": "Heupen",
     "body fat": "Lichaamsvet",
-    "average": "Gemiddelde",
-    "moving-average": "Voortschrijdend gemiddelde"
+    "average": "Gemiddelde"
   },
   "diary": {
     "title": "Dagboek",
@@ -323,9 +322,7 @@
       "title": "Statistieken",
       "y-zero": "Begin Y-as op nul",
       "average-line": "Toon gemiddeldelijn",
-      "goal-line": "Toon doellijn",
-      "moving-average": "Voortschrijdend gemiddelde tonen",
-      "moving-average-period": "Periode voortschrijdend gemiddelde"
+      "goal-line": "Toon doellijn"
     },
     "developer": {
       "title": "Ontwikkelaar",

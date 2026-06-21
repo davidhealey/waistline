@@ -140,8 +140,7 @@
     "waist": "Cintura",
     "hips": "Cadera",
     "body fat": "Grasa corporal",
-    "average": "Promedio",
-    "moving-average": "Media móvil"
+    "average": "Promedio"
   },
   "diary": {
     "title": "Diario",
@@ -323,9 +322,7 @@
       "title": "Estadísticas",
       "y-zero": "Iniciar eje Y en cero",
       "average-line": "Mostrar línea promedio",
-      "goal-line": "Mostrar línea objetivo",
-      "moving-average": "Mostrar media móvil",
-      "moving-average-period": "Periodo de la media móvil"
+      "goal-line": "Mostrar línea objetivo"
     },
     "developer": {
       "title": "Desarrollador",

@@ -140,8 +140,7 @@
     "waist": "Vyötärö",
     "hips": "Lantio",
     "body fat": "Kehon rasva",
-    "average": "Keskimäärin",
-    "moving-average": "Liukuva keskiarvo"
+    "average": "Keskimäärin"
   },
   "diary": {
     "title": "Päiväkirja",
@@ -323,9 +322,7 @@
       "title": "Tilastot",
       "y-zero": "Aloita Y-akseli nollasta",
       "average-line": "Näytä keskiarvoviiva",
-      "goal-line": "Näytä tavoiteviiva",
-      "moving-average": "Näytä liukuva keskiarvo",
-      "moving-average-period": "Liukuvan keskiarvon jakso"
+      "goal-line": "Näytä tavoiteviiva"
     },
     "developer": {
       "title": "Developer",

@@ -140,8 +140,7 @@
     "waist": "Bel",
     "hips": "Kalça",
     "body fat": "Vücut Yağı",
-    "average": "Ortalama",
-    "moving-average": "Hareketli ortalama"
+    "average": "Ortalama"
   },
   "diary": {
     "title": "Günlük",
@@ -323,9 +322,7 @@
       "title": "İstatistikler",
       "y-zero": "Y-Eksenini Sıfırdan Başlat",
       "average-line": "Ortalama Grafiğini Göster",
-      "goal-line": "Hedef Grafiğini Göster",
-      "moving-average": "Hareketli ortalamayı göster",
-      "moving-average-period": "Hareketli ortalama dönemi"
+      "goal-line": "Hedef Grafiğini Göster"
     },
     "developer": {
       "title": "Geliştirici",

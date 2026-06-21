@@ -140,8 +140,7 @@
     "waist": "Talie",
     "hips": "Șolduri",
     "body fat": "Grăsime corporală",
-    "average": "Medie",
-    "moving-average": "Medie mobilă"
+    "average": "Medie"
   },
   "diary": {
     "title": "Jurnal",
@@ -323,9 +322,7 @@
       "title": "Statistici",
       "y-zero": "Începe axa Y la zero",
       "average-line": "Arată linia medie",
-      "goal-line": "Arată linia de obiectiv",
-      "moving-average": "Afișează media mobilă",
-      "moving-average-period": "Perioada mediei mobile"
+      "goal-line": "Arată linia de obiectiv"
     },
     "developer": {
       "title": "Dezvoltator",

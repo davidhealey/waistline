@@ -140,8 +140,7 @@
     "waist": "Midja",
     "hips": "Höfter",
     "body fat": "Kroppsfett",
-    "average": "Medelvärde",
-    "moving-average": "Glidande medelvärde"
+    "average": "Medelvärde"
   },
   "diary": {
     "title": "Dagbok",
@@ -323,9 +322,7 @@
       "title": "Statistik",
       "y-zero": "Starta Y-axeln på noll",
       "average-line": "Visa linje för medelvärde",
-      "goal-line": "Visa linje för målsättning",
-      "moving-average": "Visa glidande medelvärde",
-      "moving-average-period": "Period för glidande medelvärde"
+      "goal-line": "Visa linje för målsättning"
     },
     "developer": {
       "title": "Utvecklare",

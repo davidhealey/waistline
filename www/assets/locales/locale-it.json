@@ -140,8 +140,7 @@
     "waist": "Vita",
     "hips": "Fianchi",
     "body fat": "Grasso corporeo",
-    "average": "Media",
-    "moving-average": "Media mobile"
+    "average": "Media"
   },
   "diary": {
     "title": "Diario",
@@ -323,9 +322,7 @@
       "title": "Statistiche",
       "y-zero": "Inizia l'asse Y a Zero",
       "average-line": "Mostra media",
-      "goal-line": "Mostra obiettivo",
-      "moving-average": "Mostra media mobile",
-      "moving-average-period": "Periodo della media mobile"
+      "goal-line": "Mostra obiettivo"
     },
     "developer": {
       "title": "Sviluppatore",

@@ -140,8 +140,7 @@
     "waist": "Pojas",
     "hips": "Kukovi",
     "body fat": "Telesna masnoća",
-    "average": "Prosek",
-    "moving-average": "Pokretni prosek"
+    "average": "Prosek"
   },
   "diary": {
     "title": "Dnevnik",
@@ -323,9 +322,7 @@
       "title": "Statistike",
       "y-zero": "Počni Y osu na nuli",
       "average-line": "Prikaži prosečnu liniju",
-      "goal-line": "Prikaži liniju cilja",
-      "moving-average": "Prikaži pokretni prosek",
-      "moving-average-period": "Period pokretnog proseka"
+      "goal-line": "Prikaži liniju cilja"
     },
     "developer": {
       "title": "Programer",

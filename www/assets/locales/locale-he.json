@@ -140,8 +140,7 @@
     "waist": "מותניים",
     "hips": "ירכיים",
     "body fat": "שומן גוף",
-    "average": "ממוצע",
-    "moving-average": "ממוצע נע"
+    "average": "ממוצע"
   },
   "diary": {
     "title": "יומן",
@@ -323,9 +322,7 @@
       "title": "סטטיסטיקה",
       "y-zero": "להתחיל את ציר Y באפס",
       "average-line": "הצגת קו ממוצע",
-      "goal-line": "הצגת קו יעד",
-      "moving-average": "הצג ממוצע נע",
-      "moving-average-period": "תקופת הממוצע הנע"
+      "goal-line": "הצגת קו יעד"
     },
     "developer": {
       "title": "מפתח",
