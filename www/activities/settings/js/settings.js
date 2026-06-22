@@ -466,21 +466,21 @@ app.Settings = {
           title: title,
           content: app.Utils.getDialogTextDiv(text),
           buttons: [{
-            text: app.strings.dialogs.cancel || "Cancel",
-            keyCodes: app.Utils.escapeKeyCode
-          },
-          {
-            text: app.strings.dialogs.ok || "OK",
-            keyCodes: app.Utils.enterKeyCode,
-            onClick: async () => {
-              await dbHandler.import(data);
+              text: app.strings.dialogs.cancel || "Cancel",
+              keyCodes: app.Utils.escapeKeyCode
+            },
+            {
+              text: app.strings.dialogs.ok || "OK",
+              keyCodes: app.Utils.enterKeyCode,
+              onClick: async () => {
+                await dbHandler.import(data);
 
-              if (data.settings !== undefined) {
-                let settings = app.Settings.migrateSettings(data.settings, false);
-                window.localStorage.setItem("settings", JSON.stringify(settings));
-                app.Settings.changeTheme(settings.appearance.mode, settings.appearance.theme);
-                app.Settings.resetModuleReadyStates();
-                app.f7.views.main.router.refreshPage();
+                if (data.settings !== undefined) {
+                  let settings = app.Settings.migrateSettings(data.settings, false);
+                  window.localStorage.setItem("settings", JSON.stringify(settings));
+                  app.Settings.changeTheme(settings.appearance.mode, settings.appearance.theme);
+                  app.Settings.resetModuleReadyStates();
+                  app.f7.views.main.router.refreshPage();
               }
             }
           }
@@ -494,7 +494,7 @@ app.Settings = {
     app.f7.preloader.show();
 
     const nutriments = app.Nutriments.getNutriments();
-    const bodyStats = app.BodyStats.getBodyStats();
+    const bodyStats =  app.BodyStats.getBodyStats();
     const nutrimentUnits = app.Nutriments.getNutrimentUnits();
     const bodyStatsUnits = app.BodyStats.getBodyStatsUnits();
     const energyUnit = app.Settings.get("units", "energy");
@@ -680,16 +680,16 @@ app.Settings = {
           title: title,
           content: app.Utils.getDialogTextDiv(text),
           buttons: [{
-            text: app.strings.dialogs.cancel || "Cancel",
-            keyCodes: app.Utils.escapeKeyCode
-          },
-          {
-            text: app.strings.dialogs.ok || "OK",
-            keyCodes: app.Utils.enterKeyCode,
-            onClick: async () => {
-              await this.updateFoodItems(data.foodList);
-              let msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
-              app.Utils.toast(msg);
+              text: app.strings.dialogs.cancel || "Cancel",
+              keyCodes: app.Utils.escapeKeyCode
+            },
+            {
+              text: app.strings.dialogs.ok || "OK",
+              keyCodes: app.Utils.enterKeyCode,
+              onClick: async () => {
+                await this.updateFoodItems(data.foodList);
+                let msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
+                app.Utils.toast(msg);
             }
           }
           ]
@@ -922,7 +922,7 @@ app.Settings = {
     return settings;
   },
 
-  migrateGoalSettings: function(oldGoals, nutriments) {
+  migrateGoalSettings: function (oldGoals, nutriments) {
 
     let newGoals = {
       migrated: true

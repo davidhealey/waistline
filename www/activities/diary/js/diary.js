@@ -159,8 +159,8 @@ app.Diary = {
         },
         open: function(c) {
           const todayButton = document.querySelector(".today-button");
-          if (todayButton != null) {
-            todayButton.addEventListener("click", (e) => {
+           if (todayButton != null) {
+             todayButton.addEventListener("click", (e) => {
               app.Diary.resetDate();
             });
           }
@@ -231,7 +231,7 @@ app.Diary = {
     el.innerText = dateString;
   },
 
-  sendStatistics: async function() {
+  sendStatistics: async function () {
     let address = app.Settings.get("developer", "data-sharing-address");
     let wifiOnly = app.Settings.get("developer", "data-sharing-wifi-only");
 
@@ -253,7 +253,7 @@ app.Diary = {
               "Content-Type": "application/json"
             },
             method: 'POST',
-            body: JSON.stringify({ "nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry })
+            body: JSON.stringify({"nutrition": totalNutrition, "entryDetails": entryDetails, "entry": entry})
           });
         }
       }
@@ -793,44 +793,44 @@ app.Diary = {
       title: title,
       content: inputs.outerHTML,
       buttons: [{
-        text: app.strings.dialogs.cancel || "Cancel",
-        keyCodes: app.Utils.escapeKeyCode
-      },
-      {
-        text: app.strings.dialogs.ok || "OK",
-        keyCodes: app.Utils.enterKeyCode,
-        onClick: async function(dialog) {
-          let inputs = Array.from(dialog.el.getElementsByTagName("input"));
-          let energy = inputs[0].value;
-          let description = inputs[1].value;
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: app.Utils.escapeKeyCode
+        },
+        {
+          text: app.strings.dialogs.ok || "OK",
+          keyCodes: app.Utils.enterKeyCode,
+          onClick: async function(dialog) {
+            let inputs = Array.from(dialog.el.getElementsByTagName("input"));
+            let energy = inputs[0].value;
+            let description = inputs[1].value;
 
-          let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+            let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
 
-          if (energyUnit == app.nutrimentUnits.kilojoules)
-            energy = app.Utils.convertUnit(energy, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
+            if (energyUnit == app.nutrimentUnits.kilojoules)
+              energy = app.Utils.convertUnit(energy, app.nutrimentUnits.kilojoules, app.nutrimentUnits.calories);
 
-          if (!isNaN(energy)) {
-            let item = await app.Foodlist.getQuickAddItem(); // Get food item
+            if (!isNaN(energy)) {
+              let item = await app.Foodlist.getQuickAddItem(); // Get food item
 
-            if (item !== undefined) {
-              item.dateTime = new Date();
-              item.category = category;
-              item.quantity = parseFloat(energy);
-              if (description !== "")
-                item.description = description;
+              if (item !== undefined) {
+                item.dateTime = new Date();
+                item.category = category;
+                item.quantity = parseFloat(energy);
+                if (description !== "")
+                  item.description = description;
 
-              entry.items.push(item);
+                entry.items.push(item);
 
-              await dbHandler.put(entry, "diary");
-              let scrollPosition = { category: category };
-              app.Diary.render(scrollPosition);
-            }
+                await dbHandler.put(entry, "diary");
+                let scrollPosition = { category: category };
+                app.Diary.render(scrollPosition);
+              }
           }
         }
       }
       ],
       on: {
-        opened: function(dialog) {
+        opened: function (dialog) {
           dialog.el.getElementsByTagName("input")[0].focus();
         }
       }
@@ -1034,9 +1034,9 @@ app.Diary = {
         title: dialogTitle,
         content: div.outerHTML,
         buttons: [{
-          text: app.strings.dialogs.ok || "OK",
-          keyCodes: app.Utils.enterKeyCode
-        }
+           text: app.strings.dialogs.ok || "OK",
+           keyCodes: app.Utils.enterKeyCode
+         }
         ]
       }).open();
     }
