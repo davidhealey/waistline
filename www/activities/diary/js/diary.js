@@ -736,8 +736,8 @@ app.Diary = {
             await dbHandler.put(entry, "diary");
             let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
             app.Diary.render(scrollPosition);
+          }
         }
-      }
       ]
     }).open();
   },
@@ -825,9 +825,9 @@ app.Diary = {
                 let scrollPosition = { category: category };
                 app.Diary.render(scrollPosition);
               }
+            }
           }
         }
-      }
       ],
       on: {
         opened: function (dialog) {
@@ -1035,8 +1035,8 @@ app.Diary = {
         content: div.outerHTML,
         buttons: [{
             text: app.strings.dialogs.ok || "OK",
-             keyCodes: app.Utils.enterKeyCode
-           }
+            keyCodes: app.Utils.enterKeyCode
+          }
         ]
       }).open();
     }
