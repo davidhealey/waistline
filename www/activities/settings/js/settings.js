@@ -481,9 +481,9 @@ app.Settings = {
                   app.Settings.changeTheme(settings.appearance.mode, settings.appearance.theme);
                   app.Settings.resetModuleReadyStates();
                   app.f7.views.main.router.refreshPage();
+                }
               }
             }
-          }
           ]
         }).open();
       }
@@ -690,8 +690,8 @@ app.Settings = {
                 await this.updateFoodItems(data.foodList);
                 let msg = app.strings.settings.integration["import-success-message"] || "Import Complete";
                 app.Utils.toast(msg);
+              }
             }
-          }
           ]
         }).open();
       }

@@ -159,8 +159,8 @@ app.Diary = {
         },
         open: function(c) {
           const todayButton = document.querySelector(".today-button");
-           if (todayButton != null) {
-             todayButton.addEventListener("click", (e) => {
+            if (todayButton != null) {
+              todayButton.addEventListener("click", (e) => {
               app.Diary.resetDate();
             });
           }
@@ -721,21 +721,21 @@ app.Diary = {
       title: title,
       content: app.Utils.getDialogTextDiv(text),
       buttons: [{
-        text: app.strings.dialogs.cancel || "Cancel",
-        keyCodes: app.Utils.escapeKeyCode
-      },
-      {
-        text: app.strings.dialogs.delete || "Delete",
-        keyCodes: app.Utils.enterKeyCode,
-        onClick: async () => {
-          let entry = await app.Diary.getEntryFromDB();
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: app.Utils.escapeKeyCode
+        },
+        {
+          text: app.strings.dialogs.delete || "Delete",
+          keyCodes: app.Utils.enterKeyCode,
+          onClick: async () => {
+            let entry = await app.Diary.getEntryFromDB();
 
-          if (entry !== undefined)
-            entry.items.splice(item.index, 1);
+            if (entry !== undefined)
+              entry.items.splice(item.index, 1);
 
-          await dbHandler.put(entry, "diary");
-          let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
-          app.Diary.render(scrollPosition);
+            await dbHandler.put(entry, "diary");
+            let scrollPosition = { position: $(".page-current .page-content").scrollTop() };
+            app.Diary.render(scrollPosition);
         }
       }
       ]
@@ -900,16 +900,16 @@ app.Diary = {
       title: title,
       content: inputs.outerHTML,
       buttons: [{
-        text: app.strings.dialogs.cancel || "Cancel",
-        keyCodes: app.Utils.escapeKeyCode
-      },
-      {
-        text: app.strings.dialogs.ok || "OK",
-        keyCodes: app.Utils.enterKeyCode,
-        onClick: function(dialog, e) {
-          app.Diary.saveStats(dialog, e);
+          text: app.strings.dialogs.cancel || "Cancel",
+          keyCodes: app.Utils.escapeKeyCode
+        },
+        {
+          text: app.strings.dialogs.ok || "OK",
+          keyCodes: app.Utils.enterKeyCode,
+          onClick: function(dialog, e) {
+            app.Diary.saveStats(dialog, e);
+          }
         }
-      }
       ]
     }).open();
   },
@@ -1034,9 +1034,9 @@ app.Diary = {
         title: dialogTitle,
         content: div.outerHTML,
         buttons: [{
-           text: app.strings.dialogs.ok || "OK",
-           keyCodes: app.Utils.enterKeyCode
-         }
+            text: app.strings.dialogs.ok || "OK",
+             keyCodes: app.Utils.enterKeyCode
+           }
         ]
       }).open();
     }
