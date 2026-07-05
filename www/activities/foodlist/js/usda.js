@@ -212,18 +212,35 @@ app.USDA = {
       let url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=" + encodeURIComponent(key) + "&query=cheese";
 
       let response = await app.Utils.timeoutFetch(url).catch((err) => {
-        resolve(false);
+        resolve({
+          valid: false,
+          reason: "network"
+        });
       });
 
-      if (response && response.ok) {
-        let data = await response.json();
-        if (data.error && data.error.code == "API_KEY_INVALID")
-          resolve(false);
-        else
-          resolve(true);
-      }
+      if (response) {
+        if (response.ok) {
+          resolve({
+            valid: true
+          });
+        } else {
+          let data = await response.json().catch((err) => undefined);
+          let code = data && data.error && data.error.code;
 
-      resolve(false);
+          let reason;
+          if (code == "OVER_RATE_LIMIT" || response.status == 429)
+            reason = "rate-limit";
+          else if (code == "API_KEY_INVALID" || response.status == 403)
+            reason = "invalid-key";
+          else
+            reason = "network";
+
+          resolve({
+            valid: false,
+            reason: reason
+          });
+        }
+      }
     });
   }
 };

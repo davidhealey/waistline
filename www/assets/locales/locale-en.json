@@ -395,6 +395,8 @@
       "save": "Save",
       "invalid-credentials": "Invalid Credentials",
       "invalid-api-key": "API Key Invalid",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
       "export-success": "Database Exported",
       "export-fail": "Export Failed",
       "import-fail": "Import Failed",
