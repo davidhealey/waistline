@@ -407,23 +407,23 @@
   "locale": {
     "auto": "Detectar automaticamente",
     "bulgarian": "Búlgaro",
-    "czech": "Czech",
-    "dutch": "Dutch",
+    "czech": "Tcheco",
+    "dutch": "Holandês",
     "english": "Inglês",
     "finnish": "Finlandês",
     "french": "Francês",
     "german": "Alemão",
     "hebrew": "Hebraico",
     "italian": "Italiano",
-    "polish": "Polish",
+    "polish": "Polonês",
     "portuguese": "Português",
-    "romanian": "Romanian",
+    "romanian": "Romeno",
     "russian": "Russo",
-    "serbian-cyrillic": "Serbian (Cyrillic)",
-    "serbian-latin": "Serbian (Latin)",
+    "serbian-cyrillic": "Sérvio (Cirílico)",
+    "serbian-latin": "Sérvio (Latino)",
     "spanish": "Espanhol",
     "swedish": "Sueco",
-    "turkish": "Turkish",
-    "ukrainian": "Ukrainian"
+    "turkish": "Turco",
+    "ukrainian": "Ucraniano"
   }
 }
