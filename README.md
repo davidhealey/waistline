@@ -82,6 +82,11 @@ code in Copilot.
 
 This project is localized using Crowdin: [![Crowdin](https://badges.crowdin.net/waistline/localized.svg)](https://crowdin.com/project/waistline)
 
+## Community resources
+
+- French food database based on ANSES-CIQUAL open data:
+  https://github.com/LaurentPortefaix/waistline-ciqual
+
 ## Contributing
 
 Check out the [contributor's guide](CONTRIBUTING.md)
