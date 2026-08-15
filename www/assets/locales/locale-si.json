@@ -102,7 +102,10 @@
     "upload-failed": "Unfortunately the upload failed. Please try again or contact the developer.",
     "what-meal": "What meal is this?",
     "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-editor": "Press Back again to leave the editor",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "ඉරිදා",
@@ -144,7 +147,8 @@
     "hips": "Hips",
     "body fat": "Body Fat",
     "average": "Average",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Diary",
@@ -329,7 +333,9 @@
       "y-zero": "Begin Y Axis at Zero",
       "average-line": "Show Average Line",
       "goal-line": "Show Goal Line",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Developer",
@@ -387,6 +393,13 @@
       "usda-click-here": "මෙතැන ඔබන්න",
       "usda-note-0": "You need to enter your personal API Key to search for foods in the USDA database.",
       "usda-note-1": "නොමිලේ යෙ.ක්‍ර.මු. යතුරක් ඉල්ලීමට.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "පරිශීලක නාමය",
       "password": "මුරපදය",
       "off-account-note": "This is entirely optional. You do not need an OFF account to use the app.",
@@ -395,6 +408,7 @@
       "save": "සුරකින්න",
       "invalid-credentials": "Invalid Credentials",
       "invalid-api-key": "යෙ.ක්‍ර.මු. යතුර වලංගු නොවේ",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "දත්තසමුදාය නිර්යාත විය",
       "export-fail": "නිර්යාත වීමට අසමත්!",
       "import-fail": "Import Failed",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukrainian"
   }
 }
-
