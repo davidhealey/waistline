@@ -102,7 +102,10 @@
     "upload-failed": "Na žalost, slanje nije uspelo. Pokušajte ponovo ili kontaktirajte programera.",
     "what-meal": "Koji obrok je ovo?",
     "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-editor": "Press Back again to leave the editor",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Nedelja",
@@ -144,7 +147,8 @@
     "hips": "Kukovi",
     "body fat": "Telesna masnoća",
     "average": "Prosek",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Dnevnik",
@@ -329,7 +333,9 @@
       "y-zero": "Počni Y osu na nuli",
       "average-line": "Prikaži prosečnu liniju",
       "goal-line": "Prikaži liniju cilja",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Programer",
@@ -387,6 +393,13 @@
       "usda-click-here": "Kliknite ovde",
       "usda-note-0": "Potrebno je uneti vaš lični API ključ da biste pretraživali hranu u USDA bazi podataka.",
       "usda-note-1": "da zatražite besplatan API ključ.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Korisničko ime",
       "password": "Lozinka",
       "off-account-note": "Ovo je u potpunosti izborno. Nije vam potreban OFF nalog da bi ste koristili ovu aplikaciju.",
@@ -395,6 +408,7 @@
       "save": "Sačuvaj",
       "invalid-credentials": "Neispravni kredencijali",
       "invalid-api-key": "API ključ nije ispravan",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Baza podataka izvezena",
       "export-fail": "Izvoz neuspešan",
       "import-fail": "Uvoz nije uspeo",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukrajinski"
   }
 }
-

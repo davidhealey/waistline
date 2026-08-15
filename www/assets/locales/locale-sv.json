@@ -102,7 +102,10 @@
     "upload-failed": "Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
     "what-meal": "Vilken måltid är detta?",
     "press-back-again-exit": "Backa igen för att stänga appen",
-    "press-back-again-editor": "Backa igen för att sluta redigera"
+    "press-back-again-editor": "Backa igen för att sluta redigera",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Söndag",
@@ -144,7 +147,8 @@
     "hips": "Höfter",
     "body fat": "Kroppsfett",
     "average": "Medelvärde",
-    "trend": "Daglig trend"
+    "trend": "Daglig trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Dagbok",
@@ -329,7 +333,9 @@
       "y-zero": "Starta Y-axeln på noll",
       "average-line": "Visa linje för medelvärde",
       "goal-line": "Visa linje för målsättning",
-      "trend-line": "Visa trendlinje"
+      "trend-line": "Visa trendlinje",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Utvecklare",
@@ -387,6 +393,13 @@
       "usda-click-here": "Klicka här",
       "usda-note-0": "Du behöver ange din personliga API-nyckel för att söka efter livsmedel i USDA-databasen.",
       "usda-note-1": "för att begära en gratis API-nyckel.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Användarnamn",
       "password": "Lösenord",
       "off-account-note": "Detta är helt frivilligt. Du behöver inte ett Open Food Facts-konto för att använda appen.",
@@ -395,6 +408,7 @@
       "save": "Spara",
       "invalid-credentials": "Ogiltiga inloggningsuppgifter",
       "invalid-api-key": "Ogiltig API-nyckel",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Databasen har exporterats",
       "export-fail": "Exporteringen misslyckades",
       "import-fail": "Importeringen misslyckades",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukrainska"
   }
 }
-

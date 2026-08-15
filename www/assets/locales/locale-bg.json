@@ -102,7 +102,10 @@
     "upload-failed": "За съжаления качването беше неуспешно. Моля опитайте отново или се свържете с разработчика.",
     "what-meal": "Какво хранене е това?",
     "press-back-again-exit": "Натиснете Назад отново, за да затворите приложението",
-    "press-back-again-editor": "Натиснете Назад отново, за да затворите редактора"
+    "press-back-again-editor": "Натиснете Назад отново, за да затворите редактора",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Неделя",
@@ -144,7 +147,8 @@
     "hips": "Бедра",
     "body fat": "Мазнини на тялото",
     "average": "Средно аритметично",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Дневник",
@@ -329,7 +333,9 @@
       "y-zero": "Започни оста Y от нула",
       "average-line": "Покажи средноаритметична линия",
       "goal-line": "Покажи линия на целите",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Разработчик",
@@ -387,6 +393,13 @@
       "usda-click-here": "Натиснете тук",
       "usda-note-0": "За да търсите в базата данни на USDA е необходимо да въведете своя персонален API ключ.",
       "usda-note-1": "за изискване на безплатен API ключ.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Потребителско име",
       "password": "Парола",
       "off-account-note": "Това е напълно по избор. Вие нямате нужда от OFF акаунт, за да използвате това приложение.",
@@ -395,6 +408,7 @@
       "save": "Запиши",
       "invalid-credentials": "Невалидни данни за вход",
       "invalid-api-key": "Невалиден API ключ",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Базата данни е експортирана",
       "export-fail": "Екпортирането се провали",
       "import-fail": "Внасянето се провали",
@@ -441,4 +455,3 @@
     "ukrainian": "Украински"
   }
 }
-

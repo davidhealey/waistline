@@ -102,7 +102,10 @@
     "upload-failed": "Das Hochladen ist leider fehlgeschlagen. Bitte versuche es erneut, oder kontaktiere den Entwickler.",
     "what-meal": "Welche Mahlzeit ist das?",
     "press-back-again-exit": "Drücke erneut Zurück, um die App zu beenden",
-    "press-back-again-editor": "Drücke erneut Zurück, um den Editor zu verlassen"
+    "press-back-again-editor": "Drücke erneut Zurück, um den Editor zu verlassen",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Sonntag",
@@ -144,7 +147,8 @@
     "hips": "Hüften",
     "body fat": "Körperfettanteil",
     "average": "Durchschnitt",
-    "trend": "Täglicher Trend"
+    "trend": "Täglicher Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Tagebuch",
@@ -329,7 +333,9 @@
       "y-zero": "Y-Achse bei Null beginnen",
       "average-line": "Linie für Durchschnitt anzeigen",
       "goal-line": "Linie für Ziel anzeigen",
-      "trend-line": "Trendlinie anzeigen"
+      "trend-line": "Trendlinie anzeigen",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Entwickler",
@@ -387,6 +393,13 @@
       "usda-click-here": "Hier",
       "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
       "usda-note-1": "kannst du einen kostenlosen API-Schlüssel anfordern.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Benutzername",
       "password": "Passwort",
       "off-account-note": "Dies ist völlig optional. Du brauchst kein Open Food Facts Konto, um die App zu benutzen.",
@@ -395,6 +408,7 @@
       "save": "Speichern",
       "invalid-credentials": "Ungültige Anmeldeinformationen",
       "invalid-api-key": "API-Schlüssel ungültig",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Datenbank wurde exportiert",
       "export-fail": "Export fehlgeschlagen",
       "import-fail": "Import fehlgeschlagen",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukrainisch"
   }
 }
-

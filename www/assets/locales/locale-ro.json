@@ -102,7 +102,10 @@
     "upload-failed": "Din păcate, încărcarea nu a reușit. Încercați din nou sau contactați dezvoltatorul.",
     "what-meal": "Ce mâncare este asta?",
     "press-back-again-exit": "Apăsați înapoi din nou pentru a ieși din aplicație",
-    "press-back-again-editor": "Apăsați înapoi din nou pentru a ieși din aplicație"
+    "press-back-again-editor": "Apăsați înapoi din nou pentru a ieși din aplicație",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Duminică",
@@ -144,7 +147,8 @@
     "hips": "Șolduri",
     "body fat": "Grăsime corporală",
     "average": "Medie",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Jurnal",
@@ -329,7 +333,9 @@
       "y-zero": "Începe axa Y la zero",
       "average-line": "Arată linia medie",
       "goal-line": "Arată linia de obiectiv",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Dezvoltator",
@@ -387,6 +393,13 @@
       "usda-click-here": "Apasă aici",
       "usda-note-0": "Trebuie să introduceți cheia dvs API personală pentru a căuta alimente în baza de date USDA.",
       "usda-note-1": "pentru a solicita o cheie API gratuită.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Nume utilizator",
       "password": "Parolă",
       "off-account-note": "Acest lucru este complet opțional. Nu aveți nevoie de un cont offline pentru a utiliza aplicația.",
@@ -395,6 +408,7 @@
       "save": "Salvează",
       "invalid-credentials": "Datele de autentificare sunt invalide",
       "invalid-api-key": "Cheia API nu este validă",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Baza de date exportată",
       "export-fail": "Exportul a eșuat",
       "import-fail": "Importul a eșuat",
@@ -441,4 +455,3 @@
     "ukrainian": "Ucrainiană"
   }
 }
-

@@ -102,7 +102,10 @@
     "upload-failed": "Lamentablemente la carga falló. Por favor, inténtalo de nuevo o contacta al desarrollador.",
     "what-meal": "¿Qué comida del día es esta?",
     "press-back-again-exit": "Pulsa atrás otra vez para salir de la aplicación",
-    "press-back-again-editor": "Pulsa atrás otra vez para salir del editor"
+    "press-back-again-editor": "Pulsa atrás otra vez para salir del editor",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Domingo",
@@ -144,7 +147,8 @@
     "hips": "Cadera",
     "body fat": "Grasa corporal",
     "average": "Promedio",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Diario",
@@ -329,7 +333,9 @@
       "y-zero": "Iniciar eje Y en cero",
       "average-line": "Mostrar línea promedio",
       "goal-line": "Mostrar línea objetivo",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Desarrollador",
@@ -387,6 +393,13 @@
       "usda-click-here": "Haz clic aquí",
       "usda-note-0": "Debe introducir tu clave de API personal para buscar alimentos en la base de datos del USDA.",
       "usda-note-1": "para solicitar una clave API gratuita.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Nombre de usuario",
       "password": "Contraseña",
       "off-account-note": "Esto es completamente opcional. No necesitas una cuenta en Open Food Facts para usar la aplicación.",
@@ -395,6 +408,7 @@
       "save": "Guardar",
       "invalid-credentials": "Credenciales inválidas",
       "invalid-api-key": "Clave API inválida",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Base de datos exportada",
       "export-fail": "Fallo al exportar",
       "import-fail": "Error al importar",
@@ -441,4 +455,3 @@
     "ukrainian": "Ucraniano"
   }
 }
-

@@ -102,7 +102,10 @@
     "upload-failed": "Nahrávání se bohužel nezdařilo. Zkuste to prosím znovu nebo kontaktujte vývojáře.",
     "what-meal": "Co je to za jídlo?",
     "press-back-again-exit": "Stiskněte znovu Zpět pro ukončení aplikace",
-    "press-back-again-editor": "Stiskněte znovu Zpět pro opuštění editoru"
+    "press-back-again-editor": "Stiskněte znovu Zpět pro opuštění editoru",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Neděle",
@@ -144,7 +147,8 @@
     "hips": "Boky",
     "body fat": "Tělesný tuk",
     "average": "Průměr",
-    "trend": "Denní trend"
+    "trend": "Denní trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Diář",
@@ -329,7 +333,9 @@
       "y-zero": "Začít osu Y v nule",
       "average-line": "Zobrazit přímku průměru",
       "goal-line": "Zobrazit přímku cíle",
-      "trend-line": "Zobrazit trendovou linii"
+      "trend-line": "Zobrazit trendovou linii",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Vývojář",
@@ -387,6 +393,13 @@
       "usda-click-here": "Klepněte zde",
       "usda-note-0": "Musíte zadat váš osobní klíč API pro vyhledávání v databázi USDA.",
       "usda-note-1": "pro žádost o bezplatný klíč API.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Uživatelské jméno",
       "password": "Heslo",
       "off-account-note": "Toto je volitelné. Pro používání aplikace nepotřebujete účet OFF.",
@@ -395,6 +408,7 @@
       "save": "Uložit",
       "invalid-credentials": "Neplatné přihlašovací údaje",
       "invalid-api-key": "Neplatný klíč API",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Databáze exportována",
       "export-fail": "Export selhal",
       "import-fail": "Import selhal",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukrajinština"
   }
 }
-
