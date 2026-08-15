@@ -138,6 +138,16 @@ app.Settings = {
       });
     }
 
+    // ICU API Key save link
+    let icuSave = document.getElementById("icu-save");
+    if (icuSave) {
+      icuSave.addEventListener("click", function(e) {
+        let key = document.querySelector(".icu-login #icu-key").value;
+        let athleteId = document.querySelector(".icu-login #icu-athlete-id").value;
+        app.Settings.saveICUIntegration(key, athleteId);
+      });
+    }
+
     // TTS test button
     let ttsTestButton = document.getElementById("tts-test-button");
     if (ttsTestButton) {
@@ -356,6 +366,48 @@ app.Settings = {
         app.Utils.toast(msg);
       }
     }
+  },
+
+  saveICUIntegration: async function(key, athleteId) {
+    let screen = document.querySelector(".icu-login");
+    if (app.Utils.isInternetConnected()) {
+      if (key == "" || await app.Settings.testIcuIntegration(key, athleteId)) {
+        this.put("integration", "icu-key", key);
+        this.put("integration", "icu-athlete-id", athleteId);
+        app.f7.loginScreen.close(screen);
+        let msg = app.strings.settings.integration["login-success"] || "Login Successful";
+        app.Utils.toast(msg);
+      } else {
+        let msg = app.strings.settings.integration["invalid-icu-api-key"] || "API Key or Athlete ID Invalid";
+        app.Utils.toast(msg);
+      }
+    }
+  },
+
+  testIcuIntegration: function(key, athleteId) {
+
+    return new Promise(async function(resolve, reject) {
+      let url = "https://intervals.icu/api/v1/athlete/" + encodeURIComponent(athleteId);
+
+      let response = await app.Utils.timeoutFetch(url, {
+        headers: {
+          "content-type": "application/json",
+          "authorization": "Basic " + btoa("API_KEY:" + key)
+        }
+      }).catch((err) => {
+        resolve(false);
+      });
+
+      if (response && response.ok) {
+        let data = await response.json();
+        if (!data.error && data.id == athleteId)
+          resolve(true);
+        else
+          resolve(false);
+      }
+
+      resolve(false);
+    });
   },
 
   writeDatabaseBackupToFile: async function() {
@@ -761,7 +813,8 @@ app.Settings = {
         "search-language": "Default",
         "search-country": "All",
         "upload-country": "Auto",
-        usda: false
+        usda: false,
+        icu: false
       },
       tts: {
         "speed": 1,

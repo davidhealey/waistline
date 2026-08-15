@@ -849,6 +849,28 @@
           </a>
         </li>
 
+        <li class="item-divider" data-localize="settings.integration.icu-title">INTERVALS.ICU</li>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title" data-localize="settings.integration.icu">Enable intervals.icu integration</div>
+              <div class="item-after">
+                <label class="toggle toggle-init">
+                  <input type="checkbox" field="integration" name="icu" />
+                  <span class="toggle-icon"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <a href="#" class="item-link item-content login-screen-open" data-login-screen=".icu-login">
+            <div class="item-inner" data-localize="settings.integration.icu-api">Intervals.icu API</div>
+          </a>
+        </li>
+
       </ul>
     </div>
   </div>
@@ -924,6 +946,48 @@
                   <a data-localize="settings.integration.usda-click-here" class="link" href="https://fdc.nal.usda.gov/api-key-signup.html" onclick="cordova.InAppBrowser.open('https://fdc.nal.usda.gov/api-key-signup.html', '_system'); return false;">Click here</a>
                   <span data-localize="settings.integration.usda-note-1">to request a free API Key.</span>
                 </p>
+                <p><a class="link login-screen-close" href="#" data-localize="settings.integration.exit">Exit</a></p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- ICU API Key Screen -->
+  <div class="login-screen icu-login">
+    <div class="view">
+      <div class="page">
+        <div class="page-content login-screen-content">
+          <div class="login-screen-title" data-localize="settings.integration.icu-login-title">Intervals.icu</div>
+          <form>
+            <div class="list">
+              <ul>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label" data-localize="settings.integration.icu-api-key">Intervals.icu API Key</div>
+                    <div class="item-input-wrap">
+                      <input class="manual-bind" id="icu-key" type="text" name="icu-key" field="integration">
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label" data-localize="settings.integration.icu-athlete-id">Intervals.icu Athlete ID</div>
+                    <div class="item-input-wrap">
+                      <input class="manual-bind" id="icu-athlete-id" type="text" name="icu-athlete-id" field="integration">
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="list">
+              <ul>
+                <li><a class="list-button" id="icu-save" href="#" data-localize="settings.integration.save">Save</a></li>
+              </ul>
+              <div class="block-footer">
+                <p data-localize="settings.integration.icu-note-0">You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.</p>
                 <p><a class="link login-screen-close" href="#" data-localize="settings.integration.exit">Exit</a></p>
               </div>
             </div>
