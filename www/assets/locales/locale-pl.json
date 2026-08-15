@@ -102,7 +102,10 @@
     "upload-failed": "Niestety przesłanie nie powiodło się, spróbuj ponownie lub skontaktuj się z programistą.",
     "what-meal": "Co to za posiłek?",
     "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-editor": "Press Back again to leave the editor",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Niedziela",
@@ -144,7 +147,8 @@
     "hips": "Biodra",
     "body fat": "Tłuszcz",
     "average": "Średnia",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Dziennik",
@@ -329,7 +333,9 @@
       "y-zero": "Rozpocznij oś Y od Zera",
       "average-line": "Pokaż linie średnich",
       "goal-line": "Pokaż linię celu",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Programista",
@@ -387,6 +393,13 @@
       "usda-click-here": "Naciśnij tu",
       "usda-note-0": "Musisz wprowadzić swój osobisty klucz API, aby wyszukać żywność w bazie danych USDA.",
       "usda-note-1": "aby poprosić o darmowy klucz API.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Nazwa użytkownika",
       "password": "Hasło",
       "off-account-note": "To jest całkowicie opcjonalne. Nie potrzebujesz konta OFF, aby używać aplikacji.",
@@ -395,6 +408,7 @@
       "save": "Zapisz",
       "invalid-credentials": "Błędne dane",
       "invalid-api-key": "Niepoprawny klucz API",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Baza danych wyeksportowana",
       "export-fail": "Eksport nie powiódł się",
       "import-fail": "Importowanie nie powiodło się",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukraiński"
   }
 }
-
