@@ -128,19 +128,23 @@
   "statistics": {
     "title": "Statistik",
     "range": "Zeitraum",
+    "rangestart": "Von",
+    "rangeend": "Bis",
     "stat": "Wert",
     "week": "1 Woche",
     "month": "1 Monat",
     "3month": "3 Monate",
     "6month": "6 Monate",
     "12month": "1 Jahr",
+    "custom": "Eigener Zeitraum",
     "timeline": "Chronik",
     "weight": "Gewicht",
     "neck": "Nacken",
     "waist": "Taille",
     "hips": "Hüften",
     "body fat": "Körperfettanteil",
-    "average": "Durchschnitt"
+    "average": "Durchschnitt",
+    "trend": "Täglicher Trend"
   },
   "diary": {
     "title": "Tagebuch",
@@ -310,7 +314,8 @@
       "wifi-thumbnails": "Vorschaubilder nur über Wi-Fi anzeigen",
       "images": "Lebensmittelbilder anzeigen",
       "wifi-images": "Lebensmittelbilder nur über Wi-Fi anzeigen",
-      "show-notes": "Notizen für Lebensmittel anzeigen"
+      "show-notes": "Notizen für Lebensmittel anzeigen",
+      "add-leftovers": "Mahlzeiten von gestern aus allen Kategorien anzeigen"
     },
     "foods-categories": {
       "title": "Kennzeichnungen und Kategorien",
@@ -323,7 +328,8 @@
       "title": "Statistik",
       "y-zero": "Y-Achse bei Null beginnen",
       "average-line": "Linie für Durchschnitt anzeigen",
-      "goal-line": "Linie für Ziel anzeigen"
+      "goal-line": "Linie für Ziel anzeigen",
+      "trend-line": "Trendlinie anzeigen"
     },
     "developer": {
       "title": "Entwickler",
@@ -362,6 +368,13 @@
       "off-account": "Open Food Facts Konto",
       "language": "Bevorzugte Sprache",
       "country": "Land für Suche",
+      "dietary-filter": "Ernährungsfilter",
+      "dietary-filter-none": "Kein Filter",
+      "dietary-filter-vegan": "Vegan",
+      "dietary-filter-vegetarian": "Vegetarisch",
+      "dietary-filter-gluten-free": "Glutenfrei",
+      "dietary-filter-palm-oil-free": "Palmölfrei",
+      "dietary-filter-organic": "Bio",
       "upload-country": "Land für hochgeladene Inhalte",
       "all-countries": "Alle",
       "default": "Standard",
@@ -428,3 +441,4 @@
     "ukrainian": "Ukrainisch"
   }
 }
+
