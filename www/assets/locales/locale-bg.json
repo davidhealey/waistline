@@ -408,6 +408,8 @@
       "save": "Запиши",
       "invalid-credentials": "Невалидни данни за вход",
       "invalid-api-key": "Невалиден API ключ",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
       "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Базата данни е експортирана",
       "export-fail": "Екпортирането се провали",
