@@ -50,7 +50,7 @@
     "lactose": "Lactosa"
   },
   "nutriments-abbreviations": {
-    "fat": "F",
+    "fat": "G",
     "carbohydrates": "C",
     "proteins": "P"
   },
@@ -103,9 +103,9 @@
     "what-meal": "¿Qué comida del día es esta?",
     "press-back-again-exit": "Pulsa atrás otra vez para salir de la aplicación",
     "press-back-again-editor": "Pulsa atrás otra vez para salir del editor",
-    "clear-meal-items": "Remove all items from meal",
-    "move-meal-items": "Move items to another meal",
-    "set-meal-time": "Update timestamps"
+    "clear-meal-items": "Borrar todos los elementos de la comida",
+    "move-meal-items": "Mover los elementos a otra comida",
+    "set-meal-time": "Actualizar marcas de tiempo"
   },
   "days": {
     "0": "Domingo",
@@ -131,15 +131,15 @@
   "statistics": {
     "title": "Estadísticas",
     "range": "Rango",
-    "rangestart": "From",
-    "rangeend": "To",
+    "rangestart": "Desde",
+    "rangeend": "Hasta",
     "stat": "Estadística",
     "week": "1 Semana",
     "month": "1 mes",
     "3month": "3 Meses",
     "6month": "6 mes",
     "12month": "1 Año",
-    "custom": "Custom Range",
+    "custom": "Rango Personalizado",
     "timeline": "Línea de tiempo",
     "weight": "Peso",
     "neck": "Cuello",
@@ -147,8 +147,8 @@
     "hips": "Cadera",
     "body fat": "Grasa corporal",
     "average": "Promedio",
-    "trend": "Daily Trend",
-    "moving-average": "Moving Average"
+    "trend": "Tendencia Diaria",
+    "moving-average": "Promedio"
   },
   "diary": {
     "title": "Diario",
@@ -276,8 +276,8 @@
       "show-all-nutriments": "Mostrar todos los nutrientes en la página Resumen",
       "show-units": "Mostrar unidades nutricionales",
       "prompt-add-items": "Preguntar por la cantidad al añadir artículos",
-      "show-macro-nutriments-summary": "Show macros summary per category",
-      "show-total-portion-size": "Show Total Portion Size"
+      "show-macro-nutriments-summary": "Mostrar resumen de macros por categoría",
+      "show-total-portion-size": "Mostrar el Tamaño de la Porción Total"
     },
     "nutriments": {
       "title": "Nutrientes",
@@ -319,7 +319,7 @@
       "images": "Mostrar imágenes de alimentos",
       "wifi-images": "Mostrar solo imágenes por Wi-Fi",
       "show-notes": "Mostrar Notas de Comida",
-      "add-leftovers": "Show past day's meals of all categories"
+      "add-leftovers": "Mostrar comidas de días pasados de todas las categorías"
     },
     "foods-categories": {
       "title": "Etiquetas y Categorías",
@@ -333,9 +333,9 @@
       "y-zero": "Iniciar eje Y en cero",
       "average-line": "Mostrar línea promedio",
       "goal-line": "Mostrar línea objetivo",
-      "trend-line": "Show Trend Line",
-      "moving-average": "Show Moving Average",
-      "moving-average-period": "Moving Average Period"
+      "trend-line": "Mostrar Línea de Tendencia",
+      "moving-average": "Mostrar Promedio",
+      "moving-average-period": "Promedio del Periodo"
     },
     "developer": {
       "title": "Desarrollador",
@@ -374,13 +374,13 @@
       "off-account": "Cuenta de Open Food Facts",
       "language": "Idioma preferido",
       "country": "Buscar país",
-      "dietary-filter": "Dietary Filter",
-      "dietary-filter-none": "No filter",
-      "dietary-filter-vegan": "Vegan",
-      "dietary-filter-vegetarian": "Vegetarian",
-      "dietary-filter-gluten-free": "Gluten Free",
-      "dietary-filter-palm-oil-free": "Palm Oil Free",
-      "dietary-filter-organic": "Organic",
+      "dietary-filter": "Filtro Dietético",
+      "dietary-filter-none": "Sin filtros",
+      "dietary-filter-vegan": "Vegano",
+      "dietary-filter-vegetarian": "Vegetariano",
+      "dietary-filter-gluten-free": "Sin Gluten",
+      "dietary-filter-palm-oil-free": "Sin Aceite de Palma",
+      "dietary-filter-organic": "Orgánico",
       "upload-country": "Subir País",
       "all-countries": "Todos",
       "default": "Predeterminado",
@@ -393,13 +393,13 @@
       "usda-click-here": "Haz clic aquí",
       "usda-note-0": "Debe introducir tu clave de API personal para buscar alimentos en la base de datos del USDA.",
       "usda-note-1": "para solicitar una clave API gratuita.",
-      "icu-title": "INTERVALS.ICU",
-      "icu": "Enable Intervals.icu integration",
-      "icu-login-title": "Intervals.icu",
-      "icu-api": "Intervals.icu API",
-      "icu-api-key": "Intervals.icu API Key",
-      "icu-athlete-id": "Intervals.icu Athlete ID",
-      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
+      "icu-title": "Intervals.ICU",
+      "icu": "Activar integración con Intervals.ICU",
+      "icu-login-title": "Intervals.ICU",
+      "icu-api": "API de Intervals.ICU",
+      "icu-api-key": "Clave API de Intervals.ICU",
+      "icu-athlete-id": "ID de Atleta de Intervals.ICU",
+      "icu-note-0": "Tienes que introducir tu Clave API personal y tu ID de Atleta para integrarlos con Intervalos.ICU",
       "username": "Nombre de usuario",
       "password": "Contraseña",
       "off-account-note": "Esto es completamente opcional. No necesitas una cuenta en Open Food Facts para usar la aplicación.",
@@ -408,9 +408,9 @@
       "save": "Guardar",
       "invalid-credentials": "Credenciales inválidas",
       "invalid-api-key": "Clave API inválida",
-      "usda-rate-limited": "USDA rate limit reached, try again later",
-      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
-      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
+      "usda-rate-limited": "Límite de consultas a USDA alcanzado, prueba otra vez más adelante",
+      "usda-key-check-failed": "Imposible verificar clave, revisa tu conexión y prueba de nuevo",
+      "invalid-icu-api-key": "Clave de API o ID de Atleta No Válido",
       "export-success": "Base de datos exportada",
       "export-fail": "Fallo al exportar",
       "import-fail": "Error al importar",
