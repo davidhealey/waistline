@@ -102,7 +102,10 @@
     "upload-failed": "לרוע המזל ההעלאה נכשלה. נא לנסות שוב או ליצור קשר עם המפתח.",
     "what-meal": "איזו מנה זו?",
     "press-back-again-exit": "לחיצה על חזרה שוב תצא מהיישומון",
-    "press-back-again-editor": "לחיצה על חזרה שוב תצא מהעורך"
+    "press-back-again-editor": "לחיצה על חזרה שוב תצא מהעורך",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "יום ראשון",
@@ -144,7 +147,8 @@
     "hips": "ירכיים",
     "body fat": "שומן גוף",
     "average": "ממוצע",
-    "trend": "מגמה יומית"
+    "trend": "מגמה יומית",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "יומן",
@@ -329,7 +333,9 @@
       "y-zero": "להתחיל את ציר Y באפס",
       "average-line": "הצגת קו ממוצע",
       "goal-line": "הצגת קו יעד",
-      "trend-line": "הצגת קו מגמה"
+      "trend-line": "הצגת קו מגמה",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "מפתח",
@@ -387,6 +393,13 @@
       "usda-click-here": "נא ללחוץ כאן",
       "usda-note-0": "עליך למלא את מפתח ה־API האישי שלך כדי לחפש מאכלים במסד הנתונים של משרד החקלאות האמריקאי.",
       "usda-note-1": "להגשת בקשה למפתח API בחינם.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "שם משתמש",
       "password": "ססמה",
       "off-account-note": "זה בגדר רשות בלבד. אין צורך בחשבון OFF כדי להשתמש ביישומון הזה.",
@@ -395,6 +408,7 @@
       "save": "שמירה",
       "invalid-credentials": "פרטי התחברות שגויים",
       "invalid-api-key": "מפתח ה־API שגוי",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "מסד הנתונים ייוצא",
       "export-fail": "הייצוא נכשל",
       "import-fail": "הייבוא נכשל",
@@ -441,4 +455,3 @@
     "ukrainian": "אוקראינית"
   }
 }
-
