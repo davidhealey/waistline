@@ -102,7 +102,10 @@
     "upload-failed": "Erreur de téléversement. Réessayez ou contactez le développeur.",
     "what-meal": "À quel repas ?",
     "press-back-again-exit": "Appuyer à nouveau sur Retour pour quitter l'application",
-    "press-back-again-editor": "Appuyer à nouveau sur Retour pour quitter l'éditeur"
+    "press-back-again-editor": "Appuyer à nouveau sur Retour pour quitter l'éditeur",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Dimanche",
@@ -144,7 +147,8 @@
     "hips": "Tour de hanches",
     "body fat": "Graisse corporelle",
     "average": "Moyenne",
-    "trend": "Tendance quotidienne"
+    "trend": "Tendance quotidienne",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Journal",
@@ -329,7 +333,9 @@
       "y-zero": "Commencer l’axe Y à 0",
       "average-line": "Afficher la ligne moyenne",
       "goal-line": "Afficher la ligne objectif",
-      "trend-line": "Afficher la ligne de tendance"
+      "trend-line": "Afficher la ligne de tendance",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Développeur",
@@ -387,6 +393,13 @@
       "usda-click-here": "Cliquer ici",
       "usda-note-0": "Une clé API personnelle est nécessaire pour accéder aux données USDA.",
       "usda-note-1": "pour obtenir une clé API gratuite.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Nom d’utilisateur",
       "password": "Mot de passe",
       "off-account-note": "Ceci est entièrement optionnel. Vous n'avez pas besoin d'un compte OFF pour utiliser l'application.",
@@ -395,6 +408,7 @@
       "save": "Sauvegarder",
       "invalid-credentials": "Identifiants erronés",
       "invalid-api-key": "Clé API invalide",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Données expportées",
       "export-fail": "Erreur d’exportation",
       "import-fail": "Importation échouée",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukrainien"
   }
 }
-
