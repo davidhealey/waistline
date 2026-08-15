@@ -39,7 +39,7 @@ Check out the `Prompt for quantity when adding items` option under `Settings > D
 
 ## Can I use Waistline to track exercises?
 
-Waistline is primarily intended to be a calories tracker. However, it is also possible to track exercises in the Diary. If you add a diary entry with a negative calories amount (for calories burned in an exercise), Waistline automatically increases your calories goal for that day accordingly. For example, if your calories goal is 2000 kcal and you add an entry with -100 kcal of burned calories, your goal would increase to 2100 kcal since you now have to eat more to cover your energy needs.
+Waistline is primarily intended to be a calories tracker. However, an integration with intervals.icu is provided, for any other platforms, it is also possible to track exercises in the Diary. If you add a diary entry with a negative calories amount (for calories burned in an exercise), Waistline automatically increases your calories goal for that day accordingly. For example, if your calories goal is 2000 kcal and you add an entry with -100 kcal of burned calories, your goal would increase to 2100 kcal since you now have to eat more to cover your energy needs.
 
 ## How can I quickly add consumed or burned calories to the Diary?
 

@@ -51,7 +51,7 @@
   },
   "nutriments-abbreviations": {
     "fat": "F",
-    "carbohydrates": "C",
+    "carbohydrates": "K",
     "proteins": "P"
   },
   "unit-symbols": {
@@ -89,7 +89,7 @@
     "camera-problem": "Det gick inte att komma åt din kamera.",
     "no-internet": "Ingen Internetanslutning",
     "no-results": "Inga matchande resultat",
-    "no-response": "No response from server",
+    "no-response": "Inget svar från servern",
     "no-search-providers": "Inga sökleverantörer är aktiverade",
     "scan-failed": "Skanningen misslyckades",
     "search": "Sök",
@@ -101,8 +101,8 @@
     "upload-add-to-foodlist": "Vill du lägga till det uppladdade objektet i din lista över livsmedel?",
     "upload-failed": "Tyvärr misslyckades uppladdningen. Var vänlig försök igen eller kontakta utvecklaren.",
     "what-meal": "Vilken måltid är detta?",
-    "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-exit": "Backa igen för att stänga appen",
+    "press-back-again-editor": "Backa igen för att sluta redigera"
   },
   "days": {
     "0": "Söndag",
@@ -128,19 +128,23 @@
   "statistics": {
     "title": "Statistik",
     "range": "Tidsintervall",
+    "rangestart": "From",
+    "rangeend": "To",
     "stat": "Värde",
     "week": "1 vecka",
     "month": "1 månad",
     "3month": "3 månader",
     "6month": "6 månader",
     "12month": "1 år",
+    "custom": "Custom Range",
     "timeline": "Tidslinje",
     "weight": "Vikt",
     "neck": "Hals",
     "waist": "Midja",
     "hips": "Höfter",
     "body fat": "Kroppsfett",
-    "average": "Medelvärde"
+    "average": "Medelvärde",
+    "trend": "Daglig trend"
   },
   "diary": {
     "title": "Dagbok",
@@ -195,8 +199,8 @@
     "per-serving": "Per portion",
     "image": "Bild",
     "name-and-brand": "Namn och varumärke",
-    "nutriments-per-serving": "Nutrients per serving",
-    "nutriments-per-100": "Nutrients per 100g/100ml",
+    "nutriments-per-serving": "Näringsämnen per portion",
+    "nutriments-per-100": "Näringsämnen per 100g/100ml",
     "additional-photos": "Fler bilder",
     "ingredients": "Ingredienslista",
     "packaging": "Återvinningsinstruktioner / förpackningsinformation",
@@ -268,7 +272,8 @@
       "show-all-nutriments": "Visa alla näringsämnen på översiktssidan",
       "show-units": "Visa enheter för näringsämnen",
       "prompt-add-items": "Fråga efter kvantitet vid nytt inlägg",
-      "show-macro-nutriments-summary": "Show macros summary per category"
+      "show-macro-nutriments-summary": "Visa makrosammanställning per kategori",
+      "show-total-portion-size": "Visa total portionsstorlek"
     },
     "nutriments": {
       "title": "Näringsämnen",
@@ -309,7 +314,8 @@
       "wifi-thumbnails": "Visa miniatyrbilder endast över Wi-Fi",
       "images": "Visa bilder på livsmedel",
       "wifi-images": "Visa bilder på livsmedel endast över Wi-Fi",
-      "show-notes": "Visa anteckningar om livsmedel"
+      "show-notes": "Visa anteckningar om livsmedel",
+      "add-leftovers": "Visa föregående dags måltider från alla kategorier"
     },
     "foods-categories": {
       "title": "Etiketter och kategorier",
@@ -322,7 +328,8 @@
       "title": "Statistik",
       "y-zero": "Starta Y-axeln på noll",
       "average-line": "Visa linje för medelvärde",
-      "goal-line": "Visa linje för målsättning"
+      "goal-line": "Visa linje för målsättning",
+      "trend-line": "Visa trendlinje"
     },
     "developer": {
       "title": "Utvecklare",
@@ -334,12 +341,12 @@
     },
     "text-to-speech": {
       "title": "Text till tal",
-      "test": "Test current settings",
-      "speed": "Speed",
+      "test": "Testa nuvarande inställningar",
+      "speed": "Hastighet",
       "pitch": "Röstens tonhöjd",
       "voice": "Röst",
       "default": "Standard",
-      "locale": "Number formatting locale (optional)"
+      "locale": "Nummerformatering (valfri)"
     },
     "import-export": {
       "title": "Importera/Exportera",
@@ -361,6 +368,13 @@
       "off-account": "Open Food Facts-konto",
       "language": "Föredraget språk",
       "country": "Sökland",
+      "dietary-filter": "Dietary Filter",
+      "dietary-filter-none": "No filter",
+      "dietary-filter-vegan": "Vegan",
+      "dietary-filter-vegetarian": "Vegetarian",
+      "dietary-filter-gluten-free": "Gluten Free",
+      "dietary-filter-palm-oil-free": "Palm Oil Free",
+      "dietary-filter-organic": "Organic",
       "upload-country": "Uppladdningsland",
       "all-countries": "Alla",
       "default": "Standard",
@@ -390,7 +404,7 @@
       "import-foods-category-fail": "Välj minst en kategori",
       "import-success-title": "Säkerhetskopian har återställts",
       "import-success-message": "Importering slutförd",
-      "barcode-flashlight": "Barcode Scan Flashlight",
+      "barcode-flashlight": "Ficklampa vid streckkodsskanning",
       "barcode-sound": "Ljudsignal vid streckkodsskanning",
       "edit-images": "Beskär bilder",
       "login-success": "Inloggningen lyckades"
@@ -427,3 +441,4 @@
     "ukrainian": "Ukrainska"
   }
 }
+

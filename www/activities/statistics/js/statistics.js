@@ -278,6 +278,17 @@ app.Stats = {
       app.Stats.chart.data.labels = app.Stats.data.dates;
       app.Stats.chart.data.datasets[0].label = app.Stats.data.dataset.label;
       app.Stats.chart.data.datasets[0].data = app.Stats.data.dataset.values;
+
+      // Add, update or remove the moving average line to match the current setting
+      if (app.Stats.data.movingAverage !== undefined) {
+        let dataset = app.Stats.getMovingAverageDataset(app.Stats.data);
+        if (app.Stats.chart.data.datasets.length > 1)
+          app.Stats.chart.data.datasets[1] = dataset;
+        else
+          app.Stats.chart.data.datasets.push(dataset);
+      } else if (app.Stats.chart.data.datasets.length > 1) {
+        app.Stats.chart.data.datasets.splice(1, 1);
+      }
     }
 
     app.Stats.chart.annotation.elements = [];
@@ -431,6 +442,49 @@ app.Stats = {
     };
   },
 
+  calcMovingAverage: function(values, period) {
+    // Trailing simple moving average. Each point is the mean of the available
+    // (non-null) values within the preceding window of the given period,
+    // including the current point. The partial window at the start is used as
+    // soon as there is data, and a window containing only gaps stays null so
+    // the line spans gaps like the source dataset.
+    let result = [];
+
+    for (let i = 0; i < values.length; i++) {
+      let sum = 0;
+      let count = 0;
+
+      for (let j = Math.max(0, i - period + 1); j <= i; j++) {
+        if (values[j] !== null && values[j] !== undefined) {
+          sum += values[j];
+          count++;
+        }
+      }
+
+      result.push(count > 0 ? Math.round((sum / count) * 100) / 100 : null);
+    }
+
+    return result;
+  },
+
+  getMovingAverageDataset: function(data) {
+    // Drawn as the confident "signal" over the faded daily readings: a heavier,
+    // smoother stroke in a saturated colour so the eye follows the trend rather
+    // than the day-to-day noise.
+    return {
+      type: 'line',
+      label: data.movingAverageLabel,
+      data: data.movingAverage,
+      borderWidth: 3,
+      backgroundColor: 'rgba(94, 53, 177, 1)',
+      borderColor: 'rgba(94, 53, 177, 1)',
+      fill: false,
+      pointRadius: 0,
+      spanGaps: true,
+      lineTension: 0.35
+    };
+  },
+
   organiseData: function(data, field) {
     return new Promise(async function(resolve, reject) {
 
@@ -447,7 +501,8 @@ app.Stats = {
           unit: unitSymbol
         },
         average: 0,
-        trend: undefined
+        trend: undefined,
+        movingAverage: undefined
       };
 
       let valueCount = 0;
@@ -502,6 +557,16 @@ app.Stats = {
 
       if (app.Settings.get("statistics", "trend-line") == true && result.dataset.values.length >= 2) {
         result.trend = app.Stats.calcSimpleLinearRegression(result);
+      }
+
+      if (app.Settings.get("statistics", "moving-average") == true && result.dataset.values.length > 0) {
+        let period = parseInt(app.Settings.get("statistics", "moving-average-period"), 10);
+        if (isNaN(period) || period < 2) period = 7;
+
+        result.movingAverage = app.Stats.calcMovingAverage(result.dataset.values, period);
+
+        let maTitle = app.strings.statistics["moving-average"] || "Moving Average";
+        result.movingAverageLabel = maTitle + " (" + period + ")";
       }
 
       resolve(result);
@@ -576,19 +641,24 @@ app.Stats = {
   },
 
   renderChart: function(data) {
+    let datasets = [{
+      label: data.dataset.label,
+      data: data.dataset.values,
+      borderWidth: 2,
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+      borderColor: 'rgba(54, 162, 235, 0.5)',
+      spanGaps: true,
+      lineTension: 0.2
+    }];
+
+    if (data.movingAverage !== undefined)
+      datasets.push(app.Stats.getMovingAverageDataset(data));
+
     app.Stats.chart = new Chart(app.Stats.el.chart, {
       type: app.Stats.chartType,
       data: {
         labels: data.dates,
-        datasets: [{
-          label: data.dataset.label,
-          data: data.dataset.values,
-          borderWidth: 2,
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 0.5)',
-          spanGaps: true,
-          lineTension: 0.2
-        }]
+        datasets: datasets
       },
       options: {
         animation: {
@@ -602,6 +672,12 @@ app.Stats = {
             font: {
               size: 16,
               weight: "bold"
+            },
+            filter: function(legendItem) {
+              // Only show the primary series in the legend. The moving average
+              // is a second dataset, but its own legend entry would add an
+              // extra box above the chart, so keep it out.
+              return legendItem.datasetIndex === 0;
             }
           },
           onClick: (e) => {}

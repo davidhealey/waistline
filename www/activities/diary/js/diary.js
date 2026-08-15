@@ -67,6 +67,7 @@ app.Diary = {
     app.Diary.el.date = document.querySelector(".page[data-name='diary'] #diary-date");
     app.Diary.el.showChart = document.querySelector(".page[data-name='diary'] #show-chart");
     app.Diary.el.diaryNutrition = document.querySelector(".page[data-name='diary'] #diary-nutrition");
+    app.Diary.el.syncIcu = document.querySelector(".page[data-name='diary'] #sync-icu");
   },
 
   bindUIActions: function() {
@@ -85,6 +86,14 @@ app.Diary = {
         app.Diary.showChart();
       });
       app.Diary.el.showChart.hasClickEvent = true;
+    }
+
+    // Sync with ICU
+    if (!app.Diary.el.syncIcu.hasClickEvent) {
+      app.Diary.el.syncIcu.addEventListener("click", (e) => {
+        app.Diary.syncIcu();
+      });
+      app.Diary.el.syncIcu.hasClickEvent = true;
     }
 
     // Toggle nutrition swiper card
@@ -115,6 +124,10 @@ app.Diary = {
 
     if (!logButtonVisible)
       app.Diary.el.log.style.display = "none";
+
+    if (!app.Settings.get("integration", "icu")) {
+      app.Diary.el.syncIcu.style.display = "none";
+    }
   },
 
   createCalendar: function() {
@@ -1050,6 +1063,73 @@ app.Diary = {
     } else {
       let msg = app.strings.diary["no-data"] || "No Data";
       app.Utils.toast(msg);
+    }
+  },
+
+  syncIcu: async function() {
+    // Implementation for syncing with ICU
+
+    let athleteId = app.Settings.get("integration", "icu-athlete-id");
+    let apiKey = app.Settings.get("integration", "icu-key");
+
+    const date = app.Diary.date.toISOString().split('T')[0];
+
+    // Fetch activities for the selected date from ICU API
+    let url = "https://intervals.icu/api/v1/athlete/" + encodeURIComponent(athleteId) + "/activities?oldest=" + date + "&newest=" + date;
+    let response = await app.Utils.timeoutFetch(url, {
+      headers: {
+        "content-type": "application/json",
+        "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+        "authorization": "Basic " + btoa("API_KEY:" + apiKey)
+      }
+    }).catch((err) => {
+      resolve(undefined);
+    });
+
+    if (response && response.ok) {
+      let activities = await response.json();
+      let entry = await app.Diary.getEntryFromDB() || app.Diary.getNewEntry();
+
+      for (const activity of activities) {
+        let item = await app.Foodlist.getQuickAddItem(); // Get food item
+        if (item !== undefined) {
+          item.dateTime = activity.start_date;
+          item.category = 0;  // Arbitrary category choice for activities
+          item.quantity = -1 * activity.calories; // Negative quantity to indicate calories burned
+          item.description = activity.name;
+
+          // Check if activity already exists (by values) in diary to prevent duplicates
+          const exists = entry.items.some(i => JSON.stringify(i) === JSON.stringify(item));
+          if (!exists) {
+            entry.items.push(item);
+          }
+        }
+      }
+      await dbHandler.put(entry, "diary");
+      let scrollPosition = { category: 0 };
+      app.Diary.render(scrollPosition);
+    }
+
+    // Push consumed calories to ICU
+    let entry = await app.Diary.getEntryFromDB();
+    if (entry != undefined && entry.items.length > 0) {
+      let totalNutrition = await app.FoodsMealsRecipes.getTotalNutrition(entry.items, "ignore");
+      let caloriesConsumed = totalNutrition.calories || 0;
+
+      if (caloriesConsumed > 0) {
+        let url = "https://intervals.icu/api/v1/athlete/" + encodeURIComponent(athleteId) + "/wellness/" + date;
+        await app.Utils.timeoutFetch(url, {
+          method: 'PUT',
+          headers: {
+            "content-type": "application/json",
+            "User-Agent": "Waistline - Android - Version " + app.version + " - https://github.com/davidhealey/waistline",
+            "authorization": "Basic " + btoa("API_KEY:" + apiKey)
+          },
+          body: JSON.stringify({
+            kcalConsumed: caloriesConsumed
+          })
+        });
+      }
     }
   }
 };
