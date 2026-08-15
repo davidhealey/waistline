@@ -102,7 +102,10 @@
     "upload-failed": "Het uploaden is helaas mislukt. Probeer het opnieuw of neem contact op met de ontwikkelaar.",
     "what-meal": "Welke maaltijd is dit?",
     "press-back-again-exit": "Druk nogmaals op Terug om de app te sluiten",
-    "press-back-again-editor": "Druk nogmaals op Terug om de bewerker te verlaten"
+    "press-back-again-editor": "Druk nogmaals op Terug om de bewerker te verlaten",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Zondag",
@@ -144,7 +147,8 @@
     "hips": "Heupen",
     "body fat": "Lichaamsvet",
     "average": "Gemiddelde",
-    "trend": "Dagelijkse Trend"
+    "trend": "Dagelijkse Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Dagboek",
@@ -329,7 +333,9 @@
       "y-zero": "Begin Y-as op nul",
       "average-line": "Toon gemiddeldelijn",
       "goal-line": "Toon doellijn",
-      "trend-line": "Toon trendlijn"
+      "trend-line": "Toon trendlijn",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Ontwikkelaar",
@@ -387,6 +393,13 @@
       "usda-click-here": "Klik hier",
       "usda-note-0": "Je moet je persoonlijke API-sleutel opvoeren om in de USDA-database te kunnen zoeken.",
       "usda-note-1": "om een persoonlijke API-sleutel aan te vragen.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Geruikersnaam",
       "password": "Wachtwoord",
       "off-account-note": "Dit is volledig optioneel. Je hebt geen OFF-account nodig om de app te gebruiken.",
@@ -395,6 +408,7 @@
       "save": "Opslaan",
       "invalid-credentials": "Ongeldige inloggegevens",
       "invalid-api-key": "API-sleutel is ongeldig",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Database geëxporteerd",
       "export-fail": "Export mislukt",
       "import-fail": "Importeren mislukt",
@@ -441,4 +455,3 @@
     "ukrainian": "Oekraïens"
   }
 }
-
