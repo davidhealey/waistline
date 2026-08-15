@@ -102,7 +102,10 @@
     "upload-failed": "На жаль, відвантаження не вдалося. Будь ласка, спробуйте ще раз або звʼяжіться з розробником.",
     "what-meal": "Що це за їжа?",
     "press-back-again-exit": "Натисніть ще раз Назад для виходу",
-    "press-back-again-editor": "Натисніть \"Назад\" ще раз, щоб вийти з редактора"
+    "press-back-again-editor": "Натисніть \"Назад\" ще раз, щоб вийти з редактора",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Неділя",
@@ -144,7 +147,8 @@
     "hips": "Стегна",
     "body fat": "Жир тіла",
     "average": "Середнє значення",
-    "trend": "Щоденний тренд"
+    "trend": "Щоденний тренд",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Щоденник",
@@ -329,7 +333,9 @@
       "y-zero": "Починати вісь Y з нуля",
       "average-line": "Показувати рядок Середнє значення",
       "goal-line": "Показувати рядок цілей",
-      "trend-line": "Показати лінію тренду"
+      "trend-line": "Показати лінію тренду",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Розробник",
@@ -387,6 +393,13 @@
       "usda-click-here": "Клацніть тут,",
       "usda-note-0": "Для пошуку продуктів у базі USDA Вам потрібно ввести свій особистий ключ API.",
       "usda-note-1": "щоб запитати безплатний ключ API.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Імʼя користувача",
       "password": "Пароль",
       "off-account-note": "Це абсолютно необов'язково. Для використання програми не потрібно мати обліковий запис OFF.",
@@ -395,6 +408,7 @@
       "save": "Зберегти",
       "invalid-credentials": "Неправильні облікові дані",
       "invalid-api-key": "Неправильний ключ API",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Базу даних експортовано",
       "export-fail": "Невдале експортування",
       "import-fail": "Невдале імпортування",
@@ -441,4 +455,3 @@
     "ukrainian": "Українська"
   }
 }
-
