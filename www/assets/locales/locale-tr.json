@@ -102,7 +102,10 @@
     "upload-failed": "Malesef yükleme başarısız oldu. Lütfen tekrar deneyin veya uygulama geliştiricisi ile iletişime geçin.",
     "what-meal": "Bu hangi yemek?",
     "press-back-again-exit": "Press Back again to exit the app",
-    "press-back-again-editor": "Press Back again to leave the editor"
+    "press-back-again-editor": "Press Back again to leave the editor",
+    "clear-meal-items": "Remove all items from meal",
+    "move-meal-items": "Move items to another meal",
+    "set-meal-time": "Update timestamps"
   },
   "days": {
     "0": "Pazar",
@@ -144,7 +147,8 @@
     "hips": "Kalça",
     "body fat": "Vücut Yağı",
     "average": "Ortalama",
-    "trend": "Daily Trend"
+    "trend": "Daily Trend",
+    "moving-average": "Moving Average"
   },
   "diary": {
     "title": "Günlük",
@@ -329,7 +333,9 @@
       "y-zero": "Y-Eksenini Sıfırdan Başlat",
       "average-line": "Ortalama Grafiğini Göster",
       "goal-line": "Hedef Grafiğini Göster",
-      "trend-line": "Show Trend Line"
+      "trend-line": "Show Trend Line",
+      "moving-average": "Show Moving Average",
+      "moving-average-period": "Moving Average Period"
     },
     "developer": {
       "title": "Geliştirici",
@@ -387,6 +393,13 @@
       "usda-click-here": "Buraya tıklayın",
       "usda-note-0": "USDA veritabanında arama yapabilmek için kişisel API anahtarınızı girmeniz gerekiyor.",
       "usda-note-1": "ücretsiz API anahtarı için.",
+      "icu-title": "INTERVALS.ICU",
+      "icu": "Enable Intervals.icu integration",
+      "icu-login-title": "Intervals.icu",
+      "icu-api": "Intervals.icu API",
+      "icu-api-key": "Intervals.icu API Key",
+      "icu-athlete-id": "Intervals.icu Athlete ID",
+      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
       "username": "Kullanıcı Adı",
       "password": "Parola",
       "off-account-note": "Bu tamamen isteğe bağlıdır. Uygulamayı kullanmak için OFF bir hesaba ihtiyacınız yoktur.",
@@ -395,6 +408,7 @@
       "save": "Kaydet",
       "invalid-credentials": "Geçersiz Giriş Bilgileri",
       "invalid-api-key": "Geçersiz API Anahtarı",
+      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Veritabanı Dışa Aktarıldı",
       "export-fail": "Dışa Aktarma Başarısız",
       "import-fail": "İçe aktarma başarısız",
@@ -441,4 +455,3 @@
     "ukrainian": "Ukraynaca"
   }
 }
-
