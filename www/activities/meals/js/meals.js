@@ -22,9 +22,24 @@ app.Meals = {
   list: [], //Main list of meals
   filterList: [], //Copy of the list for filtering
   isRendering: false,
+  initPromise: undefined, //Guards against overlapping init() calls duplicating list entries
   el: {}, //UI elements
 
-  init: async function(context) {
+  init: function(context) {
+    // If a previous init() is still in flight (e.g. the tab was re-entered before the
+    // last render finished), wait for it instead of starting a second, overlapping
+    // fetch/render cycle that would leave duplicate entries in the list.
+    if (app.Meals.initPromise !== undefined)
+      return app.Meals.initPromise;
+
+    app.Meals.initPromise = app.Meals.runInit(context).finally(() => {
+      app.Meals.initPromise = undefined;
+    });
+
+    return app.Meals.initPromise;
+  },
+
+  runInit: async function(context) {
 
     if (context && context.meal)
       app.FoodsMealsRecipes.unselectOldItem(context.meal);
