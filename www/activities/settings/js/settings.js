@@ -356,10 +356,18 @@ app.Settings = {
   saveUSDAKey: async function(key) {
     let screen = document.querySelector(".usda-login");
     if (app.Utils.isInternetConnected()) {
-      if (key == "" || await app.USDA.testApiKey(key)) {
+      let result = key == "" ? { valid: true } : await app.USDA.testApiKey(key);
+
+      if (result.valid) {
         this.put("integration", "usda-key", key);
         app.f7.loginScreen.close(screen);
         let msg = app.strings.settings.integration["login-success"] || "Login Successful";
+        app.Utils.toast(msg);
+      } else if (result.reason == "rate-limit") {
+        let msg = app.strings.settings.integration["usda-rate-limited"] || "USDA rate limit reached, try again later";
+        app.Utils.toast(msg);
+      } else if (result.reason == "network") {
+        let msg = app.strings.settings.integration["usda-key-check-failed"] || "Couldn't verify key, check your connection and try again";
         app.Utils.toast(msg);
       } else {
         let msg = app.strings.settings.integration["invalid-api-key"] || "API Key Invalid";
