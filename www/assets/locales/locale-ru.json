@@ -408,6 +408,8 @@
       "save": "Сохранить",
       "invalid-credentials": "Неверные учётные данные",
       "invalid-api-key": "Неправильный API-ключ",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
       "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "База данных экспортирована",
       "export-fail": "Экспорт не удался",

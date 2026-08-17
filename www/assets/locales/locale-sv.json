@@ -408,6 +408,8 @@
       "save": "Spara",
       "invalid-credentials": "Ogiltiga inloggningsuppgifter",
       "invalid-api-key": "Ogiltig API-nyckel",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
       "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Databasen har exporterats",
       "export-fail": "Exporteringen misslyckades",
