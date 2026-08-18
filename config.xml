@@ -23,6 +23,7 @@
         <preference name="AndroidInsecureFileModeEnabled" value="true" />
         <preference name="AndroidXEnabled" value="true" />
         <preference name="GradlePluginKotlinEnabled" value="true" />
+        <preference name="AndroidEdgeToEdge" value="true" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:usesCleartextTraffic="true" />
             <application android:requestLegacyExternalStorage="true" />
