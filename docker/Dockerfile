@@ -1,7 +1,7 @@
-FROM alvrme/alpine-android:android-35-jdk17
+FROM alvrme/alpine-android:android-36-jdk17
 
 # Set up some environment variables
-ENV GRADLE_VERSION=8.13
+ENV GRADLE_VERSION=8.14.2
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION
 ENV ANDROID_HOME=/opt/sdk
 ENV PATH=$PATH:$GRADLE_HOME/bin
@@ -15,9 +15,6 @@ RUN curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin
     rm -f gradle-$GRADLE_VERSION-bin.zip && \
     ln -s gradle-$GRADLE_VERSION gradle
 RUN npm install -g cordova
-
-# Because some commands ask if we want to opt in
-RUN cordova telemetry off
 
 # Go to app directory
 WORKDIR /waistline/app
