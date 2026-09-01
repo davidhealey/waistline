@@ -1,5 +1,5 @@
 /*
-  Copyright 2020, 2021 David Healey
+  Copyright 2020-2026 David Healey
 
   This file is part of Waistline.
 
@@ -545,7 +545,7 @@ app.Settings = {
     });
 
     // Get diary data
-    let diaryData = await app.Stats.getDataFromDb(new Date(), undefined);
+    let diaryData = await app.Stats.getDataFromDb(new Date(0), undefined);
     let csv = "";
 
     // CSV header row
