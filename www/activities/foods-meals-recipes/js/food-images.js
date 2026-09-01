@@ -60,7 +60,8 @@ app.FoodImages = {
       "sourceType": sourceType,
       "destinationType": destinationType,
       "saveToPhotoAlbum": false,
-      "quality": 25
+      "quality": 25,
+      "correctOrientation": true
     };
 
     navigator.camera.getPicture(onSuccess, onError, options);
