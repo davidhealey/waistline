@@ -423,6 +423,18 @@ app.Settings = {
 
     let data = await dbHandler.export();
     data.settings = JSON.parse(window.localStorage.getItem("settings"));
+
+    if ("off-password" in data.settings.integration) {
+      data.settings.integration["off-password"] = "";
+    }
+
+    if ("usda-key" in data.settings.integration) {
+      data.settings.integration["usda-key"] = "";
+    }
+
+    if ("icu-key" in data.settings.integration) {
+      data.settings.integration["icu-key"] = "";
+    }
     let json = JSON.stringify(data);
 
     let filename = "waistline_export.json";
