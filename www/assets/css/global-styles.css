@@ -81,3 +81,8 @@ div.food-thumbnail > img {max-width: 100%; max-height: 12em;}
   --f7-theme-color-shade: #151c1f;
   --f7-theme-color-tint: #354851;
 }
+
+.item-checkbox .icon-checkbox {
+  margin-left: 16px;
+  --f7-checkbox-extra-margin: 16px;
+}
