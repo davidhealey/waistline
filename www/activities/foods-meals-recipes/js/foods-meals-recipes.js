@@ -67,6 +67,7 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.el.scan = document.querySelector(".page[data-name='foods-meals-recipes'] #scan");
     app.FoodsMealsRecipes.el.title = document.querySelector(".page[data-name='foods-meals-recipes'] #title");
     app.FoodsMealsRecipes.el.fab = document.querySelector(".page[data-name='foods-meals-recipes'] #add-item");
+    app.FoodsMealsRecipes.el.fab.icon = document.querySelector(".page[data-name='foods-meals-recipes'] #add-item-icon");
   },
 
   bindUIActions: function() {
@@ -78,18 +79,22 @@ app.FoodsMealsRecipes = {
 
     // Fab button 
     app.FoodsMealsRecipes.el.fab.addEventListener("click", function(e) {
-      switch (app.FoodsMealsRecipes.tab) {
-        case "foodlist":
-          app.Foodlist.gotoEditor();
-          break;
+      if (app.FoodsMealsRecipes.selection.length > 0) {
+        app.FoodsMealsRecipes.submitButtonClickEventHandler();
+      } else {
+        switch (app.FoodsMealsRecipes.tab) {
+          case "foodlist":
+            app.Foodlist.gotoEditor();
+            break;
 
-        case "meals":
-          app.Meals.gotoEditor();
-          break;
-
-        case "recipes":
-          app.Recipes.gotoEditor();
-          break;
+          case "meals":
+            app.Meals.gotoEditor();
+            break;
+            
+          case "recipes":
+            app.Recipes.gotoEditor();
+            break;
+        }
       }
     });
   },
@@ -643,9 +648,11 @@ app.FoodsMealsRecipes = {
 
   updateSelectionCount: async function() {
     if (!app.FoodsMealsRecipes.selection.length) {
+      app.FoodsMealsRecipes.el.fab.icon.innerText = "add";
       app.FoodsMealsRecipes.el.submit.style.display = "none";
       app.FoodsMealsRecipes.el.title.innerText = app.FoodsMealsRecipes.tabTitle;
     } else {
+      app.FoodsMealsRecipes.el.fab.icon.innerText = "check";
       app.FoodsMealsRecipes.el.submit.style.display = "block";
 
       // Get energy for selection
