@@ -98,6 +98,11 @@ app.Diary = {
 
     // Toggle nutrition swiper card
     if (!app.Diary.el.diaryNutrition.hasClickEvent) {
+      if (app.Settings.get("diary", "mini-charts-by-default")) {
+          app.Diary.el.diaryNutrition.classList.remove("show-values");
+          app.Diary.el.diaryNutrition.classList.add("show-remaining");
+      }
+
       app.Diary.el.diaryNutrition.addEventListener("click", (e) => {
         if (app.Diary.el.diaryNutrition.classList.contains("show-values")) {
           app.Diary.el.diaryNutrition.classList.remove("show-values");
@@ -107,6 +112,7 @@ app.Diary = {
           app.Diary.el.diaryNutrition.classList.add("show-values");
         }
       });
+
       app.Diary.el.diaryNutrition.hasClickEvent = true;
     }
   },

@@ -277,7 +277,9 @@
       "show-units": "Показать единицы питания",
       "prompt-add-items": "Спрашивать количество при добавлении элемента",
       "show-macro-nutriments-summary": "Show macros summary per category",
-      "show-total-portion-size": "Show Total Portion Size"
+      "show-total-portion-size": "Show Total Portion Size",
+      "collapse-cards-by-default": "Collapse cards by default",
+      "mini-charts-by-default": "Show mini charts by default"
     },
     "nutriments": {
       "title": "Питательные вещества",

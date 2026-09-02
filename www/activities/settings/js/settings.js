@@ -745,7 +745,9 @@ app.Settings = {
         "show-macro-nutriments-summary": false,
         "show-nutrition-units": false,
         "prompt-add-items": false,
-        "show-total-portion-size": false
+        "show-total-portion-size": false,
+        "collapse-cards-by-default": false,
+        "mini-charts-by-default": false
       },
       foodlist: {
         labels: app.FoodsCategories.defaultLabels,

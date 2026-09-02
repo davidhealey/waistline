@@ -277,7 +277,9 @@
       "show-units": "הצגת יחידות תזונה",
       "prompt-add-items": "לבקש כמות בהוספת פריטים",
       "show-macro-nutriments-summary": "הצגת תקצירים כוללניים לכל קטגוריה",
-      "show-total-portion-size": "הצגת גודל מנה כולל"
+      "show-total-portion-size": "הצגת גודל מנה כולל",
+      "collapse-cards-by-default": "Collapse cards by default",
+      "mini-charts-by-default": "Show mini charts by default"
     },
     "nutriments": {
       "title": "חומרי הזנה",

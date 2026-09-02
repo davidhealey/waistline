@@ -276,8 +276,10 @@
       "show-all-nutriments": "Mostrar todos los nutrientes en la página Resumen",
       "show-units": "Mostrar unidades nutricionales",
       "prompt-add-items": "Preguntar por la cantidad al añadir artículos",
-      "show-macro-nutriments-summary": "Show macros summary per category",
-      "show-total-portion-size": "Show Total Portion Size"
+      "show-macro-nutriments-summary": "Mostrar resumen de macros por categoría",
+      "show-total-portion-size": "Mostrar tamaño total de la ración",
+      "collapse-cards-by-default": "Contraer tarjetas de forma predeterminada",
+      "mini-charts-by-default": "Mostrar minigráficos de forma predeterminada"
     },
     "nutriments": {
       "title": "Nutrientes",

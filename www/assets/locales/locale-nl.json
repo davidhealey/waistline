@@ -277,7 +277,9 @@
       "show-units": "Toon voedingswaarde-eenheden",
       "prompt-add-items": "Hoeveelheid vragen bij het toevoegen van items",
       "show-macro-nutriments-summary": "Samenvatting macro's per categorie weergeven",
-      "show-total-portion-size": "Toon volledige portiegrootte"
+      "show-total-portion-size": "Toon volledige portiegrootte",
+      "collapse-cards-by-default": "Collapse cards by default",
+      "mini-charts-by-default": "Show mini charts by default"
     },
     "nutriments": {
       "title": "Voedingsstoffen",

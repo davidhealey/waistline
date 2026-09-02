@@ -277,7 +277,9 @@
       "show-units": "Показувати одиниці поживності",
       "prompt-add-items": "Запитувати кількість елементів під час додавання",
       "show-macro-nutriments-summary": "Показати зведення макронутрієнтів за категоріями",
-      "show-total-portion-size": "Показати загальний розмір порції"
+      "show-total-portion-size": "Показати загальний розмір порції",
+      "collapse-cards-by-default": "Collapse cards by default",
+      "mini-charts-by-default": "Show mini charts by default"
     },
     "nutriments": {
       "title": "Поживні речовини",
