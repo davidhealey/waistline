@@ -277,9 +277,7 @@
       "show-units": "Zobrazit nutriční jednotky",
       "prompt-add-items": "Ptát se na množství při přidávání položek",
       "show-macro-nutriments-summary": "Zobrazit přehled maker podle kategorie",
-      "show-total-portion-size": "Zobrazit celkovou velikost porce",
-      "collapse-cards-by-default": "Collapse cards by default",
-      "mini-charts-by-default": "Show mini charts by default"
+      "show-total-portion-size": "Zobrazit celkovou velikost porce"
     },
     "nutriments": {
       "title": "Živiny",

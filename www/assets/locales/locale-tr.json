@@ -277,9 +277,7 @@
       "show-units": "Besin değerlerinin birimlerini göster",
       "prompt-add-items": "Öğe eklerken miktar sor",
       "show-macro-nutriments-summary": "Show macros summary per category",
-      "show-total-portion-size": "Show Total Portion Size",
-      "collapse-cards-by-default": "Collapse cards by default",
-      "mini-charts-by-default": "Show mini charts by default"
+      "show-total-portion-size": "Show Total Portion Size"
     },
     "nutriments": {
       "title": "Besin Maddeleri",

@@ -277,9 +277,7 @@
       "show-units": "Mostra le unità nutrizionali",
       "prompt-add-items": "Chiede la quantità quando aggiungi articoli",
       "show-macro-nutriments-summary": "Mostra riepilogo macro per categoria",
-      "show-total-portion-size": "Mostra la dimensione totale della porzione",
-      "collapse-cards-by-default": "Collapse cards by default",
-      "mini-charts-by-default": "Show mini charts by default"
+      "show-total-portion-size": "Mostra la dimensione totale della porzione"
     },
     "nutriments": {
       "title": "Nutrienti",

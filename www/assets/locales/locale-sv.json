@@ -277,9 +277,7 @@
       "show-units": "Visa enheter för näringsämnen",
       "prompt-add-items": "Fråga efter kvantitet vid nytt inlägg",
       "show-macro-nutriments-summary": "Visa makrosammanställning per kategori",
-      "show-total-portion-size": "Visa total portionsstorlek",
-      "collapse-cards-by-default": "Collapse cards by default",
-      "mini-charts-by-default": "Show mini charts by default"
+      "show-total-portion-size": "Visa total portionsstorlek"
     },
     "nutriments": {
       "title": "Näringsämnen",
