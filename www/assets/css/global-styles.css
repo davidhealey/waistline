@@ -83,6 +83,6 @@ div.food-thumbnail > img {max-width: 100%; max-height: 12em;}
 }
 
 .item-checkbox .icon-checkbox {
-  margin-left: 16px;
+  margin-left: 6px;
   --f7-checkbox-extra-margin: 16px;
 }
