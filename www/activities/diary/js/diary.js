@@ -282,6 +282,10 @@ app.Diary = {
     let container = document.querySelector("#diary-day");
     container.innerHTML = "";
 
+    // Expand the target group's card when returning here after adding items to it
+    if (scrollPosition !== undefined && scrollPosition.category !== undefined && app.Diary.groups[scrollPosition.category] !== undefined)
+      app.Diary.groups[scrollPosition.category].collapsed = false;
+
     for (group in app.Diary.groups)
       await app.Diary.groups[group].render(container);
 
