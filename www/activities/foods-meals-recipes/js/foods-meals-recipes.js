@@ -78,25 +78,28 @@ app.FoodsMealsRecipes = {
     }
 
     // Fab button 
-    app.FoodsMealsRecipes.el.fab.addEventListener("click", function(e) {
-      if (app.FoodsMealsRecipes.selection.length > 0) {
-        app.FoodsMealsRecipes.submitButtonClickEventHandler();
-      } else {
-        switch (app.FoodsMealsRecipes.tab) {
-          case "foodlist":
-            app.Foodlist.gotoEditor();
-            break;
+    if (!app.FoodsMealsRecipes.el.fab.hasClickEvent) {
+      app.FoodsMealsRecipes.el.fab.addEventListener("click", function(e) {
+        if (app.FoodsMealsRecipes.selection.length > 0) {
+          app.FoodsMealsRecipes.submitButtonClickEventHandler();
+        } else {
+          switch (app.FoodsMealsRecipes.tab) {
+            case "foodlist":
+              app.Foodlist.gotoEditor();
+              break;
 
-          case "meals":
-            app.Meals.gotoEditor();
-            break;
-            
-          case "recipes":
-            app.Recipes.gotoEditor();
-            break;
+            case "meals":
+              app.Meals.gotoEditor();
+              break;
+              
+            case "recipes":
+              app.Recipes.gotoEditor();
+              break;
+          }
         }
-      }
-    });
+      });
+      app.FoodsMealsRecipes.el.fab.hasClickEvent = true;
+    }
   },
 
   localizeSearchPlaceholder: function() {
