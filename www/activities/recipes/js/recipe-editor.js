@@ -268,9 +268,8 @@ app.RecipeEditor = {
         recipe: data
       };
 
-      dbHandler.put(data, "recipes").onsuccess = () => {
-        app.f7.views.main.router.back();
-      };
+      await dbHandler.put(data, "recipes");
+      app.f7.views.main.router.back();
     }
   },
 

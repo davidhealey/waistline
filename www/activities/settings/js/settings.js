@@ -493,7 +493,13 @@ app.Settings = {
               text: app.strings.dialogs.ok || "OK",
               keyCodes: app.Utils.enterKeyCode,
               onClick: async () => {
-                await dbHandler.import(data);
+                try {
+                  await dbHandler.import(data);
+                } catch (err) {
+                  let msg = err.message || app.strings.settings.integration["import-fail"] || "Import Failed";
+                  app.Utils.toast(msg);
+                  return;
+                }
 
                 if (data.settings !== undefined) {
                   let settings = app.Settings.migrateSettings(data.settings, false);
@@ -639,9 +645,8 @@ app.Settings = {
 
       item.dateTime = new Date();
 
-      dbHandler.put(item, "foodList").onsuccess = (e) => {
-        resolve(e.target.result);
-      };
+      let result = await dbHandler.put(item, "foodList");
+      resolve(result);
     })
   },
 

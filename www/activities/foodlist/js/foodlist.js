@@ -228,9 +228,8 @@ app.Foodlist = {
 
       item.dateTime = new Date();
 
-      dbHandler.put(item, "foodList").onsuccess = (e) => {
-        resolve(e.target.result);
-      };
+      let result = await dbHandler.put(item, "foodList");
+      resolve(result);
     }).catch(err => {
       throw (err);
     });
@@ -424,16 +423,12 @@ app.Foodlist = {
   },
 
   createQuickAddItem: function() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
 
       item = app.Foodlist.getQuickAddItemDefinition();
 
-      let request = dbHandler.put(item, "foodList");
-
-      request.onsuccess = () => {
-        item.id = request.result;
-        resolve(item);
-      };
+      item.id = await dbHandler.put(item, "foodList");
+      resolve(item);
     });
   },
 
