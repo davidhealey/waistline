@@ -408,6 +408,8 @@
       "save": "Salvează",
       "invalid-credentials": "Datele de autentificare sunt invalide",
       "invalid-api-key": "Cheia API nu este validă",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
       "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Baza de date exportată",
       "export-fail": "Exportul a eșuat",

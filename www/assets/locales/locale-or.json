@@ -408,6 +408,8 @@
       "save": "Save",
       "invalid-credentials": "Invalid Credentials",
       "invalid-api-key": "API Key Invalid",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
       "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Database Exported",
       "export-fail": "ରପ୍ତାନି ଵିଫଳ ହେଲା",

@@ -103,9 +103,9 @@
     "what-meal": "Welche Mahlzeit ist das?",
     "press-back-again-exit": "Drücke erneut Zurück, um die App zu beenden",
     "press-back-again-editor": "Drücke erneut Zurück, um den Editor zu verlassen",
-    "clear-meal-items": "Remove all items from meal",
-    "move-meal-items": "Move items to another meal",
-    "set-meal-time": "Update timestamps"
+    "clear-meal-items": "Alle Einträge aus Mahlzeit entfernen",
+    "move-meal-items": "Einträge zu anderer Mahlzeit verschieben",
+    "set-meal-time": "Zeitstempel aktualisieren"
   },
   "days": {
     "0": "Sonntag",
@@ -148,7 +148,7 @@
     "body fat": "Körperfettanteil",
     "average": "Durchschnitt",
     "trend": "Täglicher Trend",
-    "moving-average": "Moving Average"
+    "moving-average": "Gleitender Durchschnitt"
   },
   "diary": {
     "title": "Tagebuch",
@@ -334,8 +334,8 @@
       "average-line": "Linie für Durchschnitt anzeigen",
       "goal-line": "Linie für Ziel anzeigen",
       "trend-line": "Trendlinie anzeigen",
-      "moving-average": "Show Moving Average",
-      "moving-average-period": "Moving Average Period"
+      "moving-average": "Gleitenden Durchschnitt anzeigen",
+      "moving-average-period": "Zeitraum für gleitenden Durchschnitt"
     },
     "developer": {
       "title": "Entwickler",
@@ -394,12 +394,12 @@
       "usda-note-0": "Du musst deinen persönlichen API-Schlüssel eingeben, um nach Lebensmitteln in der USDA-Datenbank zu suchen.",
       "usda-note-1": "kannst du einen kostenlosen API-Schlüssel anfordern.",
       "icu-title": "INTERVALS.ICU",
-      "icu": "Enable Intervals.icu integration",
+      "icu": "Integration mit Intervals.icu aktivieren",
       "icu-login-title": "Intervals.icu",
       "icu-api": "Intervals.icu API",
-      "icu-api-key": "Intervals.icu API Key",
-      "icu-athlete-id": "Intervals.icu Athlete ID",
-      "icu-note-0": "You need to enter your personal API Key and your athlete ID to integrate with Intervals.icu.",
+      "icu-api-key": "Intervals.icu API-Schlüssel",
+      "icu-athlete-id": "Intervals.icu Athlete-ID",
+      "icu-note-0": "Sie müssen Ihren persönlichen API-Schlüssel und Ihre Athlet-ID eingeben, um Intervals.icu zu integrieren.",
       "username": "Benutzername",
       "password": "Passwort",
       "off-account-note": "Dies ist völlig optional. Du brauchst kein Open Food Facts Konto, um die App zu benutzen.",
@@ -408,7 +408,9 @@
       "save": "Speichern",
       "invalid-credentials": "Ungültige Anmeldeinformationen",
       "invalid-api-key": "API-Schlüssel ungültig",
-      "invalid-icu-api-key": "API Key or Athlete ID Invalid",
+      "usda-rate-limited": "USDA-Request-Limit erreicht, versuche es später erneut",
+      "usda-key-check-failed": "Schlüssel konnte nicht verifiziert werden, überprüfe deine Verbindung und versuche es erneut",
+      "invalid-icu-api-key": "API-Schlüssel oder Athlete-ID ungültig",
       "export-success": "Datenbank wurde exportiert",
       "export-fail": "Export fehlgeschlagen",
       "import-fail": "Import fehlgeschlagen",
