@@ -28,6 +28,7 @@ app.Group = {
     container.appendChild(list);
 
     let ul = document.createElement("ul");
+    ul.className = "meal-entry";
     list.appendChild(ul);
 
     //Collapsable list item
@@ -48,7 +49,7 @@ app.Group = {
     ul.appendChild(li);
 
     let a = document.createElement("a");
-    a.className = "item-link item-content";
+    a.className = "accordion-header item-link item-content";
     li.appendChild(a);
 
     let div = document.createElement("div");
@@ -368,7 +369,7 @@ app.Group = {
   renderFooter: function(self, ul, id, nutrition) {
 
     let li = document.createElement("li");
-    li.className = "noselect";
+    li.className = "accordion-footer noselect";
     ul.appendChild(li);
 
     let row = document.createElement("div");
