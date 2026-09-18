@@ -32,3 +32,22 @@
 
 /* Dialog with scrollbar */
 .scroll-dialog {max-height: 64vh; overflow-y: auto;}
+
+/* Card styling */
+.card,
+.card ul,
+.accordion-header,
+.accordion-footer {
+  border-radius: 6px;
+}
+
+.accordion-header,
+.accordion-footer {
+  background-color: var(--f7-navbar-bg-color, var(--f7-bars-bg-color));
+}
+
+ul.meal-entry:before,
+ul.meal-entry:after
+{
+  background-color: var(--f7-button-bg-color);
+}
