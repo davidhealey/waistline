@@ -468,7 +468,7 @@ app.Group = {
     return {
       name: name,
       id: id,
-      collapsed: false,
+      collapsed: app.Settings.get("diary", "collapse-cards-by-default"),
       items: [],
       render: app.Group.render,
       addItem: app.Group.addItem,
