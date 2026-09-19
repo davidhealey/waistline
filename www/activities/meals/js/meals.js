@@ -248,16 +248,14 @@ app.Meals = {
           onClick: async () => {
             switch (action) {
               case "delete-item":
-                let request = dbHandler.deleteItem(item.id, "meals");
-                request.onsuccess = function(e) {
-                  let index = app.Meals.filterList.indexOf(item);
-                  if (index != -1)
-                    app.Meals.filterList.splice(index, 1);
-                  index = app.Meals.list.indexOf(item);
-                  if (index != -1)
-                    app.Meals.list.splice(index, 1);
-                  li.remove();
-                };
+                await dbHandler.deleteItem(item.id, "meals");
+                let index = app.Meals.filterList.indexOf(item);
+                if (index != -1)
+                  app.Meals.filterList.splice(index, 1);
+                index = app.Meals.list.indexOf(item);
+                if (index != -1)
+                  app.Meals.list.splice(index, 1);
+                li.remove();
                 break;
 
               case "clone-item":

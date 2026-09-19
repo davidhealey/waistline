@@ -19,6 +19,7 @@
     "cordova-plugin-network-information": "^3.0.0",
     "cordova-plugin-tts-advanced": "^0.5.3",
     "cordova-plugin-x-socialsharing": "^6.0.4",
+    "cordova-sqlite-storage": "^7.0.0",
     "patch-package": "^7.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0"
   },
@@ -41,7 +42,8 @@
       },
       "cordova-plugin-camera": {
         "ANDROIDX_CORE_VERSION": "1.6.+"
-      }
+      },
+      "cordova-sqlite-storage": {}
     },
     "platforms": [
       "browser",

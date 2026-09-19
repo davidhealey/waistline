@@ -915,25 +915,24 @@ app.Diary = {
   },
 
   getLastStats: async function(date, limit) {
-    return new Promise(function(resolve, reject) {
-      let index = dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.upperBound(date), "prev");
-      let counter = 0;
+    let entries = await dbHandler.getIndexSorted("diary", "dateTime", "prev");
+    let counter = 0;
 
-      index.onsuccess = function(e) {
-        let cursor = e.target.result;
-        if (cursor) {
-          counter++;
-          if (cursor.value && cursor.value.stats && Object.keys(cursor.value.stats).length != 0)
-            resolve(cursor.value.stats);
-          else if (counter < limit)
-            cursor.continue();
-          else
-            resolve({});
-        } else {
-          resolve({});
-        }
-      };
-    });
+    for (let entry of entries) {
+      if (entry.dateTime > date) {
+        continue;
+      }
+
+      counter++;
+
+      if (entry.stats && Object.keys(entry.stats).length != 0) {
+        return entry.stats;
+      } else if (counter >= limit) {
+        return {};
+      }
+    }
+
+    return {};
   },
 
   saveStats: async function(dialog) {
@@ -956,10 +955,9 @@ app.Diary = {
 
     entry.stats = stats;
 
-    dbHandler.put(entry, "diary").onsuccess = function(e) {
-      let msg = app.strings.diary["log-saved"] || "Saved";
-      app.Utils.toast(msg);
-    };
+    await dbHandler.put(entry, "diary");
+    let msg = app.strings.diary["log-saved"] || "Saved";
+    app.Utils.toast(msg);
   },
 
   showCategoryNutriments: function(category, nutrition) {

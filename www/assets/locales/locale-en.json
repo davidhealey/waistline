@@ -432,7 +432,8 @@
     "p1": "Waistline was built using Cordova available under the Apache license. Also included are Framework7, jQuery, jQuery localize, and ChartJS which are under the MIT license. The HTML, CSS, and other javascript that make up the main body of the app are under the GPLv3 license.",
     "source-code": "Source Code",
     "user-guide": "User Guide / FAQ",
-    "version": "Current version:"
+    "version": "Current version:",
+    "database-version": "Database version:"
   },
   "locale": {
     "auto": "Detect Automatically",

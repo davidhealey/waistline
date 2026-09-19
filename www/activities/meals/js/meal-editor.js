@@ -234,7 +234,7 @@ app.MealEditor = {
     }).open();
   },
 
-  save: function() {
+  save: async function() {
     if (app.f7.input.validateInputs("#meal-edit-form") == true) {
 
       let data = {};
@@ -261,9 +261,8 @@ app.MealEditor = {
         meal: data
       };
 
-      dbHandler.put(data, "meals").onsuccess = () => {
-        app.f7.views.main.router.back();
-      };
+      await dbHandler.put(data, "meals");
+      app.f7.views.main.router.back();
     }
   },
 

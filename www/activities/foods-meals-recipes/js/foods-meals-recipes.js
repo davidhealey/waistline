@@ -144,27 +144,12 @@ app.FoodsMealsRecipes = {
     app.FoodsMealsRecipes.el.back.style.display = "block";
   },
 
-  getFromDB: function(store, sort) {
-    return new Promise(function(resolve, reject) {
-
-      let list = [];
-
-      if (sort == "alpha")
-        dbHandler.getIndex("name", store).openCursor(null).onsuccess = processResult; //Sort foods alphabetically
-      else
-        dbHandler.getIndex("dateTime", store).openCursor(null, "prev").onsuccess = processResult; //Sort foods by date
-
-      function processResult(e) {
-        var cursor = e.target.result;
-
-        if (cursor) {
-          list.push(cursor.value);
-          cursor.continue();
-        } else {
-          resolve(list);
-        }
-      }
-    });
+  getFromDB: async function(store, sort) {
+    if (sort == "alpha") {
+      return await dbHandler.getIndexSorted(store, "name");        // Sort foods alphabetically
+    } else {
+      return await dbHandler.getIndexSorted(store, "dateTime", "prev"); // Sort foods by date
+    }
   },
 
   getTotalNutrition: function(items, handleBurnedEnergy) {
@@ -806,11 +791,8 @@ app.FoodsMealsRecipes = {
         data.archived = status;
         data.dateTime = new Date();
 
-        let request = dbHandler.put(data, store);
-
-        request.onsuccess = function(e) {
-          resolve();
-        };
+        await dbHandler.put(data, store);
+        resolve();
       } else {
         resolve();
       }
