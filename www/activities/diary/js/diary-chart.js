@@ -37,8 +37,9 @@ app.DiaryChart = {
     this.bindUIActions();
 
     let date = context.date;
-    
-    this.dbData = await app.Stats.getDataFromDb(date, date);
+    let utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+
+    this.dbData = await app.Stats.getDataFromDb(utcDate, utcDate);
 
     if (this.dbData.timestamps.length > 0) {
       let data = await this.organiseData(this.dbData);

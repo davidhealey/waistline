@@ -1,5 +1,5 @@
 /*
-  Copyright 2021 David Healey
+  Copyright 2021-2026 David Healey
 
   This file is part of Waistline.
 
@@ -611,10 +611,8 @@ app.Stats = {
       }
 
       // Make date range inclusive of the whole days at either end
-      let toDate = new Date(Date.UTC(to.getFullYear(), to.getMonth(), to.getDate()));
-      toDate.setHours(0, 0, 0, 0);
-      let fromDate = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate()));
-      fromDate.setHours(0, 0, 0, 0);
+      let toDate = new Date(Date.UTC(to.getUTCFullYear(), to.getUTCMonth(), to.getUTCDate()));
+      let fromDate = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate()));
       toDate.setUTCHours(toDate.getUTCHours() + 24);
 
       dbHandler.getIndex("dateTime", "diary").openCursor(IDBKeyRange.bound(fromDate, toDate, false, true)).onsuccess = function(e) {
