@@ -86,6 +86,8 @@ This project is localized using Crowdin: [![Crowdin](https://badges.crowdin.net/
 
 - French food database based on ANSES-CIQUAL open data:
   https://github.com/LaurentPortefaix/waistline-ciqual
+- German food database based on Bundeslebensmittelschlüssel open data (available in German and English language):
+  https://github.com/mafeu/waistline-bls
 
 ## Contributing
 
