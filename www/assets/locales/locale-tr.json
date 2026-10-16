@@ -408,6 +408,8 @@
       "save": "Kaydet",
       "invalid-credentials": "Geçersiz Giriş Bilgileri",
       "invalid-api-key": "Geçersiz API Anahtarı",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Couldn't verify key, check your connection and try again",
       "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Veritabanı Dışa Aktarıldı",
       "export-fail": "Dışa Aktarma Başarısız",

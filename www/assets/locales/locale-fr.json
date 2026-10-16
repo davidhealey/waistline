@@ -103,8 +103,8 @@
     "what-meal": "À quel repas ?",
     "press-back-again-exit": "Appuyer à nouveau sur Retour pour quitter l'application",
     "press-back-again-editor": "Appuyer à nouveau sur Retour pour quitter l'éditeur",
-    "clear-meal-items": "Remove all items from meal",
-    "move-meal-items": "Move items to another meal",
+    "clear-meal-items": "Retirer tous les éléments du repas",
+    "move-meal-items": "Déplacer les éléments vers un autre repas",
     "set-meal-time": "Update timestamps"
   },
   "days": {
@@ -408,6 +408,8 @@
       "save": "Sauvegarder",
       "invalid-credentials": "Identifiants erronés",
       "invalid-api-key": "Clé API invalide",
+      "usda-rate-limited": "USDA rate limit reached, try again later",
+      "usda-key-check-failed": "Impossible de vérifier la clé, vérifiez votre connexion et réessayez",
       "invalid-icu-api-key": "API Key or Athlete ID Invalid",
       "export-success": "Données expportées",
       "export-fail": "Erreur d’exportation",
